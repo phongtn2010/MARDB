@@ -1,0 +1,117 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@using APP0200026.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Edit";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+
+    String MaMien = CString.SafeString(Convert.ToString(ViewData["iID_MaMien"]));
+    String sTenMien = "", tgTrangThai = "";
+    Boolean bTrangThai = false;
+    if (String.IsNullOrEmpty(MaMien) == false)
+    {
+        DataTable dt = CMien.Get_Table_Detail(Convert.ToString(MaMien));
+        DataRow R;
+        R = dt.Rows[0];
+
+        MaMien = Convert.ToString(R["iID_MaMien"]);
+        sTenMien = Convert.ToString(R["sTenMien"]);
+        bTrangThai = Convert.ToBoolean(R["bTrangThai"]);
+        dt.Dispose();
+    }
+    if (bTrangThai == true)
+    {
+        tgTrangThai = "on";
+    }
+    string sreadonly = "";
+    if (String.IsNullOrEmpty(MaMien) == false)
+    {
+        sreadonly = "readonly=\"readonly\"";
+    }
+}
+
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                @using (Html.BeginForm("Edit", "Mien", new { ParentID = ParentID, MaMien = MaMien }))
+                {
+                    @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
+
+                    <div class="box-header with-border">
+                        <h3 class="box-title">NHẬP THÔNG TIN MIỀN</h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="Edit_sTenCongTy">Mã miền (là mã gồm ký tự và số viết liền nhau, ví dụ: MB001)<span style="color: red;">&nbsp;*</span></label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, MaMien, "iID_MaMien", "", "" + sreadonly + " type=\"text\" placeholder=\"Mã miền\" class=\"form-control\""))
+                                    @Html.ValidationMessage(ParentID + "_" + "err_sMaMien")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="Edit_sTenCongTy">Tiêu đề<span style="color: red;">&nbsp;*</span></label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, sTenMien, "sTenMien", "", "type=\"text\" placeholder=\"Tiêu đề\" class=\"form-control\""))
+                                    @Html.ValidationMessage(ParentID + "_" + "err_sTenMien")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="Edit_bTrangThai">
+                                        @MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, tgTrangThai, "bTrangThai", "", "type=\"checkbox\""))
+                                        Hoạt động
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-9"></div>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <div class="col-xs-6">
+                            <button class="btn btn-block btn-default" type="submit">Save</button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->

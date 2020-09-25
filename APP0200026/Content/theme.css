@@ -1,0 +1,943 @@
+/* --------------------------------------------------------------------------
+ * jThemes Studio : Naturix
+ *
+ * file           : style.css
+ * Desc           : Naturix Template - Stylesheet
+ * Version        : 1.0.2
+ * Date           : 
+ * Author         : jThemes Studio
+ * Author URI     : 
+ * Email          : 
+ *
+ * jThemes Studio. Copyright 2017. All Rights Reserved.
+ * -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+ *  Home Naturix Template - Table of Content
+
+  1 - General
+    1.1 - Preloader
+    1.2 - Global properties (body, common classes, structure etc)
+    1.3 - Page section block
+    1.4 - Typography (section title, links, page dividers)
+    1.5 - Buttons 
+    1.6 - Form / Input / Textarea  
+    1.7 - Theme Colors
+    1.8 - Theme Fonts
+    1.9 - Rating Stars
+    1.10 - Product Box Structure 
+    1.11 - Slider Pagination Style
+    1.12 - Breadcrumb
+    1.13 - Content Middle
+  2 - Header
+  3 - Home
+  4 - Shop
+  5 - My Account
+  6 - Blog
+  7 - Contact
+  8 - Comingsoon
+  9 - Footer
+  10 - Popups
+    10.1 - To Top
+    10.2 - Subscribe
+  11 - Login
+
+ * -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes&subset=latin-ext');
+
+@font-face {
+    font-family: Helvetica-bold, Arial, sans-serif;
+    src: url(fonts/helvetica-bold.ttf);
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Helvetica-normal, Arial, sans-serif;
+    src: url(fonts/helvetica-normal.ttf);
+    font-weight: 400;
+}
+
+/*******************************
+    1 - GENERAL CSS STARTS 
+********************************/
+
+/*---------------- 1.1 Preloader Starts ------------------*/
+#loading {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    background: #fff;
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    margin-left: 10%;
+    transform: translate3d(-50%, -50%, 0);
+}
+
+.loader .dot {
+    width: 24px;
+    height: 24px;
+    background: #79d1d6;
+    border-radius: 100%;
+    display: inline-block;
+    animation: slide 1s infinite;
+}
+
+.loader .dot:nth-child(1) {
+    animation-delay: 0.1s;
+    background: #79d1d6;
+}
+
+.loader .dot:nth-child(2) {
+    animation-delay: 0.2s;
+    background: #5ec6ce;
+}
+
+.loader .dot:nth-child(3) {
+    animation-delay: 0.3s;
+    background: #90d3a6;
+}
+
+.loader .dot:nth-child(4) {
+    animation-delay: 0.4s;
+    background: #b8c800;
+}
+
+.loader .dot:nth-child(5) {
+    animation-delay: 0.5s;
+    background: #7fba00;
+}
+
+@-moz-keyframes slide {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@-webkit-keyframes slide {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@-o-keyframes slide {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes slide {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/*---------------- 1.1 Preloader Ends ------------------*/
+
+/*---------------- 1.2 Global properties (body, common classes, structure etc) Starts ----------------------*/
+.wrapper {
+    overflow-x: hidden;
+}
+
+.boxed .wrapper {
+    background-color: #ffffff;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.no-pad-right {
+    padding-right: 0;
+}
+
+.no-pad-left {
+    padding-left: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+    /*max-height: 100%;*/
+    height: auto;
+}
+
+.owl-carousel .owl-item img {
+    width: auto;
+    height: auto;
+    margin: auto;
+}
+
+.light-bg {
+    background-color: #f7f6f2;
+}
+
+.white-bg {
+    background-color: #fff;
+}
+
+.black-bg {
+    background-color: #000;
+}
+
+.rel-div {
+    position: relative;
+}
+
+.mask-overlay, .theme-color-mask, .white-mask {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 0;
+}
+
+.mask-overlay {
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+}
+
+.white-mask {
+    background: rgba(255, 255, 255, 0.5) none repeat scroll 0 0;
+}
+
+strong {
+    font-weight: 900;
+}
+
+.section-icon {
+    text-align: center;
+}
+
+.section-icon .icon i {
+    color: #92d2a7;
+    font-size: 11px;
+    margin: auto 1px;
+}
+
+.section-icon .icon {
+    font-size: 15px;
+}
+
+.white-color {
+    color: #fff;
+}
+
+.black-color {
+    color: #000000;
+}
+
+.gray-color {
+    color: #999;
+}
+
+.main-color {
+    color: #525252;
+}
+
+.green-clr {
+    color: #669900;
+}
+
+.red-clr {
+    color: #e04337;
+}
+
+.clr-txt-2 {
+    color: #90d3a6;
+}
+
+.block-inline {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.list-items li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.list-items {
+    margin-bottom: 0;
+}
+
+/*-- Tags --*/
+.prod-tag {
+    border-radius: 2em;
+    color: #fff;
+    display: inline-block;
+    font-size: 10px;
+    height: 22px;
+    letter-spacing: 2px;
+    line-height: 18px;
+    margin: 50px 3px auto;
+    padding: 2px 15px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 70px;
+}
+
+.prod-tag.tag-1 {
+    background-color: #92d2a7;
+}
+
+.prod-tag.tag-2 {
+    background-color: #79d1d6;
+}
+
+/*------------------- 1.2 Global properties (body, common classes, structure etc) Ends -----------------*/
+
+/*---------------------- 1.3 Section Space Starts ----------------------------*/
+section {
+    position: relative;
+}
+
+.sec-space {
+    padding-bottom: 100px;
+    padding-top: 100px;
+}
+
+.sec-space-bottom {
+    padding-bottom: 100px;
+}
+
+.sec-space-top {
+    padding-top: 100px;
+}
+
+.ptb-10 {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.pb-10 {
+    padding-bottom: 10px;
+}
+
+.pt-10 {
+    padding-top: 10px;
+}
+
+.ptb-15 {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.pb-15 {
+    padding-bottom: 15px;
+}
+
+.pt-15 {
+    padding-top: 15px;
+}
+
+.ptb-50 {
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+
+.pb-50 {
+    padding-bottom: 50px;
+}
+
+.pt-50 {
+    padding-top: 50px;
+}
+
+.ml-10 {
+    margin-left: 10px;
+}
+
+/*---------------------------- 1.3 Page section block Ends ---------------------------*/
+
+/*--------------------------- 1.4 Typography (section title, links, page dividers) Starts -------------------------- */
+a:hover,
+a:active,
+a:focus,
+.btn:hover, .btn:focus, .btn:active {
+    text-decoration: none;
+    outline: 0;
+}
+
+a, .btn, button {
+    -ms-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    color: #333;
+}
+
+a:hover,
+a:active,
+a:focus {
+    text-decoration: none;
+}
+
+a.clr-txt:hover {
+    color: #525252;
+}
+
+div, img, p, h2, h3, h4, h5, h6, a::before, a::after, i {
+    -ms-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+ul,
+ol {
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+ul ul,
+ol ul,
+ul ol,
+ol ol {
+    padding-left: 20px;
+}
+
+h2, h3, h4, h5, h6 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.h1 .small, .h1 small, .h2 .small, .h2 small, .h3 .small, .h3 small, .h4 .small, .h4 small, .h5 .small, .h5 small, .h6 .small, .h6 small, h1 .small, h1 small, h2 .small, h2 small, h3 .small, h3 small, h4 .small, h4 small, h5 .small, h5 small, h6 .small, h6 small {
+    color: #525252;
+}
+
+.title-wrap {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.title-wrap > p {
+    font-size: 16px;
+    margin: 35px auto 25px;
+    width: 80%;
+}
+
+.section-title {
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+.section-title strong {
+    position: relative;
+}
+
+.section-title strong > img {
+    bottom: 100%;
+    left: 105px;
+    margin: auto auto -17px;
+    position: absolute;
+}
+
+.section-title .round-shape {
+    border: 1px solid #efefef;
+    border-radius: 5em;
+    display: inline-block;
+    margin-top: 15px;
+    padding: 5px 30px 8px;
+}
+
+.section-title .round-shape {
+    position: relative;
+}
+
+.section-title .round-shape:before,
+.section-title .round-shape:after {
+    border-bottom: 1px solid #efefef;
+    content: "";
+    height: 5px;
+    position: absolute;
+    top: 25px;
+    width: 100%;
+}
+
+.section-title .round-shape:before {
+    right: 100%;
+}
+
+.section-title .round-shape:after {
+    left: 100%;
+}
+
+.sub-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+}
+
+.sub-title > span {
+    position: relative;
+}
+
+.sub-title > span:before,
+.sub-title > span:after {
+    border-bottom: 1px solid #ccc;
+    content: "";
+    height: 5px;
+    position: absolute;
+    top: 3px;
+    width: 50px;
+}
+
+.sub-title span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.sub-title span:after {
+    left: 100%;
+    margin-left: 15px;
+}
+
+.sub-title-sm {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: #9f9f9f;
+}
+
+.sub-title-1 {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #9f9f9f;
+}
+
+.title-1 {
+    font-size: 18px;
+}
+
+.title-2, .widget-title {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.title-sec {
+    font-size: 40px;
+}
+
+.over-txt-title .light-font {
+    position: relative;
+    text-align: center;
+}
+
+.over-txt {
+    bottom: 0;
+    font-size: 12px;
+    font-weight: 900;
+    height: 17px;
+    left: 0;
+    margin: auto;
+    padding: 2px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+strong {
+    font-weight: 900;
+}
+
+.divider-full-1 {
+    border: 1px dashed #e9e9e9;
+    display: inline-block;
+    height: 1px;
+    margin: 10px auto;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.divider-1 {
+    background-color: #eee;
+    display: inline-block;
+    height: 2px;
+    margin: 10px auto;
+    width: 40px;
+}
+
+.divider-2 {
+    background-color: #eee;
+    display: inline-block;
+    height: 2px;
+    margin: 10px auto;
+    width: 30px;
+}
+
+/*-- Theme Tabs --*/
+.theme-tabs {
+    font-size: 16px;
+    margin: 0;
+}
+
+.theme-tabs > li {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 3px;
+}
+
+.theme-tabs a {
+    border: 2px solid #d8d8d7;
+    border-radius: 25px;
+    color: #9f9e9c;
+    display: inline-block;
+    height: 45px;
+    line-height: 30px;
+    min-width: 180px;
+    padding: 5px 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.theme-tabs.small a {
+    border-width: 1px;
+    font-size: 14px;
+    height: 30px;
+    line-height: 15px;
+    min-width: initial;
+    padding: 5px 15px;
+}
+
+.theme-tabs .active a, .theme-tabs a:hover, .theme-tabs a:focus {
+    color: #fff;
+    -webkit-box-shadow: 1px 4px 51px -17px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 4px 51px -17px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 4px 51px -17px rgba(0, 0, 0, 0.75);
+}
+
+.organic-content > .tab-pane {
+    display: block;
+    height: 0;
+}
+
+.organic-content > .active {
+    height: auto;
+}
+
+/*-- ./Theme Tabs --*/
+
+/*------------------------ 1.4 Typography (section title, links, page dividers) Ends ---------------------- */
+
+
+/*--------------------------1.8 Theme Fonts Starts------------------- */
+.font-2, p {
+    font-family: Helvetica-normal, Arial, sans-serif;
+}
+
+.prod-tag, .fontbold-2 {
+    font-family: Helvetica-bold, Arial, sans-serif;
+    font-weight: 900;
+}
+
+.font-3, .title-sec {
+    font-family: 'Great Vibes', cursive;
+}
+
+.normal-font {
+    font-weight: normal;
+}
+
+.italic-font {
+    font-style: italic;
+}
+
+.extra-bold-font {
+    font-weight: 800;
+}
+
+.medium-font {
+    font-weight: 500;
+}
+
+.light-font {
+    font-weight: 300;
+}
+
+.upper-text {
+    text-transform: uppercase;
+}
+
+.normal-text {
+    text-transform: none;
+}
+
+.capital-text {
+    text-transform: capitalize;
+}
+
+.fsz-10 {
+    font-size: 10px;
+}
+
+.fsz-12 {
+    font-size: 12px;
+}
+
+.fsz-16 {
+    font-size: 16px;
+}
+
+.fsz-20 {
+    font-size: 20px;
+}
+
+.fsz-30 {
+    font-size: 30px;
+}
+
+.fsz-35 {
+    font-size: 35px;
+}
+
+.fsz-50 {
+    font-size: 50px;
+}
+
+/*-------------------------1.8 Theme Fonts Ends--------------------- */
+
+
+/*--------------------- Deals Starts ------------------------- */
+.deals {
+    position: relative;
+}
+
+.deals .right-bg-img {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.deals .left-bg-img {
+    position: absolute;
+    bottom: -5%;
+    left: 0;
+    z-index: 1;
+}
+
+.deal-count {
+    border-top: 2px solid #fff;
+    margin-top: 50px;
+    padding: 45px 0;
+    position: relative;
+    text-align: center;
+}
+
+.deal-count:before {
+    content: "";
+    display: inline-block;
+    height: 2px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 170px;
+}
+
+.countdown-section {
+    display: inline-block;
+    text-align: center;
+    margin: auto 3px;
+    width: 80px;
+    height: 80px;
+    border-top: 5px solid #a6d3a0;
+    border-bottom: 5px solid #5ec6ce;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-position: 0 0, 100% 0;
+    background-repeat: no-repeat;
+    -webkit-background-size: 5px 100%;
+    -moz-background-size: 5px 100%;
+    background-size: 5px 100%;
+    border-radius: 6px;
+
+    background-image: -webkit-linear-gradient(top, #a6d3a0 0%, #5ec6ce 100%), -webkit-linear-gradient(top, #a6d3a0 0%, #5ec6ce 100%);
+    background-image: -moz-linear-gradient(top, #a6d3a0 0%, #5ec6ce 100%), -moz-linear-gradient(top, #a6d3a0 0%, #5ec6ce 100%);
+    background-image: -o-linear-gradient(top, #a6d3a0 0%, #5ec6ce 100%), -o-linear-gradient(top, #a6d3a0 0%, #5ec6ce 100%);
+    background-image: linear-gradient(to bottom, #a6d3a0 0%, #5ec6ce 100%), linear-gradient(to bottom, #a6d3a0 0%, #5ec6ce 100%);
+}
+
+.countdown-amount {
+    display: inline-block;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: normal;
+    margin: 0;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.countdown-period {
+    clear: both;
+    color: #79d1d6;
+    display: block;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: normal;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+    text-transform: none;
+}
+
+.deal-item {
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 15%;
+    position: relative;
+    display: table;
+    height: 100%;
+}
+
+.deal-icons {
+    display: table-cell;
+    height: 100%;
+    vertical-align: top;
+    width: 60px;
+}
+
+.deal-icons > a {
+    color: #dedede;
+    display: table;
+    font-size: 20px;
+    height: 33.3333%;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.deal-icons > a::before {
+    bottom: 0;
+    height: 25px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25px;
+}
+
+.deal-icons > a:first-child {
+    border-top-left-radius: 10px;
+}
+
+.deal-icons > a:last-child {
+    border-bottom-left-radius: 10px;
+}
+
+.deal-content {
+    border-left: 2px solid #f7f6f2;
+    display: table-cell;
+    padding: 20px 30px;
+}
+
+.deal-icons > a + a {
+    border-top: 2px solid #f7f6f2;
+}
+
+.deal-icons > a:hover {
+    background-color: #92d2a7;
+    color: #fff;
+}
+
+.deal-icons > a:nth-child(2n):hover {
+    background-color: #79d1d6;
+}
+
+.deal-content .prod-tag {
+    margin-top: 0;
+}
+
+.deal-content .sub-title {
+    color: #a0a0a0;
+    font-size: 10px;
+    margin: 0;
+}
+
+.deal-text {
+    width: 65%;
+}
+
+.deal-img {
+    position: absolute;
+    bottom: -30%;
+    right: 0;
+}
+
+@media (max-width: 480px) {
+    .deal-content {
+        padding: 15px
+    }
+
+    .deal-item {
+        margin-bottom: 0;
+    }
+
+    .deal-text {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .deal-img {
+        position: initial;
+    }
+}
+
+@media (max-width: 360px) {
+    .countdown-section {
+        margin: 5px 10%;
+    }
+}
+
+/*--------------------- Deal Ends ------------------------- */

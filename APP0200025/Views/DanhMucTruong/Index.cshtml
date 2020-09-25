@@ -1,0 +1,94 @@
+﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String ParentID = "Index";
+
+    String TenBang = Convert.ToString(ViewData["TenBang"]);
+
+    DataTable dt = CPQ_BANG.Get_Table_Truong(TenBang);
+
+}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">DANH SÁCH TRƯỜNG CỦA BẢNG :: @(TenBang.ToUpper()) </h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="@Url.Action("Edit", "DanhMucTruong", new {TenBang = TenBang})"><i class="fa fa-plus-square"></i> Thêm mới</a></li>
+                                <li><a href="@Url.Action("Sort", "DanhMucTruong", new {TenBang = TenBang})"><i class="fa fa-sort-numeric-asc"></i> Sắp xếp</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <table class="table table-bordered table-hover table-striped">
+                            <tr>
+                                <th align="center" style="width: 20%">Tên trường</th>
+                                <th align="center">Tên hiển thị</th>
+                                <th align="center" style="width: 150px;">Luôn được xem</th>
+                                <th style="width: 10px;" title="Sửa"><span class="badge bg-blue"><i class="fa fa-pencil"></i></span></th>
+                                <th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
+                            </tr>
+                            @{
+                                int i;
+                                String TenTruong, TenTruongHT;
+                                String strLuonDuocXem = "";
+                                for (i = 0; i <= dt.Rows.Count - 1; i++)
+                                {
+                                    DataRow Row = dt.Rows[i];
+                                    TenTruong = Convert.ToString(Row["sTenTruong"]);
+                                    TenTruongHT = Convert.ToString(Row["sTenTruongHT"]);
+                                    strLuonDuocXem = "";
+                                    if (Convert.ToInt32(Row["bLuonDuocXem"]) == 1)
+                                    {
+                                        strLuonDuocXem = " checked='checked'";
+                                    }
+                                    strLuonDuocXem = String.Format("<input type=\"checkbox\" disabled {0}/>", strLuonDuocXem);
+
+                                    String classtr = "";
+                                    if (i % 2 == 0)
+                                    {
+                                        classtr = "class=\"alt\"";
+                                    }
+
+                                    String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "DanhMucTruong", new { MaDanhMucTruong = Row["iID_MaDanhMucTruong"], TenBang = TenBang }), "<span class=\"badge bg-blue\"><i class=\"fa fa-pencil\"></i></span>", "Edit", "");
+                                    String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "DanhMucTruong", new { MaDanhMucTruong = Row["iID_MaDanhMucTruong"], TenBang = TenBang }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
+
+
+
+                                    <tr @(classtr)>
+                                        <td>
+                                            @(TenTruong)
+                                        </td>
+                                        <td>
+                                            @(TenTruongHT)
+                                        </td>
+                                        <td align="center">
+                                            @(MvcHtmlString.Create(strLuonDuocXem))
+                                        </td>
+                                        <td align="center">@MvcHtmlString.Create(strEdit)</td>
+                                        <td align="center">@MvcHtmlString.Create(strDelete)</td>
+                                    </tr>
+                                }
+                                dt.Dispose();
+                            }
+                        </table>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix"></div>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+

@@ -1,0 +1,164 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@using APP0200026.App_Code
+@using APP0200026.Models
+@using APP0200026.Controllers
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Edit";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+    String MaDonVi = Request.QueryString["MaDonVi"];
+    String MaBangMau = Request.QueryString["MaBangMau"];
+    String MaPhongBan = Request.QueryString["MaPhongBan"];
+
+    SqlCommand cmd;
+    String SQL;
+    DataTable dt;
+    String TenDonVi = ConfigurationManager.AppSettings["TenTongCongTyApDung"];
+    if (String.IsNullOrEmpty(MaDonVi) == false)
+    {
+        SQL = String.Format("SELECT sTen FROM BC_DonVi WHERE iID_MaDonVi={0}", "'" + MaDonVi + "'");
+        TenDonVi = Connection.GetValueString(SQL, "");
+    }
+
+    String TenBangMau = "";
+    SQL = String.Format("SELECT sTenBang FROM BC_BangMau WHERE iID_MaBangMau={0}", "'" + MaBangMau + "'");
+    TenBangMau = Connection.GetValueString(SQL, "");
+
+    cmd = new SqlCommand("SELECT * FROM BC_BangMau_CotMau WHERE iID_MaBangMau=@iID_MaBangMau ORDER BY iSTT ASC");
+    cmd.Parameters.AddWithValue("@iID_MaBangMau", MaBangMau);
+    dt = Connection.GetDataTable(cmd);
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                @using (Html.BeginForm("EditSubmit", "BangMauCotMauDonVi", new { ParentID = ParentID, MaDonVi = MaDonVi, MaBangMau = MaBangMau }))
+                {
+                    <div class="box-header">
+                        <h3 class="box-title">ẨN CỘT CỦA <u>@(TenBangMau)</u> CHO ĐƠN VỊ <u>@(TenDonVi)</u></h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="@Url.Action("Edit", "BangMau", new { MaPhongBan = MaPhongBan })"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
+                                <li><a href="@Url.Action("Sort", "BangMau", new { MaPhongBan = MaPhongBan })"><i class="fa fa-sort-numeric-asc"></i> @Lang["ChucNang_Item04"].ToString()</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <tr>
+                                    <th style="width: 10%; text-align: center;">Mã cột</th>
+                                    <th>Tên cột</th>
+                                    <th style="width: 5%;">@(MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, "", "chb_DeleteAll", "", "onclick=\"JavaScript:checkDeleteAll(this.form);\" title=\"Chọn tất cả\"")))</th>
+                                </tr>
+                                @{
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        int i;
+                                        DataRow R;
+                                        for (i = 0; i < dt.Rows.Count; i++)
+                                        {
+                                            R = dt.Rows[i];
+
+                                            int iSTT = i + 1;
+
+                                            String TenCot = "";
+
+                                            TenCot = Convert.ToString(R["sTenCot"]);
+
+
+                                            SqlCommand cmddv;
+                                            if (String.IsNullOrEmpty(MaDonVi) == false)
+                                            {
+                                                cmddv = new SqlCommand("SELECT iID_MaCotMau FROM BC_BangMau_CotMau_DonVi WHERE iID_MaDonVi = @iID_MaDonVi");
+                                                cmddv.Parameters.AddWithValue("@iID_MaDonVi", MaDonVi);
+                                            }
+                                            else
+                                            {
+                                                cmddv = new SqlCommand("SELECT iID_MaCotMau FROM BC_BangMau_CotMau_DonVi WHERE iID_MaDonVi is null");
+                                            }
+                                            DataTable dt1 = Connection.GetDataTable(cmddv);
+                                            String tg = "";
+                                            int j;
+                                            if (dt1.Rows.Count > 0)
+                                            {
+                                                for (j = 0; j <= dt1.Rows.Count - 1; j++)
+                                                {
+                                                    if (Convert.ToString(R["iID_MaCotMau"]) == Convert.ToString(dt1.Rows[j]["iID_MaCotMau"]))
+                                                    {
+                                                        tg = "on";
+                                                        break;
+                                                    }
+                                                }
+                                            }
+
+                                            <tr>
+                                                <td style="text-align: center;">@Convert.ToString(R["iID_MaCotMau"])</td>
+                                                <td><a href="@Url.Action("Edit", "BangMauCotMauDonVi", new { MaDonVi = MaDonVi, MaBangMau = MaBangMau })">@(Convert.ToString(TenCot))</a></td>
+                                                <td>
+                                                    @(MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, tg, "iID_MaCotMau", "", String.Format("value='{0}'", Convert.ToString(dt.Rows[i]["iID_MaCotMau"])))))
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    dt.Dispose();
+                                }
+                            </table>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <div class="col-xs-6">
+                            <button class="btn btn-block btn-default" type="submit">Save</button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+<script type="text/javascript">
+    function checkDeleteAll(aspnetForm) {
+        if (aspnetForm.Edit_chb_DeleteAll.checked == true) {
+            for (var i = 0; i < aspnetForm.elements.length; i++) {
+                if ((aspnetForm.elements[i].type == "checkbox") && (aspnetForm.elements[i].name.substring(0, 26) == "Edit_iID_MaCotMau")) {
+                    aspnetForm.elements[i].checked = true;
+                }
+            }
+        }
+        else {
+            for (var i = 0; i < aspnetForm.elements.length; i++) {
+                if ((aspnetForm.elements[i].type == "checkbox") && (aspnetForm.elements[i].name.substring(0, 26) == "Edit_iID_MaCotMau")) {
+                    aspnetForm.elements[i].checked = false;
+                }
+            }
+        }
+    }
+</script>

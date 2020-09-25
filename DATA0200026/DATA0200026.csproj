@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{69FA8A01-742C-409F-ADE0-9B6179896F59}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DATA0200026</RootNamespace>
+    <AssemblyName>DATA0200026</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.DataVisualization.Design" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\BangDuLieu.cs" />
+    <Compile Include="BangChiTieuBaoCao.cs" />
+    <Compile Include="BangMauHangMauDonViModels.cs" />
+    <Compile Include="BangMauHangMauModels.cs" />
+    <Compile Include="BangMauModels.cs" />
+    <Compile Include="BangMenuItem.cs" />
+    <Compile Include="BangModels.cs" />
+    <Compile Include="BangModels_Sub\BangModels_CongThuc.cs" />
+    <Compile Include="BangModels_Sub\BangModels_HamChung.cs" />
+    <Compile Include="BangModels_Sub\BangModels_TaoBangMoi.cs" />
+    <Compile Include="BieuDo.cs" />
+    <Compile Include="CBangMau.cs" />
+    <Compile Include="CBangMauKieuNhapLieu.cs" />
+    <Compile Include="CCongTy.cs" />
+    <Compile Include="CDonVi.cs" />
+    <Compile Include="CLanguage.cs" />
+    <Compile Include="CLoaiBaoCao.cs" />
+    <Compile Include="CLoaiSanPham.cs" />
+    <Compile Include="CMenu.cs" />
+    <Compile Include="CMien.cs" />
+    <Compile Include="CPhongBan.cs" />
+    <Compile Include="CPQ_BANG.cs" />
+    <Compile Include="CPQ_LUAT.cs" />
+    <Compile Include="CPQ_MENU.cs" />
+    <Compile Include="CPQ_NGUOIDUNG.cs" />
+    <Compile Include="CPQ_NHOMNGUOIDUNG.cs" />
+    <Compile Include="CThamSo.cs" />
+    <Compile Include="CTinh.cs" />
+    <Compile Include="CVung.cs" />
+    <Compile Include="DongMoKyBaoCaoModels.cs" />
+    <Compile Include="HamRiengModels.cs" />
+    <Compile Include="HangMauModels.cs" />
+    <Compile Include="MoKyCacBang.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WordActionResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DomainModels\DomainModels.csproj">
+      <Project>{25be807d-acf1-484a-ac7b-7675c28ed8cc}</Project>
+      <Name>DomainModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,214 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.App_Code
+@using APP0200025.Models
+@using APP0200025.Controllers
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Index";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+
+    String MaBangMau = Convert.ToString(ViewData["MaBangMau"]);
+    String MaPhongBan = Convert.ToString(ViewData["MaPhongBan"]);
+    SqlCommand cmd;
+    String SQL1, SQL2;
+    int MaHangMauCha = 0;
+    if (Request.QueryString["MaHangMauCha"] != null)
+    {
+        MaHangMauCha = Convert.ToInt32(Request.QueryString["MaHangMauCha"]);
+    }
+    else
+    {
+        cmd = new SqlCommand("SELECT iID_MaHangMauGoc FROM BC_BangMau WHERE iID_MaBangMau = @iID_MaBangMau ORDER BY iSTT");
+        cmd.Parameters.AddWithValue("@iID_MaBangMau", MaBangMau);
+        MaHangMauCha = Convert.ToInt32(Connection.GetValue(cmd, 0));
+        cmd.Dispose();
+    }
+
+    int MaHangMauCha_ChungHangMauCon = MaHangMauCha;
+    int MaHangMauChaTruoc = 0;
+    String TenChiTieuGoc = "";
+    if (MaHangMauCha > 0)
+    {
+        cmd = new SqlCommand("SELECT * FROM BC_HangMau WHERE iID_MaHangMau=@iID_MaHangMau");
+        cmd.Parameters.AddWithValue("@iID_MaHangMau", MaHangMauCha);
+        DataTable dt1 = Connection.GetDataTable(cmd);
+        if (dt1.Rows.Count > 0)
+        {
+            if (MaHangMauCha > 0)
+            {
+                MaHangMauChaTruoc = Convert.ToInt32(dt1.Rows[0]["iID_MaHangMau_Cha"]);
+            }
+            TenChiTieuGoc = " của " + Convert.ToString(dt1.Rows[0]["sTenHang"]);
+
+            if (Convert.ToInt16(dt1.Rows[0]["iID_MaHangMau_ChungHangMauCon"]) > 0)
+            {
+                MaHangMauCha_ChungHangMauCon = Convert.ToInt16(dt1.Rows[0]["iID_MaHangMau_ChungHangMauCon"]);
+            }
+        }
+        dt1.Dispose();
+        cmd.Dispose();
+    }
+
+    SQL1 = "SELECT * FROM BC_HangMau WHERE iID_MaHangMau_Cha=@iID_MaHangMau_ChaChung";
+    SQL2 = "SELECT * FROM BC_BangMau_HangMau WHERE iID_MaBangMau = @iID_MaBangMau AND iID_MaHangMau_Cha=@iID_MaHangMau_Cha";
+    cmd = new SqlCommand();
+    cmd.CommandText = String.Format("SELECT tb1.*, tb2.iID_MaBangMau_HangMau FROM ({0}) tb1 INNER JOIN ({1}) tb2 ON tb1.iID_MaHangMau=tb2.iID_MaHangMau ORDER BY tb1.iSTT", SQL1, SQL2);
+    cmd.Parameters.AddWithValue("@iID_MaBangMau", MaBangMau);
+    cmd.Parameters.AddWithValue("@iID_MaHangMau_ChaChung", MaHangMauCha_ChungHangMauCon);
+    cmd.Parameters.AddWithValue("@iID_MaHangMau_Cha", MaHangMauCha);
+    DataTable dt = Connection.GetDataTable(cmd);
+    cmd.Dispose();
+
+    String SQL = String.Format("SELECT sTenBang FROM BC_BangMau WHERE iID_MaBangMau={0}", "'" + MaBangMau + "'");
+    String TenBangMau = Connection.GetValueString(SQL, "");
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">DANH SÁCH CHỈ TIÊU <span style="color: Red;">@(TenChiTieuGoc)</span> của @(TenBangMau)</h3>
+                    <div class="box-tools">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="@Url.Action("Create", "BangMauHangMau", new { MaBangMau = MaBangMau, MaHangMauCha = MaHangMauCha, MaPhongBan = MaPhongBan })"><i class="fa fa-plus-square"></i> Thêm chỉ tiêu</a></li>
+                            <li><a href="@Url.Action("AddNews", "BangMauHangMau", new { MaBangMau = MaBangMau, MaHangMauCha = 0, MaPhongBan = MaPhongBan })"><i class="fa fa-plus-square"></i> Thêm nhanh chỉ tiêu</a></li>
+                            <li><a href="@Url.Action("Detail", "BangMauHangMau", new { MaBangMau = MaBangMau, MaHangMauCha = MaHangMauChaTruoc, MaPhongBan = MaPhongBan })"><i class="fa fa-reply-all"></i> Quay lại chỉ tiêu trước</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <tr>
+                                <th style="width: 10%; text-align: center;">Mã CT</th>
+                                <th style="text-align: center;">Tên chỉ tiêu</th>
+                                <th style="width: 15%; text-align: center;">Công thức</th>
+                                <th style="width: 10%; text-align: center;">Đơn vị</th>
+                                <th style="width: 10%; text-align: center;">Tính tổng chỉ tiêu</th>
+                                <th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
+                            </tr>
+                            @{
+                                if (dt.Rows.Count > 0)
+                                {
+                                    for (int i = 0; i <= dt.Rows.Count - 1; i++)
+                                    {
+                                        DataRow R = dt.Rows[i];
+
+                                        String MaHangMauHT;
+                                        String TenHang = "", CongThuc = "", BackGround = "", MauSac = "";
+                                        int Heigh = 0, FontSize = 0;
+                                        Boolean Bold = false;
+                                        Boolean Italic = false;
+                                        Boolean Underline = false;
+                                        Boolean bTongHangCon = false;
+                                        Boolean bTruongGhiChu = false;
+
+                                        MaHangMauHT = Convert.ToString(R["iID_MaHangMau"]);
+                                        TenHang = Convert.ToString(R["sTenHang"]);
+                                        CongThuc = Convert.ToString(R["sCongThuc"]);
+                                        BackGround = Convert.ToString(R["sBackGround"]);
+                                        MauSac = Convert.ToString(R["sColor"]);
+                                        Heigh = Convert.ToInt32(R["iHeight"]);
+                                        FontSize = Convert.ToInt32(R["iFontSize"]);
+                                        Bold = Convert.ToBoolean(R["bBold"]);
+                                        Italic = Convert.ToBoolean(R["bItalic"]);
+                                        Underline = Convert.ToBoolean(R["bUnderline"]);
+                                        bTongHangCon = Convert.ToBoolean(R["bTongHangCon"]);
+                                        bTruongGhiChu = Convert.ToBoolean(R["bTruongGhiChu"]);
+
+                                        String sTongHangCon = "";
+                                        if (bTongHangCon == true)
+                                        {
+                                            sTongHangCon = "<span class=\"badge bg-red\"><i class=\"fa fa-check-square\"></i></span>";
+                                        }
+                                        else
+                                        {
+                                            sTongHangCon = "";    //<span class=\"badge bg-red\"><i class=\"fa  fa-remove\"></i></span>
+                                        }
+
+                                        String tgStyle = "";
+                                        if (Convert.ToInt16(R["iHeight"]) > 0)
+                                        {
+                                            tgStyle += String.Format("height:{0}px;", R["iHeight"]);
+                                        }
+                                        if (Convert.ToString(R["sBackground"]) != "")
+                                        {
+                                            tgStyle += String.Format("background-color:{0};", R["sBackground"]);
+                                        }
+                                        if (Convert.ToString(R["sColor"]) != "")
+                                        {
+                                            tgStyle += String.Format("color: {0};", R["sColor"]);
+                                        }
+                                        if (Convert.ToInt16(R["iFontSize"]) > 0)
+                                        {
+                                            tgStyle += String.Format("font-size:{0}px;", R["iFontSize"]);
+                                        }
+                                        if (Convert.ToBoolean(R["bBold"]))
+                                        {
+                                            tgStyle += String.Format("font-weight:bold;");
+                                        }
+                                        if (Convert.ToBoolean(R["bItalic"]))
+                                        {
+                                            tgStyle += String.Format("font-style:italic;");
+                                        }
+                                        if (Convert.ToBoolean(R["bUnderline"]))
+                                        {
+                                            tgStyle += String.Format("text-decoration:underline;");
+                                        }
+
+                                        String TenDonVi = "";
+                                        if (Convert.ToInt32(R["iID_MaDonVi"]) > 0)
+                                        {
+                                            cmd = new SqlCommand("SELECT sTen FROM BC_DonVi WHERE iID_MaDonVi=@iID_MaDonVi");
+                                            cmd.Parameters.AddWithValue("@iID_MaDonVi", R["iID_MaDonVi"]);
+                                            TenDonVi = Convert.ToString(Connection.GetValue(cmd, 0));
+                                            cmd.Dispose();
+                                        }
+
+                                        String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "BangMauHangMau", new { MaBangMau_HangMau = R["iID_MaBangMau_HangMau"], MaBangMau = MaBangMau, MaHangMauCha = R["iID_MaHangMau_Cha"], MaHangMau = MaHangMauHT }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
+
+                                        <tr style="@(tgStyle)">
+                                            <td style="text-align: center;">@MaHangMauHT.ToString()</td>
+                                            <td><a href="@Url.Action("Detail", "BangMauHangMau", new {MaBangMau = MaBangMau, MaHangMauCha = MaHangMauHT, MaPhongBan = MaPhongBan })">@TenHang.ToString()</a> </td>
+                                            <td>@CongThuc.ToString()</td>
+                                            <td>@TenDonVi.ToString()</td>
+                                            <td style="text-align: center;">@MvcHtmlString.Create(sTongHangCon)</td>
+                                            <td style="width: 10px" title="Xóa">@MvcHtmlString.Create(strDelete)</td>
+                                        </tr>
+                                    }
+                                }
+                                dt.Dispose();
+                            }
+                        </table>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix"></div>
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->

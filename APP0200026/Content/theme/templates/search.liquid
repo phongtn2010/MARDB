@@ -1,0 +1,126 @@
+{% comment %}
+The search.liquid template is not a required template.
+That search.liquid template is included in the current theme to make it easier for you 
+to customize your /search page.
+Whether you are using your own template for the search page or not,
+the {{ content_for_header }} tag in theme.liquid will always output the following on the /search page:
+<link rel="stylesheet" href="/global/search.css" type="text/css" />
+So the /search page is always styled by a globally-hosted stylesheet called search.css.
+You may override and complement that CSS in your theme's stylesheet.
+We are using a div#searchresults below so that the styles defined in search.css get
+applied to the elements on this page; the 'searchresults' id is used in the CSS
+selectors inside search.css.
+{% endcomment %}
+
+<div id="searchresults" class="search-scope grid-uniform">
+  
+  <form action="/search" method="get" class="search-form form-inline">
+    <h1 class="page_title">Search</h1>
+    <div class="search-bar">
+      <input type="text" name="q" value="{{ search.terms | escape }}" />
+      <input type="submit" value="Search store..." class="btn btn-primary"/>
+    </div>
+  </form>
+  
+  {% comment %}
+  search.performed is false when accessing the /search page without a 'q' parameter set
+  in the URL. A shop-owner can link to the /search page from one of his link lists.
+  It is important to show a search form on that page if search.performed is false.
+  {% endcomment %}
+  
+  {% if search.performed %}
+    
+    {% paginate search.results by 10 %}
+    
+    {% comment %}
+    Common pitfall to avoid: search.results should never be accessed before the opening 
+    paginate tag. Move the opening and closing paginate tags to the very top and bottom of your
+    search.liquid template if you need to.
+    If you fail to do the above, the pagination of search results will be broken.
+    search.results_count is fine to access in or out of the paginate block.
+    {% endcomment %}
+  
+    {% if search.results_count == 0 %}  
+    <p class="alert alert-error">Your search for "{{ search.terms }}" did not yield any results.</p>              
+    {% else %}
+    <ul class="search-results grid-uniform">
+      {% for item in search.results %} 
+      
+      
+      
+      
+      <li class="search-result product product__product-grid-item product-item col-sm-{{ item_width }} {% case listing_cols %}{% when '1' %}{% cycle : '', 'alpha' %}{% when '2' %}{% cycle : '', '', 'alpha' %}{% when '3' %}{% cycle : '', '', '', 'alpha' %}{% when '4' %}{% cycle : '', '', '', '', 'alpha' %}{% when '6' %}{% cycle : '', '', '', '', '', '', 'alpha' %}{% endcase %}{% cycle 'odd_even': 'item_odd', 'item_even' %} {% cycle 'step3': 'step3-1', 'step3-2', 'step3-3' %} {% cycle 'step4': 'step4-1', 'step4-2', 'step4-3', 'step4-4' %}">
+ {% if item.featured_image %}
+  <div class="product_image-wrap">  
+  
+      <a href="{{ item.url }}" title="{{ item.title | escape }}" class="product-grid-image">
+              {{ item.featured_image.src | product_img_url: 'large' | img_tag: item.featured_image.alt }}
+            </a>
+     
+  </div><!-- .prod-image-wrap -->
+  {% endif %}
+    <div class="box-hover">
+    <ul class="add-to-links">
+      <li>
+      
+   {% include 'wishlist-product' %}
+       
+      </li>
+  
+    </ul>
+  </div>  
+ {% include 'color-switch' %}
+        <div class="product_title-wrap">
+          <a href="{{ product.url | within: collection }}" class="product_title">
+           {{ item.title | link_to: item.url }}
+          </a>
+         
+        </div>
+<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      <div class="product_price">
+        <span class="money">{% if item.price < product.compare_at_price_min %}
+{{ item.price | money }} <del>{{ item.compare_at_price_min | money }}</del> <span class="sale-badge">Sale</span>
+{% else %}
+{{ item.price | money }}
+{% endif %}</span>
+		   
+          
+    	</div>
+  
+       <form action="/cart/add" method="post" enctype="multipart/form-data" class="addToCartForm">
+            {% for variant in item.variants limit:1 %}
+            <input type="hidden" name="id" value="{{ variant.id }}" class="btn"/>
+            {% endfor %}
+            {% if item.available %}
+            
+        <button type="submit" name="add" class="btn btn-primary addToCart">
+          <span class="addToCartText">Add to cart</span>
+        </button>
+            {% endif %}
+            </form>
+ 
+  
+</li>
+      
+      
+      
+      
+     
+      
+      {% endfor %}
+    </ul>
+    {% endif %}    
+
+    <div class="clearfix"></div>
+    
+    {% if paginate.pages > 1 %}
+    <div class="pagination">
+      {{ paginate | default_pagination }}
+    </div>
+    {% endif %}
+    
+    {% endpaginate %}    
+    
+  {% endif %}  
+
+</div>

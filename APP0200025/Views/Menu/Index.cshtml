@@ -1,0 +1,62 @@
+﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">DANH SÁCH MENUITEM</h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="@Url.Action("Edit", "Menu")">Thêm mới</a></li>
+                                <li><a href="@Url.Action("Sort", "Menu")">Sắp xếp</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr class="tr_form3">
+                                        <th>Tên menu</th>
+                                        <th style="width: 40%">Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        string urlCreate = Url.Action("Create", new { MaMenuCha = "##" });
+                                        string urlDetail = Url.Action("Detail", new { MaMenu = "##" });
+                                        string urlEdit = Url.Action("Edit", new { MaMenu = "##" });
+                                        string urlDelete = Url.Action("Delete", new { MaMenu = "##" });
+                                        string urlSort = Url.Action("Sort", new { MaMenuCha = "##" });
+                                        int ThuTu = 0;
+                                        String XauHanhDong = "";
+                                        String XauSapXep = "";
+                                        XauHanhDong += MyHtmlHelper.ActionLink(urlCreate, "Thêm mục con", "Create", "") + " | ";
+                                        XauHanhDong += MyHtmlHelper.ActionLink(urlEdit, "Sửa", "Edit", "") + " | ";
+                                        XauHanhDong += MyHtmlHelper.ActionLink(urlDelete, "Xóa", "Delete", "");
+                                        XauSapXep = " | " + MyHtmlHelper.ActionLink(urlSort, "Sắp xếp", "Sort", "");
+                                    }
+                                    @MvcHtmlString.Create(CPQ_MENU.LayXauMenu(Url.Action("", ""), XauHanhDong, XauSapXep, 0, 0, ref ThuTu))
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+
+

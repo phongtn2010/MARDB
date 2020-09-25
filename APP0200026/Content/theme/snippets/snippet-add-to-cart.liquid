@@ -1,0 +1,22 @@
+<!-- 
+    This is just a regular add product form. 
+    You should be able to add any valid input fields to it 
+-->
+ {% assign variantCount = product.variants | size %}
+  <form action="/cart/add" method="post" enctype="multipart/form-data" data-id="{{ product.id }}" class="addToCartForm product-actions-{{ product.id }}">
+           {% if sold_out %}
+            <input class="btn btn-primary addToCart add-to-cart-btn" type="submit" value="Unavailable" disabled="disabled" />
+            {% else %}
+              {% if variantCount > 1 %}    
+              <input class="btn btn-primary addToCart add-to-cart-btn" type="button" onclick="window.location.href='{{product.url}}'" value="Select options" />
+              {% else %}
+         
+             <input type="hidden" name="id" value="{{ product.variants[0].id }}" />  
+        <button type="submit" name="add" class="btn btn-primary addToCart add-to-cart-btn">
+          <span class="addToCartText">Add to cart</span>
+        </button>
+    
+      {% endif %}
+            {% endif %}
+           
+            </form>

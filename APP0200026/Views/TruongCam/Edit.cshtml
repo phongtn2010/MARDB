@@ -1,0 +1,142 @@
+﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@using APP0200026.Models
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String ParentID = "Edit";
+
+    String sTenLuat = "", TenBang = "";
+    String MaLuat = CString.SafeString(Convert.ToString(ViewData["MaLuat"]));
+    TenBang = CString.SafeString(Convert.ToString(ViewData["TenBang"]));
+    if (String.IsNullOrEmpty(MaLuat) == false)
+    {
+        sTenLuat = CPQ_LUAT.Get_Name(MaLuat);
+    }
+
+    String DanhSachTruongCam = CPQ_BANG.Get_DanhSach_Truong_Cam(MaLuat, TenBang);
+
+    DataTable dtTruong = CPQ_BANG.Get_Table_Truong(TenBang);
+}
+@using (Html.BeginForm("Edit", "TruongCam", new { ParentID = ParentID, MaLuat = MaLuat, TenBang = TenBang }))
+{
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-danger">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                Phân quyền trường cấm của các bảng: <b>@(TenBang)</b> theo luật:: <b>@(sTenLuat)</b>
+                            </h3>
+                            <div class="box-tools">
+                                <ul class="pagination pagination-sm no-margin pull-right">
+                                    <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                                </ul>
+                            </div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th align="center" style="width: 30%">Mã trường</th>
+                                        <th align="center">Tên trường</th>
+                                        <th align="center" style="width: 70px; text-align:center;">
+                                            Xem<br />
+                                            <input type="checkbox" id="@(ParentID)_checkall_xem" onclick="setCheckboxes('xem')" />
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int i, d = -1;
+                                        for (i = 0; i <= dtTruong.Rows.Count - 1; i++)
+                                        {
+                                            DataRow Row = dtTruong.Rows[i];
+                                            String TenTruong = (string)Row["sTenTruong"];
+                                            String TenTruongHT = (string)Row["sTenTruongHT"];
+                                            String txtTenTruong = TenTruong;
+                                            d = d + 1;
+                                            String strXem = "";
+                                            if ((Boolean)Row["bLuonDuocXem"])
+                                            {
+                                                strXem = " disabled ";
+                                                txtTenTruong += "";
+                                            }
+                                            else
+                                            {
+                                                if (BaoMat.ChoPhepNhap(TenTruong, DanhSachTruongCam) == false)
+                                                {
+                                                    strXem = " checked='checked'";
+                                                    txtTenTruong += ";0";
+                                                }
+                                            }
+                                            String classtr = "";
+                                            if (i % 2 == 0)
+                                            {
+                                                classtr = "class=\"alt\"";
+                                            }
+
+                                            <tr @(classtr)>
+                                                <td>@(TenTruong)  <input type="hidden" name="@(ParentID)_txt" id="@(ParentID)_txt_@(d)" value="@(txtTenTruong)" /></td>
+                                                <td>@(TenTruongHT)</td>
+                                                <td align="center">
+                                                    <input type="checkbox" name="@(ParentID)_xem" id="@(ParentID)_xem_@(d)" onclick="changeCheckbox(@(d))" @(strXem) />
+                                                </td>
+                                            </tr>
+
+                                        }
+                                        dtTruong.Dispose();
+                                    }
+                                </tbody>
+                            </table>
+                        </div><!-- /.box-body -->
+                        <div class="box-footer clearfix">
+                            <div class="col-xs-6">
+                                <button class="btn btn-block btn-default" type="submit">Lưu</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Hủy</button>
+                            </div>
+                        </div>
+                    </div><!-- /.box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </section><!-- /.content -->
+
+}
+
+<script type="text/javascript">
+    function setCheckboxes(id) {
+        var cb = document.getElementsByName('@(ParentID)_' + id);
+        var v = document.getElementById('@(ParentID)_checkall_' + id).checked;
+        for (var i = 0; i < cb.length; i++) {
+            if (cb[i].disabled == false) {
+                cb[i].checked = v;
+                changeCheckbox(i);
+            }
+        }
+    }
+
+    function changeCheckbox(i) {
+        var txt = document.getElementById('@(ParentID)_txt_' + i);
+        var vXem = false;
+
+        if (document.getElementById('@(ParentID)_xem_' + i)) {
+            vXem = document.getElementById('@(ParentID)_xem_' + i).checked;
+        }
+
+        txt.value = txt.value.split(";")[0];
+        if (vXem) {
+            txt.value += ";0";
+        }
+    }
+</script>
+
+

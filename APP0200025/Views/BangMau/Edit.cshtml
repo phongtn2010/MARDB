@@ -1,0 +1,263 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@using APP0200025.Controllers
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Edit";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+
+    String MaBangMau = CString.SafeString(Convert.ToString(ViewData["iID_MaBangMau"]));
+    String MaPhongBan = CString.SafeString(Convert.ToString(ViewData["MaPhongBan"]));
+
+    String TenBang = "", CongThuc = "", LoaiNguoiDuocSua = "", MaLoaiBaoCao = "", MaBangMauLayGhiChu = "", iID_MaBangNhapLieu = "";
+    String tgXemTheoDonVi = "", tgDonViThuocVicem = "", tgPhanTrang = "";
+    Boolean bXemTheoDonVi = false, bDonViThuocVicem = false, bPhanTrang = false;
+    int iID_MaBangMauGanNhat = 0;
+
+    if (String.IsNullOrEmpty(MaBangMau) == false)
+    {
+        DataTable dt = CBangMau.Get_Table_Detail(Convert.ToString(MaBangMau));
+        DataRow R;
+        R = dt.Rows[0];
+
+        TenBang = Convert.ToString(R["sTenBang"]);
+        bXemTheoDonVi = Convert.ToBoolean(R["bXemTheoDonVi"]);
+        bDonViThuocVicem = Convert.ToBoolean(R["bDonViThuocVicem"]);
+        bPhanTrang = Convert.ToBoolean(R["bPhanTrang"]);
+        CongThuc = Convert.ToString(R["sCongThuc"]);
+        MaLoaiBaoCao = Convert.ToString(R["iLoaiBaoCao"]);
+        LoaiNguoiDuocSua = Convert.ToString(R["sLoaiNguoiDuocSua"]);
+        MaBangMauLayGhiChu = Convert.ToString(R["iID_MaBangMau_LayGhiChu"]);
+        iID_MaBangNhapLieu = Convert.ToString(R["iID_MaBangNhapLieu"]);
+        iID_MaBangMauGanNhat = Convert.ToInt32(R["iID_MaBangMauGanNhat"]);
+        dt.Dispose();
+    }
+    if (bXemTheoDonVi == true)
+    {
+        //tgXemTheoDonVi = "checked='checked'";
+        tgXemTheoDonVi = "on";
+    }
+    if (bDonViThuocVicem == true)
+    {
+        tgDonViThuocVicem = "on";
+    }
+    if (bPhanTrang == true)
+    {
+        tgPhanTrang = "on";
+    }
+    SelectOptionList slLoaiBaoCao = CLoaiBaoCao.Get_Dropdown("--- Chọn loại báo cáo! ---");
+    SelectOptionList slPhongBan = CPhongBan.Get_Dropdown("--- Chọn phòng ban! ---");
+    SelectOptionList slBangMau = CBangMau.Get_Dropdown(MaPhongBan, "--- Chọn bảng mẫu cần lấy ghi chú! ---");
+    SelectOptionList slBangMauNhapLieu = CBangMauKieuNhapLieu.Get_Dropdown("--- Chọn loại bảng mẫu dùng để nhập liệu! ---");
+    SelectOptionList slBangMauGanNhat = CBangMau.Get_Dropdown(MaPhongBan, "--- Chọn bảng mẫu trước gần nhất! ---");
+}
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                @using (Html.BeginForm("Edit", "BangMau", new { ParentID = ParentID, iID_MaBangMau = MaBangMau, MaPhongBan = MaPhongBan }))
+                {
+                    @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
+
+                    <div class="box-header with-border">
+                        <h3 class="box-title">NHẬP THÔNG TIN BẢNG MẪU</h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="@(ParentID)_sTenBang">Tên bảng mẫu<span style="color: red;">&nbsp;*</span></label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, TenBang, "sTenBang", "", "type=\"text\" placeholder=\"Tên bảng mẫu\" class=\"form-control\""))
+                                    @Html.ValidationMessage(ParentID + "_" + "err_sTenBang")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label for="@(ParentID)_bXemTheoDonVi">
+                                        @MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, tgXemTheoDonVi, "bXemTheoDonVi", "", "type=\"checkbox\""))
+                                        Xem theo đơn vị
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label for="@(ParentID)_bDonViThuocVicem">
+                                        @MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, tgDonViThuocVicem, "bDonViThuocVicem", "", "type=\"checkbox\""))
+                                        Lấy theo đơn vị trực thuộc
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label for="@(ParentID)_bPhanTrang">
+                                        @MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, tgPhanTrang, "bPhanTrang", "", "type=\"checkbox\""))
+                                        Hiển thị phân trang
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="@(ParentID)_sCongThuc">Công thức</label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, CongThuc, "sCongThuc", "", "type=\"text\" placeholder=\"Công thức\" class=\"form-control\""))
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="@(ParentID)_iID_MaPhongBan">Thuộc phòng ban<span style="color: red;">&nbsp;*</span></label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slPhongBan, MaPhongBan, "iID_MaPhongBan", "", "class=\"form-control\""))
+                                    @Html.ValidationMessage(ParentID + "_" + "err_iPhongBan")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="@(ParentID)_iLoaiBaoCao">Loại báo cáo<span style="color: red;">&nbsp;*</span></label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slLoaiBaoCao, MaLoaiBaoCao, "iLoaiBaoCao", "", "class=\"form-control\""))
+                                    @Html.ValidationMessage(ParentID + "_" + "err_iLoaiBaoCao")
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label for="@(ParentID)_iID_MaBangNhapLieu">Loại bảng mẫu dùng để<span style="color: red;">&nbsp;*</span></label>
+                                        @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slBangMauNhapLieu, iID_MaBangNhapLieu, "iID_MaBangNhapLieu", "", "class=\"form-control\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_iID_MaBangNhapLieu")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="@(ParentID)_iID_MaBangMau_LayGhiChu">Bảng mẫu lấy ghi chú</label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slBangMau, MaBangMauLayGhiChu, "iID_MaBangMau_LayGhiChu", "", "class=\"form-control\""))
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="@(ParentID)_iID_MaBangMauGanNhat">Bảng mẫu trước gần nhất</label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slBangMauGanNhat, Convert.ToString(iID_MaBangMauGanNhat), "iID_MaBangMauGanNhat", "", "class=\"form-control\""))
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <tr>
+                                        <th style="width: 10%; text-align: right">Chọn bảng</th>
+                                        <th>
+                                            @{
+                                                //Tạo bảng xem theo đon vị
+                                                String SQL1 = "";
+                                                DataTable dtXemTheoDonVi = new DataTable();
+                                                dtXemTheoDonVi.Columns.Add("Ma", SQL1.GetType());
+                                                dtXemTheoDonVi.Columns.Add("Ten", SQL1.GetType());
+                                                dtXemTheoDonVi.Rows.Add(dtXemTheoDonVi.NewRow());
+                                                dtXemTheoDonVi.Rows[0][0] = "-1";
+                                                dtXemTheoDonVi.Rows[0][1] = "--- Chọn xem theo đơn vị hay không xem theo đơn vị ---";
+                                                dtXemTheoDonVi.Rows.Add(dtXemTheoDonVi.NewRow());
+                                                dtXemTheoDonVi.Rows[1][0] = "0";
+                                                dtXemTheoDonVi.Rows[1][1] = "Không xem theo đơn vị";
+                                                dtXemTheoDonVi.Rows.Add(dtXemTheoDonVi.NewRow());
+                                                dtXemTheoDonVi.Rows[2][0] = "1";
+                                                dtXemTheoDonVi.Rows[2][1] = "Xem theo đơn vị";
+
+                                                SelectOptionList optXemTheoDonVi = new SelectOptionList(dtXemTheoDonVi, "Ma", "Ten");
+                                                string sMaSoDonVi = dtXemTheoDonVi.Rows[0]["Ma"].ToString();
+                                            }
+                                            @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, optXemTheoDonVi, sMaSoDonVi, "ddlXemTheoDonVi", null, "onchange=\"ChonTheoDonVi(this.value)\"  class=\"form-control\""))
+                                            <script type="text/javascript">
+                                                function ChonTheoDonVi(MaChon) {
+                                                    var _ParentID = '@(ParentID)';
+                                                    var url = unescape('@MvcHtmlString.Create(Url.Action("getAjax?ParentID=#0&MaBangMau=#1&MaPhongBan=#2&LoaiBaoCao=#3&bThuocDonVi=#4", "BangMau"))');
+                                                    url = unescape(url.replace("#0", _ParentID));
+                                                    url = unescape(url.replace("#1", '@(MaBangMau)'));
+                                                    url = unescape(url.replace("#2", '@(MaPhongBan)'));
+                                                    url = unescape(url.replace("#3", '@(MaLoaiBaoCao)'));
+                                                    url = unescape(url.replace("#4", MaChon));
+                                                    $.getJSON(url, function (data) {
+                                                        document.getElementById("divBangMau").innerHTML = data;
+                                                    });
+                                                }
+                                            </script>
+                                        </th>
+                                    </tr>
+                                </table>
+                                <div id="divBangMau">@MvcHtmlString.Create(BangMauController.getObj(ParentID, MaBangMau, MaPhongBan, MaLoaiBaoCao, -1))</div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <div class="col-xs-6">
+                            <button class="btn btn-block btn-default" type="submit">Save</button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+<script type="text/javascript">
+    function setCheckboxes(id, XauThem) {
+        if (typeof XauThem == "undefined") XauThem = "";
+        var cb = document.getElementsByName('@(ParentID)_' + XauThem + id);
+        var v = document.getElementById('@(ParentID)_checkall_' + XauThem + id).checked;
+        for (var i = 0; i < cb.length; i++) {
+            cb[i].checked = v;
+            changeCheckbox(i, XauThem);
+        }
+    }
+
+    function changeCheckbox(i, XauThem) {
+        if (typeof XauThem == "undefined") XauThem = "";
+        var txt = document.getElementById('@(ParentID)_txt_' + XauThem + i);
+        var vXem = false;
+        if (document.getElementById('@(ParentID)_xem_' + XauThem + i)) {
+            vXem = document.getElementById('@(ParentID)_xem_' + XauThem + i).checked;
+        }
+        txt.value = txt.value.split(";")[0] + ";";
+        if (vXem) {
+            txt.value += "0;";
+        }
+    }
+</script>

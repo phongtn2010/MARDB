@@ -1,0 +1,118 @@
+﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using System.Data.SqlClient
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@using APP0200026.Models
+@{
+    ViewBag.Title = ConfigurationManager.AppSettings["TitleView"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ParentID = "Edit";
+
+    string TenBang = "QT_NguoiDung";
+    string sDanhSachTruongCam = "";
+
+    String MaNguoiDung = Convert.ToString(ViewData["MaNguoiDung"]);
+    String MaNhomNguoiDung = Convert.ToString(ViewData["MaNhomNguoiDung"]);
+
+    String iID_MaNhomNguoiDung = "", iID_MaKhachHang = "", sTenKhachHang = "", sTenCuaHang = "", sDiaChi_CuaHang = "";
+    String sHoTen = "", sEmail = "";
+    int iTrangThai = 0;
+    String tgTrangThai = "";
+    DataTable dt = CPQ_NGUOIDUNG.Get_One_Table(MaNguoiDung);
+    if (dt.Rows.Count > 0)
+    {
+        iID_MaNhomNguoiDung = Convert.ToString(dt.Rows[0]["iID_MaNhomNguoiDung"]);
+        iID_MaKhachHang = Convert.ToString(dt.Rows[0]["iID_MaKhachHang"]);
+        //sTenCuaHang = CCuaHang.Get_Name_TB_CuaHang(Convert.ToInt64(iID_MaKhachHang), ref sDiaChi_CuaHang);
+
+        sTenKhachHang = sTenCuaHang + ": " + sDiaChi_CuaHang;
+        sHoTen = Convert.ToString(dt.Rows[0]["SHOTEN"]);
+        sEmail = Convert.ToString(dt.Rows[0]["SEMAIL"]);
+        iTrangThai = Convert.ToInt32(dt.Rows[0]["ITRANGTHAI"]);
+    }
+    dt.Dispose();
+
+    if (iTrangThai == 1)
+    {
+        tgTrangThai = "on";
+    }
+    SelectOptionList slNhom = CPQ_NHOMNGUOIDUNG.Get_Dropdown_NhomNguoiDung("--- Nhóm người dung ---");
+}
+
+@using (Html.BeginForm("Edit", "NguoiDung", new { ParentID = ParentID, MaNguoiDung = MaNguoiDung, MaNhomNguoiDung = MaNhomNguoiDung }))
+{
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            SỬA THÔNG TIN USER
+                        </h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="Register_sHoTen">Nhóm người dùng<span style="color: red;">&nbsp;*</span></label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slNhom, iID_MaNhomNguoiDung, "iID_MaNhomNguoiDung", "", "class=\"form-control\""))
+                                    @Html.ValidationMessage(ParentID + "_" + "err_iID_MaNhomNguoiDung")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="Edit_sTenCongTy">Họ tên đầy đủ<span style="color: red;">&nbsp;*</span></label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, sHoTen, "sHoTen", sDanhSachTruongCam, "type=\"text\" placeholder=\"Tên người dùng\" class=\"form-control\""))
+                                    @Html.ValidationMessage(ParentID + "_" + "err_sHoTen")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="Edit_sTenCongTy">Email<span style="color: red;">&nbsp;*</span></label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, sEmail, "sEmail", sDanhSachTruongCam, "type=\"text\" placeholder=\"Email người dùng\" class=\"form-control\""))
+                                    @Html.ValidationMessage(ParentID + "_" + "err_sEmail")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <lable>@MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, tgTrangThai, "bTrangThai", "", "type=\"checkbox\""))&nbsp;&nbsp;&nbsp;&nbsp;Hoạt động</lable><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                        <div class="col-xs-6">
+                            <button class="btn btn-block btn-default" type="submit">Save</button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+    <script type="text/javascript" language="javascript">
+        function func_Auto_Complete(id, ui) {
+            //document.getElementById("Index_sTenSanPham_View_Xem").value = ui.item.TenSP;
+        }
+    </script>
+
+}

@@ -1,0 +1,57 @@
+﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String MaLuat = CString.SafeString(Request.QueryString["MaLuat"]);
+    int ThuTu = 0;
+}
+@using (Html.BeginForm("Menu_Cam", "Menu", new { MaLuat = MaLuat }))
+{
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">DANH SÁCH MENU CẤM</h3>
+                            <div class="box-tools">
+                                <ul class="pagination pagination-sm no-margin pull-right">
+                                    <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                                </ul>
+                            </div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Tên menu</th>
+                                        <th style="width: 10%;" align="center">Cấm xem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @MvcHtmlString.Create(CPQ_MENU.LayXauMenuItemCam(MaLuat, 0, 0, ref ThuTu))
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <div class="col-xs-6">
+                                <button class="btn btn-block btn-default" type="submit">Lưu</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Hủy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </section><!-- /.content -->
+
+}

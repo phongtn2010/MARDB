@@ -1,0 +1,318 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@using APP0200026.App_Code
+@using APP0200026.Models
+@using APP0200026.Controllers
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Edit";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+    String MaDonVi = Convert.ToString(Request.QueryString["MaDonVi"]);
+    String MaPhongBan = Convert.ToString(ViewData["MaPhongBan"]);
+    String MaBangMau = Convert.ToString(ViewData["MaBangMau"]);
+
+    String sTenDonViHT = "TẤT CẢ CÁC ĐƠN VỊ";
+    SqlCommand cmd;
+    int i, j, k;
+    cmd = new SqlCommand();
+    if (String.IsNullOrEmpty(MaDonVi))
+    {
+        cmd.CommandText = "SELECT * FROM BC_DonVi ORDER BY iSTT";
+    }
+    else
+    {
+        cmd.CommandText = "SELECT * FROM BC_DonVi WHERE iID_MaDonVi=@iID_MaDonVi ORDER BY iSTT";
+        cmd.Parameters.AddWithValue("@iID_MaDonVi", MaDonVi);
+    }
+    DataTable dtDonVi = Connection.GetDataTable(cmd);
+    cmd.Dispose();
+
+    cmd = new SqlCommand("SELECT * FROM BC_BangMau_CotMau WHERE iID_MaBangMau=@iID_MaBangMau ORDER BY iSTT ASC");
+    cmd.Parameters.AddWithValue("@iID_MaBangMau", MaBangMau);
+    DataTable dtCotmau = Connection.GetDataTable(cmd);
+    cmd.Dispose();
+
+    cmd = new SqlCommand();
+    cmd.CommandText = "SELECT iID_MaDonVi, sTen FROM BC_DonVi ORDER BY iSTT";
+    DataTable dtTGDonVi = Connection.GetDataTable(cmd);
+    cmd.Dispose();
+    dtTGDonVi.Rows.InsertAt(dtTGDonVi.NewRow(), 0);
+    dtTGDonVi.Rows[0]["sTen"] = "-- Chọn tất cả đơn vị --";
+    SelectOptionList slDonVi = new SelectOptionList(dtTGDonVi, "iID_MaDonVi", "sTen");
+
+    if (String.IsNullOrEmpty(MaDonVi) == false)
+    {
+        sTenDonViHT = Convert.ToString(dtDonVi.Rows[0]["sTen"]);
+    }
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">DANH SÁCH SỬA TÊN CỘT MẪU CHO ĐƠN VỊ</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" type="button" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" type="button" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slDonVi, MaDonVi, "iID_MaDonVi", "", "onchange=\"ddlDonVi_SelectedValueChanged(this)\"  class=\"form-control\""))
+                        </div>
+                        <script type="text/javascript">
+                            function ddlDonVi_SelectedValueChanged(ctl) {
+                                var url = unescape('@MvcHtmlString.Create(Url.Action("Index?MaBangMau=#0&MaPhongBan=#1", "BangMauCotMauDonViTenMoi"))');
+                                url = unescape(url.replace("#0", '@(MaBangMau)'));
+                                url = unescape(url.replace("#1", '@(MaPhongBan)'));
+
+                                if(ctl.selectedIndex>=0)
+                                {
+                                    var value = ctl.options[ctl.selectedIndex].value;
+                                    if(value!="")
+                                    {
+                                        url += "&MaDonVi=" + value;
+                                    }
+                                }
+
+                                location.href = url;
+                            }
+                        </script>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix"></div>
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">DANH SÁCH CỘT MẪU CHO ĐƠN VỊ: @(sTenDonViHT)</h3>
+                    <div class="box-tools">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="@Url.Action("Edit", "BangMau", new { MaPhongBan = MaPhongBan })"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
+                            <li><a href="@Url.Action("Sort", "BangMau", new { MaPhongBan = MaPhongBan })"><i class="fa fa-sort-numeric-asc"></i> @Lang["ChucNang_Item04"].ToString()</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <tr>
+                                <th style="width: 2%; text-align: center;">STT</th>
+                                <th style="width: 20%;">Tên đơn vị</th>
+                                <th>Thông tin cột mẫu</th>
+                            </tr>
+                            @{
+                                if (dtDonVi.Rows.Count > 0)
+                                {
+                                    DataRow R;
+                                    for (i = 0; i < dtDonVi.Rows.Count; i++)
+                                    {
+                                        R = dtDonVi.Rows[i];
+
+                                        int iSTT = i + 1;
+
+                                        <tr>
+                                            <td style="text-align: center;">@iSTT.ToString()</td>
+                                            <td>@R["sTen"].ToString()</td>
+                                            <td>
+                                                <table class="table table-bordered table-hover table-striped">
+                                                    <tr>
+                                                        <th style="width: 10%; text-align: center;">Mã cột mẫu</th>
+                                                        <th>Tên cột mẫu</th>
+                                                        <th style="width: 10%;">Cột bỏ qua</th>
+                                                        <th style="width: 30%;">Tên cột sửa</th>
+                                                        <th style="width: 25px;" title="Sửa"><span class="badge bg-blue"><i class="fa fa-pencil"></i></span></th>
+                                                        <th style="width: 25px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
+                                                    </tr>
+                                                    @{
+                                                        if (dtCotmau.Rows.Count > 0)
+                                                        {
+                                                            for (j = 0; j < dtCotmau.Rows.Count; j++)
+                                                            {
+                                                                DataRow RCOT = dtCotmau.Rows[j];
+                                                                String TenCot = "";
+                                                                TenCot = Convert.ToString(RCOT["sTenCot"]);
+
+                                                                cmd = new SqlCommand("SELECT * FROM BC_BangMau_CotMau_DonVi_TenMoi WHERE iID_MaBangMau=@iID_MaBangMau AND iID_MaDonVi = @iID_MaDonVi AND iID_MaCotMau = @iID_MaCotMau");
+                                                                cmd.Parameters.AddWithValue("@iID_MaBangMau", MaBangMau);
+                                                                cmd.Parameters.AddWithValue("@iID_MaDonVi", R["iID_MaDonVi"]);
+                                                                cmd.Parameters.AddWithValue("@iID_MaCotMau", RCOT["iID_MaCotMau"]);
+                                                                DataTable dtCotMauDonViTenMoi = Connection.GetDataTable(cmd);
+                                                                cmd.Dispose();
+
+                                                                String iID_MaBangMau_CotMau_DonVi_TenMoi = "";
+                                                                String sTenMoi = "";
+                                                                if (dtCotMauDonViTenMoi.Rows.Count > 0)
+                                                                {
+                                                                    iID_MaBangMau_CotMau_DonVi_TenMoi = Convert.ToString(dtCotMauDonViTenMoi.Rows[0]["iID_MaBangMau_CotMau_DonVi_TenMoi"]);
+                                                                    sTenMoi = Convert.ToString(dtCotMauDonViTenMoi.Rows[0]["sTenCot"]);
+                                                                }
+
+                                                                cmd = new SqlCommand("SELECT iID_MaCotMau FROM BC_BangMau_CotMau_DonVi WHERE iID_MaDonVi = @iID_MaDonVi AND iID_MaBangMau=@iID_MaBangMau");
+                                                                cmd.Parameters.AddWithValue("@iID_MaDonVi", R["iID_MaDonVi"]);
+                                                                cmd.Parameters.AddWithValue("@iID_MaBangMau", MaBangMau);
+                                                                DataTable dtCotMauDonVi = Connection.GetDataTable(cmd);
+                                                                cmd.Dispose();
+                                                                Boolean bDaTao = true;
+                                                                if (dtCotMauDonVi.Rows.Count > 0)
+                                                                {
+                                                                    for (k = 0; k <= dtCotMauDonVi.Rows.Count - 1; k++)
+                                                                    {
+                                                                        if (Convert.ToString(RCOT["iID_MaCotMau"]) == Convert.ToString(dtCotMauDonVi.Rows[k]["iID_MaCotMau"]))
+                                                                        {
+                                                                            bDaTao = false;
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    cmd = new SqlCommand("SELECT Count(*) FROM BC_BangMau_CotMau_DonVi WHERE iID_MaCotMau=@iID_MaCotMau AND iID_MaDonVi=@iID_MaDonVi");
+                                                                    cmd.Parameters.AddWithValue("@iID_MaCotMau", RCOT["iID_MaCotMau_DuLieu"]);
+                                                                    cmd.Parameters.AddWithValue("@iID_MaDonVi", R["iID_MaDonVi"]);
+                                                                    if (Convert.ToInt16(Connection.GetValue(cmd, 0)) != 0)
+                                                                    {
+                                                                        bDaTao = false;
+                                                                    }
+                                                                }
+
+                                                                String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "BangMauCotMauDonViTenMoi", new { MaBangMau_CotMau_DonVi_TenMoi = iID_MaBangMau_CotMau_DonVi_TenMoi, MaBangMau = MaBangMau, MaDonVi = R["iID_MaDonVi"], MaPhongBan = MaPhongBan }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
+
+
+                                                                <tr>
+                                                                    <td align="center">@(RCOT["iID_MaCotMau"].ToString())</td>
+                                                                    <td><b>@(TenCot)</b></td>
+                                                                    <td align="center">@(MvcHtmlString.Create(MyHtmlHelper.LabelCheckBox("", bDaTao.ToString(), "")))</td>
+                                                                    <td>
+                                                                        <div id="divTenMoi-@(R["iID_MaDonVi"])-@(RCOT["iID_MaCotMau"])" style="float: left; display: inline; font-weight: bold; color: Red;">
+                                                                            @(sTenMoi)
+                                                                        </div>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <button type="button" class="badge bg-blue" onclick="OpenDialog('@(MaBangMau)','@(Convert.ToString(RCOT["iID_MaCotMau"]))','@(Convert.ToString(R["iID_MaDonVi"]))', '@(iID_MaBangMau_CotMau_DonVi_TenMoi)')">
+                                                                            <i class="fa fa-pencil"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                    <td>
+                                                                        @{
+                                                                            if (iID_MaBangMau_CotMau_DonVi_TenMoi != "" && iID_MaBangMau_CotMau_DonVi_TenMoi != null)
+                                                                            {
+                                                                                @MvcHtmlString.Create(strDelete)
+                                                                            }
+                                                                        }
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                        dtCotmau.Dispose();
+                                                    }
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                dtDonVi.Dispose();
+                            }
+                        </table>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix"></div>
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @{
+                using (Ajax.BeginForm("Edit_Fast_Submit", "BangMauCotMauDonViTenMoi", new { ParentID = ParentID }, new AjaxOptions { }))
+                {
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">SỬA TÊN CỘT MỚI CHO ĐƠN VỊ</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="txtMaBangMau" name="txtMaBangMau" />
+                        <input type="hidden" id="txtMaCotMau" name="txtMaCotMau" />
+                        <input type="hidden" id="txtMaDonVi" name="txtMaDonVi" />
+                        <input type="hidden" id="txtMaBangMau_CotMau_DonVi_TenMoi" name="txtMaBangMau_CotMau_DonVi_TenMoi" />
+                        <input id="txtTenCot" name="txtTenCot" class="form-control" placeholder="Tên cột mẫu mới" type="text" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function CallSuccess_CT(CongThuc, MaDiv) {
+        document.getElementById(MaDiv).innerHTML = CongThuc;
+        return false;
+    }
+    function CallValide_CT() {
+        alert("Bạn chưa nhập giá trị cho tên cột mẫu mới");
+
+        var sTenCot = document.getElementById("txtTenCot");
+        sTenCot.focus();
+
+        return false;
+    }
+    function OpenDialog(jsMaBangMau, jsMaCotMau, jsMaDonVi, jsMaBangMau_CotMau_DonVi_TenMoi) {
+        var $myModal = $('#myModal');
+        $("#txtMaBangMau").val(jsMaBangMau);
+        $("#txtMaCotMau").val(jsMaCotMau);
+        $("#txtMaDonVi").val(jsMaDonVi);
+        $("#txtMaBangMau_CotMau_DonVi_TenMoi").val(jsMaBangMau_CotMau_DonVi_TenMoi);
+
+        var sURL = ServerUrl + "/BangMauCotMauDonViTenMoi/Get_GiaTri_TenMoi_DonVi?MaBangMau=" + jsMaBangMau + "&MaCotMau=" + jsMaCotMau + "&MaDonVi=" + jsMaDonVi;
+        $.ajax({
+            type: 'GET', url: sURL,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                $("#txtTenCot").val(data);
+            },
+            error: function (data) { alert("Lỗi không lấy được giá trị tên cột mới!") }
+        });
+
+        $myModal.modal({
+            show: true
+        });
+
+        return false;
+    }
+</script>

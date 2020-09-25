@@ -1,0 +1,171 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String ParentID = "Index";
+
+    int iNgay = 0, iThang = 0, iNam = 0;
+    DateTime _dayNow = DateTime.Now;
+
+    iNgay = _dayNow.Day;
+    iThang = _dayNow.Month;
+    iNam = _dayNow.Year;
+
+    Double _iKhachHang_Day = 0, _iHopDong_Day = 0, _iSanPham_Day = 0, _iDuLieuThuThap_Day = 0;
+
+    Double _iKhachHang_Month = 0, _iHopDong_Month = 0, _iSanPham_Month = 0, _iDuLieuThuThap_Month = 0;
+
+    //_iKhachHang_Day = CDashboards.Get_Count_Day("DC_KhachHang", DateTime.Now.ToString("yyyy-MM-dd"));
+    //_iHopDong_Day = CDashboards.Get_Count_Day("MR_GioHang", DateTime.Now.ToString("yyyy-MM-dd"));
+    //_iSanPham_Day = CDashboards.Get_Count_Day("SP_SanPham", DateTime.Now.ToString("yyyy-MM-dd"));
+    //_iDuLieuThuThap_Day = CDashboards.Get_Count_Day("TB_Locations", DateTime.Now.ToString("yyyy-MM-dd"));
+
+    //_iKhachHang_Month = CDashboards.Get_Count_Month("DC_KhachHang", iThang, iNam);
+    //_iHopDong_Month = CDashboards.Get_Count_Month("MR_GioHang", iThang, iNam);
+    //_iSanPham_Month = CDashboards.Get_Count_Month("SP_SanPham", iThang, iNam);
+    //_iDuLieuThuThap_Month = CDashboards.Get_Count_Month("TB_Locations", iThang, iNam);
+}
+<section class="content">
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>@_iKhachHang_Day.ToString("#,##0")</h3>
+                    <p>Khách hàng đăng ký hôm nay</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="@Url.Action("cms_list", "KhachHang")" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>@_iHopDong_Day.ToString("#,##0")</h3>
+                    <p>Đơn hàng đăng ký hôm nay</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="@Url.Action("Index", "GioHang")" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>@_iSanPham_Day.ToString("#,##0")</h3>
+                    <p>Sản phẩm mới hôm nay</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="@Url.Action("cms_list", "SanPham")" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>@_iDuLieuThuThap_Day.ToString("#,##0")</h3>
+                    <p>Người dùng hôm nay</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="@Url.Action("cms_list", "Locations")" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>@_iKhachHang_Month.ToString("#,##0")</h3>
+                    <p>Khách hàng đăng ký tháng @iThang năm @iNam</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="@Url.Action("cms_list", "KhachHang")" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>@_iHopDong_Month.ToString("#,##0")</h3>
+                    <p>Đơn hàng đăng ký tháng @iThang năm @iNam</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="@Url.Action("Index", "GioHang")" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>@_iSanPham_Month.ToString("#,##0")</h3>
+                    <p>Sản phẩm mới tháng @iThang năm @iNam</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="@Url.Action("cms_list", "SanPham")" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>@_iDuLieuThuThap_Month.ToString("#,##0")</h3>
+                    <p>Người dùng tháng @iThang năm @iNam</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="@Url.Action("cms_list", "Locations")" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">THỐNG KÊ ĐƠN HÀNG THEO THÁNG</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        @*<img src="@Url.Content("~/CMS/MyChart_DonHang_Thang")" alt="chart" width="100%" />*@
+                    </div><!-- /.box-body -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">THÔNG KÊ DỮ LIỆU NGƯỜI DÙNG THEO THÁNG</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        @*<img src="@Url.Content("~/CMS/MyChart_DULIEUNGUOIDUNG_Thang")" alt="chart" width="100%" />*@
+                    </div><!-- /.box-body -->
+                </div>
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section>
+

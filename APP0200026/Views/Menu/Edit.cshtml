@@ -1,0 +1,106 @@
+﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@using APP0200026.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String ParentID = "Edit";
+
+    String MaMenu = CString.SafeString(Convert.ToString(ViewData["MaMenu"]));
+    String iID_MaMenuCha = CString.SafeString(Convert.ToString(ViewData["MaMenuCha"]));
+
+    String sTen = "", sURL = "", tgHoatDong = "";
+    Boolean bHoatDong = false;
+    DataTable dt = CPQ_MENU.Get_One_Table_Menu(MaMenu);
+    if (dt.Rows.Count > 0)
+    {
+        DataRow R = dt.Rows[0];
+        iID_MaMenuCha = Convert.ToString(R["iID_MaMenuItemCha"]);
+        sTen = Convert.ToString(R["sTen"]);
+        sURL = Convert.ToString(R["sURL"]);
+        bHoatDong = Convert.ToBoolean(R["bHoatDong"]);
+    }
+    dt.Dispose();
+
+    if(bHoatDong == true)
+    {
+        tgHoatDong = "on";
+    }
+}
+
+@using (Html.BeginForm("Edit", "Menu", new { ParentID = ParentID, MaMenu = MaMenu, MaMenuCha = iID_MaMenuCha }))
+{
+    @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
+
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-danger">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                @if (Convert.ToString(ViewData["DuLieuMoi"]) == "1")
+                                {
+                                    @MvcHtmlString.Create("THÊM MỚI MENU")
+                                }
+                                else
+                                {
+                                    @MvcHtmlString.Create("SỬA MENU")
+                                }
+                            </h3>
+                            <div class="box-tools">
+                                <ul class="pagination pagination-sm no-margin pull-right">
+                                    <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                                </ul>
+                            </div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label>Tên menu<span style="color: red;">&nbsp;*</span></label>
+                                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, sTen, "sTen", "", "placeholder=\"Tên menu\" class=\"form-control\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_sTen")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label>URL</label>
+                                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, sURL, "sURL", "", "placeholder=\"URL\" class=\"form-control\""))
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="Edit_bTrangThai">Hoạt động</label>
+                                        @MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, tgHoatDong, "bHoatDong", "", "type=\"checkbox\""))
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /.box-body -->
+                        <div class="box-footer clearfix">
+                            <div class="col-xs-6">
+                                <button class="btn btn-block btn-default" type="submit">Lưu</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Hủy</button>
+                            </div>
+                        </div>
+                    </div><!-- /.box -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </section><!-- /.content -->
+
+}
+
+

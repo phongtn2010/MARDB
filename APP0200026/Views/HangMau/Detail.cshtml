@@ -1,0 +1,368 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Abstract
+@using DomainModel.Controls
+@using DATA0200026
+@using APP0200026.App_Code
+@using APP0200026.Models
+@using APP0200026.Controllers
+@{
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+    String ParentID = "Index";
+    Bang bang = new Bang("BC_HangMau");
+    int MaPhongBan = 0;
+    if (String.IsNullOrEmpty(Convert.ToString(Request.QueryString["MaPhongBan"])) == false)
+    {
+        MaPhongBan = Convert.ToInt32(Request.QueryString["MaPhongBan"]);
+    }
+
+    int MaHangMauCha = 0;
+    if (Request.QueryString["MaHangMauCha"] != null)
+    {
+        MaHangMauCha = Convert.ToInt32(Request.QueryString["MaHangMauCha"]);
+    }
+
+    SqlCommand cmd = new SqlCommand();
+    String TenChiTieuGoc = "";
+    int MaHangMauCha_ChungHangMauCon = MaHangMauCha;
+    if (MaHangMauCha > 0)
+    {
+        cmd = new SqlCommand("SELECT * FROM BC_HangMau WHERE iID_MaHangMau=@iID_MaHangMau");
+        cmd.Parameters.AddWithValue("@iID_MaHangMau", MaHangMauCha);
+        DataTable dtHangMauCha = Connection.GetDataTable(cmd);
+        if (Convert.ToInt16(dtHangMauCha.Rows[0]["iID_MaHangMau_ChungHangMauCon"]) > 0)
+        {
+            MaHangMauCha_ChungHangMauCon = Convert.ToInt16(dtHangMauCha.Rows[0]["iID_MaHangMau_ChungHangMauCon"]);
+        }
+        TenChiTieuGoc = " của " + Convert.ToString(dtHangMauCha.Rows[0]["sTenHang"]);
+        cmd.Dispose();
+        dtHangMauCha.Dispose();
+    }
+
+    string sDk = "";
+    if (MaPhongBan > 0)
+    {
+        sDk = sDk + " AND (iID_MaPhongBan=" + MaPhongBan + ") ";
+    }
+    string SQL = string.Format("SELECT * FROM BC_HangMau WHERE iID_MaHangMau_Cha= " + MaHangMauCha_ChungHangMauCon + " {0}", sDk);
+
+    //String SQL = "";
+    //SQL = "SELECT * FROM BC_HangMau WHERE iID_MaHangMau_Cha= " + MaHangMauCha_ChungHangMauCon + "";
+    int CurrentPage = 1;
+    if (Request.QueryString["HangMau_page"] != null)
+    { CurrentPage = Convert.ToInt32(Request.QueryString["HangMau_page"]); }
+
+    bang.TruyVanLayDanhSach.CommandText = SQL;
+    DataTable dt = bang.dtData("iSTT", CurrentPage);
+    int TotalRecords = bang.TongSoBanGhi();
+    int TotalPages = (int)(Math.Ceiling((double)TotalRecords / Globals.PageSize));
+    int FromRecord = (CurrentPage - 1) * Globals.PageSize + 1;
+    int ToRecord = CurrentPage * Globals.PageSize;
+    if (TotalPages == CurrentPage)
+    {
+        ToRecord = FromRecord + dt.Rows.Count - 1;
+    }
+
+
+    String XauMucCuaHang = "";
+    List<Boolean> arrLaHangCha = new List<Boolean>();
+    List<int> arrMucCuaHang = new List<int>();
+    List<Boolean> arrHangChiDoc = new List<Boolean>();
+    Boolean ChiDoc = false;
+    Boolean ChiCoQuyenDoc = false;
+
+    for (int i = 0; i <= dt.Rows.Count - 1; i++)
+    {
+        arrLaHangCha.Add(false);
+        arrMucCuaHang.Add(0);
+    }
+
+    for (int i = 0; i <= dt.Rows.Count - 1; i++)
+    {
+        ChiDoc = false;
+        if (ChiCoQuyenDoc)
+        {
+            ChiDoc = true;
+        }
+        if (Convert.ToString(dt.Rows[i]["sCongThuc"]) != "")
+        {
+            ChiDoc = true;
+        }
+        arrHangChiDoc.Add(ChiDoc);
+        String MaHangMau_Cha = Convert.ToString(dt.Rows[i]["iID_MaHangMau_Cha"]);
+        if (String.IsNullOrEmpty(MaHangMau_Cha) == false)
+        {
+            for (int j = i - 1; j >= 0; j--)
+            {
+                if (Convert.ToString(dt.Rows[j]["iID_MaHangMau"]) == MaHangMau_Cha)
+                {
+                    arrLaHangCha[j] = true;
+                    arrMucCuaHang[i] = arrMucCuaHang[j] + 1;
+                    break;
+                }
+            }
+        }
+    }
+
+    for (int i = 0; i < arrHangChiDoc.Count; i++)
+    {
+        XauMucCuaHang += String.Format("{0},", arrMucCuaHang[i]);
+    }
+}
+<div class="box-header">
+    <h3 class="box-title">DANH SÁCH CHỈ TIÊU MẪU  <span style="color: Red;">@(TenChiTieuGoc)</span></h3>
+    <div class="box-tools">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="@Url.Action("Create", "HangMau", new { MaHangMauCha = MaHangMauCha_ChungHangMauCon, MaPhongBan = MaPhongBan })"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
+            <li><a href="@Url.Action("Sort", "HangMau", new { MaHangMauCha = MaHangMauCha_ChungHangMauCon, MaPhongBan= MaPhongBan })"><i class="fa fa-sort-numeric-asc"></i> @Lang["ChucNang_Item04"].ToString()</a></li>
+            @{
+                int MaHangMauChaTruoc = 0;
+                {
+                    cmd = new SqlCommand("SELECT iID_MaHangMau_Cha FROM BC_HangMau WHERE iID_MaHangMau=@iID_MaHangMau");
+                    cmd.Parameters.AddWithValue("@iID_MaHangMau", MaHangMauCha);
+                    MaHangMauChaTruoc = Convert.ToInt32(Connection.GetValue(cmd, 0));
+                    cmd.Dispose();
+
+                    <li><a href="@Url.Action("Index", "HangMau", new { MaHangMauCha = MaHangMauChaTruoc, MaPhongBan = MaPhongBan })"><i class="fa fa-reply-all"></i> Quay lại cấp trước</a></li>
+                }
+            }
+        </ul>
+    </div>
+</div><!-- /.box-header -->
+
+<div class="box-body no-padding">
+    <div class="table-responsive">
+        @{
+            if (TotalRecords > 0)
+            {
+                <input type="hidden" id="txtXauMucCuaHang" value="@(XauMucCuaHang)" />
+                <table class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th style="width: 2%; text-align: center;">STT</th>
+                        <th style="width: 5%;">Mã CT</th>
+                        <th style="width: 5%;">Mã chỉ tiêu</th>
+                        <th>Tên chỉ tiêu</th>
+                        <th style="width: 15%; text-align: center;">Công thức</th>
+                        <th style="width: 10%; text-align: center;">Đơn vị</th>
+                        <th style="width: 5%; text-align: center;">Tính tổng chỉ tiêu</th>
+                        <th style="width: 30%;">Hành động</th>
+                        <th style="width: 10px;" title="Sửa"><span class="badge bg-blue"><i class="fa fa-pencil"></i></span></th>
+                        <th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
+                    </tr>
+                    @{
+                        if (dt.Rows.Count > 0)
+                        {
+                            for (int i = 0; i <= dt.Rows.Count - 1; i++)
+                            {
+                                DataRow R = dt.Rows[i];
+                                String MaHangMauHT;
+                                String MaHang = "", TenHang = "", CongThuc = "", BackGround = "", MauSac = "";
+                                int Heigh = 0, FontSize = 0;
+                                Boolean Bold = false;
+                                Boolean Italic = false;
+                                Boolean Underline = false;
+                                Boolean bTongHangCon = false;
+
+                                MaHangMauHT = Convert.ToString(R["iID_MaHangMau"]);
+                                MaHang = "";
+                                TenHang = Convert.ToString(R["sTenHang"]);
+                                CongThuc = Convert.ToString(R["sCongThuc"]);
+                                BackGround = Convert.ToString(R["sBackGround"]);
+                                MauSac = Convert.ToString(R["sColor"]);
+                                Heigh = Convert.ToInt32(R["iHeight"]);
+                                FontSize = Convert.ToInt32(R["iFontSize"]);
+                                Bold = Convert.ToBoolean(R["bBold"]);
+                                Italic = Convert.ToBoolean(R["bItalic"]);
+                                Underline = Convert.ToBoolean(R["bUnderline"]);
+                                bTongHangCon = Convert.ToBoolean(R["bTongHangCon"]);
+
+                                String tgStyle = "";
+
+                                if (Convert.ToInt16(R["iHeight"]) > 0)
+                                {
+                                    tgStyle += String.Format("height:{0}px;", R["iHeight"]);
+                                }
+                                if (Convert.ToString(R["sBackground"]) != "")
+                                {
+                                    tgStyle += String.Format("background-color:{0};", R["sBackground"]);
+                                }
+                                if (Convert.ToString(R["sColor"]) != "")
+                                {
+                                    tgStyle += String.Format("color: {0};", R["sColor"]);
+                                }
+                                if (Convert.ToInt16(R["iFontSize"]) > 0)
+                                {
+                                    tgStyle += String.Format("font-size:{0}px;", R["iFontSize"]);
+                                }
+                                if (Convert.ToBoolean(R["bBold"]))
+                                {
+                                    tgStyle += String.Format("font-weight:bold;");
+                                }
+                                if (Convert.ToBoolean(R["bItalic"]))
+                                {
+                                    tgStyle += String.Format("font-style:italic;");
+                                }
+                                if (Convert.ToBoolean(R["bUnderline"]))
+                                {
+                                    tgStyle += String.Format("text-decoration:underline;");
+                                }
+
+
+                                String TenDonVi = "";
+                                if (Convert.ToInt32(R["iID_MaDonVi"]) > 0)
+                                {
+                                    cmd = new SqlCommand("SELECT sTen FROM BC_DonVi WHERE iID_MaDonVi=@iID_MaDonVi");
+                                    cmd.Parameters.AddWithValue("@iID_MaDonVi", R["iID_MaDonVi"]);
+                                    TenDonVi = Convert.ToString(Connection.GetValue(cmd, 0));
+                                    cmd.Dispose();
+                                }
+
+
+
+
+                                string urlCreateFast = Url.Action("AddChildRow", "HangMau", new { MaHangMau = R["iID_MaHangMau"], MaPhongBan = MaPhongBan });
+                                string urlCreate = Url.Action("Create", "HangMau", new { MaHangMauCha = R["iID_MaHangMau"], MaPhongBan = MaPhongBan });
+                                string urlUpdateMacha = Url.Action("UpdateMaCha", "HangMau", new { MaHangMau = R["iID_MaHangMau"], MaPhongBan = MaPhongBan });
+                                string urlDetail = Url.Action("Detail", "HangMau", new { MaHangMau = R["iID_MaHangMau"], MaPhongBan = MaPhongBan });
+                                //string urlEdit = Url.Action("dEdit", "HangMau", new { MaHangMau = R["iID_MaHangMau"], MaPhongBan = MaPhongBan });
+                                string urlSort = Url.Action("Sort", new { MaHangMauCha = R["iID_MaHangMau"], MaHangMau = R["iID_MaHangMau"], MaPhongBan = MaPhongBan });
+                                String XauHanhDong = "";
+                                String XauSapXep = "";
+                                if (Convert.ToInt16(R["iID_MaHangMau_ChungHangMauCon"]) < 0)
+                                {
+                                    XauHanhDong += MyHtmlHelper.ActionLink(urlCreateFast, NgonNgu.LayXau("<i class=\"fa fa-plus-square\"></i> Thêm nhanh mục con"), "AddChildRow", "style =\"padding: 2px 7px;\" class=\"btn bg-aqua\"") + "&nbsp;";
+                                    XauHanhDong += MyHtmlHelper.ActionLink(urlCreate, NgonNgu.LayXau("<i class=\"fa fa-plus-square\"></i> Thêm mục con"), "Create", "style =\"padding: 2px 7px;\" class=\"btn bg-orange\"") + "&nbsp;";
+                                }
+                                XauHanhDong += MyHtmlHelper.ActionLink(urlUpdateMacha, NgonNgu.LayXau("<i class=\"fa fa-plus-square\"></i> Cập nhật mã cha"), "UpdateMaCha", "style =\"padding: 2px 7px;\" class=\"btn bg-green\"") + "&nbsp;";
+                                //XauHanhDong += MyHtmlHelper.ActionLink(urlEdit, NgonNgu.LayXau("Sửa"), "Edit", "") + " | ";
+                                XauSapXep =  MyHtmlHelper.ActionLink(urlSort, "<i class=\"fa fa-sort-numeric-asc\"></i> Sắp xếp", "Sort", "style =\"padding: 2px 7px;\" class=\"btn bg-blue\"");
+
+
+                                String strEdit = MyHtmlHelper.ActionLink(Url.Action("dEdit", "HangMau", new { MaHangMau = R["iID_MaHangMau"], MaPhongBan = MaPhongBan }), "<span class=\"badge bg-blue\"><i class=\"fa fa-pencil\"></i></span>", "Edit", "");
+                                String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "HangMau", new { MaHangMau = R["iID_MaHangMau"], MaPhongBan = MaPhongBan }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
+
+
+                                cmd = new SqlCommand("SELECT count(*) FROM BC_HangMau WHERE iID_MaHangMau_Cha=@iID_MaHangMau");
+                                cmd.Parameters.AddWithValue("@iID_MaHangMau", R["iID_MaHangMau"]);
+                                if (Convert.ToInt32(Connection.GetValue(cmd, 0)) > 0)
+                                {
+                                    XauHanhDong += XauSapXep;
+                                }
+                                cmd.Dispose();
+
+                                <tr style="@(MvcHtmlString.Create(tgStyle))" ; width="100%">
+                                    <td>
+                                        @{
+                                            if (arrLaHangCha[i])
+                                            {
+                                                <button id="btn@(i)" onclick="javascript:return AnHienHang('@(i)',1);" style="width:15px">-</button>
+                                            }
+                                            else
+                                            {
+                                                @(MvcHtmlString.Create("&nbsp;"))
+                                            }
+                                        }
+                                    </td>
+                                    <td>@(MaHangMauHT)</td>
+                                    <td>@(MaHang)</td>
+                                    <td><a href="@Url.Action("Index", "HangMau", new {MaHangMauCha = dt.Rows[i]["iID_MaHangMau"], MaPhongBan=MaPhongBan})">@(TenHang)</a></td>
+                                    <td>
+                                        <div id="divCongThuc@(MaHangMauHT)" style="width: 90%; float: left;">
+                                            @(CongThuc)
+                                        </div>
+                                        <div style="width: 10%; float: right;">
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="icon_them" onclick="OpenDialog('@(MaHangMauHT)')">
+                                                @*data-toggle="modal" data-target="#myModal"*@
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td>@(TenDonVi)</td>
+                                    <td align="center">@(MvcHtmlString.Create(MyHtmlHelper.LabelCheckBox("", bTongHangCon.ToString(), "")))</td>
+                                    <td>@MvcHtmlString.Create(XauHanhDong)</td>
+                                    <td>@MvcHtmlString.Create(strEdit)</td>
+                                    <td>@MvcHtmlString.Create(strDelete)</td>
+                                </tr>
+                            }
+                        }
+                        dt.Dispose();
+                    }
+                </table>
+            }
+        }
+    </div>
+</div><!-- /.box-body -->
+<div class="box-footer clearfix">
+    @(MvcHtmlString.Create(MyHtmlHelper.PageLinksAjax(NgonNgu.LayXau("Trang") + ":", CurrentPage, TotalPages, (x, y) => Ajax.ActionLink(y, "Index", "Ajax", new { PartialView = "~/Views/HangMau/Detail.cshtml", OnLoad = ParentID + "_OnLoad", HangMau_page = x, MaHangMauCha = MaHangMauCha, MaPhongBan = MaPhongBan }, new AjaxOptions { }).ToString())))
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @{
+                using (Ajax.BeginForm("Edit_Fast_Submit", "HangMau", new { ParentID = ParentID }, new AjaxOptions { }))
+                {
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">CẬP NHẬT CÔNG THỨC CHO CHỈ TIÊU</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="txtMaHangMau" name="txtMaHangMau" />
+                        <input id="txtCongThuc" name="txtCongThuc" class="form-control" placeholder="Công thức" type="text" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function CallSuccess_CT(CongThuc, MaDiv) {
+        document.getElementById(MaDiv).innerHTML = CongThuc;
+        return false;
+    }
+    function OpenDialog(MaHangMauHT) {
+        var $myModal = $('#myModal');
+        $("#txtMaHangMau").val(MaHangMauHT);
+        var sURL = ServerUrl + "/HangMau/Get_GiaTri_CongThuc?MaHangMau=" + MaHangMauHT;
+        $.ajax({
+            type: 'GET', url: sURL,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                $("#txtCongThuc").val(data);
+            },
+            error: function (data) { alert("Lỗi không lấy được giá trị công thức!") }
+        });
+
+        $myModal.modal({
+            show: true
+        });
+
+        return false;
+    }
+</script>

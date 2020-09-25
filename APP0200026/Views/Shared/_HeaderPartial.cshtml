@@ -1,0 +1,165 @@
+﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using System.Web.UI
+@using System.Drawing
+@using System.IO
+@using DomainModel
+@using DATA0200026
+@using APP0200026.Models
+
+@{
+    String ServerURL = CHamRieng.Get_Domain();
+
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Edit";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+    DataTable dtLanguage = CLanguage.Get_DC_NgonNgu();
+    int iLanguageCount = dtLanguage.Rows.Count;
+    String sTenNgonNgu = CLanguage.Get_Name_NgonNgu(iID_MaNgonNgu);
+
+    String strLogo = "", sTenCongTy = "", sDiaChi = "";
+    DataTable dtCty = CCongTy.Get_Table_Top(1);
+    if (dtCty.Rows.Count > 0)
+    {
+        sTenCongTy = Convert.ToString(dtCty.Rows[0]["sTenCongTy"]);
+        sDiaChi = Convert.ToString(dtCty.Rows[0]["sDiaChi"]);
+
+        if (String.IsNullOrEmpty(Convert.ToString(dtCty.Rows[0]["sLogo"])) == false)
+        {
+            strLogo = dtCty.Rows[0]["sLogo"] != null ? "data:image/jpg;base64," + Convert.ToBase64String((byte[])dtCty.Rows[0]["sLogo"]) : "";
+        }
+    }
+    dtCty.Dispose();
+
+
+    String sUserName = User.Identity.Name;
+    long iMaKhoHang_User = 0;
+    String sMaNhomnguoiDung = CPQ_NGUOIDUNG.LayMaNhomNguoiDung(sUserName);
+    int iTrangThai = 0;
+
+    String sFullName = "", sEmail = "";
+    DataTable dt = CPQ_NGUOIDUNG.Get_One_Table(sUserName);
+    if (dt.Rows.Count > 0)
+    {
+        sFullName = Convert.ToString(dt.Rows[0]["sHoTen"]);
+        sEmail = Convert.ToString(dt.Rows[0]["sEmail"]);
+    }
+    dt.Dispose();
+}
+<header class="main-header">
+    <!-- Logo -->
+    <a href="@Url.Action("Index", "Home")" class="logo" style="background-color: #f4f4f4;">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><img src="@(strLogo)" alt="@(sTenCongTy)" title="@(sTenCongTy)" />    </span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg">
+            <img src="@(strLogo)" style="height: 40px;" alt="@(sTenCongTy)" title="@(sTenCongTy)" />
+        </span>
+    </a>
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <li class="dropdown notifications-menu hidden-xs">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img id="imgLanguage" src="@String.Format("{0}/XML/{1}.gif", ServerURL, Session["LANGUAGECODE"])" alt="@sTenNgonNgu" title="@sTenNgonNgu" />
+                    </a>
+                    <ul class="dropdown-menu" style="height: auto;">
+                        <li class="header">Support @iLanguageCount language</li>
+                        <li>
+                            <ul class="menu" style="height: auto;">
+                                @{
+                                    if (dtLanguage.Rows.Count > 0)
+                                    {
+                                        for (int i = 0; i < dtLanguage.Rows.Count; i++)
+                                        {
+                                            <li>
+                                                <a href="" onclick="return jsBooks_SessionLanguage('@dtLanguage.Rows[i]["iID_MaNgonNgu"]');">
+                                                    <img src="@String.Format("{0}/XML/{1}.gif", ServerURL, dtLanguage.Rows[i]["sCode"].ToString().Trim())" alt="@dtLanguage.Rows[i]["sTen"].ToString()" title="@dtLanguage.Rows[i]["sTen"].ToString()" />&nbsp;&nbsp;@dtLanguage.Rows[i]["sTen"].ToString()
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                    dtLanguage.Dispose();
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                @{
+                    if (Request.IsAuthenticated)
+                    {
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img id="my_image" class="user-image" alt="@User.Identity.Name" src="@(ServerURL)/Content/dist/img/avatar5.png" />
+                                <span class="hidden-xs">&nbsp;</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header" style="height: auto;">
+                                    <img id="my_image_small" class="img-circle" src="@(ServerURL)/Content/dist/img/avatar5.png" alt="@User.Identity.Name" />
+                                    <p><span class="hidden-xs">@User.Identity.Name</span></p>
+                                    <p id="pFullName">Họ tên: @(sFullName)</p>
+                                    <p id="pEmail">Email: @(sEmail)</p>
+                                </li>
+                                <li class="user-footer">
+                                    @*<div class="pull-left">
+                                        <a href="@Url.Action("Logout", "Account")" class="btn btn-default btn-flat">Cài đặt</a>
+                                    </div>*@
+                                    <div class="pull-right">
+                                        @{
+                                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+
+                                                <a class="btn btn-default btn-flat" href="javascript:document.getElementById('logoutForm').submit()">Đăng xuất</a>
+                                            }
+                                        }
+                                        @*<a href="@Url.Action("LogOff", "Account")" class="btn btn-default btn-flat">Đăng xuất</a>*@
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="@Url.Action("Login", "Account")" class="dropdown-toggle">
+                                <i class="fa fa-sign-in"></i>
+                                <span class="hidden-xs">Đăng nhập</span>
+                            </a>
+                        </li>
+                        <li class="dropdown user user-menu">
+                            <a href="@Url.Action("Register", "Account")" class="dropdown-toggle">
+                                <i class="fa fa-user"></i>
+                                <span class="hidden-xs">Đăng ký</span>
+                            </a>
+                        </li>
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,33 @@
+﻿﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using System.Data.SqlClient
+@using DomainModel
+@using DomainModel.Controls
+@using APP0200025.Models
+@{
+    ViewBag.Title = "Error - Mess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+
+    String sMess = Convert.ToString(ViewData["sMess"]);
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">THÔNG TIN CHI TIẾT LỖI HỆ THỐNG</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    @MvcHtmlString.Create(sMess.ToString())
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                </div>
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->

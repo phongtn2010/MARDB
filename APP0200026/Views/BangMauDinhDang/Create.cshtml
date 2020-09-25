@@ -1,0 +1,297 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@using APP0200026.Models
+@using APP0200026.Controllers
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Create";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+    String MaPhongBan = Convert.ToString(ViewData["MaPhongBan"]);
+    String MaBangMau = Convert.ToString(ViewData["MaBangMau"]);
+    String MaHangMau = Convert.ToString(ViewData["MaHangMau"]);
+    String MaCotMau = Convert.ToString(ViewData["MaCotMau"]);
+
+    DataTable dt;
+    String iKieuDuLieu = "-1", iSoSauDauPhay = "", iFontSize = "", sBackGround = "", sColor = "";
+    int bBold = -1, bItalic = -1, bUnderline = -1, iAlignment = -1;
+    SqlCommand cmd;
+
+    cmd = new SqlCommand("SELECT * FROM BC_BangMau_DinhDang WHERE iID_MaBangMau=@iID_MaBangMau AND iID_MaHangMau=@iID_MaHangMau AND iID_MaCotMau=@iID_MaCotMau");
+    cmd.Parameters.AddWithValue("@iID_MaBangMau", MaBangMau);
+    cmd.Parameters.AddWithValue("@iID_MaHangMau", MaHangMau);
+    cmd.Parameters.AddWithValue("@iID_MaCotMau", MaCotMau);
+    DataTable dtDinhDang = Connection.GetDataTable(cmd);
+    cmd.Dispose();
+    if (dtDinhDang.Rows.Count > 0)
+    {
+        if (dtDinhDang.Rows[0]["iKieuDuLieu"] != DBNull.Value) { iKieuDuLieu = Convert.ToString(dtDinhDang.Rows[0]["iKieuDuLieu"]); }
+        if (dtDinhDang.Rows[0]["iSoSauDauPhay"] != DBNull.Value) { iSoSauDauPhay = Convert.ToString(dtDinhDang.Rows[0]["iSoSauDauPhay"]); }
+        if (dtDinhDang.Rows[0]["sBackGround"] != DBNull.Value) { sBackGround = dtDinhDang.Rows[0]["sBackGround"].ToString(); }
+        if (dtDinhDang.Rows[0]["sColor"] != DBNull.Value) { sColor = dtDinhDang.Rows[0]["sColor"].ToString(); }
+        if (dtDinhDang.Rows[0]["iFontSize"] != DBNull.Value) { iFontSize = Convert.ToString(dtDinhDang.Rows[0]["iFontSize"]); }
+        if (dtDinhDang.Rows[0]["bBold"] != DBNull.Value) { bBold = Convert.ToInt32(dtDinhDang.Rows[0]["bBold"]); }
+        if (dtDinhDang.Rows[0]["bItalic"] != DBNull.Value) { bItalic = Convert.ToInt32(dtDinhDang.Rows[0]["bItalic"]); }
+        if (dtDinhDang.Rows[0]["bUnderline"] != DBNull.Value) { bUnderline = Convert.ToInt32(dtDinhDang.Rows[0]["bUnderline"]); }
+        if (dtDinhDang.Rows[0]["iAlignment"] != DBNull.Value) { iAlignment = Convert.ToInt32(dtDinhDang.Rows[0]["iAlignment"]); }
+    }
+    dtDinhDang.Dispose();
+
+    String SQL = "";
+
+    SelectOptionList slDonVi = CDonVi.Get_Dropdown("--- Chọn đơn vị áp dụng! ---");
+    SelectOptionList slPhongBan = CPhongBan.Get_Dropdown("--- Chọn phòng ban! ---");
+    SelectOptionList slLoaiSanPham = CLoaiSanPham.Get_Dropdown("--- Chọn loại sản phẩm! ---");
+}
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                @using (Html.BeginForm("CreateSubmit", "BangMauDinhDang", new { ParentID = ParentID, MaPhongBan = MaPhongBan, MaBangMau = MaBangMau, MaHangMau = MaHangMau, MaCotMau = MaCotMau }))
+                {
+                    <div class="box-header with-border">
+                        <h3 class="box-title">NHẬP THÔNG TIN ĐỊNH DẠNG CHO Ô <span style="color: red">[B@(MaBangMau)_H@(MaHangMau)_C@(MaCotMau)]</span> </h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            @{
+                                                dt = new DataTable();
+                                                dt.Columns.Add("GiaTri", SQL.GetType());
+                                                dt.Columns.Add("HienThi", SQL.GetType());
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[0][0] = "-1";
+                                                dt.Rows[0][1] = "Mặc định";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[1][0] = "0";
+                                                dt.Rows[1][1] = "Kiểu xâu";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[2][0] = "1";
+                                                dt.Rows[2][1] = "Kiểu số";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[3][0] = "2";
+                                                dt.Rows[3][1] = "Kiểu lôgic";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[4][0] = "3";
+                                                dt.Rows[4][1] = "Kiểu ghi chú";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[5][0] = "4";
+                                                dt.Rows[5][1] = "Phút, Giây, Ngày";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[6][0] = "5";
+                                                dt.Rows[6][1] = "Ngày";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[7][0] = "6";
+                                                dt.Rows[7][1] = "Upload File";
+                                                SelectOptionList slKieuDuLieu = new SelectOptionList(dt, "GiaTri", "HienThi");
+                                                dt.Dispose();
+                                            }
+                                            <label for="@(ParentID)_iKieuDuLieu">Kiểu dữ liệu</label>
+                                            @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slKieuDuLieu, Convert.ToString(iKieuDuLieu), "iKieuDuLieu", "", "class=\"form-control\""))
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            @{
+                                                dt = new DataTable();
+                                                dt.Columns.Add("GiaTri", SQL.GetType());
+                                                dt.Columns.Add("HienThi", SQL.GetType());
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[0][0] = "";
+                                                dt.Rows[0][1] = "Giá trị null";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[1][0] = "-1";
+                                                dt.Rows[1][1] = "Mặc định";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[2][0] = "1";
+                                                dt.Rows[2][1] = "1 chữ";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[3][0] = "2";
+                                                dt.Rows[3][1] = "2 chữ";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[4][0] = "3";
+                                                dt.Rows[4][1] = "3 chữ";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[5][0] = "4";
+                                                dt.Rows[5][1] = "4 chữ";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[6][0] = "5";
+                                                dt.Rows[6][1] = "5 chữ";
+                                                SelectOptionList sliSoSauDauPhay = new SelectOptionList(dt, "GiaTri", "HienThi");
+                                                dt.Dispose();
+                                            }
+                                            <label for="@(ParentID)_iID_MaDonVi">Số sau dấu phẩy</label>
+                                            @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, sliSoSauDauPhay, Convert.ToString(iSoSauDauPhay), "iSoSauDauPhay", "", "class=\"form-control\""))
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            @{
+                                                dt = new DataTable();
+                                                dt.Columns.Add("GiaTri", SQL.GetType());
+                                                dt.Columns.Add("HienThi", SQL.GetType());
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[0][0] = "-1";
+                                                dt.Rows[0][1] = "Mặc định";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[1][0] = "0";
+                                                dt.Rows[1][1] = "Trái";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[2][0] = "1";
+                                                dt.Rows[2][1] = "Phải";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[3][0] = "2";
+                                                dt.Rows[3][1] = "Giữa";
+                                                SelectOptionList sliAlignment = new SelectOptionList(dt, "GiaTri", "HienThi");
+                                                dt.Dispose();
+                                            }
+                                            <label for="@(ParentID)_iAlignment">Căn lề dữ liệu ô</label>
+                                            @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, sliAlignment, Convert.ToString(iAlignment), "iAlignment", "", "class=\"form-control\""))
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label for="@(ParentID)_sBackGround">Màu sắc ô</label>
+                                            @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, sBackGround, "sBackGround", "", "type=\"text\" placeholder=\"Màu sắc ô\" class=\"form-control\""))
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label for="@(ParentID)_sColor">Màu sắc chữ của ô</label>
+                                            @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, sColor, "sColor", "", "type=\"text\" placeholder=\"Màu sắc chữ của ô\" class=\"form-control\""))
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label for="@(ParentID)_iFontSize">Kích thước chữ ô</label>
+                                            @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, iFontSize, "iFontSize", "", "type=\"text\" placeholder=\"Kích thước chữ ô\" class=\"form-control\""))
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            @{
+                                                dt = new DataTable();
+                                                dt.Columns.Add("GiaTri", SQL.GetType());
+                                                dt.Columns.Add("HienThi", SQL.GetType());
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[0][0] = "-1";
+                                                dt.Rows[0][1] = "Mặc định";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[1][0] = "0";
+                                                dt.Rows[1][1] = "Chữ thường";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[2][0] = "1";
+                                                dt.Rows[2][1] = "Chữ đậm";
+                                                SelectOptionList slbBold = new SelectOptionList(dt, "GiaTri", "HienThi");
+                                                dt.Dispose();
+                                            }
+                                            <label for="@(ParentID)_bBold">Chữ đậm</label>
+                                            @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slbBold, Convert.ToString(bBold), "bBold", "", "class=\"form-control\""))
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            @{
+                                                dt = new DataTable();
+                                                dt.Columns.Add("GiaTri", SQL.GetType());
+                                                dt.Columns.Add("HienThi", SQL.GetType());
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[0][0] = "-1";
+                                                dt.Rows[0][1] = "Mặc định";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[1][0] = "0";
+                                                dt.Rows[1][1] = "Chữ thường";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[2][0] = "1";
+                                                dt.Rows[2][1] = "Chữ nghiêng";
+                                                SelectOptionList slbItalic = new SelectOptionList(dt, "GiaTri", "HienThi");
+                                                dt.Dispose();
+                                            }
+                                            <label for="@(ParentID)_bItalic">Chữ nghiêng</label>
+                                            @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slbItalic, Convert.ToString(bItalic), "bItalic", "", "class=\"form-control\""))
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            @{
+                                                dt = new DataTable();
+                                                dt.Columns.Add("GiaTri", SQL.GetType());
+                                                dt.Columns.Add("HienThi", SQL.GetType());
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[0][0] = "-1";
+                                                dt.Rows[0][1] = "Mặc định";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[1][0] = "0";
+                                                dt.Rows[1][1] = "Chữ thường";
+                                                dt.Rows.Add(dt.NewRow());
+                                                dt.Rows[2][0] = "1";
+                                                dt.Rows[2][1] = "Chữ gạch chân";
+                                                SelectOptionList slbUnderline = new SelectOptionList(dt, "GiaTri", "HienThi");
+                                                dt.Dispose();
+                                            }
+                                            <label for="@(ParentID)_bUnderline">Gạch chân chữ</label>
+                                            @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slbUnderline, Convert.ToString(bUnderline), "bUnderline", "", "class=\"form-control\""))
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <div class="col-xs-6">
+                            <button class="btn btn-block btn-default" type="submit">Save</button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+@MvcHtmlString.Create(MyHtmlHelper.CheckError(ViewData.ModelState))
+<script type="text/javascript">
+    //<![CDATA[
+    $("#Create_sBackGround").icolor({
+        onSelect: function (c) { this.$tb.css("background-color", c); this.$t.val(c); }
+    });
+    $("#Create_sColor").icolor({
+        onSelect: function (c) { this.$tb.css("background-color", c); this.$t.val(c); }
+    });
+	//]]>
+</script>

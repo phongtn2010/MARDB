@@ -1,0 +1,108 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@using APP0200026.App_Code
+@using APP0200026.Models
+@using APP0200026.Controllers
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Index";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+
+    String MaDonVi = Request.QueryString["MaDonVi"];
+    String MaPhongBan = Convert.ToString(ViewData["MaPhongBan"]);
+    SqlCommand cmd;
+    DataTable dt;
+
+
+    String TenDonVi = ConfigurationManager.AppSettings["TenTongCongTyApDung"];
+    if (String.IsNullOrEmpty(MaDonVi) == false)
+    {
+        cmd = new SqlCommand("SELECT * FROM BC_BangMau WHERE bXemTheoDonVi = 1 AND iMaTrangThai=1 AND iID_MaPhongBan = @iID_MaPhongBan ORDER BY iSTT");
+        cmd.Parameters.AddWithValue("@iID_MaPhongBan", MaPhongBan);
+        dt = Connection.GetDataTable(cmd);
+        String SQL = String.Format("SELECT sTen FROM BC_DonVi WHERE iID_MaDonVi={0}", "'" + MaDonVi + "'");
+        TenDonVi = Connection.GetValueString(SQL, "");
+    }
+    else
+    {
+        cmd = new SqlCommand("SELECT * FROM BC_BangMau WHERE bXemTheoDonVi = 0 AND iMaTrangThai=1 AND iID_MaPhongBan = @iID_MaPhongBan ORDER BY iSTT");
+        cmd.Parameters.AddWithValue("@iID_MaPhongBan", MaPhongBan);
+        dt = Connection.GetDataTable(cmd);
+    }
+    cmd.Dispose();
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">DANH SÁCH BÁO CÁO MẪU CỦA ĐƠN VỊ @(TenDonVi)</h3>
+                    <div class="box-tools">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="@Url.Action("Index", "BangMauGiaTriMacDinh", new { MaPhongBan = MaPhongBan })"><i class="fa fa-plus-square"></i> Giá trị mặc định bảng cho đơn vị</a></li>
+                            <li><a href="@Url.Action("Sort", "BangMau", new { MaPhongBan = MaPhongBan })"><i class="fa fa-sort-numeric-asc"></i> @Lang["ChucNang_Item04"].ToString()</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <tr>
+                                <th style="width: 2%; text-align: center;">STT</th>
+                                <th>Tên bảng mẫu</th>
+                                <th style="width: 20%;">Chức năng</th>
+                            </tr>
+                            @{
+                                if (dt.Rows.Count > 0)
+                                {
+                                    int i;
+                                    DataRow R;
+                                    for (i = 0; i < dt.Rows.Count; i++)
+                                    {
+                                        R = dt.Rows[i];
+
+                                        int iSTT = i + 1;
+
+                                        <tr>
+                                            <td style="text-align: center;">@iSTT.ToString()</td>
+                                            <td>@R["sTenBang"].ToString()</td>
+                                            <td>
+                                                <a href="@Url.Action("Edit", "BangMauGiaTriMacDinh", new { MaDonVi = MaDonVi, MaBangMau = R["iID_MaBangMau"], MaPhongBan = MaPhongBan })"><span class="badge bg-blue"><i class="fa fa-pencil"></i></span> Tạo chỉ giá trị mặc định cho báo cáo</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                dt.Dispose();
+                            }
+                        </table>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix"></div>
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
