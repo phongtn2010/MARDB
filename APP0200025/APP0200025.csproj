@@ -221,6 +221,7 @@
     <Compile Include="Controllers\PublicController.cs" />
     <Compile Include="Controllers\Shared\AjaxController.cs" />
     <Compile Include="Controllers\Shared\NhapNhanhController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TinhController.cs" />
     <Compile Include="Controllers\VungController.cs" />
     <Compile Include="Global.asax.cs">
@@ -2891,6 +2892,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Libraries\CongThuc\" />
     <Folder Include="Views\Public\" />
+    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
