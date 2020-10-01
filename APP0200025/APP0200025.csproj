@@ -212,6 +212,7 @@
     <Compile Include="Controllers\BaoMat\NguoiDungController.cs" />
     <Compile Include="Controllers\BaoMat\NhomNguoiDungController.cs" />
     <Compile Include="Controllers\BaoMat\TruongCamController.cs" />
+    <Compile Include="Controllers\DangKyController.cs" />
     <Compile Include="Controllers\DonViController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2845,6 +2846,16 @@
     <Content Include="Views\Vung\Edit.cshtml" />
     <Content Include="Views\Vung\Index.cshtml" />
     <Content Include="Views\Vung\Sort.cshtml" />
+    <Content Include="Views\Partial\Partial_ThongTinHoSo.cshtml" />
+    <Content Include="Views\DangKy\Edit.cshtml" />
+    <Content Include="Views\Partial\Partial_BenBanHang.cshtml" />
+    <Content Include="Views\Partial\Partial_BenMuaHang.cshtml" />
+    <Content Include="Views\Partial\Partial_DanhSachTACN.cshtml" />
+    <Content Include="Views\Partial\Partial_FileDinhKem.cshtml" />
+    <Content Include="Views\Partial\Partial_ThongTinLienHe.cshtml" />
+    <Content Include="Views\Partial\Partial_ThongTinLayMauKiemTra.cshtml" />
+    <Content Include="Views\Partial\Partial_ThongTinKyHoSoDoanhNghiep.cshtml" />
+    <Content Include="Views\Partial\Partial_ThongTinChiTietTACN.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
