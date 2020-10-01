@@ -1,0 +1,30 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@{
+    Layout = null;
+    string ParentID = "Edit";
+}
+
+<div class="box-header with-border">
+    <h3 class="box-title">Danh sách TACN</h3>
+
+</div><!-- /.box-header -->
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="form-group">
+                <label for="">Tên TACN:</label>
+                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, clDanhMuc.GetDDL(clLoaiDanhMuc.LoaiHinhThucKiemTra), "", "", "", "type=\"text\" class=\"form-control\""))
+
+            </div>
+        </div>
+    </div>
+    @{Html.RenderPartial("~/Views/Partial/Partial_ThongTinChiTietTACN.cshtml");}
+
+</div>

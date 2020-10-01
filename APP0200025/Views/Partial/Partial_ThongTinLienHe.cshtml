@@ -1,0 +1,52 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@{
+    Layout = null;
+    string ParentID = "Edit";
+}
+
+<div class="box-header with-border">
+    <h3 class="box-title">Thông tin liên hệ</h3>
+
+</div><!-- /.box-header -->
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Người liên hệ</label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Số điện thoại<span style="color: red;">&nbsp;*</span></label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Argentina", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Địa chỉ</label>
+
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Số 1", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Email<span style="color: red;">&nbsp;*</span></label>
+
+                @MvcHtmlString.Create(MyHtmlHelper.Label("0909837475", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,45 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@{
+    Layout = null;
+    string ParentID = "Edit";
+}
+
+<div class="box-header with-border">
+    <h3 class="box-title">Thông tin lấy mẫu kiểm tra</h3>
+
+</div><!-- /.box-header -->
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Địa điểm tập kết hàng</label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Ngày đăng ký lấy mẫu kiểm tra<span style="color: red;">&nbsp;*</span></label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Argentina", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Địa điểm đăng ký lấy mẫu kiểm tra</label>
+
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Số 1", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+            </div>
+        </div>
+     
+    </div>
+</div>

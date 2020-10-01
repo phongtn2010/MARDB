@@ -1,0 +1,43 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@{
+    Layout = null;
+    string ParentID = "Edit";
+}
+
+<div class="box-header with-border">
+    <h3 class="box-title">Thông tin ký hồ sơ (Doanh nghiệp)</h3>
+
+</div><!-- /.box-header -->
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label for="">Nơi ký</label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label for="">Ngày ký<span style="color: red;">&nbsp;*</span></label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Argentina", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label for="">Người ký<span style="color: red;">&nbsp;*</span></label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Argentina", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+
+            </div>
+        </div>
+    </div>
+
+</div>

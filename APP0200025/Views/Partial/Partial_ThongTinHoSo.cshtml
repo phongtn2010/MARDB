@@ -1,0 +1,62 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@{
+    Layout = null;
+    string ParentID = "Edit";
+}
+
+<div class="box-header with-border">
+    <h3 class="box-title">Thông tin hồ sơ</h3>
+
+</div><!-- /.box-header -->
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Mã hồ sơ</label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Trạng thái hồ sơ<span style="color: red;">&nbsp;*</span></label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Ngày tạo</label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Loại hình thức kiểm tra<span style="color: red;">&nbsp;*</span></label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Mã hồ sơ được thay thế</label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="">Số GĐK được thay thế<span style="color: red;">&nbsp;*</span></label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+            </div>
+        </div>
+    </div>
+
+</div>
