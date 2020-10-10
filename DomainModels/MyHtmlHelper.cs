@@ -276,6 +276,42 @@ namespace DomainModel
         {
             return LabelForDropDownList(Options, data, TenTruong, null, null);
         }
+        public static string LabelForDropDownList(SelectOptionList Options, object Value, string TenTruong, string DanhSachTruongCam, string Attributes)
+        {
+            string sR = "";
+            // object Value = value;
+            string sGiaTri = "";
+
+            if (BaoMat.ChoPhepNhap(TenTruong, DanhSachTruongCam))
+            {
+                int i;
+                DataTable dt = Options.dtData;
+                string DisplayMember = Options.DisplayMember.ToString();
+                string ValueMember = Options.ValueMember.ToString();
+
+                for (i = 0; i <= dt.Rows.Count - 1; i++)
+                {
+                    if (Value != null && dt.Rows[i][ValueMember].ToString() == Value.ToString())
+                    {
+                        sGiaTri = dt.Rows[i][DisplayMember].ToString();
+                    }
+                }
+            }
+            else
+            {
+                sGiaTri = "*";
+            }
+            sR = String.Format("<span id=\"{0}\" name=\"{0}\" {1}>{2}</span>", TenTruong, Attributes, sGiaTri);
+            return sR;
+        }
+        public static string LabelForDropDownList(SelectOptionList Options, object Value, string TenTruong, string DanhSachTruongCam)
+        {
+            return LabelForDropDownList(Options, Value, TenTruong, DanhSachTruongCam, null);
+        }
+        public static string LabelForDropDownList(SelectOptionList Options, object Value, string TenTruong)
+        {
+            return LabelForDropDownList(Options, Value, TenTruong, null, null);
+        }
         #endregion
 
         #region "DropDownList"

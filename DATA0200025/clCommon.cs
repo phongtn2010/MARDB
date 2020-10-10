@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DomainModel;
-using Dapper;
 using DATA0200025.Models;
-
+using Dapper;
 namespace DATA0200025
 {
     public class clCommon
@@ -48,7 +47,7 @@ namespace DATA0200025
             {
                 string SQL = @"SELECT *  FROM CNN25_TrangThai 
                             WHERE iID_MaTrangThai=@iID_MaTrangThai";
-                    TrangThaiModels results = connect.Query<TrangThaiModels>(SQL,new {iID_MaTrangThai = iID_MaTrangThai}).FirstOrDefault();
+                TrangThaiModels results = connect.Query<TrangThaiModels>(SQL, new { iID_MaTrangThai = iID_MaTrangThai }).FirstOrDefault();
                 return results;
             }
         }

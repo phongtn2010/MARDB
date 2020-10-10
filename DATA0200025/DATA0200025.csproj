@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper">
-      <HintPath>..\..\..\..\..\TMT\Fast14\Fast14\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+      <HintPath>..\..\..\..\..\TMT\Fast14\Fast14\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -75,9 +75,11 @@
     <Compile Include="CLanguage.cs" />
     <Compile Include="clCommon.cs" />
     <Compile Include="clDanhMuc.cs" />
+    <Compile Include="clHoSo.cs" />
     <Compile Include="clLoaiDanhMuc.cs" />
     <Compile Include="CLoaiBaoCao.cs" />
     <Compile Include="CLoaiSanPham.cs" />
+    <Compile Include="clTrangThai.cs" />
     <Compile Include="CMenu.cs" />
     <Compile Include="CMien.cs" />
     <Compile Include="CPhongBan.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Models\TrangThaiModels.cs" />
     <Compile Include="MoKyCacBang.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchModels\sHoSoModels.cs" />
     <Compile Include="WordActionResult.cs" />
   </ItemGroup>
   <ItemGroup>
