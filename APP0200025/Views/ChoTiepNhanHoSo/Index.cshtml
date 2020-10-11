@@ -64,7 +64,7 @@
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
     String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoTiepNhanHoSo", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
-   // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
+    // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 }
 <!-- Main content -->
 <section class="content">
@@ -85,32 +85,32 @@
                         <div class="form-group">
                             <label for="inputEmail3" class="col-xs-1 control-label">Mã hồ sơ</label>
                             <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, _TieuDe, "sMaHoSo", "", "placeholder=\"Mã hồ sơ\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaHoSo", "", "placeholder=\"Mã hồ sơ\" type=\"text\" class=\"form-control\""))
                             </div>
                             <label for="inputEmail3" class="col-xs-1 control-label">Tên doanh nghiệp</label>
                             <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, _TieuDe, "sTenDoanhNghiep", "", "placeholder=\"Tên doanh nghiệp\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"Tên doanh nghiệp\" type=\"text\" class=\"form-control\""))
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="inputEmail3" class="col-xs-1 control-label">Tên TACN</label>
                             <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, _TieuDe, "sTenTACN", "", "placeholder=\"Tên TACN\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenTACN, "sTenTACN", "", "placeholder=\"Tên TACN\" type=\"text\" class=\"form-control\""))
                             </div>
                             <label for="inputEmail3" class="col-xs-1 control-label">Mã số thuế</label>
                             <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, _TieuDe, "sMaSoThue", "", "placeholder=\"Mã số thuế\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaSoThue", "", "placeholder=\"Mã số thuế\" type=\"text\" class=\"form-control\""))
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-1 control-label">Từ ngày</label>
                             <div class="col-xs-2">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, _FromDate, "FromDate", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.FromDate, "FromDate", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
                             </div>
                             <div class="col-sm-2">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, _ToDate, "ToDate", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.ToDate, "ToDate", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
                             </div>
                         </div>
 
@@ -137,11 +137,11 @@
                 <div class="box-header">
                     <h3 class="box-title">Danh sách hồ sơ</h3>
                     @*<div class="box-tools">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                    <li><a href="@Url.Action("Edit", "ChoTiepNhanHoSo")"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
-                    <li><a href="@Url.Action("Sort", "ChoTiepNhanHoSo")"><i class="fa fa-sort-numeric-asc"></i> @Lang["ChucNang_Item04"].ToString()</a></li>
-                </ul>
-            </div>*@
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="@Url.Action("Edit", "ChoTiepNhanHoSo")"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
+                                <li><a href="@Url.Action("Sort", "ChoTiepNhanHoSo")"><i class="fa fa-sort-numeric-asc"></i> @Lang["ChucNang_Item04"].ToString()</a></li>
+                            </ul>
+                        </div>*@
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                     <div class="table-responsive">
@@ -168,7 +168,7 @@
                                         r = dt.Rows[i];
 
                                         String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
-                                        String strView = MyHtmlHelper.ActionLink(Url.Action("Delete", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Delete", "");
+                                        String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                         String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
                                         String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
 
@@ -181,9 +181,13 @@
                                             <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
                                             <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
                                             <td class="head-td-icon">@MvcHtmlString.Create(strEdit)</td>
-                                            <td class="head-td-icon">@MvcHtmlString.Create(strYeuCauBoXung)</td>
+                                            <td class="head-td-icon">
+                                                <a class="btnyeucaubosung" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
+                                                    <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
+                                                </a>
+                                            </td>
                                             <td class="head-td-icon">@MvcHtmlString.Create(strTuChoi)</td>
-                                            <td style="width: 10px;" title="người xem">tuann</td>
+                                            <td style="width: 10px;" title="người xem">@r["sTenNguoiTiepNhan"]</td>
                                         </tr>
                                     }
                                 }
@@ -196,8 +200,9 @@
                     @MvcHtmlString.Create(strPhanTrang)
                 </div>
                 @*<div class="box-footer clearfix">
-        </div>*@
+                    </div>*@
             </div>
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
+@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}

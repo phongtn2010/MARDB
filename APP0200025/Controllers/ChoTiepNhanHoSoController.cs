@@ -7,13 +7,16 @@ namespace APP0200025.Controllers
     public class ChoTiepNhanHoSoController : Controller
     {
         // GET: ChoTiepNhanHoSo
-        public ActionResult Index()
+        public ActionResult Index(sHoSoModels models)
         {
-            var models = new sHoSoModels
+            if (models == null)
             {
-                Page = 1,
-                PageSize = Globals.PageSize
-            };
+                models = new sHoSoModels
+                {
+                    Page = 1,
+                    PageSize = Globals.PageSize
+                };
+            }
             return View(models);
         }
 
@@ -21,14 +24,14 @@ namespace APP0200025.Controllers
         public ActionResult Search(string ParentID)
         {
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
-            string _sTenDoanhNgiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNgiep"]);
+            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
             string _FromDate = CString.SafeString(Request.Form[ParentID + "_viFromDate"]);
             string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
             sHoSoModels models = new sHoSoModels
             {
                 sMaHoSo = _sMaHoSo,
-                sTenDoanhNghiep = _sTenDoanhNgiep,
+                sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
                 FromDate = _FromDate,
                 ToDate = _ToDate
