@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper">
-      <HintPath>..\..\..\..\..\TMT\Fast14\Fast14\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
+      <HintPath>..\packages\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -94,6 +94,8 @@
     <Compile Include="DongMoKyBaoCaoModels.cs" />
     <Compile Include="HamRiengModels.cs" />
     <Compile Include="HangMauModels.cs" />
+    <Compile Include="Models\DoiTuongModels.cs" />
+    <Compile Include="Models\HanhDongModels.cs" />
     <Compile Include="Models\TrangThaiModels.cs" />
     <Compile Include="MoKyCacBang.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
