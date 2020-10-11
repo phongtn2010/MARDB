@@ -62,5 +62,27 @@ namespace DATA0200025
                 return results;
             }
         }
+
+        public static DoiTuongModels GetDoiTuongById(int iID_MaDoiTuong)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN25_DoiTuong 
+                            WHERE iID_MaDoiTuong=@iID_MaDoiTuong";
+                DoiTuongModels results = connect.Query<DoiTuongModels>(SQL, new { iID_MaDoiTuong = iID_MaDoiTuong }).FirstOrDefault();
+                return results;
+            }
+        }
+
+        public static HanhDongModels GetHanhDongById(int iID_MaHanhDong)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN25_HanhDong
+                            WHERE iID_MaHanhDong=@iID_MaHanhDong";
+                HanhDongModels results = connect.Query<HanhDongModels>(SQL, new { iID_MaHanhDong = iID_MaHanhDong }).FirstOrDefault();
+                return results;
+            }
+        }
     }
 }
