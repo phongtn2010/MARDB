@@ -2720,6 +2720,7 @@
     <Content Include="ScriptsERP\jsBang_KeyTable.js" />
     <Content Include="ScriptsERP\jsBSC.js" />
     <Content Include="ScriptsERP\jsBTS.js" />
+    <Content Include="ScriptsERP\jsChoTiepNhanHoSo.js" />
     <Content Include="ScriptsERP\jsControl.js" />
     <Content Include="ScriptsERP\jsDate.js" />
     <Content Include="ScriptsERP\jsDialogs.js" />
@@ -2862,6 +2863,7 @@
     <Content Include="Views\Partial\Partial_ThongTinKyHoSoDoanhNghiep.cshtml" />
     <Content Include="Views\Partial\Partial_ThongTinChiTietTACN.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\Index.cshtml" />
+    <Content Include="Views\ChoTiepNhanHoSo\Partial_Model_YeuCauBoSung.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
