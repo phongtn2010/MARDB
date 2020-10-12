@@ -187,11 +187,15 @@
                                             <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
                                             <td class="head-td-icon">@MvcHtmlString.Create(strEdit)</td>
                                             <td class="head-td-icon">
-                                                <a class="btnyeucaubosung" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
+                                                <a class="openyeucaubosung" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
                                                     <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
                                                 </a>
                                             </td>
-                                            <td class="head-td-icon">@MvcHtmlString.Create(strTuChoi)</td>
+                                            <td class="head-td-icon">
+                                                <a class="opentuchoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
+                                                    <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
+                                                </a>
+                                            </td>
                                             <td style="width: 10px;" title="người xem">@r["sTenNguoiTiepNhan"]</td>
                                         </tr>
                                     }
@@ -211,4 +215,5 @@
     </div><!-- /.row -->
 </section><!-- /.content -->
 @{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}
+@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_TuChoi.cshtml");}
 <script src="~/ScriptsERP/jsChoTiepNhanHoSo.js"></script>
