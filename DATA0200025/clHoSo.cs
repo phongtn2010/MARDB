@@ -13,6 +13,18 @@ namespace DATA0200025
 {
    public class clHoSo
     {
+
+
+        public static HoSoModels GetHoSoById(int iID_MaHoSo)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN25_HoSo 
+                            WHERE iID_MaHoSo=@iID_MaHoSo";
+                HoSoModels results = connect.Query<HoSoModels>(SQL, new { iID_MaHoSo = iID_MaHoSo }).FirstOrDefault();
+                return results;
+            }
+        }
         public static int GetCount(sHoSoModels models)
         {
             SqlCommand cmd = new SqlCommand();
