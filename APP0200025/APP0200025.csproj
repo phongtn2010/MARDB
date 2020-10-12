@@ -47,9 +47,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\TMT\Fast14\Fast14\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
+    <Reference Include="Dapper">
+      <HintPath>..\packages\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="FlexCel">
       <HintPath>..\packages\FlexCel\FlexCel.dll</HintPath>
@@ -2743,6 +2742,7 @@
     <Content Include="Scripts\jquery.fixedtableheader.min.js" />
     <Content Include="Scripts\jquery.icolor.min.js" />
     <Content Include="Scripts\jquery.jeditable.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -2864,6 +2864,9 @@
     <Content Include="Views\Partial\Partial_ThongTinChiTietTACN.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\Index.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\Partial_Model_YeuCauBoSung.cshtml" />
+    <Content Include="Views\ChoTiepNhanHoSo\TiepNhanHoSo.cshtml" />
+    <Content Include="Views\ChoTiepNhanHoSo\YeuCauBoXung.cshtml" />
+    <Content Include="Views\ChoTiepNhanHoSo\TuChoiHoSo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
