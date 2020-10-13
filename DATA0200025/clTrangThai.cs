@@ -46,14 +46,15 @@ namespace DATA0200025
 
             return vR;
         }
-        public static TrangThaiModels GetTrangThaiModelsTiepTheo(int iID_MaDoiTuong, int iID_MaHanhDong, int iID_MaTrangThaiTruoc)
+
+        public static TrangThaiModels GetTrangThaiModelsTiepTheo(int iID_MaDoiTuong, int iID_MaHanhDong, int iID_MaTrangThai,int iID_MaTrangThaiTruoc)
         {
-            int iID_MaTrangThai = GetTrangThaiIdTiepTheo(iID_MaDoiTuong, iID_MaHanhDong, iID_MaTrangThaiTruoc);
+            int TrangThai = GetTrangThaiIdTiepTheo(iID_MaDoiTuong, iID_MaHanhDong, iID_MaTrangThai, iID_MaTrangThaiTruoc);
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {
                 string SQL = @"SELECT *  FROM CNN25_TrangThai 
                             WHERE iID_MaTrangThai=@iID_MaTrangThai";
-                TrangThaiModels results = connect.Query<TrangThaiModels>(SQL, new { iID_MaTrangThai = iID_MaTrangThai }).FirstOrDefault();
+                TrangThaiModels results = connect.Query<TrangThaiModels>(SQL, new { iID_MaTrangThai = TrangThai }).FirstOrDefault();
                 return results;
             }
         }
