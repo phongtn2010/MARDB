@@ -11,7 +11,7 @@ using DATA0200025.SearchModels;
 using Dapper;
 namespace DATA0200025
 {
-   public class clHoSo
+    public class clHoSo
     {
 
 
@@ -29,7 +29,7 @@ namespace DATA0200025
         {
             SqlCommand cmd = new SqlCommand();
             string DK = "1=1";
-            if(!string.IsNullOrEmpty(models.sMaHoSo))
+            if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
                 DK += " AND sMaHoSo=@sMaHoSo";
                 cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
@@ -48,7 +48,7 @@ namespace DATA0200025
             if (!string.IsNullOrEmpty(models.FromDate))
             {
                 DK += " AND dNgayTaoHoSo >= @dTuNgay";
-                cmd.Parameters.AddWithValue("@dTuNgay",  models.FromDate );
+                cmd.Parameters.AddWithValue("@dTuNgay", models.FromDate);
             }
             if (!string.IsNullOrEmpty(models.ToDate))
             {
@@ -61,14 +61,19 @@ namespace DATA0200025
             cmd.Dispose();
             return vR;
         }
-        public static DataTable GetDataTable(sHoSoModels  models, int page, int numrecord)
+        public static DataTable GetDataTable(sHoSoModels models, int page, int numrecord)
         {
             SqlCommand cmd = new SqlCommand();
             string DK = "1=1";
-           if (!string.IsNullOrEmpty(models.sMaHoSo))
+            if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
                 DK += " AND sMaHoSo=@sMaHoSo";
                 cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
+            }
+            if (models.iID_MaTrangThai != 0)
+            {
+                DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
             }
             if (!string.IsNullOrEmpty(models.sMaSoThue))
             {
