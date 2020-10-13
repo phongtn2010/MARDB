@@ -34,12 +34,8 @@ namespace APP0200025.Controllers
             //{
             //    return RedirectToAction("Index", "PermitionMessage");
             //}
+
             ViewData["DuLieuMoi"] = "0";
-            if (string.IsNullOrEmpty(iID_MaHoSo))
-            {
-                ViewData["DuLieuMoi"] = "1";
-            }
-            ViewData["iID_MaPhongBan"] = CString.SafeString(iID_MaHoSo);
             ViewData["smenu"] = 187;
             HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
             return View(models);
@@ -62,12 +58,18 @@ namespace APP0200025.Controllers
         /// <param name="MaHoSo"></param>
         /// <returns></returns>
         [Authorize, ValidateInput(false), HttpPost]
-        public ActionResult TiepNhanHoSo(String ParentID, String MaHoSo)
+        public ActionResult TiepNhanHoSo(String ParentID)
         {
-           
+            string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+            int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua,(int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
-            bang.TruyenGiaTri(ParentID, Request.Form);
+            bang.TruyenGiaTri(ParentID, Request.Form); 
+            bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
+            bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
             bang.Save();
             return RedirectToAction("Index");
         }
@@ -119,7 +121,7 @@ namespace APP0200025.Controllers
                 }
             }
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
-            int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua,(int)clHanhDong.HanhDong.YeuCauBoSungHoSo,hoSo.iID_MaTrangThai);
+            int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua,(int)clHanhDong.HanhDong.YeuCauBoSungHoSo,hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
@@ -175,7 +177,7 @@ namespace APP0200025.Controllers
                 }
             }
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
-            int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, hoSo.iID_MaTrangThai);
+            int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);

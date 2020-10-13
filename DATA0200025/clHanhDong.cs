@@ -16,7 +16,7 @@ namespace DATA0200025
             UpLoadBaoCao = 4,
             TuChoiHoSo = 5,
             YeuCauBoSungHoSo = 6,
-            TrinhLanhDaoPhong=7,
+            DongYSoanPhuLucTrinhLanhDaoPhong=7,
             TuChoiCapGDK=8,
             ThuHoiVaXuLyLai=9,
             DongYYeuCauBoSung=10,

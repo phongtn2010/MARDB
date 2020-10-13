@@ -26,10 +26,10 @@ namespace DATA0200025
             cmd.Parameters.AddWithValue("@sMessageType", sMessageType);
             cmd.Parameters.AddWithValue("@sMessageFunction", sMessageFunction);
             vR = Convert.ToInt32(Connection.GetValue(cmd, 0, CThamSo.iKetNoi));
-            cmd.Dispose();
+            cmd.Dispose();         
             return vR;
         }
-        public static int GetTrangThaiIdTiepTheo(int iID_MaDoiTuong, int iID_MaHanhDong, int iID_MaTrangThaiTruoc)
+        public static int GetTrangThaiIdTiepTheo(int iID_MaDoiTuong, int iID_MaHanhDong, int iID_MaTrangThai,int iID_MaTrangThaiTruoc)
         {
             int vR = 0;
             string SQL = @"SELECT iID_MaTrangThaiSau FROM CNN25_ChuyenTrangThai 
@@ -38,9 +38,12 @@ namespace DATA0200025
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@iID_MaDoiTuong", iID_MaDoiTuong);
             cmd.Parameters.AddWithValue("@iID_MaHanhDong", iID_MaHanhDong);
-            cmd.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", iID_MaTrangThaiTruoc);
+            cmd.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", iID_MaTrangThai);
             vR = Convert.ToInt32(Connection.GetValue(cmd, 0, CThamSo.iKetNoi));
             cmd.Dispose();
+            //sw dụng khi Chuyên viên	10,11,12	Thu hồi và xử lý lại Trở lại mã trạng thái hồ sơ trước đó (7,14,16,18,23)
+            if (vR == -1) return iID_MaTrangThaiTruoc;
+
             return vR;
         }
         public static TrangThaiModels GetTrangThaiModelsTiepTheo(int iID_MaDoiTuong, int iID_MaHanhDong, int iID_MaTrangThaiTruoc)
