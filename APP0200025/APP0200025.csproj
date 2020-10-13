@@ -2722,6 +2722,7 @@
     <Content Include="ScriptsERP\jsBSC.js" />
     <Content Include="ScriptsERP\jsBTS.js" />
     <Content Include="ScriptsERP\jsChoTiepNhanHoSo.js" />
+    <Content Include="ScriptsERP\jsChuyenVien.js" />
     <Content Include="ScriptsERP\jsControl.js" />
     <Content Include="ScriptsERP\jsDate.js" />
     <Content Include="ScriptsERP\jsDialogs.js" />
@@ -2873,6 +2874,9 @@
     <Content Include="Views\ChoTiepNhanHoSo\Detail.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\Partial_Detail.cshtml" />
     <Content Include="Views\ChuyenVien\Index.cshtml" />
+    <Content Include="Views\ChuyenVien\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\ChuyenVien\Partial_Model_YeuCauBoSung.cshtml" />
+    <Content Include="Views\ChuyenVien\Partial_Model_TiepNhanGDK.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
