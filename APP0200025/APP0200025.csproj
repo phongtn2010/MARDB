@@ -47,8 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper">
-      <HintPath>..\..\..\..\..\TMT\Fast14\Fast14\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="FlexCel">
       <HintPath>..\packages\FlexCel\FlexCel.dll</HintPath>
@@ -216,6 +217,7 @@
     <Compile Include="Controllers\BaoMat\NhomNguoiDungController.cs" />
     <Compile Include="Controllers\BaoMat\TruongCamController.cs" />
     <Compile Include="Controllers\ChoTiepNhanHoSoController.cs" />
+    <Compile Include="Controllers\ChuyenVienController.cs" />
     <Compile Include="Controllers\DangKyController.cs" />
     <Compile Include="Controllers\DonViController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
@@ -2870,6 +2872,7 @@
     <Content Include="Views\ChoTiepNhanHoSo\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\Detail.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\Partial_Detail.cshtml" />
+    <Content Include="Views\ChuyenVien\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
