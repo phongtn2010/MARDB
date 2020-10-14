@@ -65,7 +65,8 @@ namespace APP0200025.Controllers
             int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua,(int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
-            bang.TruyenGiaTri(ParentID, Request.Form); 
+            bang.TruyenGiaTri(ParentID, Request.Form);
+            bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", User.Identity.Name);
             bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
             bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
