@@ -66,7 +66,7 @@ namespace APP0200025.Controllers
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
-            bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", User.Identity.Name);
+            bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
             bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
             bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
