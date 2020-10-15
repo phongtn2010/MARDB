@@ -89,7 +89,7 @@ namespace APP0200025.Controllers
             NameValueCollection values = new NameValueCollection();
             HttpFileCollectionBase files = Request.Files;
             string sTenNguoiTiepNhan = CString.SafeString(Request.Form[ParentID + "_sNoiDung"]);
-            string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "iID_MaHoSo"]);
+            string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
             if (string.IsNullOrEmpty(sTenNguoiTiepNhan))
             {
                 values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
@@ -145,7 +145,7 @@ namespace APP0200025.Controllers
             NameValueCollection values = new NameValueCollection();
             HttpFileCollectionBase files = Request.Files;
             string sTenNguoiTiepNhan = CString.SafeString(Request.Form[ParentID + "_sNoiDung"]);
-            string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "iID_MaHoSo"]);
+            string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
             if (string.IsNullOrEmpty(sTenNguoiTiepNhan))
             {
                 values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
