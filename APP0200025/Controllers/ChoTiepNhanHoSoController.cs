@@ -31,14 +31,15 @@ namespace APP0200025.Controllers
         }
         public ActionResult Detail(string iID_MaHoSo)
         {
-            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, "BC_PhongBan", "Edit") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
             //{
             //    return RedirectToAction("Index", "PermitionMessage");
             //}
-
-            ViewData["DuLieuMoi"] = "0";
+            clHoSo.UpdateNguoiXem(iID_MaHoSo, User.Identity.Name);
+             ViewData["DuLieuMoi"] = "0";
             ViewData["smenu"] = 187;
             HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+       
             return View(models);
         }
         /// <summary>
@@ -69,10 +70,12 @@ namespace APP0200025.Controllers
             bang.TruyenGiaTri(ParentID, Request.Form);
             bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
             bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
+            bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
             bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
             bang.Save();
+            clHoSo.CleanNguoiXem(iID_MaHoSo);
             return RedirectToAction("Index");
         }
         /// <summary>
@@ -132,6 +135,7 @@ namespace APP0200025.Controllers
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
             bang.Save();
+            clHoSo.CleanNguoiXem(iID_MaHoSo);
             clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, "Yêu cầu bổ sung hồ sơ", sFileTemp, iTrangThaiTiepTheo);
             return RedirectToAction("Index");
         }
@@ -186,10 +190,21 @@ namespace APP0200025.Controllers
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
+            bang.DuLieuMoi = false;
+            bang.GiaTriKhoa = iID_MaHoSo;
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
             bang.Save();
+            clHoSo.CleanNguoiXem(iID_MaHoSo);
             clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, "Yêu cầu bổ sung hồ sơ", sFileTemp, iTrangThaiTiepTheo);
             return RedirectToAction("Index");
+        }
+
+        public JsonResult Thoat(string iID_MaHoSo)
+        {
+           ResultModels result= clHoSo.CleanNguoiXem(iID_MaHoSo);
+            result.value = Url.Action("Index");
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID)
@@ -201,11 +216,12 @@ namespace APP0200025.Controllers
             string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
             sHoSoModels models = new sHoSoModels
             {
+                LoaiDanhSach=1,
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
-                FromDate = _FromDate,
-                ToDate = _ToDate
+                TuNgayDen = _FromDate,
+                DenNgayDen = _ToDate
             };
             return RedirectToAction("Index", models);
         }

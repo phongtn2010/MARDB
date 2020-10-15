@@ -65,7 +65,7 @@ namespace APP0200025.Controllers
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
-            bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
+           // bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
             bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
             bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
@@ -125,7 +125,10 @@ namespace APP0200025.Controllers
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
+            bang.DuLieuMoi = false;
+            bang.GiaTriKhoa = iID_MaHoSo;
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
             bang.Save();
             clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, "Yêu cầu bổ sung hồ sơ", sFileTemp, iTrangThaiTiepTheo);
             return RedirectToAction("Index");
@@ -181,9 +184,12 @@ namespace APP0200025.Controllers
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
+            bang.DuLieuMoi = false;
+            bang.GiaTriKhoa = iID_MaHoSo;
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
             bang.Save();
-            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, "Yêu cầu bổ sung hồ sơ", sFileTemp, iTrangThaiTiepTheo);
+            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, "Từ chối hồ sơ", sFileTemp, iTrangThaiTiepTheo);
             return RedirectToAction("Index");
         }
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
@@ -199,8 +205,8 @@ namespace APP0200025.Controllers
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
-                FromDate = _FromDate,
-                ToDate = _ToDate
+                TuNgayDen = _FromDate,
+                DenNgayDen = _ToDate
             };
             return RedirectToAction("Index", models);
         }

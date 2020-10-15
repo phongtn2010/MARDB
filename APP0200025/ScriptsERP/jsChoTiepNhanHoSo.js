@@ -68,3 +68,20 @@ $(function () {
         return false;
     });
 });
+
+$(function () {
+    $("body").on("click", "#btnThoat", function () {
+        var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
+        $.ajax({
+            url: '/ChoTiepNhanHoSo/Thoat',
+            type: 'POST',
+            data: { iID_MaHoSo: iID_MaHoSo},
+            success: function (response) {
+                debugger;
+                if (response.success) {
+                    location.href = response.value;
+                }
+            }
+        });
+    });
+});

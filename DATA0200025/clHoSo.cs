@@ -56,15 +56,26 @@ namespace DATA0200025
                 cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep + "%");
             }
 
-            if (!string.IsNullOrEmpty(models.FromDate))
+            if (!string.IsNullOrEmpty(models.TuNgayDen))
             {
                 DK += " AND dNgayTaoHoSo >= @dTuNgay";
-                cmd.Parameters.AddWithValue("@dTuNgay",  models.FromDate );
+                cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau(models.TuNgayDen));
             }
-            if (!string.IsNullOrEmpty(models.ToDate))
+            if (!string.IsNullOrEmpty(models.DenNgayDen))
             {
                 DK += " AND dNgayTaoHoSo <= @dDenNgay";
-                cmd.Parameters.AddWithValue("@dDenNgay", models.ToDate);
+                cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau(models.DenNgayDen));
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan >= @TuNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau(models.TuNgayTiepNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
             }
             string SQL = string.Format("SELECT count(iID_MaHoSo) as value FROM CNN25_HoSo WHERE {0} ", DK);
             cmd.CommandText = SQL;
@@ -119,15 +130,26 @@ namespace DATA0200025
                 cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep + "%");
             }
 
-            if (!string.IsNullOrEmpty(models.FromDate))
+            if (!string.IsNullOrEmpty(models.TuNgayDen))
             {
                 DK += " AND dNgayTaoHoSo >= @dTuNgay";
-                cmd.Parameters.AddWithValue("@dTuNgay", models.FromDate);
+                cmd.Parameters.AddWithValue("@dTuNgay",CommonFunction.LayNgayTuXau(models.TuNgayDen));
             }
-            if (!string.IsNullOrEmpty(models.ToDate))
+            if (!string.IsNullOrEmpty(models.DenNgayDen))
             {
                 DK += " AND dNgayTaoHoSo <= @dDenNgay";
-                cmd.Parameters.AddWithValue("@dDenNgay", models.ToDate);
+                cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau(models.DenNgayDen));
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan >= @TuNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau(models.TuNgayTiepNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
             }
             string SQL = string.Format("SELECT * FROM CNN25_HoSo WHERE {0} ", DK);
             cmd.CommandText = SQL;
@@ -137,7 +159,7 @@ namespace DATA0200025
             return dt;
         }
 
-        public static SelectOptionList DDLTrangThaiSearch(List<TrangThaiModels> trangThais)
+        private static SelectOptionList DDLTrangThaiSearch(List<TrangThaiModels> trangThais)
         {
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("iID_MaTrangThai", typeof(int));
@@ -154,7 +176,7 @@ namespace DATA0200025
             dataTable.Dispose();
             return DDL;
         }
-        public static List<TrangThaiModels> DanhSachChoTiepNhan()
+        private static List<TrangThaiModels> DanhSachChoTiepNhan()
         {
             List<TrangThaiModels> lst = new List<TrangThaiModels>();
             TrangThaiModels trangThai = new TrangThaiModels
@@ -165,7 +187,7 @@ namespace DATA0200025
        
             return lst;
         }
-        public static List<TrangThaiModels> DanhSachHoSoDaGuiBoSung()
+        private static List<TrangThaiModels> DanhSachHoSoDaGuiBoSung()
         {
             List<TrangThaiModels> lst = new List<TrangThaiModels>();
             TrangThaiModels trangThai = new TrangThaiModels
@@ -182,6 +204,44 @@ namespace DATA0200025
             lst.Add(trangThai);
             return lst;
         }
-    
+        private static List<TrangThaiModels> DanhSachTuChoiXacNhanGDK()
+        {
+            List<TrangThaiModels> lst = new List<TrangThaiModels>();
+            TrangThaiModels trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 19
+            };
+            lst.Add(trangThai);
+
+            return lst;
+        }
+
+        public static void UpdateNguoiXem(string iID_MaHoSo,string MaND)
+        {
+            string SQL = "UPDATE CNN25_HoSo SET sTenNguoiXem=@sTenNguoiXem,sUserNguoiXem=@sUserNguoiXem WHERE iID_MaHoSo=@iID_MaHoSo AND (sUserNguoiXem IS NULL OR sUserNguoiXem='')";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo",iID_MaHoSo);
+            cmd.Parameters.AddWithValue("@sTenNguoiXem", CPQ_NGUOIDUNG.Get_TenNguoiDung(MaND));
+            cmd.Parameters.AddWithValue("@sUserNguoiXem", MaND);
+            Connection.UpdateDatabase(cmd);
+            cmd.Dispose();
+        }
+
+        public static ResultModels CleanNguoiXem(string iID_MaHoSo)
+        {
+            int vR = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            cmd.Parameters.AddWithValue("@sTenNguoiXem","");
+            cmd.Parameters.AddWithValue("@sUserNguoiXem", "");
+            vR=Connection.UpdateRecord("CNN25_HoSo", "iID_MaHoSo", cmd);
+            cmd.Dispose();
+            return new ResultModels
+            {
+                success=vR>0?true:false
+            };
+
+        }
     }
 }
+
