@@ -220,6 +220,7 @@
     <Compile Include="Controllers\DonViController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HoSoDaGuiBoSungController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MienController.cs" />
     <Compile Include="Controllers\PhongBanController.cs" />
@@ -2870,6 +2871,7 @@
     <Content Include="Views\ChoTiepNhanHoSo\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\Detail.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\Partial_Detail.cshtml" />
+    <Content Include="Views\HoSoDaGuiBoSung\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

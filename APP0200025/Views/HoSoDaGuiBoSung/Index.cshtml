@@ -34,12 +34,6 @@
     string TenBang = "BC_Vung";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
-    String _MaMien = CString.SafeString(Request.QueryString["_MaMien"]);
-    String _TieuDe = CString.SafeString(Request.QueryString["_TieuDe"]);
-    String _FromDate = CString.SafeString(Request.QueryString["_FromDate"]);
-    String _ToDate = CString.SafeString(Request.QueryString["_ToDate"]);
-
-    SelectOptionList slMien = CMien.Get_Dropdown("--- Miền ---");
     int Page = Model.Page;
 
     int CurrentPage = 1;
@@ -50,7 +44,7 @@
 
     if (Model.PageSize == 0)
     {
-        Model.PageSize = Globals.PageSize;
+        Model.PageSize = 1;// Globals.PageSize;
     }
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
@@ -63,8 +57,7 @@
 
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
-
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoTiepNhanHoSo", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.FromDate, ToDate = Model.ToDate, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "HoSoDaGuiBoSung", new { LoaiDanhSach=Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep=Model.sTenDoanhNghiep, sTenTACN=Model.sTenTACN, FromDate=Model.FromDate, ToDate=Model.ToDate, page = x }));
 
     // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 
@@ -83,41 +76,61 @@
                             <button class="btn btn-box-tool" type="button" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div><!-- /.box-header -->
-                    <div class="box-body">
+            <div class="box-body">
 
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-xs-1 control-label">Mã hồ sơ</label>
-                            <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaHoSo", "", "placeholder=\"Mã hồ sơ\" type=\"text\" class=\"form-control\""))
-                            </div>
-                            <label for="inputEmail3" class="col-xs-1 control-label">Tên doanh nghiệp</label>
-                            <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"Tên doanh nghiệp\" type=\"text\" class=\"form-control\""))
-                            </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-xs-1 control-label">Mã hồ sơ</label>
+                    <div class="col-xs-5">
+                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaHoSo", "", "placeholder=\"Mã hồ sơ\" type=\"text\" class=\"form-control\""))
+                    </div>
+                    <label for="inputEmail3" class="col-xs-1 control-label">Tên doanh nghiệp</label>
+                    <div class="col-xs-5">
+                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"Tên doanh nghiệp\" type=\"text\" class=\"form-control\""))
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-xs-1 control-label">Tên TACN</label>
+                    <div class="col-xs-5">
+                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenTACN, "sTenTACN", "", "placeholder=\"Tên TACN\" type=\"text\" class=\"form-control\""))
+                    </div>
+                    <label for="inputEmail3" class="col-xs-1 control-label">Mã số thuế</label>
+                    <div class="col-xs-5">
+                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaSoThue", "", "placeholder=\"Mã số thuế\" type=\"text\" class=\"form-control\""))
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    
+                        <label for="inputEmail3" class="col-sm-1 control-label">Ngày đến</label>
+                        <div class="col-xs-2">
+                            @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.FromDate, "FromDate", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
+                        </div>
+                        <div class="col-sm-2">
+                            @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.ToDate, "ToDate", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
+                        </div>
+                 
+                        <label for="inputEmail3" class="col-sm-2 control-label">Ngày tiếp nhận</label>
+                        <div class="col-xs-2">
+                            @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.FromDate, "FromDate", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
+                        </div>
+                        <div class="col-sm-2">
+                            @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.ToDate, "ToDate", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
+                        </div>
+                    
+                   
+                    
+                </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-xs-1 control-label">Trạng thái hồ sơ</label>
+                        <div class="col-xs-10">
+                            @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenTACN, "sTenTACN", "", "placeholder=\"Tên TACN\" type=\"text\" class=\"form-control\""))
                         </div>
 
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-xs-1 control-label">Tên TACN</label>
-                            <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenTACN, "sTenTACN", "", "placeholder=\"Tên TACN\" type=\"text\" class=\"form-control\""))
-                            </div>
-                            <label for="inputEmail3" class="col-xs-1 control-label">Mã số thuế</label>
-                            <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaSoThue", "", "placeholder=\"Mã số thuế\" type=\"text\" class=\"form-control\""))
-                            </div>
-                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-1 control-label">Từ ngày</label>
-                            <div class="col-xs-2">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.FromDate, "FromDate", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
-                            </div>
-                            <div class="col-sm-2">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.ToDate, "ToDate", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
-                            </div>
-                        </div>
-
-                    </div><!-- /.box-body -->
+                </div><!-- /.box-body -->
                     <div class="box-footer clearfix">
                         <div class="box-body">
                             <div class="form-group">

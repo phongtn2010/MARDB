@@ -18,10 +18,11 @@ namespace APP0200025.Controllers
         // GET: ChoTiepNhanHoSo
         public ActionResult Index(sHoSoModels models)
         {
-            if (models == null)
+            if (models == null || models.LoaiDanhSach == 0)
             {
                 models = new sHoSoModels
                 {
+                    LoaiDanhSach = 1,
                     Page = 1,
                     PageSize = Globals.PageSize
                 };
