@@ -18,7 +18,7 @@ namespace DATA0200025
         /// <param name="sNoiDung"></param>
         /// <param name="sFile"></param>
         /// <param name="iID_MaTrangThai"></param>
-        public static void InsertLichSu(string MaND,int iID_MaDoiTuong,int iID_MaHanhDong,string sNoiDung,string sFile, int iID_MaTrangThai)
+        public static void InsertLichSu(string MaND,int iID_MaDoiTuong,int iID_MaHanhDong,string sNoiDung,string sFile,int iID_MaTrangThaiTruoc, int iID_MaTrangThai)
         {
 
             SqlCommand cmd = new SqlCommand();
@@ -30,6 +30,8 @@ namespace DATA0200025
             cmd.Parameters.AddWithValue("@sTenHanhDong", clCommon.GetHanhDongById(iID_MaHanhDong).sTen);
             cmd.Parameters.AddWithValue("@sNoiDung", sNoiDung);
             cmd.Parameters.AddWithValue("@sFile", sFile);
+            cmd.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", iID_MaTrangThaiTruoc);
+            cmd.Parameters.AddWithValue("@sTenTrangThaiTruoc", clTrangThai.GetTrangThaiById(iID_MaTrangThaiTruoc).sTen);
             cmd.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
             cmd.Parameters.AddWithValue("@sTenTrangThai", clTrangThai.GetTrangThaiById(iID_MaTrangThai).sTen);
             Connection.InsertRecord("CNN25_LichSuHoSo", cmd, CThamSo.iKetNoi);

@@ -10,6 +10,7 @@ namespace DATA0200025.Models
     {
         public int iID_MaTrangThai { get; set; }
         public string sTen { get; set; }
+        public int iID_KetQuaXuLy { get; set; }
         public string sKetQuaXuLy { get; set; }
     }
 }

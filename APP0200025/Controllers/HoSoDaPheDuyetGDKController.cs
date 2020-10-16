@@ -10,12 +10,12 @@ using System.Web.Mvc;
 
 namespace APP0200025.Controllers
 {
-    public class HoSoYeuCauBoSungController : Controller
+    public class HoSoDaPheDuyetGDKController : Controller
     {
         // GET: HoSoDaGuiBoSung
         Bang bang = new Bang("CNN25_HoSo");
 
-        private string ViewPath = "~/Views/HoSoYeuCauBoSung/";
+        private string ViewPath = "~/Views/HoSoDaPheDuyetGDK/";
         // GET: ChoTiepNhanHoSo
         public ActionResult Index(sHoSoModels models)
         {
@@ -23,7 +23,7 @@ namespace APP0200025.Controllers
             {
                 models = new sHoSoModels
                 {
-                    LoaiDanhSach = 2,
+                    LoaiDanhSach = 3,
                     Page = 1,
                     PageSize = Globals.PageSize
                 };
@@ -69,75 +69,19 @@ namespace APP0200025.Controllers
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
+            bang.DuLieuMoi = false;
+            //bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
+            //bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
+            //bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
+            //Gui XML (12,09)
+
             return RedirectToAction("Index");
         }
-        /// <summary>
-        /// update data màn hình YeuCauBoXung
-        /// </summary>
-        /// <param name="ParentID"></param>
-        /// <param name="MaHoSo"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult YeuCauBoSungSubmit()
-        {
-            ////  HttpPostedFile fileư= Request.Files;
-            String ParentID = "BS";
-            NameValueCollection values = new NameValueCollection();
-            HttpFileCollectionBase files = Request.Files;
-            string sTenNguoiTiepNhan = CString.SafeString(Request.Form[ParentID + "_sNoiDung"]);
-            string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
-            if (string.IsNullOrEmpty(sTenNguoiTiepNhan))
-            {
-                values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
-            }
-            if (values.Count > 0)
-            {
-                for (int i = 0; i <= (values.Count - 1); i++)
-                {
-                    ModelState.AddModelError(ParentID + "_" + values.GetKey(i), values[i]);
-                }
-                base.ViewData["DuLieuMoi"] = "0";
-                ViewData["iID_MaHoSo"] = CString.SafeString(iID_MaHoSo);
-                return View();
-            }
-            string sFileTemp = "";
-            for (int i = 0; i < files.Count; i++)
-            {
-                HttpPostedFileBase postedFile = files[i];
-                if (postedFile != null)
-                {
-                    string guid = Guid.NewGuid().ToString();
-                    string sPath = "/Uploads/File";
-                    DateTime TG = DateTime.Now;
-                    string subPath = TG.ToString("yyyy/MM/dd");
-                    string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                    string newPath = string.Format("{0}/{1}", sPath, subPath);
-                    CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                    sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
-                    string filePath = Server.MapPath("~" + sFileTemp);
-                    postedFile.SaveAs(filePath);
-                }
-            }
-            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
-            int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
-            bang.MaNguoiDungSua = User.Identity.Name;
-            bang.IPSua = Request.UserHostAddress;
-            bang.TruyenGiaTri(ParentID, Request.Form);
-            bang.DuLieuMoi = false;
-            bang.GiaTriKhoa = iID_MaHoSo;
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
-            bang.Save();
-            clHoSo.CleanNguoiXem(iID_MaHoSo);
-            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, "Yêu cầu bổ sung hồ sơ", sFileTemp, hoSo.iID_MaTrangThai, iTrangThaiTiepTheo);
-            ResultModels result = new ResultModels { success = true };
-            result.value = Url.Action("Index");
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+       
         /// <summary>
         /// update data màn hình TuChoiHoSo
         /// </summary>
@@ -150,11 +94,11 @@ namespace APP0200025.Controllers
             String ParentID = "TC";
             NameValueCollection values = new NameValueCollection();
             HttpFileCollectionBase files = Request.Files;
-            string _sNoiDung = CString.SafeString(Request.Form[ParentID + "_sNoiDung"]);
+            string sTenNguoiTiepNhan = CString.SafeString(Request.Form[ParentID + "_sNoiDung"]);
             string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
-            if (string.IsNullOrEmpty(_sNoiDung))
+            if (string.IsNullOrEmpty(sTenNguoiTiepNhan))
             {
-                values.Add("err_sNoiDung", "Bạn nhập nội dung từ chối");
+                values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
             }
             if (values.Count > 0)
             {
@@ -185,7 +129,7 @@ namespace APP0200025.Controllers
                 }
             }
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
-            int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+            int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TraChuyenVienXyLyLai, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
@@ -195,7 +139,7 @@ namespace APP0200025.Controllers
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
-            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, iTrangThaiTiepTheo);
+            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, "Yêu cầu bổ sung hồ sơ", sFileTemp, hoSo.iID_MaTrangThai, iTrangThaiTiepTheo);
             ResultModels result = new ResultModels { success = true };
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -217,16 +161,18 @@ namespace APP0200025.Controllers
             string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
             string TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
             string DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
+            string sSoTiepNhan= CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
             sHoSoModels models = new sHoSoModels
             {
-                LoaiDanhSach = 2,
+                LoaiDanhSach = 3,
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
                 TuNgayDen = _FromDate,
                 DenNgayDen = _ToDate,
                 TuNgayTiepNhan= TuNgayTiepNhan,
-                DenNgayTiepNhan = DenNgayTiepNhan
+                DenNgayTiepNhan = DenNgayTiepNhan,
+                sSoTiepNhan= sSoTiepNhan
 
             };
             return RedirectToAction("Index", models);

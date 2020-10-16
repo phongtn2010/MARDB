@@ -164,10 +164,10 @@
                         <table class="table table-bordered table-hover table-striped">
                             <tr>
                                 <th style="width: 3%;" class="text-center">STT</th>
-                                <th style="width: 15%;" class="text-center">Mã hồ sơ</th>
-                                <th style="width: 15%;" class="text-center">Ngày đến</th>
-                                <th style="width: 15%;" class="text-center">Số tiếp nhận</th>
-                                <th style="width: 15%;" class="text-center">Ngày tiếp nhận</th>
+                                <th style="width: 8%;" class="text-center">Mã hồ sơ</th>
+                                <th style="width: 8%;" class="text-center">Ngày đến</th>
+                                <th style="width: 8%;" class="text-center">Số tiếp nhận</th>
+                                <th style="width: 8%;" class="text-center">Ngày tiếp nhận</th>
                                 <th style="text-align: center;" class="text-center">Doanh nghiệp</th>
                                 <th style="width: 10%; text-align: center;" class="text-center">Tên TACN</th>
                                 <th style="width: 10%; text-align: center;" class="text-center">Trạng thái hồ sơ</th>
@@ -204,7 +204,6 @@
                                                             <td>chua biet lay o dau</td>
                                                             <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
                                                             <td class="head-td-icon">
-                                                               
                                                             </td>
 
                                                             <td style="width: 10px;" title="người xem">
@@ -215,7 +214,7 @@
                                                             </td>
                                                             <td class="head-td-icon">
                                                                 @r["sTenNguoiXem"]
-                                                             
+
                                                             </td>
                                                             <td class="head-td-icon">
                                                                 @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
@@ -224,8 +223,9 @@
                                                                 }
 
                                                             </td>
+                                                            <td>Từ chối</td>
                                                             <td>quá hạn</td>
-                                                         
+
                                                         </tr>
                                     }
                                 }
