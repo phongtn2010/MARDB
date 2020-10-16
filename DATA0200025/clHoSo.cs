@@ -268,7 +268,8 @@ namespace DATA0200025
             TrangThaiModels trangThai = new TrangThaiModels
             {
                 iID_MaTrangThai = 13,
-                sTen= "Đã gửi BPM"
+                sTen= "Đã gửi BPM",
+                sKetQuaXuLy= "Yêu cầu bổ sung hồ sơ"
 
             };
             lst.Add(trangThai);

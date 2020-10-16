@@ -1,0 +1,59 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@using APP0200025.Controllers
+@model  DATA0200025.Models.HoSoModels
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout_cms.cshtml";
+    string ParentID = "Detail";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- Custom Tabs -->
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab">Giấy đăng ký kiểm tra xác nhận chất lượng</a></li>
+                <li><a href="#tab_2" data-toggle="tab">Lịch sử xử lý hồ sơ</a></li>
+
+                <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+
+                    @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml");}
+                    <form action="@Url.Action("TuChoi", "HoSoDaTuChoiXacNhan", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+                        @Html.Hidden(ParentID + "_DuLieuMoi", 0);
+                        @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
+                        <div class="box-footer clearfix text-center">
+                            <button class="btn btn-primary btn-sm" type="submit">Tiếp nhận</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="btn btn-danger btn-sm opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" " type="button">Từ chối</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="btn btn-sm openyeucaubosung" style="background-color:#f1bc10;color:white;" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="btn btn-sm" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
+                        </div>
+                    </form>
+                </div><!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_2">
+                    The European languages are members of the same family. Their separate existence is a myth.
+                    For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
+                    in their grammar, their pronunciation and their most common words. Everyone realizes why a
+                    new common language would be desirable: one could refuse to pay expensive translators. To
+                    achieve this, it would be necessary to have uniform grammar, pronunciation and more common
+                    words. If several languages coalesce, the grammar of the resulting language is more simple
+                    and regular than that of the individual languages.
+                </div><!-- /.tab-pane -->
+
+            </div><!-- /.tab-content -->
+        </div><!-- nav-tabs-custom -->
+    </div><!-- /.col -->
+
+</div>
+
+@*<script src="@Url.Content("~/ScriptsERP/jsHoSoDaBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>*@
