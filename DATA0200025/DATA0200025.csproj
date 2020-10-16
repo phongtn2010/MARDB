@@ -101,6 +101,7 @@
     <Compile Include="Models\HanhDongModels.cs" />
     <Compile Include="Models\DoiTuongModels.cs" />
     <Compile Include="Models\HoSoModels.cs" />
+    <Compile Include="Models\ResultModels.cs" />
     <Compile Include="Models\TrangThaiModels.cs" />
     <Compile Include="MoKyCacBang.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -13,6 +13,9 @@
                 processData: false,
                 success: function (response) {
                     $('#YeuCauBoSung').modal('toggle');
+                    if (response.success) {
+                        location.href = response.value;
+                    }
                 },
                 error: function (response) {
                     alert("Bạn cần xử lý mẫu trước");
@@ -48,7 +51,7 @@ $(function () {
         var formData = new FormData($("#formTuChoi")[0]);
         //var OrderService = $("#OrderService").val();
         $.ajax({
-            url: '/ChoTiepNhanHoSo/YeuCauBoXungSubmit',
+            url: '/ChoTiepNhanHoSo/TuChoiHoSoSubmit',
             type: 'POST',
             data: formData,
             async: false,
@@ -57,7 +60,10 @@ $(function () {
             enctype: 'multipart/form-data',
             processData: false,
             success: function (response) {
-                $('#YeuCauBoSung').modal('toggle');
+                $('#TuChoi').modal('toggle');
+                if (response.success) {
+                    location.href = response.value;
+                }
             },
             error: function (response) {
                 alert("Bạn cần xử lý mẫu trước");

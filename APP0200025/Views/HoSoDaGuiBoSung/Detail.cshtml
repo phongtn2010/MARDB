@@ -34,8 +34,9 @@
                         @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
                         <div class="box-footer clearfix text-center">
                             <button class="btn btn-primary btn-sm" type="submit">Tiếp nhận</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-danger btn-sm" data-toggle="modal" href="#TuChoi" " type="button">Từ chối</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-sm" style="background-color:#f1bc10;color:white;" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
+                            <a class="btn btn-danger btn-sm opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" " type="button">Từ chối</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="btn btn-sm openyeucaubosung" style="background-color:#f1bc10;color:white;" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="btn btn-sm" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
                         </div>
                     </form>
                 </div><!-- /.tab-pane -->
@@ -54,6 +55,6 @@
     </div><!-- /.col -->
 
 </div>
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_TuChoi.cshtml");}
-<script src="~/ScriptsERP/jsHoSoDaBoSung.js"></script>
+@{Html.RenderPartial("~/Views/HoSoDaGuiBoSung/Partial_Model_YeuCauBoSung.cshtml");}
+@{Html.RenderPartial("~/Views/HoSoDaGuiBoSung/Partial_Model_TuChoi.cshtml");}
+<script src="@Url.Content("~/ScriptsERP/jsHoSoDaBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

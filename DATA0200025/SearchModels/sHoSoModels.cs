@@ -13,6 +13,7 @@ namespace DATA0200025.SearchModels
         public int LoaiDanhSach { get; set; }// dùng dể phân biệt loại danh sách chơ tiêp nhận, đã bổ dung hồ sơ....
         public string iID_MaTrangThai { get; set; }
         public string sMaHoSo { get; set; }
+        public string sSoTiepNhan { get; set; }
         public string sTenDoanhNghiep { get; set; }
         public string sTenTACN { get; set; }
         public string sMaSoThue { get; set; }

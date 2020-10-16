@@ -85,7 +85,7 @@ namespace APP0200025.Controllers
         /// <param name="MaHoSo"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult YeuCauBoXungSubmit()
+        public ActionResult YeuCauBoSungSubmit()
         {
           ////  HttpPostedFile fileư= Request.Files;
             String ParentID = "BS";
@@ -137,7 +137,9 @@ namespace APP0200025.Controllers
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
             clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, "Yêu cầu bổ sung hồ sơ", sFileTemp, iTrangThaiTiepTheo);
-            return RedirectToAction("Index");
+            ResultModels result = new ResultModels { success = true };
+            result.value = Url.Action("Index");
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// update data màn hình TuChoiHoSo
@@ -197,7 +199,9 @@ namespace APP0200025.Controllers
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
             clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, "Yêu cầu bổ sung hồ sơ", sFileTemp, iTrangThaiTiepTheo);
-            return RedirectToAction("Index");
+            ResultModels result = new ResultModels { success = true };
+            result.value = Url.Action("Index");
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Thoat(string iID_MaHoSo)

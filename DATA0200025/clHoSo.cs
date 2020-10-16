@@ -40,7 +40,43 @@ namespace DATA0200025
         {
             SqlCommand cmd = new SqlCommand();
             string DK = "1=1";
-            if(!string.IsNullOrEmpty(models.sMaHoSo))
+            List<TrangThaiModels> TrangThais;
+            switch (models.LoaiDanhSach)
+            {
+                case 1:
+                    TrangThais = DanhSachChoTiepNhan();
+                    break;
+                case 2:
+                    TrangThais = DanhSachHoSoDaGuiBoSung();
+                    break;
+                case 3:
+                    TrangThais = DanhSachTuChoiXacNhanGDK();
+                    break;
+                case 4:
+                    TrangThais = DanhSachHoSoDaXemXetYeuCauBoSung();
+                    break;
+                case 5:
+                    TrangThais = DanhSachHoSoDaPheDuyetGDK();
+                    break;
+                default:
+                    TrangThais = new List<TrangThaiModels>();
+                    break;
+            }
+            TrangThaiModels trangThai;
+            for (int i = 0; i < TrangThais.Count; i++)
+            {
+                trangThai = TrangThais[i];
+                if (i == 0) { DK += " AND ("; }
+                if (i > 0) { DK += " OR "; }
+                DK += string.Format(" iID_MaTrangThai=@iID_MaTrangThai{0}", i);
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai" + i, trangThai.iID_MaTrangThai);
+                if (i == TrangThais.Count - 1)
+                {
+                    DK += ")";
+                }
+
+            }
+            if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
                 DK += " AND sMaHoSo=@sMaHoSo";
                 cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
@@ -95,6 +131,15 @@ namespace DATA0200025
                     break;
                 case 2:
                     TrangThais = DanhSachHoSoDaGuiBoSung();
+                    break;
+                case 3:
+                    TrangThais = DanhSachTuChoiXacNhanGDK();
+                    break;
+                case 4:
+                    TrangThais = DanhSachHoSoDaXemXetYeuCauBoSung();
+                    break;
+                case 5:
+                    TrangThais = DanhSachHoSoDaPheDuyetGDK();
                     break;
                 default:
                     TrangThais = new List<TrangThaiModels>();
@@ -209,7 +254,35 @@ namespace DATA0200025
             List<TrangThaiModels> lst = new List<TrangThaiModels>();
             TrangThaiModels trangThai = new TrangThaiModels
             {
-                iID_MaTrangThai = 19
+                iID_MaTrangThai = 19,
+                sTen= "Lãnh đạo cục đã phê duyệt"
+            };
+            lst.Add(trangThai);
+
+            return lst;
+        }
+
+        private static List<TrangThaiModels> DanhSachHoSoDaXemXetYeuCauBoSung()
+        {
+            List<TrangThaiModels> lst = new List<TrangThaiModels>();
+            TrangThaiModels trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 13,
+                sTen= "Đã gửi BPM"
+
+            };
+            lst.Add(trangThai);
+
+            return lst;
+        }
+        private static List<TrangThaiModels> DanhSachHoSoDaPheDuyetGDK()
+        {
+            List<TrangThaiModels> lst = new List<TrangThaiModels>();
+            TrangThaiModels trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 24,
+                sTen = "Lãnh đạo cục đã phê duyệt"
+
             };
             lst.Add(trangThai);
 
