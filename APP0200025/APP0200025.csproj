@@ -47,8 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper">
-      <HintPath>..\packages\Dapper.dll</HintPath>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="FlexCel">
       <HintPath>..\packages\FlexCel\FlexCel.dll</HintPath>
@@ -216,6 +217,7 @@
     <Compile Include="Controllers\BaoMat\NhomNguoiDungController.cs" />
     <Compile Include="Controllers\BaoMat\TruongCamController.cs" />
     <Compile Include="Controllers\ChoTiepNhanHoSoController.cs" />
+    <Compile Include="Controllers\ChuyenVienController.cs" />
     <Compile Include="Controllers\DangKyController.cs" />
     <Compile Include="Controllers\DonViController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
@@ -2719,6 +2721,8 @@
     <Content Include="ScriptsERP\jsBang_KeyTable.js" />
     <Content Include="ScriptsERP\jsBSC.js" />
     <Content Include="ScriptsERP\jsBTS.js" />
+    <Content Include="ScriptsERP\jsChoTiepNhanHoSo.js" />
+    <Content Include="ScriptsERP\jsChuyenVien.js" />
     <Content Include="ScriptsERP\jsControl.js" />
     <Content Include="ScriptsERP\jsDate.js" />
     <Content Include="ScriptsERP\jsDialogs.js" />
@@ -2741,6 +2745,7 @@
     <Content Include="Scripts\jquery.fixedtableheader.min.js" />
     <Content Include="Scripts\jquery.icolor.min.js" />
     <Content Include="Scripts\jquery.jeditable.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -2861,9 +2866,17 @@
     <Content Include="Views\Partial\Partial_ThongTinKyHoSoDoanhNghiep.cshtml" />
     <Content Include="Views\Partial\Partial_ThongTinChiTietTACN.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\Index.cshtml" />
+    <Content Include="Views\ChoTiepNhanHoSo\Partial_Model_YeuCauBoSung.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\TiepNhanHoSo.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\YeuCauBoXung.cshtml" />
     <Content Include="Views\ChoTiepNhanHoSo\TuChoiHoSo.cshtml" />
+    <Content Include="Views\ChoTiepNhanHoSo\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\ChoTiepNhanHoSo\Detail.cshtml" />
+    <Content Include="Views\ChoTiepNhanHoSo\Partial_Detail.cshtml" />
+    <Content Include="Views\ChuyenVien\Index.cshtml" />
+    <Content Include="Views\ChuyenVien\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\ChuyenVien\Partial_Model_YeuCauBoSung.cshtml" />
+    <Content Include="Views\ChuyenVien\Partial_Model_TiepNhanGDK.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

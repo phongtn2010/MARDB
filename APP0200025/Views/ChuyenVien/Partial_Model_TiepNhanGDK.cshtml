@@ -1,0 +1,126 @@
+﻿@using System
+@using System.Collections.Specialized
+@using DomainModel
+@using DomainModel.Controls
+
+@{
+    Layout = null;
+    string ParentID = "TC";
+}
+
+
+@using (Ajax.BeginForm("TuChoiSubmit", "ChoTiepNhanHoSo", new AjaxOptions
+{
+    OnSuccess = "OnSuccessTuChoi",
+    OnBegin = "OnBeginTuChoi",
+
+}, new { id = "formTuChoi", enctype = "multipart/form-data" }))
+{
+    <script>
+        function OnBeginTuChoi() {
+            $('html, body').animate({ scrollTop: 10 }, 'slow');
+        }
+
+        function OnSuccessTuChoi(data) {
+            location.reload();
+            $('#TuChoi').modal('hide');
+        }
+
+    </script>
+    @Html.AntiForgeryToken()
+    <div id="TiepNhanGDK" class="modal fade" role="basic" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Yêu cầu bổ sung</h4>
+                        <h5 id="scodeGD"></h5>*@
+                    <div class="box-header">
+                        <h3 class="box-title upperCase">Soạn phụ phục GĐK</h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#" data-dismiss="modal"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.box-header -->
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:200px;" data-always-visible="1" data-rail-visible1="1">
+
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-2 labelSearch norwap">
+                                        Phân loại<span style="color:#D9001B;"> (*)</span>
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <select class="form-control">
+                                            <option>---chọn---</option>
+                                        </select>
+                                        @*@MvcHtmlString.Create(MyHtmlHelper.TextArea(ParentID, "", "sNoiDung", "", "class=\"form-control\" cols=\"30\" rows='6'"))
+                                            @Html.ValidationMessage(ParentID + "_" + "err_sNoiDung")*@
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">&nbsp;</div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-2 labelSearch norwap">
+                                        Biện pháp kiểm tra
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <select class="form-control">
+                                            <option>---chọn---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">&nbsp;</div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-2 labelSearch norwap">
+                                        Đơn vị thực hiện đánh giá
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <input class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">&nbsp;</div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 labelSearch norwap">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <td>TT</td>
+                                                <td>Tên TACN</td>
+                                                <td>Nhóm TACN</td>
+                                                <td>
+                                                    Loại TACN
+                                                </td>
+                                                <td>Mã công nhận TACN</td>
+                                                <td>Xử lý</td>
+                                            </tr>
+                                            <tr>
+                                                <td>TT</td>
+                                                <td>Tên TACN</td>
+                                                <td>Nhóm TACN</td>
+                                                <td>
+                                                    Loại TACN
+                                                </td>
+                                                <td>Mã công nhận TACN</td>
+                                                <td>Xử lý</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-xs-8">
+                        <button class="btn btn-primary btn-sm" id="btnTuChoi" type="button">Gửi doanh nghiệp</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-danger btn-sm" data-dismiss="modal" type="button">Thoát</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden(ParentID + "_iID_MaHoSo", 0)
+}
