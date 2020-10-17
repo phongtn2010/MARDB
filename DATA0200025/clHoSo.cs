@@ -58,6 +58,15 @@ namespace DATA0200025
                 case 5:
                     TrangThais = DanhSachHoSoDaPheDuyetGDK();
                     break;
+                case 7:
+                    TrangThais = DanhSachHoSoChoXyLyGDK();
+                    break;
+                case 10:
+                    TrangThais = LD_DanhSachHoSoDangKy();
+                    break;
+                case 11:
+                    TrangThais = LDC_DanhSachHoSoDangKy();
+                    break;
                 default:
                     TrangThais = new List<TrangThaiModels>();
                     break;
@@ -141,8 +150,17 @@ namespace DATA0200025
                 case 5:
                     TrangThais = DanhSachHoSoDaPheDuyetGDK();
                     break;
+                case 7:
+                    TrangThais = DanhSachHoSoChoXyLyGDK();
+                    break;
+                case 10:
+                    TrangThais = LD_DanhSachHoSoDangKy();
+                    break;
+                case 11:
+                    TrangThais = LDC_DanhSachHoSoDangKy();
+                    break;
                 default:
-                    TrangThais = new List<TrangThaiModels>();
+                    TrangThais = new List<TrangThaiModels>(); 
                     break;
             }    
             TrangThaiModels trangThai;
@@ -203,7 +221,7 @@ namespace DATA0200025
             cmd.Dispose();
             return dt;
         }
-
+        #region list trạng thai theo màn hình
         private static SelectOptionList DDLTrangThaiSearch(List<TrangThaiModels> trangThais)
         {
             DataTable dataTable = new DataTable();
@@ -289,7 +307,112 @@ namespace DATA0200025
 
             return lst;
         }
+        /// <summary>
+        /// Chuyen viên loại danh sach=7
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> DanhSachHoSoChoXyLyGDK()
+        {
+            List<TrangThaiModels> lst = new List<TrangThaiModels>();
+            TrangThaiModels trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 7,
+                sTen = "Đã tiếp nhận"
 
+            };
+            lst.Add(trangThai);
+             trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 14,
+                sTen = "Lãnh đạo phòng yêu cầu thẩm định lại",
+                  iID_KetQuaXuLy = 3,
+                 sKetQuaXuLy = "Yêu cầu bổ sung hồ sơ"
+             };
+            lst.Add(trangThai);
+             trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 16,
+                sTen = "BPMC trả thẩm định lại",
+                 iID_KetQuaXuLy = 3,
+                 sKetQuaXuLy = "Yêu cầu bổ sung hồ sơ"
+
+             };
+            lst.Add(trangThai);
+             trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 18,
+                sTen = "Lãnh đạo phòng yêu cầu thẩm định lại",
+                iID_KetQuaXuLy=3,
+                sKetQuaXuLy= "Từ chối cấp GĐK"
+
+            };
+            lst.Add(trangThai);
+             trangThai = new TrangThaiModels
+            {
+                 iID_MaTrangThai = 23,
+                 sTen = "Lãnh đạo phòng yêu cầu thẩm định lại",
+                 iID_KetQuaXuLy =1,
+                 sKetQuaXuLy = "Đạt cấp giấy đăng ký"
+
+             };
+            lst.Add(trangThai);
+
+            return lst;
+        }
+        /// <summary>
+        /// Lãnh đạo- Loại danh sách =10
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> LD_DanhSachHoSoDangKy()
+        {
+            List<TrangThaiModels> lst = new List<TrangThaiModels>();
+            TrangThaiModels trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 10,
+                sTen = "Chờ lãnh đạo phòng xem xét",
+                iID_KetQuaXuLy = 1,
+                sKetQuaXuLy = "Đạt cấp giấy đăng ký"
+            };
+            lst.Add(trangThai);
+            trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 10,
+                sTen = "Lãnh đạo cục yêu cầu xem xét lại",
+                iID_KetQuaXuLy = 1,
+                sKetQuaXuLy = "Đạt cấp giấy đăng ký"
+            };
+            lst.Add(trangThai);
+            return lst;
+        }
+        /// <summary>
+        /// Lãnh đạo- Loại danh sách =11
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> LDC_DanhSachHoSoDangKy()
+        {
+            List<TrangThaiModels> lst = new List<TrangThaiModels>();
+            TrangThaiModels trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 17,
+                sTen = "Chờ lãnh đạo cục phê duyệt",
+                iID_KetQuaXuLy = 2,
+                sKetQuaXuLy = "Từ chối cấp GĐK"
+            };
+            lst.Add(trangThai);
+            trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 22,
+                sTen = "Chờ lãnh đạo cục phê duyệt",
+                iID_KetQuaXuLy = 1,
+                sKetQuaXuLy = "Đạt cấp giấy đăng ký"
+            };
+            lst.Add(trangThai);
+            return lst;
+        }
+
+
+        #endregion
+        #region Update
         public static void UpdateNguoiXem(string iID_MaHoSo,string MaND)
         {
             string SQL = "UPDATE CNN25_HoSo SET sTenNguoiXem=@sTenNguoiXem,sUserNguoiXem=@sUserNguoiXem WHERE iID_MaHoSo=@iID_MaHoSo AND (sUserNguoiXem IS NULL OR sUserNguoiXem='')";
@@ -316,6 +439,7 @@ namespace DATA0200025
             };
 
         }
+        #endregion
     }
 }
 

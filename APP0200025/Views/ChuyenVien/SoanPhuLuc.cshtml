@@ -1,0 +1,105 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@using APP0200025.Controllers
+@model  DATA0200025.Models.HoSoModels
+@{
+    ViewBag.Title = "Soạn phụ lục";
+    Layout = "~/Views/Shared/_Layout_cms.cshtml";
+    string ParentID = "Edit";
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                @using (Html.BeginForm("TrinhLanhDao", "ChuyenVien", new { ParentID = ParentID }))
+                {
+                    @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
+                    @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Soạn phụ lục GĐK</h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="col-xs-2 labelSearch norwap">
+                                    Phân loại<span style="color:#D9001B;"> (*)</span>
+                                </div>
+                                <div class="col-xs-10">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-12">&nbsp;</div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-2 labelSearch norwap">
+                                    Biện pháp kiểm tra
+                                </div>
+                                <div class="col-xs-10">
+                                    <select class="form-control">
+                                        <option>---chọn---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">&nbsp;</div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-2 labelSearch norwap">
+                                    Đơn vị thực hiện đánh giá
+                                </div>
+                                <div class="col-xs-10">
+                                    <input class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-xs-12">&nbsp;</div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-12 labelSearch norwap">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>TT</th>
+                                            <th>Tên TACN</th>
+                                            <th>Nhóm TACN</th>
+                                            <th>
+                                                Loại TACN
+                                            </th>
+                                            <th>Mã công nhận TACN</th>
+                                            <th>Xử lý</th>
+                                        </tr>
+                                        <tr>
+                                            <td>TT</td>
+                                            <td>Tên TACN</td>
+                                            <td>Nhóm TACN</td>
+                                            <td>
+                                                Loại TACN
+                                            </td>
+                                            <td>Mã công nhận TACN</td>
+                                            <td>Xử lý</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">&nbsp;</div>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <div class="col-xs-12 text-center">
+                            <button class="btn btn-primary btn-sm" id="btnTuChoi" type="submit">Trình lãnh đạo</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-danger btn-sm" data-dismiss="modal" type="button">Thoát</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
