@@ -47,6 +47,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CKFinder, Version=2.4.0.2631, Culture=neutral, PublicKeyToken=579e7adc719a1423, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Content\ckfinder\bin\Debug\CKFinder.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
@@ -1139,6 +1143,7 @@
     <Content Include="Content\ckfinder\plugins\fileeditor\bin\Release\CKFinder_FileEditor.pdb" />
     <Content Include="Content\ckfinder\plugins\fileeditor\codemirror\lib\codemirror.css" />
     <Content Include="Content\ckfinder\plugins\fileeditor\codemirror\lib\codemirror.js" />
+    <Content Include="Content\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="Content\ckfinder\plugins\fileeditor\codemirror\mode\clike\clike.js" />
     <Content Include="Content\ckfinder\plugins\fileeditor\codemirror\mode\css\css.js" />
     <Content Include="Content\ckfinder\plugins\fileeditor\codemirror\mode\htmlmixed\htmlmixed.js" />
@@ -3302,7 +3307,6 @@
     <Content Include="Content\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Content\ckeditor\skins\moono-lisa\readme.md" />
-    <Content Include="Content\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="Content\images\Thumbs.db" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.ttf" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.woff" />
@@ -3460,7 +3464,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\JQuery\images\vssver2.scc" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
