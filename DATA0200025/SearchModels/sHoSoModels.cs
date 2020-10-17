@@ -23,8 +23,6 @@ namespace DATA0200025.SearchModels
         public string DenNgayTiepNhan { get; set; }
         public int Page { get; set; }
         public int PageSize { get; set; }
-        public int iID_MaTrangThai { get; set; }
-        public string sSoTiepNhan { get; set; }
         public string dNgayTiepNhan { get; set; }
         public string FromDateTiepNhan { get; set; }
         public string ToDateTiepNhan { get; set; }

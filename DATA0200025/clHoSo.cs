@@ -95,7 +95,7 @@ namespace DATA0200025
             if (!string.IsNullOrEmpty(models.TuNgayDen))
             {
                 DK += " AND dNgayTaoHoSo >= @dTuNgay";
-                cmd.Parameters.AddWithValue("@dTuNgay",  models.FromDate );
+                cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau(models.TuNgayDen));
             }
             if (!string.IsNullOrEmpty(models.DenNgayDen))
             {
@@ -164,7 +164,7 @@ namespace DATA0200025
                 DK += " AND sMaHoSo=@sMaHoSo";
                 cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
             }
-            if (models.iID_MaTrangThai != 0)
+            if (models.iID_MaTrangThai != "0")
             {
                 DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
                 cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
