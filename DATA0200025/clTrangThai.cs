@@ -77,6 +77,10 @@ namespace DATA0200025
                 string SQL = @"SELECT *  FROM CNN25_TrangThai 
                             WHERE iID_MaTrangThai=@iID_MaTrangThai";
                 TrangThaiModels results = connect.Query<TrangThaiModels>(SQL, new { iID_MaTrangThai = iID_MaTrangThai }).FirstOrDefault();
+                if(results==null)
+                {
+                    results = new TrangThaiModels();
+                }    
                 return results;
             }
         }

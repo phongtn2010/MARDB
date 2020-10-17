@@ -34,12 +34,11 @@
     string TenBang = "BC_Vung";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
-    String _MaMien = CString.SafeString(Request.QueryString["_MaMien"]);
+    String _TrangThaiHoSo = CString.SafeString(Request.QueryString["_TrangThaiHoSo"]);
     String _TieuDe = CString.SafeString(Request.QueryString["_TieuDe"]);
     String _FromDate = CString.SafeString(Request.QueryString["_FromDate"]);
     String _ToDate = CString.SafeString(Request.QueryString["_ToDate"]);
 
-    SelectOptionList slMien = CMien.Get_Dropdown("--- Miền ---");
     int Page = Model.Page;
 
     int CurrentPage = 1;
@@ -54,7 +53,8 @@
     }
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
-    Model.iID_MaTrangThai = 7;
+    Model.iID_MaTrangThai = "7";
+
     DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax);
     double nums = clHoSo.GetCount(Model);
     int RC = dt.Rows.Count;
@@ -64,7 +64,7 @@
 
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoTiepNhanHoSo", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChuyenVien", new { _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 
     // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 
@@ -99,10 +99,10 @@
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-1 control-label">Ngày đến</label>
                             <div class="col-xs-2">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.FromDate, "FromDate", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayDen, "TuNgayDen", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
                             </div>
                             <div class="col-sm-2">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.ToDate, "ToDate", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayDen, "DenNgayDen", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
                             </div>
                             <div class="col-sm-1">
                             </div>
@@ -118,16 +118,17 @@
                             </div>
                             <label for="inputEmail3" class="col-sm-1 control-label">Ngày tiếp nhận</label>
                             <div class="col-xs-2">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.FromDateTiepNhan, "FromDateTiepNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayTiepNhan, "TuNgayTiepNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
                             </div>
                             <div class="col-sm-2">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.ToDateTiepNhan, "ToDateTiepNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayTiepNhan, "DenNgayTiepNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-1 control-label">Trạng thái hồ sơ</label>
                             <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, _TrangThaiHoSo, "iID_MaTrangThai", "", "class=\"form-control\""))
+                                @* @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"\" type=\"text\" class=\"form-control\""))*@
                             </div>
                             <label for="inputEmail3" class="col-sm-1 control-label">Quá hạn</label>
                             <div class="col-xs-5">

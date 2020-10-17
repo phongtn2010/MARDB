@@ -12,13 +12,13 @@
                 enctype: 'multipart/form-data',
                 processData: false,
                 success: function (response) {
-                    $('#responsive').modal('toggle');
+                    $('#YeuCauBoSung').modal('toggle');
                     if (response.success) {
                         location.href = response.value;
                     }
                 },
                 error: function (response) {
-                    
+                    alert("Bạn cần xử lý mẫu trước");
                     $('#responsive').modal('toggle');
                 }
 
@@ -66,28 +66,11 @@ $(function () {
                 }
             },
             error: function (response) {
-             
+                alert("Bạn cần xử lý mẫu trước");
                 $('#responsive').modal('toggle');
             }
 
         });
         return false;
-    });
-});
-
-$(function () {
-    $("body").on("click", "#btnThoat", function () {
-        var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
-        $.ajax({
-            url: '/ChoTiepNhanHoSo/Thoat',
-            type: 'POST',
-            data: { iID_MaHoSo: iID_MaHoSo},
-            success: function (response) {
-                
-                if (response.success) {
-                    location.href = response.value;
-                }
-            }
-        });
     });
 });

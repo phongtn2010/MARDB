@@ -29,8 +29,8 @@
                 <div class="tab-pane active" id="tab_1">
 
                     @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml");}
-                    <form action="@Url.Action("TiepNhanHoSo", "ChoTiepNhanHoSo", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                        @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
+                    <form action="@Url.Action("TuChoi", "HoSoDaTuChoiXacNhan", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+                        @Html.Hidden(ParentID + "_DuLieuMoi", 0);
                         @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
                         <div class="box-footer clearfix text-center">
                             <button class="btn btn-primary btn-sm" type="submit">Tiếp nhận</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -55,6 +55,5 @@
     </div><!-- /.col -->
 
 </div>
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_TuChoi.cshtml");}
-<script src="@Url.Content("~/ScriptsERP/jsChoTiepNhanHoSo.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+
+@*<script src="@Url.Content("~/ScriptsERP/jsHoSoDaBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>*@

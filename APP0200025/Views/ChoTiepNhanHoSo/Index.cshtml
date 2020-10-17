@@ -63,7 +63,8 @@
 
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoTiepNhanHoSo", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
+
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoTiepNhanHoSo", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
 
     // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 
@@ -109,10 +110,10 @@
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-1 control-label">Từ ngày</label>
                             <div class="col-xs-2">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.FromDate, "FromDate", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayDen, "FromDate", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
                             </div>
                             <div class="col-sm-2">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.ToDate, "ToDate", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayDen, "ToDate", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
                             </div>
                         </div>
 
@@ -184,19 +185,36 @@
                                             <td>chua biet lay o dau</td>
                                             <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")</td>
                                             <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-                                            <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
-                                            <td class="head-td-icon">@MvcHtmlString.Create(strEdit)</td>
                                             <td class="head-td-icon">
-                                                <a class="openyeucaubosung" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
-                                                    <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
-                                                </a>
+                                                @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
+                                                {
+                                                    @MvcHtmlString.Create(strView)
+                                                }
                                             </td>
                                             <td class="head-td-icon">
-                                                <a class="opentuchoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
-                                                    <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
-                                                </a>
+                                                @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
+                                                {
+                                                    @MvcHtmlString.Create(strEdit)
+                                                }
+                                                </td>
+                                            <td class="head-td-icon">
+                                                @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
+                                                {
+                                                    <a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
+                                                        <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
+                                                    </a>
+                                                }
+
                                             </td>
-                                            <td style="width: 10px;" title="người xem">@r["sTenNguoiTiepNhan"]</td>
+                                            <td class="head-td-icon">
+                                                @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
+                                                {
+                                                    <a class="opentuchoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
+                                                        <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
+                                                    </a>
+                                                }
+                                                </td>
+                                            <td style="width: 10px;" title="người xem">@r["sTenNguoiXem"]</td>
                                         </tr>
                                     }
                                 }
@@ -216,4 +234,4 @@
 </section><!-- /.content -->
 @{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}
 @{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_TuChoi.cshtml");}
-<script src="~/ScriptsERP/jsChoTiepNhanHoSo.js"></script>
+<script src="@Url.Content("~/ScriptsERP/jsChoTiepNhanHoSo.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

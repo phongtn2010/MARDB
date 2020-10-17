@@ -83,6 +83,7 @@
     <Compile Include="clLoaiDanhMuc.cs" />
     <Compile Include="CLoaiBaoCao.cs" />
     <Compile Include="CLoaiSanPham.cs" />
+    <Compile Include="clTaoMaTiepNhan.cs" />
     <Compile Include="clTrangThai.cs" />
     <Compile Include="CMenu.cs" />
     <Compile Include="CMien.cs" />
@@ -98,6 +99,10 @@
     <Compile Include="DongMoKyBaoCaoModels.cs" />
     <Compile Include="HamRiengModels.cs" />
     <Compile Include="HangMauModels.cs" />
+    <Compile Include="Models\HanhDongModels.cs" />
+    <Compile Include="Models\DoiTuongModels.cs" />
+    <Compile Include="Models\HoSoModels.cs" />
+    <Compile Include="Models\ResultModels.cs" />
     <Compile Include="Models\TrangThaiModels.cs" />
     <Compile Include="MoKyCacBang.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,6 +5,7 @@ using DomainModel;
 using DomainModel.Abstract;
 using System;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
 
@@ -24,7 +25,7 @@ namespace APP0200025.Controllers
                 {
                     Page = 1,
                     PageSize = Globals.PageSize,
-                    iID_MaTrangThai = 7
+                    LoaiDanhSach = 7
                 };
             }
             return View(models);
@@ -116,14 +117,20 @@ namespace APP0200025.Controllers
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
             string _FromDate = CString.SafeString(Request.Form[ParentID + "_viFromDate"]);
             string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
+            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
+            string _FromDateTiepNhan = CString.SafeString(Request.Form[ParentID + "_viFromDateTiepNhan"]);
+            string _ToDateTiepNhan = CString.SafeString(Request.Form[ParentID + "_viToDateTiepNhan"]);
             sHoSoModels models = new sHoSoModels
             {
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
-                FromDate = _FromDate,
-                ToDate = _ToDate,
-                iID_MaTrangThai = 7
+                TuNgayDen = _FromDate,
+                DenNgayDen = _ToDate,
+                iID_MaTrangThai = "7",
+                sSoTiepNhan = _sSoTiepNhan,
+                TuNgayTiepNhan = _FromDateTiepNhan,
+                DenNgayTiepNhan = _ToDateTiepNhan
             };
             return RedirectToAction("Index", models);
         }
