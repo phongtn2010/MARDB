@@ -29,7 +29,7 @@
                 <div class="tab-pane active" id="tab_1">
 
                     @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml");}
-                    <form action="@Url.Action("Duyet", "LanhDaoPhong", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+                    <form action="@Url.Action("Duyet", "LanhDaoCuc", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
                         @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
                         @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
                         <div class="box-footer clearfix text-center">
@@ -55,4 +55,4 @@
 
 </div>
 @{Html.RenderPartial("~/Views/LanhDaoPhong/Partial_Model_TuChoi.cshtml");}
-<script src="@Url.Content("~/ScriptsERP/jsLanhDaoPhong.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+<script src="@Url.Content("~/ScriptsERP/jsLanhDaoCuc.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

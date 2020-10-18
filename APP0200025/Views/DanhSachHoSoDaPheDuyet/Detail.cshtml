@@ -29,12 +29,13 @@
                 <div class="tab-pane active" id="tab_1">
 
                     @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml");}
-                    <form action="@Url.Action("Duyet", "LanhDaoPhong", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+                    <form action="@Url.Action("TiepNhanHoSo", "ChuyenVien", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
                         @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
                         @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
                         <div class="box-footer clearfix text-center">
-                            <button class="btn btn-primary btn-sm" type="submit">Đồng ý</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-primary btn-sm" type="submit">Tiếp nhận</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <a class="btn btn-danger btn-sm opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" " type="button">Từ chối</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="btn btn-sm openyeucaubosung" style="background-color:#f1bc10;color:white;" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <a class="btn btn-sm" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
                         </div>
                     </form>
@@ -54,5 +55,6 @@
     </div><!-- /.col -->
 
 </div>
-@{Html.RenderPartial("~/Views/LanhDaoPhong/Partial_Model_TuChoi.cshtml");}
-<script src="@Url.Content("~/ScriptsERP/jsLanhDaoPhong.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}
+@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_TuChoi.cshtml");}
+<script src="@Url.Content("~/ScriptsERP/jsChoTiepNhanHoSo.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
