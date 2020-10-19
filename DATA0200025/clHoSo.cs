@@ -44,28 +44,31 @@ namespace DATA0200025
             switch (models.LoaiDanhSach)
             {
                 case 1:
-                    TrangThais = DanhSachChoTiepNhan();
+                    TrangThais = BPMC_ChoTiepNhanHoSo();
                     break;
                 case 2:
-                    TrangThais = DanhSachHoSoDaGuiBoSung();
+                    TrangThais = BPMC_ChoTiepNhanHoSoGuiBoSung();
                     break;
                 case 3:
-                    TrangThais = DanhSachTuChoiXacNhanGDK();
+                    TrangThais = BPMC_DaTuChoiXacNhanGDK();
                     break;
                 case 4:
-                    TrangThais = DanhSachHoSoDaXemXetYeuCauBoSung();
+                    TrangThais = BPMC_PhongTACNYeuCauBoSungHoSo();
                     break;
                 case 5:
-                    TrangThais = DanhSachHoSoDaPheDuyetGDK();
+                    TrangThais = BPMC_DaPheDuyetGDK();
+                    break;
+                case 6:
+                    TrangThais = BPMC_DaTraGDK();
                     break;
                 case 7:
                     TrangThais = DanhSachHoSoChoXyLyGDK();
                     break;
                 case 10:
-                    TrangThais = LD_DanhSachHoSoDangKy();
+                    TrangThais = LDP_ChoXemXetHoSo();
                     break;
                 case 11:
-                    TrangThais = LDC_DanhSachHoSoDangKy();
+                    TrangThais = LDC_ChoXacNhanGDK();
                     break;
                 default:
                     TrangThais = new List<TrangThaiModels>();
@@ -136,28 +139,31 @@ namespace DATA0200025
             switch (models.LoaiDanhSach)
             {
                 case 1:
-                    TrangThais = DanhSachChoTiepNhan();
+                    TrangThais = BPMC_ChoTiepNhanHoSo();
                     break;
                 case 2:
-                    TrangThais = DanhSachHoSoDaGuiBoSung();
+                    TrangThais = BPMC_ChoTiepNhanHoSoGuiBoSung();
                     break;
                 case 3:
-                    TrangThais = DanhSachTuChoiXacNhanGDK();
+                    TrangThais = BPMC_DaTuChoiXacNhanGDK();
                     break;
                 case 4:
-                    TrangThais = DanhSachHoSoDaXemXetYeuCauBoSung();
+                    TrangThais = BPMC_PhongTACNYeuCauBoSungHoSo();
                     break;
                 case 5:
-                    TrangThais = DanhSachHoSoDaPheDuyetGDK();
+                    TrangThais = BPMC_DaPheDuyetGDK(); 
+                    break;
+                case 6:
+                    TrangThais = BPMC_DaTraGDK(); 
                     break;
                 case 7:
                     TrangThais = DanhSachHoSoChoXyLyGDK();
                     break;
                 case 10:
-                    TrangThais = LD_DanhSachHoSoDangKy();
+                    TrangThais = LDP_ChoXemXetHoSo();
                     break;
                 case 11:
-                    TrangThais = LDC_DanhSachHoSoDangKy();
+                    TrangThais = LDC_ChoXacNhanGDK();
                     break;
                 default:
                     TrangThais = new List<TrangThaiModels>(); 
@@ -240,7 +246,12 @@ namespace DATA0200025
             dataTable.Dispose();
             return DDL;
         }
-        private static List<TrangThaiModels> DanhSachChoTiepNhan()
+        #region danh sách màn hình BPMC Xử lý hồ sơ giấy đăng ký
+        /// <summary>
+        /// Loại danh sách =1
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> BPMC_ChoTiepNhanHoSo()
         {
             List<TrangThaiModels> lst = new List<TrangThaiModels>();
             TrangThaiModels trangThai = new TrangThaiModels
@@ -251,7 +262,11 @@ namespace DATA0200025
        
             return lst;
         }
-        private static List<TrangThaiModels> DanhSachHoSoDaGuiBoSung()
+        /// <summary>
+        /// Loại danh sách =2
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> BPMC_ChoTiepNhanHoSoGuiBoSung()
         {
             List<TrangThaiModels> lst = new List<TrangThaiModels>();
             TrangThaiModels trangThai = new TrangThaiModels
@@ -268,34 +283,45 @@ namespace DATA0200025
             lst.Add(trangThai);
             return lst;
         }
-        private static List<TrangThaiModels> DanhSachTuChoiXacNhanGDK()
+        /// <summary>
+        /// Loại danh sách =3
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> BPMC_DaTuChoiXacNhanGDK()
         {
             List<TrangThaiModels> lst = new List<TrangThaiModels>();
             TrangThaiModels trangThai = new TrangThaiModels
             {
                 iID_MaTrangThai = 19,
-                sTen= "Lãnh đạo cục đã phê duyệt"
+                sTen = "Lãnh đạo cục đã phê duyệt"
             };
             lst.Add(trangThai);
 
             return lst;
         }
-
-        private static List<TrangThaiModels> DanhSachHoSoDaXemXetYeuCauBoSung()
+        /// <summary>
+        /// Loại danh sách =4
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> BPMC_PhongTACNYeuCauBoSungHoSo()
         {
             List<TrangThaiModels> lst = new List<TrangThaiModels>();
             TrangThaiModels trangThai = new TrangThaiModels
             {
                 iID_MaTrangThai = 13,
-                sTen= "Đã gửi BPM",
-                sKetQuaXuLy= "Yêu cầu bổ sung hồ sơ"
+                sTen = "Đã gửi BPM",
+                sKetQuaXuLy = "Yêu cầu bổ sung hồ sơ"
 
             };
             lst.Add(trangThai);
 
             return lst;
         }
-        private static List<TrangThaiModels> DanhSachHoSoDaPheDuyetGDK()
+        // <summary>
+        /// Loại danh sách =5
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> BPMC_DaPheDuyetGDK()
         {
             List<TrangThaiModels> lst = new List<TrangThaiModels>();
             TrangThaiModels trangThai = new TrangThaiModels
@@ -308,6 +334,46 @@ namespace DATA0200025
 
             return lst;
         }
+
+        /// Loại danh sách =6
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> BPMC_DaTraGDK()
+        {
+            List<TrangThaiModels> lst = new List<TrangThaiModels>();
+            TrangThaiModels trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 26,
+                sTen = "Đã xác nhận GĐK"
+
+            };
+            lst.Add(trangThai);
+
+            trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 27,
+                sTen = "Chờ kết quả đánh giá sự phù hợp"
+
+            };
+            lst.Add(trangThai);
+            trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 28,
+                sTen = "Đã có kết quả đánh giá sự phù hợp"
+
+            };
+            lst.Add(trangThai);
+            trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 29,
+                sTen = "Chờ tiếp nhận kết quả đánh giá sự phù hợp"
+
+            };
+            lst.Add(trangThai);
+
+            return lst;
+        }
+        #endregion
         /// <summary>
         /// Chuyen viên loại danh sach=7
         /// </summary>
@@ -360,11 +426,13 @@ namespace DATA0200025
 
             return lst;
         }
+
+        #region Màn hình Lãnh đạo phòng
         /// <summary>
         /// Lãnh đạo- Loại danh sách =10
         /// </summary>
         /// <returns></returns>
-        private static List<TrangThaiModels> LD_DanhSachHoSoDangKy()
+        private static List<TrangThaiModels> LDP_ChoXemXetHoSo()
         {
             List<TrangThaiModels> lst = new List<TrangThaiModels>();
             TrangThaiModels trangThai = new TrangThaiModels
@@ -385,11 +453,14 @@ namespace DATA0200025
             lst.Add(trangThai);
             return lst;
         }
+        #endregion
+
+        #region Màn hình Lãnh đạo cục
         /// <summary>
         /// Lãnh đạo- Loại danh sách =11
         /// </summary>
         /// <returns></returns>
-        private static List<TrangThaiModels> LDC_DanhSachHoSoDangKy()
+        private static List<TrangThaiModels> LDC_ChoXacNhanGDK()
         {
             List<TrangThaiModels> lst = new List<TrangThaiModels>();
             TrangThaiModels trangThai = new TrangThaiModels
@@ -411,6 +482,7 @@ namespace DATA0200025
             return lst;
         }
 
+        #endregion
 
         #endregion
         #region Update
