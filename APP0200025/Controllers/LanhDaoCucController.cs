@@ -55,19 +55,19 @@ namespace APP0200025.Controllers
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.DongYXacNhanGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-            clTaoSoGDK taoSoGDK = new clTaoSoGDK();
-            string soGDK = taoSoGDK.GetSoGDK();
-            bang.MaNguoiDungSua = User.Identity.Name;
-            bang.IPSua = Request.UserHostAddress;
-            bang.TruyenGiaTri(ParentID, Request.Form);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-            bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
-            bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
-            bang.CmdParams.Parameters.AddWithValue("@sSoGDK", soGDK);
-            bang.Save();
-            clHoSo.CleanNguoiXem(iID_MaHoSo);
-            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.DongYXacNhanGDK, "Đồng ý xác nhận GĐK số:"+ soGDK, "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            //clTaoSoGDK taoSoGDK = new clTaoSoGDK();
+            //string soGDK = taoSoGDK.GetSoGDK();
+            //bang.MaNguoiDungSua = User.Identity.Name;
+            //bang.IPSua = Request.UserHostAddress;
+            //bang.TruyenGiaTri(ParentID, Request.Form);
+            //bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+            //bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
+            //bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
+            //bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
+            //bang.CmdParams.Parameters.AddWithValue("@sSoGDK", soGDK);
+            //bang.Save();
+            //clHoSo.CleanNguoiXem(iID_MaHoSo);
+            //clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.DongYXacNhanGDK, "Đồng ý xác nhận GĐK số:"+ soGDK, "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
             return RedirectToAction("Index");
         }
      
