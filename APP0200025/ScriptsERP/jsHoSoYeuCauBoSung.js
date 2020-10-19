@@ -3,7 +3,7 @@
         var formData = new FormData($("#formYeuCau")[0]);
         //var OrderService = $("#OrderService").val();
         $.ajax({
-            url: '/ChoTiepNhanHoSo/YeuCauBoSungSubmit',
+            url: '/HoSoYeuCauBoSung/YeuCauBoSungSubmit',
             type: 'POST',
             data: formData,
             async: false,
@@ -12,10 +12,13 @@
             enctype: 'multipart/form-data',
             processData: false,
             success: function (response) {
-                $('#YeuCauBoSung').modal('toggle');
+                $('#responsive').modal('toggle');
+                if (response.success) {
+                    location.href = response.value;
+                }
             },
             error: function (response) {
-                alert("Bạn cần xử lý mẫu trước");
+
                 $('#responsive').modal('toggle');
             }
 
@@ -31,8 +34,6 @@ $(function () {
         $("#BS_iID_MaHoSo").val(iID_MaHoSo);
     });
 });
-
-
 $(function () {
     $("body").on("click", ".opentuchoi", function () {
 
@@ -46,9 +47,8 @@ $(function () {
 $(function () {
     $("body").on("click", "#btnTuChoi", function () {
         var formData = new FormData($("#formTuChoi")[0]);
-        //var OrderService = $("#OrderService").val();
         $.ajax({
-            url: '/ChoTiepNhanHoSo/YeuCauBoXungSubmit',
+            url: '/HoSoYeuCauBoSung/TuChoiHoSoSubmit',
             type: 'POST',
             data: formData,
             async: false,
@@ -57,14 +57,34 @@ $(function () {
             enctype: 'multipart/form-data',
             processData: false,
             success: function (response) {
-                $('#YeuCauBoSung').modal('toggle');
+                $('#TuChoi').modal('toggle');
+                if (response.success) {
+                    location.href = response.value;
+                }
             },
             error: function (response) {
-                alert("Bạn cần xử lý mẫu trước");
+
                 $('#responsive').modal('toggle');
             }
 
         });
         return false;
+    });
+});
+
+$(function () {
+    $("body").on("click", "#btnThoat", function () {
+        var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
+        $.ajax({
+            url: '/HoSoYeuCauBoSung/Thoat',
+            type: 'POST',
+            data: { iID_MaHoSo: iID_MaHoSo },
+            success: function (response) {
+
+                if (response.success) {
+                    location.href = response.value;
+                }
+            }
+        });
     });
 });

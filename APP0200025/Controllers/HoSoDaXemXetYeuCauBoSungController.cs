@@ -14,7 +14,7 @@ namespace APP0200025.Controllers
     {
         // GET: HoSoDaGuiBoSung
         Bang bang = new Bang("CNN25_HoSo");
-
+        //Phòng TACN yêu cầu bổ sung hồ sơ
         private string ViewPath = "~/Views/HoSoDaXemXetYeuCauBoSung/";
         // GET: ChoTiepNhanHoSo
         public ActionResult Index(sHoSoModels models)
@@ -79,7 +79,7 @@ namespace APP0200025.Controllers
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
-            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, "Gửi doanh nghiệp thông báo yêu cầu bổ sung hồ sơ", "", hoSo.iID_MaTrangThaiTruoc, trangThaiTiepTheo.iID_MaTrangThai);
+            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.GuiDoanhNghiepThongBaoYeuCauBoSungHoSo, "Gửi doanh nghiệp thông báo yêu cầu bổ sung hồ sơ", "", hoSo.iID_MaTrangThaiTruoc, trangThaiTiepTheo.iID_MaTrangThai);
 
             //Gui XML (12,09)
 
@@ -146,7 +146,7 @@ namespace APP0200025.Controllers
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
-            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TraChuyenVienXyLyLai, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
             ResultModels result = new ResultModels { success = true };
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);

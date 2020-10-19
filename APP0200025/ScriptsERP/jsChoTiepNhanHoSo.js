@@ -3,7 +3,7 @@
         var formData = new FormData($("#formYeuCau")[0]);
             //var OrderService = $("#OrderService").val();
             $.ajax({
-                url: '/ChoTiepNhanHoSo/YeuCauBoXungSubmit',
+                url: '/ChoTiepNhanHoSo/YeuCauBoSungSubmit',
                 type: 'POST',
                 data: formData,
                 async: false,

@@ -14,6 +14,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    string userName = User.Identity.Name;
     String ServerURL = CHamRieng.Get_Domain();
     String sDate = DateTime.Now.ToString("dd/MM/yyyy");
     String ParentID = "Index";
@@ -151,7 +152,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Đã từ chối xác nhận GĐK</h3>
+                    <h3 class="box-title">Phòng TACN yêu cầu bổ sung hồ sơ</h3>
                     @*<div class="box-tools">
                             <ul class="pagination pagination-sm no-margin pull-right">
                                 <li><a href="@Url.Action("Edit", "ChoTiepNhanHoSo")"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
@@ -186,7 +187,8 @@
                                     {
                                         r = dt.Rows[i];
 
-
+                                        string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
+                                        
                                         String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "HoSoDaXemXetYeuCauBoSung", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
                                         String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "HoSoDaXemXetYeuCauBoSung", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                         String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "HoSoDaXemXetYeuCauBoSung", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
@@ -203,27 +205,36 @@
                                                             <td>@r["sTenDoanhNghiep"]</td>
                                                             <td>chua biet lay o dau</td>
                                                             <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
+                                                            <td>@r["sKetQuaXuLy"]</td>
                                                             <td class="head-td-icon">
-                                                            </td>
-
-                                                            <td style="width: 10px;" title="người xem">
-                                                                @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
+                                                                @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                                 {
                                                                     @MvcHtmlString.Create(strView)
                                                                 }
                                                             </td>
                                                             <td class="head-td-icon">
-                                                                @r["sTenNguoiXem"]
-
+                                                                @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
+                                                                {
+                                                                    <span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>
+                                                                }
                                                             </td>
                                                             <td class="head-td-icon">
-                                                                @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
+                                                                @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                                 {
-                                                                    @MvcHtmlString.Create(strEdit)
+                                                                    <a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
+                                                                        <span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>
+                                                                    </a>
                                                                 }
 
                                                             </td>
-                                                            <td>Từ chối</td>
+                                                            <td class="head-td-icon">
+                                                                @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
+                                                                {
+                                                                    <a class="opentuchoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
+                                                                        <span class='badge bg-red'><i class='fa fa-fw fa-remove'></i></span>
+                                                                    </a>
+                                                                }
+                                                            </td>
                                                             <td>quá hạn</td>
 
                                                         </tr>
@@ -243,6 +254,5 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_TuChoi.cshtml");}
-<script src="@Url.Content("~/ScriptsERP/jsHoSoDaBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+@{Html.RenderPartial("~/Views/HoSoDaXemXetYeuCauBoSung/Partial_Model_TuChoi.cshtml");}
+<script src="@Url.Content("~/ScriptsERP/jsHoSoDaXemXetYeuCauBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

@@ -12,7 +12,7 @@ namespace APP0200025.Controllers
 {
     public class HoSoDaTuChoiXacNhanController : Controller
     {
-        // GET: HoSoDaGuiBoSung
+        //  Đã từ chối xác nhận GĐK
         Bang bang = new Bang("CNN25_HoSo");
 
         private string ViewPath = "~/Views/HoSoDaTuChoiXacNhan/";

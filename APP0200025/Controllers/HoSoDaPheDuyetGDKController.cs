@@ -12,18 +12,18 @@ namespace APP0200025.Controllers
 {
     public class HoSoDaPheDuyetGDKController : Controller
     {
-        // GET: HoSoDaGuiBoSung
+        // Đã phê duyệt GĐK
         Bang bang = new Bang("CNN25_HoSo");
 
         private string ViewPath = "~/Views/HoSoDaPheDuyetGDK/";
-        // GET: ChoTiepNhanHoSo
+        // GET: HoSoDaPheDuyetGDK
         public ActionResult Index(sHoSoModels models)
         {
             if (models == null || models.LoaiDanhSach == 0)
             {
                 models = new sHoSoModels
                 {
-                    LoaiDanhSach = 3,
+                    LoaiDanhSach = 5,
                     Page = 1,
                     PageSize = Globals.PageSize
                 };
@@ -164,7 +164,7 @@ namespace APP0200025.Controllers
             string sSoTiepNhan= CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
             sHoSoModels models = new sHoSoModels
             {
-                LoaiDanhSach = 3,
+                LoaiDanhSach = 5,
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
