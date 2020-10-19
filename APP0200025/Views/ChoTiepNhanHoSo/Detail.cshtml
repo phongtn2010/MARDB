@@ -28,7 +28,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
 
-                    @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml");}
+                    @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml",Model);}
                     <form action="@Url.Action("TiepNhanHoSo", "ChoTiepNhanHoSo", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
                         @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
                         @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
