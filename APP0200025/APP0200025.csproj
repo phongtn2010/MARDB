@@ -269,10 +269,17 @@
     <Compile Include="Controllers\ChoTiepNhanHoSoController.cs" />
     <Compile Include="Controllers\ChuyenVienController.cs" />
     <Compile Include="Controllers\DangKyController.cs" />
+    <Compile Include="Controllers\DanhSachHoSoDaPheDuyetController.cs" />
     <Compile Include="Controllers\DonViController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HoSoDaGuiBoSungController.cs" />
+    <Compile Include="Controllers\HoSoDaPheDuyetGDKController.cs" />
+    <Compile Include="Controllers\HoSoDaTuChoiXacNhanController.cs" />
+    <Compile Include="Controllers\HoSoDaXemXetYeuCauBoSungController.cs" />
+    <Compile Include="Controllers\HoSoYeuCauBoSungController.cs" />
+    <Compile Include="Controllers\LanhDaoCucController.cs" />
+    <Compile Include="Controllers\LanhDaoPhongController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MienController.cs" />
     <Compile Include="Controllers\PhongBanController.cs" />
@@ -281,6 +288,7 @@
     <Compile Include="Controllers\Shared\NhapNhanhController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TinhController.cs" />
+    <Compile Include="Controllers\ToChucChiDinhController.cs" />
     <Compile Include="Controllers\VungController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2780,10 +2788,15 @@
     <Content Include="ScriptsERP\jsDialogs.js" />
     <Content Include="ScriptsERP\jsErp.js" />
     <Content Include="ScriptsERP\jsFunctions.js" />
+    <Content Include="ScriptsERP\jsHoSoDaBoSung.js" />
+    <Content Include="ScriptsERP\jsHoSoDaXemXetYeuCauBoSung.js" />
     <Content Include="ScriptsERP\jsIBS.js" />
     <Content Include="ScriptsERP\jsInit.js" />
+    <Content Include="ScriptsERP\jsLanhDaoCuc.js" />
+    <Content Include="ScriptsERP\jsLanhDaoPhong.js" />
     <Content Include="ScriptsERP\jsNumber.js" />
     <Content Include="ScriptsERP\jsString.js" />
+    <Content Include="ScriptsERP\jsToChucChiDinh.js" />
     <Content Include="ScriptsERP\MicrosoftAjax.js" />
     <Content Include="ScriptsERP\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\Bang.js" />
@@ -2930,6 +2943,32 @@
     <Content Include="Views\ChuyenVien\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\ChuyenVien\Partial_Model_YeuCauBoSung.cshtml" />
     <Content Include="Views\ChuyenVien\Partial_Model_TiepNhanGDK.cshtml" />
+    <Content Include="Uploads\File\2020\10\11\203117076_7542d209-4e89-4fb5-b119-a5f447a37d1f_YeuCauRutTien.xls" />
+    <Content Include="Views\ChuyenVien\Detail.cshtml" />
+    <Content Include="Views\ChuyenVien\Partial_Model_XuLyChiTieuKiemTra.cshtml" />
+    <Content Include="Views\ChuyenVien\SoanPhuLuc.cshtml" />
+    <Content Include="Views\DanhSachHoSoDaPheDuyet\Detail.cshtml" />
+    <Content Include="Views\DanhSachHoSoDaPheDuyet\Index.cshtml" />
+    <Content Include="Views\DanhSachHoSoDaPheDuyet\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\DanhSachHoSoDaPheDuyet\Partial_Model_XuLyChiTieuKiemTra.cshtml" />
+    <Content Include="Views\DanhSachHoSoDaPheDuyet\Partial_Model_YeuCauBoSung.cshtml" />
+    <Content Include="Views\HoSoDaTuChoiXacNhan\Detail.cshtml" />
+    <Content Include="Views\HoSoDaTuChoiXacNhan\Index.cshtml" />
+    <Content Include="Views\HoSoDaXemXetYeuCauBoSung\Detail.cshtml" />
+    <Content Include="Views\HoSoDaXemXetYeuCauBoSung\Index.cshtml" />
+    <Content Include="Views\HoSoDaXemXetYeuCauBoSung\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\HoSoYeuCauBoSung\Detail.cshtml" />
+    <Content Include="Views\HoSoYeuCauBoSung\Index.cshtml" />
+    <Content Include="Views\HoSoYeuCauBoSung\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\LanhDaoCuc\Detail.cshtml" />
+    <Content Include="Views\LanhDaoCuc\Index.cshtml" />
+    <Content Include="Views\LanhDaoCuc\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\LanhDaoPhong\Detail.cshtml" />
+    <Content Include="Views\LanhDaoPhong\Index.cshtml" />
+    <Content Include="Views\LanhDaoPhong\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\ToChucChiDinh\Index.cshtml" />
+    <Content Include="Views\ToChucChiDinh\Partial_Model_HangHoa.cshtml" />
+    <Content Include="Views\ToChucChiDinh\Partial_Model_UploadKetQua.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
