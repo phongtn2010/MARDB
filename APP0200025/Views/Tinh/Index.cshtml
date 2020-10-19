@@ -60,7 +60,8 @@
     String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _MaVung = _MaVung, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
     DataRow R;
 }
-
+<!-- DataTables -->
+<link rel="stylesheet" href="@Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.css")">
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -129,56 +130,60 @@
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped">
-                            <tr>
-                                <th style="width: 3%; text-align: center;">STT</th>
-                                <th style="width: 10%;">Miền</th>
-                                <th style="width: 10%;">Vùng</th>
-                                <th style="text-align: center;">Tiêu đề</th>
-                                <th style="width: 10%; text-align: center;">Trạng thái</th>
-                                <th style="width: 10%; text-align: center;">Ngày đăng</th>
-                                <th style="width: 10px;" title="Sửa"><span class="badge bg-blue"><i class="fa fa-pencil"></i></span></th>
-                                <th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
-                            </tr>
-                            @{
-                                if (dt.Rows.Count > 0)
-                                {
-                                    for (int i = 0; i < dt.Rows.Count; i++)
+                        <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th class="sorting_asc" style="width: 3%; text-align: center;">STT</th>
+                                    <th class="sorting" style="width: 10%;">Miền</th>
+                                    <th class="sorting" style="width: 10%;">Vùng</th>
+                                    <th class="sorting" style="text-align: center;">Tiêu đề</th>
+                                    <th class="sorting" style="width: 10%; text-align: center;">Trạng thái</th>
+                                    <th class="sorting" style="width: 10%; text-align: center;">Ngày đăng</th>
+                                    <th style="width: 10px;" title="Sửa"><span class="badge bg-blue"><i class="fa fa-pencil"></i></span></th>
+                                    <th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (dt.Rows.Count > 0)
                                     {
-                                        R = dt.Rows[i];
-
-                                        int iSTT = i + 1;
-
-                                        String sTrangThai = "", sTenMien = "", sTenVung = "";
-                                        sTenMien = CMien.Get_Name(Convert.ToString(R["iID_MaMien"]));
-                                        sTenVung = CVung.Get_Name(Convert.ToString(R["iID_MaVung"]));
-                                        Boolean bHoatDong = Convert.ToBoolean(R["bHoatDong"]);
-                                        if (bHoatDong == true)
+                                        for (int i = 0; i < dt.Rows.Count; i++)
                                         {
-                                            sTrangThai = "<span class=\"badge bg-red\"><i class=\"fa fa-unlock\"></i></span>";
-                                        }
-                                        else
-                                        {
-                                            sTrangThai = "<span class=\"badge bg-red\"><i class=\"fa fa-unlock-alt\"></i></span>";
-                                        }
+                                            R = dt.Rows[i];
 
-                                        String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "Tinh", new { iID_MaTinh = R["iID_MaTinh"] }), "<span class=\"badge bg-blue\"><i class=\"fa fa-pencil\"></i></span>", "Edit", "");
-                                        String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "Tinh", new { iID_MaTinh = R["iID_MaTinh"] }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
+                                            int iSTT = i + 1;
 
-                                        <tr>
-                                            <td style="text-align: center;">@iSTT.ToString()</td>
-                                            <td>@sTenMien.ToString()</td>
-                                            <td>@sTenVung.ToString()</td>
-                                            <td>@R["sTenTinh"].ToString()</td>
-                                            <td style="text-align: center;">@MvcHtmlString.Create(sTrangThai)</td>
-                                            <td>@Convert.ToDateTime(R["dNgayTao"]).ToString("dd-MM-yyyy HH:mm")</td>
-                                            <td style="width: 10px;" title="Sửa">@MvcHtmlString.Create(strEdit)</td>
-                                            <td style="width: 10px" title="Xóa">@MvcHtmlString.Create(strDelete)</td>
-                                        </tr>
+                                            String sTrangThai = "", sTenMien = "", sTenVung = "";
+                                            sTenMien = CMien.Get_Name(Convert.ToString(R["iID_MaMien"]));
+                                            sTenVung = CVung.Get_Name(Convert.ToString(R["iID_MaVung"]));
+                                            Boolean bHoatDong = Convert.ToBoolean(R["bHoatDong"]);
+                                            if (bHoatDong == true)
+                                            {
+                                                sTrangThai = "<span class=\"badge bg-red\"><i class=\"fa fa-unlock\"></i></span>";
+                                            }
+                                            else
+                                            {
+                                                sTrangThai = "<span class=\"badge bg-red\"><i class=\"fa fa-unlock-alt\"></i></span>";
+                                            }
+
+                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "Tinh", new { iID_MaTinh = R["iID_MaTinh"] }), "<span class=\"badge bg-blue\"><i class=\"fa fa-pencil\"></i></span>", "Edit", "");
+                                            String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "Tinh", new { iID_MaTinh = R["iID_MaTinh"] }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
+
+                                            <tr>
+                                                <td style="text-align: center;">@iSTT.ToString()</td>
+                                                <td>@sTenMien.ToString()</td>
+                                                <td>@sTenVung.ToString()</td>
+                                                <td>@R["sTenTinh"].ToString()</td>
+                                                <td style="text-align: center;">@MvcHtmlString.Create(sTrangThai)</td>
+                                                <td>@Convert.ToDateTime(R["dNgayTao"]).ToString("dd-MM-yyyy HH:mm")</td>
+                                                <td style="width: 10px;" title="Sửa">@MvcHtmlString.Create(strEdit)</td>
+                                                <td style="width: 10px" title="Xóa">@MvcHtmlString.Create(strDelete)</td>
+                                            </tr>
+                                        }
                                     }
+                                    dt.Dispose();
                                 }
-                                dt.Dispose();
-                            }
+                            </tbody>
                         </table>
                     </div>
                 </div><!-- /.box-body -->

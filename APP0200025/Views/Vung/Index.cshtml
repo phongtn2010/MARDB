@@ -43,59 +43,61 @@
 
     DataRow R;
 }
-
+<!-- DataTables -->
+<link rel="stylesheet" href="@Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.css")">
 <!-- Main content -->
-    <section class="content">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box box-danger">
-                    @using (Html.BeginForm("Search", "Vung", new { ParentID = ParentID }))
-                    {
-                        <div class="box-header with-border">
-                            <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
-                            <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" type="button" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button class="btn btn-box-tool" type="button" data-widget="remove"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slMien, _MaMien, "MaMien", "", "class=\"form-control\""))
-                                </div>
-                                <div class="col-xs-5">
-                                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, _TieuDe, "TieuDe", "", "placeholder=\"Thông tin tìm kiếm\" type=\"text\" class=\"form-control\""))
-                                </div>
-                                <div class="col-xs-2">
-                                    @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, _FromDate, "FromDate", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
-                                </div>
-                                <div class="col-xs-2">
-                                    @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, _ToDate, "ToDate", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
-                                </div>
-                            </div>
-                        </div><!-- /.box-body -->
-                        <div class="box-footer clearfix">
-                            <button class="btn btn-block btn-default" type="submit">@Lang["ChucNang_Item10"].ToString()</button>
-                        </div>
-                    }
-                </div><!-- /.box -->
-            </div><!-- /.col -->
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title">DANH SÁCH VÙNG</h3>
-                        <div class="box-tools">
-                            <ul class="pagination pagination-sm no-margin pull-right">
-                                <li><a href="@Url.Action("Edit", "Vung")"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
-                                <li><a href="@Url.Action("Sort", "Vung")"><i class="fa fa-sort-numeric-asc"></i> @Lang["ChucNang_Item04"].ToString()</a></li>
-                            </ul>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                @using (Html.BeginForm("Search", "Vung", new { ParentID = ParentID }))
+                {
+                    <div class="box-header with-border">
+                        <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" type="button" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" type="button" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div><!-- /.box-header -->
-                    <div class="box-body no-padding">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slMien, _MaMien, "MaMien", "", "class=\"form-control\""))
+                            </div>
+                            <div class="col-xs-5">
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, _TieuDe, "TieuDe", "", "placeholder=\"Thông tin tìm kiếm\" type=\"text\" class=\"form-control\""))
+                            </div>
+                            <div class="col-xs-2">
+                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, _FromDate, "FromDate", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
+                            </div>
+                            <div class="col-xs-2">
+                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, _ToDate, "ToDate", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <button class="btn btn-block btn-default" type="submit">@Lang["ChucNang_Item10"].ToString()</button>
+                    </div>
+                }
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">DANH SÁCH VÙNG</h3>
+                    <div class="box-tools">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="@Url.Action("Edit", "Vung")"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
+                            <li><a href="@Url.Action("Sort", "Vung")"><i class="fa fa-sort-numeric-asc"></i> @Lang["ChucNang_Item04"].ToString()</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <div class="table-responsive">
+                        <table id="tblListData" class="table table-bordered table-hover table-striped">
+                            <thead>
                                 <tr>
                                     <th style="width: 3%; text-align: center;">STT</th>
                                     <th style="width: 15%;">Miền</th>
@@ -105,6 +107,8 @@
                                     <th style="width: 10px;" title="Sửa"><span class="badge bg-blue"><i class="fa fa-pencil"></i></span></th>
                                     <th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 @{
                                     if (dt.Rows.Count > 0)
                                     {
@@ -142,12 +146,28 @@
                                     }
                                     dt.Dispose();
                                 }
-                            </table>
-                        </div>
-                    </div><!-- /.box-body -->
-                    @*<div class="box-footer clearfix">
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- /.box-body -->
+                @*<div class="box-footer clearfix">
                     </div>*@
-                </div>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </section><!-- /.content -->
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+<!-- DataTables -->
+<script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
+<script>
+    $(function () {
+        $('#tblListData').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false
+        });
+    });
+</script>

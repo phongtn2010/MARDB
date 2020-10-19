@@ -6985,3 +6985,11 @@ table.displayname {
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
 }
+
+a.icon_chonngay {
+    text-indent: -9999px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/icon_date.gif) no-repeat center center;
+    display: block;
+}
