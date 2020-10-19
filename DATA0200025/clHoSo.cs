@@ -178,7 +178,7 @@ namespace DATA0200025
 
             }
             if (!string.IsNullOrEmpty(models.sMaHoSo))
-            {
+            {mày 
                 DK += " AND sMaHoSo=@sMaHoSo";
                 cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
             }
