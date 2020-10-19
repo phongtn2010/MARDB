@@ -164,25 +164,27 @@ namespace DATA0200025
                     break;
             }    
             TrangThaiModels trangThai;
+            String sTrangThai = "";
             for (int i = 0; i < TrangThais.Count; i++)
             {
                 trangThai = TrangThais[i];
                 if (i == 0) { DK += " AND ("; }
                 if (i > 0) { DK += " OR "; }
-                DK += string.Format(" iID_MaTrangThai=@iID_MaTrangThai{0}",i);
-                cmd.Parameters.AddWithValue("@iID_MaTrangThai"+i, trangThai.iID_MaTrangThai);
-                if (i==TrangThais.Count-1)
+                DK += string.Format(" iID_MaTrangThai=@iID_MaTrangThai{0}", i);
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai" + i, trangThai.iID_MaTrangThai);
+                if (i == TrangThais.Count - 1)
                 {
                     DK += ")";
-                }    
+                }
+
+                sTrangThai += trangThai.iID_MaTrangThai + ",";
 
             }
             if (!string.IsNullOrEmpty(models.sMaHoSo))
-            {
+            { 
                 DK += " AND sMaHoSo=@sMaHoSo";
                 cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
             }
-           
             if (!string.IsNullOrEmpty(models.sMaSoThue))
             {
                 DK += " AND sMaSoThue=@sMaSoThue";
