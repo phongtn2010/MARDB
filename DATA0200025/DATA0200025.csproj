@@ -77,6 +77,7 @@
     <Compile Include="clCommon.cs" />
     <Compile Include="clDanhMuc.cs" />
     <Compile Include="clDoiTuong.cs" />
+    <Compile Include="clFileDinhKem.cs" />
     <Compile Include="clHanhDong.cs" />
     <Compile Include="clHoSo.cs" />
     <Compile Include="clLichSuHoSo.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="DongMoKyBaoCaoModels.cs" />
     <Compile Include="HamRiengModels.cs" />
     <Compile Include="HangMauModels.cs" />
+    <Compile Include="Models\FileDinhKemModels.cs" />
     <Compile Include="Models\HanhDongModels.cs" />
     <Compile Include="Models\DoiTuongModels.cs" />
     <Compile Include="Models\HoSoModels.cs" />
