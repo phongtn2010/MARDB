@@ -2972,6 +2972,8 @@
     <Content Include="Views\ToChucChiDinh\Partial_Model_UploadKetQua.cshtml" />
     <Content Include="Views\LanhDaoPhong\HoSoXacNhanChatLuong.cshtml" />
     <Content Include="Views\LanhDaoCuc\HoSoMienGiam.cshtml" />
+    <Content Include="Views\LanhDaoCuc\HoSoChoXacNhanGDK.cshtml" />
+    <Content Include="Views\LanhDaoCuc\HoSoChatLuongChoDuyet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
