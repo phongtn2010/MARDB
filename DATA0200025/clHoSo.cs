@@ -178,15 +178,11 @@ namespace DATA0200025
 
             }
             if (!string.IsNullOrEmpty(models.sMaHoSo))
-            {mày 
+            {
                 DK += " AND sMaHoSo=@sMaHoSo";
                 cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
             }
-            if (models.iID_MaTrangThai != "0")
-            {
-                DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
-                cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
-            }
+           
             if (!string.IsNullOrEmpty(models.sMaSoThue))
             {
                 DK += " AND sMaSoThue=@sMaSoThue";
