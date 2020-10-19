@@ -2843,6 +2843,7 @@
     <Content Include="Scripts\MicrosoftAjax.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\LanhDaoPhong\HoSoChoXemXet.cshtml" />
     <Content Include="XML\en.gif" />
     <Content Include="XML\en.xml" />
     <Content Include="XML\vn.gif" />
@@ -2969,6 +2970,8 @@
     <Content Include="Views\ToChucChiDinh\Index.cshtml" />
     <Content Include="Views\ToChucChiDinh\Partial_Model_HangHoa.cshtml" />
     <Content Include="Views\ToChucChiDinh\Partial_Model_UploadKetQua.cshtml" />
+    <Content Include="Views\LanhDaoPhong\HoSoXacNhanChatLuong.cshtml" />
+    <Content Include="Views\LanhDaoCuc\HoSoMienGiam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

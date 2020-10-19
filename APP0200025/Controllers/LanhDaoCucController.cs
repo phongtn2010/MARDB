@@ -162,5 +162,34 @@ namespace APP0200025.Controllers
             };
             return RedirectToAction("Index", models);
         }
+
+        public ActionResult HoSoMienGiam(sHoSoModels models)
+        {
+            if (models == null || models.LoaiDanhSach == 0)
+            {
+                models = new sHoSoModels
+                {
+                    Page = 1,
+                    PageSize = Globals.PageSize,
+                    LoaiDanhSach = 11
+                };
+            }
+            return View(models);
+        }
+
+        public ActionResult HoSoMienGiam(sHoSoModels models)
+        {
+            if (models == null || models.LoaiDanhSach == 0)
+            {
+                models = new sHoSoModels
+                {
+                    Page = 1,
+                    PageSize = Globals.PageSize,
+                    LoaiDanhSach = 11
+                };
+            }
+            return View(models);
+        }
+
     }
 }

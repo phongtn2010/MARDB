@@ -188,16 +188,19 @@ namespace DATA0200025
                     if (Cap == 0)
                     {
                         strPG += string.Format("<td style=\"background-color:#f4f9fd;\">{1}<b><a href=\"{0}\">{2}</a></b></td>", url, strDoanTrang, Row["sTen"]);
+                        strPG += string.Format("<td style=\"background-color:#f4f9fd;\"><b><a href=\"{0}\">{1}</a></b></td>", url,  Row["sURL"]);
                     }
                     else
                     {
                         if (tgThuTu % 2 == 0)
                         {
                             strPG += string.Format("<td style=\"background-color:#dff0fb;\">{1}<a href=\"{0}\">{2}</a></td>", url, strDoanTrang, Row["sTen"]);
+                            strPG += string.Format("<td style=\"background-color:#dff0fb;\"><a href=\"{0}\">{1}</a></td>", url, Row["sURL"]);
                         }
                         else
                         {
                             strPG += string.Format("<td>{1}<a href=\"{0}\">{2}</a></td>", url, strDoanTrang, Row["sTen"]);
+                            strPG += string.Format("<td><a href=\"{0}\">{1}</a></td>", url, Row["sURL"]);
                         }
 
                     }
