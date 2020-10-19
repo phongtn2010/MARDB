@@ -13,7 +13,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    string userName = User.Identity.Name;
     String ServerURL = CHamRieng.Get_Domain();
     String sDate = DateTime.Now.ToString("dd/MM/yyyy");
     String ParentID = "Index";
@@ -170,7 +170,7 @@
                                     {
                                         r = dt.Rows[i];
 
-
+                                        string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
                                         String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
                                         String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                         String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
@@ -186,19 +186,19 @@
                                             <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")</td>
                                             <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
                                             <td class="head-td-icon">
-                                                @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
+                                                @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                 {
                                                     @MvcHtmlString.Create(strView)
                                                 }
                                             </td>
                                             <td class="head-td-icon">
-                                                @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
+                                                @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                 {
-                                                <span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>
+                                                    <span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>
                                                 }
-                                                </td>
+                                            </td>
                                             <td class="head-td-icon">
-                                                @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
+                                                @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                 {
                                                     <a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
                                                         <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
@@ -207,13 +207,13 @@
 
                                             </td>
                                             <td class="head-td-icon">
-                                                @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
+                                                @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                 {
                                                     <a class="opentuchoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
                                                         <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
                                                     </a>
                                                 }
-                                                </td>
+                                            </td>
                                             <td style="width: 10px;" title="người xem">@r["sTenNguoiXem"]</td>
                                         </tr>
                                     }
