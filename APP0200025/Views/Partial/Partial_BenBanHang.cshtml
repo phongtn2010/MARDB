@@ -6,6 +6,9 @@
 @using DomainModel
 @using DomainModel.Controls
 @using DATA0200025
+@using DATA0200025.Models
+@using APP0200025.Models
+@model DATA0200025.Models.HoSoModels
 @{
     Layout = null;
     string ParentID = "Edit";
@@ -20,14 +23,14 @@
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Tên bên bán hàng</label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
-               
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sBan_Name, "sBan_Name", "", "type=\"text\" class=\"form-control\""))
+
             </div>
         </div>
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Nước<span style="color: red;">&nbsp;*</span></label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Argentina", "Nuoc","", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sBan_QuocGia, "sBan_QuocGia", "", "type=\"text\" class=\"form-control\""))
 
             </div>
         </div>
@@ -37,14 +40,14 @@
             <div class="form-group">
                 <label for="">Địa chỉ</label>
 
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Số 1", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sBan_DiaChi, "sBan_DiaChi", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Điện thoại<span style="color: red;">&nbsp;*</span></label>
 
-                @MvcHtmlString.Create(MyHtmlHelper.Label("0909837475", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sBan_Tel, "sBan_Tel", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
     </div>
@@ -53,14 +56,14 @@
             <div class="form-group">
                 <label for="">Fax</label>
 
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sBan_Fax, "sBan_Fax", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Nơi xuất hàng<span style="color: red;">&nbsp;*</span></label>
 
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Cảng cửa khẩu Lạng Sơn", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sBan_NoiXuat, "sBan_NoiXuat", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
     </div>

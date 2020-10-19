@@ -11,11 +11,12 @@ using System.Web.Mvc;
 
 namespace APP0200025.Controllers
 {
-    public class ChuyenVienController : Controller
+    public class DanhSachHoSoDaPheDuyetController : Controller
     {
+        // GET: DanhSachHoSoDaPheDuyet
         Bang bang = new Bang("CNN25_HoSo");
 
-        private string ViewPath = "~/Views/ChoTiepNhanHoSo/";
+        private string ViewPath = "~/Views/DanhSachHoSoDaPheDuyet/";
         // GET: ChoTiepNhanHoSo
         public ActionResult Index(sHoSoModels models)
         {
@@ -25,7 +26,7 @@ namespace APP0200025.Controllers
                 {
                     Page = 1,
                     PageSize = Globals.PageSize,
-                    LoaiDanhSach = 7
+                    LoaiDanhSach =5
                 };
             }
             return View(models);
@@ -65,7 +66,7 @@ namespace APP0200025.Controllers
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.DongYSoanPhuLucTrinhLanhXemXet, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-           
+
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
@@ -161,7 +162,7 @@ namespace APP0200025.Controllers
             string _ToDateTiepNhan = CString.SafeString(Request.Form[ParentID + "_viToDateTiepNhan"]);
             sHoSoModels models = new sHoSoModels
             {
-                LoaiDanhSach=7,
+                LoaiDanhSach = 5,
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,

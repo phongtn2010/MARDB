@@ -6,9 +6,13 @@
 @using DomainModel
 @using DomainModel.Controls
 @using DATA0200025
+@using DATA0200025.Models
+@using APP0200025.Models
+@model DATA0200025.Models.HoSoModels
 @{
     Layout = null;
     string ParentID = "Edit";
+    TrangThaiModels trangThai = clTrangThai.GetTrangThaiById(Model.iID_MaTrangThai);
 }
 
 <div class="box-header with-border">
@@ -20,13 +24,13 @@
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Mã hồ sơ</label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sMaHoSo, "sMaHoSo", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Trạng thái hồ sơ<span style="color: red;">&nbsp;*</span></label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(trangThai.sTen, "iID_MaTrangThai", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
     </div>
@@ -34,13 +38,13 @@
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Ngày tạo</label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(string.Format("{0:dd/MM/yyyy}",Model.dNgayTao), "dNgayTao", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Loại hình thức kiểm tra<span style="color: red;">&nbsp;*</span></label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sLoaiHinhThucKiemTra, "sLoaiHinhThucKiemTra", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
     </div>
@@ -48,13 +52,13 @@
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Mã hồ sơ được thay thế</label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sMaHoSo_ThayThe, "sMaHoSo_ThayThe", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Số GĐK được thay thế<span style="color: red;">&nbsp;*</span></label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sSoGDK_ThayThe, "sSoGDK_ThayThe", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
     </div>
