@@ -193,7 +193,7 @@ namespace APP0200025.Controllers
                 {
                     Page = 1,
                     PageSize = Globals.PageSize,
-                    LoaiDanhSach = 10
+                    LoaiDanhSach = 11
                 };
             }
             return View(models);
