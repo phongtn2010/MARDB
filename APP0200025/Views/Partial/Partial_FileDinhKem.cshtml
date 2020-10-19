@@ -1,6 +1,18 @@
-﻿
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using DATA0200025.Models
+@using APP0200025.Models
+@model DATA0200025.Models.HoSoModels
 @{
     Layout = null;
+    var lstFile = clFileDinhKem.GetHoSoByHoSo(Model.iID_MaHoSo);
+    int i = 0;
 }
 <div class="box-header with-border">
     <h3 class="box-title">Danh sách TACN</h3>
@@ -11,50 +23,42 @@
         <table id="tblListData" class="table table-bordered table-hover table-striped">
             <tr>
                 <th style="width: 3%; text-align: center;">STT</th>
-                <th style="width: 30%; text-align: center;">Tên chỉ tiêu chất lượng</th>
-                <th style="width: 30%; text-align: center;">Hình thức công bố</th>
-                <th style="width: 18%; text-align: center;">Hàm lượng</th>
-                <th style="width: 18%; text-align: center;">Đơn vị tính</th>
+                <th style="width: 30%; text-align: center;">Tên file</th>
+                <th style="width: 30%; text-align: center;">Thông tin file (Số,ngày)</th>
+                <th style="width: 18%; text-align: center;">Xem</th>
+                <th style="width: 18%; text-align: center;">Tảis</th>
             </tr>
+            @foreach (var item in lstFile)
+            {
+                i++;
+                <tr>
+                    <td style="text-align: center;">@i</td>
+                    <td>@item.sTenLoaiFile</td>
+                    <td>@item.sHopDong , @string.Format("{0:dd/MM/yyyy}",item.dNgayHopDong)</td>
+                    <td><span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span></td>
+                    <td> <a class="openyeucaubosung" href="@item.sDuongDan" >
+                            <span class='badge bg-blue'><i class='fa fa-download'></i></span>
+                        </a>
+                    </td>
+                </tr>
+            }
 
-            <tr>
-                <td style="text-align: center;">1</td>
-                <td>Độ ẩm</td>
-                <td>Min max</td>
-                <td>2.0</td>
-                <td>20%</td>
-            </tr>
-            <tr>
-                <td style="text-align: center;">1</td>
-                <td>Độ ẩm</td>
-                <td>Min max</td>
-                <td>2.0</td>
-                <td>20%</td>
-            </tr>
-            <tr>
-                <td style="text-align: center;">1</td>
-                <td>Độ ẩm</td>
-                <td>Min max</td>
-                <td>2.0</td>
-                <td>20%</td>
-            </tr>
-            <tr>
-                <td style="text-align: center;">1</td>
-                <td>Độ ẩm</td>
-                <td>Min max</td>
-                <td>2.0</td>
-                <td>20%</td>
-            </tr>
-            <tr>
-                <td style="text-align: center;">1</td>
-                <td>Độ ẩm</td>
-                <td>Min max</td>
-                <td>2.0</td>
-                <td>20%</td>
-            </tr>
+
         </table>
     </div>
 </div>
 <div class="box-body">
-    <div style="height:643px;"></div>
+    <div style="height:643px;">
+        <iframe id="ifViewFile" src="" style="height:643px;width:750px;"> </iframe>
+    </div>
 </div>
+<script>
+    $(document).ready(function () {
+       
+        $(document).on('click', '.btnview', function (e) {
+            debugger;
+            var filePath = $(this).data("src");
+            $("#ifViewFile").attr('src', "https://localhost:44360/"+filePath); 
+        });
+    });
+</script>
