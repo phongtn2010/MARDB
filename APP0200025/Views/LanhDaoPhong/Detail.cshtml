@@ -27,20 +27,38 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", Model);}
                         <form action="@Url.Action("Duyet", "LanhDaoPhong", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
-                            @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
+                            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"])
+                            @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo)
+
+                            <section class="content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box box-danger">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Dành cho cơ quan kiểm tra</h3>
+                                            </div><!-- /.box-header -->
+                                            <div class="box-body">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                             <div class="box-footer clearfix text-center">
                                 <div class="col-xs-4">
                                     <button class="btn btn-block btn-primary" type="submit">Đồng ý</button>
                                 </div>
                                 <div class="col-xs-4">
-                                    <a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" " type="button">Từ chối</a>
+                                    <a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>
                                 </div>
                                 <div class="col-xs-4">
-                                    <a class="btn btn-block" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
+                                    <a class="btn btn-block" style="background-color:#023658; color:white;" id="btnThoat" onclick="javascript:history.go(-1)">Quay lại</a>
                                 </div>
                             </div>
                         </form>

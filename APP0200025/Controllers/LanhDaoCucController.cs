@@ -25,7 +25,7 @@ namespace APP0200025.Controllers
                 {
                     Page = 1,
                     PageSize = Globals.PageSize,
-                    LoaiDanhSach = 11
+                    LoaiDanhSach = 12
                 };
             }
             return View(models);
@@ -171,7 +171,7 @@ namespace APP0200025.Controllers
                 {
                     Page = 1,
                     PageSize = Globals.PageSize,
-                    LoaiDanhSach = 11
+                    LoaiDanhSach = 12
                 };
             }
             return View(models);
@@ -185,7 +185,7 @@ namespace APP0200025.Controllers
                 {
                     Page = 1,
                     PageSize = Globals.PageSize,
-                    LoaiDanhSach = 11
+                    LoaiDanhSach = 12
                 };
             }
             return View(models);
@@ -199,7 +199,7 @@ namespace APP0200025.Controllers
                 {
                     Page = 1,
                     PageSize = Globals.PageSize,
-                    LoaiDanhSach = 11
+                    LoaiDanhSach = 12
                 };
             }
             return View(models);
