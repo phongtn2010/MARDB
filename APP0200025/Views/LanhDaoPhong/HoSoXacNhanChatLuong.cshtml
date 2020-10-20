@@ -205,9 +205,11 @@
                                     <th class="sorting" style="text-align: center;" align="center">Trạng thái hồ sơ</th>
                                     <th class="sorting" style="text-align: center;" align="center">Kết quả xử lý</th>
                                     <th style="width: 5%; text-align: center;">Xem</th>
-                                    <th style="width: 5%; text-align: center;">Đồng ý</th>
+                                    <th style="width: 5%; text-align: center;">
+                                        <span>Đồng ý</span>
+                                        <input type="checkbox" name="chkHoSo" id="chkHoSo" onclick="CheckAll(this.checked);" />
+                                    </th>
                                     <th style="width: 5%; text-align: center;">Từ chối </th>
-                                    <th style="width: 5%; text-align: center;">Thu hồi</th>
                                     <th style="width: 5%; text-align: center;">Quá hạn</th>
                                 </tr>
                             </thead>
@@ -220,11 +222,9 @@
                                             r = dt.Rows[i];
 
 
-                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                             String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
                                             String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
-                                            String strSoanPhuLuc = MyHtmlHelper.ActionLink(Url.Action("SoanPhuLuc", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
 
 
                                             <tr>
@@ -234,24 +234,23 @@
                                                 <td>@r["sSoTiepNhan"]</td>
                                                 <td>@r["dNgayTiepNhan"]</td>
                                                 <td>@r["sTenDoanhNghiep"]</td>
-                                                <td>chua biet lay o dau</td>
+                                                <td>@r["sTenHangHoa"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
                                                 <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
-                                                <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
-                                                <td class="head-td-icon">@MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, "0", "bDongY", ""))</td>
-
-                                                <td class="head-td-icon">
-                                                    @*@MvcHtmlString.Create(strTuChoi)*@
+                                                <td align="center">@MvcHtmlString.Create(strView)</td>
+                                                <td align="center">
+                                                    <input type='checkbox' value='@r["iID_MaHoSo"].ToString()' onclick='CheckValue();' check-group='HO_SO' id='@(ParentID)_HO_SO' name='@(ParentID)_HO_SO' />
+                                                </td>
+                                                <td align="center" title="Từ chối">
                                                     <a class="opentuchoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
                                                         <span class='badge bg-red'><i class='fa fa-times'></i></span>
                                                     </a>
                                                 </td>
-                                                <td style="width: 10px;" title="Thu hồi">
+                                                <td align="center" title="Quá hạn">
                                                     <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
-                                                        <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
+                                                        <span class='badge bg-red'><i class='fa fa-exclamation'></i></span>
                                                     </a>
                                                 </td>
-                                                <td style="width: 10px;" title="người xem"></td>
                                             </tr>
                                         }
                                     }
@@ -262,7 +261,12 @@
                     </div>
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    @MvcHtmlString.Create(strPhanTrang)
+                    <div class="col-xs-3">
+                        <button class="btn btn-block btn-primary" type="submit">Đồng ý</button>
+                    </div>
+                    <div class="col-xs-9">
+                        @MvcHtmlString.Create(strPhanTrang)
+                    </div>
                 </div>
                 @*<div class="box-footer clearfix">
                     </div>*@
@@ -271,4 +275,24 @@
     </div><!-- /.row -->
 </section><!-- /.content -->
 @{Html.RenderPartial("~/Views/LanhDaoPhong/Partial_Model_TuChoi.cshtml");}
-<script src="~/ScriptsERP/jsLanhDaoPhong.js"></script>
+<script src="@Url.Content("~/ScriptsERP/jsLanhDaoPhong.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+<script type="text/javascript" language="javascript">
+    function CheckAll(value) {
+        $("input:checkbox[check-group='HO_SO']").each(function (i) {
+            this.checked = value;
+            ChonLNSNhapLieu();
+        });
+    }
+
+    function CheckValue() {
+        var jsGiaTriLNS = "";
+        var inputs = document.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].type == "checkbox") {
+                if (inputs[i].checked && inputs[i].name != "chkHoSo") {
+                    jsGiaTriLNS = jsGiaTriLNS + inputs[i].value + ",";
+                }
+            }
+        }
+    }
+</script>
