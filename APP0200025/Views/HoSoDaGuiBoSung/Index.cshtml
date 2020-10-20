@@ -200,7 +200,7 @@
                                                             <td>@r["sSoTiepNhan"]</td>
                                                             <td>@string.Format("{0:dd-MM-yyyy}", r["dNgayTiepNhan"])</td>
                                                             <td>@r["sTenDoanhNghiep"]</td>
-                                                            <td>chua biet lay o dau</td>
+                                                            <td>@r["sTenHangHoa"]</td>
                                                             <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
                                                             <td class="head-td-icon">
                                                                 @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
@@ -249,6 +249,6 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_TuChoi.cshtml");}
+@{Html.RenderPartial("~/Views/HoSoDaBoSung/Partial_Model_YeuCauBoSung.cshtml");}
+@{Html.RenderPartial("~/Views/HoSoDaBoSung/Partial_Model_TuChoi.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsHoSoDaBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

@@ -158,6 +158,16 @@ namespace DATA0200025
                 DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
                 cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
             }
+            if (!string.IsNullOrEmpty(models.TuNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan >= @TuNgayXacNhan";
+                cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau(models.TuNgayXacNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
+                cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
+            }
             string SQL = string.Format("SELECT count(iID_MaHoSo) as value FROM CNN25_HoSo WHERE {0} ", DK);
             cmd.CommandText = SQL;
             int vR = Convert.ToInt32(Connection.GetValue(cmd, 0));
@@ -284,6 +294,17 @@ namespace DATA0200025
             {
                 DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
                 cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan >= @TuNgayXacNhan";
+                cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau(models.TuNgayXacNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
+                cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
             }
             string SQL = string.Format("SELECT * FROM CNN25_HoSo WHERE {0} ", DK);
             cmd.CommandText = SQL;

@@ -270,6 +270,7 @@
     <Compile Include="Controllers\ChuyenVienController.cs" />
     <Compile Include="Controllers\DangKyController.cs" />
     <Compile Include="Controllers\DanhSachHoSoDaPheDuyetController.cs" />
+    <Compile Include="Controllers\DaTraGDKController.cs" />
     <Compile Include="Controllers\DonViController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2980,6 +2981,10 @@
     <Content Include="Views\HoSoDaGuiBoSung\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\HoSoDaGuiBoSung\Partial_Model_YeuCauBoSung.cshtml" />
     <Content Include="Views\HoSoYeuCauBoSung\Partial_Model_YeuCauBoSung.cshtml" />
+    <Content Include="Views\HoSoDaPheDuyetGDK\Index.cshtml" />
+    <Content Include="Views\HoSoDaPheDuyetGDK\Detail.cshtml" />
+    <Content Include="Views\DaTraGDK\Detail.cshtml" />
+    <Content Include="Views\DaTraGDK\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
