@@ -84,10 +84,11 @@
                     <div class="col-xs-5">
                         @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaHoSo", "", "placeholder=\"Mã hồ sơ\" type=\"text\" class=\"form-control\""))
                     </div>
-                    <label for="inputEmail3" class="col-xs-1 control-label">Tên doanh nghiệp</label>
+                    <label for="inputEmail3" class="col-xs-1 control-label">Số tiếp nhận</label>
                     <div class="col-xs-5">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"Tên doanh nghiệp\" type=\"text\" class=\"form-control\""))
+                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoTiepNhan, "sSoTiepNhan", "", "placeholder=\"Số tiếp nhận\" type=\"text\" class=\"form-control\""))
                     </div>
+                
                 </div>
 
                 <div class="form-group">
@@ -95,9 +96,9 @@
                     <div class="col-xs-5">
                         @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenTACN, "sTenTACN", "", "placeholder=\"Tên TACN\" type=\"text\" class=\"form-control\""))
                     </div>
-                    <label for="inputEmail3" class="col-xs-1 control-label">Mã số thuế</label>
+                    <label for="inputEmail3" class="col-xs-1 control-label">Tên doanh nghiệp</label>
                     <div class="col-xs-5">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaSoThue", "", "placeholder=\"Mã số thuế\" type=\"text\" class=\"form-control\""))
+                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"Tên doanh nghiệp\" type=\"text\" class=\"form-control\""))
                     </div>
                 </div>
 
@@ -123,13 +124,7 @@
                     
                 </div>
 
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-xs-1 control-label">Số tiếp nhận</label>
-                        <div class="col-xs-5">
-                            @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoTiepNhan, "sSoTiepNhan", "", "placeholder=\"Số tiếp nhận\" type=\"text\" class=\"form-control\""))
-                        </div>
-
-                    </div>
+                  
 
                 </div><!-- /.box-body -->
                     <div class="box-footer clearfix">
