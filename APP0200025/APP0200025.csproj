@@ -1424,6 +1424,7 @@
     <Content Include="Content\dist\img\F_page.gif" />
     <Content Include="Content\dist\img\graf.png" />
     <Content Include="Content\dist\img\header-left.png" />
+    <Content Include="Content\dist\img\header-rep.png" />
     <Content Include="Content\dist\img\header-right.png" />
     <Content Include="Content\dist\img\header.png" />
     <Content Include="Content\dist\img\icoCongViec.gif" />
