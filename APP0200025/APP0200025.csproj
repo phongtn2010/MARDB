@@ -1424,6 +1424,10 @@
     <Content Include="Content\dist\img\expand_blue.jpg" />
     <Content Include="Content\dist\img\F_page.gif" />
     <Content Include="Content\dist\img\graf.png" />
+    <Content Include="Content\dist\img\header-left.png" />
+    <Content Include="Content\dist\img\header-rep.png" />
+    <Content Include="Content\dist\img\header-right.png" />
+    <Content Include="Content\dist\img\header.png" />
     <Content Include="Content\dist\img\icoCongViec.gif" />
     <Content Include="Content\dist\img\icoDatCoc.gif" />
     <Content Include="Content\dist\img\icoGiayHen.gif" />
@@ -1578,6 +1582,8 @@
     <Content Include="Content\images\Group-117_03.jpg" />
     <Content Include="Content\images\Group-117_05.jpg" />
     <Content Include="Content\images\hdbank_i.jpg" />
+    <Content Include="Content\images\header-left.png" />
+    <Content Include="Content\images\header.png" />
     <Content Include="Content\images\history.png" />
     <Content Include="Content\images\home.png" />
     <Content Include="Content\images\icoCongViec.gif" />
