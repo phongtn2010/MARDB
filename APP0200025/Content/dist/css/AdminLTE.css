@@ -218,6 +218,7 @@ a {
  * ----------------------
  */
 .main-header {
+    background: url('../img/header.png') no-repeat #c3dbf1;
     position: relative;
     max-height: 100px;
     z-index: 1030;
