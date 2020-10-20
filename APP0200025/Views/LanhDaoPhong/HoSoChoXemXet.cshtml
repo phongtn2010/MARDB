@@ -66,8 +66,6 @@
     String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "LanhDaoPhong", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
 
 }
-<!-- DataTables -->
-<link rel="stylesheet" href="@Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.css")">
 <!-- Main content -->
 <section class="content">
     <div class="row">
