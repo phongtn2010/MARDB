@@ -23,10 +23,18 @@ namespace APP0200025.Controllers
                 models = new sHoSoModels
                 {
                     Page = 1,
-                    PageSize = Globals.PageSize
+                    PageSize = Globals.PageSize,
+                    LoaiDanhSach = 50
                 };
             }
             return View(models);
+        }
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ThongTinHoangHoa(string iID_MaHoSo)
+        {
+            DataTable hoSo = GetHoangHoaByIdHoSo(iID_MaHoSo);
+            ViewData["DuLieuMoi"] = "0";
+            return View(hoSo);
         }
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID)
@@ -36,19 +44,25 @@ namespace APP0200025.Controllers
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
             string _FromDate = CString.SafeString(Request.Form[ParentID + "_viFromDate"]);
             string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
+            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
+            string _FromDateTiepNhan = CString.SafeString(Request.Form[ParentID + "_viFromDateTiepNhan"]);
+            string _ToDateTiepNhan = CString.SafeString(Request.Form[ParentID + "_viToDateTiepNhan"]);
             sHoSoModels models = new sHoSoModels
             {
-                LoaiDanhSach=1,
+                LoaiDanhSach = 50,
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
                 TuNgayDen = _FromDate,
-                DenNgayDen = _ToDate
+                DenNgayDen = _ToDate,
+                TuNgayTiepNhan = _FromDateTiepNhan,
+                DenNgayTiepNhan = _ToDateTiepNhan,
+                sSoTiepNhan = _sSoTiepNhan
             };
             return RedirectToAction("Index", models);
         }
         [HttpPost]
-        public object GetHoangHoa(int iID_MaHoSo)
+        public object GetHoangHoa(string iID_MaHoSo)
         {
             var DataTable = GetHoangHoaByIdHoSo(iID_MaHoSo);
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
@@ -65,10 +79,12 @@ namespace APP0200025.Controllers
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             return Json(new { DataTable = serializer.Serialize(rows) },JsonRequestBehavior.AllowGet);
         }
-        public static DataTable GetHoangHoaByIdHoSo(int iID_MaHoSo)
+        public static DataTable GetHoangHoaByIdHoSo(string iID_MaHoSo)
         {
+            iID_MaHoSo = "28";
             SqlCommand cmd = new SqlCommand();
-            string SQL = string.Format("SELECT A.iID_MaHoSo,A.sMaHoSo ,A.sTenHangHoa as 'sTenHangHoa', B.rKhoiLuong , B.rSoLuong FROM CNN25_HangHoa A left join CNN25_HangHoa_SoLuong B on A.iID_MaHangHoa = B.iID_MaHangHoa WHERE A.iID_MaHoSo = {0} ", iID_MaHoSo);
+            //string SQL = string.Format("SELECT A.iID_MaHoSo,A.sMaHoSo ,A.sTenHangHoa as 'sTenHangHoa', B.rKhoiLuong , B.rSoLuong FROM CNN25_HangHoa A left join CNN25_HangHoa_SoLuong B on A.iID_MaHangHoa = B.iID_MaHangHoa WHERE A.iID_MaHoSo = {0} ", iID_MaHoSo);
+            string SQL = string.Format("SELECT A.iID_MaHoSo,A.sMaHoSo ,A.sTenHangHoa as 'sTenHangHoa', B.rKhoiLuong , B.rSoLuong FROM CNN25_HangHoa A left join CNN25_HangHoa_SoLuong B on A.iID_MaHangHoa = B.iID_MaHangHoa");
             cmd.CommandText = SQL;
             string sOrder = "iID_MaHoSo DESC";
             DataTable dt = CommonFunction.dtData(cmd, sOrder, 1, 10000);

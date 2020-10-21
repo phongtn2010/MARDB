@@ -222,6 +222,9 @@ namespace DATA0200025
                 case 18:
                     TrangThais = BPMC_DaCapThongBaoKetQua();
                     break;
+                case 50:
+                    TrangThais = ToChucChiDinh();
+                    break;
                 default:
                     TrangThais = new List<TrangThaiModels>();
                     break;
@@ -501,6 +504,23 @@ namespace DATA0200025
             {
                 iID_MaTrangThai = 44,
                 sTen = "Đã cấp thông báo kết quả kiểm tra"
+            };
+            lst.Add(trangThai);
+
+            return lst;
+        }
+        /// <summary>
+        /// Loại danh sách = 50
+        /// Tổ chức chỉ định
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> ToChucChiDinh()
+        {
+            List<TrangThaiModels> lst = new List<TrangThaiModels>();
+            TrangThaiModels trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 27,
+                sTen = "Chờ kết quả đánh giá sự phù hợp"
             };
             lst.Add(trangThai);
 
