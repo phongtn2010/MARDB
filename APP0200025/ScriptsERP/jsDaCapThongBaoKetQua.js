@@ -1,9 +1,9 @@
 ﻿$(function () {
-    $("body").on("click", "#btnBoSungYeuCau", function () {    
-        var formData = new FormData($("#formYeuCau")[0]);
+    $("body").on("click", "#btnThuHoi", function () {    
+        var formData = new FormData($("#formThuHoi")[0]);
             //var OrderService = $("#OrderService").val();
             $.ajax({
-                url: '/LanhDaoPhong/YeuCauBoSungSubmit',
+                url: '/DaCapThongBaoKetQua/ThuHoiSubmit',
                 type: 'POST',
                 data: formData,
                 async: false,
@@ -28,10 +28,10 @@
 });
 
 $(function () {
-    $("body").on("click", ".openyeucaubosung", function () {
+    $("body").on("click", ".openthuhoi", function () {
 
         var iID_MaHoSo = $(this).data("id");
-        $("#BS_iID_MaHoSo").val(iID_MaHoSo);
+        $("#TH_iID_MaHoSo").val(iID_MaHoSo);
     });
 });
 
@@ -51,7 +51,7 @@ $(function () {
         var formData = new FormData($("#formTuChoi")[0]);
         //var OrderService = $("#OrderService").val();
         $.ajax({
-            url: '/LanhDaoPhong/TuChoiHoSoSubmit',
+            url: '/DaCapThongBaoKetQua/TuChoiHoSoSubmit',
             type: 'POST',
             data: formData,
             async: false,
@@ -79,7 +79,7 @@ $(function () {
     $("body").on("click", "#btnThoat", function () {
         var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
         $.ajax({
-            url: '/LanhDaoPhong/Thoat',
+            url: '/DaCapThongBaoKetQua/Thoat',
             type: 'POST',
             data: { iID_MaHoSo: iID_MaHoSo},
             success: function (response) {

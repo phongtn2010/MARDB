@@ -3,7 +3,7 @@
         var formData = new FormData($("#formYeuCau")[0]);
             //var OrderService = $("#OrderService").val();
             $.ajax({
-                url: '/LanhDaoPhong/YeuCauBoSungSubmit',
+                url: '/PhongTACNYeuCauBoSungKetQua/YeuCauBoSungSubmit',
                 type: 'POST',
                 data: formData,
                 async: false,
@@ -51,7 +51,7 @@ $(function () {
         var formData = new FormData($("#formTuChoi")[0]);
         //var OrderService = $("#OrderService").val();
         $.ajax({
-            url: '/LanhDaoPhong/TuChoiHoSoSubmit',
+            url: '/PhongTACNYeuCauBoSungKetQua/TuChoiHoSoSubmit',
             type: 'POST',
             data: formData,
             async: false,
@@ -79,7 +79,7 @@ $(function () {
     $("body").on("click", "#btnThoat", function () {
         var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
         $.ajax({
-            url: '/LanhDaoPhong/Thoat',
+            url: '/PhongTACNYeuCauBoSungKetQua/Thoat',
             type: 'POST',
             data: { iID_MaHoSo: iID_MaHoSo},
             success: function (response) {

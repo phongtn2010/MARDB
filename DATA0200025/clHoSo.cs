@@ -880,12 +880,33 @@ namespace DATA0200025
 
         public static SelectOptionList DDL_ChoTiepNhan(bool TatCa = true)
         {
-            return DDLTrangThaiSearch(BPMC_ChoTiepNhanHoSo());
+            return DDLTrangThaiSearch(BPMC_ChoTiepNhanHoSo(), TatCa);
         }
         public static SelectOptionList DDL_ChoTiepNhanHoSoGuiBoSung(bool TatCa = true)
         {
-            return DDLTrangThaiSearch(BPMC_ChoTiepNhanHoSoGuiBoSung());
+            return DDLTrangThaiSearch(BPMC_ChoTiepNhanHoSoGuiBoSung(), TatCa);
         }
+        public static SelectOptionList DDL_ChoTiepNhanKetQua(bool TatCa = true)
+        {
+            return DDLTrangThaiSearch(BPMC_ChoTiepNhanKetQua(), TatCa);
+        }
+        public static SelectOptionList DDL_ChoTiepNhanKetQuaGuiBoSung(bool TatCa = true)
+        {
+            return DDLTrangThaiSearch(BPMC_ChoTiepNhanKetQuaGuiBoSung(), TatCa);
+        }
+        public static SelectOptionList DDL_PhongTACNYeuCauBoSungKetQua(bool TatCa = true)
+        {
+            return DDLTrangThaiSearch(BPMC_PhongTACNYeuCauBoSungKetQua(), TatCa);
+        }
+        public static SelectOptionList DDL_DaPheDuyetThongBaoKetQua(bool TatCa = true)
+        {
+            return DDLTrangThaiSearch(BPMC_DaPheDuyetThongBaoKetQua(), TatCa);
+        }
+        public static SelectOptionList DDL_DaCapThongBaoKetQua(bool TatCa = true)
+        {
+            return DDLTrangThaiSearch(BPMC_DaCapThongBaoKetQua(), TatCa);
+        }
+        
         #endregion
         #region Update
         public static void UpdateNguoiXem(string iID_MaHoSo, string MaND)

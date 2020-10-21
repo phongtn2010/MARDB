@@ -133,7 +133,7 @@ namespace APP0200025.Controllers
                 }
             }
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
-          TrangThaiModels trangThaiTiepTheo= clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TraChuyenVienXyLyLai, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+          TrangThaiModels trangThaiTiepTheo= clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TraChuyenVienXuLyLai, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
             
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
@@ -146,7 +146,7 @@ namespace APP0200025.Controllers
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
-            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TraChuyenVienXyLyLai, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TraChuyenVienXuLyLai, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
             ResultModels result = new ResultModels { success = true };
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);

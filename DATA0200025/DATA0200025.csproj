@@ -82,6 +82,7 @@
     <Compile Include="clHoSo.cs" />
     <Compile Include="clLichSuHoSo.cs" />
     <Compile Include="clLoaiDanhMuc.cs" />
+    <Compile Include="clLoaiDanhSach.cs" />
     <Compile Include="CLoaiBaoCao.cs" />
     <Compile Include="CLoaiSanPham.cs" />
     <Compile Include="clTaoMaTiepNhan.cs" />

@@ -23,7 +23,7 @@ namespace DATA0200025
             TuChoiYeuCauBoSungTraLaiChuyenVien=11,
             TraLaiChuyenVien=12,
             GuiDoanhNghiepThongBaoYeuCauBoSungHoSo=13,
-            TraChuyenVienXyLyLai=14,
+            TraChuyenVienXuLyLai=14,
             DongYXemXetTuChoiCap=15,
             TuChoiXemXetTuChoiCapGDK=16,
             DongYPheDuyetTuChoiCapGDK=17,

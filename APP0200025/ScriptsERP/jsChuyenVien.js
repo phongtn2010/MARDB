@@ -48,7 +48,7 @@ $(function () {
         var formData = new FormData($("#formTuChoi")[0]);
         //var OrderService = $("#OrderService").val();
         $.ajax({
-            url: '/ChoTiepNhanHoSo/YeuCauBoXungSubmit',
+            url: '/ChoTiepNhanHoSo/YeuCauBoSungSubmit',
             type: 'POST',
             data: formData,
             async: false,

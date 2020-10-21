@@ -3,7 +3,7 @@
         var formData = new FormData($("#formYeuCau")[0]);
             //var OrderService = $("#OrderService").val();
             $.ajax({
-                url: '/ChoTiepNhanHoSo/YeuCauBoSungSubmit',
+                url: '/ChoTiepNhanKetQua/YeuCauBoSungSubmit',
                 type: 'POST',
                 data: formData,
                 async: false,
@@ -12,13 +12,13 @@
                 enctype: 'multipart/form-data',
                 processData: false,
                 success: function (response) {
-                    $('#YeuCauBoSung').modal('toggle');
+                    $('#responsive').modal('toggle');
                     if (response.success) {
                         location.href = response.value;
                     }
                 },
                 error: function (response) {
-                    alert("Bạn cần xử lý mẫu trước");
+                    
                     $('#responsive').modal('toggle');
                 }
 
@@ -51,7 +51,7 @@ $(function () {
         var formData = new FormData($("#formTuChoi")[0]);
         //var OrderService = $("#OrderService").val();
         $.ajax({
-            url: '/ChoTiepNhanHoSo/TuChoiHoSoSubmit',
+            url: '/ChoTiepNhanKetQua/TuChoiHoSoSubmit',
             type: 'POST',
             data: formData,
             async: false,
@@ -66,11 +66,28 @@ $(function () {
                 }
             },
             error: function (response) {
-                alert("Bạn cần xử lý mẫu trước");
+             
                 $('#responsive').modal('toggle');
             }
 
         });
         return false;
+    });
+});
+
+$(function () {
+    $("body").on("click", "#btnThoat", function () {
+        var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
+        $.ajax({
+            url: '/ChoTiepNhanKetQua/Thoat',
+            type: 'POST',
+            data: { iID_MaHoSo: iID_MaHoSo},
+            success: function (response) {
+                
+                if (response.success) {
+                    location.href = response.value;
+                }
+            }
+        });
     });
 });

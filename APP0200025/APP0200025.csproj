@@ -267,9 +267,13 @@
     <Compile Include="Controllers\BaoMat\NhomNguoiDungController.cs" />
     <Compile Include="Controllers\BaoMat\TruongCamController.cs" />
     <Compile Include="Controllers\ChoTiepNhanHoSoController.cs" />
+    <Compile Include="Controllers\ChoTiepNhanKetQuaController.cs" />
+    <Compile Include="Controllers\ChoTiepNhanKetQuaGuiBoSungController.cs" />
     <Compile Include="Controllers\ChuyenVienController.cs" />
+    <Compile Include="Controllers\DaCapThongBaoKetQuaController.cs" />
     <Compile Include="Controllers\DangKyController.cs" />
     <Compile Include="Controllers\DanhSachHoSoDaPheDuyetController.cs" />
+    <Compile Include="Controllers\DaPheDuyetThongBaoKetQuaController.cs" />
     <Compile Include="Controllers\DaTraGDKController.cs" />
     <Compile Include="Controllers\DonViController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
@@ -284,6 +288,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MienController.cs" />
     <Compile Include="Controllers\PhongBanController.cs" />
+    <Compile Include="Controllers\PhongTACNYeuCauBoSungKetQuaController.cs" />
     <Compile Include="Controllers\PublicController.cs" />
     <Compile Include="Controllers\Shared\AjaxController.cs" />
     <Compile Include="Controllers\Shared\NhapNhanhController.cs" />
@@ -2788,11 +2793,16 @@
     <Content Include="ScriptsERP\jsBang_KeyTable.js" />
     <Content Include="ScriptsERP\jsBSC.js" />
     <Content Include="ScriptsERP\jsBTS.js" />
+    <Content Include="ScriptsERP\jsDaCapThongBaoKetQua.js" />
+    <Content Include="ScriptsERP\jsDaPheDuyetThongBaoKetQua.js" />
+    <Content Include="ScriptsERP\jsPhongTACNYeuCauBoSungKetQua.js" />
+    <Content Include="ScriptsERP\jsChoTiepNhanKetQuaGuiBoSung.js" />
+    <Content Include="ScriptsERP\jsChoTiepNhanKetQua.js" />
     <Content Include="ScriptsERP\jsHoSoYeuCauBoSung.js" />
     <Content Include="ScriptsERP\jsHoSoDaXemXetYeuCauBoSung.js" />
     <Content Include="ScriptsERP\jsLanhDaoCuc.js" />
     <Content Include="ScriptsERP\jsLanhDaoPhong.js" />
-    <Content Include="ScriptsERP\jsHoSoDaBoSung.js" />
+    <Content Include="ScriptsERP\jsHoSoDaGuiBoSung.js" />
     <Content Include="ScriptsERP\jsChoTiepNhanHoSo.js" />
     <Content Include="ScriptsERP\jsChuyenVien.js" />
     <Content Include="ScriptsERP\jsControl.js" />
@@ -2991,6 +3001,25 @@
     <Content Include="Views\HoSoDaPheDuyetGDK\Detail.cshtml" />
     <Content Include="Views\DaTraGDK\Detail.cshtml" />
     <Content Include="Views\DaTraGDK\Index.cshtml" />
+    <Content Include="Views\ChoTiepNhanKetQua\Detail.cshtml" />
+    <Content Include="Views\ChoTiepNhanKetQua\Index.cshtml" />
+    <Content Include="Views\ChoTiepNhanKetQua\Partial_Detail.cshtml" />
+    <Content Include="Views\ChoTiepNhanKetQua\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\ChoTiepNhanKetQua\Partial_Model_YeuCauBoSung.cshtml" />
+    <Content Include="Views\ChoTiepNhanKetQuaGuiBoSung\Detail.cshtml" />
+    <Content Include="Views\ChoTiepNhanKetQuaGuiBoSung\Index.cshtml" />
+    <Content Include="Views\ChoTiepNhanKetQuaGuiBoSung\Partial_Detail.cshtml" />
+    <Content Include="Views\ChoTiepNhanKetQuaGuiBoSung\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\ChoTiepNhanKetQuaGuiBoSung\Partial_Model_YeuCauBoSung.cshtml" />
+    <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Detail.cshtml" />
+    <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Index.cshtml" />
+    <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Partial_Model_YeuCauBoSung.cshtml" />
+    <Content Include="Views\DaPheDuyetThongBaoKetQua\Detail.cshtml" />
+    <Content Include="Views\DaPheDuyetThongBaoKetQua\Index.cshtml" />
+    <Content Include="Views\DaCapThongBaoKetQua\Detail.cshtml" />
+    <Content Include="Views\DaCapThongBaoKetQua\Index.cshtml" />
+    <Content Include="Views\DaCapThongBaoKetQua\Partial_Model_ThuHoi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

@@ -3,7 +3,7 @@
         var formData = new FormData($("#formYeuCau")[0]);
             //var OrderService = $("#OrderService").val();
             $.ajax({
-                url: '/LanhDaoPhong/YeuCauBoSungSubmit',
+                url: '/HoSoDaGuiBoSung/YeuCauBoSungSubmit',
                 type: 'POST',
                 data: formData,
                 async: false,
@@ -12,13 +12,13 @@
                 enctype: 'multipart/form-data',
                 processData: false,
                 success: function (response) {
-                    $('#responsive').modal('toggle');
+                    $('#YeuCauBoSung').modal('toggle');
                     if (response.success) {
                         location.href = response.value;
                     }
                 },
                 error: function (response) {
-                    
+                    alert("Bạn cần xử lý mẫu trước");
                     $('#responsive').modal('toggle');
                 }
 
@@ -51,7 +51,7 @@ $(function () {
         var formData = new FormData($("#formTuChoi")[0]);
         //var OrderService = $("#OrderService").val();
         $.ajax({
-            url: '/LanhDaoPhong/TuChoiHoSoSubmit',
+            url: '/HoSoDaGuiBoSung/TuChoiHoSoSubmit',
             type: 'POST',
             data: formData,
             async: false,
@@ -66,7 +66,7 @@ $(function () {
                 }
             },
             error: function (response) {
-             
+                alert("Bạn cần xử lý mẫu trước");
                 $('#responsive').modal('toggle');
             }
 
@@ -74,16 +74,15 @@ $(function () {
         return false;
     });
 });
-
 $(function () {
     $("body").on("click", "#btnThoat", function () {
         var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
         $.ajax({
-            url: '/LanhDaoPhong/Thoat',
+            url: '/HoSoDaGuiBoSung/Thoat',
             type: 'POST',
-            data: { iID_MaHoSo: iID_MaHoSo},
+            data: { iID_MaHoSo: iID_MaHoSo },
             success: function (response) {
-                
+
                 if (response.success) {
                     location.href = response.value;
                 }
