@@ -1275,18 +1275,21 @@ namespace DomainModel
             vR += "});";
             vR += "</script>";
             sGiaTri = Convert.ToString(Value);
-            vR += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\" style=\"border:none;\">";
-            vR += "<tr>";
-            vR += "<td style=\"border:none;\">";
             vR += String.Format("<input id=\"{0}\" type=\"text\" name=\"{0}\" value=\"{1}\" {2} {3} />", ControlID, sGiaTri, sDisabled, Attributes);
-            vR += "</td>";
-            vR += "<td width=\"10px\" style=\"border:none;\">&nbsp;</td>";
-            vR += "<td width=\"20px\" style=\"border:none;\">";
-            vR += String.Format("<a href=\"#\" class=\"icon_chonngay\" onclick=\"javascript:$('#{0}').datepicker('show');return false;\">&nbsp;</a>", ControlID);
-            //vR += "<input type=\"button\" class=\"bieutuong\">dmalsk</a>";
-            vR += "</td>";
-            vR += "</tr>";
-            vR += "</table>";
+            vR += "<i class='glyphicon glyphicon glyphicon-calendar form-control-feedback blue' style='right: 13px;'></i>";
+
+            //vR += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\" style=\"border:none;\">";
+            //vR += "<tr>";
+            //vR += "<td style=\"border:none;\">";
+            //vR += String.Format("<input id=\"{0}\" type=\"text\" name=\"{0}\" value=\"{1}\" {2} {3} />", ControlID, sGiaTri, sDisabled, Attributes);
+            //vR += "</td>";
+            //vR += "<td width=\"10px\" style=\"border:none;\">&nbsp;</td>";
+            //vR += "<td width=\"20px\" style=\"border:none;\">";
+            //vR += String.Format("<a href=\"#\" class=\"icon_chonngay\" onclick=\"javascript:$('#{0}').datepicker('show');return false;\">&nbsp;</a>", ControlID);
+            ////vR += "<input type=\"button\" class=\"bieutuong\">dmalsk</a>";
+            //vR += "</td>";
+            //vR += "</tr>";
+            //vR += "</table>";
 
 
             return vR;
