@@ -3001,6 +3001,7 @@
     <Content Include="Views\HoSoDaPheDuyetGDK\Detail.cshtml" />
     <Content Include="Views\DaTraGDK\Detail.cshtml" />
     <Content Include="Views\DaTraGDK\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\ChoTiepNhanKetQua\Detail.cshtml" />
     <Content Include="Views\ChoTiepNhanKetQua\Index.cshtml" />
     <Content Include="Views\ChoTiepNhanKetQua\Partial_Detail.cshtml" />
@@ -3020,6 +3021,9 @@
     <Content Include="Views\DaCapThongBaoKetQua\Detail.cshtml" />
     <Content Include="Views\DaCapThongBaoKetQua\Index.cshtml" />
     <Content Include="Views\DaCapThongBaoKetQua\Partial_Model_ThuHoi.cshtml" />
+=======
+    <Content Include="Views\ToChucChiDinh\ThongTinHoangHoa.cshtml" />
+>>>>>>> 5174cb8f79788b5f18135edb6e80e217c2d86c35
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
