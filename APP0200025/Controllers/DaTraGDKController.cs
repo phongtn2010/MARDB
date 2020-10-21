@@ -10,20 +10,20 @@ using System.Web.Mvc;
 
 namespace APP0200025.Controllers
 {
-    public class HoSoDaPheDuyetGDKController : Controller
+    public class DaTraGDKController : Controller
     {
-        // Đã phê duyệt GĐK
+        // GET: DaTraGDK
         Bang bang = new Bang("CNN25_HoSo");
 
-        private string ViewPath = "~/Views/HoSoDaPheDuyetGDK/";
-        // GET: HoSoDaPheDuyetGDK
+        private string ViewPath = "~/Views/DaTraGDK/";
+        // GET: DaTraGDK
         public ActionResult Index(sHoSoModels models)
         {
             if (models == null || models.LoaiDanhSach == 0)
             {
                 models = new sHoSoModels
                 {
-                    LoaiDanhSach = 5,
+                    LoaiDanhSach = 6,
                     Page = 1,
                     PageSize = Globals.PageSize
                 };
@@ -61,26 +61,26 @@ namespace APP0200025.Controllers
         /// <param name="MaHoSo"></param>
         /// <returns></returns>
         [Authorize, ValidateInput(false), HttpPost]
-        public ActionResult GuiDoanhNghiep(String ParentID)
+        public ActionResult ThuHoi(String ParentID)
         {
             string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
-            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ThuHoiGiayDangKyDaCap, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
-            bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
+            bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy??"");
             bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
-            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, "Chuyển phụ lục GĐK", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ThuHoiGiayDangKyDaCap, "Thu hồi giấy GDK", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
 
             return RedirectToAction("Index");
         }
-       
+
         /// <summary>
         /// update data màn hình TuChoiHoSo
         /// </summary>
@@ -160,7 +160,7 @@ namespace APP0200025.Controllers
             string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
             string TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
             string DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
-            string sSoTiepNhan= CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
+            string sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
             sHoSoModels models = new sHoSoModels
             {
                 LoaiDanhSach = 5,
@@ -169,9 +169,9 @@ namespace APP0200025.Controllers
                 sTenTACN = _sTenTACN,
                 TuNgayDen = _FromDate,
                 DenNgayDen = _ToDate,
-                TuNgayTiepNhan= TuNgayTiepNhan,
+                TuNgayTiepNhan = TuNgayTiepNhan,
                 DenNgayTiepNhan = DenNgayTiepNhan,
-                sSoTiepNhan= sSoTiepNhan
+                sSoTiepNhan = sSoTiepNhan
 
             };
             return RedirectToAction("Index", models);
