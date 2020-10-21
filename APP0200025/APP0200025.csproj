@@ -2991,6 +2991,7 @@
     <Content Include="Views\HoSoDaPheDuyetGDK\Detail.cshtml" />
     <Content Include="Views\DaTraGDK\Detail.cshtml" />
     <Content Include="Views\DaTraGDK\Index.cshtml" />
+    <Content Include="Views\ToChucChiDinh\ThongTinHoangHoa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
