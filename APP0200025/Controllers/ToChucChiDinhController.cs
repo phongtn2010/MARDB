@@ -47,9 +47,23 @@ namespace APP0200025.Controllers
             string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
             string _FromDateTiepNhan = CString.SafeString(Request.Form[ParentID + "_viFromDateTiepNhan"]);
             string _ToDateTiepNhan = CString.SafeString(Request.Form[ParentID + "_viToDateTiepNhan"]);
+            string _iID_MaTrangThai = CString.SafeString(Request.Form[ParentID + "_iID_MaTrangThai"]);
+            int LoaiDanhSach = 50;
+            if (_iID_MaTrangThai != "0")
+            {
+                if (_iID_MaTrangThai == "27")
+                {
+                    LoaiDanhSach = 51;
+                }
+                else if (_iID_MaTrangThai == "28")
+                {
+                    LoaiDanhSach = 52;
+                }
+            }
             sHoSoModels models = new sHoSoModels
             {
-                LoaiDanhSach = 50,
+                LoaiDanhSach = LoaiDanhSach,
+                iID_MaTrangThai = int.Parse(_iID_MaTrangThai),
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
@@ -77,14 +91,12 @@ namespace APP0200025.Controllers
                 rows.Add(row);
             }
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            return Json(new { DataTable = serializer.Serialize(rows) },JsonRequestBehavior.AllowGet);
+            return Json(new { DataTable = serializer.Serialize(rows) }, JsonRequestBehavior.AllowGet);
         }
         public static DataTable GetHoangHoaByIdHoSo(string iID_MaHoSo)
         {
-            iID_MaHoSo = "28";
             SqlCommand cmd = new SqlCommand();
-            //string SQL = string.Format("SELECT A.iID_MaHoSo,A.sMaHoSo ,A.sTenHangHoa as 'sTenHangHoa', B.rKhoiLuong , B.rSoLuong FROM CNN25_HangHoa A left join CNN25_HangHoa_SoLuong B on A.iID_MaHangHoa = B.iID_MaHangHoa WHERE A.iID_MaHoSo = {0} ", iID_MaHoSo);
-            string SQL = string.Format("SELECT A.iID_MaHoSo,A.sMaHoSo ,A.sTenHangHoa as 'sTenHangHoa', B.rKhoiLuong , B.rSoLuong FROM CNN25_HangHoa A left join CNN25_HangHoa_SoLuong B on A.iID_MaHangHoa = B.iID_MaHangHoa");
+            string SQL = string.Format("SELECT A.iID_MaHoSo,A.sMaHoSo ,A.sTenHangHoa as 'sTenHangHoa', B.rKhoiLuong , B.rSoLuong FROM CNN25_HangHoa A left join CNN25_HangHoa_SoLuong B on A.iID_MaHangHoa = B.iID_MaHangHoa WHERE A.iID_MaHoSo = {0} ", iID_MaHoSo);
             cmd.CommandText = SQL;
             string sOrder = "iID_MaHoSo DESC";
             DataTable dt = CommonFunction.dtData(cmd, sOrder, 1, 10000);

@@ -35,7 +35,7 @@
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
     String _MaMien = CString.SafeString(Request.QueryString["_MaMien"]);
-    String _TrangThaiHoSo = CString.SafeString(Request.QueryString["_TrangThaiHoSo"]);
+    String _TrangThaiHoSo = CString.SafeString(Request.QueryString["iID_MaTrangThai"]);
     String _TieuDe = CString.SafeString(Request.QueryString["_TieuDe"]);
     String _FromDate = CString.SafeString(Request.QueryString["_FromDate"]);
     String _ToDate = CString.SafeString(Request.QueryString["_ToDate"]);
@@ -63,7 +63,7 @@
 
 
     DataRow r;
-    SelectOptionList ttDDL = clTrangThai.GetDDL();
+    SelectOptionList ttDDL = clTrangThai.GetTrangThai_ToChucChiDinh();
 
     String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoTiepNhanHoSo", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
 
@@ -189,23 +189,34 @@
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
                                                 <td>@r["sMaHoSo"]</td>
-                                                <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")</td>
+                                                <td>
+                                                    @if (!string.IsNullOrEmpty(Convert.ToString(r["dNgayTaoHoSo"])))
+                                                    {
+                                                        @Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")
+                                                    }
+                                                </td>
                                                 <td>@r["sSoTiepNhan"]</td>
-                                                <td>@Convert.ToDateTime(r["dNgayTiepNhan"]).ToString("dd-MM-yyyy")</td>
+                                                <td>
+                                                    @if (!string.IsNullOrEmpty(Convert.ToString(r["dNgayTiepNhan"])))
+                                                    {
+                                                        @Convert.ToDateTime(r["dNgayTiepNhan"]).ToString("dd-MM-yyyy")
+                                                    }
+                                                </td>
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>chua biet lay o dau</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
                                                 <td class="head-td-icon">
-                                                    @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
-                                                    {
-                                                        @MvcHtmlString.Create(strView)
-                                                    }
+                                                    @*@if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
+                                                        {
+                                                            @MvcHtmlString.Create(strView)
+                                                        }*@
+                                                    @MvcHtmlString.Create(strView)
                                                 </td>
                                                 <td class="head-td-icon">
                                                     @MvcHtmlString.Create(strSoanPhuLuc)
                                                     @*<a class="strSoanPhuLuc" onclick="GetDsHangHoa(@r["iID_MaHoSo"],'@r["sMaHoSo"]','@r["sSoTiepNhan"]')" data-toggle="modal" href="#HangHoa">
-                                                        <span class='badge bg-blue'><i class='fa fa-pencil'></i></span>
-                                                    </a>*@
+                                                            <span class='badge bg-blue'><i class='fa fa-pencil'></i></span>
+                                                        </a>*@
                                                 </td>
                                             </tr>
                                         }
