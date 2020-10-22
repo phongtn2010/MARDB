@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace DATA0200025
         /// <param name="sNoiDung"></param>
         /// <param name="sFile"></param>
         /// <param name="iID_MaTrangThai"></param>
-        public static void InsertLichSu(string MaND,int iID_MaDoiTuong,int iID_MaHanhDong,string sNoiDung,string sFile,int iID_MaTrangThaiTruoc, int iID_MaTrangThai)
+        public static void InsertLichSu(int iID_MaHoSo,string MaND,int iID_MaDoiTuong,int iID_MaHanhDong,string sNoiDung,string sFile,int iID_MaTrangThaiTruoc, int iID_MaTrangThai)
         {
 
             SqlCommand cmd = new SqlCommand();
@@ -36,6 +37,16 @@ namespace DATA0200025
             cmd.Parameters.AddWithValue("@sTenTrangThai", clTrangThai.GetTrangThaiById(iID_MaTrangThai).sTen??"");
             Connection.InsertRecord("CNN25_LichSuHoSo", cmd, CThamSo.iKetNoi);
             cmd.Dispose();
+        }
+   
+    public static DataTable GetDataTable(int iID_MaHoSo)
+        {
+            string SQL = "SELECT * FROM CNN25_LichSuHoSo WHERE iID_MaHoSo=@iID_MaHoSo ORDER By id";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+            return dt;
         }
     }
 }
