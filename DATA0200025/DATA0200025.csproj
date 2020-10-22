@@ -110,6 +110,7 @@
     <Compile Include="DongMoKyBaoCaoModels.cs" />
     <Compile Include="DTO\Extensions\ProResponseEdit.cs" />
     <Compile Include="DTO\Extensions\RequestProEditVM.cs" />
+    <Compile Include="DTO\Extensions\YeuCauBoSungVM.cs" />
     <Compile Include="DTO\GPNhapKhauVM.cs" />
     <Compile Include="DTO\HoSoVM.cs" />
     <Compile Include="DTO\Request\ResponseCancel.cs" />
