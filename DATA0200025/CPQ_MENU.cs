@@ -253,11 +253,11 @@ namespace DATA0200025
 
                     if (iCount_MenuCam > 0)
                     {
-                        strTG = String.Format("<input name=\"{0}\" value=\"{1}\" type=\"checkbox\" checked=\"checked\" >", "MenuItem_Cam", MaMenu);
+                        strTG = String.Format("<input id=\"{0}\" name=\"{0}\" value=\"{1}\" type=\"checkbox\" checked=\"checked\" check-group=\"MENU_CAM\" onclick='CheckValue();'>", "MenuItem_Cam", MaMenu);
                     }
                     else
                     {
-                        strTG = String.Format("<input name=\"{0}\" value=\"{1}\" type=\"checkbox\" >", "MenuItem_Cam", MaMenu);
+                        strTG = String.Format("<input id=\"{0}\" name=\"{0}\" value=\"{1}\" type=\"checkbox\" check-group=\"MENU_CAM\" onclick='CheckValue();'>", "MenuItem_Cam", MaMenu);
                     }
                     String classtr = "";
                     if (i % 2 == 0)

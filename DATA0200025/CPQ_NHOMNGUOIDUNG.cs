@@ -178,7 +178,7 @@ namespace DATA0200025
 
             return vR;
         }
-        public static int Check_NhomNguoiDung_Luat(String iID_MaNhomNguoiDung, int iID_MaLuat)
+        public static int Check_NhomNguoiDung_Luat(String iID_MaNhomNguoiDung, String iID_MaLuat)
         {
             int vR = 0;
 
@@ -191,7 +191,7 @@ namespace DATA0200025
 
             return vR;
         }
-        public static int Insert_NhomNguoiDung_Luat(String IID_MANHOMNGUOIDUNG, int IID_MALUAT, int ITRANGTHAI)
+        public static int Insert_NhomNguoiDung_Luat(String IID_MANHOMNGUOIDUNG, string IID_MALUAT, int ITRANGTHAI)
         {
             int vR = -1;
 

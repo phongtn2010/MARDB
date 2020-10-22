@@ -33,7 +33,10 @@
                                 <thead>
                                     <tr>
                                         <th>Tên menu</th>
-                                        <th style="width: 10%;" align="center">Cấm xem</th>
+                                        <th style="width: 10%;" align="center" class="text-align-center">
+                                            Cấm xem <br />
+                                            <input type="checkbox" name="chkMenuAll" id="chkMenuAll" onclick="CheckAll(this.checked);" />
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,5 +56,25 @@
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </section><!-- /.content -->
+        <script type="text/javascript" language="javascript">
+            function CheckAll(value) {
+                $("input:checkbox[check-group='MENU_CAM']").each(function (i) {
+                    this.checked = value;
+                    CheckValue();
+                });
+            }
+
+            function CheckValue() {
+                var jsGiaTriLNS = "";
+                var inputs = document.getElementsByTagName("input");
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == "checkbox") {
+                        if (inputs[i].checked && inputs[i].name != "chkMenuAll") {
+                            jsGiaTriLNS = jsGiaTriLNS + inputs[i].value + ",";
+                        }
+                    }
+                }
+            }
+        </script>
 
 }
