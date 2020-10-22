@@ -44,6 +44,26 @@ namespace DATA0200025
             return vR;
         }
 
+        public static int Get_MaCha_Menu(string MaMenu)
+        {
+            int vR = 0;
+
+            try
+            {
+                DataTable dt = Get_One_Table_Menu(MaMenu);
+                if (dt.Rows.Count > 0)
+                {
+                    vR = Convert.ToInt32(dt.Rows[0]["iID_MaMenuItemCha"]);
+                }
+                dt.Dispose();
+            }
+            catch(Exception ex)
+            {
+                vR = 0;
+            }
+            return vR;
+        }
+
         public static int Insert(String iID_MaMenuItemCha, String sTen, String sURL)
         {
             int vR = -1;
