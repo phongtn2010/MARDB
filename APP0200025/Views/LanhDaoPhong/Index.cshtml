@@ -53,7 +53,6 @@
     }
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
-    Model.iID_MaTrangThai = "7";
 
     DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax);
     double nums = clHoSo.GetCount(Model);
