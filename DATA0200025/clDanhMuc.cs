@@ -17,7 +17,7 @@ namespace DATA0200025
         public static DataTable GetDataTable(string sTenBang)
         {
             DataTable vR;
-            string SQL = "SELECT * FROM DC_DanhMuc WHERE iID_MaLoaiDanhMuc IN (SELECT iID_MaLoaiDanhMuc FROM DC_LoaiDanhMuc WHERE sTenBang=@sTenBang) ORDER BY sTen";
+            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE iID_MaLoaiDanhMuc IN (SELECT iID_MaLoaiDanhMuc FROM DC_LoaiDanhMuc WHERE sTenBang=@sTenBang) ORDER BY sTen";
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@sTenBang", sTenBang);
             vR = Connection.GetDataTable(cmd, CThamSo.iKetNoi);

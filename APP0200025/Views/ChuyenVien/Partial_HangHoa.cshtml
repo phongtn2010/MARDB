@@ -1,0 +1,46 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using DATA0200025.SearchModels
+@using APP0200025.App_Code
+@using APP0200025.Models
+@{
+    Layout = null;
+    DataTable dt = ViewBag.dt;
+    int rc = dt.Rows.Count;
+    DataRow r;
+    SelectOptionList ddlNhomTACN = clDanhMuc.GetDDL("NTACN");
+    SelectOptionList ddlLoaiTACN = clDanhMuc.GetDDL("LTACN");
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>TT</th>
+        <th>Tên TACN</th>
+        <th>Nhóm TACN</th>
+        <th>
+            Loại TACN
+        </th>
+        <th>Mã công nhận TACN</th>
+        <th>Xử lý</th>
+    </tr>
+    @for (int i = 0; i < rc; i++)
+    {
+        r = dt.Rows[i];
+       
+<tr>
+    <td>@(i+1)</td>
+    <td>@r["sTenHangHoa"]</td>
+    <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ddlNhomTACN, r["iID_MaNhom"], "iID_MaNhom"))</td>
+    <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ddlLoaiTACN, r["iID_MaLoai"], "iID_MaLoai"))</td>
+    <td>@r["sMaSoCongNhan"]</td>
+    <td><a><i class="fa fa-pencil-square-o"></i></a></td>
+</tr>
+    }
+    
+</table>

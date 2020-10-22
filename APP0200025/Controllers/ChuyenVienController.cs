@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace APP0200025.Controllers
 {
@@ -52,6 +53,14 @@ namespace APP0200025.Controllers
             ViewData["DuLieuMoi"] = "0";
             return View(hoSo);
         }
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult XuLyChiTieuKiemTra(string iID_MaHoSo)
+        {
+            HoSoModels hoSo = clHoSo.GetHoSoById(iID_MaHoSo);
+            ViewData["DuLieuMoi"] = "0";
+            return View(hoSo);
+        }
+        
         /// <summary>
         /// update data màn hình TiepNhanHoSo
         /// </summary>
@@ -172,6 +181,12 @@ namespace APP0200025.Controllers
                 DenNgayTiepNhan = _ToDateTiepNhan
             };
             return RedirectToAction("Index", models);
+        }
+
+        public PartialViewResult Partial_HangHoa(int iID_MaHoSo,string iID_MaPhanLoai)
+        {
+            ViewBag.dt = clHangHoa.Get_HangHoaTheoHoSo(iID_MaHoSo,iID_MaPhanLoai);
+            return PartialView();
         }
     }
 }

@@ -2822,6 +2822,7 @@
     <Content Include="ScriptsERP\jsLanhDaoCuc.js" />
     <Content Include="ScriptsERP\jsLanhDaoPhong.js" />
     <Content Include="ScriptsERP\jsNumber.js" />
+    <Content Include="ScriptsERP\jsSoanPhuLuc.js" />
     <Content Include="ScriptsERP\jsString.js" />
     <Content Include="ScriptsERP\jsToChucChiDinh.js" />
     <Content Include="ScriptsERP\MicrosoftAjax.js" />
@@ -3030,6 +3031,8 @@
     <Content Include="Views\DaCapThongBaoKetQua\Partial_Model_ThuHoi.cshtml" />
     <Content Include="Views\ToChucChiDinh\ThongTinHoangHoa.cshtml" />
     <Content Include="Views\Partial\Partial_LichSuHoSo.cshtml" />
+    <Content Include="Views\ChuyenVien\Partial_HangHoa.cshtml" />
+    <Content Include="Views\ChuyenVien\XuLyChiTieuKiemTra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

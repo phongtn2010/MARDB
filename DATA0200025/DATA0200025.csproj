@@ -87,6 +87,7 @@
     <Compile Include="clDanhMuc.cs" />
     <Compile Include="clDoiTuong.cs" />
     <Compile Include="clFileDinhKem.cs" />
+    <Compile Include="clHangHoa.cs" />
     <Compile Include="clHanhDong.cs" />
     <Compile Include="clHoSo.cs" />
     <Compile Include="clLichSuHoSo.cs" />

@@ -35,7 +35,6 @@
                             </ul>
                         </div>
                     </div><!-- /.box-header -->
-
                     <div class="box-body">
                         <div class="row">
                             <div class="col-xs-12">
@@ -43,11 +42,7 @@
                                     Phân loại<span style="color:#D9001B;"> (*)</span>
                                 </div>
                                 <div class="col-xs-10">
-                                    <select class="form-control">
-                                        <option>---chọn---</option>
-                                    </select>
-                                    @*@MvcHtmlString.Create(MyHtmlHelper.TextArea(ParentID, "", "sNoiDung", "", "class=\"form-control\" cols=\"30\" rows='6'"))
-                            @Html.ValidationMessage(ParentID + "_" + "err_sNoiDung")*@
+                                    @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ddl, iID_MaPhanLoai, "iID_MaPhanLoai", "", "class=\"form-control\""))
                                 </div>
                             </div>
                             <div class="col-xs-12">&nbsp;</div>
@@ -56,9 +51,16 @@
                                     Biện pháp kiểm tra
                                 </div>
                                 <div class="col-xs-10">
-                                    <select class="form-control">
-                                        <option>---chọn---</option>
-                                    </select>
+                                    <input class="form-control" value="@Model.sLoaiHinhThucKiemTra" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="col-xs-12">&nbsp;</div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-2 labelSearch norwap">
+                                    Thời gian đánh giá
+                                </div>
+                                <div class="col-xs-10">
+                                    <input class="form-control" value="@string.Format("{0:dd-MM-yyyy}",Model.dDangKy_FromDate)" disabled="disabled" />
                                 </div>
                             </div>
                             <div class="col-xs-12">&nbsp;</div>
@@ -72,34 +74,13 @@
                             </div>
                             <div class="col-xs-12">&nbsp;</div>
                             <div class="col-xs-12">
-                                <div class="col-xs-12 labelSearch norwap">
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td>TT</td>
-                                            <td>Tên TACN</td>
-                                            <td>Nhóm TACN</td>
-                                            <td>
-                                                Loại TACN
-                                            </td>
-                                            <td>Mã công nhận TACN</td>
-                                            <td>Xử lý</td>
-                                        </tr>
-                                        <tr>
-                                            <td>TT</td>
-                                            <td>Tên TACN</td>
-                                            <td>Nhóm TACN</td>
-                                            <td>
-                                                Loại TACN
-                                            </td>
-                                            <td>Mã công nhận TACN</td>
-                                            <td>Xử lý</td>
-                                        </tr>
-                                    </table>
+                                <div class="col-xs-12 labelSearch norwap" id="divHH">
+                                    @Html.Action("Partial_HangHoa", "ChuyenVien", new { iID_MaHoSo = Model.iID_MaHoSo, iID_MaPhanLoai = iID_MaPhanLoai });
                                 </div>
                             </div>
                             <div class="col-xs-12">&nbsp;</div>
                         </div>
-                    </div>
+                    </div><!-- /.box-body -->
                     <div class="box-footer clearfix">
                         <div class="col-xs-12 text-center">
                             <button class="btn btn-primary btn-sm" id="btnTuChoi" type="submit">Trình lãnh đạo</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
