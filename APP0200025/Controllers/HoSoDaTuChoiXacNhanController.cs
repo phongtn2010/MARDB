@@ -77,7 +77,7 @@ namespace APP0200025.Controllers
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
-            clLichSuHoSo.InsertLichSu(User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, "Chuyển thông báo từ chối cấp GĐK","", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, "Chuyển thông báo từ chối cấp GĐK","", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
             
 
             return RedirectToAction("Index");

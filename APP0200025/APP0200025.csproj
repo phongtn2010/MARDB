@@ -3035,7 +3035,7 @@
     <Content Include="Views\DaCapThongBaoKetQua\Index.cshtml" />
     <Content Include="Views\DaCapThongBaoKetQua\Partial_Model_ThuHoi.cshtml" />
     <Content Include="Views\ToChucChiDinh\ThongTinHoangHoa.cshtml" />
-    <Content Include="Uploads\File\2020\10\11\203117076_7542d209-4e89-4fb5-b119-a5f447a37d1f_YeuCauRutTien.xls" />
+    <Content Include="Views\Partial\Partial_LichSuHoSo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
