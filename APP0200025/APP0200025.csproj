@@ -242,6 +242,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Api\DocFileControllerController.cs" />
+    <Compile Include="Controllers\Api\FileuploadControllerController.cs" />
     <Compile Include="WebServices\MardService.asmx.cs">
       <DependentUpon>MardService.asmx</DependentUpon>
       <SubType>Component</SubType>
