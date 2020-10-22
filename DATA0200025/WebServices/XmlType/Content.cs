@@ -49,7 +49,7 @@ namespace DATA0200025.WebServices.XmlType
 
         [XmlElement("ResultConfirm")] public KetQuaThamDinh ResultConfirm { get; set; }
 
-        //[XmlElement("ImportLicense")] public GPNhapKhauVM GPNhapKhau { get; set; }
+        [XmlElement("ImportLicense")] public GPNhapKhauVM GPNhapKhau { get; set; }
 
         [XmlElement("ReponseCancel")] public ResponseCancel ResponseCancel { get; set; }
 

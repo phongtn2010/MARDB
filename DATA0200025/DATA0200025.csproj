@@ -31,9 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Enums.NET">
+      <HintPath>..\packages\Enums.NET.3.0.3\lib\net45\Enums.NET.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -104,11 +110,13 @@
     <Compile Include="DongMoKyBaoCaoModels.cs" />
     <Compile Include="DTO\Extensions\ProResponseEdit.cs" />
     <Compile Include="DTO\Extensions\RequestProEditVM.cs" />
+    <Compile Include="DTO\GPNhapKhauVM.cs" />
     <Compile Include="DTO\HoSoVM.cs" />
     <Compile Include="DTO\Request\ResponseCancel.cs" />
     <Compile Include="HamRiengModels.cs" />
     <Compile Include="HangMauModels.cs" />
     <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\Enums\HoSoStatus.cs" />
     <Compile Include="Models\FileDinhKemModels.cs" />
     <Compile Include="Models\HanhDongModels.cs" />
     <Compile Include="Models\DoiTuongModels.cs" />
