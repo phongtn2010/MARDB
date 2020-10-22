@@ -1,11 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Xml.Serialization;
+using Autofac;
 using DATA0200025.WebServices;
 using DATA0200025.WebServices.XmlType;
 
@@ -20,7 +20,7 @@ namespace APP0200025.WebServices
 
         public MardService()
         {
-            //_processingService = WebApiConfig.Container.Resolve<WsProcessingService>();
+            _processingService = WebApiConfig.Container.Resolve<WsProcessingService>();
         }
 
         [WebMethod]

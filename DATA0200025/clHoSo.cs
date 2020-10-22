@@ -120,7 +120,7 @@ namespace DATA0200025
                 DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
                 cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
             }
-         
+
             if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
                 DK += " AND sMaHoSo=@sMaHoSo";
@@ -233,7 +233,13 @@ namespace DATA0200025
                     TrangThais = BPMC_DaCapThongBaoKetQua();
                     break;
                 case 50:
-                    TrangThais = ToChucChiDinh();
+                    TrangThais = ToChucChiDinh(null);
+                    break;
+                case 51:
+                    TrangThais = ToChucChiDinh(27);
+                    break;
+                case 52:
+                    TrangThais = ToChucChiDinh(28);
                     break;
                 default:
                     TrangThais = new List<TrangThaiModels>();
@@ -246,15 +252,15 @@ namespace DATA0200025
                 for (int i = 0; i < TrangThais.Count; i++)
                 {
                     trangThai = TrangThais[i];
-               
+
                     if (sTrangThai.Length > 0) sTrangThai += ",";
-                        sTrangThai += trangThai.iID_MaTrangThai;
+                    sTrangThai += trangThai.iID_MaTrangThai;
 
                 }
                 if (sTrangThai.Length > 0)
                 {
                     DK += string.Format(" AND iID_MaTrangThai IN({0})", sTrangThai);
-                }    
+                }
             }
             else
             {
@@ -308,6 +314,11 @@ namespace DATA0200025
             {
                 DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
                 cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
+            }
+            if (!string.IsNullOrEmpty(models.sSoTiepNhan))
+            {
+                DK += " AND sSoTiepNhan <= @sSoTiepNhan";
+                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
             }
             string SQL = string.Format("SELECT * FROM CNN25_HoSo WHERE {0} ", DK);
             cmd.CommandText = SQL;
@@ -535,15 +546,36 @@ namespace DATA0200025
         /// Tổ chức chỉ định
         /// </summary>
         /// <returns></returns>
-        private static List<TrangThaiModels> ToChucChiDinh()
+        private static List<TrangThaiModels> ToChucChiDinh(int? id)
         {
             List<TrangThaiModels> lst = new List<TrangThaiModels>();
-            TrangThaiModels trangThai = new TrangThaiModels
+            TrangThaiModels trangThai_27 = new TrangThaiModels
             {
                 iID_MaTrangThai = 27,
                 sTen = "Chờ kết quả đánh giá sự phù hợp"
             };
-            lst.Add(trangThai);
+
+            TrangThaiModels trangThai_28 = new TrangThaiModels
+            {
+                iID_MaTrangThai = 28,
+                sTen = "Đã có kết quả đánh giá sự phù hợp",
+            };
+            if (id != null)
+            {
+                if (id == 27)
+                {
+                    lst.Add(trangThai_27);
+                }
+                else if (id == 28)
+                {
+                    lst.Add(trangThai_28);
+                }
+            }
+            else
+            {
+                lst.Add(trangThai_27);
+                lst.Add(trangThai_28);
+            }
 
             return lst;
         }
@@ -926,7 +958,7 @@ namespace DATA0200025
         {
             return DDLTrangThaiSearch(BPMC_DaCapThongBaoKetQua(), TatCa);
         }
-        
+
         #endregion
         #region Update
         public static void UpdateNguoiXem(string iID_MaHoSo, string MaND)

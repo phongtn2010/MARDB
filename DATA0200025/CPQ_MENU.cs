@@ -44,6 +44,26 @@ namespace DATA0200025
             return vR;
         }
 
+        public static int Get_MaCha_Menu(string MaMenu)
+        {
+            int vR = 0;
+
+            try
+            {
+                DataTable dt = Get_One_Table_Menu(MaMenu);
+                if (dt.Rows.Count > 0)
+                {
+                    vR = Convert.ToInt32(dt.Rows[0]["iID_MaMenuItemCha"]);
+                }
+                dt.Dispose();
+            }
+            catch(Exception ex)
+            {
+                vR = 0;
+            }
+            return vR;
+        }
+
         public static int Insert(String iID_MaMenuItemCha, String sTen, String sURL)
         {
             int vR = -1;
@@ -253,11 +273,11 @@ namespace DATA0200025
 
                     if (iCount_MenuCam > 0)
                     {
-                        strTG = String.Format("<input name=\"{0}\" value=\"{1}\" type=\"checkbox\" checked=\"checked\" >", "MenuItem_Cam", MaMenu);
+                        strTG = String.Format("<input id=\"{0}\" name=\"{0}\" value=\"{1}\" type=\"checkbox\" checked=\"checked\" check-group=\"MENU_CAM\" onclick='CheckValue();'>", "MenuItem_Cam", MaMenu);
                     }
                     else
                     {
-                        strTG = String.Format("<input name=\"{0}\" value=\"{1}\" type=\"checkbox\" >", "MenuItem_Cam", MaMenu);
+                        strTG = String.Format("<input id=\"{0}\" name=\"{0}\" value=\"{1}\" type=\"checkbox\" check-group=\"MENU_CAM\" onclick='CheckValue();'>", "MenuItem_Cam", MaMenu);
                     }
                     String classtr = "";
                     if (i % 2 == 0)

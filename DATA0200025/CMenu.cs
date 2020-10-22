@@ -91,7 +91,7 @@ namespace DATA0200025
             {
                 int MaMenuItem;
                 int i;
-                string strPD, strPG = "", strPC, url, strXauMenuCon;
+                string strPD, strPG = "", strPC, url, urlMenu, strXauMenuCon;
                 if (Cap == 0)
                 {
                     strPD = "<ul class=\"sidebar-menu\">";
@@ -124,22 +124,37 @@ namespace DATA0200025
                     if (Convert.ToInt32(Connection.GetValue(cmd, 0)) == 0)
                     {
                         strXauMenuCon = LayXauMenu(Path, sMenu_Active, MaLuat, MaMenuItem, Cap + 1);
+
                         url = "#";
                         if (dt.Rows[i]["sURL"] != DBNull.Value && string.IsNullOrEmpty((string)(dt.Rows[i]["sURL"])) == false && (string)(dt.Rows[i]["sURL"]) != "#")
                         {
                             if (Convert.ToString(dt.Rows[i]["sURL"]).StartsWith("http://"))
                             {
-                                url = Convert.ToString(dt.Rows[i]["sURL"]);
+                                if(Convert.ToString(dt.Rows[i]["sURL"]).IndexOf("?")>-1)
+                                {
+                                    url = Convert.ToString(dt.Rows[i]["sURL"]) + "&menu=" + Convert.ToString(dt.Rows[i]["iID_MaMenuItem"]);
+                                }
+                                else
+                                {
+                                    url = Convert.ToString(dt.Rows[i]["sURL"]) + "?menu=" + Convert.ToString(dt.Rows[i]["iID_MaMenuItem"]);
+                                }
                             }
                             else
                             {
-                                url = Path + dt.Rows[i]["sURL"];
+                                if (Convert.ToString(dt.Rows[i]["sURL"]).IndexOf("?") > -1)
+                                {
+                                    url = Path + dt.Rows[i]["sURL"] + "&menu=" + Convert.ToString(dt.Rows[i]["iID_MaMenuItem"]);
+                                }
+                                else
+                                {
+                                    url = Path + dt.Rows[i]["sURL"] + "?menu=" + Convert.ToString(dt.Rows[i]["iID_MaMenuItem"]);
+                                }
                             }
                         }
                         Ten = Convert.ToString(dt.Rows[i]["sTen"]);
 
                         ClassName = "";
-                        if (sMenu_Active == MaMenuItemCha)
+                        if (sMenu_Active == MaMenuItem)
                         {
                             ClassName = "active";   //active
                         }

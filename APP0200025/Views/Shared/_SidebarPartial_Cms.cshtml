@@ -28,15 +28,17 @@
     String Path = Url.Action("", "");
     String MaLuat = "";
 
-
-    String sOpenMenu0 = "", sOpenMenu1 = "", sOpenMenu2 = "", sOpenMenu3 = "", sOpenMenu4 = "", sOpenMenu5 = "", sOpenMenu6 = "", sOpenMenu7 = "", sOpenMenu8 = "", sOpenMenu9 = "";
-    String sOpenMenu10 = "", sOpenMenu11 = "", sOpenMenu12 = "", sOpenMenu13 = "", sOpenMenu14 = "", sOpenMenu15 = "", sOpenMenu16 = "";
-    String sOpenMenu17 = "", sOpenMenu18 = "", sOpenMenu19 = "", sOpenMenu20 = "", sOpenMenu21 = "", sOpenMenu22 = "", sOpenMenu23 = "", sOpenMenu24 = "", sOpenMenu25 = "";
-
     int sMenu_Active = 0;
     if (Convert.ToString(ViewData["smenu"]) != null && Convert.ToString(ViewData["smenu"]) != "")
     {
         sMenu_Active = Convert.ToInt32(ViewData["smenu"]);
+    }
+    else
+    {
+        if(String.IsNullOrEmpty(Request.QueryString["menu"]) == false)
+        {
+            sMenu_Active = CPQ_MENU.Get_MaCha_Menu(Convert.ToString(Request.QueryString["menu"]));
+        }
     }
 
     String strMess = "";

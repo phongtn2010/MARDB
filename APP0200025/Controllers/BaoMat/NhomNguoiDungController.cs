@@ -158,10 +158,10 @@ namespace APP0200025.Controllers
             String MaLuat = Request.Form[ParentID + "_iID_MaLuat"];
             if (String.IsNullOrEmpty(MaLuat) == false)
             {
-                int iCheck = CPQ_NHOMNGUOIDUNG.Check_NhomNguoiDung_Luat(MaNhomNguoiDung, Convert.ToInt32(MaLuat));
+                int iCheck = CPQ_NHOMNGUOIDUNG.Check_NhomNguoiDung_Luat(MaNhomNguoiDung, MaLuat);
                 if(iCheck == 0)
                 {
-                    int vR = CPQ_NHOMNGUOIDUNG.Insert_NhomNguoiDung_Luat(MaNhomNguoiDung, Convert.ToInt32(MaLuat), 1);
+                    int vR = CPQ_NHOMNGUOIDUNG.Insert_NhomNguoiDung_Luat(MaNhomNguoiDung, MaLuat, 1);
                 }
             }
             return RedirectToAction("Edit_Luat", new { MaNhomNguoiDung = MaNhomNguoiDung });
