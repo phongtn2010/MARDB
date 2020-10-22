@@ -39,6 +39,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -99,8 +100,13 @@
     <Compile Include="CTinh.cs" />
     <Compile Include="CVung.cs" />
     <Compile Include="DongMoKyBaoCaoModels.cs" />
+    <Compile Include="DTO\Extensions\ProResponseEdit.cs" />
+    <Compile Include="DTO\Extensions\RequestProEditVM.cs" />
+    <Compile Include="DTO\HoSoVM.cs" />
+    <Compile Include="DTO\Request\ResponseCancel.cs" />
     <Compile Include="HamRiengModels.cs" />
     <Compile Include="HangMauModels.cs" />
+    <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\FileDinhKemModels.cs" />
     <Compile Include="Models\HanhDongModels.cs" />
     <Compile Include="Models\DoiTuongModels.cs" />
@@ -110,6 +116,21 @@
     <Compile Include="MoKyCacBang.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchModels\sHoSoModels.cs" />
+    <Compile Include="WebServices\SendService.cs" />
+    <Compile Include="WebServices\WsConstants.cs" />
+    <Compile Include="WebServices\WsHelper.cs" />
+    <Compile Include="WebServices\WsProcessingService.cs" />
+    <Compile Include="WebServices\XmlType\Body.cs" />
+    <Compile Include="WebServices\XmlType\Content.cs" />
+    <Compile Include="WebServices\XmlType\Envelope.cs" />
+    <Compile Include="WebServices\XmlType\Error.cs" />
+    <Compile Include="WebServices\XmlType\Header.cs" />
+    <Compile Include="WebServices\XmlType\Request\KetQuaThamDinh.cs" />
+    <Compile Include="WebServices\XmlType\Request\RequestCancelVM.cs" />
+    <Compile Include="WebServices\XmlType\Request\RequestEditCerVM.cs" />
+    <Compile Include="WebServices\XmlType\Request\RequestProCancelVM.cs" />
+    <Compile Include="WebServices\XmlType\Request\YeuCauBoSungHoSo.cs" />
+    <Compile Include="WebServices\XmlType\Response\EnvelopeResponse.cs" />
     <Compile Include="WordActionResult.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -121,5 +142,6 @@
       <Name>DomainModels</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
