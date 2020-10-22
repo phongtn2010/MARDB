@@ -43,15 +43,9 @@
                             TaiFile = "Tải file";
                         }
 
-                        String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
-                        String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                        String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                        String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
-                        String strSoanPhuLuc = MyHtmlHelper.ActionLink(Url.Action("SoanPhuLuc", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
-
 
                         <tr>
-                            <td style="text-align: center;">@(i++)</td>
+                            <td style="text-align: center;">@(i+1)</td>
                             <td>@r["sNguoiXuLy"]</td>
                             <td>@r["sTenDoiTuong"]</td>
                             <td>@r["sTenHanhDong"]</td>

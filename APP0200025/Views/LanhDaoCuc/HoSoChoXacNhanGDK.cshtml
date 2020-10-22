@@ -63,7 +63,7 @@
 
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "LanhDaoPhong", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "LanhDaoCuc", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
 
 }
 <!-- Main content -->
@@ -71,7 +71,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("Search", "LanhDaoPhong", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("Search", "LanhDaoCuc", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title uppercase">@Lang["ChucNang_Item09"].ToString()</h3>
@@ -195,7 +195,7 @@
                                         <input type="checkbox" name="chkHoSo" id="chkHoSo" onclick="CheckAll(this.checked);" />
                                     </th>
                                     <th style="width: 5%; text-align: center;">Từ chối </th>
-                                    <th style="width: 5%; text-align: center;">Thu hồi</th>
+                                    @*<th style="width: 5%; text-align: center;">Thu hồi</th>*@
                                     <th style="width: 5%; text-align: center;">Quá hạn</th>
                                 </tr>
                             </thead>
@@ -208,9 +208,9 @@
                                             r = dt.Rows[i];
 
 
-                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
+                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "LanhDaoCuc", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
+                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "LanhDaoCuc", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
+                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "LanhDaoCuc", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
 
 
                                             <tr>
@@ -232,11 +232,11 @@
                                                         <span class='badge bg-red'><i class='fa fa-times'></i></span>
                                                     </a>
                                                 </td>
-                                                <td align="center" title="Thu hồi">
+                                                @*<td align="center" title="Thu hồi">
                                                     <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
                                                         <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
                                                     </a>
-                                                </td>
+                                                </td>*@
                                                 <td align="center" title="Quá hạn">
                                                     <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#QuaHan">
                                                         <span class='badge bg-red'><i class='fa fa-exclamation'></i></span>
