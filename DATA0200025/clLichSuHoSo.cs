@@ -23,6 +23,7 @@ namespace DATA0200025
         {
 
             SqlCommand cmd = new SqlCommand();
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
             cmd.Parameters.AddWithValue("@sMaND",MaND);
             cmd.Parameters.AddWithValue("@sNguoiXuLy", CPQ_NGUOIDUNG.Get_TenNguoiDung(MaND));
             cmd.Parameters.AddWithValue("@iID_MaDoiTuong", iID_MaDoiTuong);
