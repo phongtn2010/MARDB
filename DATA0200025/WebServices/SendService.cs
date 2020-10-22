@@ -8,5 +8,6 @@ namespace DATA0200025.WebServices
 {
     public class SendService
     {
+
     }
 }
