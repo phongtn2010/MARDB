@@ -180,19 +180,16 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Danh sách hồ sơ</h3>
-                    @*<div class="box-tools">
-                            <ul class="pagination pagination-sm no-margin pull-right">
-                                <li><a href="@Url.Action("Edit", "ChuyenVien")"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
-                                <li><a href="@Url.Action("Sort", "ChuyenVien")"><i class="fa fa-sort-numeric-asc"></i> @Lang["ChucNang_Item04"].ToString()</a></li>
-                            </ul>
-                        </div>*@
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                    </ul>
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped">
                             <tr>
                                 <th style="width: 3%;" class="text-center">STT</th>
-                                <th style="width: %;" class="text-center">Mã hồ sơ</th>
+                                <th style="width: 10%;" class="text-center">Mã hồ sơ</th>
                                 <th class="text-center">Ngày đến</th>
                                 <th class="text-center">Số tiếp nhận</th>
                                 <th class="text-center">Ngày tiếp nhận</th>
@@ -238,8 +235,8 @@
                                                             <td class="head-td-icon">@MvcHtmlString.Create(strSoanPhuLuc)</td>
                                                             <td class="head-td-icon">
                                                                 @*<a class="btnyeucaubosung" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
-                <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
-            </a>*@
+                                                                    <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
+                                                                </a>*@
                                                                 <a class="openyeucaubosung" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
                                                                     <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
                                                                 </a>
@@ -250,13 +247,13 @@
                                                                     <span class='badge bg-red'><i class='fa fa-times'></i></span>
                                                                 </a>
                                                             </td>
-                                                            <td style="width: 10px;" title="người xem">@r["sTenNguoiTiepNhan"]</td>
-                                                            <td style="width: 10px;" title="Thu hồi">
+                                                            <td class="head-td-icon">@r["sTenNguoiTiepNhan"]</td>
+                                                            <td class="head-td-icon">
                                                                 <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
                                                                     <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
                                                                 </a>
                                                             </td>
-                                                            <td style="width: 10px;" title="người xem"></td>
+                                                            <td class="head-td-icon"></td>
                                                         </tr>
                                     }
                                 }
