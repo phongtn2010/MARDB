@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace APP0200025.Controllers
 {
-    public class FileuploadControllerController : ApiController
+    public class FileuploadController : ApiController
     {
         public async Task<bool> Upload()
         {
