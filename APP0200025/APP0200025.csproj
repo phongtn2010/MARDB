@@ -3035,6 +3035,8 @@
     <Content Include="Views\Partial\Partial_LichSuHoSo.cshtml" />
     <Content Include="Views\ChuyenVien\Partial_HangHoa.cshtml" />
     <Content Include="Views\ChuyenVien\XuLyChiTieuKiemTra.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\ConfirmChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

@@ -120,9 +120,9 @@
                                     <p id="pEmail">Email: @(sEmail)</p>
                                 </li>
                                 <li class="user-footer">
-                                    @*<div class="pull-left">
-                                        <a href="@Url.Action("Logout", "Account")" class="btn btn-default btn-flat">Cài đặt</a>
-                                    </div>*@
+                                    <div class="pull-left">
+                                        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-default btn-flat">Đổi mật khẩu</a>
+                                    </div>
                                     <div class="pull-right">
                                         @{
                                             using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
