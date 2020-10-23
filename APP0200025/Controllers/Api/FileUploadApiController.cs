@@ -44,7 +44,6 @@ namespace APP0200025.Controllers.Api
                             savedFilePath.Add(fileFullPath.ToString());
                         }
                         catch (Exception ex) { }
-
                     }
                     return Request.CreateResponse(HttpStatusCode.Created, savedFilePath);
                 });
