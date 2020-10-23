@@ -221,40 +221,36 @@
                                         String strSoanPhuLuc= MyHtmlHelper.ActionLink(Url.Action("SoanPhuLuc", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
 
 
-                                                        <tr>
-                                                            <td style="text-align: center;">@r["rownum"]</td>
-                                                            <td>@r["sMaHoSo"]</td>
-                                                            <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")</td>
-                                                            <td>@r["sSoTiepNhan"]</td>
-                                                            <td>@r["dNgayTiepNhan"]</td>
-                                                            <td>@r["sTenDoanhNghiep"]</td>
-                                                            <td>chua biet lay o dau</td>
-                                                            <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
-                                                            <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
-                                                            <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
-                                                            <td class="head-td-icon">@MvcHtmlString.Create(strSoanPhuLuc)</td>
-                                                            <td class="head-td-icon">
-                                                                @*<a class="btnyeucaubosung" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
-                                                                    <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
-                                                                </a>*@
-                                                                <a class="openyeucaubosung" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
-                                                                    <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
-                                                                </a>
-                                                            </td>
-                                                            <td class="head-td-icon">
-                                                                @*@MvcHtmlString.Create(strTuChoi)*@
-                                                                <a class="opentuchoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
-                                                                    <span class='badge bg-red'><i class='fa fa-times'></i></span>
-                                                                </a>
-                                                            </td>
-                                                            <td class="head-td-icon">@r["sTenNguoiTiepNhan"]</td>
-                                                            <td class="head-td-icon">
-                                                                <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
-                                                                    <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
-                                                                </a>
-                                                            </td>
-                                                            <td class="head-td-icon"></td>
-                                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">@r["rownum"]</td>
+                                            <td>@r["sMaHoSo"]</td>
+                                            <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")</td>
+                                            <td>@r["sSoTiepNhan"]</td>
+                                            <td>@r["dNgayTiepNhan"]</td>
+                                            <td>@r["sTenDoanhNghiep"]</td>
+                                            <td>chua biet lay o dau</td>
+                                            <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
+                                            <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
+                                            <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
+                                            <td class="head-td-icon">@MvcHtmlString.Create(strSoanPhuLuc)</td>
+                                            <td class="head-td-icon">
+                                                <a class="openyeucaubosung" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
+                                                    <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
+                                                </a>
+                                            </td>
+                                            <td class="head-td-icon">
+                                                <a class="opentuchoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
+                                                    <span class='badge bg-red'><i class='fa fa-times'></i></span>
+                                                </a>
+                                            </td>
+                                            <td class="head-td-icon">@r["sTenNguoiTiepNhan"]</td>
+                                            <td class="head-td-icon">
+                                                <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
+                                                    <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
+                                                </a>
+                                            </td>
+                                            <td class="head-td-icon"></td>
+                                        </tr>
                                     }
                                 }
                                 dt.Dispose();
@@ -273,4 +269,5 @@
 </section><!-- /.content -->
 @{Html.RenderPartial("~/Views/ChuyenVien/Partial_Model_YeuCauBoSung.cshtml");}
 @{Html.RenderPartial("~/Views/ChuyenVien/Partial_Model_TuChoi.cshtml");}
-<script src="~/ScriptsERP/jsChuyenVien.js"></script>
+
+<script src="@Url.Content("~/ScriptsERP/jsChuyenVien.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
