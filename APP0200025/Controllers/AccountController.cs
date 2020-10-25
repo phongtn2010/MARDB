@@ -296,6 +296,84 @@ namespace APP0200025.Controllers
             return View();
         }
 
+        [Authorize]
+        [AllowAnonymous]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/ForgotPassword
+        [Authorize]
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePassword(String ParentID)
+        {
+            String sUser = User.Identity.Name;
+
+            string _sMatKhauCu = CString.SafeString(Request.Form[ParentID + "_sMatKhauCu"]).Trim();
+            string _sMatKhau = CString.SafeString(Request.Form[ParentID + "_sMatKhau"]).Trim();
+            string _sReMatKhau = CString.SafeString(Request.Form[ParentID + "_sReMatKhau"]).Trim();
+
+            NameValueCollection values = new NameValueCollection();
+            if (string.IsNullOrEmpty(_sMatKhauCu))
+            {
+                values.Add("err_sMatKhauCu", "Bạn chưa nhập mật khẩu cũ!");
+            }
+            if (string.IsNullOrEmpty(_sMatKhau))
+            {
+                values.Add("err_sMatKhau", "Bạn chưa nhập mật khẩu mới!");
+            }
+            if (string.IsNullOrEmpty(_sReMatKhau))
+            {
+                values.Add("err_sReMatKhau", "Bạn chưa nhập lại mật khẩu mới!");
+            }
+            if (_sMatKhau != _sReMatKhau)
+            {
+                values.Add("err_sReMatKhau", "Mật khẩu nhập lại chưa đúng!");
+            }
+            //if (string.IsNullOrEmpty(_iID_MaKhachHang))
+            //{
+            //    values.Add("err_iID_MaKhachHang", "Bạn chưa chọn khách hàng!");
+            //}
+            if (values.Count > 0)
+            {
+                for (int i = 0; i <= (values.Count - 1); i++)
+                {
+                    ModelState.AddModelError(ParentID + "_" + values.GetKey(i), values[i]);
+                }
+                ViewData["DuLieuMoi"] = "1";
+                return View();
+            }
+            else
+            {
+                var user = await UserManager.FindByNameAsync(sUser);
+                if (user == null)
+                {
+                    return RedirectToAction("ChangePassword", "Account");
+                }
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+                var result = await UserManager.ResetPasswordAsync(user.Id, code, _sMatKhau);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ConfirmChangePassword", "Account");
+                }
+            }
+            return RedirectToAction("ChangePassword", "Account");
+        }
+
+        public ActionResult ConfirmChangePassword()
+        {
+            Session.Clear();
+            Session.Abandon();
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+            return View();
+        }
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

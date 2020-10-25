@@ -141,7 +141,13 @@ namespace DATA0200025.WebServices
         // {
         //     throw new NotImplementedException();
         // }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nswFileCode"></param>
+        /// <param name="reason"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         public string TuChoiHuyHoSo(string nswFileCode, string reason, string userName)
         {
             ResponseCancel resultConfirm = new ResponseCancel();

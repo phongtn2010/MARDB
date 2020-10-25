@@ -18,10 +18,10 @@ namespace APP0200025.WebServices
     {
         private readonly WsProcessingService _processingService;
 
-        public MardService()
-        {
-            _processingService = WebApiConfig.Container.Resolve<WsProcessingService>();
-        }
+        //public MardService()
+        //{
+        //    _processingService = WebApiConfig.Container.Resolve<WsProcessingService>();
+        //}
 
         [WebMethod]
         public string Request(string payload)

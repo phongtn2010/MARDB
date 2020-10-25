@@ -82,22 +82,22 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-xs-2 text-align-right"><label class="control-label">Mã hồ sơ</label></div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Mã hồ sơ</label></div>
+                            <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaHoSo", "", "placeholder=\"Mã hồ sơ\" type=\"text\" class=\"form-control\""))
                             </div>
 
-                            <div class="col-xs-2 text-align-right">
+                            <div class="col-xs-1 text-align-right">
                                 <label class="control-label">Tên TACN</label>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenTACN, "sTenTACN", "", "placeholder=\"Tên TACN\" type=\"text\" class=\"form-control\""))
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-xs-2 text-align-right"><label class="control-label">Ngày đến</label></div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Ngày đến</label></div>
+                            <div class="col-xs-5">
                                 <div class="row">
                                     <div class="col-xs-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayDen, "TuNgayDen", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control datepicker\" autocomplete=\"off\""))
@@ -108,22 +108,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-2 text-align-right">
+                            <div class="col-xs-1 text-align-right">
                                 <label class="control-label">Tên doanh nghiệp</label>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"Tên doanh nghiệp\" type=\"text\" class=\"form-control\""))
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-xs-2 text-align-right">
+                            <div class="col-xs-1 text-align-right">
                                 <label class="control-label">Số tiếp nhận</label>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoTiepNhan, "sSoTiepNhan", "", "placeholder=\"Số tiếp nhận\" type=\"text\" class=\"form-control\""))
                             </div>
-                            <div class="col-xs-2 text-align-right"><label class="control-label">Ngày tiếp nhận</label></div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Ngày tiếp nhận</label></div>
+                            <div class="col-xs-5">
                                 <div class="row">
                                     <div class="col-xs-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayTiepNhan, "TuNgayTiepNhan", "", "placeholder=\"Từ ngày tiếp nhận\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
@@ -136,15 +136,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-xs-2 text-align-right"><label class="control-label">Trạng thái hồ sơ</label></div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Trạng thái hồ sơ</label></div>
+                            <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, _TrangThaiHoSo, "iID_MaTrangThai", "", "class=\"form-control\""))
                             </div>
 
-                            <div class="col-xs-2 text-align-right">
+                            <div class="col-xs-1 text-align-right">
                                 <label class="control-label">Quá hạn</label>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-5">
                                 <select class="form-control" id="@(ParentID)_iID_QuaHan" name="@(ParentID)_iID_QuaHan">
                                     <option>--Tất cả--</option>
                                     <option value="1">Chưa tới hạn</option>
@@ -153,10 +153,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-xs-2 text-align-right">
+                            <div class="col-xs-1 text-align-right">
                                 <label class="control-label">Quá hạn</label>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-5">
                                 <select class="form-control" id="@(ParentID)_iID_MaTrangThai" name="@(ParentID)_iID_MaTrangThai">
                                     <option>--Tất cả--</option>
                                     <option value="1">Đạt cấp giấy đăng ký</option>
@@ -182,9 +182,9 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Danh sách hồ sơ</h3>
-                    <div class="box-tools">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                    <div class="box-tools text-align-right">
+                        <ul class="pagination no-margin pull-right">
+                            <li><a href="#" onclick="javascript:history.go(-1)" class="btn btn-danger"><i class="fa fa-reply-all"></i> Quay lại</a></li>
                         </ul>
                     </div>
                 </div><!-- /.box-header -->

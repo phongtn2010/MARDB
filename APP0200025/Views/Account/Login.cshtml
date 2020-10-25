@@ -76,7 +76,7 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/dist/css/AdminLTE.css")" />
     <!-- iCheck -->
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/plugins/iCheck/square/blue.css")" />
-    <<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -90,10 +90,10 @@
 </head>
 <body class="login-page">
     <div class="wrap-login">
-        <div class="login-box" style="margin-top: 250px;">
+        <div class="login-box" style="margin-top: 150px;">
             <div class="login-logo">
                 <a href="@Url.Action("Index", "Home")">
-                    <img src="@ServerURL/@(strLogo)" alt="@(sTenCongTy)" title="@(sTenCongTy)" style="vertical-align:central;" />
+                    <img src="@strLogo.ToString()" alt="@(sTenCongTy)" title="@(sTenCongTy)" style="vertical-align:central;" />
                 </a>
             </div><!-- /.login-logo -->
             <div class="login-box-body">
