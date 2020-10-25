@@ -15,7 +15,7 @@ namespace APP0200025.Controllers.Api
         [HttpPost]
         public Task<HttpResponseMessage> Post()
         {
-            List<string> savedFilePath = new List<string>();
+            List<ResUpLoadFile> savedFilePath = new List<ResUpLoadFile>();
             if (!Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
@@ -31,6 +31,8 @@ namespace APP0200025.Controllers.Api
                     {
                         Request.CreateErrorResponse(HttpStatusCode.InternalServerError, task.Exception);
                     }
+
+                    int i = 0;
                     foreach (MultipartFileData item in pathProvider.FileData)
                     {
                         try
@@ -41,7 +43,10 @@ namespace APP0200025.Controllers.Api
                             Uri baseuri = new Uri(Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.PathAndQuery, string.Empty));
                             string fileRelativePath = "~/Files/" + newFileName;
                             Uri fileFullPath = new Uri(baseuri, VirtualPathUtility.ToAbsolute(fileRelativePath));
-                            savedFilePath.Add(fileFullPath.ToString());
+
+                            savedFilePath.Add(new ResUpLoadFile { ItemId=i, UrlFile = fileFullPath.ToString() });
+
+                            i++;
                         }
                         catch (Exception ex) { }
                     }
@@ -49,5 +54,11 @@ namespace APP0200025.Controllers.Api
                 });
             return newTask;
         }
+    }
+
+    public class ResUpLoadFile
+    {
+        public int ItemId { get; set; }
+        public string UrlFile { get; set; }
     }
 }

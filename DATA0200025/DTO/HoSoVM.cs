@@ -34,54 +34,88 @@ namespace DATA0200025.DTO
 
         [XmlElement("TaxCode")]
         public string fiTaxCode { get; set; }
+
+        [XmlElement("TypeAniFeed")]
+        public int sLoaiHinhThucKiemTra { get; set; }
+
+
         [XmlElement("NSWFileCode")]
         public string fiNSWFileCode { set; get; }
-        [XmlElement("LicenseNo")]
-        public string fiLicenseNo { set; get; }
 
-        public DateTime fiRegistrationDate { set; get; }
-        [XmlElement("RegistrationDate"), NotMapped]
+        [XmlElement("NSWFileCodeOld")]
+        public string fiNSWFileCodeOld { set; get; }
 
-        public string fiRegistrationDateString
+        [XmlElement("AniFeedConfirmOldNo")]
+        public string AniFeedConfirmOldNo { set; get; }
+        [XmlElement("AniFeedConfirmOldId")]
+        public string AniFeedConfirmOldId { set; get; }
+        [XmlElement("AniFeedConfirmOldName")]
+        public string AniFeedConfirmOldName { set; get; }
+        [XmlElement("AniFeedConfirmOldFileLink")]
+        public string AniFeedConfirmOldFileLink { set; get; }
+
+        [XmlElement("DepartmentCode")]
+        public string DepartmentCode { set; get; }
+        [XmlElement("DepartmentName")]
+        public string DepartmentName { set; get; }
+
+        [XmlElement("Seller")]
+        public string sBan_Name { set; get; }
+        [XmlElement("SellerState")]
+        public string iID_MaQuocGia_Ban { set; get; }
+        [XmlElement("NameSellerState")]
+        public string sBan_QuocGia { set; get; }
+        [XmlElement("SellerAddress")]
+        public string sBan_DiaChi { set; get; }
+        [XmlElement("SellerPhone")]
+        public string sBan_Tel { set; get; }
+        [XmlElement("SellerFax")]
+        public string sBan_Fax { set; get; }
+        [XmlElement("PortOfDepartureName")]
+        public string sBan_NoiXuat { set; get; }
+
+        [XmlElement("Buyer")]
+        public string sMua_Name { set; get; }
+        [XmlElement("BuyerAddress")]
+        public string sMua_DiaChi { set; get; }
+        [XmlElement("BuyerPhone")]
+        public string sMua_Tel { set; get; }
+        [XmlElement("BuyerFax")]
+        public string sMua_Fax { set; get; }
+        [XmlElement("PortOfDestinationName")]
+        public string sMua_NoiNhan { set; get; }
+        [XmlElement("ImportingFromDate")]
+        public DateTime sMua_FromDate { set; get; }
+        [XmlElement("ImportingToDate")]
+        public DateTime sMua_ToDate { set; get; }
+
+        [XmlElement("LocationOfStorage")]
+        public string fiLocationOfStorage { set; get; }
+        [XmlElement("DateOfSamplingFrom")]
+        public DateTime fiDateOfSamplingFrom { set; get; }
+        [XmlElement("DateOfSamplingTo")]
+        public DateTime fiDateOfSamplingTo { set; get; }
+        [XmlElement("LocationOfSampling")]
+        public string fiLocationOfSampling { set; get; }
+        [XmlElement("ContactPerson")]
+        public string fiContactPerson { set; get; }
+        [XmlElement("ContactAddress")]
+        public string fiContactAddress { set; get; }
+        [XmlElement("ContactTel")]
+        public string fiContactTel { set; get; }
+        [XmlElement("ContactEmail")]
+        public string fiContactEmail { set; get; }
+
+        [XmlElement("CreateDate"), NotMapped]
+        public DateTime fiCreateDate { set; get; }
+        public string fiCreateDateString
         {
-            get => fiRegistrationDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => fiRegistrationDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => fiCreateDate.ToString("yyyy-MM-dd HH:mm:ss");
+            set => fiCreateDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement("RegistrationNo")]
-        public string fiRegistrationNo { get; set; }
-
-        [XmlElement("NameOfRegistration")]
-        public string fiNameOfRegistration { get; set; }
-
-        [XmlElement("AddressOfRegistration")]
-        public string fiAddressOfRegistration { get; set; }
-        public DateTime fiQuarantineTimeFrom { get; set; }
-
-        [XmlElement("QuarantineTimeFrom"), NotMapped]
-        public string fiQuarantineTimeFromString
-        {
-            get => fiQuarantineTimeFrom.ToString("yyyy-MM-dd HH:mm:ss");
-            set => fiQuarantineTimeFrom = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
-        }
-
-        public DateTime fiQuarantineTimeTo { get; set; }
-
-        [XmlElement("QuarantineTimeTo"), NotMapped]
-        public string fiQuarantineTimeToString
-        {
-            get => fiQuarantineTimeTo.ToString("yyyy-MM-dd HH:mm:ss");
-            set => fiQuarantineTimeTo = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
-        }
-        [XmlElement("Phone")]
-        public string fiPhone { get; set; }
-        [XmlElement("Fax")]
-        public string fiFax { get; set; }
-        [XmlElement("Email")]
-        public string fiEmail { get; set; }
-        [XmlElement("RegistrationConfirmNo")]
-        public string fiRegistrationConfirmNo { get; set; }
-        [XmlElement("SignAddress")]
-        public string fiSignAddress { get; set; }
+        
+        [XmlElement("SignPlace")]
+        public string fiSignPlace { get; set; }
         public DateTime fiSignDate { get; set; }
 
         [XmlElement("SignDate"), NotMapped]
@@ -95,45 +129,27 @@ namespace DATA0200025.DTO
         public string fiSignName { get; set; }
         [XmlElement("SignPosition")]
         public string fiSignPosition { get; set; }
-        [XmlElement("SowingScale")]
-        public string fiSowingScale { get; set; }
-        [XmlElement("Purpose")]
-        public string fiPurpose { get; set; }
-        [XmlElement("TotalCultivar")]
-        public string fiTotalCultivar { get; set; }
-        [XmlElement("EntryPointName")]
-        public string fiEntryPointName { get; set; }
-        [XmlElement("DocumentsConcerned")]
-        public string fiDocumentsConcerned { get; set; }
-        [XmlElement("ListOfImports")]
-        public string fiListOfImports { get; set; }
-
-        [XmlIgnore] public int idDepartment { set; get; } = 1;
-
-        [XmlElement("ReasonForModification")]
-        public string fiReasonForModification { get; set; }
-        public DateTime fiDateOfModification { get; set; }
 
 
-        [XmlElement("DateOfModification"), NotMapped]
-        public string fiDateOfModificationString
-        {
-            get => fiDateOfModification.ToString("yyyy-MM-dd HH:mm:ss");
-            set => fiDateOfModification = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
-        }
-        [XmlElement("PurposeOther")]
-        public string fiPurposeOther { get; set; }
 
-        //[XmlArray("TechnicalDeclarationList")]
-        //[XmlArrayItem("TechnicalDeclaration")]
-        //public virtual List<ToKhaiKyThuatVM> listToKhaiKyThuat { get; set; }
+        [XmlArray("GoodsList")]
+        [XmlArrayItem("Goods")]
+        public virtual List<HangHoaVM> ListHangHoa { set; get; }
 
-        //[XmlArray("TypeOfCultivarList")]
-        //[XmlArrayItem("TypeOfCultivar")]
-        //public virtual List<GiongCayVM> listGiongCay { set; get; }
+        [XmlArray("ContractList")]
+        [XmlArrayItem("Contract")]
+        public virtual List<HopDongVM> ListHopDong { set; get; }
 
-        //[XmlArray("AttachmentList")]
-        //[XmlArrayItem("Attachment")]
-        //public virtual List<AttachmentVM> ListAttachment { set; get; }
+        [XmlArray("InvoiceList")]
+        [XmlArrayItem("Invoice")]
+        public virtual List<HoaDonVM> ListHoaDon { set; get; }
+
+        [XmlArray("PackingList")]
+        [XmlArrayItem("Packing")]
+        public virtual List<PhieuDongGoiVM> ListPhieuDongGoi { set; get; }
+
+        [XmlArray("AttachmentList")]
+        [XmlArrayItem("Attachment")]
+        public virtual List<AttachmentVM> ListAttachment { set; get; }
     }
 }
