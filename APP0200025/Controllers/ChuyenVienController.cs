@@ -5,6 +5,7 @@ using DomainModel;
 using DomainModel.Abstract;
 using System;
 using System.Collections.Specialized;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
@@ -54,13 +55,76 @@ namespace APP0200025.Controllers
             return View(hoSo);
         }
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult XuLyChiTieuKiemTra(string iID_MaHoSo)
+        public PartialViewResult XuLyChiTieuKiemTra(string iID_MaHangHoa)
         {
-            HoSoModels hoSo = clHoSo.GetHoSoById(iID_MaHoSo);
+            HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
             ViewData["DuLieuMoi"] = "0";
-            return View(hoSo);
+            return PartialView(hanghoa);
         }
         
+        [Authorize, ValidateInput(false), HttpPost]
+        public ActionResult XuLyChiTieuSubmit(String ParentID)
+        {
+            string iID_MaHangHoa = CString.SafeString(Request.Form["EDit_iID_MaHangHoa"]);
+            string CL_Chons = CString.SafeString(Request.Form["CL_bChon"]);
+            string ATDN_Chons= CString.SafeString(Request.Form["ATDN_bChon"]);
+            string ATKT_Chons = CString.SafeString(Request.Form["ATKT_bChon"]);
+            SqlCommand cmd;
+            string sGhiChu = "";
+            clHangHoa.Update_ResetbChon(iID_MaHangHoa);
+            if (!string.IsNullOrEmpty(CL_Chons))
+            {
+                string[] arr = CL_Chons.Split(',');
+
+                cmd = new SqlCommand();
+                cmd.Parameters.AddWithValue("@iID_MaHangHoaCL", 0);
+                cmd.Parameters.AddWithValue("@bChon", 1);
+                cmd.Parameters.AddWithValue("@sGhiChu", "");
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    sGhiChu = Request.Form[string.Format("CL{0}_sGhiChu", arr[i])];
+                    cmd.Parameters["@iID_MaHangHoaCL"].Value = arr[i];
+                    cmd.Parameters["@sGhiChu"].Value = sGhiChu;
+                    Connection.UpdateRecord("CNN25_HangHoa_ChatLuong", "iID_MaHangHoaCL", cmd);
+                }
+                cmd.Dispose();
+            }
+            if (!string.IsNullOrEmpty(ATDN_Chons))
+            {
+                string[] arr = ATDN_Chons.Split(',');
+
+                cmd = new SqlCommand();
+                cmd.Parameters.AddWithValue("@iID_MahangHoaAT", 0);
+                cmd.Parameters.AddWithValue("@bChon", 1);
+                cmd.Parameters.AddWithValue("@sGhiChu", "");
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    sGhiChu = Request.Form[string.Format("ATDN{0}_sGhiChu", arr[i])];
+                    cmd.Parameters["@iID_MahangHoaAT"].Value = arr[i];
+                    cmd.Parameters["@sGhiChu"].Value = sGhiChu;
+                    Connection.UpdateRecord("CNN25_HangHoa_AnToan", "iID_MahangHoaAT", cmd);
+                }
+                cmd.Dispose();
+            }
+            if (!string.IsNullOrEmpty(ATKT_Chons))
+            {
+                string[] arr = ATKT_Chons.Split(',');
+
+                cmd = new SqlCommand();
+                cmd.Parameters.AddWithValue("@iID_MaHangHoaATKT", 0);
+                cmd.Parameters.AddWithValue("@bChon", 1);
+                cmd.Parameters.AddWithValue("@sGhiChu", "");
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    sGhiChu = Request.Form[string.Format("ATKT{0}_sGhiChu", arr[i])];
+                    cmd.Parameters["@iID_MaHangHoaATKT"].Value = arr[i];
+                    cmd.Parameters["@sGhiChu"].Value = sGhiChu;
+                    Connection.UpdateRecord("CNN25_HangHoa_AnToan_KyThuat", "iID_MaHangHoaATKT", cmd);
+                }
+                cmd.Dispose();
+            }
+            return RedirectToAction("Index");
+        }
         /// <summary>
         /// update data màn hình TiepNhanHoSo
         /// </summary>

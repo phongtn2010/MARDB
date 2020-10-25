@@ -121,6 +121,7 @@
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Enums\HoSoStatus.cs" />
     <Compile Include="Models\FileDinhKemModels.cs" />
+    <Compile Include="Models\HangHoaModels.cs" />
     <Compile Include="Models\HanhDongModels.cs" />
     <Compile Include="Models\DoiTuongModels.cs" />
     <Compile Include="Models\HoSoModels.cs" />
