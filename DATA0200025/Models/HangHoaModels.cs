@@ -16,6 +16,7 @@ namespace DATA0200025.Models
         public int iID_MaQuocGia { get; set; }
         public int iID_MaDonViTinh { get; set; }
         public int iID_MaTrangThai { get; set; }
+        public int iID_MaTrangThaiTruoc { get; set; }
         public string sMaHoSo { get; set; }
         public string sTenHangHoa { get; set; }
         public string sMaSoCongNhan { get; set; }

@@ -1,0 +1,103 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@using APP0200025.Controllers
+@model  DATA0200025.Models.HoSoModels
+@{
+    ViewBag.Title = "Soạn phụ lục";
+    Layout = "~/Views/Shared/_Layout_cms.cshtml";
+    string ParentID = "Edit";
+    SelectOptionList ddl = clHangHoa.DDL_PhanLoaiTheoHoSo(Model.iID_MaHoSo);
+    string iID_MaPhanLoai = Convert.ToString(ddl.dtData.Rows[0][Convert.ToString(ddl.ValueMember)]);
+
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                @using (Html.BeginForm("TrinhLanhDao", "ChuyenVien", new { ParentID = ParentID }))
+                {
+                    @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
+                    @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Soạn phụ lục GĐK</h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.box-header -->
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="col-xs-2 labelSearch norwap">
+                                    Phân loại<span style="color:#D9001B;"> (*)</span>
+                                </div>
+                                <div class="col-xs-10">
+                                    @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ddl, iID_MaPhanLoai, "iID_MaPhanLoai", "", "class=\"form-control\""))
+
+                                </div>
+                            </div>
+                            <div class="col-xs-12">&nbsp;</div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-2 labelSearch norwap">
+                                    Biện pháp kiểm tra
+                                </div>
+                                <div class="col-xs-10">
+                                    <input type="text" value="@Model.sLoaiHinhThucKiemTra" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="col-xs-12">&nbsp;</div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-2 labelSearch norwap">
+                                    Đơn vị thực hiện đánh giá
+                                </div>
+                                <div class="col-xs-10">
+
+                                    <input type="text" value="@string.Format("{0:dd-MM-yyyy}",Model.dThoiGianDanhGia)" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="col-xs-12">&nbsp;</div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-2 labelSearch norwap">
+                                    Đơn vị thực hiện đánh giá
+                                </div>
+                                <div class="col-xs-10">
+
+                                    <input type="text" value="@Model.sDonViThucHienDanhGia" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="col-xs-12">&nbsp;</div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-12 labelSearch norwap" id="divHH">
+                                    @Html.Action("Partial_HangHoa", "ChuyenVien", new { iID_MaHoSo = Model.iID_MaHoSo, iID_MaPhanLoai = iID_MaPhanLoai })
+
+                                </div>
+                            </div>
+                            <div class="col-xs-12">&nbsp;</div>
+                        </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                        <div class="col-xs-12 text-center">
+                            <button class="btn btn-primary btn-sm" id="btnTuChoi" type="submit">Trình lãnh đạo</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-danger btn-sm" data-dismiss="modal" type="button">Thoát</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+<div id="XuLyChiTieu" class="modal fade" role="basic" tabindex="-1" aria-hidden="true">
+</div>
+
+    <script src="~/ScriptsERP/jsSoanPhuLuc.js"></script>

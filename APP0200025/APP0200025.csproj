@@ -250,6 +250,7 @@
     <Compile Include="Controllers\Api\FileUploadApiController.cs" />
     <Compile Include="Controllers\Api\FileuploadController.cs" />
     <Compile Include="Controllers\BaoMat\DC_CongTyController.cs" />
+    <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="WebServices\MardService.asmx.cs">
       <DependentUpon>MardService.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -3047,6 +3048,15 @@
     <Content Include="Views\Account\ConfirmChangePassword.cshtml" />
     <Content Include="Views\DC_CongTy\Index.cshtml" />
     <Content Include="Views\DC_CongTy\Edit.cshtml" />
+    <Content Include="Views\Partial\Partial_HH_LichSuHoSo.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Detail.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Index.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_HangHoa.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_Model_XuLyChiTieuKiemTra.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_Model_YeuCauBoSung.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\SoanPhuLuc.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\XuLyChiTieuKiemTra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
