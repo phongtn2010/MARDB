@@ -250,7 +250,6 @@
     <Compile Include="Controllers\Api\FileUploadApiController.cs" />
     <Compile Include="Controllers\Api\FileuploadController.cs" />
     <Compile Include="Controllers\BaoMat\DC_CongTyController.cs" />
-    <Compile Include="RequireHttpsAttribute.cs" />
     <Compile Include="WebServices\MardService.asmx.cs">
       <DependentUpon>MardService.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -2811,13 +2810,13 @@
     <Content Include="ScriptsERP\jsBTS.js" />
     <Content Include="ScriptsERP\jsDaCapThongBaoKetQua.js" />
     <Content Include="ScriptsERP\jsDaPheDuyetThongBaoKetQua.js" />
+    <Content Include="ScriptsERP\jsLanhDaoCuc.js" />
+    <Content Include="ScriptsERP\jsLanhDaoPhong.js" />
     <Content Include="ScriptsERP\jsPhongTACNYeuCauBoSungKetQua.js" />
     <Content Include="ScriptsERP\jsChoTiepNhanKetQuaGuiBoSung.js" />
     <Content Include="ScriptsERP\jsChoTiepNhanKetQua.js" />
     <Content Include="ScriptsERP\jsHoSoYeuCauBoSung.js" />
     <Content Include="ScriptsERP\jsHoSoDaXemXetYeuCauBoSung.js" />
-    <Content Include="ScriptsERP\jsLanhDaoCuc.js" />
-    <Content Include="ScriptsERP\jsLanhDaoPhong.js" />
     <Content Include="ScriptsERP\jsHoSoDaGuiBoSung.js" />
     <Content Include="ScriptsERP\jsChoTiepNhanHoSo.js" />
     <Content Include="ScriptsERP\jsChuyenVien.js" />
@@ -2828,8 +2827,6 @@
     <Content Include="ScriptsERP\jsFunctions.js" />
     <Content Include="ScriptsERP\jsIBS.js" />
     <Content Include="ScriptsERP\jsInit.js" />
-    <Content Include="ScriptsERP\jsLanhDaoCuc.js" />
-    <Content Include="ScriptsERP\jsLanhDaoPhong.js" />
     <Content Include="ScriptsERP\jsNumber.js" />
     <Content Include="ScriptsERP\jsSoanPhuLuc.js" />
     <Content Include="ScriptsERP\jsString.js" />
