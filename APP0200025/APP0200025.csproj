@@ -36,6 +36,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +46,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -3040,17 +3042,14 @@
     <Content Include="Views\Partial\Partial_LichSuHoSo.cshtml" />
     <Content Include="Views\ChuyenVien\Partial_HangHoa.cshtml" />
     <Content Include="Views\ChuyenVien\XuLyChiTieuKiemTra.cshtml" />
-
     <Content Include="Views\Partial\Partial_HH_ThongTinChiTieuChatLuong.cshtml" />
     <Content Include="Views\Partial\Partial_HH_ThongTinTACN.cshtml" />
     <Content Include="Views\Partial\Partial_HH_ThongTinChiTieuAnToanDN.cshtml" />
     <Content Include="Views\Partial\Partial_HH_ThongTinChiTieuAnToanKyThuat.cshtml" />
-
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ConfirmChangePassword.cshtml" />
     <Content Include="Views\DC_CongTy\Index.cshtml" />
     <Content Include="Views\DC_CongTy\Edit.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
