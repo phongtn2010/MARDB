@@ -248,6 +248,7 @@
     <Compile Include="Controllers\Api\FileUploadApiController.cs" />
     <Compile Include="Controllers\Api\FileuploadController.cs" />
     <Compile Include="Controllers\BaoMat\DC_CongTyController.cs" />
+    <Compile Include="RequireHttpsAttribute.cs" />
     <Compile Include="WebServices\MardService.asmx.cs">
       <DependentUpon>MardService.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -3098,7 +3099,6 @@
     <Folder Include="Files\" />
     <Folder Include="Libraries\CongThuc\" />
     <Folder Include="Views\Public\" />
-    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

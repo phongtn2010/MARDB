@@ -15,7 +15,7 @@ namespace DATA0200025.DTO
         //public bool fiActive { set; get; }
         //public string fiNSWFileCode { set; get; }
         [XmlElement("NameOfGoods")]
-        public string fiName { set; get; }
+        public string fiNameOfGoods { set; get; }
 
         [XmlElement("NoticeOfExemptionFromInspectionNo")]
         public string fiScienceName { set; get; }
@@ -24,7 +24,7 @@ namespace DATA0200025.DTO
         public string fiNoticeDate { set; get; }
 
         [XmlElement("GroupFoodOfGoods")]
-        public int fiQuantityUnitCode { set; get; }
+        public int fiGroupFoodOfGoods { set; get; }
         [XmlElement("GroupGoodId")]
         public string fiGroupGoodId { set; get; }
         [XmlElement("GroupGoodName")]
@@ -74,7 +74,7 @@ namespace DATA0200025.DTO
         public string fiGoodsValueUnitCode { set; get; }
 
         [XmlElement("GoodsValueUnitName")]
-        public int fiGoodsValueUnitName { set; get; }
+        public string fiGoodsValueUnitName { set; get; }
 
         [XmlArray("QuantityVolumeList")]
         [XmlArrayItem("QualityCriteria")]
