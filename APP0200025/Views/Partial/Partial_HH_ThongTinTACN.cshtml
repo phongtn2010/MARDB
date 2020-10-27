@@ -1,0 +1,42 @@
+﻿@using System.Data
+@using DATA0200025
+@using DATA0200025.Models
+@using DomainModel 
+@using DomainModel.Controls
+@model HangHoaModels
+@{
+    Layout = null;
+    SelectOptionList nDDL = clDanhMuc.GetDDL("NTACN");
+    SelectOptionList loaiTAddl = clDanhMuc.GetDDL("LTACN");
+
+}
+
+
+    <div class="box-header with-border">
+        <h3 class="box-title">Thông tin chi tiết TACN</h3>
+
+        <div class="box-body no-padding with-border" style="border:1px solid #f4f4f4">
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label" style="text-align:left">Tên TACN:</label>
+                <div class="col-sm-6">
+                    <label class="control-label" style="text-align:left">@Model.sTenHangHoa</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-4 control-label" style="text-align:left">Nhóm TACN:</label>
+                <div class="col-sm-6">
+                    <label class="control-label" style="text-align:left">@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(nDDL,Convert.ToString(Model.iID_MaNhom), "iID_MaNhom"))</label>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-4 control-label" style="text-align:left">Loại TACN:</label>
+                <div class="col-sm-6">
+                    <label class="control-label" style="text-align:left">@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(loaiTAddl, Convert.ToString(Model.iID_MaLoai), "iID_MaLoai"))</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+

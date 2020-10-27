@@ -13,6 +13,8 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout_cms.cshtml";
     string ParentID = "Detail";
+    string sAction = "";
+   
 }
 <section class="content">
     <div class="row">
@@ -29,47 +31,29 @@
                     <div class="tab-pane active" id="tab_1">
 
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml");}
-                        <form action="@Url.Action("TiepNhanHoSo", "ChuyenVien", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+                        <form action="@Url.Action("ThuHoiSubmit", "ChuyenVien", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
                             @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
                             @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
                             <div class="box-footer clearfix text-center">
-                                @*<button class="btn btn-primary btn-sm" type="submit">Tiếp nhận</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp*@
-                                <a class="btn" style="background-color:#10de79;color:white;" href="@Url.Action("SoanPhuLuc","ChuyenVien",new {iID_MaHoSo=Model.iID_MaHoSo})">Soạn phụ lục</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a class="btn btn-danger opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" " type="button">Từ chối</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a class="btn openyeucaubosung" style="background-color:#f1bc10;color:white;" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @if (Model.iID_MaTrangThai == 10 || Model.iID_MaTrangThai == 11 || Model.iID_MaTrangThai == 12)
+                                {
+                                    <button class="btn btn-danger btn-sm" type="submit">Thu hồi</button>
+                                }
+                                else 
+                                {
+                                <a class="btn" style="background-color:#10de79;color:white;margin-right:5px;" href="@Url.Action("SoanPhuLuc","ChuyenVien",new {iID_MaHoSo=Model.iID_MaHoSo})">Soạn phụ lục</a>
+                                <a class="btn btn-danger opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" style="margin-right: 5px;" type="button">Từ chối</a>
+                                <a class="btn openyeucaubosung" style="background-color:#f1bc10;color:white;margin-right: 5px;" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
                                 <a class="btn" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
+                                }
                             </div>
                         </form>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
                         @{Html.RenderPartial("~/Views/Partial/Partial_LichSuHoSo.cshtml", Model);}
                     </div><!-- /.tab-pane -->
-
-<<<<<<< HEAD
-                    @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml");}
-                    <form action="@Url.Action("TiepNhanHoSo", "ChuyenVien", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                        @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"])
-                        @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo)
-                        <div class="box-footer clearfix text-center">
-                            @*<button class="btn btn-primary btn-sm" type="submit">Tiếp nhận</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp*@
-                            <a class="btn btn-sm" style="background-color:#10de79;color:white;" href="@Url.Action("SoanPhuLuc","ChuyenVien",new {iID_MaHoSo=Model.iID_MaHoSo})">Soạn phụ lục</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-danger btn-sm opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" " type="button">Từ chối</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-sm openyeucaubosung" style="background-color:#f1bc10;color:white;" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-sm" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
-                        </div>
-                    </form>
-                </div><!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_2">
-                    @{Html.RenderPartial("~/Views/Partial/Partial_LichSuHoSo.cshtml", Model);}
-                </div><!-- /.tab-pane -->
-=======
-                </div><!-- /.tab-content -->
-            </div><!-- nav-tabs-custom -->
-        </div><!-- /.col -->
->>>>>>> e09112944afd424bdc50e810494f335327cab4f5
-
     </div>
 </section>
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_TuChoi.cshtml");}
-<script src="@Url.Content("~/ScriptsERP/jsChoTiepNhanHoSo.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+@{Html.RenderPartial("~/Views/ChuyenVien/Partial_Model_YeuCauBoSung.cshtml");}
+@{Html.RenderPartial("~/Views/ChuyenVien/Partial_Model_TuChoi.cshtml");}
+<script src="@Url.Content("~/ScriptsERP/jsChuyenVien.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
