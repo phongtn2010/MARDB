@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "FileUpload";
+}
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .button4 {
+        border-radius: 9px;
+    }
+</style>
+
+<fieldset>
+
+    <legend style="font-family:Arial Black;color:blue">Upload And Download Files Here</legend>
+    <div>
+        <div class="form-group">
+            <div id="updateStatus" class="alert" role="alert" style="display:none;"></div>
+        </div>
+        <div class="col-md-12" style="text-align:center;margin-bottom:10px;">
+            <input type="file" id="fileToBeUploaded" class="btn btn-primary" />
+        </div>
+        <input id="btnUploadFile" class="button button4" type="button" value="Upload" />
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnUploadFile').click(function () {
+                if ($('#fileToBeUploaded').val() == '') {
+                    alert('Please select file');
+                    return;
+                }
+                //if (window.location.protocol.indexOf('https') == 0) {
+                //    var el = document.createElement('meta')
+                //    el.setAttribute('http-equiv', 'Content-Security-Policy')
+                //    el.setAttribute('content', 'upgrade-insecure-requests')
+                //    document.head.append(el)
+                //}
+                var formData = new FormData();
+                var file = $('#fileToBeUploaded')[0];
+                formData.append('file', file.files[0]);
+                $.ajax({
+                    url: 'http://mard.adp-p.com/api/fileuploadapi',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (d) {
+                        $('#updateStatus').addClass('alert-success').html('<strong>Upload Done!</strong><a href="' + d + '">Download File</a>').show();
+                        $('#fileToBeUploaded').val(null);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
+
+                        $('#result').html('<p>status code: ' + jqXHR.status + '</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>' + jqXHR.responseText + '</div>');
+                        console.log('jqXHR:');
+                        console.log(jqXHR);
+                        console.log('textStatus:');
+                        console.log(textStatus);
+                        console.log('errorThrown:');
+                        console.log(errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
+</fieldset>

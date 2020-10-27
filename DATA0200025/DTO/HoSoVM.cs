@@ -22,8 +22,6 @@ namespace DATA0200025.DTO
         [XmlIgnore]
         public bool fiActive { set; get; }
 
-        //public int fiIdHSParent { set; get; }
-
         [XmlIgnore]
         public int fiHSStatus { set; get; }
 
