@@ -15,6 +15,17 @@ namespace DATA0200025
 {
     public class clHangHoa
     {
+
+        public static HangHoaModels GetHangHoaById(int iID_MaHangHoa)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN25_HangHoa 
+                            WHERE iID_MaHangHoa=@iID_MaHangHoa";
+                HangHoaModels results = connect.Query<HangHoaModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).FirstOrDefault();
+                return results;
+            }
+        }
         public static DataTable Get_HangHoaTheoHoSo(int iID_MaHoSo,string iID_MaPhanLoai)
         {
             string SQL = "SELECT *  FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo AND iID_MaPhanLoai=@iID_MaPhanLoai";
@@ -28,7 +39,7 @@ namespace DATA0200025
 
         public static SelectOptionList DDL_PhanLoaiTheoHoSo(int iID_MaHoSo)
         {
-            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE iID_MaDanhMuc IN(SELECT iID_MaPhanLoai FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo) ORDER By sTen";
+            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE iID_MaDanhMuc IN( SELECT iID_MaPhanLoai FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo) ORDER By sTen";
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
             DataTable dt = Connection.GetDataTable(cmd);
@@ -36,6 +47,48 @@ namespace DATA0200025
             SelectOptionList ddl = new SelectOptionList(dt, "iID_MaDanhMuc", "sTen");
             dt.Dispose();
             return ddl;
+        }
+
+        public static DataTable Get_ThongTinChiTieuChatLuong(int iID_MaHangHoa)
+        {
+            string SQL = "SELECT * FROM CNN25_HangHoa_ChatLuong  WHERE iID_MaHangHoa=@iID_MaHangHoa";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+            return dt;
+        }
+        public static DataTable Get_ThongTinChiTieuAnToanDN(int iID_MaHangHoa)
+        {
+            string SQL = "SELECT * FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+            return dt;
+        }
+
+        public static DataTable Get_ThongTinChiTieuAnToanKyThuat(int iID_MaHangHoa)
+        {
+            string SQL = "SELECT * FROM CNN25_HangHoa_AnToan_KyThuat WHERE iID_MaHangHoa=@iID_MaHangHoa";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+            return dt;
+        }
+
+        public static void Update_ResetbChon(string iID_MaHangHoa)
+        {
+            string SQL = "Update CNN25_HangHoa_AnToan_KyThuat SET bChon=0,sGhiChu='' WHERE iID_MaHangHoa=@iID_MaHangHoa";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            Connection.UpdateDatabase(cmd);
+            cmd.CommandText= "Update CNN25_HangHoa_AnToan SET bChon=0,sGhiChu='' WHERE iID_MaHangHoa=@iID_MaHangHoa";
+            Connection.UpdateDatabase(cmd);
+            cmd.CommandText = "Update CNN25_HangHoa_ChatLuong SET bChon=0,sGhiChu='' WHERE iID_MaHangHoa=@iID_MaHangHoa";
+            Connection.UpdateDatabase(cmd);
+            cmd.Dispose();
         }
     }
 }

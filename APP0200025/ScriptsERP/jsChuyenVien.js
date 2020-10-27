@@ -3,7 +3,7 @@
         var formData = new FormData($("#formYeuCau")[0]);
         //var OrderService = $("#OrderService").val();
         $.ajax({
-            url: '/ChoTiepNhanHoSo/YeuCauBoSungSubmit',
+            url: '/ChuyenVien/YeuCauBoSungSubmit',
             type: 'POST',
             data: formData,
             async: false,
@@ -48,7 +48,7 @@ $(function () {
         var formData = new FormData($("#formTuChoi")[0]);
         //var OrderService = $("#OrderService").val();
         $.ajax({
-            url: '/ChoTiepNhanHoSo/YeuCauBoSungSubmit',
+            url: '/ChuyenVien/TuChoiSubmit',
             type: 'POST',
             data: formData,
             async: false,
@@ -57,10 +57,10 @@ $(function () {
             enctype: 'multipart/form-data',
             processData: false,
             success: function (response) {
-                $('#YeuCauBoSung').modal('toggle');
+                $('#TuChoi').modal('toggle');
             },
             error: function (response) {
-                alert("Bạn cần xử lý mẫu trước");
+                alert("Chưa thành công");
                 $('#responsive').modal('toggle');
             }
 

@@ -1,0 +1,66 @@
+﻿@using System.Data
+@using DATA0200025
+@using DATA0200025.Models
+@using DomainModel
+@using DomainModel.Controls
+@model HangHoaModels
+
+@{
+    Layout = null;
+    DataTable dt = clHangHoa.Get_ThongTinChiTieuChatLuong(Model.iID_MaHangHoa);
+    int rc = dt.Rows.Count;
+    DataRow r;
+    string ParentID = "CL";
+}
+
+
+    <div class="box-header with-border">
+        <h3 class="box-title">Thông tin chi tiêu chất lượng</h3>
+
+        <div class="box-body no-padding">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th style="width: 3%; text-align: center;">STT</th>
+                        <th>Chọn</th>
+                        <th style="width: 25%; text-align: center;">Tên chỉ tiêu chất lượng</th>
+                        <th style="width: 25%; text-align: center;">Hình thức công bố</th>
+                        <th style="width: 10%; text-align: center;">Hàm lượng</th>
+                        <th style="width: 10%; text-align: center;">Đơn vị tính</th>
+                        <th style="width: 30%; text-align: center;">Ghi chú</th>
+                    </tr>
+                    @{
+                        if (rc > 0)
+                        {
+                            for (int i = 0; i < rc; i++)
+                            {
+                                r = dt.Rows[i];
+                                string schecked= "";
+                                if(Convert.ToBoolean(r["bChon"]))
+                                {
+                                    schecked= "checked=checked";
+                                }
+                                    int iSTT = i + 1;
+
+
+
+                                        <tr>
+                                            <td style="text-align: center;">@iSTT.ToString()</td>
+                                            <td><input type="checkbox" value="@r["iID_MaHangHoaCL"]" @schecked name="@string.Format("{0}_bChon",ParentID)" /></td>
+                                            <td style="text-align: center;">@r["sChiTieu"]</td>
+                                            <td>@r["sHinhThuc"]</td>
+                                            <td>@r["sHamLuong"]</td>
+                                            <td>Đơn vị tính</td>
+
+                                            <td>@MvcHtmlString.Create(MyHtmlHelper.TextBox(string.Format("{0}{1}", ParentID, r["iID_MaHangHoaCL"]), r["sGhiChu"], "sGhiChu", "", "type=\"text\" class=\"form-control\""))</td>
+                                        </tr>
+                            }
+                        }
+                        dt.Dispose();
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+
