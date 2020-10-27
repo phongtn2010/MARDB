@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace DATA0200025.DTO
     public class HangHoaVM
     {
         [XmlIgnore]
-        public int GoodsId { set; get; }
+        public long GoodsId { set; get; }
 
         //public bool fiActive { set; get; }
         //public string fiNSWFileCode { set; get; }
@@ -20,8 +21,14 @@ namespace DATA0200025.DTO
         [XmlElement("NoticeOfExemptionFromInspectionNo")]
         public string fiScienceName { set; get; }
 
-        [XmlElement("NoticeDate")]
-        public string fiNoticeDate { set; get; }
+        
+        public DateTime fiNoticeDate { set; get; }
+        [XmlElement("NoticeDate"), NotMapped]
+        public string fiNoticeDateString
+        {
+            get => fiNoticeDate.ToString("yyyy-MM-dd HH:mm:ss");
+            set => fiNoticeDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+        }
 
         [XmlElement("GroupFoodOfGoods")]
         public int fiGroupFoodOfGoods { set; get; }
@@ -77,6 +84,10 @@ namespace DATA0200025.DTO
         public string fiGoodsValueUnitName { set; get; }
 
         [XmlArray("QuantityVolumeList")]
+        [XmlArrayItem("QuantityVolume")]
+        public virtual List<SoLuongVM> ListSoLuong { set; get; }
+
+        [XmlArray("QualityCriteriaList")]
         [XmlArrayItem("QualityCriteria")]
         public virtual List<ChatLuongVM> ListChatLuong { set; get; }
 
@@ -84,11 +95,9 @@ namespace DATA0200025.DTO
         [XmlArrayItem("SafetyCriteria")]
         public virtual List<AnToanVM> ListAnToan { set; get; }
 
-        [XmlArray("QuantityVolumeList")]
-        [XmlArrayItem("QuantityVolume")]
-        public virtual List<SoLuongVM> ListSoLuong { set; get; }
+
 
         [XmlIgnore]
-        public int idHoSo { get; set; }
+        public long idHoSo { get; set; }
     }
 }

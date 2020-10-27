@@ -1,30 +1,28 @@
-﻿using System;
+﻿using DATA0200025.WebServices;
+using DATA0200025.WebServices.XmlType;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Xml.Serialization;
-using Autofac;
-using DATA0200025.WebServices;
-using DATA0200025.WebServices.XmlType;
 
 namespace APP0200025.WebServices
 {
+    /// <summary>
+    /// Summary description for test
+    /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
-    public class MardService : WebService
+    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+    // [System.Web.Script.Services.ScriptService]
+    public class test : System.Web.Services.WebService
     {
-        private WsProcessingService _processingService = new WsProcessingService();
-
-        //public MardService()
-        //{
-        //    _processingService = WebApiConfig.Container.Resolve<WsProcessingService>();
-        //}
 
         [WebMethod]
-        public string Request(string payload)
+        public string HelloWorld(string payload)
         {
             Envelope envelopReturn;
             var nswFileCode = "";
@@ -54,7 +52,7 @@ namespace APP0200025.WebServices
                         case WsConstants.MessageType.TYPE_10:
                             if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_01))
                             {
-                                var result = _processingService.AniFeed(envelop);
+                                //var result = _processingService.AniFeed(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);
@@ -160,7 +158,7 @@ namespace APP0200025.WebServices
                         ErrorCode = WsConstants.Errors.ERR02_CODE,
                         ErrorName = WsConstants.Errors.ERR02 + "|" + e.Message
                     });
-              }
+            }
 
             return WsHelper.GetXmlFromObject(envelopReturn);
         }

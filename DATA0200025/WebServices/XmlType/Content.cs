@@ -35,7 +35,7 @@ namespace DATA0200025.WebServices.XmlType
 
         #region InboundObjects
 
-        [XmlElement("RegistrationProfile")] public HoSoVM RegistrationProfile { get; set; }
+        [XmlElement("AniFeed")] public HoSoVM AniFeed { get; set; }
         [XmlElement("RequestProCancel")] public RequestProCancelVM RequestProCancel { get; set; }
 
         [XmlElement("RequestProEdit")] public RequestProEditVM RequestProEdit { get; set; }

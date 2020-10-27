@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,18 @@ namespace DATA0200025.DTO
     public class HoaDonVM
     {
         [XmlIgnore]
-        public int InvoiceId { set; get; }
+        public long InvoiceId { set; get; }
 
         [XmlElement("InvoiceNo")]
         public string fiInvoiceNo { set; get; }
 
-        [XmlElement("InvoiceDate")]
         public DateTime fiInvoiceDate { set; get; }
+        [XmlElement("InvoiceDate"), NotMapped]
+        public string fiInvoiceDateString
+        {
+            get => fiInvoiceDate.ToString("yyyy-MM-dd HH:mm:ss");
+            set => fiInvoiceDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+        }
 
         [XmlElement("InvoiceAttachmentId")]
         public string fiInvoiceAttachmentId { set; get; }
@@ -28,6 +34,6 @@ namespace DATA0200025.DTO
         public string fiInvoiceFileLink { set; get; }
 
         [XmlIgnore]
-        public int idHoSo { get; set; }
+        public long idHoSo { get; set; }
     }
 }

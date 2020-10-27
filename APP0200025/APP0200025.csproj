@@ -255,6 +255,10 @@
       <DependentUpon>MardService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WebServices\test.asmx.cs">
+      <DependentUpon>test.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Content Include="App_Code\Pagings.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -2880,6 +2884,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\LanhDaoPhong\HoSoChoXemXet.cshtml" />
     <Content Include="WebServices\MardService.asmx" />
+    <Content Include="WebServices\test.asmx" />
     <Content Include="XML\en.gif" />
     <Content Include="XML\en.xml" />
     <Content Include="XML\vn.gif" />
