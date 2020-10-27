@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,18 @@ namespace DATA0200025.DTO
     public class HopDongVM
     {
         [XmlIgnore]
-        public int ContractId { set; get; }
+        public long ContractId { set; get; }
 
         [XmlElement("ContractNo")]
         public string fiContractNo { set; get; }
 
-        [XmlElement("ContractDate")]
         public DateTime fiContractDate { set; get; }
+        [XmlElement("ContractDate"), NotMapped]
+        public string fiContractDateString
+        {
+            get => fiContractDate.ToString("yyyy-MM-dd HH:mm:ss");
+            set => fiContractDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+        }
 
         [XmlElement("ContractAttachmentId")]
         public string fiContractAttachmentId { set; get; }
@@ -28,6 +34,6 @@ namespace DATA0200025.DTO
         public string fiContractFileLink { set; get; }
 
         [XmlIgnore]
-        public int idHoSo { get; set; }
+        public long idHoSo { get; set; }
     }
 }

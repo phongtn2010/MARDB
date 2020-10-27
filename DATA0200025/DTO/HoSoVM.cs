@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DATA0200025.DTO
 {
-    [XmlRoot("RegistrationProfile")]
+    [XmlRoot("AniFeed")]
     public class HoSoVM
     {
         [XmlIgnore]
@@ -17,7 +17,7 @@ namespace DATA0200025.DTO
         [XmlIgnore]
         public DateTime updatedAt { get; set; } = DateTime.Now;
         [XmlIgnore]
-        public int id { get; set; }
+        public long id { get; set; }
 
         [XmlIgnore]
         public bool fiActive { set; get; }
@@ -30,11 +30,7 @@ namespace DATA0200025.DTO
         [XmlIgnore] public int fiSuaStatus { get; set; } = 0;
         [XmlIgnore] public int fiSuaGPStatus { get; set; } = 0;
 
-        [XmlElement("TaxCode")]
-        public string fiTaxCode { get; set; }
-
-        [XmlElement("TypeAniFeed")]
-        public int sLoaiHinhThucKiemTra { get; set; }
+        
 
 
         [XmlElement("NSWFileCode")]
@@ -82,36 +78,29 @@ namespace DATA0200025.DTO
         public string sMua_Fax { set; get; }
         [XmlElement("PortOfDestinationName")]
         public string sMua_NoiNhan { set; get; }
-        [XmlElement("ImportingFromDate")]
+        
         public DateTime sMua_FromDate { set; get; }
-        [XmlElement("ImportingToDate")]
+        [XmlElement("ImportingFromDate"), NotMapped]
+        public string sMua_FromDateString
+        {
+            get => sMua_FromDate.ToString("yyyy-MM-dd HH:mm:ss");
+            set => sMua_FromDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+        }
         public DateTime sMua_ToDate { set; get; }
+        [XmlElement("ImportingToDate"), NotMapped]
+        public string sMua_ToDateString
+        {
+            get => sMua_ToDate.ToString("yyyy-MM-dd HH:mm:ss");
+            set => sMua_ToDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+        }
 
-        [XmlElement("LocationOfStorage")]
-        public string fiLocationOfStorage { set; get; }
-        [XmlElement("DateOfSamplingFrom")]
-        public DateTime fiDateOfSamplingFrom { set; get; }
-        [XmlElement("DateOfSamplingTo")]
-        public DateTime fiDateOfSamplingTo { set; get; }
-        [XmlElement("LocationOfSampling")]
-        public string fiLocationOfSampling { set; get; }
-        [XmlElement("ContactPerson")]
-        public string fiContactPerson { set; get; }
-        [XmlElement("ContactAddress")]
-        public string fiContactAddress { set; get; }
-        [XmlElement("ContactTel")]
-        public string fiContactTel { set; get; }
-        [XmlElement("ContactEmail")]
-        public string fiContactEmail { set; get; }
-
-        [XmlElement("CreateDate"), NotMapped]
         public DateTime fiCreateDate { set; get; }
+        [XmlElement("CreateDate"), NotMapped]
         public string fiCreateDateString
         {
             get => fiCreateDate.ToString("yyyy-MM-dd HH:mm:ss");
             set => fiCreateDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        
         [XmlElement("SignPlace")]
         public string fiSignPlace { get; set; }
         public DateTime fiSignDate { get; set; }
@@ -128,11 +117,45 @@ namespace DATA0200025.DTO
         [XmlElement("SignPosition")]
         public string fiSignPosition { get; set; }
 
+        [XmlElement("TaxCode")]
+        public string fiTaxCode { get; set; }
 
+        [XmlElement("TypeAniFeed")]
+        public int sLoaiHinhThucKiemTra { get; set; }
 
         [XmlArray("GoodsList")]
         [XmlArrayItem("Goods")]
         public virtual List<HangHoaVM> ListHangHoa { set; get; }
+
+        [XmlElement("LocationOfStorage")]
+        public string fiLocationOfStorage { set; get; }
+       
+        public DateTime fiDateOfSamplingFrom { set; get; }
+        [XmlElement("DateOfSamplingFrom"), NotMapped]
+        public string fiDateOfSamplingFromString
+        {
+            get => fiDateOfSamplingFrom.ToString("yyyy-MM-dd HH:mm:ss");
+            set => fiDateOfSamplingFrom = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+        }
+
+        public DateTime fiDateOfSamplingTo { set; get; }
+        [XmlElement("DateOfSamplingTo"), NotMapped]
+        public string fiDateOfSamplingToString
+        {
+            get => fiDateOfSamplingTo.ToString("yyyy-MM-dd HH:mm:ss");
+            set => fiDateOfSamplingTo = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+        }
+        [XmlElement("LocationOfSampling")]
+        public string fiLocationOfSampling { set; get; }
+        [XmlElement("ContactPerson")]
+        public string fiContactPerson { set; get; }
+        [XmlElement("ContactAddress")]
+        public string fiContactAddress { set; get; }
+        [XmlElement("ContactTel")]
+        public string fiContactTel { set; get; }
+        [XmlElement("ContactEmail")]
+        public string fiContactEmail { set; get; }
+
 
         [XmlArray("ContractList")]
         [XmlArrayItem("Contract")]

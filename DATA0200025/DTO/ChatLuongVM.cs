@@ -10,13 +10,13 @@ namespace DATA0200025.DTO
     public class ChatLuongVM
     {
         [XmlIgnore]
-        public int QualityCriteriaId { set; get; }
+        public long QualityCriteriaId { set; get; }
 
         [XmlElement("QualityCriteriaName")]
         public string fiQualityCriteriaName { set; get; }
 
         [XmlElement("QualityFormOfPublication")]
-        public int fiQualityFormOfPublication { set; get; }
+        public string fiQualityFormOfPublication { set; get; }
 
         [XmlElement("QualityRequire")]
         public decimal fiQualityRequire { set; get; }
@@ -28,6 +28,6 @@ namespace DATA0200025.DTO
         public string fiQualityRequireUnitName { set; get; }
 
         [XmlIgnore]
-        public int idHangHoa { get; set; }
+        public long idHangHoa { get; set; }
     }
 }

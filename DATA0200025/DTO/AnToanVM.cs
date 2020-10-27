@@ -10,13 +10,13 @@ namespace DATA0200025.DTO
     public class AnToanVM
     {
         [XmlIgnore]
-        public int SafetyCriteriaId { set; get; }
+        public long SafetyCriteriaId { set; get; }
 
         [XmlElement("SafetyCriteriaName")]
         public string fiSafetyCriteriaName { set; get; }
 
         [XmlElement("SafetyFormOfPublication")]
-        public int fiSafetyFormOfPublication { set; get; }
+        public string fiSafetyFormOfPublication { set; get; }
 
         [XmlElement("SafetyRequire")]
         public decimal fiSafetyRequire { set; get; }
@@ -28,6 +28,6 @@ namespace DATA0200025.DTO
         public string fiSafetyRequireUnitName { set; get; }
 
         [XmlIgnore]
-        public int idHangHoa { get; set; }
+        public long idHangHoa { get; set; }
     }
 }
