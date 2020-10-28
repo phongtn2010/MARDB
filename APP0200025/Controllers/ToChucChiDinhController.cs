@@ -41,6 +41,11 @@ namespace APP0200025.Controllers
         {
             return View();
         }
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult BuildForm()
+        {
+            return View();
+        }
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID)
         {
