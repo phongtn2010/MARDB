@@ -36,6 +36,11 @@ namespace APP0200025.Controllers
             ViewData["DuLieuMoi"] = "0";
             return View(hoSo);
         }
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult KetQuaUpload()
+        {
+            return View();
+        }
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID)
         {

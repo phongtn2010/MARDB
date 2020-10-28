@@ -3047,6 +3047,7 @@
     <Content Include="Views\Account\ConfirmChangePassword.cshtml" />
     <Content Include="Views\DC_CongTy\Index.cshtml" />
     <Content Include="Views\DC_CongTy\Edit.cshtml" />
+    <Content Include="Views\ToChucChiDinh\KetQuaUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
