@@ -250,8 +250,13 @@
     <Compile Include="Controllers\Api\FileUploadApiController.cs" />
     <Compile Include="Controllers\Api\FileuploadController.cs" />
     <Compile Include="Controllers\BaoMat\DC_CongTyController.cs" />
+    <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="WebServices\MardService.asmx.cs">
       <DependentUpon>MardService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\test.asmx.cs">
+      <DependentUpon>test.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Content Include="App_Code\Pagings.cs" />
@@ -2879,6 +2884,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\LanhDaoPhong\HoSoChoXemXet.cshtml" />
     <Content Include="WebServices\MardService.asmx" />
+    <Content Include="WebServices\test.asmx" />
     <Content Include="XML\en.gif" />
     <Content Include="XML\en.xml" />
     <Content Include="XML\vn.gif" />
@@ -3048,6 +3054,14 @@
     <Content Include="Views\DC_CongTy\Index.cshtml" />
     <Content Include="Views\DC_CongTy\Edit.cshtml" />
     <Content Include="Views\ToChucChiDinh\KetQuaUpload.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Detail.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Index.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_HangHoa.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_Model_XuLyChiTieuKiemTra.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_Model_YeuCauBoSung.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\SoanPhuLuc.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\XuLyChiTieuKiemTra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

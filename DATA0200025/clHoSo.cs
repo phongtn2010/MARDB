@@ -327,6 +327,314 @@ namespace DATA0200025
             cmd.Dispose();
             return dt;
         }
+
+
+        #region getDataTable hàng hóa
+        public static int GetCountHH(sHoSoModels models)
+        {
+            SqlCommand cmd = new SqlCommand();
+            string DK = "1=1", DKHH = "1=1";
+            List<TrangThaiModels> TrangThais;
+            switch (models.LoaiDanhSach)
+            {
+                case 1:
+                    TrangThais = BPMC_ChoTiepNhanHoSo();
+                    break;
+                case 2:
+                    TrangThais = BPMC_ChoTiepNhanHoSoGuiBoSung();
+                    break;
+                case 3:
+                    TrangThais = BPMC_DaTuChoiXacNhanGDK();
+                    break;
+                case 4:
+                    TrangThais = BPMC_PhongTACNYeuCauBoSungHoSo();
+                    break;
+                case 5:
+                    TrangThais = BPMC_DaPheDuyetGDK();
+                    break;
+                case 6:
+                    TrangThais = BPMC_DaTraGDK();
+                    break;
+                case 7:
+                    TrangThais = ChuyenVien_ChoXuLyHoSo();
+                    break;
+                case 8:
+                    TrangThais = ChuyenVien_ChoXuLyKetQua();
+                    break;
+                case 10:
+                    TrangThais = LDP_ChoXemXetHoSo();
+                    break;
+                case 11:
+                    TrangThais = LDP_ChoXemXetKetQua();
+                    break;
+                case 12:
+                    TrangThais = LDC_ChoXacNhanGDK();
+                    break;
+                case 13:
+                    TrangThais = LDC_ChoPheDuyetKetQua();
+                    break;
+                case 14:
+                    TrangThais = BPMC_ChoTiepNhanKetQua();
+                    break;
+                case 15:
+                    TrangThais = BPMC_ChoTiepNhanKetQuaGuiBoSung();
+                    break;
+                case 16:
+                    TrangThais = BPMC_PhongTACNYeuCauBoSungKetQua();
+                    break;
+                case 17:
+                    TrangThais = BPMC_DaPheDuyetThongBaoKetQua();
+                    break;
+                case 18:
+                    TrangThais = BPMC_DaCapThongBaoKetQua();
+                    break;
+                default:
+                    TrangThais = new List<TrangThaiModels>();
+                    break;
+            }
+            TrangThaiModels trangThai;
+            if (models.iID_MaTrangThai == 0)
+            {
+                string sTrangThai = "";
+                for (int i = 0; i < TrangThais.Count; i++)
+                {
+                    trangThai = TrangThais[i];
+
+                    if (sTrangThai.Length > 0) sTrangThai += ",";
+                    sTrangThai += trangThai.iID_MaTrangThai;
+
+                }
+                if (sTrangThai.Length > 0)
+                {
+                    DKHH += string.Format(" AND iID_MaTrangThai IN({0})", sTrangThai);
+                }
+            }
+            else
+            {
+                DKHH += " AND iID_MaTrangThai=@iID_MaTrangThai";
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
+            }
+            if (!string.IsNullOrEmpty(models.sTenTACN))
+            {
+                DKHH += " AND hh.sTenHangHoa=@sTenHangHoa";
+                cmd.Parameters.AddWithValue("@sTenHangHoa", models.sTenTACN);
+            }
+            if (!string.IsNullOrEmpty(models.sMaHoSo))
+            {
+                DK += " AND sMaHoSo=@sMaHoSo";
+                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
+            }
+            if (!string.IsNullOrEmpty(models.sMaSoThue))
+            {
+                DK += " AND sMaSoThue=@sMaSoThue";
+                cmd.Parameters.AddWithValue("@sMaSoThue", models.sMaSoThue);
+            }
+            if (!string.IsNullOrEmpty(models.sTenDoanhNghiep))
+            {
+                DK += " AND sTenDoanhNghiep LIKE @sTenDoanhNghiep";
+                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep + "%");
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayDen))
+            {
+                DK += " AND dNgayTaoHoSo >= @dTuNgay";
+                cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau(models.TuNgayDen));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayDen))
+            {
+                DK += " AND dNgayTaoHoSo <= @dDenNgay";
+                cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau(models.DenNgayDen));
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan >= @TuNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau(models.TuNgayTiepNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
+            }
+            if (!string.IsNullOrEmpty(models.TuNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan >= @TuNgayXacNhan";
+                cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau(models.TuNgayXacNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
+                cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
+            }
+            string SQL = string.Format(@"SELECT * FROM (SELECT COUNT(iID_MaHangHoa) as count FROM(select * from CNN25_HangHoa WHERE {0}) hh
+                                        INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH, DK);
+            cmd.CommandText = SQL;
+            int vR = Convert.ToInt32(Connection.GetValue(cmd, 0));
+            cmd.Dispose();
+            return vR;
+        }
+        public static DataTable GetDataTableHH(sHoSoModels models, int page, int numrecord)
+        {
+            SqlCommand cmd = new SqlCommand();
+            string DK = "1=1",DKHH="1=1";
+
+            List<TrangThaiModels> TrangThais;
+            switch (models.LoaiDanhSach)
+            {
+                //case 1:
+                //    TrangThais = BPMC_ChoTiepNhanHoSo();
+                //    break;
+                //case 2:
+                //    TrangThais = BPMC_ChoTiepNhanHoSoGuiBoSung();
+                //    break;
+                //case 3:
+                //    TrangThais = BPMC_DaTuChoiXacNhanGDK();
+                //    break;
+                //case 4:
+                //    TrangThais = BPMC_PhongTACNYeuCauBoSungHoSo();
+                //    break;
+                //case 5:
+                //    TrangThais = BPMC_DaPheDuyetGDK();
+                //    break;
+                //case 6:
+                //    TrangThais = BPMC_DaTraGDK();
+                //    break;
+                //case 7:
+                //    TrangThais = ChuyenVien_ChoXuLyHoSo();
+                //    break;
+                case 8:
+                    TrangThais = ChuyenVien_ChoXuLyKetQua();
+                    break;
+                //case 10:
+                //    TrangThais = LDP_ChoXemXetHoSo();
+                //    break;
+                case 11:
+                    TrangThais = LDP_ChoXemXetKetQua();
+                    break;
+                //case 12:
+                //    TrangThais = LDC_ChoXacNhanGDK();
+                //    break;
+                case 13:
+                    TrangThais = LDC_ChoPheDuyetKetQua();
+                    break;
+                case 14:
+                    TrangThais = BPMC_ChoTiepNhanKetQua();
+                    break;
+                case 15:
+                    TrangThais = BPMC_ChoTiepNhanKetQuaGuiBoSung();
+                    break;
+                case 16:
+                    TrangThais = BPMC_PhongTACNYeuCauBoSungKetQua();
+                    break;
+                case 17:
+                    TrangThais = BPMC_DaPheDuyetThongBaoKetQua();
+                    break;
+                case 18:
+                    TrangThais = BPMC_DaCapThongBaoKetQua();
+                    break;
+                case 50:
+                    TrangThais = ToChucChiDinh(null);
+                    break;
+                case 51:
+                    TrangThais = ToChucChiDinh(27);
+                    break;
+                case 52:
+                    TrangThais = ToChucChiDinh(28);
+                    break;
+                default:
+                    TrangThais = new List<TrangThaiModels>();
+                    break;
+            }
+            TrangThaiModels trangThai;
+            String sTrangThai = "";
+            if (models.iID_MaTrangThai == 0)
+            {
+                for (int i = 0; i < TrangThais.Count; i++)
+                {
+                    trangThai = TrangThais[i];
+
+                    if (sTrangThai.Length > 0) sTrangThai += ",";
+                    sTrangThai += trangThai.iID_MaTrangThai;
+
+                }
+                if (sTrangThai.Length > 0)
+                {
+                    DKHH += string.Format(" AND iID_MaTrangThai IN({0})", sTrangThai);
+                }
+            }
+            else
+            {
+                DKHH += " AND iID_MaTrangThai=@iID_MaTrangThai";
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
+            }
+            if(!string.IsNullOrEmpty(models.sTenTACN))
+            {
+                DKHH += " AND sTenHangHoa=@sTenHangHoa";
+                cmd.Parameters.AddWithValue("@sTenHangHoa", models.sTenTACN);
+            }    
+            if (!string.IsNullOrEmpty(models.sMaHoSo))
+            {
+                DK += " AND sMaHoSo=@sMaHoSo";
+                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
+            }
+            if (!string.IsNullOrEmpty(models.sMaSoThue))
+            {
+                DK += " AND sMaSoThue=@sMaSoThue";
+                cmd.Parameters.AddWithValue("@sMaSoThue", models.sMaSoThue);
+            }
+            if (!string.IsNullOrEmpty(models.sTenDoanhNghiep))
+            {
+                DK += " AND sTenDoanhNghiep LIKE @sTenDoanhNghiep";
+                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep + "%");
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayDen))
+            {
+                DK += " AND dNgayTaoHoSo >= @dTuNgay";
+                cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau(models.TuNgayDen));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayDen))
+            {
+                DK += " AND dNgayTaoHoSo <= @dDenNgay";
+                cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau(models.DenNgayDen));
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan >= @TuNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau(models.TuNgayTiepNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan >= @TuNgayXacNhan";
+                cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau(models.TuNgayXacNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
+                cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
+            }
+            if (!string.IsNullOrEmpty(models.sSoTiepNhan))
+            {
+                DK += " AND sSoTiepNhan <= @sSoTiepNhan";
+                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
+            }
+            string SQL = string.Format(@"SELECT * FROM (SELECT iID_MaHangHoa,sTenHangHoa,iID_MaNhom,iID_MaPhanNhom,iID_MaLoai,iID_MaPhanLoai,iID_MaDonViTinh,hh.iID_MaTrangThai as iID_MaTrangThaiHH ,
+                                        hs.* FROM(select * from CNN25_HangHoa WHERE {0}) hh
+                                        INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH ,DK);
+            cmd.CommandText = SQL;
+            string sOrder = "iID_MaHoSo DESC";
+            DataTable dt = CommonFunction.dtData(cmd, sOrder, page, numrecord);
+            cmd.Dispose();
+            return dt;
+        }
+        #endregion
         #region list trạng thai theo màn hình
 
         #region danh sách màn hình BPMC Xử lý hồ sơ giấy đăng ký

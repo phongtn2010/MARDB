@@ -10,7 +10,7 @@ namespace DATA0200025.DTO
     public class SoLuongVM
     {
         [XmlIgnore]
-        public int QuantityId { set; get; }
+        public long QuantityId { set; get; }
 
         [XmlElement("Quantity")]
         public decimal fiQuantity { set; get; }
@@ -34,6 +34,6 @@ namespace DATA0200025.DTO
         public decimal fiVolumeTAN { set; get; }
 
         [XmlIgnore]
-        public int idHangHoa { get; set; }
+        public long idHangHoa { get; set; }
     }
 }

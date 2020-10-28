@@ -15,7 +15,16 @@ namespace DATA0200025
 {
     public class clHangHoa
     {
-
+        public static HangHoaModels GetHangHoaById(string iID_MaHangHoa)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN25_HangHoa 
+                            WHERE iID_MaHangHoa=@iID_MaHangHoa";
+                HangHoaModels results = connect.Query<HangHoaModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).FirstOrDefault();
+                return results;
+            }
+        }
         public static HangHoaModels GetHangHoaById(int iID_MaHangHoa)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
@@ -89,6 +98,32 @@ namespace DATA0200025
             cmd.CommandText = "Update CNN25_HangHoa_ChatLuong SET bChon=0,sGhiChu='' WHERE iID_MaHangHoa=@iID_MaHangHoa";
             Connection.UpdateDatabase(cmd);
             cmd.Dispose();
+        }
+        public static void UpdateNguoiXem(string iID_MaHangHoa, string MaND)
+        {
+            string SQL = "UPDATE CNN25_HangHoa SET sTenNguoiXem=@sTenNguoiXem,sUserNguoiXem=@sUserNguoiXem WHERE iID_MaHangHoa=@iID_MaHangHoa AND (sUserNguoiXem IS NULL OR sUserNguoiXem='')";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            cmd.Parameters.AddWithValue("@sTenNguoiXem", CPQ_NGUOIDUNG.Get_TenNguoiDung(MaND));
+            cmd.Parameters.AddWithValue("@sUserNguoiXem", MaND);
+            Connection.UpdateDatabase(cmd);
+            cmd.Dispose();
+        }
+
+        public static ResultModels CleanNguoiXem(string iID_MaHangHoa)
+        {
+            int vR = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            cmd.Parameters.AddWithValue("@sTenNguoiXem", "");
+            cmd.Parameters.AddWithValue("@sUserNguoiXem", "");
+            vR = Connection.UpdateRecord("CNN25_HangHoa", "iID_MaHangHoa", cmd);
+            cmd.Dispose();
+            return new ResultModels
+            {
+                success = vR > 0 ? true : false
+            };
+
         }
     }
 }
