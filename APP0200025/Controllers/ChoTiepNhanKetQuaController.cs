@@ -7,6 +7,7 @@ using DomainModel.Abstract;
 using DATA0200025;
 using DATA0200025.Models;
 using DATA0200025.SearchModels;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace APP0200025.Controllers
 {
@@ -42,6 +43,7 @@ namespace APP0200025.Controllers
 
             return View(models);
         }
+      
         /// <summary>
         /// view màn hình TiepNhanHoSo
         /// </summary>

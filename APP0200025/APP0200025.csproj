@@ -3062,6 +3062,7 @@
     <Content Include="Views\ChoXuLyKetQua\Partial_Model_YeuCauBoSung.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\SoanPhuLuc.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\XuLyChiTieuKiemTra.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\SoanThongBaoKetQua.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
