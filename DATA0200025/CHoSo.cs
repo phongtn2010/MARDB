@@ -14,7 +14,7 @@ namespace DATA0200025
             string sSoGDK, string sSoGDK_ThayThe, DateTime? dNgayXacNhan,
             string sMaSoThue, string sTenDoanhNghiep, string sLoaiHinhThucKiemTra, string sDonViThucHienDanhGia, string sTenHangHoa,
             string sBan_Name, string sBan_DiaChi, string sBan_Tel, string sBan_Fax, string sBan_Email, string sBan_MaQuocGia, string sBan_QuocGia, string sBan_NoiXuat,
-            string sMua_Name , string sMua_DiaChi, string sMua_Tel, string sMua_Fax, string sMua_Email, string sMua_NoiNhan, DateTime sMua_FromDate, DateTime sMua_ToDate,
+            string sMua_Name , string sMua_DiaChi, string sMua_Tel, string sMua_Fax, string sMua_Email, string sMua_NoiNhan, DateTime? sMua_FromDate, DateTime? sMua_ToDate,
             string sDiaDiemTapKet, string sDiaDiemDangKy, DateTime dDangKy_FromDate, DateTime dDangKy_ToDate,
             string sLienHe_Name, string sLieHe_DiaChi, string sLienHe_Tel, string sLienHe_Email,
             string sKyHoSo_MaTinh, string sKyHoSo_Tinh, string sKyHoSo_NguoiKy, string sKyHoSo_NguoiKy_ChucDanh,
@@ -71,12 +71,30 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@sMua_Fax", sMua_Fax);
                 bang.CmdParams.Parameters.AddWithValue("@sMua_Email", sMua_Email);
                 bang.CmdParams.Parameters.AddWithValue("@sMua_NoiNhan", sMua_NoiNhan);
-                bang.CmdParams.Parameters.AddWithValue("@sMua_FromDate", sMua_FromDate);
-                bang.CmdParams.Parameters.AddWithValue("@sMua_ToDate", sMua_ToDate);
+                if (sMua_FromDate != null)
+                {
+                    bang.CmdParams.Parameters.AddWithValue("@sMua_FromDate", sMua_FromDate);
+                }
+                if (sMua_ToDate != null)
+                {
+                    bang.CmdParams.Parameters.AddWithValue("@sMua_ToDate", sMua_ToDate);
+                }
                 bang.CmdParams.Parameters.AddWithValue("@sDiaDiemTapKet", sDiaDiemTapKet);
                 bang.CmdParams.Parameters.AddWithValue("@sDiaDiemDangKy", sDiaDiemDangKy);
-                bang.CmdParams.Parameters.AddWithValue("@dDangKy_FromDate", dDangKy_FromDate);
-                bang.CmdParams.Parameters.AddWithValue("@dDangKy_ToDate", dDangKy_ToDate);
+                if (dDangKy_FromDate != null)
+                {
+                    if(dDangKy_FromDate.Year > 2000)
+                    {
+                        bang.CmdParams.Parameters.AddWithValue("@dDangKy_FromDate", dDangKy_FromDate);
+                    }
+                }
+                if (dDangKy_ToDate != null)
+                {
+                    if (dDangKy_ToDate.Year > 2000)
+                    {
+                        bang.CmdParams.Parameters.AddWithValue("@dDangKy_ToDate", dDangKy_ToDate);
+                    }
+                }
                 bang.CmdParams.Parameters.AddWithValue("@sLienHe_Name", sLienHe_Name);
                 bang.CmdParams.Parameters.AddWithValue("@sLieHe_DiaChi", sLieHe_DiaChi);
                 bang.CmdParams.Parameters.AddWithValue("@sLienHe_Tel", sLienHe_Tel);

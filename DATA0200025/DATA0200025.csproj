@@ -81,6 +81,7 @@
     <Compile Include="CBangMau.cs" />
     <Compile Include="CBangMauKieuNhapLieu.cs" />
     <Compile Include="CCongTy.cs" />
+    <Compile Include="CDinhKem.cs" />
     <Compile Include="CDonVi.cs" />
     <Compile Include="CHangHoa.cs" />
     <Compile Include="CHoSo.cs" />
