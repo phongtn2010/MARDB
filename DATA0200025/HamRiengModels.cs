@@ -40,6 +40,33 @@ namespace DATA0200025
             return vR;
         }
 
+        public static DataTable GetTable_LoaiHinhThucKiemTra()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("ID", typeof(int));
+            table.Columns.Add("NAME", typeof(string));
+
+            table.Rows.Add(1, "Dựa trên kết quả tự đánh giá sự phù hợp của tổ chức, cá nhân (2a)");
+            table.Rows.Add(2, "Dựa trên kết quả chứng nhận của tổ chức chứng nhận đã đăng ký (2b)");
+            table.Rows.Add(3, "Dựa trên kết quả chứng nhận của tổ chức chứng nhận được chỉ định (2c)");
+            table.Rows.Add(4, "Miễn giảm kiểm tra (2d)");
+
+            return table;
+        }
+
+        public static String Get_Name_LoaiHinhThucKiemTra(int iMa)
+        {
+            string vR = "";
+            DataTable dt = GetTable_LoaiHinhThucKiemTra();
+            var rowColl = dt.AsEnumerable();
+            vR = (from r in rowColl
+                           where r.Field<int>("ID") == iMa
+                           select r.Field<string>("NAME")).First<string>();
+            dt.Dispose();
+
+            return vR;
+        }
+
         public static int MaDonViCuaNhomNguoiDung(String MaNguoiDung)
         {
             String SQL = String.Format("SELECT iID_MaDonVi " +

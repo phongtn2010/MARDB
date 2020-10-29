@@ -39,15 +39,19 @@ namespace DATA0200025.WebServices
 
             try
             {
-                String sTenLoaiHoSo = "";
+                String sTenLoaiHoSo = HamRiengModels.Get_Name_LoaiHinhThucKiemTra(hoso.fiTypeAniFeed);
                 String sTenTACN = "";
+                foreach (var hh in lstHangHoa)
+                {
+                    sTenTACN += hh.fiNameOfGoods + ";";
+                }
 
                 iID_MaHoSo = CHoSo.ThemHoSo(0, 1, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode, hoso.fiNSWFileCodeOld, hoso.fiCreateDate, false, "", null, null, null, null,
-                    hoso.fiTaxCode, hoso.sMua_Name, sTenLoaiHoSo, "", sTenTACN, hoso.sBan_Name, hoso.sBan_DiaChi, hoso.sBan_Tel, hoso.sBan_Fax, "", hoso.sBan_MaQuocGia, hoso.sBan_QuocGia, hoso.sBan_NoiXuat,
-                    hoso.sMua_Name, hoso.sMua_DiaChi, hoso.sMua_Tel, hoso.sMua_Fax, "", hoso.sMua_NoiNhan, hoso.sMua_FromDate, hoso.sMua_ToDate,
-                    hoso.fiLocationOfStorage, hoso.fiLocationOfSampling, hoso.fiDateOfSamplingFrom, hoso.fiDateOfSamplingTo,
-                    hoso.fiContactPerson, hoso.fiContactAddress, hoso.fiContactTel, hoso.fiContactEmail,
-                    hoso.fiSignPlace, hoso.fiSignPlace, hoso.fiSignName, "", "Doanh Nghiep", "");
+                hoso.fiTaxCode, hoso.sMua_Name, sTenLoaiHoSo, "", sTenTACN, hoso.sBan_Name, hoso.sBan_DiaChi, hoso.sBan_Tel, hoso.sBan_Fax, "", hoso.sBan_MaQuocGia, hoso.sBan_QuocGia, hoso.sBan_NoiXuat,
+                hoso.sMua_Name, hoso.sMua_DiaChi, hoso.sMua_Tel, hoso.sMua_Fax, "", hoso.sMua_NoiNhan, hoso.sMua_FromDate, hoso.sMua_ToDate,
+                hoso.fiLocationOfStorage, hoso.fiLocationOfSampling, hoso.fiDateOfSamplingFrom, hoso.fiDateOfSamplingTo,
+                hoso.fiContactPerson, hoso.fiContactAddress, hoso.fiContactTel, hoso.fiContactEmail,
+                hoso.fiSignPlace, hoso.fiSignPlace, hoso.fiSignName, "", "Doanh Nghiep", "");
 
                 int iHH = 0;
                 foreach (var hh in lstHangHoa)
@@ -85,7 +89,7 @@ namespace DATA0200025.WebServices
                 }
 
                 int iHD = 0;
-                foreach(var hd in lstHopDong)
+                foreach (var hd in lstHopDong)
                 {
                     iHD++;
                     int iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 100, hd.fiContractAttachmentId, sMaHoSo, "File Hợp Đồng", hd.fiContractName, hd.fiContractNo, hd.fiContractDate, 1, hd.fiContractFileLink, "", "");
