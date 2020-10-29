@@ -36,25 +36,17 @@ namespace DATA0200025.WebServices.XmlType
         #region InboundObjects
 
         [XmlElement("AniFeed")] public HoSoVM AniFeed { get; set; }
-        [XmlElement("RequestProCancel")] public RequestProCancelVM RequestProCancel { get; set; }
 
-        [XmlElement("RequestProEdit")] public RequestProEditVM RequestProEdit { get; set; }
-        [XmlElement("RequestCancel")] public RequestCancelVM RequestCancel { get; set; }
-        [XmlElement("RequestEditCer")] public RequestEditCerVM RequestEditCer { get; set; }
+        [XmlElement("Report")] public UploadBaoCaoVM Report { get; set; }
+
+        [XmlElement("RequestCancel")] public YeuCauHuyHoSoVM RequestCancel { get; set; }
+
+        [XmlElement("TestInformation")] public GuiTCCDVM TestInformation { get; set; }
+
+        [XmlElement("SendResultTest")] public NopKetQuaVM SendResultTest { get; set; }
         #endregion
 
         #region OutboundObjects
-
-        //[XmlElement("Result")] public YeuCauBoSungHoSo Result { get; set; }
-
-        //[XmlElement("ResultConfirm")] public KetQuaThamDinh ResultConfirm { get; set; }
-
-        //[XmlElement("ImportLicense")] public GPNhapKhauVM GPNhapKhau { get; set; }
-
-        //[XmlElement("ReponseCancel")] public ResponseCancel ResponseCancel { get; set; }
-
-        //[XmlElement("ProResponseEdit")] public ProResponseEdit ProResponseEdit { get; set; }
-
         [XmlElement("Result")] public KetQuaXuLy Result { get; set; }
 
         [XmlElement("ResultConfirm")] public XacNhanDon ResultConfirm { get; set; }

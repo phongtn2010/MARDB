@@ -25,7 +25,7 @@ namespace APP0200025.Controllers
             resultConfirm.NameOfStaff = "PHONG PHẠM";
             resultConfirm.ResponseDate = DateTime.Now;
 
-            string error = _sendService.KetQuaXuLy("BNNPTNT25200010060", resultConfirm, "06");
+            string error = ""; // _sendService.KetQuaXuLy("BNNPTNT25200010060", resultConfirm, "06");
 
             //string sYeuCBS = _sendService.YeuCauBoSung("BNNPTNT25200010060", "Đã tiêp nhận hồ sơ", "PHONG PHẠM");
 

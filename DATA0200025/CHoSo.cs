@@ -10,8 +10,8 @@ namespace DATA0200025
     public class CHoSo
     {
         public static long ThemHoSo(long iID_MaHoSo_Sua, int iID_MaTrangThai, int iID_MaLoaiHoSo, long iID_MaHoSo_ThayThe, 
-            string sMaHoSo, string sMaHoSo_ThayThe, DateTime dNgayTaoHoSo, bool bDaTiepNhan, string sSoTiepNhan, DateTime dNgayTiepNhan,
-            string sSoGDK, string sSoGDK_ThayThe, DateTime dNgayXacNhan,
+            string sMaHoSo, string sMaHoSo_ThayThe, DateTime dNgayTaoHoSo, bool bDaTiepNhan, string sSoTiepNhan, DateTime? dNgayTiepNhan,
+            string sSoGDK, string sSoGDK_ThayThe, DateTime? dNgayXacNhan,
             string sMaSoThue, string sTenDoanhNghiep, string sLoaiHinhThucKiemTra, string sDonViThucHienDanhGia, string sTenHangHoa,
             string sBan_Name, string sBan_DiaChi, string sBan_Tel, string sBan_Fax, string sBan_Email, string sBan_MaQuocGia, string sBan_QuocGia, string sBan_NoiXuat,
             string sMua_Name , string sMua_DiaChi, string sMua_Tel, string sMua_Fax, string sMua_Email, string sMua_NoiNhan, DateTime sMua_FromDate, DateTime sMua_ToDate,
@@ -36,13 +36,22 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo_ThayThe", iID_MaHoSo_ThayThe);
                 bang.CmdParams.Parameters.AddWithValue("@sMaHoSo", sMaHoSo);
                 bang.CmdParams.Parameters.AddWithValue("@sMaHoSo_ThayThe", sMaHoSo_ThayThe);
-                bang.CmdParams.Parameters.AddWithValue("@dNgayTaoHoSo", dNgayTaoHoSo);
+                if(dNgayTaoHoSo != null)
+                {
+                    bang.CmdParams.Parameters.AddWithValue("@dNgayTaoHoSo", dNgayTaoHoSo);
+                }
                 bang.CmdParams.Parameters.AddWithValue("@bDaTiepNhan", bDaTiepNhan);
                 bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", sSoTiepNhan);
-                bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", dNgayTiepNhan);
+                if (dNgayTiepNhan != null)
+                {
+                    bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", dNgayTiepNhan);
+                }
                 bang.CmdParams.Parameters.AddWithValue("@sSoGDK", sSoGDK);
                 bang.CmdParams.Parameters.AddWithValue("@sSoGDK_ThayThe", sSoGDK_ThayThe);
-                bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", dNgayXacNhan);
+                if (dNgayXacNhan != null)
+                {
+                    bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", dNgayXacNhan);
+                }
                 bang.CmdParams.Parameters.AddWithValue("@sMaSoThue", sMaSoThue);
                 bang.CmdParams.Parameters.AddWithValue("@sTenDoanhNghiep", sTenDoanhNghiep);
                 bang.CmdParams.Parameters.AddWithValue("@sLoaiHinhThucKiemTra", sLoaiHinhThucKiemTra);

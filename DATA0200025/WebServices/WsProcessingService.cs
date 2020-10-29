@@ -34,12 +34,20 @@ namespace DATA0200025.WebServices
             List<AttachmentVM> lstDinhKep = hoso.ListAttachment;
 
             string sError = "";
-            long iID_MaHoSo = 0;
+            long iID_MaHoSo = 0, iID_MaHoSo_ThayThe = 0;
             string sMaHoSo = hoso.fiNSWFileCode;
 
             try
             {
-                //iID_MaHoSo_Sua = CHoSo.ThemHoSo(0, hoso.fiHSStatus, hoso.)
+                String sTenLoaiHoSo = "";
+                String sTenTACN = "";
+
+                iID_MaHoSo = CHoSo.ThemHoSo(0, hoso.fiHSStatus, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode, hoso.fiNSWFileCodeOld, hoso.fiCreateDate, false, "", null, null, null, null,
+                    hoso.fiTaxCode, hoso.sMua_Name, sTenLoaiHoSo, "", sTenTACN, hoso.sBan_Name, hoso.sBan_DiaChi, hoso.sBan_Tel, hoso.sBan_Fax, "", hoso.sBan_MaQuocGia, hoso.sBan_QuocGia, hoso.sBan_NoiXuat,
+                    hoso.sMua_Name, hoso.sMua_DiaChi, hoso.sMua_Tel, hoso.sMua_Fax, "", hoso.sMua_NoiNhan, hoso.sMua_FromDate, hoso.sMua_ToDate,
+                    hoso.fiLocationOfStorage, hoso.fiLocationOfSampling, hoso.fiDateOfSamplingFrom, hoso.fiDateOfSamplingTo,
+                    hoso.fiContactPerson, hoso.fiContactAddress, hoso.fiContactTel, hoso.fiContactEmail,
+                    hoso.fiSignPlace, hoso.fiSignPlace, hoso.fiSignName, "", "Doanh Nghiep", "");
 
                 int count = 0;
                 foreach (var hh in lstHangHoa)
@@ -98,25 +106,62 @@ namespace DATA0200025.WebServices
             return null;
         }
 
-        public UploadBaoCaoVM UploadBaoCao(Envelope envelope)
+        public HoSoVM GuiSuaHoSo(Envelope envelope)
+        {
+            //var body = envelope.Body;
+
+            //var hoso = body.Content.AniFeed;
+
+            //var oldHoso = _hoSoService.GetByNSWFileCode(hoso.fiNSWFileCode);
+
+            //if (oldHoso == null)
+            //{
+            //    throw new Exception("Hồ sơ cũ không tồn tại");
+            //}
+
+            //if (oldHoso.fiHSStatus > (int)HSStatus.CHO_TIEP_NHAN)
+            //{
+            //    throw new Exception("Hồ sơ đang được xử lý");
+            //}
+
+            //oldHoso.fiActive = false;
+
+            //hoso.fiActive = true;
+            //hoso.fiHSStatus = (int)HSStatus.CHO_TIEP_NHAN;
+
+            //var hosoModel = new HoSo();
+            //hosoModel = _mapper.Map(hoso, hosoModel);
+            //var result = _hoSoService.Add(hosoModel);
+
+            //_lichSuHoSoService.Create(hoso.fiNSWFileCode, envelope.Header.From, "Gửi sửa hồ sơ khi BPMC chưa tiếp nhận", "",
+            //    (int)HSStatus.CHO_TIEP_NHAN);
+
+            //_lichSuHoSoService.Save();
+            //_hoSoService.Save();
+            //return _mapper.Map(result, hoso);
+
+            return null;
+        }
+
+        public UploadBaoCaoVM Report(Envelope envelope)
         {
 
             return null;
         }
 
-        public YeuCauHuyHoSoVM YeuCauHuyHoSo(Envelope envelope)
+        public YeuCauHuyHoSoVM RequestCancel(Envelope envelope)
         {
 
             return null;
         }
 
-        public GuiTCCDVM GuiTCCD(Envelope envelope)
+        public GuiTCCDVM TestInformation(Envelope envelope)
         {
 
             return null;
         }
 
-        public NopKetQuaVM NopKetQua(Envelope envelope)
+        public NopKetQuaVM SendResultTest(Envelope envelope)
         {
 
             return null;

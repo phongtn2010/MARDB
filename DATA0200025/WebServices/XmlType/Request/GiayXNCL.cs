@@ -19,13 +19,12 @@ namespace DATA0200025.WebServices.XmlType.Request
 
         [XmlElement] public string SignCerPlace { get; set; }
 
-        [XmlElement] public DateTime SignCerDate { get; set; }
-        [XmlElement("SignCerDate")]
         public string SignCerDateString
         {
             get => SignCerDate.ToString("yyyy-MM-dd HH:mm:ss");
             set => SignCerDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
+        [XmlElement] public DateTime SignCerDate { get; set; }
 
         [XmlArray("AttachmentResultList")]
         [XmlArrayItem("AttachmentResult")]
