@@ -13,203 +13,187 @@ namespace DATA0200025.WebServices
 {
     public class SendService
     {
-        public string GuiMoiGPNhapKhau(string nswFileCode, GPNhapKhauVM gpNK)
-        {
-            var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_18,
-                WsConstants.MessageFunction.FUNCTION_14);
-            var content = new Content();
-            content.GPNhapKhau = gpNK;
+        //public string KetQuaXuLy(string nswFileCode, KetQuaXuLy objData, string sMessageFunction)
+        //{
+        //    String sMessFun = "";
+        //    switch (sMessageFunction)
+        //    {
+        //        case "06":
+        //            sMessFun = WsConstants.MessageFunction.FUNCTION_06;
+        //            break;
+        //        case "07":
+        //            sMessFun = WsConstants.MessageFunction.FUNCTION_07;
+        //            break;
+        //        case "08":
+        //            sMessFun = WsConstants.MessageFunction.FUNCTION_08;
+        //            break;
+        //        case "09":
+        //            sMessFun = WsConstants.MessageFunction.FUNCTION_09;
+        //            break;
+        //        case "10":
+        //            sMessFun = WsConstants.MessageFunction.FUNCTION_10;
+        //            break;
+        //        default:
+        //            sMessFun = WsConstants.MessageFunction.FUNCTION_06;
+        //            break;
+        //    }
 
-            var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
-            var response = WsHelper.SendMessage(request);
+        //    var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_12, sMessFun);
+        //    var content = new Content();
+        //    content.Result = objData;
 
-            return response.GetErrors();
+        //    var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+        //    var response = WsHelper.SendMessage(request);
 
-        }
-        public string ThamDinhDatDDK(string nswFileCode, string registrationConfirmNo, string userName)
-        {
-            KetQuaThamDinh resultConfirm = new KetQuaThamDinh();
-            resultConfirm.NSWFileCode = nswFileCode;
-            resultConfirm.RegistrationConfirmDate = DateTime.Now;
-            resultConfirm.RegistrationConfirmNo = registrationConfirmNo;
+        //    return response.GetErrors();
+        //}
 
-            //TODO: Fetch Creator name from logged in user
-            resultConfirm.CreatorName = userName;
+        //public string XacNhanDon(string nswFileCode, XacNhanDon objData)
+        //{
+        //    var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_13,
+        //        WsConstants.MessageFunction.FUNCTION_11);
+        //    var content = new Content();
+        //    content.ResultConfirm = objData;
 
-            var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_13,
-                WsConstants.MessageFunction.FUNCTION_07);
-            var content = new Content
-            {
-                ResultConfirm = resultConfirm
-            };
+        //    var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+        //    var response = WsHelper.SendMessage(request);
 
+        //    return response.GetErrors();
 
-            var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
-            var response = WsHelper.SendMessage(request);
+        //}
 
-            return response.GetErrors();
-        }
-        public string YeuCauBoSung(string nswFileCode, string reason, string userName)
-        {
-            YeuCauBoSungHoSo resultConfirm = new YeuCauBoSungHoSo();
-            resultConfirm.NSWFileCode = nswFileCode;
-            resultConfirm.RegistrationConfirmDate = DateTime.Now;
-            resultConfirm.Reason = reason;
-            resultConfirm.CreatorName = userName;
+        //public string ThuHoiGDK(string nswFileCode, ThuHoiGDK objData)
+        //{
+        //    var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_14,
+        //        WsConstants.MessageFunction.FUNCTION_12);
+        //    var content = new Content();
+        //    content.ResultConfirmCancel = objData;
 
-            var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_12,
-                WsConstants.MessageFunction.FUNCTION_06);
-            var content = new Content
-            {
-                Result = resultConfirm
-            };
+        //    var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+        //    var response = WsHelper.SendMessage(request);
 
+        //    return response.GetErrors();
 
-            var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
-            var response = WsHelper.SendMessage(request);
+        //}
 
-            return response.GetErrors();
-        }
+        //public string TCCDGuiKetQuaKT(string nswFileCode, TCCDGuiKetQuaKT objData)
+        //{
+        //    var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_16,
+        //        WsConstants.MessageFunction.FUNCTION_14);
+        //    var content = new Content();
+        //    content.ResultTestInformation = objData;
 
-        public string TuChoiHoSo(string nswFileCode, string reason, string userName)
-        {
-            YeuCauBoSungHoSo resultConfirm = new YeuCauBoSungHoSo();
-            resultConfirm.NSWFileCode = nswFileCode;
-            resultConfirm.RegistrationConfirmDate = DateTime.Now;
-            resultConfirm.Reason = reason;
-            resultConfirm.CreatorName = userName;
+        //    var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+        //    var response = WsHelper.SendMessage(request);
 
-            var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_12,
-                WsConstants.MessageFunction.FUNCTION_05);
-            var content = new Content
-            {
-                Result = resultConfirm
-            };
+        //    return response.GetErrors();
+        //}
 
+        //public string XuLyKetQua(string nswFileCode, XuLyKetQua objData , string sMessageFunction)
+        //{
+        //    String sMessFun = "";
+        //    switch (sMessageFunction)
+        //    {
+        //        case "19":
+        //            sMessFun = WsConstants.MessageFunction.FUNCTION_19;
+        //            break;
+        //        case "20":
+        //            sMessFun = WsConstants.MessageFunction.FUNCTION_20;
+        //            break;
+        //        case "21":
+        //            sMessFun = WsConstants.MessageFunction.FUNCTION_21;
+        //            break;
+        //        default:
+        //            sMessFun = WsConstants.MessageFunction.FUNCTION_19;
+        //            break;
+        //    }
 
-            var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
-            var response = WsHelper.SendMessage(request);
+        //    var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_18, sMessFun);
+        //    var content = new Content();
+        //    content.ResultResponse = objData;
 
-            return response.GetErrors();
-        }
-        public string TuChoiSuaHoSo(string nswFileCode, string reason, string userName)
-        {
-            ProResponseEdit resultConfirm = new ProResponseEdit();
-            resultConfirm.NSWFileCode = nswFileCode;
-            resultConfirm.SignConfirmDate = DateTime.Now;
-            resultConfirm.Reason = reason;
-            resultConfirm.CreaterName = userName;
+        //    var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+        //    var response = WsHelper.SendMessage(request);
 
-            var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_15,
-                WsConstants.MessageFunction.FUNCTION_10);
-            var content = new Content
-            {
-                ProResponseEdit = resultConfirm
-            };
+        //    return response.GetErrors();
+        //}
 
+        //public string GiayXNCL(string nswFileCode, GiayXNCL objData)
+        //{
+        //    var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_19,
+        //        WsConstants.MessageFunction.FUNCTION_22);
+        //    var content = new Content();
+        //    content.ResultCheck = objData;
 
-            var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
-            var response = WsHelper.SendMessage(request);
+        //    var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+        //    var response = WsHelper.SendMessage(request);
 
-            return response.GetErrors();
-        }
-        public string DongYSuaHoSo(string nswFileCode, string userName)
-        {
-            ProResponseEdit resultConfirm = new ProResponseEdit();
-            resultConfirm.NSWFileCode = nswFileCode;
-            // resultConfirm.RegistrationConfirmDate = DateTime.Now;
-            // resultConfirm.RegistrationConfirmNo = registrationConfirmNo;
+        //    return response.GetErrors();
+        //}
 
-            //TODO: Fetch Creator name from logged in user
-            resultConfirm.CreaterName = userName;
+        //public string ThuHoiGiayXNCL(string nswFileCode, ThuHoiGiayXNCL objData)
+        //{
+        //    var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_20,
+        //        WsConstants.MessageFunction.FUNCTION_23);
+        //    var content = new Content();
+        //    content.AniFeedResultCertificateCancel = objData;
 
-            var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_15,
-                WsConstants.MessageFunction.FUNCTION_09);
-            var content = new Content
-            {
-                ProResponseEdit = resultConfirm
-            };
+        //    var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+        //    var response = WsHelper.SendMessage(request);
 
+        //    return response.GetErrors();
+        //}
 
-            var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
-            var response = WsHelper.SendMessage(request);
+        //public string DaTiepNhanHoSo2d(string nswFileCode, DaTiepNhanHoSo2d objData)
+        //{
+        //    var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_22,
+        //        WsConstants.MessageFunction.FUNCTION_25);
+        //    var content = new Content();
+        //    content.ResultReception2d = objData;
 
-            return response.GetErrors();
-        }
+        //    var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+        //    var response = WsHelper.SendMessage(request);
 
-        // public string DongYHuyHoSo(string hoSoFiNswFileCode, UsrAccount user)
-        // {
-        //     throw new NotImplementedException();
-        // }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="nswFileCode"></param>
-        /// <param name="reason"></param>
-        /// <param name="userName"></param>
-        /// <returns></returns>
-        public string TuChoiHuyHoSo(string nswFileCode, string reason, string userName)
-        {
-            ResponseCancel resultConfirm = new ResponseCancel();
-            resultConfirm.NSWFileCode = nswFileCode;
-            resultConfirm.SignConfirmDate = DateTime.Now;
-            resultConfirm.Reason = reason;
-            resultConfirm.CreaterName = userName;
+        //    return response.GetErrors();
+        //}
 
-            var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_17,
-                WsConstants.MessageFunction.FUNCTION_13);
-            var content = new Content
-            {
-                ResponseCancel = resultConfirm
-            };
+        //public string DMPhanNhomHangHoa(string nswFileCode, DMPhanNhomHangHoa objData)
+        //{
+        //    var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_23,
+        //        WsConstants.MessageFunction.FUNCTION_26);
+        //    var content = new Content();
+        //    content.InfoGroupGood = objData;
 
+        //    var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+        //    var response = WsHelper.SendMessage(request);
 
-            var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
-            var response = WsHelper.SendMessage(request);
+        //    return response.GetErrors();
+        //}
 
-            return response.GetErrors();
-        }
+        //public string DMLoaiHangHoa(string nswFileCode, DMLoaiHangHoa objData)
+        //{
+        //    var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_24,
+        //        WsConstants.MessageFunction.FUNCTION_27);
+        //    var content = new Content();
+        //    content.InfoGoodType = objData;
 
-        public string DongYHuyHoSo(string nswFileCode, string reason, string userName)
-        {
-            ResponseCancel resultConfirm = new ResponseCancel();
-            resultConfirm.NSWFileCode = nswFileCode;
-            resultConfirm.SignConfirmDate = DateTime.Now;
-            resultConfirm.Reason = reason;
-            resultConfirm.CreaterName = userName;
-            var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_17,
-                WsConstants.MessageFunction.FUNCTION_12);
-            var content = new Content
-            {
-                ResponseCancel = resultConfirm
-            };
+        //    var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+        //    var response = WsHelper.SendMessage(request);
 
+        //    return response.GetErrors();
+        //}
 
-            var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
-            var response = WsHelper.SendMessage(request);
+        //public string DMPhanLoaiHangHoa(string nswFileCode, DMPhanLoaiHangHoa objData)
+        //{
+        //    var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_25,
+        //        WsConstants.MessageFunction.FUNCTION_28);
+        //    var content = new Content();
+        //    content.InfoGroupType = objData;
 
-            return response.GetErrors();
-        }
+        //    var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+        //    var response = WsHelper.SendMessage(request);
 
-        public string TuChoiSuaGiayPhep(string nswFileCode, string reason, string userName)
-        {
-            ResponseCancel resultConfirm = new ResponseCancel();
-            resultConfirm.NSWFileCode = nswFileCode;
-            resultConfirm.SignConfirmDate = DateTime.Now;
-            resultConfirm.Reason = reason;
-            resultConfirm.CreaterName = userName;
-            var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_17,
-                WsConstants.MessageFunction.FUNCTION_16);
-            var content = new Content
-            {
-                ResponseCancel = resultConfirm
-            };
-
-
-            var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
-            var response = WsHelper.SendMessage(request);
-
-            return response.GetErrors();
-        }
+        //    return response.GetErrors();
+        //}
     }
 }

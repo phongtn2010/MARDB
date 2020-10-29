@@ -66,6 +66,13 @@ namespace APP0200025.WebServices
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);
                             }
+                            else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_03))
+                            {
+                                //var result = _processingService.GuiSuaHoSo(envelop);
+                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_SUCCESS,
+                                    true, null);
+                            }
                             else
                             {
                                 //var result = _processingService.GuiSuaTheoYeuCauBNN(envelop);
@@ -77,9 +84,9 @@ namespace APP0200025.WebServices
 
                             break;
                         case WsConstants.MessageType.TYPE_11:
-                            if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_04))
+                            if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_05))
                             {
-                                //_processingService.DoanhNghiepHuyHoSo(envelop);
+                                var result = _processingService.RequestCancel(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS, true, null);
                             }
@@ -89,10 +96,10 @@ namespace APP0200025.WebServices
                                     WsConstants.MessageFunction.FUNC_ERROR, false, null);
                             }
                             break;
-                        case WsConstants.MessageType.TYPE_14:
+                        case WsConstants.MessageType.TYPE_15:
                             if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_08))
                             {
-                                //_processingService.DoanhNghiepXinSuaHoSo(envelop);
+                                var result = _processingService.TestInformation(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS, true, null);
                             }
@@ -102,10 +109,10 @@ namespace APP0200025.WebServices
                                     WsConstants.MessageFunction.FUNC_ERROR, false, null);
                             }
                             break;
-                        case WsConstants.MessageType.TYPE_16:
+                        case WsConstants.MessageType.TYPE_17:
                             if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_11))
                             {
-                                //_processingService.DoanhNghiepXinHuyHoSo(envelop);
+                                var result = _processingService.SendResultTest(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS, true, null);
                             }
@@ -115,10 +122,10 @@ namespace APP0200025.WebServices
                                     WsConstants.MessageFunction.FUNC_ERROR, false, null);
                             }
                             break;
-                        case WsConstants.MessageType.TYPE_19:
+                        case WsConstants.MessageType.TYPE_21:
                             if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_15))
                             {
-                                //_processingService.DoanhNghiepXinSuaGiayPhep(envelop);
+                                var result = _processingService.Report(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS, true, null);
                             }

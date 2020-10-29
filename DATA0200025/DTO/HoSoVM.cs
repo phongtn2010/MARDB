@@ -30,8 +30,6 @@ namespace DATA0200025.DTO
         [XmlIgnore] public int fiSuaStatus { get; set; } = 0;
         [XmlIgnore] public int fiSuaGPStatus { get; set; } = 0;
 
-        
-
 
         [XmlElement("NSWFileCode")]
         public string fiNSWFileCode { set; get; }
@@ -56,7 +54,7 @@ namespace DATA0200025.DTO
         [XmlElement("Seller")]
         public string sBan_Name { set; get; }
         [XmlElement("SellerState")]
-        public string iID_MaQuocGia_Ban { set; get; }
+        public string sBan_MaQuocGia { set; get; }
         [XmlElement("NameSellerState")]
         public string sBan_QuocGia { set; get; }
         [XmlElement("SellerAddress")]
@@ -78,7 +76,7 @@ namespace DATA0200025.DTO
         public string sMua_Fax { set; get; }
         [XmlElement("PortOfDestinationName")]
         public string sMua_NoiNhan { set; get; }
-        
+
         public DateTime sMua_FromDate { set; get; }
         [XmlElement("ImportingFromDate"), NotMapped]
         public string sMua_FromDateString
@@ -121,7 +119,7 @@ namespace DATA0200025.DTO
         public string fiTaxCode { get; set; }
 
         [XmlElement("TypeAniFeed")]
-        public int sLoaiHinhThucKiemTra { get; set; }
+        public int fiTypeAniFeed { get; set; }
 
         [XmlArray("GoodsList")]
         [XmlArrayItem("Goods")]
@@ -129,7 +127,7 @@ namespace DATA0200025.DTO
 
         [XmlElement("LocationOfStorage")]
         public string fiLocationOfStorage { set; get; }
-       
+
         public DateTime fiDateOfSamplingFrom { set; get; }
         [XmlElement("DateOfSamplingFrom"), NotMapped]
         public string fiDateOfSamplingFromString

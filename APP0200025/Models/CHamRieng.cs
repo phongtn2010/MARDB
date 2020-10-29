@@ -57,6 +57,7 @@ namespace APP0200025.Models
             vR = "AIzaSyBwarlVfqlWKfonKl9T0wr9VGC0ynvbdiU";
             return vR;
         }
+
         public static DataTable GetTable_Ngay()
         {
             DataTable table = new DataTable();
