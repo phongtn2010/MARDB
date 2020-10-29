@@ -97,5 +97,29 @@ namespace DATA0200025.WebServices
 
             return null;
         }
+
+        public UploadBaoCaoVM UploadBaoCao(Envelope envelope)
+        {
+
+            return null;
+        }
+
+        public YeuCauHuyHoSoVM YeuCauHuyHoSo(Envelope envelope)
+        {
+
+            return null;
+        }
+
+        public GuiTCCDVM GuiTCCD(Envelope envelope)
+        {
+
+            return null;
+        }
+
+        public NopKetQuaVM NopKetQua(Envelope envelope)
+        {
+
+            return null;
+        }
     }
 }
