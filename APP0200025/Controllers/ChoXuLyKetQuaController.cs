@@ -7,16 +7,13 @@ using DomainModel.Abstract;
 using DATA0200025;
 using DATA0200025.Models;
 using DATA0200025.SearchModels;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace APP0200025.Controllers
 {
-    public class ChoTiepNhanKetQuaController : Controller
+    public class ChoXuLyKetQuaController : Controller
     {
+        // GET: ChoXuLyKetQua
         Bang bang = new Bang("CNN25_HangHoa");
-
-        private string ViewPath = "~/Views/ChoTiepNhanKetQua/";
-        // GET: ChoTiepNhanHoSo
         public ActionResult Index(sHoSoModels models)
         {
             if (models == null || models.LoaiDanhSach == 0)
@@ -43,18 +40,6 @@ namespace APP0200025.Controllers
 
             return View(models);
         }
-      
-        /// <summary>
-        /// view màn hình TiepNhanHoSo
-        /// </summary>
-        /// <returns></returns>
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult TiepNhanHoSo()
-        {
-            ViewData["DuLieuMoi"] = "0";
-            return View();
-        }
-
         /// <summary>
         /// update data màn hình TiepNhanHoSo
         /// </summary>
@@ -62,24 +47,24 @@ namespace APP0200025.Controllers
         /// <param name="MaHoSo"></param>
         /// <returns></returns>
         [Authorize, ValidateInput(false), HttpPost]
-        public ActionResult TiepNhanHoSo(String ParentID)
+        public ActionResult ThuHoiSubmit(String ParentID)
         {
-            string iID_MaHangHoa = Request.Form[ParentID + "_iID_MaHangHoa"];
-            HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
-            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanKetQuaKiemTra, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
+
+            string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
-            bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
-            bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
-            bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
+            bang.DuLieuMoi = false;
+            bang.GiaTriKhoa = iID_MaHoSo;
             bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
             bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hanghoa.iID_MaTrangThai);
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
             bang.Save();
-            clHangHoa.CleanNguoiXem(iID_MaHangHoa);
-            clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanKetQuaKiemTra, "Tiếp nhận kết quả kiểm tra", "", hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            clHoSo.CleanNguoiXem(iID_MaHoSo);
+            clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, "Thu hồi và xử lý lại", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
             return RedirectToAction("Index");
         }
@@ -148,7 +133,7 @@ namespace APP0200025.Controllers
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult Thoat(string iID_MaHangHoa)
         {
             ResultModels result = clHangHoa.CleanNguoiXem(iID_MaHangHoa);

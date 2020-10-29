@@ -92,6 +92,7 @@
     <Compile Include="clHangHoa.cs" />
     <Compile Include="clHanhDong.cs" />
     <Compile Include="clHoSo.cs" />
+    <Compile Include="clLichSuHangHoa.cs" />
     <Compile Include="clLichSuHoSo.cs" />
     <Compile Include="clLoaiDanhMuc.cs" />
     <Compile Include="clLoaiDanhSach.cs" />
