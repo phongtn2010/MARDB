@@ -9,7 +9,7 @@ namespace DATA0200025
 {
     public class CHoSo
     {
-        public static long ThemHoSo(int iID_MaTrangThai, int iID_MaLoaiHoSo, long iID_MaHoSo_ThayThe, 
+        public static long ThemHoSo(long iID_MaHoSo_Sua, int iID_MaTrangThai, int iID_MaLoaiHoSo, long iID_MaHoSo_ThayThe, 
             string sMaHoSo, string sMaHoSo_ThayThe, DateTime dNgayTaoHoSo, bool bDaTiepNhan, string sSoTiepNhan, DateTime dNgayTiepNhan,
             string sSoGDK, string sSoGDK_ThayThe, DateTime dNgayXacNhan,
             string sMaSoThue, string sTenDoanhNghiep, string sLoaiHinhThucKiemTra, string sDonViThucHienDanhGia, string sTenHangHoa,
@@ -47,7 +47,7 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@sTenDoanhNghiep", sTenDoanhNghiep);
                 bang.CmdParams.Parameters.AddWithValue("@sLoaiHinhThucKiemTra", sLoaiHinhThucKiemTra);
                 bang.CmdParams.Parameters.AddWithValue("@sDonViThucHienDanhGia", sDonViThucHienDanhGia);
-                bang.CmdParams.Parameters.AddWithValue("@sTenHangHoa", sTenHangHoa);
+                bang.CmdParams.Parameters.AddWithValue("@sTenTACN", sTenHangHoa);
                 bang.CmdParams.Parameters.AddWithValue("@sBan_Name", sBan_Name);
                 bang.CmdParams.Parameters.AddWithValue("@sBan_DiaChi", sBan_DiaChi);
                 bang.CmdParams.Parameters.AddWithValue("@sBan_Tel", sBan_Tel);
@@ -78,8 +78,16 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@sKyHoSo_NguoiKy_ChucDanh", sKyHoSo_NguoiKy_ChucDanh);
                 bang.CmdParams.Parameters.AddWithValue("@sHashCode", sHashCode);
 
-                iID_MaHoSo = Convert.ToInt64(bang.Save());
-
+                if(iID_MaHoSo_Sua > 0)
+                {
+                    bang.GiaTriKhoa = iID_MaHoSo_Sua;
+                    bang.Save();
+                }
+                else
+                {
+                    iID_MaHoSo = Convert.ToInt64(bang.Save());
+                }
+                
                 vR = iID_MaHoSo;
             }
             catch(Exception ex)

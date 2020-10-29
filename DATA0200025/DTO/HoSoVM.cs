@@ -30,8 +30,6 @@ namespace DATA0200025.DTO
         [XmlIgnore] public int fiSuaStatus { get; set; } = 0;
         [XmlIgnore] public int fiSuaGPStatus { get; set; } = 0;
 
-        
-
 
         [XmlElement("NSWFileCode")]
         public string fiNSWFileCode { set; get; }
