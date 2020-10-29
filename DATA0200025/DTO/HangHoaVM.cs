@@ -10,11 +10,9 @@ namespace DATA0200025.DTO
 {
     public class HangHoaVM
     {
-        [XmlIgnore]
+        [XmlElement("GoodsId")]
         public long GoodsId { set; get; }
 
-        //public bool fiActive { set; get; }
-        //public string fiNSWFileCode { set; get; }
         [XmlElement("NameOfGoods")]
         public string fiNameOfGoods { set; get; }
 
