@@ -625,8 +625,9 @@ namespace DATA0200025
                 DK += " AND sSoTiepNhan <= @sSoTiepNhan";
                 cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
             }
-            string SQL = string.Format(@"SELECT * FROM (SELECT iID_MaHangHoa,sTenHangHoa,iID_MaNhom,iID_MaPhanNhom,iID_MaLoai,iID_MaPhanLoai,iID_MaDonViTinh,hh.iID_MaTrangThai as iID_MaTrangThaiHH ,
-                                        hs.* FROM(select * from CNN25_HangHoa WHERE {0}) hh
+            string SQL = string.Format(@"SELECT * FROM (SELECT hh.*,
+                                        hs.sTenDoanhNghiep,hs.dNgayTaoHoSo,hs.sSoTiepNhan,hs.dNgayTiepNhan,hs.sSoGDK
+                                        FROM(select * from CNN25_HangHoa WHERE {0}) hh
                                         INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH ,DK);
             cmd.CommandText = SQL;
             string sOrder = "iID_MaHoSo DESC";

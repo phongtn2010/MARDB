@@ -2813,6 +2813,7 @@
     <Content Include="ScriptsERP\jsBang_KeyTable.js" />
     <Content Include="ScriptsERP\jsBSC.js" />
     <Content Include="ScriptsERP\jsBTS.js" />
+    <Content Include="ScriptsERP\jsChoXuLyKetQua.js" />
     <Content Include="ScriptsERP\jsDaCapThongBaoKetQua.js" />
     <Content Include="ScriptsERP\jsDaPheDuyetThongBaoKetQua.js" />
     <Content Include="ScriptsERP\jsLanhDaoCuc.js" />
@@ -3057,16 +3058,13 @@
     <Content Include="Views\ChoXuLyKetQua\Detail.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Index.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_HangHoa.cshtml" />
-    <Content Include="Views\ChoXuLyKetQua\Partial_Model_TuChoi.cshtml" />
-    <Content Include="Views\ChoXuLyKetQua\Partial_Model_XuLyChiTieuKiemTra.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_Model_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_Model_YeuCauBoSung.cshtml" />
-    <Content Include="Views\ChoXuLyKetQua\SoanPhuLuc.cshtml" />
-    <Content Include="Views\ChoXuLyKetQua\XuLyChiTieuKiemTra.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\ChoXuLyKetQua\SoanThongBaoKetQua.cshtml" />
-=======
     <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
->>>>>>> 25a00d781a17e9d5f7cae28a7ce610d645770407
+    <Content Include="Views\Partial\Partial_HH_LichSuHoSo.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_FileHopDong.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_FileHoaDon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

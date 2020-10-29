@@ -11,7 +11,7 @@
 @model DATA0200025.Models.HoSoModels
 @{
     Layout = null;
-    var lstFile = clFileDinhKem.GetHoSoByHoSo(Model.iID_MaHoSo);
+    var lstFile = clFileDinhKem.GetFileByHoSo(Model.iID_MaHoSo);
     int i = 0;
 }
 <div class="box-header with-border">
@@ -58,7 +58,7 @@
         $(document).on('click', '.btnview', function (e) {
             debugger;
             var filePath = $(this).data("src");
-            $("#ifViewFile").attr('src', "https://localhost:44360/"+filePath); 
+            $("#ifViewFile").attr('src',filePath); 
         });
     });
 </script>

@@ -19,6 +19,10 @@ namespace DATA0200025.Models
         public int iID_MaTrangThaiTruoc { get; set; }
         public string sMaHoSo { get; set; }
         public string sTenHangHoa { get; set; }
+        public string sTenNhom { get; set; }
+        public string sTenPhanNhom { get; set; }
+        public string sTenPhanLoai { get; set; }
+        public string sTenLoaiHangHoa { get; set; }
         public string sMaSoCongNhan { get; set; }
         public string sHangSanXuat { get; set; }
         public string sTenQuocGia { get; set; }
@@ -30,5 +34,6 @@ namespace DATA0200025.Models
         public string sCVMienGiam { get; set; }
         public double rGiaVN { get; set; }
         public double rGiaUSD { get; set; }
+        public string sGhiChu { get; set; }
     }
 }

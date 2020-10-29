@@ -35,6 +35,8 @@ namespace DATA0200025
                 return results;
             }
         }
+
+       
         public static DataTable Get_HangHoaTheoHoSo(int iID_MaHoSo,string iID_MaPhanLoai)
         {
             string SQL = "SELECT *  FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo AND iID_MaPhanLoai=@iID_MaPhanLoai";
@@ -45,7 +47,19 @@ namespace DATA0200025
             cmd.Dispose();
             return dt;
         }
+        public static SelectOptionList DDL_HangHoa(int iID_MaHoSo)
+        {
 
+            string SQL = "SELECT iID_MaHangHoa,sTenHangHoa FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            SelectOptionList ddl = new SelectOptionList(dt, "iID_MaHangHoa", "sTenHangHoa");
+            dt.Dispose();
+            return ddl;
+        }
         public static SelectOptionList DDL_PhanLoaiTheoHoSo(int iID_MaHoSo)
         {
             string SQL = "SELECT * FROM CNN25_DanhMuc WHERE iID_MaDanhMuc IN( SELECT iID_MaPhanLoai FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo) ORDER By sTen";

@@ -20,7 +20,7 @@ namespace APP0200025.Controllers
             {
                 models = new sHoSoModels
                 {
-                    LoaiDanhSach = (int)clLoaiDanhSach.From.ChoTiepNhanKetQua,
+                    LoaiDanhSach = (int)clLoaiDanhSach.From.ChoXuLyKetQua,
                     Page = 1,
                     PageSize = Globals.PageSize
                 };
@@ -40,6 +40,33 @@ namespace APP0200025.Controllers
 
             return View(models);
         }
+        public ActionResult SoanThongBaoKetQua(string iID_MaHangHoa)
+        {
+            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            //{
+            //    return RedirectToAction("Index", "PermitionMessage");
+            //}
+            ViewData["DuLieuMoi"] = "0";
+            ViewData["smenu"] = 187;
+            HangHoaModels models = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
+
+            return View(models);
+        }
+        [Authorize, ValidateInput(false), HttpPost]
+        public ActionResult EditSubmit(String ParentID)
+        {
+            string iID_MaHangHoa = Request.Form[ParentID + "_iID_MaHangHoa"];
+            HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
+            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanKetQuaKiemTra, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
+            bang.MaNguoiDungSua = User.Identity.Name;
+            bang.IPSua = Request.UserHostAddress;
+            bang.TruyenGiaTri(ParentID, Request.Form);
+            bang.DuLieuMoi = false;
+            bang.Save();
+            clHangHoa.CleanNguoiXem(iID_MaHangHoa);
+            
+            return RedirectToAction("Index");
+        }
         /// <summary>
         /// update data màn hình TiepNhanHoSo
         /// </summary>
@@ -47,26 +74,26 @@ namespace APP0200025.Controllers
         /// <param name="MaHoSo"></param>
         /// <returns></returns>
         [Authorize, ValidateInput(false), HttpPost]
-        public ActionResult ThuHoiSubmit(String ParentID)
+        public ActionResult ThuHoi(String iID_MaHangHoa)
         {
 
-            string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
-            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
-            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+           
+            HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
+            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
-            bang.TruyenGiaTri(ParentID, Request.Form);
             bang.DuLieuMoi = false;
-            bang.GiaTriKhoa = iID_MaHoSo;
+            bang.GiaTriKhoa = iID_MaHangHoa;
             bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
             bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hanghoa.iID_MaTrangThai);
             bang.Save();
-            clHoSo.CleanNguoiXem(iID_MaHoSo);
-            clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, "Thu hồi và xử lý lại", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
-
-            return RedirectToAction("Index");
+            clHoSo.CleanNguoiXem(iID_MaHangHoa);
+            clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, "Thu hồi và xử lý lại", "", hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            ResultModels result = new ResultModels { success = true };
+            result.value = Url.Action("Index");
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// update data màn hình YeuCauBoXung
@@ -116,7 +143,7 @@ namespace APP0200025.Controllers
                 }
             }
             HangHoaModels hangHoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
-            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSoDNCanBoSungKetQua, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
+            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
@@ -125,15 +152,34 @@ namespace APP0200025.Controllers
             bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
             bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hangHoa.iID_MaTrangThaiTruoc);
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hangHoa.iID_MaTrangThai);
             bang.Save();
             clHangHoa.CleanNguoiXem(iID_MaHangHoa);
-            clLichSuHangHoa.InsertLichSu(hangHoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSoDNCanBoSungKetQua, _sNoiDung, sFileTemp, hangHoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            clLichSuHangHoa.InsertLichSu(hangHoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, _sNoiDung, sFileTemp, hangHoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
             ResultModels result = new ResultModels { success = true };
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
+        [Authorize, ValidateInput(false), HttpPost]
+        public ActionResult TrinhLanhDao(String iID_MaHangHoa)
+        {
+            HangHoaModels hangHoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
+            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.SoanThongBaoKetQuaKiemTra, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
+            bang.MaNguoiDungSua = User.Identity.Name;
+            bang.IPSua = Request.UserHostAddress;
+            bang.DuLieuMoi = false;
+            bang.GiaTriKhoa = iID_MaHangHoa;
+            bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
+            bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hangHoa.iID_MaTrangThai);
+            bang.Save();
+            clHangHoa.CleanNguoiXem(iID_MaHangHoa);
+            clLichSuHangHoa.InsertLichSu(hangHoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.SoanThongBaoKetQuaKiemTra, "Soạn thông báo kết quả kiểm tra", "", hangHoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            ResultModels result = new ResultModels { success = true };
+            result.value = Url.Action("Index");
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult Thoat(string iID_MaHangHoa)
         {
             ResultModels result = clHangHoa.CleanNguoiXem(iID_MaHangHoa);
@@ -150,7 +196,7 @@ namespace APP0200025.Controllers
             string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
             sHoSoModels models = new sHoSoModels
             {
-                LoaiDanhSach = (int)clLoaiDanhSach.From.ChoTiepNhanKetQua,
+                LoaiDanhSach = (int)clLoaiDanhSach.From.ChoXuLyKetQua,
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
