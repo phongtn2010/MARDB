@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Services;
 using System.Xml.Serialization;
 using Autofac;
+using DATA0200025;
 using DATA0200025.WebServices;
 using DATA0200025.WebServices.XmlType;
 
@@ -160,17 +161,25 @@ namespace APP0200025.WebServices
                                 });
                             break;
                     }
+
+                    CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "doanhnghiep", "Thành công", "", "");
                 }
                 else
                 {
+                    CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "doanhnghiep", "Lỗi validate payload", "", "");
+
                     envelopReturn = Envelope.CreateEnvelopeError(nswFileCode,
                         WsConstants.PROCEDURE_CODE,
                         WsConstants.MessageType.TYPE_UNKNOWN,
                         new Error { ErrorCode = WsConstants.Errors.ERR02_CODE, ErrorName = errorMessage });
                 }
+
+                
             }
             catch (Exception e)
             {
+                CLogNSW.Add(nswFileCode, "doanhnghiep", e.Message, "", "");
+
                 envelopReturn = Envelope.CreateEnvelopeError(nswFileCode,
                     WsConstants.PROCEDURE_CODE,
                     WsConstants.MessageType.TYPE_UNKNOWN,
