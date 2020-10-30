@@ -83,11 +83,11 @@ namespace DATA0200025.WebServices
         private static HttpWebRequest CreateWebRequest(string url, string action)
         {
             var webRequest = (HttpWebRequest)WebRequest.Create(url);
-            webRequest.Headers.Add("SOAPAction", action);
+            webRequest.Headers.Add("SOAPAction", "");
             webRequest.ContentType = "text/xml;charset=\"utf-8\"";
             webRequest.Accept = "text/xml";
             webRequest.Method = "POST";
-            webRequest.Timeout = 100000;
+            webRequest.Timeout = 1000000;
             return webRequest;
         }
 

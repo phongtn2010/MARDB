@@ -154,7 +154,7 @@ namespace DATA0200025.WebServices
                                                 <gen:" + DefaultMethodName + @">
                                                     <gen:" + DefaultOfficeTag + @">" + OfficeCodePlaceHolder + @"</gen:" + DefaultOfficeTag + @">
                                                     <gen:" + DefaultDocumentType + @">" + DocumentTypePlaceHolder + @"</gen:" + DefaultDocumentType + @">
-                                                    <gen:" + DefaultMethodTag + @"><![CDATA[" + PayloadPlaceholder + @"]]></gen:" + DefaultMethodTag + @">
+                                                    <gen:" + DefaultPayloadTag + @"><![CDATA[" + PayloadPlaceholder + @"]]></gen:" + DefaultPayloadTag + @">
                                                 </gen:" + DefaultMethodName + @">
                                             </soapenv:Body>
                                         </soapenv:Envelope>";
@@ -187,25 +187,25 @@ namespace DATA0200025.WebServices
             //     .Replace(MethodTagPlaceHolder, DefaultMethodTag);
 
             // DIRECT GW
-            // return DirectGatewayTemplate
-            // .Replace(OfficeCodePlaceHolder, "NSW")
-            // .Replace(DocumentTypePlaceHolder, WsConstants.PROCEDURE_CODE);
-
-            // MARD GW
-            return MardGatewayTemplate
-                .Replace(OfficeCodePlaceHolder, "NSW")
+            return DirectGatewayTemplate
+                .Replace(OfficeCodePlaceHolder, "BNN")
                 .Replace(DocumentTypePlaceHolder, WsConstants.PROCEDURE_CODE);
+
+            //// MARD GW
+            //return MardGatewayTemplate
+            //    .Replace(OfficeCodePlaceHolder, "NSW")
+            //    .Replace(DocumentTypePlaceHolder, WsConstants.PROCEDURE_CODE);
         }
 
         //public const string GatewayUrl = "http://192.168.31.7:18888/mard-gw/MardGateway.svc";
         public const string GatewayUrl = "http://103.248.160.33:8080/VNSWReceiveGateway/ws/gateway.wsdl";
         public const string Action = "http://mard.gov.vn/nsw/services/IMardGateway/receive";
-        public const string DefaultMethodName = "receive";
-        public const string DefaultMethodTag = "request";
+        public const string DefaultMethodName = "receiveRequest";
+        public const string DefaultMethodTag = "receiveRequest";
         public const string DefaultPayloadTag = "requestPayload";
         public const string DefaultOfficeTag = "officeCode";
         public const string DefaultDocumentType = "documentType";
-        public const string DefaultNamespace = "http://mard.gov.vn/nsw/services";
-        public const string DefaultGatewayNamespace = "http://mard.gov.vn/nsw/data/contract";
+        public const string DefaultNamespace = "http://com/vnsw/receive/gateway/generated";
+        public const string DefaultGatewayNamespace = "http://com/vnsw/receive/gateway/generated";
     }
 }
