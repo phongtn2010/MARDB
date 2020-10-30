@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DATA0200025.DTO;
 using DATA0200025.Models;
+using System.Data.SqlClient;
+using DomainModel;
 
 namespace DATA0200025
 {
@@ -136,6 +138,27 @@ namespace DATA0200025
             return objData;
         }
 
+        public static int UpDate_TrangThai(long iID_MaHoSo, int iTrangThai)
+        {
+            int vR = 0;
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("UPDATE CNN25_HoSo SET iID_MaTrangThai=@iID_MaTrangThai WHERE iID_MaHoSo=@iID_MaHoSo");
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThai);
+                cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+                Connection.UpdateDatabase(cmd);
+
+                vR = 1;
+            }
+            catch (Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
+
         public static long ThemHoSoXNCL(long iID_MaHoSo_XNCL_Sua, long iID_MaHoSo, long iID_MaHangHoa, string iID_MaToChuc,
             string sMaHoSo, string sTenHangHoa, string sTenToChuc, string sGiayChungNhan, DateTime dNgayCap,
             int iKetQua, string sMaFileChungNhan, string sTenFileChungNhan, string sLinkFileChungNhan,
@@ -180,6 +203,47 @@ namespace DATA0200025
                 }
 
                 vR = iID_MaHoSoXNCL;
+            }
+            catch (Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
+
+        public static long ThemHoSoHuy(long iID_MaHoSo, long iID_MaHangHoa,
+            string sMaHoSo, DateTime dNgayHuy, string sLyDo,
+            string sMaFile, string sTenFile, string sLinkFile,
+            String sUserName, String sIP)
+        {
+            long vR = 0;
+
+            try
+            {
+                long iID_MaHoSoHuy = 0;
+                Bang bang = new Bang("CNN25_HoSo_Huy");
+                bang.MaNguoiDungSua = sUserName;
+                bang.IPSua = sIP;
+                bang.DuLieuMoi = true;
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                bang.CmdParams.Parameters.AddWithValue("@sMaHoSo", sMaHoSo);
+                if (dNgayHuy != null)
+                {
+                    if (dNgayHuy.Year > 2000)
+                    {
+                        bang.CmdParams.Parameters.AddWithValue("@dNgayHuy", dNgayHuy);
+                    }
+                }
+                bang.CmdParams.Parameters.AddWithValue("@sLyDo", sLyDo);
+                bang.CmdParams.Parameters.AddWithValue("@sMaFile", sMaFile);
+                bang.CmdParams.Parameters.AddWithValue("@sTenFile", sTenFile);
+                bang.CmdParams.Parameters.AddWithValue("@sLinkFile", sLinkFile);
+
+                iID_MaHoSoHuy = Convert.ToInt64(bang.Save());
+
+                vR = iID_MaHoSoHuy;
             }
             catch (Exception ex)
             {

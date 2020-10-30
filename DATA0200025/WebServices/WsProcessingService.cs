@@ -13,6 +13,7 @@ namespace DATA0200025.WebServices
 {
     public class WsProcessingService
     {
+        private string sIP = "103.248.160.33";
         //private readonly IMapper _mapper;
 
         //public WsProcessingService()
@@ -39,6 +40,8 @@ namespace DATA0200025.WebServices
             string sMaHoSo = hoso.fiNSWFileCode;
             string sTenDoanhnghiep = hoso.sMua_Name;
 
+            string sUserName = "doanhnghiep";
+
             try
             {
                 String sTenLoaiHoSo = HamRiengModels.Get_Name_LoaiHinhThucKiemTra(hoso.fiTypeAniFeed);
@@ -53,7 +56,7 @@ namespace DATA0200025.WebServices
                 hoso.sMua_Name, hoso.sMua_DiaChi, hoso.sMua_Tel, hoso.sMua_Fax, "", hoso.sMua_NoiNhan, hoso.sMua_FromDate, hoso.sMua_ToDate,
                 hoso.fiLocationOfStorage, hoso.fiLocationOfSampling, hoso.fiDateOfSamplingFrom, hoso.fiDateOfSamplingTo,
                 hoso.fiContactPerson, hoso.fiContactAddress, hoso.fiContactTel, hoso.fiContactEmail,
-                hoso.fiSignPlace, hoso.fiSignPlace, hoso.fiSignName, "", "Doanh Nghiep", "");
+                hoso.fiSignPlace, hoso.fiSignPlace, hoso.fiSignName, "", sUserName, sIP);
 
                 int iHH = 0;
                 foreach (var hh in lstHangHoa)
@@ -68,26 +71,25 @@ namespace DATA0200025.WebServices
 
                     iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToInt32(hh.fiGroupGoodId), Convert.ToInt32(hh.fiGoodTypeId), Convert.ToInt32(hh.fiGroupTypeId), Convert.ToInt32(hh.fiGoodsValueUnitCode), 0,
                         hh.fiGroupGoodName, hh.fiGoodTypeName, hh.fiGroupTypeName, sMaHoSo, hh.fiNameOfGoods, hh.fiRegistrationNumber, hh.fiManufacture, hh.fiManufactureStateCode, hh.fiManufactureState,
-                        hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "",
-                        "", "");
+                        hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "", sUserName, sIP);
 
                     if (iID_MaHangHoa > 0)
                     {
                         foreach (var cl in lstChatLuong)
                         {
                             string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
-                            long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, "", "");
+                            long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
                         }
 
                         foreach (var at in lstAnToan)
                         {
                             string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
-                            long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, "", "");
+                            long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
                         }
 
                         foreach (var sl in lstSoLuong)
                         {
-                            long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, "", "");
+                            long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
                         }
                     }
                 }
@@ -96,31 +98,31 @@ namespace DATA0200025.WebServices
                 foreach (var hd in lstHopDong)
                 {
                     iHD++;
-                    int iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 100, hd.fiContractAttachmentId, sMaHoSo, "File Hợp Đồng Hồ Sơ", hd.fiContractName, hd.fiContractNo, hd.fiContractDate, 1, hd.fiContractFileLink, "", "");
+                    int iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 100, hd.fiContractAttachmentId, sMaHoSo, "File Hợp Đồng Hồ Sơ", hd.fiContractName, hd.fiContractNo, hd.fiContractDate, 1, hd.fiContractFileLink, sUserName, sIP);
                 }
 
                 int iHDon = 0;
                 foreach (var hd in lstHoaDon)
                 {
                     iHDon++;
-                    int iHoaDon = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 101, hd.fiInvoiceAttachmentId, sMaHoSo, "File Hóa Đơn  Hồ Sơ", hd.fiInvoiceName, hd.fiInvoiceNo, hd.fiInvoiceDate, 1, hd.fiInvoiceFileLink, "", "");
+                    int iHoaDon = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 101, hd.fiInvoiceAttachmentId, sMaHoSo, "File Hóa Đơn  Hồ Sơ", hd.fiInvoiceName, hd.fiInvoiceNo, hd.fiInvoiceDate, 1, hd.fiInvoiceFileLink, sUserName, sIP);
                 }
 
                 int iPDG = 0;
                 foreach (var p in lstPhieuDongGoi)
                 {
                     iPDG++;
-                    int iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 102, p.fiPackingAttachmentId, sMaHoSo, "File Phiếu Đóng Gói  Hồ Sơ", p.fiPackingName, p.fiPackingNo, p.fiPackingDate, 1, p.fiPackingFileLink, "", "");
+                    int iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 102, p.fiPackingAttachmentId, sMaHoSo, "File Phiếu Đóng Gói  Hồ Sơ", p.fiPackingName, p.fiPackingNo, p.fiPackingDate, 1, p.fiPackingFileLink, sUserName, sIP);
                 }
 
                 int iF = 0;
                 foreach (var f in lstDinhKem)
                 {
                     iF++;
-                    int iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Khác  Hồ Sơ", f.fiFileName, null, null, 1, f.fiFileLink, "", "");
+                    int iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Khác  Hồ Sơ", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP);
                 }
 
-                clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, "doanhnghiep", sTenDoanhnghiep, 1, 1, "", "", 0, "Doanh nghiệp đăng ký từ NSW chuyển sang", 1);
+                clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhnghiep, 1, 1, "", "", 0, "Doanh nghiệp đăng ký từ NSW chuyển sang", 1);
             }
             catch (Exception ex)
             {
@@ -146,37 +148,6 @@ namespace DATA0200025.WebServices
 
         public HoSoVM GuiSuaHoSo(Envelope envelope)
         {
-            //var body = envelope.Body;
-
-            //var hoso = body.Content.AniFeed;
-
-            //var oldHoso = _hoSoService.GetByNSWFileCode(hoso.fiNSWFileCode);
-
-            //if (oldHoso == null)
-            //{
-            //    throw new Exception("Hồ sơ cũ không tồn tại");
-            //}
-
-            //if (oldHoso.fiHSStatus > (int)HSStatus.CHO_TIEP_NHAN)
-            //{
-            //    throw new Exception("Hồ sơ đang được xử lý");
-            //}
-
-            //oldHoso.fiActive = false;
-
-            //hoso.fiActive = true;
-            //hoso.fiHSStatus = (int)HSStatus.CHO_TIEP_NHAN;
-
-            //var hosoModel = new HoSo();
-            //hosoModel = _mapper.Map(hoso, hosoModel);
-            //var result = _hoSoService.Add(hosoModel);
-
-            //_lichSuHoSoService.Create(hoso.fiNSWFileCode, envelope.Header.From, "Gửi sửa hồ sơ khi BPMC chưa tiếp nhận", "",
-            //    (int)HSStatus.CHO_TIEP_NHAN);
-
-            //_lichSuHoSoService.Save();
-            //_hoSoService.Save();
-            //return _mapper.Map(result, hoso);
 
             return null;
         }
@@ -189,8 +160,46 @@ namespace DATA0200025.WebServices
 
         public YeuCauHuyHoSoVM RequestCancel(Envelope envelope)
         {
+            var body = envelope.Body;
 
-            return null;
+            var hoso = body.Content.RequestCancel;
+            string sMaHoSo = hoso.fiNSWFileCode;
+
+            long iID_MaHoSo = 0, iID_MaHoSo_Huy = 0;
+            string sTenDoanhNghiep = "";
+            HoSoModels hs = clHoSo.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
+            if (hs != null)
+            {
+                iID_MaHoSo = hs.iID_MaHoSo;
+                sTenDoanhNghiep = hs.sTenDoanhNghiep;
+            }
+
+            string sUserName = "doanhnghiep";
+            string sError = "";
+            try
+            {
+                //Them vao bang Ho So Huy
+                iID_MaHoSo_Huy = CHoSo.ThemHoSoHuy(iID_MaHoSo, 0, sMaHoSo, hoso.fiRequestDate, hoso.fiReason, hoso.fiAttachmentId, hoso.fiFileName, hoso.fiFileLink, sUserName, sIP);
+
+                if(iID_MaHoSo_Huy > 0)
+                {
+                    //Update Trang Thai Hang Hoa
+                    CHoSo.UpDate_TrangThai(iID_MaHoSo, 45);
+
+                    //Ghi Lai Lich Su
+                    clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhNghiep, 1, 39, hoso.fiReason, hoso.fiFileLink, 0, "", 45);
+                }
+                else
+                {
+                    sError = "Error hàm: CHoSo.ThemHoSoHuy";
+                }
+            }
+            catch (Exception ex)
+            {
+                sError = "Error Add Ho So Huy: " + ex.ToString();
+            }
+
+            return hoso;
         }
 
         public GuiTCCDVM TestInformation(Envelope envelope)
@@ -209,30 +218,35 @@ namespace DATA0200025.WebServices
 
             long iID_MaHoSo_XNCL = 0, iID_MaHoSo = 0, iID_MaHangHoa = 0;
             iID_MaHangHoa = hoso.fiGoodsId;
-
+            string sTenDoanhNghiep = "";
             HoSoModels hs = clHoSo.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
             if(hs != null)
             {
                 iID_MaHoSo = hs.iID_MaHoSo;
-            }    
+                sTenDoanhNghiep = hs.sTenDoanhNghiep;
+            }
 
+            string sUserName = "doanhnghiep";
             string sError = "";
             try
             {
                 //Them vao bang HoSo_XNCL
                 iID_MaHoSo_XNCL = CHoSo.ThemHoSoXNCL(0, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiNameOfGoods, hoso.fiAssignName, hoso.fiTestConfirmNumber, hoso.fiTestConfirmDate, hoso.fiResultTest,
-                    hoso.fiTestConfirmAttachmentId, hoso.fiTestConfirmFileName, hoso.fiTestConfirmFileLink, "", "");
+                    hoso.fiTestConfirmAttachmentId, hoso.fiTestConfirmFileName, hoso.fiTestConfirmFileLink, sUserName, sIP);
 
                 //Them vao bang Dinh Kem
                 int iF = 0;
                 foreach (var f in lstDinhKem)
                 {
                     iF++;
-                    int iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ XNCL", f.fiFileName, null, null, 1, f.fiFileLink, "", "");
+                    int iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP);
                 }
 
                 //Update Trang Thai Hang Hoa
                 CHangHoa.UpDate_TrangThai(iID_MaHangHoa, 27);
+
+                //Ghi Lai Lich Su
+                clLichSuHangHoa.InsertLichSuNsw(iID_MaHangHoa, sUserName, sTenDoanhNghiep, 1, 27, "Hồ sơ xác nhận chất lượng", "", 26, "Hồ sơ Đã xác nhận GĐK", 27);
             }
             catch(Exception ex)
             {
