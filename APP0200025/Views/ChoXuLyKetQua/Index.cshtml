@@ -73,7 +73,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("Search", "ChuyenVien", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("Search", "ChoXuLyKetQua", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
@@ -214,11 +214,11 @@
                                         r = dt.Rows[i];
 
 
-                                        String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
-                                        String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                        String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                        String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
-                                        String strSoanPhuLuc= MyHtmlHelper.ActionLink(Url.Action("SoanPhuLuc", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
+                                        String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "ChoXuLyKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
+                                        String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoXuLyKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
+                                        String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "ChoXuLyKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
+                                        String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "ChoXuLyKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
+                                        String strSoanPhuLuc= MyHtmlHelper.ActionLink(Url.Action("SoanPhuLuc", "ChoXuLyKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
 
 
                                         <tr>
@@ -228,24 +228,24 @@
                                             <td>@r["sSoTiepNhan"]</td>
                                             <td>@r["dNgayTiepNhan"]</td>
                                             <td>@r["sTenDoanhNghiep"]</td>
-                                            <td>chua biet lay o dau</td>
+                                            <td>@r["sTenHangHoa"]</td>
                                             <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
-                                            <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
+                                            <td>@r["sKetQuaXuLy"]</td>
                                             <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
                                             <td class="head-td-icon">@MvcHtmlString.Create(strSoanPhuLuc)</td>
                                             <td class="head-td-icon">
-                                                <a class="openyeucaubosung" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
+                                                <a class="openyeucaubosung" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#YeuCauBoSung">
                                                     <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
                                                 </a>
                                             </td>
                                             <td class="head-td-icon">
-                                                <a class="opentuchoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
+                                                <a class="opentuchoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoi">
                                                     <span class='badge bg-red'><i class='fa fa-times'></i></span>
                                                 </a>
                                             </td>
                                             <td class="head-td-icon">@r["sTenNguoiTiepNhan"]</td>
                                             <td class="head-td-icon">
-                                                <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
+                                                <a class="openthuhoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#ThuHoi">
                                                     <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
                                                 </a>
                                             </td>
@@ -267,7 +267,6 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-@{Html.RenderPartial("~/Views/ChuyenVien/Partial_Model_YeuCauBoSung.cshtml");}
-@{Html.RenderPartial("~/Views/ChuyenVien/Partial_Model_TuChoi.cshtml");}
+@{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_Model_YeuCauBoSung.cshtml");}
 
-<script src="@Url.Content("~/ScriptsERP/jsChuyenVien.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+<script src="@Url.Content("~/ScriptsERP/jsChoXuLyKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

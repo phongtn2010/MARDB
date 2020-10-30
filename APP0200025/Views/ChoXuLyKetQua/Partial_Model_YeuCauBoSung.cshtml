@@ -9,7 +9,7 @@
 }
 
 
-@using (Ajax.BeginForm("YeuCauBoSungSubmit", "ChoTiepNhanHoSo", new AjaxOptions
+@using (Ajax.BeginForm("YeuCauBoSungSubmit", "ChoXuLyKetQua", new AjaxOptions
 {
     OnSuccess = "OnSuccessYeuCauBoSung",
     OnBegin = "OnBeginYeuCauBoSung",
@@ -76,5 +76,5 @@
             </div>
         </div>
     </div>
-    @Html.Hidden(ParentID + "_iID_MaHoSo", 0)
+    @Html.Hidden(ParentID + "_iID_MaHangHoa", 0)
 }

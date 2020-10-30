@@ -6,6 +6,8 @@
 @using DomainModel
 @using DomainModel.Controls
 @using DATA0200025
+@using DATA0200025.Models
+@model HoSoModels
 @{
     Layout = null;
     string ParentID = "Edit";
@@ -20,7 +22,7 @@
         <div class="col-xs-9">
             <div class="form-group">
                 <label for="">Tên TACN:</label>
-                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, clDanhMuc.GetDDL(clLoaiDanhMuc.LoaiHinhThucKiemTra), "", "", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, clHangHoa.DDL_HangHoa(Model.iID_MaHoSo), "", "iID_MaHangHoa", "", "type=\"text\" class=\"form-control\""))
 
             </div>
         </div>
