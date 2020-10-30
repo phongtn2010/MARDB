@@ -113,6 +113,8 @@ namespace DATA0200025
                 {
                     bang.GiaTriKhoa = iID_MaHoSo_Sua;
                     bang.Save();
+
+                    iID_MaHoSo = iID_MaHoSo_Sua;
                 }
                 else
                 {
@@ -196,6 +198,8 @@ namespace DATA0200025
                 {
                     bang.GiaTriKhoa = iID_MaHoSo_XNCL_Sua;
                     bang.Save();
+
+                    iID_MaHoSoXNCL = iID_MaHoSo_XNCL_Sua;
                 }
                 else
                 {
