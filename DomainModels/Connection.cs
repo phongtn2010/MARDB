@@ -168,6 +168,7 @@ namespace DomainModel
             return res;
         }
 
+
         public static List<T> GetList_News<T>(SqlCommand cmd, int KetNoi = 0)
         {
             try

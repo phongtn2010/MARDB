@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DATA0200025.DTO;
+using DATA0200025.Models;
 
 namespace DATA0200025
 {
@@ -124,6 +125,15 @@ namespace DATA0200025
             }
 
             return vR;
+        }
+
+        public static HoSoModels Get_HoSo_ChiTiet(string sMaHoSo)
+        {
+            HoSoModels objData = null;
+
+
+
+            return objData;
         }
 
         public static long ThemHoSoXNCL(long iID_MaHoSo_XNCL_Sua, long iID_MaHoSo, long iID_MaHangHoa, string iID_MaToChuc,

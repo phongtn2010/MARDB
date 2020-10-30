@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DATA0200025.DTO;
+using DATA0200025.Models;
 using DATA0200025.Models.Enums;
 using DATA0200025.WebServices.XmlType;
 
@@ -36,6 +37,7 @@ namespace DATA0200025.WebServices
             string sError = "";
             long iID_MaHoSo = 0, iID_MaHoSo_ThayThe = 0;
             string sMaHoSo = hoso.fiNSWFileCode;
+            string sTenDoanhnghiep = hoso.sMua_Name;
 
             try
             {
@@ -47,7 +49,7 @@ namespace DATA0200025.WebServices
                 }
 
                 iID_MaHoSo = CHoSo.ThemHoSo(0, 1, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode, hoso.fiNSWFileCodeOld, hoso.fiCreateDate, false, "", null, null, null, null,
-                hoso.fiTaxCode, hoso.sMua_Name, sTenLoaiHoSo, "", sTenTACN, hoso.sBan_Name, hoso.sBan_DiaChi, hoso.sBan_Tel, hoso.sBan_Fax, "", hoso.sBan_MaQuocGia, hoso.sBan_QuocGia, hoso.sBan_NoiXuat,
+                hoso.fiTaxCode, sTenDoanhnghiep, sTenLoaiHoSo, "", sTenTACN, hoso.sBan_Name, hoso.sBan_DiaChi, hoso.sBan_Tel, hoso.sBan_Fax, "", hoso.sBan_MaQuocGia, hoso.sBan_QuocGia, hoso.sBan_NoiXuat,
                 hoso.sMua_Name, hoso.sMua_DiaChi, hoso.sMua_Tel, hoso.sMua_Fax, "", hoso.sMua_NoiNhan, hoso.sMua_FromDate, hoso.sMua_ToDate,
                 hoso.fiLocationOfStorage, hoso.fiLocationOfSampling, hoso.fiDateOfSamplingFrom, hoso.fiDateOfSamplingTo,
                 hoso.fiContactPerson, hoso.fiContactAddress, hoso.fiContactTel, hoso.fiContactEmail,
@@ -117,6 +119,8 @@ namespace DATA0200025.WebServices
                     iF++;
                     int iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Khác  Hồ Sơ", f.fiFileName, null, null, 1, f.fiFileLink, "", "");
                 }
+
+                clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, "doanhnghiep", sTenDoanhnghiep, 1, 1, "", "", 0, "Doanh nghiệp đăng ký từ NSW chuyển sang", 1);
             }
             catch (Exception ex)
             {
@@ -206,12 +210,20 @@ namespace DATA0200025.WebServices
             long iID_MaHoSo_XNCL = 0, iID_MaHoSo = 0, iID_MaHangHoa = 0;
             iID_MaHangHoa = hoso.fiGoodsId;
 
+            HoSoModels hs = clHoSo.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
+            if(hs != null)
+            {
+                iID_MaHoSo = hs.iID_MaHoSo;
+            }    
+
             string sError = "";
             try
             {
+                //Them vao bang HoSo_XNCL
                 iID_MaHoSo_XNCL = CHoSo.ThemHoSoXNCL(0, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiNameOfGoods, hoso.fiAssignName, hoso.fiTestConfirmNumber, hoso.fiTestConfirmDate, hoso.fiResultTest,
                     hoso.fiTestConfirmAttachmentId, hoso.fiTestConfirmFileName, hoso.fiTestConfirmFileLink, "", "");
 
+                //Them vao bang Dinh Kem
                 int iF = 0;
                 foreach (var f in lstDinhKem)
                 {
@@ -219,10 +231,12 @@ namespace DATA0200025.WebServices
                     int iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ XNCL", f.fiFileName, null, null, 1, f.fiFileLink, "", "");
                 }
 
+                //Update Trang Thai Hang Hoa
+                CHangHoa.UpDate_TrangThai(iID_MaHangHoa, 27);
             }
             catch(Exception ex)
             {
-
+                sError = "Error Add Ho So XNCL: " + ex.ToString();
             }            
 
             return null;

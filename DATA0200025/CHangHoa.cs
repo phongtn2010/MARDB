@@ -1,6 +1,8 @@
-﻿using DomainModel.Abstract;
+﻿using DomainModel;
+using DomainModel.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +61,27 @@ namespace DATA0200025
                 vR = iID_MaHangHoa;
             }
             catch (Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
+
+        public static int UpDate_TrangThai(long iID_MaHangHoaNSW, int iTrangThai)
+        {
+            int vR = 0;
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("UPDATE CNN25_HangHoa SET iID_MaTrangThai=@iID_MaTrangThai WHERE iID_MaHangHoaNSW=@iID_MaHangHoaNSW");
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThai);
+                cmd.Parameters.AddWithValue("@iID_MaHangHoaNSW", iID_MaHangHoaNSW);
+                Connection.UpdateDatabase(cmd);
+
+                vR = 1;
+            }
+            catch(Exception ex)
             {
                 vR = -1;
             }
