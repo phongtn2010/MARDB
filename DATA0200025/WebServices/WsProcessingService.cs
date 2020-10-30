@@ -195,6 +195,33 @@ namespace DATA0200025.WebServices
 
         public NopKetQuaVM SendResultTest(Envelope envelope)
         {
+            var body = envelope.Body;
+
+            var hoso = body.Content.SendResultTest;
+            string sMaHoSo = hoso.fiNSWFileCode;
+            List<AttachmentVM> lstDinhKem = hoso.ListAttachmentReports;
+
+            long iID_MaHoSo_XNCL = 0, iID_MaHoSo = 0, iID_MaHangHoa = 0;
+            iID_MaHangHoa = hoso.fiGoodsId;
+
+            string sError = "";
+            try
+            {
+                iID_MaHoSo_XNCL = CHoSo.ThemHoSoXNCL(0, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiNameOfGoods, hoso.fiAssignName, hoso.fiTestConfirmNumber, hoso.fiTestConfirmDate, hoso.fiResultTest,
+                    hoso.fiTestConfirmAttachmentId, hoso.fiTestConfirmFileName, hoso.fiTestConfirmFileLink, "", "");
+
+                int iF = 0;
+                foreach (var f in lstDinhKem)
+                {
+                    iF++;
+                    int iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ XNCL", f.fiFileName, null, null, 1, f.fiFileLink, "", "");
+                }
+
+            }
+            catch(Exception ex)
+            {
+
+            }            
 
             return null;
         }

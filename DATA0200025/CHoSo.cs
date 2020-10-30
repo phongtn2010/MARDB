@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DATA0200025.DTO;
 
 namespace DATA0200025
 {
@@ -118,6 +119,59 @@ namespace DATA0200025
                 vR = iID_MaHoSo;
             }
             catch(Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
+
+        public static long ThemHoSoXNCL(long iID_MaHoSo_XNCL_Sua, long iID_MaHoSo, long iID_MaHangHoa, string iID_MaToChuc,
+            string sMaHoSo, string sTenHangHoa, string sTenToChuc, string sGiayChungNhan, DateTime dNgayCap,
+            int iKetQua, string sMaFileChungNhan, string sTenFileChungNhan, string sLinkFileChungNhan,
+            String sUserName, String sIP)
+        {
+            long vR = 0;
+
+            try
+            {
+                long iID_MaHoSoXNCL = 0;
+                Bang bang = new Bang("CNN25_HoSo_XNCL");
+                bang.MaNguoiDungSua = sUserName;
+                bang.IPSua = sIP;
+                bang.DuLieuMoi = true;
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaToChuc", iID_MaToChuc);
+                bang.CmdParams.Parameters.AddWithValue("@sMaHoSo", sMaHoSo);
+                bang.CmdParams.Parameters.AddWithValue("@sTenHangHoa", sTenHangHoa);
+                bang.CmdParams.Parameters.AddWithValue("@sTenToChuc", sTenToChuc);
+                bang.CmdParams.Parameters.AddWithValue("@sGiayChungNhan", sGiayChungNhan);
+                if (dNgayCap != null)
+                {
+                    if (dNgayCap.Year > 2000)
+                    {
+                        bang.CmdParams.Parameters.AddWithValue("@dNgayCap", dNgayCap);
+                    }
+                }
+                bang.CmdParams.Parameters.AddWithValue("@iKetQua", iKetQua);
+                bang.CmdParams.Parameters.AddWithValue("@sMaFileChungNhan", sMaFileChungNhan);
+                bang.CmdParams.Parameters.AddWithValue("@sTenFileChungNhan", sTenFileChungNhan);
+                bang.CmdParams.Parameters.AddWithValue("@sLinkFileChungNhan", sLinkFileChungNhan);
+
+                if (iID_MaHoSo_XNCL_Sua > 0)
+                {
+                    bang.GiaTriKhoa = iID_MaHoSo_XNCL_Sua;
+                    bang.Save();
+                }
+                else
+                {
+                    iID_MaHoSoXNCL = Convert.ToInt64(bang.Save());
+                }
+
+                vR = iID_MaHoSoXNCL;
+            }
+            catch (Exception ex)
             {
                 vR = -1;
             }
