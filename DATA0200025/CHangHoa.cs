@@ -1,6 +1,8 @@
-﻿using DomainModel.Abstract;
+﻿using DomainModel;
+using DomainModel.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,7 +68,28 @@ namespace DATA0200025
             return vR;
         }
 
-        public static int ThemhangHoaChatLuong(long iID_MaHangHoa, string sChiTieu, string sHinhThuc, string sHamLuong, string sMaDonViTinh, string sDonViTinh, string sGhiChu, bool bChon,
+        public static int UpDate_TrangThai(long iID_MaHangHoaNSW, int iTrangThai)
+        {
+            int vR = 0;
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("UPDATE CNN25_HangHoa SET iID_MaTrangThai=@iID_MaTrangThai WHERE iID_MaHangHoaNSW=@iID_MaHangHoaNSW");
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThai);
+                cmd.Parameters.AddWithValue("@iID_MaHangHoaNSW", iID_MaHangHoaNSW);
+                Connection.UpdateDatabase(cmd);
+
+                vR = 1;
+            }
+            catch(Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
+
+        public static int ThemhangHoaChatLuong(long iID_MaHangHoa, int iID_MaHinhThuc, string sChiTieu, string sHinhThuc, string sHamLuong, string sMaDonViTinh, string sDonViTinh, string sGhiChu, bool bChon,
             String sUserName, String sIP)
         {
             int vR = 0;
@@ -78,6 +101,7 @@ namespace DATA0200025
                 bang.IPSua = sIP;
                 bang.DuLieuMoi = true;
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaHinhThuc", iID_MaHinhThuc);
                 bang.CmdParams.Parameters.AddWithValue("@sChiTieu", sChiTieu);
                 bang.CmdParams.Parameters.AddWithValue("@sHinhThuc", sHinhThuc);
                 bang.CmdParams.Parameters.AddWithValue("@sHamLuong", sHamLuong);
@@ -98,7 +122,7 @@ namespace DATA0200025
             return vR;
         }
 
-        public static int ThemhangHoaAnToan(long iID_MaHangHoa, int iID_MaLoaiAnToan, string sChiTieu, string sHinhThuc, string sHamLuong, string sMaDonViTinh, string sDonViTinh, string sGhiChu, bool bChon,
+        public static int ThemhangHoaAnToan(long iID_MaHangHoa, int iID_MaLoaiAnToan, int iID_MaHinhThuc, string sChiTieu, string sHinhThuc, string sHamLuong, string sMaDonViTinh, string sDonViTinh, string sGhiChu, bool bChon,
             String sUserName, String sIP)
         {
             int vR = 0;
@@ -111,6 +135,7 @@ namespace DATA0200025
                 bang.DuLieuMoi = true;
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaLoaiAnToan", iID_MaLoaiAnToan);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaHinhThuc", iID_MaHinhThuc);
                 bang.CmdParams.Parameters.AddWithValue("@sChiTieu", sChiTieu);
                 bang.CmdParams.Parameters.AddWithValue("@sHinhThuc", sHinhThuc);
                 bang.CmdParams.Parameters.AddWithValue("@sHamLuong", sHamLuong);

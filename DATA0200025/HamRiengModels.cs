@@ -67,6 +67,92 @@ namespace DATA0200025
             return vR;
         }
 
+        public static DataTable GetTable_QuyChuanKyThuat()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("ID", typeof(int));
+            table.Columns.Add("NAME", typeof(string));
+
+            table.Rows.Add(1, "QCVN 01-190: 2020/BNNPTNT");
+            table.Rows.Add(2, "QCVN 01-183: 2016/BNNPTNT");
+
+            return table;
+        }
+        public static String Get_Name_QuyChuanKyThuat(int iMa)
+        {
+            string vR = "";
+            DataTable dt = GetTable_QuyChuanKyThuat();
+            var rowColl = dt.AsEnumerable();
+            vR = (from r in rowColl
+                  where r.Field<int>("ID") == iMa
+                  select r.Field<string>("NAME")).First<string>();
+            dt.Dispose();
+
+            return vR;
+        }
+
+        public static DataTable GetTable_HinhThucCongBo()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("ID", typeof(int));
+            table.Columns.Add("NAME", typeof(string));
+
+            table.Rows.Add(1, "<");
+            table.Rows.Add(2, ">");
+            table.Rows.Add(3, "=");
+            table.Rows.Add(4, "<=");
+            table.Rows.Add(5, ">=");
+            table.Rows.Add(6, "min - max");
+
+            return table;
+        }
+        public static String Get_Name_HinhThucCongBo(int iMa)
+        {
+            string vR = "";
+            DataTable dt = GetTable_HinhThucCongBo();
+            var rowColl = dt.AsEnumerable();
+            vR = (from r in rowColl
+                  where r.Field<int>("ID") == iMa
+                  select r.Field<string>("NAME")).First<string>();
+            dt.Dispose();
+
+            return vR;
+        }
+
+        public static DataTable GetTable_LoaiTapTinDinhKem()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("ID", typeof(int));
+            table.Columns.Add("NAME", typeof(string));
+
+            table.Rows.Add(1, "Phiếu kết quả phân tích chất lượng của nước xuất khẩu cấp cho lô hàng (Certificate of Analysis)");
+            table.Rows.Add(2, "Nhãn sản phẩm của cơ sở sản xuất");
+            table.Rows.Add(3, "Bản tiêu chuẩn công bố áp dụng của tổ chức, cá nhân nhập khẩu");
+            table.Rows.Add(4, "Bản thông tin sản phẩm in từ cổng thông tin điện tử ");
+            table.Rows.Add(5, "Giấy chứng nhận lưu hành tự do hoặc văn bản có giá trị tương đương do cơ quan có thẩm quyền của nước xuất xứ cấp đối với nguyên liệu đơn, thức ăn truyền thống");
+            table.Rows.Add(6, "Giấy chứng nhận Hệ thống quản lý chất lượng (ISO)");
+            table.Rows.Add(7, "Giấy chứng nhận thực hành sản xuất tốt (GMP)");
+            table.Rows.Add(8, "Giấy chứng nhận phân tích nguy cơ và kiểm soát điểm tới hạn (HACCP) hoặc giấy chứng nhận tương đương của cơ sở sản xuất đối với nguyên liệu đơn.");
+            table.Rows.Add(9, "Tài liệu khác.");
+            table.Rows.Add(100, "File Hợp Đồng Hồ Sơ");
+            table.Rows.Add(101, "File Hóa Đơn  Hồ Sơ");
+            table.Rows.Add(102, "File Phiếu Đóng Gói  Hồ Sơ");
+
+            return table;
+        }
+        public static String Get_Name_LoaiTapTinDinhKem(int iMa)
+        {
+            string vR = "";
+            DataTable dt = GetTable_LoaiTapTinDinhKem();
+            var rowColl = dt.AsEnumerable();
+            vR = (from r in rowColl
+                  where r.Field<int>("ID") == iMa
+                  select r.Field<string>("NAME")).First<string>();
+            dt.Dispose();
+
+            return vR;
+        }
+
         public static int MaDonViCuaNhomNguoiDung(String MaNguoiDung)
         {
             String SQL = String.Format("SELECT iID_MaDonVi " +

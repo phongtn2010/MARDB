@@ -16,7 +16,7 @@ namespace DATA0200025.DTO
         public string fiSafetyCriteriaName { set; get; }
 
         [XmlElement("SafetyFormOfPublication")]
-        public string fiSafetyFormOfPublication { set; get; }
+        public int fiSafetyFormOfPublication { set; get; }
 
         [XmlElement("SafetyRequire")]
         public decimal fiSafetyRequire { set; get; }

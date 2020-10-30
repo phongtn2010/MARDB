@@ -16,7 +16,7 @@ namespace DATA0200025.DTO
         public string fiQualityCriteriaName { set; get; }
 
         [XmlElement("QualityFormOfPublication")]
-        public string fiQualityFormOfPublication { set; get; }
+        public int fiQualityFormOfPublication { set; get; }
 
         [XmlElement("QualityRequire")]
         public decimal fiQualityRequire { set; get; }

@@ -80,8 +80,6 @@ namespace APP0200025.WebServices
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);
                             }
-                            //TODO: add lich su
-
                             break;
                         case WsConstants.MessageType.TYPE_11:
                             if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_05))
@@ -97,7 +95,7 @@ namespace APP0200025.WebServices
                             }
                             break;
                         case WsConstants.MessageType.TYPE_15:
-                            if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_08))
+                            if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_13))
                             {
                                 var result = _processingService.TestInformation(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
@@ -110,11 +108,25 @@ namespace APP0200025.WebServices
                             }
                             break;
                         case WsConstants.MessageType.TYPE_17:
-                            if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_11))
+                            if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_15))
                             {
                                 var result = _processingService.SendResultTest(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS, true, null);
+                            }
+                            else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_17))
+                            {
+                                //var result = _processingService.GuiSuaHoSo(envelop);
+                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_SUCCESS,
+                                    true, null);
+                            }
+                            else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_17))
+                            {
+                                //var result = _processingService.GuiSuaHoSo(envelop);
+                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_SUCCESS,
+                                    true, null);
                             }
                             else
                             {
@@ -123,7 +135,7 @@ namespace APP0200025.WebServices
                             }
                             break;
                         case WsConstants.MessageType.TYPE_21:
-                            if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_15))
+                            if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_24))
                             {
                                 var result = _processingService.Report(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),

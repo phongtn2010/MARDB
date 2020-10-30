@@ -15,7 +15,6 @@ namespace DATA0200025
 {
     public class clHoSo
     {
-
         public static HoSoModels GetHoSoById(string iID_MaHoSo)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
@@ -33,6 +32,17 @@ namespace DATA0200025
                 string SQL = @"SELECT *  FROM CNN25_HoSo 
                             WHERE iID_MaHoSo=@iID_MaHoSo";
                 HoSoModels results = connect.Query<HoSoModels>(SQL, new { iID_MaHoSo = iID_MaHoSo }).FirstOrDefault();
+                return results;
+            }
+        }
+
+        public static HoSoModels GetHoSo_ChiTiet_Theo_Ma(string sMaHoSo)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT * FROM CNN25_HoSo 
+                            WHERE sMaHoSo=@sMaHoSo";
+                HoSoModels results = connect.Query<HoSoModels>(SQL, new { sMaHoSo = sMaHoSo }).FirstOrDefault();
                 return results;
             }
         }
