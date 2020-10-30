@@ -3060,17 +3060,14 @@
     <Content Include="Views\ChoXuLyKetQua\Partial_HangHoa.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_Model_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_Model_YeuCauBoSung.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\ChoXuLyKetQua\SoanThongBaoKetQua.cshtml" />
     <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
     <Content Include="Views\Partial\Partial_HH_LichSuHoSo.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_FileHopDong.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_FileHoaDon.cshtml" />
-=======
     <Content Include="Views\ChoXuLyKetQua\SoanPhuLuc.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\XuLyChiTieuKiemTra.cshtml" />
     <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
->>>>>>> 410aad18d8a00b90c41c045f25fa02a358ed4de8
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
