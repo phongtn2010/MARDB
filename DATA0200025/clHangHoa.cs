@@ -71,7 +71,15 @@ namespace DATA0200025
             dt.Dispose();
             return ddl;
         }
-
+        public static DataTable Get_ThongTinKhoiLuong(int iID_MaHangHoa)
+        {
+            string SQL = "SELECT * FROM CNN25_HangHoa_SoLuong  WHERE iID_MaHangHoa=@iID_MaHangHoa";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+            return dt;
+        }
         public static DataTable Get_ThongTinChiTieuChatLuong(int iID_MaHangHoa)
         {
             string SQL = "SELECT * FROM CNN25_HangHoa_ChatLuong  WHERE iID_MaHangHoa=@iID_MaHangHoa";

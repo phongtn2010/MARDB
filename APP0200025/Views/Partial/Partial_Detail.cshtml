@@ -11,12 +11,13 @@
 @{
     ViewBag.Title = "Edit";
     Layout = null;
+    string urldetail = Url.Action("HangHoaChiTiet","ChoTiepNhanHoSo");
 }
 <section class="content">
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @{Html.RenderPartial("~/Views/Partial/Partial_ThongTinHoSo.cshtml",Model);}
+                @{Html.RenderPartial("~/Views/Partial/Partial_ThongTinHoSo.cshtml", Model);}
             </div>
         </div>
     </div>
@@ -80,3 +81,7 @@
         </div>
     </div>
 </section>
+<script src="@Url.Content("~/ScriptsERP/jsDetail.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+<script>
+    urldetail = '@Html.Raw(urldetail)';
+</script>

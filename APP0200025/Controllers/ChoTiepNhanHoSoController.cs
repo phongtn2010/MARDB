@@ -231,5 +231,11 @@ namespace APP0200025.Controllers
             };
             return RedirectToAction("Index", models);
         }
+    
+        public PartialViewResult HangHoaChiTiet(int iID_MaHangHoa)
+        {
+            var hangHoa = clHangHoa.GetHangHoaById(iID_MaHangHoa);
+            return PartialView("~/Views/Partial/Partial_ThongTinChiTietTACN.cshtml", hangHoa);
+        }
     }
 }

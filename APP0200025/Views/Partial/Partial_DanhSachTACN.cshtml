@@ -10,7 +10,15 @@
 @model HoSoModels
 @{
     Layout = null;
-    string ParentID = "Edit";
+    string ParentID = "Detail";
+    SelectOptionList ddl = clHangHoa.DDL_HangHoa(Model.iID_MaHoSo);
+    DataTable dt = ddl.dtData;
+    int iID_MaHangHoa = 0;
+    if(dt.Rows.Count>0)
+    {
+        iID_MaHangHoa = Convert.ToInt32(dt.Rows[0]["iID_MaHangHoa"]);
+    }
+    HangHoaModels hangHoa = clHangHoa.GetHangHoaById(iID_MaHangHoa);
 }
 
 <div class="box-header with-border">
@@ -22,11 +30,22 @@
         <div class="col-xs-9">
             <div class="form-group">
                 <label for="">Tên TACN:</label>
-                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, clHangHoa.DDL_HangHoa(Model.iID_MaHoSo), "", "iID_MaHangHoa", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ddl, "", "iID_MaHangHoa", "", "type=\"text\" class=\"form-control\""))
 
             </div>
         </div>
     </div>
-    @{Html.RenderPartial("~/Views/Partial/Partial_ThongTinChiTietTACN.cshtml");}
+    <div class="row">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thông tin chi tiết TACN</h3>
 
-</div>
+        </div>
+        <form class="form-horizontal">
+            <div class="box-body" style="height:781px;overflow: scroll;" id="divHH">
+                @{Html.RenderPartial("~/Views/Partial/Partial_ThongTinChiTietTACN.cshtml", hangHoa);}
+            </div>
+        </form>
+
+    </div>
+
+    </div>
