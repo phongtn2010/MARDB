@@ -2813,7 +2813,6 @@
     <Content Include="ScriptsERP\jsBang_KeyTable.js" />
     <Content Include="ScriptsERP\jsBSC.js" />
     <Content Include="ScriptsERP\jsBTS.js" />
-    <Content Include="ScriptsERP\jsChoXuLyKetQua.js" />
     <Content Include="ScriptsERP\jsDaCapThongBaoKetQua.js" />
     <Content Include="ScriptsERP\jsDaPheDuyetThongBaoKetQua.js" />
     <Content Include="ScriptsERP\jsLanhDaoCuc.js" />
@@ -3065,9 +3064,8 @@
     <Content Include="Views\Partial\Partial_HH_LichSuHoSo.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_FileHopDong.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_FileHoaDon.cshtml" />
-    <Content Include="Views\ChoXuLyKetQua\SoanPhuLuc.cshtml" />
-    <Content Include="Views\ChoXuLyKetQua\XuLyChiTieuKiemTra.cshtml" />
     <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

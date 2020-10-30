@@ -92,28 +92,28 @@ namespace DATA0200025.WebServices
                 foreach (var hd in lstHopDong)
                 {
                     iHD++;
-                    int iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 100, hd.fiContractAttachmentId, sMaHoSo, "File Hợp Đồng", hd.fiContractName, hd.fiContractNo, hd.fiContractDate, 1, hd.fiContractFileLink, "", "");
+                    int iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 100, hd.fiContractAttachmentId, sMaHoSo, "File Hợp Đồng Hồ Sơ", hd.fiContractName, hd.fiContractNo, hd.fiContractDate, 1, hd.fiContractFileLink, "", "");
                 }
 
                 int iHDon = 0;
                 foreach (var hd in lstHoaDon)
                 {
                     iHDon++;
-                    int iHoaDon = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 101, hd.fiInvoiceAttachmentId, sMaHoSo, "File Hóa Đơn", hd.fiInvoiceName, hd.fiInvoiceNo, hd.fiInvoiceDate, 1, hd.fiInvoiceFileLink, "", "");
+                    int iHoaDon = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 101, hd.fiInvoiceAttachmentId, sMaHoSo, "File Hóa Đơn  Hồ Sơ", hd.fiInvoiceName, hd.fiInvoiceNo, hd.fiInvoiceDate, 1, hd.fiInvoiceFileLink, "", "");
                 }
 
                 int iPDG = 0;
                 foreach (var p in lstPhieuDongGoi)
                 {
                     iPDG++;
-                    int iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 102, p.fiPackingAttachmentId, sMaHoSo, "File Hợp Đồng", p.fiPackingName, p.fiPackingNo, p.fiPackingDate, 1, p.fiPackingFileLink, "", "");
+                    int iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 102, p.fiPackingAttachmentId, sMaHoSo, "File Phiếu Đóng Gói  Hồ Sơ", p.fiPackingName, p.fiPackingNo, p.fiPackingDate, 1, p.fiPackingFileLink, "", "");
                 }
 
                 int iF = 0;
                 foreach (var f in lstDinhKem)
                 {
                     iF++;
-                    int iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Khác", f.fiFileName, null, null, 1, f.fiFileLink, "", "");
+                    int iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Khác  Hồ Sơ", f.fiFileName, null, null, 1, f.fiFileLink, "", "");
                 }
             }
             catch (Exception ex)
