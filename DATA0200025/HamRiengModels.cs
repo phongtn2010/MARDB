@@ -34,7 +34,7 @@ namespace DATA0200025
             //}
             //else
             //{
-                vR = ConfigurationManager.AppSettings["ServerURL"];
+            vR = ConfigurationManager.AppSettings["ServerURL"];
             //}
 
             return vR;
@@ -60,8 +60,8 @@ namespace DATA0200025
             DataTable dt = GetTable_LoaiHinhThucKiemTra();
             var rowColl = dt.AsEnumerable();
             vR = (from r in rowColl
-                           where r.Field<int>("ID") == iMa
-                           select r.Field<string>("NAME")).First<string>();
+                  where r.Field<int>("ID") == iMa
+                  select r.Field<string>("NAME")).First<string>();
             dt.Dispose();
 
             return vR;
@@ -118,7 +118,11 @@ namespace DATA0200025
 
             return vR;
         }
-
+        public enum LoaiTapTinDinhKem
+        {
+            PhieuKetQuaPhanTich=1,
+            NhanSanPhamCuaCoSoSanXuat=2,
+        }
         public static DataTable GetTable_LoaiTapTinDinhKem()
         {
             DataTable table = new DataTable();

@@ -42,6 +42,8 @@ namespace APP0200025.Controllers
 
             return View(models);
         }
+        
+        
         [Authorize, ValidateInput(false), HttpPost]
         public ActionResult DongY(string iID_MaHangHoa)
         {
@@ -67,6 +69,53 @@ namespace APP0200025.Controllers
             ResultModels result = new ResultModels { success = true };
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize, ValidateInput(false), HttpPost]
+        public ActionResult DongYSubmit(string ParentID)
+        {
+            string s_HangHoa = Request.Form[ParentID + "_HangHoa"];
+            if(!string.IsNullOrEmpty(s_HangHoa))
+            {
+                string[] arr = s_HangHoa.Split(',');
+                for(int i=0;i<arr.Length;i++)
+                {
+                    int iID_MaHangHoa = Convert.ToInt32(arr[i]);
+                    HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
+                    int HanhDong = (int)clHanhDong.HanhDong.DongYXemXetThongBaoKetQua;
+                    if (hanghoa.iID_MaTrangThai == 34)
+                    {
+                        HanhDong = (int)clHanhDong.HanhDong.DongYYeuCauBoSungKetQua;
+                    }
+                    TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
+                    bang.MaNguoiDungSua = User.Identity.Name;
+                    bang.IPSua = Request.UserHostAddress;
+                    bang.DuLieuMoi = false;
+                    bang.GiaTriKhoa = iID_MaHangHoa;
+                    if (i == 0)
+                    {
+                        bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
+                        bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
+                        bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+                        bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hanghoa.iID_MaTrangThai);
+                    }
+                    else
+                    {
+                        bang.CmdParams.Parameters["@iID_MaHangHoa"].Value = iID_MaHangHoa;
+                        bang.CmdParams.Parameters["@sKetQuaXuLy"].Value = trangThaiTiepTheo.sKetQuaXuLy;
+                        bang.CmdParams.Parameters["@iID_KetQuaXuLy"].Value = trangThaiTiepTheo.iID_KetQuaXuLy;
+                        bang.CmdParams.Parameters["@iID_MaTrangThai"].Value = trangThaiTiepTheo.iID_MaTrangThai;
+                        bang.CmdParams.Parameters["@iID_MaTrangThaiTruoc"].Value = hanghoa.iID_MaTrangThai;
+                    }
+                    clHangHoa.CleanNguoiXem(Convert.ToString(iID_MaHangHoa));
+                    bang.Save();
+                   
+                    clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, "Đồng ý", "", hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+
+                }
+            }
+
+            return RedirectToAction("Index");
         }
         /// <summary>
         /// update data màn hình TiepNhanHoSo

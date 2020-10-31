@@ -30,8 +30,8 @@
 $(function () {
     $("body").on("click", ".openyeucaubosung", function () {
 
-        var iID_MaHoSo = $(this).data("id");
-        $("#BS_iID_MaHoSo").val(iID_MaHoSo);
+        var iID_MaHangHoa = $(this).data("id");
+        $("#BS_iID_MaHangHoa").val(iID_MaHangHoa);
     });
 });
 
@@ -39,9 +39,9 @@ $(function () {
 $(function () {
     $("body").on("click", ".opentuchoi", function () {
 
-        var iID_MaHoSo = $(this).data("id");
+        var iID_MaHangHoa = $(this).data("id");
         var sMaHoSo = $(this).data("mahoso");
-        $("#TC_iID_MaHoSo").val(iID_MaHoSo);
+        $("#TC_iID_MaHangHoa").val(iID_MaHangHoa);
         $("#mahoso").html(sMaHoSo);
     });
 });
@@ -77,11 +77,11 @@ $(function () {
 
 $(function () {
     $("body").on("click", "#btnThoat", function () {
-        var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
+        var iID_MaHangHoa = $("#Detail_iID_MaHangHoa").val();
         $.ajax({
             url: '/ChoTiepNhanKetQuaGuiBoSung/Thoat',
             type: 'POST',
-            data: { iID_MaHoSo: iID_MaHoSo},
+            data: { iID_MaHangHoa: iID_MaHangHoa},
             success: function (response) {
                 
                 if (response.success) {

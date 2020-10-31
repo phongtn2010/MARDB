@@ -54,8 +54,8 @@
     }
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
-    DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax);
-    double nums = clHoSo.GetCount(Model);
+    DataTable dt = clHoSo.GetDataTableHH(Model, CurrentPage, nMax);
+    double nums = clHoSo.GetCountHH(Model);
     int RC = dt.Rows.Count;
     int TotalPages = (int)Math.Ceiling(nums / nMax);
 
@@ -172,7 +172,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Chờ tiếp nhận kết quả</h3>
+                    <h3 class="box-title">Phòng TACN yêu cầu bổ sung kết quả</h3>
                     <ul class="pagination pagination-sm no-margin pull-right">
                         <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
                     </ul>
@@ -206,10 +206,10 @@
                                             r = dt.Rows[i];
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
-                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "PhongTACNYeuCauBoSungKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
-                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "PhongTACNYeuCauBoSungKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "PhongTACNYeuCauBoSungKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "PhongTACNYeuCauBoSungKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
+                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "PhongTACNYeuCauBoSungKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
+                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "PhongTACNYeuCauBoSungKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
+                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "PhongTACNYeuCauBoSungKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
+                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "PhongTACNYeuCauBoSungKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
 
 
 
@@ -220,7 +220,7 @@
                                                                     <td>@String.Format("{0:dd-MM-yyyy}", r["dNgayXacNhan"])</td>
                                                                     <td>@r["sSoGDK"]</td>
                                                                     <td>@r["sTenDoanhNghiep"]</td>
-                                                                    <td>@r["sTenTACN"]</td>
+                                                                    <td>@r["sTenHangHoa"]</td>
                                                                     <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
 
                                                                     <td>@r["sKetQuaXuLy"]</td>
@@ -238,7 +238,7 @@
                                                                     <td class="head-td-icon">
                                                                         @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                                         {
-                                                                            <a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
+                                                                            <a class="opentuchoi" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoi">
                                                                                 <span class='badge bg-red'><i class='fa fa-fw fa-remove'></i></span>
                                                                             </a>
                                                                         }
@@ -263,6 +263,5 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-@{Html.RenderPartial("~/Views/PhongTACNYeuCauBoSungKetQua/Partial_Model_YeuCauBoSung.cshtml");}
 @{Html.RenderPartial("~/Views/PhongTACNYeuCauBoSungKetQua/Partial_Model_TuChoi.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsPhongTACNYeuCauBoSungKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

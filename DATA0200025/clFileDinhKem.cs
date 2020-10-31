@@ -35,5 +35,16 @@ namespace DATA0200025
                 return results;
             }
         }
+
+        public static IEnumerable<FileDinhKemModels> GetFileByHangHoa(int iID_MaHangHoa,int iID_MaLoaiFile)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN25_DinhKem 
+                            WHERE iID_MaHangHoa=@iID_MaHangHoa AND iID_MaLoaiFile=@iID_MaLoaiFile";
+                var results = connect.Query<FileDinhKemModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa, iID_MaLoaiFile= iID_MaLoaiFile }).ToList();
+                return results;
+            }
+        }
     }
 }

@@ -636,7 +636,7 @@ namespace DATA0200025
                 cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
             }
             string SQL = string.Format(@"SELECT * FROM (SELECT hh.*,
-                                        hs.sTenDoanhNghiep,hs.dNgayTaoHoSo,hs.sSoTiepNhan,hs.dNgayTiepNhan,hs.sSoGDK
+                                        hs.sTenDoanhNghiep,hs.dNgayTaoHoSo,hs.sSoTiepNhan,hs.dNgayTiepNhan,hs.sSoGDK,hs.dNgayXacNhan
                                         FROM(select * from CNN25_HangHoa WHERE {0}) hh
                                         INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH ,DK);
             cmd.CommandText = SQL;
