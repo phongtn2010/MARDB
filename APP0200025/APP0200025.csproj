@@ -250,6 +250,7 @@
     <Compile Include="Controllers\Api\FileUploadApiController.cs" />
     <Compile Include="Controllers\Api\FileuploadController.cs" />
     <Compile Include="Controllers\BaoMat\DC_CongTyController.cs" />
+    <Compile Include="Controllers\ChoXemXetKetQuaController.cs" />
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="WebServices\MardService.asmx.cs">
       <DependentUpon>MardService.asmx</DependentUpon>
@@ -2813,6 +2814,8 @@
     <Content Include="ScriptsERP\jsBang_KeyTable.js" />
     <Content Include="ScriptsERP\jsBSC.js" />
     <Content Include="ScriptsERP\jsBTS.js" />
+    <Content Include="ScriptsERP\jsChoXemXetKetQua.js" />
+    <Content Include="ScriptsERP\jsChoXuLyKetQua.js" />
     <Content Include="ScriptsERP\jsDaCapThongBaoKetQua.js" />
     <Content Include="ScriptsERP\jsDaPheDuyetThongBaoKetQua.js" />
     <Content Include="ScriptsERP\jsDetail.js" />
@@ -3067,6 +3070,11 @@
     <Content Include="Views\ChoXuLyKetQua\Partial_FileHoaDon.cshtml" />
     <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\ChoXemXetKetQua\Index.cshtml" />
+    <Content Include="Views\ChoXemXetKetQua\Detail.cshtml" />
+    <Content Include="Views\ChoXemXetKetQua\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\ChoXemXetKetQua\Partial_HoSoXinCapXNCL.cshtml" />
+    <Content Include="Views\ChoXemXetKetQua\Partial_ThongBaoKetQua.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

@@ -63,7 +63,7 @@
 
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "LanhDaoPhong", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoXemXetKetQua", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
 
 }
 <!-- Main content -->
@@ -71,7 +71,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("Search", "LanhDaoPhong", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("Search", "ChoXemXetKetQua", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
@@ -220,9 +220,9 @@
                                             r = dt.Rows[i];
 
 
-                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
+                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
+                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
+                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
 
 
                                             <tr>
@@ -237,15 +237,15 @@
                                                 <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
                                                 <td align="center">@MvcHtmlString.Create(strView)</td>
                                                 <td align="center">
-                                                    <input type='checkbox' value='@r["iID_MaHoSo"].ToString()' onclick='CheckValue();' check-group='HO_SO' id='@(ParentID)_HO_SO' name='@(ParentID)_HO_SO' />
+                                                    <input type='checkbox' value='@r["iID_MaHangHoa"].ToString()' onclick='CheckValue();' check-group='HO_SO' id='@(ParentID)_HO_SO' name='@(ParentID)_HO_SO' />
                                                 </td>
                                                 <td align="center" title="Từ chối">
-                                                    <a class="opentuchoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
+                                                    <a class="opentuchoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoi">
                                                         <span class='badge bg-red'><i class='fa fa-times'></i></span>
                                                     </a>
                                                 </td>
                                                 <td align="center" title="Quá hạn">
-                                                    <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
+                                                    <a class="openthuhoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#ThuHoi">
                                                         <span class='badge bg-red'><i class='fa fa-exclamation'></i></span>
                                                     </a>
                                                 </td>
@@ -272,8 +272,8 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-@{Html.RenderPartial("~/Views/LanhDaoPhong/Partial_Model_TuChoi.cshtml");}
-<script src="@Url.Content("~/ScriptsERP/jsLanhDaoPhong.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+@{Html.RenderPartial("~/Views/ChoXemXetKetQua/Partial_Model_TuChoi.cshtml");}
+<script src="@Url.Content("~/ScriptsERP/jsChoXemXetKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
 <script type="text/javascript" language="javascript">
     function CheckAll(value) {
         $("input:checkbox[check-group='HO_SO']").each(function (i) {

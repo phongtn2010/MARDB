@@ -18,7 +18,8 @@ namespace DATA0200025
             PhongTACNYeuCauBoSungKetQua=16,
             DaPheDuyetThongBaoKetQua=17,
             DaCapThongBaoKetQua=18,
-            ChoXuLyKetQua=8
+            ChoXuLyKetQua=8,
+            ChoXemXetKetQua = 11
         }
     }
 }

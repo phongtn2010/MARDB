@@ -33,7 +33,7 @@
                             Mã hồ sơ
                         </div>
                         <div class="col-xs-6">
-                            
+                            BNNPTNT000012020
                         </div>
                     </div>
                 </div>
@@ -85,14 +85,15 @@
         </div>
         <div class="row">
             <div class="col-sm-12 text-center">
-                @if (Model.iID_MaTrangThai == 34)
+                @if (Model.iID_MaTrangThai == 40 || Model.iID_MaTrangThai == 36)
                 {
                     <button class="btn btn-danger" data-id="@Model.iID_MaHangHoa" id="btnThuHoi">Thu hồi </button>
+                    <a class="btn" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
                 }
                 else
                 {
-                    <a class="btn" style="background-color:#10de79;color:white;margin-right:5px;" href="@Url.Action("SoanThongBaoKetQua","ChoXuLyKetQua",new {iID_MaHangHoa=Model.iID_MaHangHoa })">Soạn thông báo kết quả kiểm tra</a>
-                    <a class="btn openyeucaubosung" style="background-color:#f1bc10;color:white;margin-right: 5px;" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
+                    <a class="btn" id="btnDongY" data-id="@Model.iID_MaHangHoa" style="background-color:#10de79;color:white;margin-right:5px;">Đồng ý</a>
+                    <a class="btn btn-danger opentuchoi" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoi" style="margin-right: 5px;" type="button">Từ chối</a>
                     <a class="btn" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
                 }
 

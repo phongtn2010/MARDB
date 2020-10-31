@@ -1,0 +1,87 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using DATA0200025.Models
+@using APP0200025.Models
+@using APP0200025.Controllers
+@model  HangHoaModels
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout_cms.cshtml";
+    string ParentID = "Detail";
+
+    HoSoModels hoSo = clHoSo.GetHoSoById(Model.iID_MaHangHoa);
+}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Giấy đăng ký kiểm tra xác nhận chất lượng</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Lịch sử xử lý hồ sơ</a></li>
+                    <li><a href="#tab_3" data-toggle="tab">Hồ sơ xin cấp XNCL</a></li>
+                    <li><a href="#tab_4" data-toggle="tab">Thông báo kết quả lô hàng</a></li>
+                    <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoSo);}
+                        <form action="@Url.Action("Duyet", "ChoXemXetKetQua", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+                            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"])
+                            @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa)
+
+                            <section class="content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box box-danger">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Dành cho cơ quan kiểm tra</h3>
+                                            </div><!-- /.box-header -->
+                                            <div class="box-body">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <div class="box-footer clearfix text-center">
+                                <div class="col-xs-4">
+                                 
+                                </div>
+                                <div class="col-xs-4">
+                                    <a class="btn btn-danger btn-block" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoi" type="button">Xuất word</a>
+                                </div>
+                                <div class="col-xs-4">
+                                   
+                                </div>
+                            </div>
+                        </form>
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        @{Html.RenderPartial("~/Views/Partial/Partial_HH_LichSuHoSo.cshtml", Model);}
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_3">
+                        @{Html.RenderPartial("~/Views/ChoXemXetKetQua/Partial_HoSoXinCapXNCL.cshtml", Model);}
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_4">
+                        @{Html.RenderPartial("~/Views/ChoXemXetKetQua/Partial_ThongBaoKetQua.cshtml", Model);}
+                    </div><!-- /.tab-pane -->
+
+                </div><!-- /.tab-content -->
+            </div><!-- nav-tabs-custom -->
+        </div><!-- /.col -->
+
+    </div>
+</section>
+@{Html.RenderPartial("~/Views/ChoXemXetKetQua/Partial_Model_TuChoi.cshtml");}
+<script src="@Url.Content("~/ScriptsERP/jsChoXemXetKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
