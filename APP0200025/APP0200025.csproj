@@ -3039,7 +3039,6 @@
     <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Detail.cshtml" />
     <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Index.cshtml" />
     <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Partial_Model_TuChoi.cshtml" />
-    <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Partial_Model_YeuCauBoSung.cshtml" />
     <Content Include="Views\DaPheDuyetThongBaoKetQua\Detail.cshtml" />
     <Content Include="Views\DaPheDuyetThongBaoKetQua\Index.cshtml" />
     <Content Include="Views\DaCapThongBaoKetQua\Detail.cshtml" />
@@ -3075,6 +3074,11 @@
     <Content Include="Views\ChoXemXetKetQua\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Partial_ThongBaoKetQua.cshtml" />
+    <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Partial_HoSoXinCapXNCL.cshtml" />
+    <Content Include="Views\LanhDaoCuc\Partial_Model_TuChoi_HH.cshtml" />
+    <Content Include="Views\LanhDaoCuc\DetailHH.cshtml" />
+    <Content Include="Views\LanhDaoCuc\Partial_HoSoXinCapXNCL.cshtml" />
+    <Content Include="Views\LanhDaoCuc\Partial_ThongBaoKetQua.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

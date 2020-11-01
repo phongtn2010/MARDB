@@ -54,8 +54,8 @@
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
 
-    DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax);
-    double nums = clHoSo.GetCount(Model);
+    DataTable dt = clHoSo.GetDataTableHH(Model, CurrentPage, nMax);
+    double nums = clHoSo.GetCountHH(Model);
     int RC = dt.Rows.Count;
     int TotalPages = (int)Math.Ceiling(nums / nMax);
 
@@ -63,7 +63,7 @@
 
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "LanhDaoPhong", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("HoSoChatLuongChoDuyet", "LanhDaoCuc", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
 
 }
 <!-- Main content -->
@@ -71,7 +71,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("Search", "LanhDaoPhong", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("SearchHH", "LanhDaoCuc", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title uppercase">@Lang["ChucNang_Item09"].ToString()</h3>
@@ -175,101 +175,103 @@
                         </ul>
                     </div>
                 </div><!-- /.box-header -->
-                <div class="box-body no-padding">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped dataTable" id="tblGrid">
-                            <thead>
-                                <tr>
-                                    <th class="sorting_asc" style="width: 3%;" align="center">STT</th>
-                                    <th class="sorting" style="" align="center">Mã hồ sơ</th>
-                                    <th class="sorting" align="center">Ngày đến</th>
-                                    <th class="sorting" align="center">Số tiếp nhận</th>
-                                    <th class="sorting" align="center">Ngày tiếp nhận</th>
-                                    <th class="sorting" style="text-align: center;" align="center">Doanh nghiệp</th>
-                                    <th class="sorting" style="text-align: center;" align="center">Tên TACN</th>
-                                    <th class="sorting" style="text-align: center;" align="center">Trạng thái hồ sơ</th>
-                                    <th class="sorting" style="text-align: center;" align="center">Kết quả xử lý</th>
-                                    <th style="width: 5%; text-align: center;">Xem</th>
-                                    <th style="width: 5%; text-align: center;">
-                                        <span>Đồng ý</span>
-                                        <input type="checkbox" name="chkHoSo" id="chkHoSo" onclick="CheckAll(this.checked);" />
-                                    </th>
-                                    <th style="width: 5%; text-align: center;">Từ chối </th>
-                                    <th style="width: 5%; text-align: center;">Thu hồi</th>
-                                    <th style="width: 5%; text-align: center;">Quá hạn</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    if (RC > 0)
-                                    {
-                                        for (int i = 0; i < RC; i++)
+                @using (Html.BeginForm("DongYSubmit", "LanhDaoCuc", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    <div class="box-body no-padding">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped dataTable" id="tblGrid">
+                                <thead>
+                                    <tr>
+                                        <th class="sorting_asc" style="width: 3%;" align="center">STT</th>
+                                        <th class="sorting" style="" align="center">Mã hồ sơ</th>
+                                        <th class="sorting" align="center">Ngày đến</th>
+                                        <th class="sorting" align="center">Số tiếp nhận</th>
+                                        <th class="sorting" align="center">Ngày tiếp nhận</th>
+                                        <th class="sorting" style="text-align: center;" align="center">Doanh nghiệp</th>
+                                        <th class="sorting" style="text-align: center;" align="center">Tên TACN</th>
+                                        <th class="sorting" style="text-align: center;" align="center">Trạng thái hồ sơ</th>
+                                        <th class="sorting" style="text-align: center;" align="center">Kết quả xử lý</th>
+                                        <th style="width: 5%; text-align: center;">Xem</th>
+                                        <th style="width: 5%; text-align: center;">
+                                            <span>Đồng ý</span>
+                                            <input type="checkbox" name="chkHoSo" id="chkHoSo" onclick="CheckAll(this.checked);" />
+                                        </th>
+                                        <th style="width: 5%; text-align: center;">Từ chối </th>
+                                        <th style="width: 5%; text-align: center;">Thu hồi</th>
+                                        <th style="width: 5%; text-align: center;">Quá hạn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        if (RC > 0)
                                         {
-                                            r = dt.Rows[i];
+                                            for (int i = 0; i < RC; i++)
+                                            {
+                                                r = dt.Rows[i];
 
 
-                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "LanhDaoPhong", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
+                                                String strView = MyHtmlHelper.ActionLink(Url.Action("DetailHH", "LanhDaoCuc", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "DetailHH", "");
+                                                String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "LanhDaoCuc", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
+                                                String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoiHH", "LanhDaoCuc", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
 
 
-                                            <tr>
-                                                <td style="text-align: center;">@r["rownum"]</td>
-                                                <td>@r["sMaHoSo"]</td>
-                                                <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")</td>
-                                                <td>@r["sSoTiepNhan"]</td>
-                                                <td>@r["dNgayTiepNhan"]</td>
-                                                <td>@r["sTenDoanhNghiep"]</td>
-                                                <td>@r["sTenTACN"]</td>
-                                                <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
-                                                <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
-                                                <td align="center">@MvcHtmlString.Create(strView)</td>
-                                                <td align="center">
-                                                    <input type='checkbox' value='@r["iID_MaHoSo"].ToString()' onclick='CheckValue();' check-group='HO_SO' id='@(ParentID)_HO_SO' name='@(ParentID)_HO_SO' />
-                                                </td>
-                                                <td align="center" title="Từ chối">
-                                                    <a class="opentuchoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
-                                                        <span class='badge bg-red'><i class='fa fa-times'></i></span>
-                                                    </a>
-                                                </td>
-                                                <td align="center" title="Thu hồi">
-                                                    <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
-                                                        <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
-                                                    </a>
-                                                </td>
-                                                <td align="center" title="Quá hạn">
-                                                    <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#QuaHan">
-                                                        <span class='badge bg-red'><i class='fa fa-exclamation'></i></span>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">@r["rownum"]</td>
+                                                    <td>@r["sMaHoSo"]</td>
+                                                    <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")</td>
+                                                    <td>@r["sSoTiepNhan"]</td>
+                                                    <td>@r["dNgayTiepNhan"]</td>
+                                                    <td>@r["sTenDoanhNghiep"]</td>
+                                                    <td>@r["sTenHangHoa"]</td>
+                                                    <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
+                                                    <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
+                                                    <td align="center">@MvcHtmlString.Create(strView)</td>
+                                                    <td align="center">
+                                                        <input type='checkbox' value='@r["iID_MaHangHoa"].ToString()' onclick='CheckValue();' check-group='HangHoa' id='@(ParentID)_HangHoa' name='@(ParentID)_HangHoa' />
+                                                    </td>
+                                                    <td align="center" title="Từ chối">
+                                                        <a class="opentuchoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoi">
+                                                            <span class='badge bg-red'><i class='fa fa-times'></i></span>
+                                                        </a>
+                                                    </td>
+                                                    <td align="center" title="Thu hồi">
+                                                        <a class="openthuhoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#ThuHoi">
+                                                            <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
+                                                        </a>
+                                                    </td>
+                                                    <td align="center" title="Quá hạn">
+                                                        <a class="openthuhoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#QuaHan">
+                                                            <span class='badge bg-red'><i class='fa fa-exclamation'></i></span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
                                         }
+                                        dt.Dispose();
                                     }
-                                    dt.Dispose();
-                                }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <div class="col-xs-3">
+                            <button class="btn btn-block btn-primary" type="submit">Đồng ý</button>
+                        </div>
+                        <div class="col-xs-9">
+                            @MvcHtmlString.Create(strPhanTrang)
+                        </div>
                     </div>
-                </div><!-- /.box-body -->
-                <div class="box-footer clearfix">
-                    <div class="col-xs-3">
-                        <button class="btn btn-block btn-primary" type="submit">Đồng ý</button>
-                    </div>
-                    <div class="col-xs-9">
-                        @MvcHtmlString.Create(strPhanTrang)
-                    </div>
+                  }
+            
                 </div>
-                @*<div class="box-footer clearfix">
-                    </div>*@
-            </div>
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-@{Html.RenderPartial("~/Views/LanhDaoCuc/Partial_Model_TuChoi.cshtml");}
+@{Html.RenderPartial("~/Views/LanhDaoCuc/Partial_Model_TuChoi_HH.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsLanhDaoCuc.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
 <script type="text/javascript" language="javascript">
     function CheckAll(value) {
-        $("input:checkbox[check-group='HO_SO']").each(function (i) {
+        $("input:checkbox[check-group='HangHoa']").each(function (i) {
             this.checked = value;
             CheckValue();
         });

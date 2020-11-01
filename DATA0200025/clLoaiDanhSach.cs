@@ -19,7 +19,8 @@ namespace DATA0200025
             DaPheDuyetThongBaoKetQua=17,
             DaCapThongBaoKetQua=18,
             ChoXuLyKetQua=8,
-            ChoXemXetKetQua = 11
+            ChoXemXetKetQua = 11,
+            HoSoChatLuongChoDuyet=13,
         }
     }
 }
