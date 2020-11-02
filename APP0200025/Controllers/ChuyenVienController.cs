@@ -310,6 +310,8 @@ namespace APP0200025.Controllers
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID)
         {
+            string iID_KetQuaXuLy = CString.SafeString(Request.Form[ParentID + "_iID_KetQuaXuLy"]);
+            string _iID_MaTrangThai = CString.SafeString(Request.Form[ParentID + "_iID_MaTrangThai"]);
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
@@ -321,6 +323,8 @@ namespace APP0200025.Controllers
             sHoSoModels models = new sHoSoModels
             {
                 LoaiDanhSach=7,
+                iID_MaTrangThai=Convert.ToInt32(_iID_MaTrangThai),
+                iID_KetQuaXuLy= Convert.ToInt32(iID_KetQuaXuLy),
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,

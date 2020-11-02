@@ -3079,6 +3079,8 @@
     <Content Include="Views\LanhDaoCuc\DetailHH.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_ThongBaoKetQua.cshtml" />
+    <Content Include="Views\DaCapThongBaoKetQua\Partial_HoSoXinCapXNCL.cshtml" />
+    <Content Include="Views\DaCapThongBaoKetQua\Partial_ThongBaoKetQua.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
