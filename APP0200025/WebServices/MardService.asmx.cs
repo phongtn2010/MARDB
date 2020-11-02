@@ -62,24 +62,29 @@ namespace APP0200025.WebServices
                             }
                             else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_02))
                             {
-                                //var result = _processingService.GuiSuaHoSo(envelop);
+                                var result = _processingService.GuiSuaHoSo(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);
                             }
                             else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_03))
                             {
-                                //var result = _processingService.GuiSuaHoSo(envelop);
+                                var result = _processingService.GuiSuaHoSoBPMC(envelop);
+                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_SUCCESS,
+                                    true, null);
+                            }
+                            else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_04))
+                            {
+                                var result = _processingService.GuiSuaHoSoPhongTACN(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);
                             }
                             else
                             {
-                                //var result = _processingService.GuiSuaTheoYeuCauBNN(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
-                                    WsConstants.MessageFunction.FUNC_SUCCESS,
-                                    true, null);
+                                    WsConstants.MessageFunction.FUNC_ERROR, false, null);
                             }
                             break;
                         case WsConstants.MessageType.TYPE_11:
