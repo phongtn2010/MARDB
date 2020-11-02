@@ -106,17 +106,24 @@
                                     {
                                         R = dt.Rows[i];
                                         int iSTT = i + 1;
+                                        String strInsert = MyHtmlHelper.ActionLink(Url.Action("KetQuaUpload", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], sTenHangHoa = R["sTenHangHoa"], iID_MaHangHoa = R["iID_MaHangHoa"], _sMaHoSo = _sMaHoSo , _sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-pencil'></i></span>", "Edit", "");
+                                        String strView = MyHtmlHelper.ActionLink(Url.Action("XemKetQuaUpload", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], sTenHangHoa = R["sTenHangHoa"], iID_MaHangHoa = R["iID_MaHangHoa"], _sMaHoSo = _sMaHoSo, _sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Edit", "");
                                         //String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "Tinh", new { iID_MaTinh = R["iID_MaTinh"] }), "<span class=\"badge bg-blue\"><i class=\"fa fa-pencil\"></i></span>", "Edit", "");
                                         //String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "Tinh", new { iID_MaTinh = R["iID_MaTinh"] }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
                                         <tr>
                                             <td style="text-align: center;">@iSTT.ToString()</td>
-                                            <td>@r["sTenTACN"]</td>
+                                            <td>@R["sTenHangHoa"]</td>
                                             <td>@R["rSoLuong"]</td>
                                             <td>@R["rKhoiLuong"]</td>
                                             <td style="text-align: center;">1</td>
-                                            <td style='text-align:center;'><a data-toggle='modal' href='#UploadKetQua'><span class='badge bg-blue'> <i class='fa fa-pencil'></i></span></a></td>
+                                            <td style='text-align:center;'>
+                                                @*<a data-toggle='modal' href='#UploadKetQua'><span class='badge bg-blue'> <i class='fa fa-pencil'></i></span></a>*@
+                                                @MvcHtmlString.Create(strInsert)
+                                            </td>
                                             <td style='text-align:center;'><span class='badge bg-blue'><i class='fa fa-fw fa-paper-plane-o'></i></span></td>
-                                            <td style='text-align:center;'><span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span></td>
+                                            <td style='text-align:center;'>
+                                                @MvcHtmlString.Create(strView)
+                                            </td>
                                         </tr>
                                     }
                                 }
