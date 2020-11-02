@@ -138,12 +138,10 @@
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\Enums\HoSoStatus.cs" />
     <Compile Include="Models\FileDinhKemModels.cs" />
-    <Compile Include="Models\GiayChungNhanHopQuyModels.cs" />
     <Compile Include="Models\HangHoaModels.cs" />
     <Compile Include="Models\HanhDongModels.cs" />
     <Compile Include="Models\DoiTuongModels.cs" />
     <Compile Include="Models\HoSoModels.cs" />
-    <Compile Include="Models\HoSoXNCLModels.cs" />
     <Compile Include="Models\ResultModels.cs" />
     <Compile Include="Models\TrangThaiModels.cs" />
     <Compile Include="MoKyCacBang.cs" />

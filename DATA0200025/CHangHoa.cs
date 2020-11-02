@@ -2,6 +2,7 @@
 using DomainModel.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace DATA0200025
             string sMaHoSo, string sTenHangHoa, string sMaSoCongNhan, string sHangSanXuat, string sMaQuocGia, string sTenQuocGia, string sBanChat, string sDonViTinh,
             string sThanhPhan, string sMauSac, string sSoHieu, string sQuyChuan,
             decimal rGiaVN, decimal rGiaUSD, string sHashCode,
-            String sUserName, String sIP)
+            String sUserName, String sIP, long iID_MaHangHoa_Sua = 0)
         {
             long vR = 0;
 
@@ -56,7 +57,18 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@sDonViTinh", sDonViTinh);
                 bang.CmdParams.Parameters.AddWithValue("@sHashCode", sHashCode);
 
-                iID_MaHangHoa = Convert.ToInt64(bang.Save());
+                
+                if (iID_MaHangHoa_Sua > 0)
+                {
+                    bang.GiaTriKhoa = iID_MaHangHoa_Sua;
+                    bang.Save();
+
+                    iID_MaHangHoa = iID_MaHangHoa_Sua;
+                }
+                else
+                {
+                    iID_MaHangHoa = Convert.ToInt64(bang.Save());
+                }
 
                 vR = iID_MaHangHoa;
             }
@@ -64,6 +76,20 @@ namespace DATA0200025
             {
                 vR = -1;
             }
+
+            return vR;
+        }
+
+        public static DataTable Get_HangHoa_Detail_Nsw(long iID_MaHoSo, long iID_MaHangHoaNSW)
+        {
+            DataTable vR = null;
+
+            string SQL = "SELECT TOP 1 * FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo AND iID_MaHangHoaNSW=@iID_MaHangHoaNSW";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoaNSW", iID_MaHangHoaNSW);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
 
             return vR;
         }
@@ -87,6 +113,29 @@ namespace DATA0200025
             }
 
             return vR;
+        }
+
+        public static void Delete_HangHoa_ThongTin(long iID_MaHangHoa)
+        {
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("DELETE FROM CNN25_HangHoa_ChatLuong WHERE iID_MaHangHoa=@iID_MaHangHoa");
+                cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                Connection.UpdateDatabase(cmd);
+
+                cmd = new SqlCommand("DELETE FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa");
+                cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                Connection.UpdateDatabase(cmd);
+
+                cmd = new SqlCommand("DELETE FROM CNN25_HangHoa_SoLuong WHERE iID_MaHangHoa=@iID_MaHangHoa");
+                cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                Connection.UpdateDatabase(cmd);
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         public static int ThemhangHoaChatLuong(long iID_MaHangHoa, int iID_MaHinhThuc, string sChiTieu, string sHinhThuc, string sHamLuong, string sMaDonViTinh, string sDonViTinh, string sGhiChu, bool bChon,

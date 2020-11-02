@@ -54,8 +54,8 @@
     }
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
-    DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax);
-    double nums = clHoSo.GetCount(Model);
+    DataTable dt = clHoSo.GetDataTableHH(Model, CurrentPage, nMax);
+    double nums = clHoSo.GetCountHH(Model);
     int RC = dt.Rows.Count;
     int TotalPages = (int)Math.Ceiling(nums / nMax);
 
@@ -83,77 +83,77 @@
                             <button class="btn btn-box-tool" type="button" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div><!-- /.box-header -->
-            <div class="box-body">
-                <div class="form-group">
-                    <div class="col-xs-1 text-align-right"><label class="control-label">Mã hồ sơ</label></div>
-                    <div class="col-xs-5">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaHoSo", "", "placeholder=\"Mã hồ sơ\" type=\"text\" class=\"form-control\""))
-                    </div>
-                    <div class="col-xs-1 text-align-right"><label class="control-label">Tên TACN</label></div>
-                    <div class="col-xs-5">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenTACN, "sTenTACN", "", "placeholder=\"Tên thức ăn chăn nuôi\" type=\"text\" class=\"form-control\""))
-                    </div>
-
-                </div>
-                <div class="form-group">
-
-                    <div class="col-xs-1 text-align-right"><label class="control-label">Trạng thái hồ sơ</label></div>
-                    <div class="col-xs-5">
-                        @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, Convert.ToString(Model.iID_MaTrangThai), "iID_MaTrangThai", "", "type=\"text\" class=\"form-control\""))
-                    </div>
-
-                    <div class="col-xs-1 text-align-right">
-                        <label class="control-label">Tên doanh nghiệp</label>
-                    </div>
-                    <div class="col-xs-5">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"Tên doanh nghiệp\" type=\"text\" class=\"form-control\""))
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-1 text-align-right">
-                        <label class="control-label">Số tiếp nhận</label>
-                    </div>
-                    <div class="col-xs-5">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoTiepNhan, "sSoTiepNhan", "", "placeholder=\"Số tiếp nhận\" type=\"text\" class=\"form-control\""))
-                    </div>
-                    <div class="col-xs-1 text-align-right"><label class="control-label">Ngày tiếp nhận</label></div>
-                    <div class="col-xs-5">
-                        <div class="row">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Mã hồ sơ</label></div>
                             <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayTiepNhan, "TuNgayTiepNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaHoSo", "", "placeholder=\"Mã hồ sơ\" type=\"text\" class=\"form-control\""))
                             </div>
-                            <div class="col-xs-2 text-align-center"><b>-</b></div>
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Tên TACN</label></div>
                             <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayTiepNhan, "DenNgayTiepNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenTACN, "sTenTACN", "", "placeholder=\"Tên thức ăn chăn nuôi\" type=\"text\" class=\"form-control\""))
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Trạng thái hồ sơ</label></div>
+                            <div class="col-xs-5">
+                                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, Convert.ToString(Model.iID_MaTrangThai), "iID_MaTrangThai", "", "type=\"text\" class=\"form-control\""))
+                            </div>
+
+                            <div class="col-xs-1 text-align-right">
+                                <label class="control-label">Tên doanh nghiệp</label>
+                            </div>
+                            <div class="col-xs-5">
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"Tên doanh nghiệp\" type=\"text\" class=\"form-control\""))
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-2 text-align-right"></div>
-                    <div class="col-xs-4"></div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-1 text-align-right">
-                        <label class="control-label">Số tiếp nhận</label>
-                    </div>
-                    <div class="col-xs-5">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoGDK, "sSoGDK", "", "placeholder=\"Số GĐK\" type=\"text\" class=\"form-control\""))
-                    </div>
-                    <div class="col-xs-1 text-align-right"><label class="control-label">Ngày xác nhận</label></div>
-                    <div class="col-xs-5">
-                        <div class="row">
-                            <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayXacNhan, "TuNgayXacNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                        <div class="form-group">
+                            <div class="col-xs-1 text-align-right">
+                                <label class="control-label">Số tiếp nhận</label>
                             </div>
-                            <div class="col-xs-2 text-align-center"><b>-</b></div>
                             <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayXacNhan, "DenNgayXacNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoTiepNhan, "sSoTiepNhan", "", "placeholder=\"Số tiếp nhận\" type=\"text\" class=\"form-control\""))
                             </div>
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Ngày tiếp nhận</label></div>
+                            <div class="col-xs-5">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayTiepNhan, "TuNgayTiepNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                    </div>
+                                    <div class="col-xs-2 text-align-center"><b>-</b></div>
+                                    <div class="col-xs-5">
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayTiepNhan, "DenNgayTiepNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 text-align-right"></div>
+                            <div class="col-xs-4"></div>
                         </div>
-                    </div>
-                    <div class="col-xs-2 text-align-right"></div>
-                    <div class="col-xs-4"></div>
-                </div>
-            </div><!-- /.box-body -->
+                        <div class="form-group">
+                            <div class="col-xs-1 text-align-right">
+                                <label class="control-label">Số tiếp nhận</label>
+                            </div>
+                            <div class="col-xs-5">
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoGDK, "sSoGDK", "", "placeholder=\"Số GĐK\" type=\"text\" class=\"form-control\""))
+                            </div>
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Ngày xác nhận</label></div>
+                            <div class="col-xs-5">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayXacNhan, "TuNgayXacNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                    </div>
+                                    <div class="col-xs-2 text-align-center"><b>-</b></div>
+                                    <div class="col-xs-5">
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayXacNhan, "DenNgayXacNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 text-align-right"></div>
+                            <div class="col-xs-4"></div>
+                        </div>
+                    </div><!-- /.box-body -->
                     <div class="box-footer clearfix">
                         <div class="col-xs-6">
                             <button class="btn btn-block btn-primary" type="submit">Tìm kiếm</button>
@@ -205,42 +205,42 @@
                                             r = dt.Rows[i];
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
-                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "DaCapThongBaoKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
-                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "DaCapThongBaoKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "DaCapThongBaoKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "DaCapThongBaoKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
+                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "DaCapThongBaoKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
+                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "DaCapThongBaoKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
+                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "DaCapThongBaoKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
+                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "DaCapThongBaoKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
 
 
 
-                                                                <tr>
-                                                                    <td style="text-align: center;">@r["rownum"]</td>
-                                                                    <td>@r["sMaHoSo"]</td>
-                                                                    <td>@String.Format("{0:dd-MM-yyyy}", r["dNgayTaoHoSo"])</td>
-                                                                    <td>@String.Format("{0:dd-MM-yyyy}", r["dNgayXacNhan"])</td>
-                                                                    <td>@r["sSoGDK"]</td>
-                                                                    <td>@r["sTenDoanhNghiep"]</td>
-                                                                    <td>@r["sTenTACN"]</td>
-                                                                    <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
+                                            <tr>
+                                                <td style="text-align: center;">@r["rownum"]</td>
+                                                <td>@r["sMaHoSo"]</td>
+                                                <td>@String.Format("{0:dd-MM-yyyy}", r["dNgayTaoHoSo"])</td>
+                                                <td>@String.Format("{0:dd-MM-yyyy}", r["dNgayXacNhan"])</td>
+                                                <td>@r["sSoGDK"]</td>
+                                                <td>@r["sTenDoanhNghiep"]</td>
+                                                <td>@r["sTenHangHoa"]</td>
+                                                <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
 
-                                                                    <td>@r["sKetQuaXuLy"]</td>
-                                                                    <td class="head-td-icon">
-                                                                        @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
-                                                                        {
-                                                                            @MvcHtmlString.Create(strView)
-                                                                        }
-                                                                    </td>
-                                                                    <td style="width: 10px;" title="người xem">@r["sTenNguoiXem"]</td>
-                                                                    <td class="head-td-icon">
-                                                                        @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
-                                                                        {
-                                                                            <a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
-                                                                            <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
-                                                                            </a>
-                                                                        }
+                                                <td>@r["sKetQuaXuLy"]</td>
+                                                <td class="head-td-icon">
+                                                    @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
+                                                    {
+                                                        @MvcHtmlString.Create(strView)
+                                                    }
+                                                </td>
+                                                <td style="width: 10px;" title="người xem">@r["sTenNguoiXem"]</td>
+                                                <td class="head-td-icon">
+                                                    @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
+                                                    {
+                                                        <a class="openyeucaubosung" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#YeuCauBoSung">
+                                                            <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
+                                                        </a>
+                                                    }
 
-                                                                    </td>
+                                                </td>
 
-                                                                </tr>
+                                            </tr>
                                         }
                                     }
                                     dt.Dispose();
@@ -258,6 +258,6 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-@*@{Html.RenderPartial("~/Views/DaCapThongBaoKetQua/Partial_Model_YeuCauBoSung.cshtml");}
-@{Html.RenderPartial("~/Views/DaCapThongBaoKetQua/Partial_Model_TuChoi.cshtml");}*@
+@{Html.RenderPartial("~/Views/DaCapThongBaoKetQua/Partial_Model_YeuCauBoSung.cshtml");}
+@*@{Html.RenderPartial("~/Views/DaCapThongBaoKetQua/Partial_Model_TuChoi.cshtml");}*@
 <script src="@Url.Content("~/ScriptsERP/jsDaCapThongBaoKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
