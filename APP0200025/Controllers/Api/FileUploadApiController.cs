@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DATA0200025;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -44,7 +45,11 @@ namespace APP0200025.Controllers.Api
                             string fileRelativePath = "~/Files/" + newFileName;
                             Uri fileFullPath = new Uri(baseuri, VirtualPathUtility.ToAbsolute(fileRelativePath));
 
-                            savedFilePath.Add(new ResUpLoadFile { ItemId=i, UrlFile = fileFullPath.ToString() });
+                            //Them File vao Bang DinhKem
+                            long iID_MaFile = CDinhKem.ThemDinhKem(0, 0, 0, "", "", "", fileName, "", null, 1, fileFullPath.ToString(), "doanhnghiep", "");
+
+                            //Gui lai thong tin ID và duong dan cho nsw
+                            savedFilePath.Add(new ResUpLoadFile { ItemId= iID_MaFile, UrlFile = fileFullPath.ToString() });
 
                             i++;
                         }
@@ -58,7 +63,7 @@ namespace APP0200025.Controllers.Api
 
     public class ResUpLoadFile
     {
-        public int ItemId { get; set; }
+        public long ItemId { get; set; }
         public string UrlFile { get; set; }
     }
 }

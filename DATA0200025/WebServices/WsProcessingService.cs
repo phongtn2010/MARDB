@@ -98,28 +98,28 @@ namespace DATA0200025.WebServices
                 foreach (var hd in lstHopDong)
                 {
                     iHD++;
-                    int iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 100, hd.fiContractAttachmentId, sMaHoSo, "File Hợp Đồng Hồ Sơ", hd.fiContractName, hd.fiContractNo, hd.fiContractDate, 1, hd.fiContractFileLink, sUserName, sIP);
+                    long iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 100, hd.fiContractAttachmentId, sMaHoSo, "File Hợp Đồng Hồ Sơ", hd.fiContractName, hd.fiContractNo, hd.fiContractDate, 1, hd.fiContractFileLink, sUserName, sIP, Convert.ToInt64(hd.fiContractAttachmentId));
                 }
 
                 int iHDon = 0;
                 foreach (var hd in lstHoaDon)
                 {
                     iHDon++;
-                    int iHoaDon = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 101, hd.fiInvoiceAttachmentId, sMaHoSo, "File Hóa Đơn  Hồ Sơ", hd.fiInvoiceName, hd.fiInvoiceNo, hd.fiInvoiceDate, 1, hd.fiInvoiceFileLink, sUserName, sIP);
+                    long iHoaDon = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 101, hd.fiInvoiceAttachmentId, sMaHoSo, "File Hóa Đơn  Hồ Sơ", hd.fiInvoiceName, hd.fiInvoiceNo, hd.fiInvoiceDate, 1, hd.fiInvoiceFileLink, sUserName, sIP, Convert.ToInt64(hd.fiInvoiceAttachmentId));
                 }
 
                 int iPDG = 0;
                 foreach (var p in lstPhieuDongGoi)
                 {
                     iPDG++;
-                    int iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 102, p.fiPackingAttachmentId, sMaHoSo, "File Phiếu Đóng Gói  Hồ Sơ", p.fiPackingName, p.fiPackingNo, p.fiPackingDate, 1, p.fiPackingFileLink, sUserName, sIP);
+                    long iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 102, p.fiPackingAttachmentId, sMaHoSo, "File Phiếu Đóng Gói  Hồ Sơ", p.fiPackingName, p.fiPackingNo, p.fiPackingDate, 1, p.fiPackingFileLink, sUserName, sIP, Convert.ToInt64(p.fiPackingAttachmentId));
                 }
 
                 int iF = 0;
                 foreach (var f in lstDinhKem)
                 {
                     iF++;
-                    int iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Khác  Hồ Sơ", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP);
+                    long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Khác  Hồ Sơ", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId));
                 }
 
                 clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhnghiep, 1, 1, "", "", 0, "Doanh nghiệp đăng ký từ NSW chuyển sang", 1);
@@ -239,7 +239,7 @@ namespace DATA0200025.WebServices
                 foreach (var f in lstDinhKem)
                 {
                     iF++;
-                    int iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP);
+                    long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP);
                 }
 
                 //Update Trang Thai Hang Hoa

@@ -9,10 +9,10 @@ namespace DATA0200025
 {
     public class CDinhKem
     {
-        public static int ThemDinhKem(long iID_MaHoSo, long iID_MaHangHoa, int iID_MaLoaiFile, string iID_MaTapTin, string sMaHoSo, string sTenLoaiFile, string sTenFile, string sHopDong, DateTime? dNgayHopDong, int iHoatDong, string sDuongDan,
-            String sUserName, String sIP)
+        public static long ThemDinhKem(long iID_MaHoSo, long iID_MaHangHoa, int iID_MaLoaiFile, string iID_MaTapTin, string sMaHoSo, string sTenLoaiFile, string sTenFile, string sHopDong, DateTime? dNgayHopDong, int iHoatDong, string sDuongDan,
+            String sUserName, String sIP, long iID_MaFile_Sua = 0)
         {
-            int vR = 0;
+            long vR = 0;
 
             try
             {
@@ -35,9 +35,17 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@iHoatDong", iHoatDong);
                 bang.CmdParams.Parameters.AddWithValue("@sDuongDan", sDuongDan);
 
-                bang.Save();
+                if(iID_MaFile_Sua > 0)
+                {
+                    bang.GiaTriKhoa = iID_MaFile_Sua;
+                    bang.Save();
 
-                vR = 1;
+                    vR = iID_MaFile_Sua;
+                }
+                else
+                {
+                    vR = Convert.ToInt64(bang.Save());
+                }
             }
             catch (Exception ex)
             {
