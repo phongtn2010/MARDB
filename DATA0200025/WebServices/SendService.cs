@@ -13,6 +13,13 @@ namespace DATA0200025.WebServices
 {
     public class SendService
     {
+        /// <summary>
+        /// XML(12,06),XML(12,07),XML(12,08),XML(12,09),XML(12,10)
+        /// </summary>
+        /// <param name="nswFileCode"></param>
+        /// <param name="objData"></param>
+        /// <param name="sMessageFunction"></param>
+        /// <returns></returns>
         public string KetQuaXuLy(string nswFileCode, KetQuaXuLy objData, string sMessageFunction)
         {
             String sMessFun = "";

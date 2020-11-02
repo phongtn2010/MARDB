@@ -7,6 +7,8 @@ using DomainModel.Abstract;
 using DATA0200025;
 using DATA0200025.Models;
 using DATA0200025.SearchModels;
+using DATA0200025.WebServices.XmlType.Request;
+using DATA0200025.WebServices;
 
 namespace APP0200025.Controllers
 {
@@ -15,6 +17,7 @@ namespace APP0200025.Controllers
         Bang bang = new Bang("CNN25_HoSo");
 
         private string ViewPath = "~/Views/ChoTiepNhanHoSo/";
+        private SendService _sendService = new SendService();
         // GET: ChoTiepNhanHoSo
         public ActionResult Index(sHoSoModels models)
         {
@@ -66,6 +69,18 @@ namespace APP0200025.Controllers
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
            
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua,(int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+       
+
+            //KetQuaXuLy resultConfirm = new KetQuaXuLy();
+            //resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+            //resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+            //resultConfirm.AttachmentId = "01";
+            //resultConfirm.FileName = "";
+            //resultConfirm.FileLink = "";
+            //resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+            //resultConfirm.ResponseDate = DateTime.Now;
+            //string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
+
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
@@ -129,6 +144,15 @@ namespace APP0200025.Controllers
             }
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
             int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua,(int)clHanhDong.HanhDong.YeuCauBoSungHoSo,hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+            //KetQuaXuLy resultConfirm = new KetQuaXuLy();
+            //resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+            //resultConfirm.Reason = "Yêu cầu bổ sung";
+            //resultConfirm.AttachmentId = "01";
+            //resultConfirm.FileName = "";
+            //resultConfirm.FileLink = "";
+            //resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+            //resultConfirm.ResponseDate = DateTime.Now;
+            //string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "07");
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
@@ -171,12 +195,13 @@ namespace APP0200025.Controllers
                 ViewData["iID_MaHoSo"] = CString.SafeString(iID_MaHoSo);
                 return View();
             }
-            string sFileTemp = "";
+            string sFileTemp = "",sFileName = "";
             for (int i = 0; i < files.Count; i++)
             {
                 HttpPostedFileBase postedFile = files[i];
                 if (postedFile != null && postedFile.ContentLength > 0)
                 {
+                    sFileName = postedFile.FileName;
                     string guid = Guid.NewGuid().ToString();
                     string sPath = "/Uploads/File";
                     DateTime TG = DateTime.Now;
@@ -191,6 +216,16 @@ namespace APP0200025.Controllers
             }
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
             int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+            //KetQuaXuLy resultConfirm = new KetQuaXuLy();
+            //resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+            //resultConfirm.Reason = "Từ chối hồ sơ";
+            //resultConfirm.AttachmentId = "01";
+            //resultConfirm.FileName = "";
+            //resultConfirm.FileLink = "";
+            //resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+            //resultConfirm.ResponseDate = DateTime.Now;
+            //string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "08");
+
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
@@ -199,6 +234,8 @@ namespace APP0200025.Controllers
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
             bang.Save();
+
+            
             clHoSo.CleanNguoiXem(iID_MaHoSo);
             clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, iTrangThaiTiepTheo);
             ResultModels result = new ResultModels { success = true };

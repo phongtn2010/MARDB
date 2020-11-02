@@ -22,7 +22,7 @@ namespace DATA0200025.SearchModels
         public string DenNgayDen { get; set; }
         public string TuNgayTiepNhan { get; set; }
         public string DenNgayTiepNhan { get; set; }
-
+        
         public string TuNgayXacNhan { get; set; }
         public string DenNgayXacNhan { get; set; }
         public int Page { get; set; }
@@ -30,6 +30,7 @@ namespace DATA0200025.SearchModels
         public string dNgayTiepNhan { get; set; }
         public string FromDateTiepNhan { get; set; }
         public string ToDateTiepNhan { get; set; }
+        public int iID_KetQuaXuLy { get; set; }
 
     }
 }
