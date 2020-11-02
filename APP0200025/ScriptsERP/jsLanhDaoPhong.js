@@ -75,6 +75,47 @@ $(function () {
     });
 });
 
+
+$(function () {
+    $("body").on("click", ".openthuhoi", function () {
+
+        var iID_MaHoSo = $(this).data("id");
+        var sMaHoSo = $(this).data("mahoso");
+        $("#TH_iID_MaHoSo").val(iID_MaHoSo);
+        $("#mahoso").html(sMaHoSo);
+    });
+});
+
+$(function () {
+    $("body").on("click", "#btnThuHoi", function () {
+        var formData = new FormData($("#formThuHoi")[0]);
+        //var OrderService = $("#OrderService").val();
+        $.ajax({
+            url: '/LanhDaoPhong/ThuHoiHoSoSubmit',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                $('#TuChoi').modal('toggle');
+                if (response.success) {
+                    location.href = response.value;
+                }
+            },
+            error: function (response) {
+
+                $('#responsive').modal('toggle');
+            }
+
+        });
+        return false;
+    });
+});
+
+
 $(function () {
     $("body").on("click", "#btnThoat", function () {
         var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();

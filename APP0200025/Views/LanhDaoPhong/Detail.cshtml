@@ -42,7 +42,7 @@
                                             <div class="box-body">
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -51,12 +51,21 @@
                                 </div>
                             </section>
                             <div class="box-footer clearfix text-center">
-                                <div class="col-xs-4">
-                                    <button class="btn btn-block btn-primary" type="submit">Đồng ý</button>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>
-                                </div>
+                                @if (Model.iID_MaTrangThai == 10 || Model.iID_MaTrangThai == 11 || Model.iID_MaTrangThai == 12 || Model.iID_MaTrangThai == 20 || Model.iID_MaTrangThai == 25)
+                                {
+                                    <div class="col-xs-4">
+                                        <button class="btn btn-block btn-primary" type="submit">Đồng ý</button>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-xs-4">
+                                        <a class="btn btn-danger btn-block openthuhoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#ThuHoi" type="button">Thu hồi</a>
+                                    </div>
+                                }
                                 <div class="col-xs-4">
                                     <a class="btn btn-block" style="background-color:#023658; color:white;" id="btnThoat" onclick="javascript:history.go(-1)">Quay lại</a>
                                 </div>
@@ -73,5 +82,6 @@
 
     </div>
 </section>
+@{Html.RenderPartial("~/Views/LanhDaoPhong/Partial_Modal_ThuHoi.cshtml");}
 @{Html.RenderPartial("~/Views/LanhDaoPhong/Partial_Model_TuChoi.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsLanhDaoPhong.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
