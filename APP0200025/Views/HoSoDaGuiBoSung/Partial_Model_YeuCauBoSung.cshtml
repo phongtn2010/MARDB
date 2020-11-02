@@ -32,17 +32,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Yêu cầu bổ sung</h4>
-                        <h5 id="scodeGD"></h5>*@
-                    <div class="box-header">
-                        <h3 class="box-title upperCase">Yêu cầu bổ sung hồ sơ</h3>
-                        <div class="box-tools">
-                            <ul class="pagination pagination-sm no-margin pull-right">
-                                <li><a href="#" data-dismiss="modal"><i class="fa fa-reply-all"></i> Quay lại</a></li>
-                            </ul>
-                        </div>
-                    </div><!-- /.box-header -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-uppercase" id="myModalLabel">Yêu cầu bổ sung hồ sơ</h4>
                 </div>
                 <div class="modal-body">
                     <div class="scroller" style="height:200px;" data-always-visible="1" data-rail-visible1="1">
@@ -69,18 +60,16 @@
                                     </div>
                                 </div>
                                 @*<div> &nbsp;</div>
-                                    <div class="col-xs-8 text-Align-Center">
+                        <div class="col-xs-8 text-Align-Center">
 
-                                    </div>*@
+                        </div>*@
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="col-xs-8">
-                        <button class="btn btn-primary btn-sm" id="btnBoSungYeuCau" type="button">Gửi doanh nghiệp</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button class="btn btn-danger btn-sm" data-dismiss="modal" type="button">Thoát</button>
-                    </div>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Thoát</button>
+                    <button type="button" class="btn btn-primary" id="btnBoSungYeuCau">Gửi doanh nghiệp</button>
                 </div>
             </div>
         </div>
