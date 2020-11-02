@@ -1,4 +1,5 @@
-﻿using DATA0200025.WebServices;
+﻿using DATA0200025;
+using DATA0200025.WebServices;
 using DATA0200025.WebServices.XmlType.Request;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace APP0200025.Controllers
         public ActionResult Index()
         {
             String sTen = "tfsdfdsfsd";
+
+            //long iID_MaFile = CDinhKem.ThemDinhKem(0, 0, 0, "", "", "", "PHONG", "", null, 1, "http://mard.adp-p.com/Files/16c8858e-0f58-4c2c-939f-f7ac40d8cf2f.png", "doanhnghiep", "");
 
             KetQuaXuLy resultConfirm = new KetQuaXuLy();
             resultConfirm.NSWFileCode = "BNNPTNT25200010140";
