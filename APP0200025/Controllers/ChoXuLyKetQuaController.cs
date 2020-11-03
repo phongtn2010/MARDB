@@ -144,6 +144,8 @@ namespace APP0200025.Controllers
             }
             HangHoaModels hangHoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
+          
+
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
             bang.TruyenGiaTri(ParentID, Request.Form);
