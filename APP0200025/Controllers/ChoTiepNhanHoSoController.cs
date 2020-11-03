@@ -95,6 +95,41 @@ namespace APP0200025.Controllers
             clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
             return RedirectToAction("Index");
         }
+        [Authorize, ValidateInput(false), HttpPost]
+        public ActionResult TiepNhanHoSoSubmit(String iID_MaHoSo)
+        {
+          //  string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+
+            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+
+
+            //KetQuaXuLy resultConfirm = new KetQuaXuLy();
+            //resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+            //resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+            //resultConfirm.AttachmentId = "01";
+            //resultConfirm.FileName = "";
+            //resultConfirm.FileLink = "";
+            //resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+            //resultConfirm.ResponseDate = DateTime.Now;
+            //string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
+
+            bang.MaNguoiDungSua = User.Identity.Name;
+            bang.IPSua = Request.UserHostAddress;
+            bang.GiaTriKhoa = iID_MaHoSo;
+            bang.DuLieuMoi = false;
+            bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
+            bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
+            bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
+            bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
+            bang.Save();
+            clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            ResultModels result = new ResultModels { success = true };
+            result.value = Url.Action("Index");
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         /// <summary>
         /// update data màn hình YeuCauBoXung
         /// </summary>

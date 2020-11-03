@@ -75,6 +75,25 @@ $(function () {
     });
 });
 
+
+
+$(function () {
+    $("body").on("click", ".btnTiepNhan", function () {
+        var iID_MaHoSo = $(this).data("id");
+        $.ajax({
+            url: '/ChoTiepNhanHoSo/TiepNhanHoSoSubmit',
+            type: 'POST',
+            data: { iID_MaHoSo: iID_MaHoSo },
+            success: function (response) {
+
+                if (response.success) {
+                    location.reload();
+                }
+            }
+        });
+    });
+});
+
 $(function () {
     $("body").on("click", "#btnThoat", function () {
         var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();

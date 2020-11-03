@@ -109,26 +109,26 @@ namespace DATA0200025
             return dt;
         }
 
-        //public static GiayChungNhanHopQuyModels GetChungNhanHopQuy(int iID_MaHangHoa)
-        //{
-        //    using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
-        //    {
-        //        string SQL = @"SELECT *  FROM CNN25_ChungNhanHopQuy 
-        //                    WHERE iID_MaHangHoa=@iID_MaHangHoa";
-        //        GiayChungNhanHopQuyModels results = connect.Query<GiayChungNhanHopQuyModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).FirstOrDefault();
-        //        return results;
-        //    }
-        //}
-        //public static HoSoXNCLModels GetHoSoXNCL(int iID_MaHangHoa)
-        //{
-        //    using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
-        //    {
-        //        string SQL = @"SELECT *  FROM CNN25_HoSo_XNCL 
-        //                    WHERE iID_MaHangHoa=@iID_MaHangHoa";
-        //        HoSoXNCLModels results = connect.Query<HoSoXNCLModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).FirstOrDefault();
-        //        return results;
-        //    }
-        //}
+        public static GiayChungNhanHopQuyModels GetChungNhanHopQuy(int iID_MaHangHoa)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN25_ChungNhanHopQuy 
+                            WHERE iID_MaHangHoa=@iID_MaHangHoa";
+                GiayChungNhanHopQuyModels results = connect.Query<GiayChungNhanHopQuyModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).FirstOrDefault();
+                return results;
+            }
+        }
+        public static HoSoXNCLModels GetHoSoXNCL(int iID_MaHangHoa)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN25_HoSo_XNCL 
+                            WHERE iID_MaHangHoa=@iID_MaHangHoa";
+                HoSoXNCLModels results = connect.Query<HoSoXNCLModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).FirstOrDefault();
+                return results;
+            }
+        }
 
         public static void Update_ResetbChon(string iID_MaHangHoa)
         {

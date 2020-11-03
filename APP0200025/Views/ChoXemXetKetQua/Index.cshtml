@@ -210,7 +210,7 @@
                                             <input type="checkbox" name="chkHoSo" id="chkHoSo" onclick="CheckAll(this.checked);" />
                                         </th>
                                         <th style="width: 5%; text-align: center;">Từ chối </th>
-                                        <th style="width: 5%; text-align: center;">Quá hạn</th>
+                                        <th style="width: 5%; text-align: center;">Thu hồi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -221,7 +221,7 @@
                                             {
                                                 r = dt.Rows[i];
 
-
+                                                int iID_MaTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
                                                 String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                                 String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
                                                 String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
@@ -239,18 +239,27 @@
                                                     <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
                                                     <td align="center">@MvcHtmlString.Create(strView)</td>
                                                     <td align="center">
+                                                        @if (iID_MaTrangThai == 34|| iID_MaTrangThai == 35|| iID_MaTrangThai == 43)
+                                                        {
                                                         <input type='checkbox' value='@r["iID_MaHangHoa"].ToString()' onclick='CheckValue();' check-group='HangHoa' id='@(ParentID)_HangHoa' name='@(ParentID)_HangHoa' />
+                                                        }
                                                     </td>
                                                     <td align="center" title="Từ chối">
-                                                        <a class="opentuchoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoi">
-                                                            <span class='badge bg-red'><i class='fa fa-times'></i></span>
-                                                        </a>
-                                                    </td>
+                                                        @if (iID_MaTrangThai == 34 || iID_MaTrangThai == 35 || iID_MaTrangThai == 43)
+                                                        {
+                                                            <a class="opentuchoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoi">
+                                                                <span class='badge bg-red'><i class='fa fa-times'></i></span>
+                                                            </a>
+                                                        }
+                                                        </td>
                                                     <td align="center" title="Quá hạn">
-                                                        <a class="openthuhoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#ThuHoi">
-                                                            <span class='badge bg-red'><i class='fa fa-exclamation'></i></span>
-                                                        </a>
-                                                    </td>
+                                                        @if (iID_MaTrangThai == 40 || iID_MaTrangThai == 36)
+                                                        {
+                                                            <a class="openthuhoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#ThuHoi">
+                                                                <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
+                                                            </a>
+                                                            }
+                                                        </td>
                                                 </tr>
                                             }
                                         }
