@@ -181,87 +181,8 @@ namespace APP0200025.Controllers
 
         }
         [Authorize, ValidateInput(false), HttpPost]
-        public ActionResult KetQuaUpload(HttpPostedFileBase file)
+        public object CapNhatChungNhanHopQuy()
         {
-            Bang bang = new Bang("CNN25_ChungNhanHopQuy");
-            String ParentID = "Index";
-            NameValueCollection values = new NameValueCollection();
-            HttpFileCollectionBase files = Request.Files;
-            string _iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
-            string _iID_MaHangHoa = CString.SafeString(Request.Form[ParentID + "_iID_MaHangHoa"]);
-            string _sKetQuaDanhGia = CString.SafeString(Request.Form[ParentID + "_sKetQuaDanhGia"]);
-            string _sSoChungNhan = CString.SafeString(Request.Form[ParentID + "_sSoChungNhan"]);
-            string _bKetQuaDanhGia = CString.SafeString(Request.Form[ParentID + "_bKetQuaDanhGia"]);
-            string _dNgayCap = CString.SafeString(Request.Form[ParentID + "_vidNgayCap"]) as string;
-            string _sTenFile = string.Empty;
-            string _sDuongDan = string.Empty;
-            var sDateTime = string.Empty;
-            if (string.IsNullOrEmpty(_bKetQuaDanhGia))
-            {
-                values.Add("err_bKetQuaDanhGia", "Chọn kết quả đánh giá");
-            }
-            if (string.IsNullOrEmpty(_sSoChungNhan))
-            {
-                values.Add("err_sSoChungNhan", "Nhập số chứng nhận");
-            }
-            if (string.IsNullOrEmpty(_dNgayCap))
-            {
-                values.Add("err_dNgayCap", "Bạn ngày cấp");
-            }
-            if (values.Count == 0)
-            {
-                _dNgayCap = CommonFunction.LayNgayTuXau(_dNgayCap).ToString();
-                sDateTime = Convert.ToDateTime(_dNgayCap).ToString("yyyy-MM-dd");
-                var sFileTemp = string.Empty;
-                if (file != null)
-                {
-                    if (file != null && file.ContentLength > 0)
-                    {
-                        string guid = Guid.NewGuid().ToString();
-                        string sPath = "/Uploads/File";
-                        DateTime TG = DateTime.Now;
-                        string subPath = TG.ToString("yyyy/MM/dd");
-                        string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                        string newPath = string.Format("{0}/{1}", sPath, subPath);
-                        CImage.CreateDirectory(Server.MapPath("~" + newPath));
-
-                        sFileTemp = string.Format(newPath + "/{0}_{1}", subName, file.FileName);
-                        string filePath = Server.MapPath("~" + sFileTemp);
-                        file.SaveAs(filePath);
-                        _sTenFile = file.FileName;
-                        _sDuongDan = sPath;
-                    }
-                }
-                bang.MaNguoiDungSua = User.Identity.Name;
-                bang.IPSua = Request.UserHostAddress;
-                bang.DuLieuMoi = true;
-                bang.TruongKhoa = "iID_ChungNhanHopQuy";
-                bang.CmdParams.Parameters.AddWithValue("@bKetQuaDanhGia", int.Parse(_bKetQuaDanhGia));
-                var DSTruong = "iID_MaHoSo,iID_MaHangHoa,sSoChungNhan,dNgayCap,bKetQuaDanhGia,sTenFile,sDuongDan";
-                var DSGiaTri = string.Format("'{0}','{1}','{2}','{3}',{4},'{5}','{6}'", _iID_MaHoSo, _iID_MaHangHoa, _sSoChungNhan, sDateTime, _bKetQuaDanhGia, _sTenFile, _sDuongDan);
-                var SQL = String.Format("INSERT INTO {0}({1}) VALUES({2});", "CNN25_ChungNhanHopQuy", DSTruong, DSGiaTri);
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = SQL;
-                Connection.UpdateDatabase(cmd, 0);
-                //clHoSo.CleanNguoiXem(iID_MaHoSo);
-                //clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiCapGDK, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
-                ResultModels result = new ResultModels { success = true };
-                return RedirectToAction("ThongTinHoangHoa", "ToChucChiDinh", new { @iID_MaHoSo = _iID_MaHoSo });
-            }
-            else
-            {
-                for (int i = 0; i <= (values.Count - 1); i++)
-                {
-                    ModelState.AddModelError(ParentID + "_" + values.GetKey(i), values[i]);
-                }
-                return View();
-            }
-        }
-        [Authorize, ValidateInput(false), HttpPost]
-        public object KetQuaUpload1()
-        {
-            var m = Request.Form;
-            var n = Request.Files;
             var sDateTime = string.Empty;
             string _sTenFile = string.Empty;
             string _sDuongDan = string.Empty;
