@@ -50,6 +50,5 @@ namespace DATA0200025.WebServices.XmlType.Request
         public string AttachmentId { get; set; }
         public string FileName { get; set; }
         public string FileLink { get; set; }
-        public int IdHangHoa{ get; set; }
     }
 }
