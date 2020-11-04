@@ -163,6 +163,48 @@ namespace DATA0200025
             return vR;
         }
 
+        public static long ThemHoSoTCCD(long iID_MaHoSo_TCCD_Sua, long iID_MaHoSo, string iID_MaHangHoa, string iID_MaToChuc, string sMaHoSo, string sTenToChuc, 
+            String sUserName, String sIP)
+        {
+            long vR = 0;
+
+            try
+            {
+                long iID_MaHoSoXNCL = 0;
+                Bang bang = new Bang("CNN25_HoSo_TCCD");
+                bang.MaNguoiDungSua = sUserName;
+                bang.IPSua = sIP;
+
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+                bang.CmdParams.Parameters.AddWithValue("@sMaHangHoa", iID_MaHangHoa);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaToChuc", iID_MaToChuc);
+                bang.CmdParams.Parameters.AddWithValue("@sMaHoSo", sMaHoSo);
+                bang.CmdParams.Parameters.AddWithValue("@sTenToChuc", sTenToChuc);
+
+                if (iID_MaHoSo_TCCD_Sua > 0)
+                {
+                    bang.DuLieuMoi = false;
+                    bang.GiaTriKhoa = iID_MaHoSo_TCCD_Sua;
+                    bang.Save();
+
+                    iID_MaHoSoXNCL = iID_MaHoSo_TCCD_Sua;
+                }
+                else
+                {
+                    bang.DuLieuMoi = true;
+                    iID_MaHoSoXNCL = Convert.ToInt64(bang.Save());
+                }
+
+                vR = iID_MaHoSoXNCL;
+            }
+            catch (Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
+
         public static long ThemHoSoXNCL(long iID_MaHoSo_XNCL_Sua, long iID_MaHoSo, long iID_MaHangHoa, string iID_MaToChuc,
             string sMaHoSo, string sTenHangHoa, string sTenToChuc, string sGiayChungNhan, DateTime dNgayCap,
             int iKetQua, string sMaFileChungNhan, string sTenFileChungNhan, string sLinkFileChungNhan,

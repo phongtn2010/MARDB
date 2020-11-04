@@ -123,6 +123,27 @@ namespace DATA0200025
             return vR;
         }
 
+        public static int UpDate_TrangThai_TheoHoSo(long iID_MaHoSo, int iTrangThai)
+        {
+            int vR = 0;
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("UPDATE CNN25_HangHoa SET iID_MaTrangThai=@iID_MaTrangThai WHERE iID_MaHoSo=@iID_MaHoSo");
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThai);
+                cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+                Connection.UpdateDatabase(cmd);
+
+                vR = 1;
+            }
+            catch (Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
+
         public static void Delete_HangHoa_ThongTin(long iID_MaHangHoa)
         {
             try

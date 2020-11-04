@@ -584,6 +584,42 @@ namespace DATA0200025.WebServices
 
         public GuiTCCDVM TestInformation(Envelope envelope)
         {
+            var body = envelope.Body;
+
+            var hoso = body.Content.TestInformation;
+            string sMaHoSo = hoso.fiNSWFileCode;
+
+            List<HangHoaTCCDVM> lstHangHoa = hoso.ListHangHoa;
+
+            long iID_MaHoSo = 0, iID_MaHoSo_TCCD = 0;
+            string sTenDoanhNghiep = "", iID_MaHangHoa = "";
+            HoSoModels hs = clHoSo.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
+            if (hs != null)
+            {
+                iID_MaHoSo = hs.iID_MaHoSo;
+                sTenDoanhNghiep = hs.sTenDoanhNghiep;
+            }
+
+            string sUserName = "doanhnghiep";
+            string sError = "";
+            try
+            {
+                //Them vao bang HoSo_XNCL
+                iID_MaHoSo_TCCD = CHoSo.ThemHoSoTCCD(0, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiAssignName, sUserName, sIP);
+
+                //Update trang thai Ho So
+                CHoSo.UpDate_TrangThai(iID_MaHoSo, 27);
+
+                //Update Trang Thai Hang Hoa
+                CHangHoa.UpDate_TrangThai_TheoHoSo(iID_MaHoSo, 27);
+
+                //Ghi Lai Lich Su
+                clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhNghiep, 1, 25, "", "", 0, "Doanh nghiệp đăng ký từ NSW chuyển sang", 1);
+            }
+            catch (Exception ex)
+            {
+                sError = "Error Add Ho So TCCD: " + ex.ToString();
+            }
 
             return null;
         }
