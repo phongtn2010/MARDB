@@ -20,7 +20,7 @@ namespace APP0200025.Controllers
             //long iID_MaFile = CDinhKem.ThemDinhKem(0, 0, 0, "", "", "", "PHONG", "", null, 1, "http://mard.adp-p.com/Files/16c8858e-0f58-4c2c-939f-f7ac40d8cf2f.png", "doanhnghiep", "");
 
             KetQuaXuLy resultConfirm = new KetQuaXuLy();
-            resultConfirm.NSWFileCode = "BNNPTNT25200010140";
+            resultConfirm.NSWFileCode = "BNNPTNT25200010180";
             resultConfirm.Reason = "Đã tiêp nhận hồ sơ";
             resultConfirm.AttachmentId = "01";
             resultConfirm.FileName = "File Test";
@@ -28,7 +28,7 @@ namespace APP0200025.Controllers
             resultConfirm.NameOfStaff = "PHONG PHẠM";
             resultConfirm.ResponseDate = DateTime.Now;
 
-            string error = _sendService.KetQuaXuLy("BNNPTNT25200010140", resultConfirm, "06");
+            string error = _sendService.KetQuaXuLy("BNNPTNT25200010180", resultConfirm, "06");
 
             //string sYeuCBS = _sendService.YeuCauBoSung("BNNPTNT25200010060", "Đã tiêp nhận hồ sơ", "PHONG PHẠM");
 

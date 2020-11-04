@@ -12,7 +12,7 @@ namespace DATA0200025
 {
     public class CHangHoa
     {
-        public static long ThemHangHoa(long iID_MaHoSo, long iID_MaHangHoaNSW, int iID_MaNhom, int iID_MaPhanNhom, int iID_MaLoai, int iID_MaPhanLoai, int iID_MaDonViTinh, int iID_MaTrangThai,
+        public static long ThemHangHoa(long iID_MaHoSo, long iID_MaHangHoaNSW, int iID_MaNhom, string iID_MaPhanNhom, string iID_MaLoai, string iID_MaPhanLoai, string iID_MaDonViTinh, int iID_MaTrangThai,
             string sTenPhanNhom, string sTenLoaiHangHoa, string sTenPhanLoai,
             string sMaHoSo, string sTenHangHoa, string sMaSoCongNhan, string sHangSanXuat, string sMaQuocGia, string sTenQuocGia, string sBanChat, string sDonViTinh,
             string sThanhPhan, string sMauSac, string sSoHieu, string sQuyChuan,
@@ -25,11 +25,13 @@ namespace DATA0200025
             {
                 String sThamSo = "";
 
+                String sTenNhom = clDanhMuc.Get_Name_DanhMuc("NHOMTACN", iID_MaNhom.ToString());
+
                 long iID_MaHangHoa = 0;
                 Bang bang = new Bang("CNN25_HangHoa");
                 bang.MaNguoiDungSua = sUserName;
                 bang.IPSua = sIP;
-                bang.DuLieuMoi = true;
+                
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoaNSW", iID_MaHangHoaNSW);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaNhom", iID_MaNhom);
@@ -38,6 +40,7 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaPhanLoai", iID_MaPhanLoai);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaDonViTinh", iID_MaDonViTinh);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
+                bang.CmdParams.Parameters.AddWithValue("@sTenNhom", sTenNhom);
                 bang.CmdParams.Parameters.AddWithValue("@sTenPhanNhom", sTenPhanNhom);
                 bang.CmdParams.Parameters.AddWithValue("@sTenLoaiHangHoa", sTenLoaiHangHoa);
                 bang.CmdParams.Parameters.AddWithValue("@sTenPhanLoai", sTenPhanLoai);
@@ -60,6 +63,7 @@ namespace DATA0200025
                 
                 if (iID_MaHangHoa_Sua > 0)
                 {
+                    bang.DuLieuMoi = false;
                     bang.GiaTriKhoa = iID_MaHangHoa_Sua;
                     bang.Save();
 
@@ -67,7 +71,11 @@ namespace DATA0200025
                 }
                 else
                 {
-                    iID_MaHangHoa = Convert.ToInt64(bang.Save());
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoaNSW);
+                    bang.DuLieuMoi = true;
+                    bang.Save();
+
+                    iID_MaHangHoa = iID_MaHangHoaNSW;
                 }
 
                 vR = iID_MaHangHoa;

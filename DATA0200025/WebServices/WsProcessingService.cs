@@ -70,7 +70,7 @@ namespace DATA0200025.WebServices
                     List<AnToanVM> lstAnToan = hh.ListAnToan;
                     List<SoLuongVM> lstSoLuong = hh.ListSoLuong;
 
-                    iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToInt32(hh.fiGroupGoodId), Convert.ToInt32(hh.fiGoodTypeId), Convert.ToInt32(hh.fiGroupTypeId), Convert.ToInt32(hh.fiGoodsValueUnitCode), 0,
+                    iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
                         hh.fiGroupGoodName, hh.fiGoodTypeName, hh.fiGroupTypeName, sMaHoSo, hh.fiNameOfGoods, hh.fiRegistrationNumber, hh.fiManufacture, hh.fiManufactureStateCode, hh.fiManufactureState,
                         hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "", sUserName, sIP);
 
@@ -92,6 +92,10 @@ namespace DATA0200025.WebServices
                         {
                             long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
                         }
+                    }
+                    else
+                    {
+
                     }
                 }
 
@@ -206,7 +210,7 @@ namespace DATA0200025.WebServices
                     {
                         iID_MaHangHoa_Sua = Convert.ToInt64(dtHH.Rows[0]["iID_MaHangHoa"]);
 
-                        iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToInt32(hh.fiGroupGoodId), Convert.ToInt32(hh.fiGoodTypeId), Convert.ToInt32(hh.fiGroupTypeId), Convert.ToInt32(hh.fiGoodsValueUnitCode), 0,
+                        iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
                             hh.fiGroupGoodName, hh.fiGoodTypeName, hh.fiGroupTypeName, sMaHoSo, hh.fiNameOfGoods, hh.fiRegistrationNumber, hh.fiManufacture, hh.fiManufactureStateCode, hh.fiManufactureState,
                             hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "", sUserName, sIP, iID_MaHangHoa_Sua);
 
@@ -333,7 +337,7 @@ namespace DATA0200025.WebServices
                     {
                         iID_MaHangHoa_Sua = Convert.ToInt64(dtHH.Rows[0]["iID_MaHangHoa"]);
 
-                        iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToInt32(hh.fiGroupGoodId), Convert.ToInt32(hh.fiGoodTypeId), Convert.ToInt32(hh.fiGroupTypeId), Convert.ToInt32(hh.fiGoodsValueUnitCode), 0,
+                        iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
                             hh.fiGroupGoodName, hh.fiGoodTypeName, hh.fiGroupTypeName, sMaHoSo, hh.fiNameOfGoods, hh.fiRegistrationNumber, hh.fiManufacture, hh.fiManufactureStateCode, hh.fiManufactureState,
                             hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "", sUserName, sIP, iID_MaHangHoa_Sua);
 
@@ -460,7 +464,7 @@ namespace DATA0200025.WebServices
                     {
                         iID_MaHangHoa_Sua = Convert.ToInt64(dtHH.Rows[0]["iID_MaHangHoa"]);
 
-                        iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToInt32(hh.fiGroupGoodId), Convert.ToInt32(hh.fiGoodTypeId), Convert.ToInt32(hh.fiGroupTypeId), Convert.ToInt32(hh.fiGoodsValueUnitCode), 0,
+                        iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
                             hh.fiGroupGoodName, hh.fiGoodTypeName, hh.fiGroupTypeName, sMaHoSo, hh.fiNameOfGoods, hh.fiRegistrationNumber, hh.fiManufacture, hh.fiManufactureStateCode, hh.fiManufactureState,
                             hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "", sUserName, sIP, iID_MaHangHoa_Sua);
 
