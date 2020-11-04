@@ -3080,7 +3080,6 @@
     <Content Include="Views\LanhDaoCuc\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_ThongBaoKetQua.cshtml" />
     <Content Include="Views\DaCapThongBaoKetQua\Partial_HoSoXinCapXNCL.cshtml" />
-    <Content Include="Views\ToChucChiDinh\XemKetQuaUpload.cshtml" />
     <Content Include="Views\DaCapThongBaoKetQua\Partial_ThongBaoKetQua.cshtml" />
     <Content Include="Views\LanhDaoPhong\Partial_Modal_ThuHoi.cshtml" />
   </ItemGroup>

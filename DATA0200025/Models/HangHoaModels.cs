@@ -11,10 +11,10 @@ namespace DATA0200025.Models
         public int iID_MaHangHoa { get; set; }
         public int iID_MaHoSo { get; set; }
         public int iID_MaNhom { get; set; }
-        public int iID_MaLoai { get; set; }
-        public int iID_MaPhanLoai { get; set; }
-        public int iID_MaQuocGia { get; set; }
-        public int iID_MaDonViTinh { get; set; }
+        public string iID_MaLoai { get; set; }
+        public string iID_MaPhanLoai { get; set; }
+        public string iID_MaQuocGia { get; set; }
+        public string iID_MaDonViTinh { get; set; }
         public int iID_MaTrangThai { get; set; }
         public int iID_MaTrangThaiTruoc { get; set; }
         public string sMaHoSo { get; set; }

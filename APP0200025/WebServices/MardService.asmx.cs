@@ -167,11 +167,11 @@ namespace APP0200025.WebServices
                             break;
                     }
 
-                    CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "doanhnghiep", "Thành công", "", "");
+                    CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "doanhnghiep", "Thành công", payload, "", "");
                 }
                 else
                 {
-                    CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "doanhnghiep", "Lỗi validate payload", "", "");
+                    CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "doanhnghiep", "Lỗi validate payload", payload, "", "");
 
                     envelopReturn = Envelope.CreateEnvelopeError(nswFileCode,
                         WsConstants.PROCEDURE_CODE,
@@ -183,7 +183,7 @@ namespace APP0200025.WebServices
             }
             catch (Exception e)
             {
-                CLogNSW.Add(nswFileCode, "doanhnghiep", e.Message, "", "");
+                CLogNSW.Add(nswFileCode, "doanhnghiep", e.Message, payload, "", "");
 
                 envelopReturn = Envelope.CreateEnvelopeError(nswFileCode,
                     WsConstants.PROCEDURE_CODE,

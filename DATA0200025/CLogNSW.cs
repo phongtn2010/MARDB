@@ -9,7 +9,7 @@ namespace DATA0200025
 {
     public class CLogNSW
     {
-        public static void Add(string sChucNang, string sID_MaNguoiDung, string sNoiDung, String sUserName, String sIP)
+        public static void Add(string sChucNang, string sID_MaNguoiDung, string sNoiDung, string sXML, String sUserName, String sIP)
         {
             try
             {
@@ -20,6 +20,7 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@sChucNang", sChucNang);
                 bang.CmdParams.Parameters.AddWithValue("@sID_MaNguoiDung", sID_MaNguoiDung);
                 bang.CmdParams.Parameters.AddWithValue("@sNoiDung", sNoiDung);
+                bang.CmdParams.Parameters.AddWithValue("@sXML", sXML);
 
                 bang.Save();
             }
