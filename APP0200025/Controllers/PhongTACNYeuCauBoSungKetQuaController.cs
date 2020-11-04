@@ -7,7 +7,8 @@ using DomainModel.Abstract;
 using DATA0200025;
 using DATA0200025.Models;
 using DATA0200025.SearchModels;
-
+using DATA0200025.WebServices.XmlType.Request;
+using DATA0200025.WebServices;
 namespace APP0200025.Controllers
 {
     public class PhongTACNYeuCauBoSungKetQuaController : Controller
@@ -16,6 +17,7 @@ namespace APP0200025.Controllers
         Bang bang = new Bang("CNN25_HangHoa");
 
         private string ViewPath = "~/Views/PhongTACNYeuCauBoSungKetQua/";
+        private SendService _sendService = new SendService();
         // GET: ChoTiepNhanhangHoa
         public ActionResult Index(sHoSoModels models)
         {
@@ -109,7 +111,7 @@ namespace APP0200025.Controllers
                 ViewData["iID_MaHangHoa"] = CString.SafeString(iID_MaHangHoa);
                 return View();
             }
-            string sFileTemp = "";
+            string sFileTemp = "", sFileName = "";
             for (int i = 0; i < files.Count; i++)
             {
                 HttpPostedFileBase postedFile = files[i];
@@ -122,6 +124,7 @@ namespace APP0200025.Controllers
                     string subName = TG.ToString("HHmmssfff") + "_" + guid;
                     string newPath = string.Format("{0}/{1}", sPath, subPath);
                     CImage.CreateDirectory(Server.MapPath("~" + newPath));
+                    sFileName = string.Format("{0}_{1}", subName, postedFile.FileName);
                     sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
                     string filePath = Server.MapPath("~" + sFileTemp);
                     postedFile.SaveAs(filePath);
@@ -129,18 +132,33 @@ namespace APP0200025.Controllers
             }
             HangHoaModels hangHoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSoDNCanBoSungKetQua, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
-            bang.MaNguoiDungSua = User.Identity.Name;
-            bang.IPSua = Request.UserHostAddress;
-            bang.TruyenGiaTri(ParentID, Request.Form);
-            bang.DuLieuMoi = false;
-            bang.GiaTriKhoa = iID_MaHangHoa;
-            bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy ?? "");
-            bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hangHoa.iID_MaTrangThai);
-            bang.Save();
-            clHangHoa.CleanNguoiXem(iID_MaHangHoa);
-            clLichSuHangHoa.InsertLichSu(hangHoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSoDNCanBoSungKetQua, _sNoiDung, sFileTemp, hangHoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            //Gui sang NSW
+            XuLyKetQua resultConfirm = new XuLyKetQua();
+            resultConfirm.NSWFileCode = hangHoa.sMaHoSo;
+            resultConfirm.Reason = "Yêu cầu bổ sung hồ sơ";
+            resultConfirm.GoodsId = hangHoa.iID_MaHangHoa;
+            resultConfirm.NameOfGoods = hangHoa.sTenHangHoa;
+            resultConfirm.FileName = sFileName;
+            resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
+            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+            resultConfirm.ResponseDate = DateTime.Now;
+            string error = _sendService.XuLyKetQua(hangHoa.sMaHoSo, resultConfirm, "19");
+
+            if (error == "99")
+            {
+                bang.MaNguoiDungSua = User.Identity.Name;
+                bang.IPSua = Request.UserHostAddress;
+                bang.TruyenGiaTri(ParentID, Request.Form);
+                bang.DuLieuMoi = false;
+                bang.GiaTriKhoa = iID_MaHangHoa;
+                bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy ?? "");
+                bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hangHoa.iID_MaTrangThai);
+                bang.Save();
+                clHangHoa.CleanNguoiXem(iID_MaHangHoa);
+                clLichSuHangHoa.InsertLichSu(hangHoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSoDNCanBoSungKetQua, _sNoiDung, sFileTemp, hangHoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            }
             ResultModels result = new ResultModels { success = true };
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);

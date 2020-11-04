@@ -15,7 +15,7 @@
     Layout = "~/Views/Shared/_Layout_cms.cshtml";
     string ParentID = "Detail";
 
-    HoSoModels hoSoModels = clHoSo.GetHoSoById(Model.iID_MaHangHoa);
+    HoSoModels hoSoModels = clHoSo.GetHoSoById(Model.iID_MaHoSo);
 }
 <section class="content">
     <div class="row">
@@ -33,7 +33,7 @@
                     <div class="tab-pane active" id="tab_1">
 
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoSoModels);}
-                        <form action="@Url.Action("Duyet", "LanhDaoCuc", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+                        <form action="@Url.Action("DuyetHH", "LanhDaoCuc", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
                             @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
                             @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa);
 

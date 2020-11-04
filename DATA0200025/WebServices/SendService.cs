@@ -54,7 +54,12 @@ namespace DATA0200025.WebServices
 
             return response.GetFunction();
         }
-
+        /// <summary>
+        /// XML(13,11)
+        /// </summary>
+        /// <param name="nswFileCode"></param>
+        /// <param name="objData"></param>
+        /// <returns></returns>
         public string XacNhanDon(string nswFileCode, XacNhanDon objData)
         {
             var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_13,
@@ -96,6 +101,13 @@ namespace DATA0200025.WebServices
             return response.GetFunction();
         }
 
+        /// <summary>
+        /// XML(18,19),XML(18,20),XML(18,21)
+        /// </summary>
+        /// <param name="nswFileCode"></param>
+        /// <param name="objData"></param>
+        /// <param name="sMessageFunction"></param>
+        /// <returns></returns>
         public string XuLyKetQua(string nswFileCode, XuLyKetQua objData, string sMessageFunction)
         {
             String sMessFun = "";

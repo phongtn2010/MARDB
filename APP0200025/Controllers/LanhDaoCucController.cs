@@ -55,6 +55,7 @@ namespace APP0200025.Controllers
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.DongYXacNhanGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
+            
             clTaoSoGDK taoSoGDK = clTaoSoGDK.GetSoGDK();
             
             bang.MaNguoiDungSua = User.Identity.Name;
@@ -309,7 +310,7 @@ namespace APP0200025.Controllers
             HangHoaModels hangHoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.KySoPheDuyetThongBaoKetQua, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
 
-            clTaoSoGDK taoSoGDK = clTaoSoGDK.GetSoGDK();
+            clTaoSoThongBao taoSoTB = clTaoSoThongBao.GetSoTB();
 
             bangHH.MaNguoiDungSua = User.Identity.Name;
             bangHH.IPSua = Request.UserHostAddress;
@@ -318,7 +319,7 @@ namespace APP0200025.Controllers
             bangHH.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
             bangHH.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
             bangHH.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hangHoa.iID_MaTrangThai);
-            bangHH.CmdParams.Parameters.AddWithValue("@sSoGDK", taoSoGDK.SoGDK);
+            bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua", taoSoTB.SoTB);
             bangHH.Save();
             clHoSo.CleanNguoiXem(iID_MaHangHoa);
             clLichSuHoSo.InsertLichSu(hangHoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.KySoPheDuyetThongBaoKetQua, "ký số phê duyệt thông báo kết quả kiểm tra:" , "", hangHoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);

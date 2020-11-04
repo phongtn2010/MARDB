@@ -233,7 +233,7 @@
                                                 <td class="head-td-icon">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
-                                                        <a class="openyeucaubosung" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#YeuCauBoSung">
+                                                        <a class="openthuhoi" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#ThuHoi">
                                                             <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
                                                         </a>
                                                     }
@@ -258,6 +258,5 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-@{Html.RenderPartial("~/Views/DaCapThongBaoKetQua/Partial_Model_YeuCauBoSung.cshtml");}
-@*@{Html.RenderPartial("~/Views/DaCapThongBaoKetQua/Partial_Model_TuChoi.cshtml");}*@
+@{Html.RenderPartial("~/Views/DaCapThongBaoKetQua/Partial_Model_TuChoi.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsDaCapThongBaoKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
