@@ -82,10 +82,7 @@ namespace APP0200025.Controllers
                 resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
                 resultConfirm.SignCerPlace = hangHoa.sTenHangHoa;
                 resultConfirm.SignCerDateString = "Cục chăn nuôi";
-                resultConfirm.SignCerDate = DateTime.Now;
-                resultConfirm.FileName = "";
-                resultConfirm.FileLink ="";
-                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);            
+                resultConfirm.SignCerDate = DateTime.Now;         
                 error = _sendService.GiayXNCL(hangHoa.sMaHoSo, resultConfirm);
             }
             if (error == "99")

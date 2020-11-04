@@ -102,6 +102,7 @@
     <Compile Include="CLogNSW.cs" />
     <Compile Include="clTaoMaTiepNhan.cs" />
     <Compile Include="clTaoSoGDK.cs" />
+    <Compile Include="clTaoSoThongBao.cs" />
     <Compile Include="clTrangThai.cs" />
     <Compile Include="CMenu.cs" />
     <Compile Include="CMien.cs" />
