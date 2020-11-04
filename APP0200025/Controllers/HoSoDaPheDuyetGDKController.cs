@@ -7,6 +7,8 @@ using System;
 using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
+using DATA0200025.WebServices.XmlType.Request;
+using DATA0200025.WebServices;
 
 namespace APP0200025.Controllers
 {
@@ -16,6 +18,8 @@ namespace APP0200025.Controllers
         Bang bang = new Bang("CNN25_HoSo");
 
         private string ViewPath = "~/Views/HoSoDaPheDuyetGDK/";
+
+        private SendService _sendService = new SendService();
         // GET: HoSoDaPheDuyetGDK
         public ActionResult Index(sHoSoModels models)
         {
@@ -23,7 +27,7 @@ namespace APP0200025.Controllers
             {
                 models = new sHoSoModels
                 {
-                    LoaiDanhSach = 5,
+                    LoaiDanhSach = (int)clLoaiDanhSach.From.BPMC_DaPheDuyetGDK,
                     Page = 1,
                     PageSize = Globals.PageSize
                 };
@@ -66,18 +70,31 @@ namespace APP0200025.Controllers
             string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
-            bang.MaNguoiDungSua = User.Identity.Name;
-            bang.IPSua = Request.UserHostAddress;
-            bang.TruyenGiaTri(ParentID, Request.Form);
-            bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
-            bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
-            bang.Save();
+
+            KetQuaXuLy resultConfirm = new KetQuaXuLy();
+            resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+            resultConfirm.Reason = "Chuyển phụ lục GĐK";
+            resultConfirm.AttachmentId = "01";
+            resultConfirm.FileName = "";
+            resultConfirm.FileLink = "";
+            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+            resultConfirm.ResponseDate = DateTime.Now;
+            string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "11");
+            if (error.Equals("99"))
+            {
+                bang.MaNguoiDungSua = User.Identity.Name;
+                bang.IPSua = Request.UserHostAddress;
+                bang.TruyenGiaTri(ParentID, Request.Form);
+                bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
+                bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
+                bang.Save();
+                clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, "Chuyển phụ lục GĐK", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+
+            }
+
             clHoSo.CleanNguoiXem(iID_MaHoSo);
-            clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, "Chuyển phụ lục GĐK", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
-
-
             return RedirectToAction("Index");
         }
        

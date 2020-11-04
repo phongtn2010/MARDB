@@ -7,7 +7,8 @@ using System;
 using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
-
+using DATA0200025.WebServices.XmlType.Request;
+using DATA0200025.WebServices;
 namespace APP0200025.Controllers
 {
     public class HoSoDaTuChoiXacNhanController : Controller
@@ -16,6 +17,8 @@ namespace APP0200025.Controllers
         Bang bang = new Bang("CNN25_HoSo");
 
         private string ViewPath = "~/Views/HoSoDaTuChoiXacNhan/";
+        private SendService _sendService = new SendService();
+
         // GET: ChoTiepNhanHoSo
         public ActionResult Index(sHoSoModels models)
         {
@@ -68,17 +71,29 @@ namespace APP0200025.Controllers
 
             //iTrangThaiTiepTheo=21
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNThongBaoTuChoiCapGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
-            bang.MaNguoiDungSua = User.Identity.Name;
-            bang.IPSua = Request.UserHostAddress;
-            bang.TruyenGiaTri(ParentID, Request.Form);
-            bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
-            bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
-            bang.Save();
+            KetQuaXuLy resultConfirm = new KetQuaXuLy();
+            resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+            resultConfirm.Reason = "Chuyển thông báo từ chối cấp GĐK";
+            resultConfirm.AttachmentId = "01";
+            resultConfirm.FileName = "";
+            resultConfirm.FileLink = "";
+            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+            resultConfirm.ResponseDate = DateTime.Now;
+            string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "10");
+            if (error.Equals("99"))
+            {
+                bang.MaNguoiDungSua = User.Identity.Name;
+                bang.IPSua = Request.UserHostAddress;
+                bang.TruyenGiaTri(ParentID, Request.Form);
+                bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
+                bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
+                bang.Save();
+                clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, "Chuyển thông báo từ chối cấp GĐK", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            }
             clHoSo.CleanNguoiXem(iID_MaHoSo);
-            clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, "Chuyển thông báo từ chối cấp GĐK","", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
-            
+            //XML(12, 10)
 
             return RedirectToAction("Index");
         }

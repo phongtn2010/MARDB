@@ -116,5 +116,6 @@ namespace DATA0200025
             SelectOptionList DDL = new SelectOptionList(dt, "iID_MaTrangThai", "sTen");
             return DDL;
         }
+
     }
 }

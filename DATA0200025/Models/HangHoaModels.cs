@@ -35,5 +35,6 @@ namespace DATA0200025.Models
         public double rGiaVN { get; set; }
         public double rGiaUSD { get; set; }
         public string sGhiChu { get; set; }
+        public string sSoThongBaoKetQua { get; set; }
     }
 }
