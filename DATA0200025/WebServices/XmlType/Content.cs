@@ -33,6 +33,34 @@ namespace DATA0200025.WebServices.XmlType
             ReceiveDate = receiveDate;
         }
 
+        #region ResponseObjects
+        private string _date; // Private variable to store XML string
+
+        // Property that exposes date. Specifying the type forces
+        // the serializer to return the value as a string.
+        [XmlElement("ReceiveDate", Type = typeof(string))]
+        public object ReceiveDate
+        {
+            // Return a DateTime object
+            get
+            {
+                return
+                    !string.IsNullOrEmpty(_date) ?
+                    (DateTime?)Convert.ToDateTime(_date) :
+                    null;
+            }
+            set { _date = (string)value; }
+        }
+        //[XmlElement("ReceiveDate")] public DateTime? ReceiveDate { get; set; }
+
+        //public bool ReceiveDateSpecified => ReceiveDate.HasValue;
+
+        [XmlArray("ErrorList")]
+        [XmlArrayItem("Error")]
+        public List<Error> Errors { get; set; }
+
+        #endregion
+
         #region InboundObjects
 
         [XmlElement("AniFeed")] public HoSoVM AniFeed { get; set; }
@@ -70,17 +98,6 @@ namespace DATA0200025.WebServices.XmlType
         [XmlElement("InfoGroupType")] public DMPhanLoaiHangHoa InfoGroupType { get; set; }
         #endregion
 
-        #region ResponseObjects
-
-        [XmlArray("ErrorList")]
-        [XmlArrayItem("Error")]
-        public List<Error> Errors { get; set; }
-
-        [XmlElement("ReceiveDate", IsNullable = true)]
-        public DateTime? ReceiveDate { get; set; }
-
-        public bool ReceiveDateSpecified => ReceiveDate.HasValue;
-
-        #endregion
+        
     }
 }

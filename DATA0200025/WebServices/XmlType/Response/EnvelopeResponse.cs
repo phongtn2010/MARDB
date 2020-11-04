@@ -19,7 +19,7 @@ namespace DATA0200025.WebServices.Wrapper
     [XmlRoot("Body", Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
     public class BodyResponse
     {
-        [XmlElement("receiveResponse", Namespace = "http://mard.gov.vn/nsw/services")]
+        [XmlElement("receiveResponse", Namespace = "http://com/vnsw/receive/gateway/generated")]
         public ReceiveResponse ReceiveResponse { get; set; }
 
     }
@@ -31,11 +31,14 @@ namespace DATA0200025.WebServices.Wrapper
         public string ResponsePayload { get; set; }
     }
 
-    [XmlRoot(ElementName = "receiveResponse", Namespace = "http://mard.gov.vn/nsw/services")]
+    [XmlRoot(ElementName = "receiveResponse", Namespace = "http://com/vnsw/receive/gateway/generated")]
     public class ReceiveResponse
     {
-        [XmlElement(ElementName = "receiveResult", Namespace = "http://mard.gov.vn/nsw/services")]
-        public ReceiveResult ReceiveResult { get; set; }
+        [XmlElement(ElementName = "responsePayload", Namespace = "http://com/vnsw/receive/gateway/generated")]
+        public string ResponsePayload { get; set; }
+
+        //[XmlElement(ElementName = "receiveResult", Namespace = "http://mard.gov.vn/nsw/services")]
+        //public ReceiveResult ReceiveResult { get; set; }
         [XmlAttribute(AttributeName = "xmlns")]
         public string Xmlns { get; set; }
     }

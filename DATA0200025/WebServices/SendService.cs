@@ -52,7 +52,7 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
-            return response.GetErrors();
+            return response.GetFunction();
         }
 
         public string XacNhanDon(string nswFileCode, XacNhanDon objData)
@@ -65,7 +65,7 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
-            return response.GetErrors();
+            return response.GetFunction();
 
         }
 
@@ -79,7 +79,7 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
-            return response.GetErrors();
+            return response.GetFunction();
 
         }
 
@@ -93,7 +93,7 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
-            return response.GetErrors();
+            return response.GetFunction();
         }
 
         public string XuLyKetQua(string nswFileCode, XuLyKetQua objData, string sMessageFunction)
@@ -122,7 +122,7 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
-            return response.GetErrors();
+            return response.GetFunction();
         }
 
         public string GiayXNCL(string nswFileCode, GiayXNCL objData)
@@ -148,7 +148,7 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
-            return response.GetErrors();
+            return response.GetFunction();
         }
 
         public string DaTiepNhanHoSo2d(string nswFileCode, DaTiepNhanHoSo2d objData)
@@ -161,7 +161,7 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
-            return response.GetErrors();
+            return response.GetFunction();
         }
 
         public string DMPhanNhomHangHoa(string nswFileCode, DMPhanNhomHangHoa objData)
@@ -174,7 +174,7 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
-            return response.GetErrors();
+            return response.GetFunction();
         }
 
         public string DMLoaiHangHoa(string nswFileCode, DMLoaiHangHoa objData)
@@ -187,7 +187,7 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
-            return response.GetErrors();
+            return response.GetFunction();
         }
 
         public string DMPhanLoaiHangHoa(string nswFileCode, DMPhanLoaiHangHoa objData)
@@ -200,7 +200,7 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
-            return response.GetErrors();
+            return response.GetFunction();
         }
     }
 }

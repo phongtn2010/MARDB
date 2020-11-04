@@ -36,9 +36,14 @@ namespace DATA0200025.WebServices
             using (TextReader reader = new StringReader(payload))
             {
                 var response = (EnvelopeResponse)responseSerializer.Deserialize(reader);
-                using (TextReader envelopeReader = new StringReader(response.Body.ReceiveResponse.ReceiveResult.ResponsePayload))
+
+                using (TextReader envelopeReader = new StringReader(response.Body.ReceiveResponse.ResponsePayload))
                 {
-                    return (Envelope)envelopeSerializer.Deserialize(envelopeReader);
+                    var envelop = (Envelope)envelopeSerializer.Deserialize(envelopeReader);
+                    var nswFileCode = envelop.Header.Subject.Reference;
+
+                    return envelop;
+                    //return (Envelope)envelopeSerializer.Deserialize(envelopeReader);
                 }
             }
         }
