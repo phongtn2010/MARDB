@@ -534,7 +534,46 @@ namespace DATA0200025.WebServices
 
         public UploadBaoCaoVM Report(Envelope envelope)
         {
+            var body = envelope.Body;
 
+            var hoso = body.Content.Report;
+            string sMaHoSo = hoso.fiNSWFileCode;
+
+            List<AttachmentVM> lstDinhKem = hoso.ListAttachmentReports;
+
+            string sUserName = "doanhnghiep";
+            string sError = "";
+
+            long iID_MaHoSo = 0, iID_MaHoSo_TCCD = 0;
+            string sTenDoanhNghiep = "", iID_MaHangHoa = "";
+            HoSoModels hs = clHoSo.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
+            if (hs != null)
+            {
+                iID_MaHoSo = hs.iID_MaHoSo;
+                sTenDoanhNghiep = hs.sTenDoanhNghiep;
+
+                try
+                {
+                    //Them vao bang Dinh Kem
+                    int iF = 0;
+                    foreach (var f in lstDinhKem)
+                    {
+                        iF++;
+                        long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "Upload Báo Cáo", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId));
+                    }
+
+                    //Update Trang Thai Hang Hoa
+                    CHoSo.UpDate_TrangThai(iID_MaHoSo, 29);
+
+                    //Ghi Lai Lich Su
+                    //Ghi Lai Lich Su
+                    clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhNghiep, 1, 25, "", "", 0, "Doanh nghiệp Chuyển chỉ tiêu kiểm tra của cả lô hàng cho tổ chức chỉ định đối với hình thức kiểm tra 2c từ NSW", 1);
+                }
+                catch (Exception ex)
+                {
+                    sError = "Error Add Ho So TCCD: " + ex.ToString();
+                }
+            }
             return null;
         }
 
@@ -591,6 +630,9 @@ namespace DATA0200025.WebServices
 
             List<HangHoaTCCDVM> lstHangHoa = hoso.ListHangHoa;
 
+            string sUserName = "doanhnghiep";
+            string sError = "";
+
             long iID_MaHoSo = 0, iID_MaHoSo_TCCD = 0;
             string sTenDoanhNghiep = "", iID_MaHangHoa = "";
             HoSoModels hs = clHoSo.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
@@ -598,27 +640,33 @@ namespace DATA0200025.WebServices
             {
                 iID_MaHoSo = hs.iID_MaHoSo;
                 sTenDoanhNghiep = hs.sTenDoanhNghiep;
-            }
 
-            string sUserName = "doanhnghiep";
-            string sError = "";
-            try
-            {
-                //Them vao bang HoSo_XNCL
-                iID_MaHoSo_TCCD = CHoSo.ThemHoSoTCCD(0, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiAssignName, sUserName, sIP);
+                try
+                {
+                    int iHH = 0;
+                    foreach (var hh in lstHangHoa)
+                    {
+                        iHH++;
 
-                //Update trang thai Ho So
-                CHoSo.UpDate_TrangThai(iID_MaHoSo, 27);
+                        iID_MaHangHoa += hh.fiGoodsId + ",";
+                    }
 
-                //Update Trang Thai Hang Hoa
-                CHangHoa.UpDate_TrangThai_TheoHoSo(iID_MaHoSo, 27);
+                    //Them vao bang HoSo_XNCL
+                    iID_MaHoSo_TCCD = CHoSo.ThemHoSoTCCD(0, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiAssignName, sUserName, sIP);
 
-                //Ghi Lai Lich Su
-                clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhNghiep, 1, 25, "", "", 0, "Doanh nghiệp đăng ký từ NSW chuyển sang", 1);
-            }
-            catch (Exception ex)
-            {
-                sError = "Error Add Ho So TCCD: " + ex.ToString();
+                    //Update trang thai Ho So
+                    CHoSo.UpDate_TrangThai(iID_MaHoSo, 27);
+
+                    //Update Trang Thai Hang Hoa
+                    CHangHoa.UpDate_TrangThai_TheoHoSo(iID_MaHoSo, 27);
+
+                    //Ghi Lai Lich Su
+                    clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhNghiep, 1, 25, "", "", 0, "Doanh nghiệp Chuyển chỉ tiêu kiểm tra của cả lô hàng cho tổ chức chỉ định đối với hình thức kiểm tra 2c từ NSW", 1);
+                }
+                catch (Exception ex)
+                {
+                    sError = "Error Add Ho So TCCD: " + ex.ToString();
+                }
             }
 
             return null;
@@ -655,7 +703,7 @@ namespace DATA0200025.WebServices
                 foreach (var f in lstDinhKem)
                 {
                     iF++;
-                    long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP);
+                    long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId));
                 }
 
                 //Update Trang Thai Hang Hoa
