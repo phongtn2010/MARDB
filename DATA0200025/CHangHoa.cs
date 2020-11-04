@@ -31,8 +31,7 @@ namespace DATA0200025
                 Bang bang = new Bang("CNN25_HangHoa");
                 bang.MaNguoiDungSua = sUserName;
                 bang.IPSua = sIP;
-                bang.DuLieuMoi = true;
-                bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoaNSW);
+                
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoaNSW", iID_MaHangHoaNSW);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaNhom", iID_MaNhom);
@@ -64,6 +63,7 @@ namespace DATA0200025
                 
                 if (iID_MaHangHoa_Sua > 0)
                 {
+                    bang.DuLieuMoi = false;
                     bang.GiaTriKhoa = iID_MaHangHoa_Sua;
                     bang.Save();
 
@@ -71,6 +71,8 @@ namespace DATA0200025
                 }
                 else
                 {
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoaNSW);
+                    bang.DuLieuMoi = true;
                     bang.Save();
 
                     iID_MaHangHoa = iID_MaHangHoaNSW;

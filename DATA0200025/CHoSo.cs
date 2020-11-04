@@ -34,7 +34,7 @@ namespace DATA0200025
                 Bang bang = new Bang("CNN25_HoSo");
                 bang.MaNguoiDungSua = sUserName;
                 bang.IPSua = sIP;
-                bang.DuLieuMoi = true;
+                
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaLoaiHoSo", iID_MaLoaiHoSo);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo_ThayThe", iID_MaHoSo_ThayThe);
@@ -111,6 +111,7 @@ namespace DATA0200025
 
                 if(iID_MaHoSo_Sua > 0)
                 {
+                    bang.DuLieuMoi = false;
                     bang.GiaTriKhoa = iID_MaHoSo_Sua;
                     bang.Save();
 
@@ -118,6 +119,7 @@ namespace DATA0200025
                 }
                 else
                 {
+                    bang.DuLieuMoi = true;
                     iID_MaHoSo = Convert.ToInt64(bang.Save());
                 }
                 
@@ -174,7 +176,7 @@ namespace DATA0200025
                 Bang bang = new Bang("CNN25_HoSo_XNCL");
                 bang.MaNguoiDungSua = sUserName;
                 bang.IPSua = sIP;
-                bang.DuLieuMoi = true;
+                
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaToChuc", iID_MaToChuc);
@@ -196,6 +198,7 @@ namespace DATA0200025
 
                 if (iID_MaHoSo_XNCL_Sua > 0)
                 {
+                    bang.DuLieuMoi = false;
                     bang.GiaTriKhoa = iID_MaHoSo_XNCL_Sua;
                     bang.Save();
 
@@ -203,6 +206,7 @@ namespace DATA0200025
                 }
                 else
                 {
+                    bang.DuLieuMoi = true;
                     iID_MaHoSoXNCL = Convert.ToInt64(bang.Save());
                 }
 

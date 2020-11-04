@@ -19,7 +19,6 @@ namespace DATA0200025
                 Bang bang = new Bang("CNN25_DinhKem");
                 bang.MaNguoiDungSua = sUserName;
                 bang.IPSua = sIP;
-                bang.DuLieuMoi = true;
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaLoaiFile", iID_MaLoaiFile);
@@ -37,6 +36,7 @@ namespace DATA0200025
 
                 if(iID_MaFile_Sua > 0)
                 {
+                    bang.DuLieuMoi = false;
                     bang.GiaTriKhoa = iID_MaFile_Sua;
                     bang.Save();
 
@@ -44,6 +44,7 @@ namespace DATA0200025
                 }
                 else
                 {
+                    bang.DuLieuMoi = true;
                     vR = Convert.ToInt64(bang.Save());
                 }
             }
