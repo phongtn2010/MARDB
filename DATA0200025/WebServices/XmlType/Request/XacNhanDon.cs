@@ -17,23 +17,19 @@ namespace DATA0200025.WebServices.XmlType.Request
 
         [XmlElement] public string DepartmentName { get; set; }
 
-        [XmlIgnore] public DateTime ImportingFromDate { get; set; }
-
-        [XmlElement("ImportingFromDate")]
         public string ImportingFromDateString
         {
             get => ImportingFromDate.ToString("yyyy-MM-dd HH:mm:ss");
             set => ImportingFromDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
+        [XmlIgnore] public DateTime ImportingFromDate { get; set; }
 
-        [XmlIgnore] public DateTime ImportingToDate { get; set; }
-
-        [XmlElement("ImportingToDate")]
         public string ImportingToDateString
         {
             get => ImportingToDate.ToString("yyyy-MM-dd HH:mm:ss");
             set => ImportingToDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
+        [XmlElement] public DateTime ImportingToDate { get; set; }
 
         [XmlElement] public string AssignID { get; set; }
 
@@ -41,14 +37,12 @@ namespace DATA0200025.WebServices.XmlType.Request
 
         [XmlElement] public string AssignNameOther { get; set; }
 
-        [XmlIgnore] public DateTime SignConfirmDate { get; set; }
-
-        [XmlElement("SignConfirmDate")]
         public string SignConfirmDateString
         {
             get => SignConfirmDate.ToString("yyyy-MM-dd HH:mm:ss");
             set => SignConfirmDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
+        [XmlIgnore] public DateTime SignConfirmDate { get; set; }
 
         [XmlElement] public string SignConfirmPlace { get; set; }
 
