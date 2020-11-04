@@ -3082,6 +3082,7 @@
     <Content Include="Views\DaCapThongBaoKetQua\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\DaCapThongBaoKetQua\Partial_ThongBaoKetQua.cshtml" />
     <Content Include="Views\LanhDaoPhong\Partial_Modal_ThuHoi.cshtml" />
+    <Content Include="Views\ChoXuLyKetQua\Partial_Model_ThuHoi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

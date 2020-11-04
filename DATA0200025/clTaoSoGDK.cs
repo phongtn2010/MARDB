@@ -26,14 +26,13 @@ namespace DATA0200025
             if (inam > 0)
             {
                 Ngay = date;
-                string SQL = "SELECT iSTT FROM CNN25_TaoSoGDK WHERE inam=@inam";
+                string SQL = "SELECT iSTT FROM CNN25_TaoSoGDK WHERE iNam=@iNam";
                 SqlCommand cmd = new SqlCommand(SQL);
                 cmd.Parameters.AddWithValue("@iNam", date.Year);
                 STT = Convert.ToInt32(Connection.GetValue(cmd, 0));
                 if(STT==0)
                 {
-                    cmd.CommandText = "INSERT INTO CNN25_TaoSoGDK(iNam,iSTT) VALUES(@iNam,1)";
-                    cmd.Parameters.AddWithValue("@iNam", date.Year);
+                    cmd.CommandText = "INSERT INTO CNN25_TaoSoGDK(iNam,iSTT) VALUES(@iNam,1)";                  
                     int vR = Connection.UpdateDatabase(cmd);
                      
                 }    
