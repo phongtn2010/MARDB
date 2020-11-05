@@ -7,6 +7,7 @@ using DomainModel.Abstract;
 using DATA0200026;
 using DATA0200026.WebServices;
 using DomainModel;
+using DATA0200026.WebServices.XmlType.Request;
 
 namespace APP0200025.Controllers
 {
@@ -61,11 +62,36 @@ namespace APP0200025.Controllers
         public ActionResult MienGiam_ChoTiepNhan_Detail(string iID_MaHoSo)
         {
             CHoSo26.UpdateNguoiXem(iID_MaHoSo, User.Identity.Name);
-            ViewData["DuLieuMoi"] = "0";
-            ViewData["smenu"] = 187;
+            
             //HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
 
             return View();
+        }
+
+        public ActionResult MienGiam_ChoTiepNhan_TiepNhan(string iID_MaHoSo, string sMaHoSo)
+        {
+            String sUserName = User.Identity.Name;
+            String sTenUser = CPQ_NGUOIDUNG.Get_TenNguoiDung(sUserName);
+            CHoSo26.UpdateNguoiXem(iID_MaHoSo, sUserName);
+
+            //Gui sang NSW
+            PhanHoiDonXM resultConfirm = new PhanHoiDonXM();
+            resultConfirm.NSWFileCode = sMaHoSo;
+            resultConfirm.NameOfStaff = sTenUser;
+            resultConfirm.ResponseDate = DateTime.Now;
+
+            string error = _sendService.PhanHoiDonXM(sMaHoSo, resultConfirm);
+
+            if (error == "99")
+            {
+                CHoSo26.UpDate_TrangThai(Convert.ToInt64(iID_MaHoSo), 2);
+
+                CLichSuHoSo.Add(Convert.ToInt64(iID_MaHoSo), sMaHoSo, sUserName, sTenUser, eDoiTuong.TYPE_2, "Bộ phận 1 cửa", eHanhDong.TYPE_1_2, "Tiếp nhận hồ sơ", "", "", eTrangThai.TYPE_1, "Chờ tiếp nhận", eTrangThai.TYPE_2, "Đã tiếp nhận");
+            }
+
+            CHoSo26.CleanNguoiXem(iID_MaHoSo);
+
+            return RedirectToAction("MienGiam_ChoTiepNhan", "BoPhanMotCua");
         }
     }
 }

@@ -151,13 +151,11 @@
                                         {
                                             r = dt.Rows[i];
 
+                                            int iTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
+
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
-                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
-                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
-
-
+                                            String strTiepNhan = MyHtmlHelper.ActionLink(Url.Action("MienGiam_ChoTiepNhan_TiepNhan", "BoPhanMotCua", new { iID_MaHoSo = r["iID_MaHoSo"], sMaHoSo = Convert.ToString(r["sMaHoSo"]) }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
+                                            String strView = MyHtmlHelper.ActionLink(Url.Action("MienGiam_ChoTiepNhan_Detail", "BoPhanMotCua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
 
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
@@ -175,7 +173,10 @@
                                                 <td class="head-td-icon">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
-                                                        <span class='badge bg-green btnTiepNhan' data-id="@r["iID_MaHoSo"]"><i class='fa fa-fw fa-check'></i></span>
+                                                        if (iTrangThai == 1)
+                                                        {
+                                                            @MvcHtmlString.Create(strTiepNhan)
+                                                        }
                                                     }
                                             </tr>
                                         }

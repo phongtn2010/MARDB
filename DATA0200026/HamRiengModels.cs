@@ -252,4 +252,31 @@ namespace DATA0200026
             return vR;
         }
     }
+
+    public static class eTrangThai
+    {
+        public const int TYPE_0 = 0;  //Doanh nghiệp đăng ký
+        public const int TYPE_1 = 1;  //Chờ tiếp nhận
+        public const int TYPE_2 = 2;  //Đã tiếp nhận
+        public const int TYPE_3 = 3;  //Lãnh đạo cục đã phê duyệt 
+        public const int TYPE_4 = 4;  //Đã cấp công văn miễn giảm
+        public const int TYPE_5 = 5;  //Xử lý thu hồi CV miễn/giảm kiểm tra
+        public const int TYPE_6 = 6;  //Đã thu hồi công văn miễn giảm
+    }
+
+    public static class eDoiTuong
+    {
+        public const int TYPE_1 = 1;  //Doanh nghiệp
+        public const int TYPE_2 = 2;  //Bộ phận 1 cửa
+        public const int TYPE_3 = 3;  //Lãnh đạo Cục
+    }
+
+    public static class eHanhDong
+    {
+        public const int TYPE_0_1 = 0;  //Gửi HS
+        public const int TYPE_1_2 = 1;  //Tiếp nhận 
+        public const int TYPE_2_3 = 2;  //Ký số
+        public const int TYPE_3_4 = 3;  //Chuyển DN
+        public const int TYPE_5_6 = 5;  //Thu hồi công văn miễn giảm
+    }
 }

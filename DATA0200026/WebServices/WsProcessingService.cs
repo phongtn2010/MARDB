@@ -84,7 +84,7 @@ namespace DATA0200026.WebServices
                     }
                 }
 
-                CLichSuHoSo.Add(iID_MaHoSo, sMaHoSo, sUserName, sTenDoanhnghiep, 1, "Doanh nghiệp", 1, "Gửi hồ sơ", "", "", 0, "Doanh nghiệp đăng ký mới", 1, "Chờ tiếp nhận");
+                CLichSuHoSo.Add(iID_MaHoSo, sMaHoSo, sUserName, sTenDoanhnghiep, eDoiTuong.TYPE_1, "Doanh nghiệp", eHanhDong.TYPE_0_1, "Gửi hồ sơ", "", "", eTrangThai.TYPE_0, "Doanh nghiệp đăng ký mới", eTrangThai.TYPE_1, "Chờ tiếp nhận");
             }
             catch (Exception ex)
             {
