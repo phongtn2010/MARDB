@@ -38,12 +38,12 @@ namespace DATA0200026.DTO
         [XmlElement("Organization")]
         public string Organization { set; get; }
 
-        public DateTime SignDate { set; get; }
+        public DateTime fiSignDate { get; set; }
         [XmlElement("SignDate"), NotMapped]
-        public string SignDateString
+        public string fiSignDateString
         {
-            get => SignDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => SignDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => fiSignDate.ToString("yyyy-MM-dd HH:mm:ss");
+            set => fiSignDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
 
         [XmlElement("SignPlace")]

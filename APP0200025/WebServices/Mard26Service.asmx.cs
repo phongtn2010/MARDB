@@ -118,7 +118,7 @@ namespace APP0200025.WebServices
                     msgType,
                     new Error { ErrorCode = WsConstants.Errors.BNN10, ErrorName = error });
             var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, msgType, msgFunc);
-            var content = new Content(DateTime.Now);
+            var content = new Content(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             var body = Body.CreateBody(content);
             return new Envelope { Header = header, Body = body };
         }

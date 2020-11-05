@@ -67,6 +67,8 @@
     <Compile Include="BangModels_Sub\BangModels_TaoBangMoi.cs" />
     <Compile Include="CHangHoa26.cs" />
     <Compile Include="CHoSo26.cs" />
+    <Compile Include="CLichSuHoSo.cs" />
+    <Compile Include="CThamSo.cs" />
     <Compile Include="DTO\AnToanVM.cs" />
     <Compile Include="DTO\AttachmentVM.cs" />
     <Compile Include="DTO\ChatLuongVM.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="DTO\HoSoVM.cs" />
     <Compile Include="DTO\Request\ResponseCancel.cs" />
     <Compile Include="DTO\SoLuongVM.cs" />
+    <Compile Include="HamRiengModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebServices\SendService.cs" />
     <Compile Include="WebServices\WsConstants.cs" />

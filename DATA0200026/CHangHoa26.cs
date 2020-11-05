@@ -12,7 +12,7 @@ namespace DATA0200026
 {
     public class CHangHoa26
     {
-        public static long ThemHangHoa(long iID_MaHoSo, long iID_MaHangHoaNSW, int iID_MaNhom, string iID_MaPhanNhom, string iID_MaLoai, string iID_MaPhanLoai, int iID_MaTrangThai,
+        public static long ThemHangHoa(long iID_MaHoSo, long iID_MaHangHoa25, long iID_MaHangHoaNSW, int iID_MaNhom, string iID_MaPhanNhom, string iID_MaLoai, string iID_MaPhanLoai, int iID_MaTrangThai,
             string sTenPhanNhom, string sTenLoaiHangHoa, string sTenPhanLoai,
             string sMaHoSo, string sMaHoSo_DangKy, int iDuDieuKien, 
             string sTenHangHoa, string sMaSoCongNhan, string sHangSanXuat, string sMaQuocGia, string sTenQuocGia, 
@@ -33,6 +33,7 @@ namespace DATA0200026
                 bang.IPSua = sIP;
 
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa25", iID_MaHangHoa25);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoaNSW", iID_MaHangHoaNSW);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaNhom", iID_MaNhom);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaPhanNhom", iID_MaPhanNhom);

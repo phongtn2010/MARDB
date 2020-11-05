@@ -31,7 +31,7 @@ namespace DATA0200026.WebServices
             List<HangHoaVM> lstHangHoa = hoso.ListHangHoa;
 
             string sError = "";
-            long iID_MaHoSo = 0, iID_MaHoSo_ThayThe = 0;
+            long iID_MaHoSo = 0;
             string sMaHoSo = hoso.NSWFileCode;
 
             string sUserName = "doanhnghiep";
@@ -46,7 +46,7 @@ namespace DATA0200026.WebServices
                     sTenTACN += hh.NameOfGoods + ";";
                 }
 
-                iID_MaHoSo = CHoSo26.ThemHoSo(0, 1, 1, hoso.NSWFileCode, hoso.SignDate, false, "", null, null, null, null,
+                iID_MaHoSo = CHoSo26.ThemHoSo(0, 1, 1, hoso.NSWFileCode, hoso.fiSignDate, false, "", null, null, null, null,
                     "", sTenDoanhnghiep, sTenLoaiHoSo, sTenTACN, hoso.SignPlace, hoso.Organization, hoso.Address, hoso.Phone, hoso.Fax, "", hoso.DepartmentCode, hoso.DepartmentName,
                     hoso.SignPlaceCode, hoso.SignPlaceName, hoso.SignName, hoso.SignPosition, sUserName, sIP);
 
@@ -60,7 +60,7 @@ namespace DATA0200026.WebServices
                     List<ChatLuongVM> lstChatLuong = hh.ListChatLuong;
                     List<AnToanVM> lstAnToan = hh.ListAnToan;
 
-                    iID_MaHangHoa = CHangHoa26.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.GroupFoodOfGoods, "", Convert.ToString(hh.GoodTypeId), "", 0,
+                    iID_MaHangHoa = CHangHoa26.ThemHangHoa(iID_MaHoSo, hh.GoodsCode, hh.GoodsId, hh.GroupFoodOfGoods, "", Convert.ToString(hh.GoodTypeId), "", 0,
                         "", hh.GoodTypeName, "", sMaHoSo, hh.NSWRegisterFileCode, hh.GoodsCode, hh.NameOfGoods, hh.RegistrationNumber, hh.Manufacture, hh.ManufactureStateCode, hh.ManufactureState,
                         "", hh.StandardBase, hh.Material, "", hh.FormColorOfProducts, "", sUserName, sIP);
 
@@ -68,14 +68,14 @@ namespace DATA0200026.WebServices
                     {
                         foreach (var cl in lstChatLuong)
                         {
-                            //string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
-                            //long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
+                            string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
+                            long iChatLuong = CHangHoa26.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
                         }
 
                         foreach (var at in lstAnToan)
                         {
-                            //string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
-                            //long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
+                            string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
+                            long iAnToan = CHangHoa26.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
                         }
                     }
                     else
@@ -84,7 +84,7 @@ namespace DATA0200026.WebServices
                     }
                 }
 
-                //clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhnghiep, 1, 1, "", "", 0, "Doanh nghiệp đăng ký từ NSW chuyển sang", 1);
+                CLichSuHoSo.Add(iID_MaHoSo, sMaHoSo, sUserName, sTenDoanhnghiep, 1, "Doanh nghiệp", 1, "Gửi hồ sơ", "", "", 0, "Doanh nghiệp đăng ký mới", 1, "Chờ tiếp nhận");
             }
             catch (Exception ex)
             {
