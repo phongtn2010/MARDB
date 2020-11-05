@@ -252,6 +252,10 @@
     <Compile Include="Controllers\BaoMat\DC_CongTyController.cs" />
     <Compile Include="Controllers\ChoXemXetKetQuaController.cs" />
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
+    <Compile Include="WebServices\Mard26Service.asmx.cs">
+      <DependentUpon>Mard26Service.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WebServices\MardService.asmx.cs">
       <DependentUpon>MardService.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -2888,6 +2892,7 @@
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\LanhDaoPhong\HoSoChoXemXet.cshtml" />
+    <Content Include="WebServices\Mard26Service.asmx" />
     <Content Include="WebServices\MardService.asmx" />
     <Content Include="WebServices\test.asmx" />
     <Content Include="XML\en.gif" />
@@ -3626,6 +3631,10 @@
     <ProjectReference Include="..\DATA0200025\DATA0200025.csproj">
       <Project>{e42b1885-7c38-49f3-a729-36f06ab53d94}</Project>
       <Name>DATA0200025</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DATA0200026\DATA0200026.csproj">
+      <Project>{69fa8a01-742c-409f-ade0-9b6179896f59}</Project>
+      <Name>DATA0200026</Name>
     </ProjectReference>
     <ProjectReference Include="..\DomainModels\DomainModels.csproj">
       <Project>{25be807d-acf1-484a-ac7b-7675c28ed8cc}</Project>
