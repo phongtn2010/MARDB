@@ -8,6 +8,7 @@ using DATA0200025.DTO;
 using DATA0200025.Models;
 using System.Data.SqlClient;
 using DomainModel;
+using System.Data;
 
 namespace DATA0200025
 {
@@ -201,6 +202,19 @@ namespace DATA0200025
             {
                 vR = -1;
             }
+
+            return vR;
+        }
+
+        public static DataTable Get_HoSo_TCCD(long iID_MaHoSo)
+        {
+            DataTable vR = null;
+
+            string SQL = "SELECT TOP 1 * FROM CNN25_ChungNhanHopQuy WHERE iID_MaHoSo=@iID_MaHoSo ORDER BY dNgayTao DESC";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
 
             return vR;
         }

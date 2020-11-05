@@ -77,66 +77,65 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Danh sách hàng hóa</h3>
-                    @*<div class="box-tools">
-                            <ul class="pagination pagination-sm no-margin pull-right">
-                                <li><a href="@Url.Action("Edit", "ChoTiepNhanHoSo")"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
-                                <li><a href="@Url.Action("Sort", "ChoTiepNhanHoSo")"><i class="fa fa-sort-numeric-asc"></i> @Lang["ChucNang_Item04"].ToString()</a></li>
-                            </ul>
-                        </div>*@
+                    <h3 class="box-title text-uppercase">Danh sách hàng hóa</h3>
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                    </ul>
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped">
-                            <tr>
-                                <th style="width: 3%;" class="text-center">STT</th>
-                                <th style="width: 15%;" class="text-center">Tên hàng hóa</th>
-                                <th style="width: 10%; text-align: center;" class="text-center">Số lượng</th>
-                                <th class="text-center">Khối lượng</th>
-                                <th class="text-center">Trạng thái xử lý</th>
-                                <th style="text-align: center;width:20px;white-space:nowrap;" class="text-center;">Xử lý</th>
-                                <th style="text-align: center;width:20px;white-space:nowrap;" class="text-center;">Gửi trả kết quả</th>
-                                <th style="text-align: center;width:20px;white-space:nowrap;" class="text-center;">Xem KQĐGSPH đã gửi DN</th>
-
-                            </tr>
-                            @{
-                                if (dt.Rows.Count > 0)
-                                {
-                                    for (int i = 0; i < dt.Rows.Count; i++)
+                        <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 3%;" class="text-center">STT</th>
+                                    <th style="width: 15%;" class="text-center">Tên hàng hóa</th>
+                                    <th style="width: 10%; text-align: center;" class="text-center">Số lượng</th>
+                                    <th class="text-center">Khối lượng</th>
+                                    <th class="text-center">Trạng thái xử lý</th>
+                                    <th style="text-align: center;width:20px;white-space:nowrap;" class="text-center;">Xử lý</th>
+                                    <th style="text-align: center;width:20px;white-space:nowrap;" class="text-center;">Gửi trả kết quả</th>
+                                    <th style="text-align: center;width:20px;white-space:nowrap;" class="text-center;">Xem KQĐGSPH đã gửi DN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (dt.Rows.Count > 0)
                                     {
-                                        R = dt.Rows[i];
-                                        int iSTT = i + 1;
-                                        String strInsert = MyHtmlHelper.ActionLink(Url.Action("KetQuaUpload", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], sTenHangHoa = R["sTenHangHoa"], iID_MaHangHoa = R["iID_MaHangHoa"], _sMaHoSo = _sMaHoSo , _sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-pencil'></i></span>", "Edit", "");
-                                        String strView = MyHtmlHelper.ActionLink(Url.Action("XemKetQuaUpload", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], sTenHangHoa = R["sTenHangHoa"], iID_MaHangHoa = R["iID_MaHangHoa"], _sMaHoSo = _sMaHoSo, _sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Edit", "");
-                                        //String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "Tinh", new { iID_MaTinh = R["iID_MaTinh"] }), "<span class=\"badge bg-blue\"><i class=\"fa fa-pencil\"></i></span>", "Edit", "");
-                                        //String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "Tinh", new { iID_MaTinh = R["iID_MaTinh"] }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
-                                        <tr>
-                                            <td style="text-align: center;">@iSTT.ToString()</td>
-                                            <td>@R["sTenHangHoa"]</td>
-                                            <td>@R["rSoLuong"]</td>
-                                            <td>@R["rKhoiLuong"]</td>
-                                            <td style="text-align: center;">1</td>
-                                            <td style='text-align:center;'>
-                                                @*<a data-toggle='modal' href='#UploadKetQua'><span class='badge bg-blue'> <i class='fa fa-pencil'></i></span></a>*@
-                                                @MvcHtmlString.Create(strInsert)
-                                            </td>
-                                            <td style='text-align:center;'><span class='badge bg-blue'><i class='fa fa-fw fa-paper-plane-o'></i></span></td>
-                                            <td style='text-align:center;'>
-                                                @MvcHtmlString.Create(strView)
-                                            </td>
-                                        </tr>
+                                        for (int i = 0; i < dt.Rows.Count; i++)
+                                        {
+                                            R = dt.Rows[i];
+                                            int iSTT = i + 1;
+                                            String strInsert = MyHtmlHelper.ActionLink(Url.Action("KetQuaUpload", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], sTenHangHoa = R["sTenHangHoa"], iID_MaHangHoa = R["iID_MaHangHoa"], _sMaHoSo = _sMaHoSo, _sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-pencil'></i></span>", "Edit", "");
+                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiKetQua", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], iID_MaHangHoa = R["iID_MaHangHoa"], sMaHoSo = _sMaHoSo, sTenHangHoa = R["sTenHangHoa"], sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-fw fa-paper-plane-o'></i></span>", "Edit", "");
+                                            String strView = MyHtmlHelper.ActionLink(Url.Action("XemKetQuaUpload", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], sTenHangHoa = R["sTenHangHoa"], iID_MaHangHoa = R["iID_MaHangHoa"], _sMaHoSo = _sMaHoSo, _sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Edit", "");
+
+                                            <tr>
+                                                <td style="text-align: center;">@iSTT.ToString()</td>
+                                                <td>@R["sTenHangHoa"]</td>
+                                                <td>@R["rSoLuong"]</td>
+                                                <td>@R["rKhoiLuong"]</td>
+                                                <td style="text-align: center;">1</td>
+                                                <td style='text-align:center;'>
+                                                    @MvcHtmlString.Create(strInsert)
+                                                </td>
+                                                <td style='text-align:center;'>
+                                                    @MvcHtmlString.Create(strSend)
+                                                </td>
+                                                <td style='text-align:center;'>
+                                                    @MvcHtmlString.Create(strView)
+                                                </td>
+                                            </tr>
+                                        }
                                     }
+                                    dt.Dispose();
                                 }
-                                dt.Dispose();
-                            }
+                            </tbody>
                         </table>
                     </div>
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
                     @*@MvcHtmlString.Create(strPhanTrang)*@
                 </div>
-                @*<div class="box-footer clearfix">
-                    </div>*@
             </div>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -144,3 +143,17 @@
 @{Html.RenderPartial("~/Views/ToChucChiDinh/Partial_Model_HangHoa.cshtml");}
 @{Html.RenderPartial("~/Views/ToChucChiDinh/Partial_Model_UploadKetQua.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsToChucChiDinh.js")"></script>
+<script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
+<script>
+    $(function () {
+        $('#tblListData').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false
+        });
+    });
+</script>

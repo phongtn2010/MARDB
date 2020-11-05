@@ -150,17 +150,16 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Danh sách hồ sơ</h3>
-                    @*<div class="box-tools">
-                            <ul class="pagination pagination-sm no-margin pull-right">
-                                <li><a href="@Url.Action("Edit", "ChoTiepNhanHoSo")"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
-                                <li><a href="@Url.Action("Sort", "ChoTiepNhanHoSo")"><i class="fa fa-sort-numeric-asc"></i> @Lang["ChucNang_Item04"].ToString()</a></li>
-                            </ul>
-                        </div> *@
+                    <h3 class="box-title text-uppercase">Danh sách hồ sơ</h3>
+                    <div class="box-tools">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                        </ul>
+                    </div>
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped dataTable">
+                        <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
                             <thead>
                                 <tr>
                                     <th style="width: 3%;" class="text-center">STT</th>
@@ -239,3 +238,18 @@
 @{Html.RenderPartial("~/Views/ToChucChiDinh/Partial_Model_HangHoa.cshtml");}
 @{Html.RenderPartial("~/Views/ToChucChiDinh/Partial_Model_UploadKetQua.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsToChucChiDinh.js")"></script>
+
+<script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
+<script>
+    $(function () {
+        $('#tblListData').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false
+        });
+    });
+</script>
