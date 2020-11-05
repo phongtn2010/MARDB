@@ -250,6 +250,7 @@
     <Compile Include="Controllers\Api\FileUploadApiController.cs" />
     <Compile Include="Controllers\Api\FileuploadController.cs" />
     <Compile Include="Controllers\BaoMat\DC_CongTyController.cs" />
+    <Compile Include="Controllers\BoPhanMotCuaController.cs" />
     <Compile Include="Controllers\ChoXemXetKetQuaController.cs" />
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="WebServices\Mard26Service.asmx.cs">
@@ -3084,6 +3085,7 @@
     <Content Include="Views\DaCapThongBaoKetQua\Partial_ThongBaoKetQua.cshtml" />
     <Content Include="Views\LanhDaoPhong\Partial_Modal_ThuHoi.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_Model_ThuHoi.cshtml" />
+    <Content Include="Views\BoPhanMotCua\MienGiam_ChoTiepNhan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

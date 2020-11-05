@@ -67,6 +67,7 @@
     <Compile Include="BangModels_Sub\BangModels_TaoBangMoi.cs" />
     <Compile Include="CHangHoa26.cs" />
     <Compile Include="CHoSo26.cs" />
+    <Compile Include="CHoSoSearch.cs" />
     <Compile Include="CLichSuHoSo.cs" />
     <Compile Include="CThamSo.cs" />
     <Compile Include="DTO\AnToanVM.cs" />

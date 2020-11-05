@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using DomainModel;
 using System.Configuration;
+using DomainModel.Controls;
 
 namespace DATA0200026
 {
@@ -36,6 +37,31 @@ namespace DATA0200026
             //{
             vR = ConfigurationManager.AppSettings["ServerURL"];
             //}
+
+            return vR;
+        }
+
+        public static DataTable GetTable_TrangThai()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("ID", typeof(int));
+            table.Columns.Add("NAME", typeof(string));
+
+            table.Rows.Add(1, "Chờ tiếp nhận");
+            table.Rows.Add(2, "Đã tiếp nhận");
+            table.Rows.Add(3, "Lãnh đạo cục đã phê duyệt ");
+            table.Rows.Add(4, "Đã cấp công văn miễn giảm");
+            table.Rows.Add(5, "Thu hồi công văn miễn giảm");
+            table.Rows.Add(6, "Đã thu hồi công văn miễn giảm");
+
+            return table;
+        }
+
+        public static SelectOptionList Get_Select_TrangThai()
+        {
+            DataTable dt = GetTable_TrangThai();
+            SelectOptionList vR = new SelectOptionList(dt, "ID", "NAME");
+            dt.Dispose();
 
             return vR;
         }

@@ -169,7 +169,7 @@ namespace APP0200025.Controllers
         public static DataTable GetHoangHoaByIdHoSo(string iID_MaHoSo)
         {
             SqlCommand cmd = new SqlCommand();
-            string SQL = string.Format("SELECT A.iID_MaHoSo,A.sMaHoSo ,A.iID_MaHangHoa ,A.sTenHangHoa as 'sTenHangHoa', B.rKhoiLuong , B.rSoLuong FROM CNN25_HangHoa A left join CNN25_HangHoa_SoLuong B on A.iID_MaHangHoa = B.iID_MaHangHoa WHERE A.iID_MaHoSo = {0} ", iID_MaHoSo);
+            string SQL = string.Format("SELECT A.iID_MaHoSo,A.sMaHoSo ,A.iID_MaHangHoa ,A.sTenHangHoa as 'sTenHangHoa', A.iID_MaTrangThai, B.rKhoiLuong , B.rSoLuong FROM CNN25_HangHoa A left join CNN25_HangHoa_SoLuong B on A.iID_MaHangHoa = B.iID_MaHangHoa WHERE A.iID_MaHoSo = {0} ", iID_MaHoSo);
             cmd.CommandText = SQL;
             string sOrder = "iID_MaHoSo DESC";
             DataTable dt = CommonFunction.dtData(cmd, sOrder, 1, 10000);

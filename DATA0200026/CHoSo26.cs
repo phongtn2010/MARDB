@@ -2,6 +2,7 @@
 using DomainModel.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -111,6 +112,155 @@ namespace DATA0200026
             }
 
             return vR;
+        }
+
+
+        public static int GetCount(CHoSoSearch models)
+        {
+            SqlCommand cmd = new SqlCommand();
+            string DK = "1=1";
+            DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
+            cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
+
+            if (!string.IsNullOrEmpty(models.sMaHoSo))
+            {
+                DK += " AND sMaHoSo=@sMaHoSo";
+                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
+            }
+            if (!string.IsNullOrEmpty(models.sMaSoThue))
+            {
+                DK += " AND sMaSoThue=@sMaSoThue";
+                cmd.Parameters.AddWithValue("@sMaSoThue", models.sMaSoThue);
+            }
+            if (!string.IsNullOrEmpty(models.sTenDoanhNghiep))
+            {
+                DK += " AND sTenDoanhNghiep LIKE @sTenDoanhNghiep";
+                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep + "%");
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayDen))
+            {
+                DK += " AND dNgayTaoHoSo >= @dTuNgay";
+                cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau(models.TuNgayDen));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayDen))
+            {
+                DK += " AND dNgayTaoHoSo <= @dDenNgay";
+                cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau(models.DenNgayDen));
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan >= @TuNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau(models.TuNgayTiepNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
+            }
+            if (!string.IsNullOrEmpty(models.TuNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan >= @TuNgayXacNhan";
+                cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau(models.TuNgayXacNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
+                cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
+            }
+            if (models.iID_KetQuaXuLy > 0)
+            {
+                DK += " AND iID_KetQuaXuLy = @iID_KetQuaXuLy";
+                cmd.Parameters.AddWithValue("@iID_KetQuaXuLy", models.iID_KetQuaXuLy);
+            }
+            if (!string.IsNullOrEmpty(models.sTenTACN))
+            {
+                DK += " AND sTenTACN LIKE @sTenTACN";
+                cmd.Parameters.AddWithValue("@sTenTACN", "%" + models.sTenTACN + "%");
+            }
+            string SQL = string.Format("SELECT count(iID_MaHoSo) as value FROM CNN26_HoSo WHERE {0} ", DK);
+            cmd.CommandText = SQL;
+            int vR = Convert.ToInt32(Connection.GetValue(cmd, 0, CThamSo.iKetNoi));
+            cmd.Dispose();
+            return vR;
+        }
+        public static DataTable GetDataTable(CHoSoSearch models, int page, int numrecord)
+        {
+            SqlCommand cmd = new SqlCommand();
+            string DK = "1=1";
+            DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
+            cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
+
+            if (!string.IsNullOrEmpty(models.sMaHoSo))
+            {
+                DK += " AND sMaHoSo=@sMaHoSo";
+                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
+            }
+            if (!string.IsNullOrEmpty(models.sMaSoThue))
+            {
+                DK += " AND sMaSoThue=@sMaSoThue";
+                cmd.Parameters.AddWithValue("@sMaSoThue", models.sMaSoThue);
+            }
+            if (!string.IsNullOrEmpty(models.sTenDoanhNghiep))
+            {
+                DK += " AND sTenDoanhNghiep LIKE @sTenDoanhNghiep";
+                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep + "%");
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayDen))
+            {
+                DK += " AND dNgayTaoHoSo >= @dTuNgay";
+                cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau(models.TuNgayDen));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayDen))
+            {
+                DK += " AND dNgayTaoHoSo <= @dDenNgay";
+                cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau(models.DenNgayDen));
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan >= @TuNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau(models.TuNgayTiepNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayTiepNhan))
+            {
+                DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
+                cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan >= @TuNgayXacNhan";
+                cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau(models.TuNgayXacNhan));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgayXacNhan))
+            {
+                DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
+                cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
+            }
+            if (!string.IsNullOrEmpty(models.sSoTiepNhan))
+            {
+                DK += " AND sSoTiepNhan <= @sSoTiepNhan";
+                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
+            }
+            if (models.iID_KetQuaXuLy > 0)
+            {
+                DK += " AND iID_KetQuaXuLy = @iID_KetQuaXuLy";
+                cmd.Parameters.AddWithValue("@iID_KetQuaXuLy", models.iID_KetQuaXuLy);
+            }
+            if (!string.IsNullOrEmpty(models.sTenTACN))
+            {
+                DK += " AND sTenTACN LIKE @sTenTACN";
+                cmd.Parameters.AddWithValue("@sTenTACN", "%" + models.sTenTACN + "%");
+            }
+            string SQL = string.Format("SELECT * FROM CNN26_HoSo WHERE {0} ", DK);
+            cmd.CommandText = SQL;
+            string sOrder = "dNgayTao DESC";
+            DataTable dt = CommonFunction.dtData(cmd, sOrder, page, numrecord, CThamSo.iKetNoi);
+            cmd.Dispose();
+            return dt;
         }
     }
 }
