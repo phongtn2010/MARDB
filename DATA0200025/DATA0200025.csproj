@@ -114,7 +114,6 @@
     <Compile Include="CPQ_NHOMNGUOIDUNG.cs" />
     <Compile Include="CThamSo.cs" />
     <Compile Include="CTinh.cs" />
-    <Compile Include="CToChucChiDinh.cs" />
     <Compile Include="CVung.cs" />
     <Compile Include="DongMoKyBaoCaoModels.cs" />
     <Compile Include="DTO\AnToanVM.cs" />
@@ -138,6 +137,7 @@
     <Compile Include="HamRiengModels.cs" />
     <Compile Include="HangMauModels.cs" />
     <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\ChiTieuModels.cs" />
     <Compile Include="Models\Enums\HoSoStatus.cs" />
     <Compile Include="Models\FileDinhKemModels.cs" />
     <Compile Include="Models\GiayChungNhanHopQuyModels.cs" />
