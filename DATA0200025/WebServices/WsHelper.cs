@@ -40,7 +40,9 @@ namespace DATA0200025.WebServices
                 using (TextReader envelopeReader = new StringReader(response.Body.ReceiveResponse.ResponsePayload))
                 {
                     var envelop = (Envelope)envelopeSerializer.Deserialize(envelopeReader);
-                    var nswFileCode = envelop.Header.Subject.Reference;
+                    var sType = envelop.Header.Subject.Type;
+                    var sFun = envelop.Header.Subject.Function;
+                    var nswFileCode = envelop.Header.Subject.Function;
 
                     return envelop;
                     //return (Envelope)envelopeSerializer.Deserialize(envelopeReader);
@@ -55,8 +57,10 @@ namespace DATA0200025.WebServices
             {
                 return new Envelope();
             }
+
             //TODO: Save request / response
             var soapEnvelopeXml = CreateSoapEnvelope(payload);
+
             try
             {
                 var webRequest = CreateWebRequest(WsConfig.GatewayUrl, WsConfig.Action);
@@ -70,7 +74,7 @@ namespace DATA0200025.WebServices
                         soapResult = rd.ReadToEnd();
                     }
                 }
-
+                
                 return ParseResponse(soapResult);
             }
             catch (Exception ex)

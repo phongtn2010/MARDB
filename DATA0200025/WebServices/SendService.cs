@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 using DATA0200025.DTO;
 using DATA0200025.DTO.Extensions;
 using DATA0200025.DTO.Request;
+using DATA0200025.WebServices;
 using DATA0200025.WebServices.XmlType;
 using DATA0200025.WebServices.XmlType.Request;
 
@@ -13,6 +17,20 @@ namespace DATA0200025.WebServices
 {
     public class SendService
     {
+        public static string GetXmlFromObject<T>(T value)
+        {
+            var emptyNamespaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+            var serializer = new XmlSerializer(value.GetType());
+            var settings = new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true };
+
+            using (var stream = new StringWriter())
+            using (var writer = XmlWriter.Create(stream, settings))
+            {
+                serializer.Serialize(writer, value, emptyNamespaces);
+                return stream.ToString();
+            }
+        }
+
         /// <summary>
         /// XML(12,06),XML(12,07),XML(12,08),XML(12,09),XML(12,10)
         /// </summary>
@@ -52,6 +70,8 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
+            CLogNSW.Add(WsConstants.MessageType.TYPE_12 + "_" + sMessFun, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
+
             return response.GetFunction();
         }
         /// <summary>
@@ -70,6 +90,8 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
+            CLogNSW.Add(WsConstants.MessageType.TYPE_13 + "_" + WsConstants.MessageFunction.FUNCTION_11, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
+
             return response.GetFunction();
 
         }
@@ -84,6 +106,8 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
+            CLogNSW.Add(WsConstants.MessageType.TYPE_14 + "_" + WsConstants.MessageFunction.FUNCTION_12, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
+
             return response.GetFunction();
 
         }
@@ -97,6 +121,8 @@ namespace DATA0200025.WebServices
 
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
+
+            CLogNSW.Add(WsConstants.MessageType.TYPE_16 + "_" + WsConstants.MessageFunction.FUNCTION_14, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
 
             return response.GetFunction();
         }
@@ -134,6 +160,8 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
+            CLogNSW.Add(WsConstants.MessageType.TYPE_18 + "_" + sMessFun, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
+
             return response.GetFunction();
         }
 
@@ -146,6 +174,8 @@ namespace DATA0200025.WebServices
 
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
+
+            CLogNSW.Add(WsConstants.MessageType.TYPE_19 + "_" + WsConstants.MessageFunction.FUNCTION_22, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
 
             return response.GetErrors();
         }
@@ -160,6 +190,8 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
+            CLogNSW.Add(WsConstants.MessageType.TYPE_20 + "_" + WsConstants.MessageFunction.FUNCTION_23, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
+
             return response.GetFunction();
         }
 
@@ -172,6 +204,8 @@ namespace DATA0200025.WebServices
 
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
+
+            CLogNSW.Add(WsConstants.MessageType.TYPE_22 + "_" + WsConstants.MessageFunction.FUNCTION_25, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
 
             return response.GetFunction();
         }
@@ -186,6 +220,8 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
+            CLogNSW.Add(WsConstants.MessageType.TYPE_23 + "_" + WsConstants.MessageFunction.FUNCTION_26, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
+
             return response.GetFunction();
         }
 
@@ -199,6 +235,8 @@ namespace DATA0200025.WebServices
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
 
+            CLogNSW.Add(WsConstants.MessageType.TYPE_24 + "_" + WsConstants.MessageFunction.FUNCTION_26, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
+
             return response.GetFunction();
         }
 
@@ -211,6 +249,8 @@ namespace DATA0200025.WebServices
 
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
+
+            CLogNSW.Add(WsConstants.MessageType.TYPE_25 + "_" + WsConstants.MessageFunction.FUNCTION_28, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
 
             return response.GetFunction();
         }
