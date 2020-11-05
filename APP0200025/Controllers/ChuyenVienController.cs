@@ -156,7 +156,7 @@ namespace APP0200025.Controllers
         /// view màn hình YeuCauBoXung
         /// </summary>
         /// <returns></returns>
-        [AcceptVerbs(HttpVerbs.Get)]
+        [Authorize, ValidateInput(false), HttpPost]
         public ActionResult YeuCauBoSungSubmit()
         {
             String ParentID = "BS";
