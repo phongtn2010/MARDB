@@ -15,7 +15,7 @@
                 $('#YeuCauBoSung').modal('toggle');
             },
             error: function (response) {
-                alert("Bạn cần xử lý mẫu trước");
+               
                 $('#responsive').modal('toggle');
             }
 
