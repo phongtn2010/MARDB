@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 using DATA0200026.DTO;
 using DATA0200026.DTO.Extensions;
 using DATA0200026.DTO.Request;
@@ -13,6 +16,20 @@ namespace DATA0200026.WebServices
 {
     public class SendService
     {
+        private string GetXmlFromObject<T>(T value)
+        {
+            var emptyNamespaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+            var serializer = new XmlSerializer(value.GetType());
+            var settings = new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true };
+
+            using (var stream = new StringWriter())
+            using (var writer = XmlWriter.Create(stream, settings))
+            {
+                serializer.Serialize(writer, value, emptyNamespaces);
+                return stream.ToString();
+            }
+        }
+
         /// <summary>
         /// XML(11,03)
         /// </summary>

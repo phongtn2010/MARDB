@@ -17,7 +17,7 @@ namespace DATA0200025.WebServices
 {
     public class SendService
     {
-        public static string GetXmlFromObject<T>(T value)
+        private string GetXmlFromObject<T>(T value)
         {
             var emptyNamespaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
             var serializer = new XmlSerializer(value.GetType());
