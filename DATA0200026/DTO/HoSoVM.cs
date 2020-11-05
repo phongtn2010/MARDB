@@ -64,7 +64,16 @@ namespace DATA0200026.DTO
         [XmlArrayItem("Goods")]
         public virtual List<HangHoaVM> ListHangHoa { set; get; }
 
+        [XmlElement("SignPlaceCode")]
+        public string SignPlaceCode { get; set; }
+
+        [XmlElement("SignPlaceName")]
+        public string SignPlaceName { get; set; }
+
         [XmlElement("SignName")]
         public string SignName { set; get; }
+
+        [XmlElement("SignPosition")]
+        public string SignPosition { get; set; }
     }
 }

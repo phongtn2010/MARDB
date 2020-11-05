@@ -17,7 +17,7 @@ namespace DATA0200026.DTO
         public string NSWRegisterFileCode { set; get; }
 
         [XmlElement("GoodsCode")]
-        public string GoodsCode { set; get; }
+        public int GoodsCode { set; get; }
 
         [XmlElement("NameOfGoods")]
         public string NameOfGoods { set; get; }

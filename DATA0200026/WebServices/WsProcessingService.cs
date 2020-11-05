@@ -38,19 +38,17 @@ namespace DATA0200026.WebServices
 
             try
             {
-                //String sTenLoaiHoSo = HamRiengModels.Get_Name_LoaiHinhThucKiemTra(hoso.fiTypeAniFeed);
-                //String sTenTACN = "";
-                //foreach (var hh in lstHangHoa)
-                //{
-                //    sTenTACN += hh.fiNameOfGoods + ";";
-                //}
+                String sTenLoaiHoSo = "Hồ sơ miễn kiểm";
+                String sTenDoanhnghiep = hoso.Organization;
+                String sTenTACN = "";
+                foreach (var hh in lstHangHoa)
+                {
+                    sTenTACN += hh.NameOfGoods + ";";
+                }
 
-                //iID_MaHoSo = CHoSo.ThemHoSo(0, 1, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode, hoso.fiNSWFileCodeOld, hoso.fiCreateDate, false, "", null, null, null, null,
-                //    hoso.fiTaxCode, sTenDoanhnghiep, sTenLoaiHoSo, "", sTenTACN, hoso.sBan_Name, hoso.sBan_DiaChi, hoso.sBan_Tel, hoso.sBan_Fax, "", hoso.sBan_MaQuocGia, hoso.sBan_QuocGia, hoso.sBan_NoiXuat,
-                //    hoso.sMua_Name, hoso.sMua_DiaChi, hoso.sMua_Tel, hoso.sMua_Fax, "", hoso.sMua_NoiNhan, hoso.sMua_FromDate, hoso.sMua_ToDate,
-                //    hoso.fiLocationOfStorage, hoso.fiLocationOfSampling, hoso.fiDateOfSamplingFrom, hoso.fiDateOfSamplingTo,
-                //    hoso.fiContactPerson, hoso.fiContactAddress, hoso.fiContactTel, hoso.fiContactEmail,
-                //    hoso.fiSignPlace, hoso.fiSignPlace, hoso.fiSignName, "", sUserName, sIP);
+                iID_MaHoSo = CHoSo26.ThemHoSo(0, 1, 1, hoso.NSWFileCode, hoso.SignDate, false, "", null, null, null, null,
+                    "", sTenDoanhnghiep, sTenLoaiHoSo, sTenTACN, hoso.SignPlace, hoso.Organization, hoso.Address, hoso.Phone, hoso.Fax, "", hoso.DepartmentCode, hoso.DepartmentName,
+                    hoso.SignPlaceCode, hoso.SignPlaceName, hoso.SignName, hoso.SignPosition, sUserName, sIP);
 
                 int iHH = 0;
                 foreach (var hh in lstHangHoa)
@@ -62,9 +60,9 @@ namespace DATA0200026.WebServices
                     List<ChatLuongVM> lstChatLuong = hh.ListChatLuong;
                     List<AnToanVM> lstAnToan = hh.ListAnToan;
 
-                    //iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
-                    //    hh.fiGroupGoodName, hh.fiGoodTypeName, hh.fiGroupTypeName, sMaHoSo, hh.fiNameOfGoods, hh.fiRegistrationNumber, hh.fiManufacture, hh.fiManufactureStateCode, hh.fiManufactureState,
-                    //    hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "", sUserName, sIP);
+                    iID_MaHangHoa = CHangHoa26.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.GroupFoodOfGoods, "", Convert.ToString(hh.GoodTypeId), "", 0,
+                        "", hh.GoodTypeName, "", sMaHoSo, hh.NSWRegisterFileCode, hh.GoodsCode, hh.NameOfGoods, hh.RegistrationNumber, hh.Manufacture, hh.ManufactureStateCode, hh.ManufactureState,
+                        "", hh.StandardBase, hh.Material, "", hh.FormColorOfProducts, "", sUserName, sIP);
 
                     if (iID_MaHangHoa > 0)
                     {

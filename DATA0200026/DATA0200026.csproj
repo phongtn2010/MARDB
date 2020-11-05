@@ -65,12 +65,13 @@
     <Compile Include="BangModels_Sub\BangModels_CongThuc.cs" />
     <Compile Include="BangModels_Sub\BangModels_HamChung.cs" />
     <Compile Include="BangModels_Sub\BangModels_TaoBangMoi.cs" />
+    <Compile Include="CHangHoa26.cs" />
+    <Compile Include="CHoSo26.cs" />
     <Compile Include="DTO\AnToanVM.cs" />
     <Compile Include="DTO\AttachmentVM.cs" />
     <Compile Include="DTO\ChatLuongVM.cs" />
     <Compile Include="DTO\Extensions\ProResponseEdit.cs" />
     <Compile Include="DTO\Extensions\RequestProEditVM.cs" />
-    <Compile Include="DTO\Extensions\YeuCauBoSungVM.cs" />
     <Compile Include="DTO\HangHoaVM.cs" />
     <Compile Include="DTO\HoSoVM.cs" />
     <Compile Include="DTO\Request\ResponseCancel.cs" />
