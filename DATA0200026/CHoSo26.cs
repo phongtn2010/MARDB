@@ -262,5 +262,34 @@ namespace DATA0200026
             cmd.Dispose();
             return dt;
         }
+
+        #region Update
+        public static void UpdateNguoiXem(string iID_MaHoSo, string MaND)
+        {
+            string SQL = "UPDATE CNN26_HoSo SET sTenNguoiXem=@sTenNguoiXem,sUserNguoiXem=@sUserNguoiXem WHERE iID_MaHoSo=@iID_MaHoSo AND (sUserNguoiXem IS NULL OR sUserNguoiXem='')";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            cmd.Parameters.AddWithValue("@sTenNguoiXem", CPQ_NGUOIDUNG.Get_TenNguoiDung(MaND));
+            cmd.Parameters.AddWithValue("@sUserNguoiXem", MaND);
+            Connection.UpdateDatabase(cmd);
+            cmd.Dispose();
+        }
+
+        public static ResultModels CleanNguoiXem(string iID_MaHoSo)
+        {
+            int vR = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            cmd.Parameters.AddWithValue("@sTenNguoiXem", "");
+            cmd.Parameters.AddWithValue("@sUserNguoiXem", "");
+            vR = Connection.UpdateRecord("CNN26_HoSo", "iID_MaHoSo", cmd);
+            cmd.Dispose();
+            return new ResultModels
+            {
+                success = vR > 0 ? true : false
+            };
+
+        }
+        #endregion
     }
 }

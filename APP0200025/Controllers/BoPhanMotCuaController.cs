@@ -25,7 +25,7 @@ namespace APP0200025.Controllers
 
         public ActionResult MienGiam_ChoTiepNhan(CHoSoSearch hoSoSearch)
         {
-            if (hoSoSearch == null)
+            if (hoSoSearch == null || hoSoSearch.iID_MaTrangThai == 0)
             {
                 hoSoSearch = new CHoSoSearch
                 {
@@ -34,6 +34,7 @@ namespace APP0200025.Controllers
                     PageSize = Globals.PageSize
                 };
             }
+
             return View(hoSoSearch);
         }
 
@@ -55,6 +56,16 @@ namespace APP0200025.Controllers
                 DenNgayDen = _ToDate
             };
             return RedirectToAction("MienGiam_ChoTiepNhan", "BoPhanMotCua", models);
+        }
+
+        public ActionResult MienGiam_ChoTiepNhan_Detail(string iID_MaHoSo)
+        {
+            CHoSo26.UpdateNguoiXem(iID_MaHoSo, User.Identity.Name);
+            ViewData["DuLieuMoi"] = "0";
+            ViewData["smenu"] = 187;
+            //HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+
+            return View();
         }
     }
 }
