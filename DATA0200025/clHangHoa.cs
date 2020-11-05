@@ -60,9 +60,9 @@ namespace DATA0200025
             dt.Dispose();
             return ddl;
         }
-        public static SelectOptionList DDL_PhanLoaiTheoHoSo(int iID_MaHoSo)
+        public static SelectOptionList DDL_PhanLoaiTheoHoSo(long iID_MaHoSo)
         {
-            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE iID_MaDanhMuc IN( SELECT iID_MaPhanLoai FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo) ORDER By sTen";
+            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE sMa IN( SELECT iID_MaPhanLoai FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo) ORDER By sTen";
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
             DataTable dt = Connection.GetDataTable(cmd);
@@ -71,7 +71,7 @@ namespace DATA0200025
             dt.Dispose();
             return ddl;
         }
-        public static DataTable Get_ThongTinKhoiLuong(int iID_MaHangHoa)
+        public static DataTable Get_ThongTinKhoiLuong(long iID_MaHangHoa)
         {
             string SQL = "SELECT * FROM CNN25_HangHoa_SoLuong  WHERE iID_MaHangHoa=@iID_MaHangHoa";
             SqlCommand cmd = new SqlCommand(SQL);
@@ -80,7 +80,7 @@ namespace DATA0200025
             cmd.Dispose();
             return dt;
         }
-        public static DataTable Get_ThongTinChiTieuChatLuong(int iID_MaHangHoa)
+        public static DataTable Get_ThongTinChiTieuChatLuong(long iID_MaHangHoa)
         {
             string SQL = "SELECT * FROM CNN25_HangHoa_ChatLuong  WHERE iID_MaHangHoa=@iID_MaHangHoa";
             SqlCommand cmd = new SqlCommand(SQL);
@@ -89,7 +89,7 @@ namespace DATA0200025
             cmd.Dispose();
             return dt;
         }
-        public static DataTable Get_ThongTinChiTieuAnToanDN(int iID_MaHangHoa)
+        public static DataTable Get_ThongTinChiTieuAnToanDN(long iID_MaHangHoa)
         {
             string SQL = "SELECT * FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa";
             SqlCommand cmd = new SqlCommand(SQL);
@@ -99,7 +99,7 @@ namespace DATA0200025
             return dt;
         }
 
-        public static DataTable Get_ThongTinChiTieuAnToanKyThuat(int iID_MaHangHoa)
+        public static DataTable Get_ThongTinChiTieuAnToanKyThuat(long iID_MaHangHoa)
         {
             string SQL = "SELECT * FROM CNN25_HangHoa_AnToan_KyThuat WHERE iID_MaHangHoa=@iID_MaHangHoa";
             SqlCommand cmd = new SqlCommand(SQL);
@@ -109,7 +109,7 @@ namespace DATA0200025
             return dt;
         }
 
-        public static GiayChungNhanHopQuyModels GetChungNhanHopQuy(int iID_MaHangHoa)
+        public static GiayChungNhanHopQuyModels GetChungNhanHopQuy(long iID_MaHangHoa)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {

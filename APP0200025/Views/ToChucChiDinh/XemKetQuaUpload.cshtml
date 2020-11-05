@@ -38,7 +38,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <div class="col-xs-2">
-                                Tên TACN
+                                Tên thức ăn chăn nuôi
                             </div>
                             <div class="col-xs-10">
                                 @_sTenHangHoa
@@ -64,10 +64,15 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Kết quả đánh giá sự phù hợp</h3>
+                        <h3 class="box-title text-uppercase">Kết quả đánh giá sự phù hợp</h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            </ul>
+                        </div>
                     </div><!-- /.box-header -->
                     <div class="box-body no-padding">
-                        <div class="row">
+                        <div class="row" style="margin: 20px 0px;">
                             <div class="col-xs-12">
                                 <div class="col-xs-12">
                                     <b>Thông tin giấy chứng nhận hợp quy lô TACN nhập khẩu</b>
@@ -78,54 +83,56 @@
                             &nbsp;
                         </div>
                         <div class="row">
-                            <div class="col-xs-1 text-align-right">
-                                <b>Số</b>
-                            </div>
-                            <div class="col-xs-2">
-                                <span id="sSoChungNhan"></span>
-                            </div>
-                            <div class="col-xs-2 text-align-right">
-                                <b> Ngày cấp</b>
-                            </div>
-                            <div class="col-xs-2">
-                                <span id="dNgayCap"></span>
-                            </div>
-                            <div class="col-xs-2 text-align-right">
-                                <b> File đính kèm</b>
-                            </div>
-                            <div class="col-xs-3">
-                                <span id="sTenFile">
-                                </span>
-                                <span id="sFileDownload"></span>
-                            </div>
-                        </div>
-                        <div class="row">&nbsp;</div>
-                        <div class="row">&nbsp;</div>
-                        <div class="row">&nbsp;</div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="col-xs-5">
-                                    <table class="table table-bordered" id="TableFile">
-                                        <tr>
-                                            <td class="text-center" style="width:20px;">STT</td>
-                                            <td class="text-center">Phiếu kết quả phân tích</td>
-                                            <td class="text-center" style="width:100px;">Thao tác</td>
-                                        </tr>
-                                    </table>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">Số<span style="color: red;">&nbsp;*</span></label>
+                                    <div class="col-xs-10">
+                                        <span id="sSoChungNhan"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-1 text-align-right">
+                                    <b>Số</b>
+                                </div>
+                                <div class="col-xs-2">
+                                    
+                                </div>
+                                <div class="col-xs-2 text-align-right">
+                                    <b> Ngày cấp</b>
+                                </div>
+                                <div class="col-xs-2">
+                                    <span id="dNgayCap"></span>
+                                </div>
+                                <div class="col-xs-2 text-align-right">
+                                    <b> File đính kèm</b>
+                                </div>
+                                <div class="col-xs-3">
+                                    <span id="sTenFile">
+                                    </span>
+                                    <span id="sFileDownload"></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">&nbsp;</div>
-                        <div class="row">&nbsp;</div>
-                        <div class="row">&nbsp;</div>
-                        <div class="box-footer clearfix">
-                            <div class="col-sm-12 text-center">
-                                <button class="btn btn-danger" onclick="BackPage()" type="button">Thoát</button>
+
+                            <div class="col-xs-6">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <table class="table table-bordered" id="TableFile">
+                                            <tr>
+                                                <td class="text-center" style="width:20px;">STT</td>
+                                                <td class="text-center">Phiếu kết quả phân tích</td>
+                                                <td class="text-center" style="width:100px;">Thao tác</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </div>                        
                     </div><!-- /.box-body -->
-                    @*<div class="box-footer clearfix">
-                        </div>*@
+                    <div class="box-footer clearfix">
+                        <div class="col-sm-12 text-center">
+                            <button class="btn btn-danger" onclick="BackPage()" type="button">Thoát</button>
+                        </div>
+                    </div>
                 </div>
             </div><!-- /.col -->
         </div><!-- /.row -->

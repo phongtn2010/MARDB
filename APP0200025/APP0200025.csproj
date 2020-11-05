@@ -3088,6 +3088,7 @@
     <Content Include="Views\BoPhanMotCua\MienGiam_ChoTiepNhan.cshtml" />
     <Content Include="Views\PartialMienGiam\Partial_LichSuHoSo.cshtml" />
     <Content Include="Views\BoPhanMotCua\MienGiam_ChoTiepNhan_Detail.cshtml" />
+    <Content Include="Views\ToChucChiDinh\XemKetQuaUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
