@@ -43,5 +43,6 @@ namespace DATA0200025.Models
         public DateTime sMua_ToDate { get; set; }
         public DateTime dDangKy_FromDate { get; set; }
         public DateTime dDangKy_ToDate { get; set; }
+        public string sSoTiepNhan { get; set; }
     }
 }

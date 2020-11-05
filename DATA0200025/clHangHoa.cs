@@ -10,6 +10,7 @@ using System.Data;
 using DATA0200025.SearchModels;
 using Dapper;
 using DomainModel.Controls;
+using DATA0200025.WebServices.XmlType.Request;
 
 namespace DATA0200025
 {
@@ -35,8 +36,17 @@ namespace DATA0200025
                 return results;
             }
         }
+        public static IEnumerable<HangHoaModels> GetListHangHoaByHoSo(int iID_MaHoSo)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN25_HangHoa 
+                            WHERE iID_MaHoSo=@iID_MaHoSo";
+                var results = connect.Query<HangHoaModels>(SQL, new { iID_MaHoSo = iID_MaHoSo }).ToList();
+                return results;
+            }
+        }
 
-       
         public static DataTable Get_HangHoaTheoHoSo(int iID_MaHoSo,string iID_MaPhanLoai)
         {
             string SQL = "SELECT *  FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo AND iID_MaPhanLoai=@iID_MaPhanLoai";
@@ -62,12 +72,12 @@ namespace DATA0200025
         }
         public static SelectOptionList DDL_PhanLoaiTheoHoSo(int iID_MaHoSo)
         {
-            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE iID_MaDanhMuc IN( SELECT iID_MaPhanLoai FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo) ORDER By sTen";
+            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE sMa IN( SELECT iID_MaPhanLoai FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo) ORDER By sTen";
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
             DataTable dt = Connection.GetDataTable(cmd);
             cmd.Dispose();
-            SelectOptionList ddl = new SelectOptionList(dt, "iID_MaDanhMuc", "sTen");
+            SelectOptionList ddl = new SelectOptionList(dt, "sMa", "sTen");
             dt.Dispose();
             return ddl;
         }
@@ -97,6 +107,15 @@ namespace DATA0200025
             DataTable dt = Connection.GetDataTable(cmd);
             cmd.Dispose();
             return dt;
+        }
+        public static IEnumerable<ChiTieuModels> GetChiTieuAnToanDN(int iID_MaHangHoa)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT * FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa";
+                var results = connect.Query<ChiTieuModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).ToList();
+                return results;
+            }
         }
 
         public static DataTable Get_ThongTinChiTieuAnToanKyThuat(int iID_MaHangHoa)
@@ -167,6 +186,44 @@ namespace DATA0200025
                 success = vR > 0 ? true : false
             };
 
+        }
+
+        public static List<HangHoaXND> GetHoaXND(int iID_MaHoSo)
+        {
+            var hangHoas = GetListHangHoaByHoSo(iID_MaHoSo);
+            List<HangHoaXND> lst = new List<HangHoaXND>();
+            HangHoaXND hanghoaXND;
+            foreach (var item in hangHoas)
+            {
+                hanghoaXND = new HangHoaXND
+                {
+                    GoodsId=item.iID_MaHangHoaNSW,
+                    NameOfGoods=item.sTenHangHoa,
+                    GroupTypeId=item.iID_MaPhanLoai,
+                    GroupTypeName=item.sTenPhanLoai,
+                    Nature=item.sBanChat,
+
+                };
+                var chiTieus = GetChiTieuAnToanDN(item.iID_MaHangHoa);
+                List<AnanyticalRequiredList> lstChiTieu = new List<AnanyticalRequiredList>();
+                AnanyticalRequiredList ananytical;
+                foreach (var ct in chiTieus)
+                {
+                    ananytical = new AnanyticalRequiredList
+                    {
+                         AnanyticalName= ct.sChiTieu,
+                         FormOfPublication=ct.iID_MaHinhThuc,
+                         Required=ct.sHamLuong,
+                         RequireUnitID=ct.sMaDonViTinh,
+                         RequireUnitName=ct.sDonViTinh,
+                         Note=ct.sGhiChu
+                    };
+                    lstChiTieu.Add(ananytical);
+                }
+                hanghoaXND.ListAnanyticals = lstChiTieu;
+                lst.Add(hanghoaXND);
+            }
+            return lst;
         }
     }
 }

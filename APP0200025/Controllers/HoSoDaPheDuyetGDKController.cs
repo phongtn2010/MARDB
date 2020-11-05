@@ -71,15 +71,34 @@ namespace APP0200025.Controllers
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-            KetQuaXuLy resultConfirm = new KetQuaXuLy();
+            XacNhanDon resultConfirm = new XacNhanDon();
             resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.Reason = "Chuyển phụ lục GĐK";
-            resultConfirm.AttachmentId = "01";
-            resultConfirm.FileName = "";
-            resultConfirm.FileLink = "";
-            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-            resultConfirm.ResponseDate = DateTime.Now;
-            string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "11");
+            resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
+            resultConfirm.DepartmentCode = "10";
+            resultConfirm.DepartmentName = "Cục chăn nuôi";
+            resultConfirm.ImportingFromDateString = hoSo.sMua_FromDate.ToString();
+            resultConfirm.ImportingToDateString = hoSo.sMua_ToDate.ToString();
+            resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
+            resultConfirm.ImportingToDate= hoSo.sMua_ToDate;
+            resultConfirm.AssignID = "";
+            resultConfirm.AssignName = "";
+            resultConfirm.AssignNameOther = "";
+            resultConfirm.SignConfirmDateString = hoSo.dNgayXacNhan.ToString();
+            resultConfirm.SignConfirmDate = hoSo.dNgayXacNhan;
+            resultConfirm.SignConfirmPlace = "Hà nội";
+            resultConfirm.SignConfirmName = "Lãnh đạo cục";
+            resultConfirm.NSWFileCodeOld = hoSo.sMaHoSo_ThayThe;
+            resultConfirm.AniFeedConfirmOldNo = hoSo.sSoGDK_ThayThe;
+            resultConfirm.ListHangHoa = clHangHoa.GetHoaXND(hoSo.iID_MaHoSo);
+            if(hoSo.iID_MaLoaiHoSo==1)
+              resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
+                                            người nhập khẩu phải nộp kết quả tự đánh giá sự phù hợp theo quy định 
+                                            về Cục Chăn nuôi thông qua hệ thống Một cửa Quốc gia.";
+            if (hoSo.iID_MaLoaiHoSo == 2)
+                resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
+                                        người nhập khẩu phải nộp bản sao ý bản chính (có ký tên và đóng dấu của người nhập khẩu) 
+                                        Giấy chứng nhận hợp quy lô hàng thức ăn chăn nuôi nhập khẩu theo quy định về Cục Chăn nuôi thông qua hệ thống Một cửa Quốc gia.";
+                string error = _sendService.XacNhanDon(hoSo.sMaHoSo, resultConfirm);
             if (error.Equals("99"))
             {
                 bang.MaNguoiDungSua = User.Identity.Name;

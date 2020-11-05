@@ -9,6 +9,7 @@ namespace DATA0200025.Models
    public class HangHoaModels
     {
         public int iID_MaHangHoa { get; set; }
+        public int iID_MaHangHoaNSW { get; set; }
         public int iID_MaHoSo { get; set; }
         public int iID_MaNhom { get; set; }
         public string iID_MaLoai { get; set; }
@@ -36,5 +37,6 @@ namespace DATA0200025.Models
         public double rGiaUSD { get; set; }
         public string sGhiChu { get; set; }
         public string sSoThongBaoKetQua { get; set; }
+        public string sBanChat { get; set; }
     }
 }
