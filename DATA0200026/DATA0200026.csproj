@@ -81,6 +81,8 @@
     <Compile Include="DTO\Request\ResponseCancel.cs" />
     <Compile Include="DTO\SoLuongVM.cs" />
     <Compile Include="HamRiengModels.cs" />
+    <Compile Include="HangHoa26Models.cs" />
+    <Compile Include="HoSo26Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultModels.cs" />
     <Compile Include="WebServices\SendService.cs" />

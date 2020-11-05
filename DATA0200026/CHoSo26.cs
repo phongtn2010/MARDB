@@ -1,4 +1,5 @@
-﻿using DomainModel;
+﻿using Dapper;
+using DomainModel;
 using DomainModel.Abstract;
 using System;
 using System.Collections.Generic;
@@ -114,6 +115,16 @@ namespace DATA0200026
             return vR;
         }
 
+        public static HoSo26Models Get_Detail(long iID_MaHoSo)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN26_HoSo 
+                            WHERE iID_MaHoSo=@iID_MaHoSo";
+                HoSo26Models results = connect.Query<HoSo26Models>(SQL, new { iID_MaHoSo = iID_MaHoSo }).FirstOrDefault();
+                return results;
+            }
+        }
 
         public static int GetCount(CHoSoSearch models)
         {

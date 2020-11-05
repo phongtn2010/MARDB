@@ -3086,6 +3086,8 @@
     <Content Include="Views\LanhDaoPhong\Partial_Modal_ThuHoi.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_Model_ThuHoi.cshtml" />
     <Content Include="Views\BoPhanMotCua\MienGiam_ChoTiepNhan.cshtml" />
+    <Content Include="Views\PartialMienGiam\Partial_LichSuHoSo.cshtml" />
+    <Content Include="Views\BoPhanMotCua\MienGiam_ChoTiepNhan_Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

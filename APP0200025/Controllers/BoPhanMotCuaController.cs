@@ -63,9 +63,9 @@ namespace APP0200025.Controllers
         {
             CHoSo26.UpdateNguoiXem(iID_MaHoSo, User.Identity.Name);
             
-            //HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+            HoSo26Models models = CHoSo26.Get_Detail(Convert.ToInt64(iID_MaHoSo));
 
-            return View();
+            return View(models);
         }
 
         public ActionResult MienGiam_ChoTiepNhan_TiepNhan(string iID_MaHoSo, string sMaHoSo)

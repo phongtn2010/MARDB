@@ -154,7 +154,7 @@
                                             int iTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
-                                            String strTiepNhan = MyHtmlHelper.ActionLink(Url.Action("MienGiam_ChoTiepNhan_TiepNhan", "BoPhanMotCua", new { iID_MaHoSo = r["iID_MaHoSo"], sMaHoSo = Convert.ToString(r["sMaHoSo"]) }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
+                                            String strTiepNhan = MyHtmlHelper.ActionLink(Url.Action("MienGiam_ChoTiepNhan_TiepNhan", "BoPhanMotCua", new { iID_MaHoSo = r["iID_MaHoSo"], sMaHoSo = Convert.ToString(r["sMaHoSo"]) }), "<span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("MienGiam_ChoTiepNhan_Detail", "BoPhanMotCua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
 
                                             <tr>
@@ -162,7 +162,7 @@
                                                 <td>@r["sMaHoSo"]</td>
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>@r["sTenTACN"]</td>
-                                                <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")</td>
+                                                <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy HH:mm")</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ddtTrangThai, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
                                                 <td class="head-td-icon">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
