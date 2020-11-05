@@ -419,5 +419,17 @@ namespace DATA0200026
             table.Dispose();
             return vR;
         }
+
+        public static string Get_TenNguoiDung(String sID_MaNguoiDung)
+        {
+            string vR = "";
+            DataTable dt = Get_One_Table(sID_MaNguoiDung);
+            if (dt.Rows.Count > 0)
+            {
+                vR = Convert.ToString(dt.Rows[0]["sHoTen"]);
+            }
+            dt.Dispose();
+            return vR;
+        }
     }
 }

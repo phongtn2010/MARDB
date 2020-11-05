@@ -28,7 +28,7 @@ namespace DATA0200025.WebServices.XmlType
             Errors = new List<Error> { error };
         }
 
-        public Content(DateTime receiveDate)
+        public Content(string receiveDate)
         {
             ReceiveDate = receiveDate;
         }
@@ -38,20 +38,21 @@ namespace DATA0200025.WebServices.XmlType
 
         // Property that exposes date. Specifying the type forces
         // the serializer to return the value as a string.
-        [XmlElement("ReceiveDate", Type = typeof(string))]
-        public object ReceiveDate
-        {
-            // Return a DateTime object
-            get
-            {
-                return
-                    !string.IsNullOrEmpty(_date) ?
-                    (DateTime?)Convert.ToDateTime(_date) :
-                    null;
-            }
-            set { _date = (string)value; }
-        }
-        //[XmlElement("ReceiveDate")] public DateTime? ReceiveDate { get; set; }
+        //[XmlElement("ReceiveDate", Type = typeof(string))]
+        //public object ReceiveDate
+        //{
+        //    // Return a DateTime object
+        //    get
+        //    {
+        //        return
+        //            !string.IsNullOrEmpty(_date) ?
+        //            (DateTime?)Convert.ToDateTime(_date) :
+        //            null;
+        //    }
+        //    set { _date = (string)value; }
+        //}
+        [XmlElement("ReceiveDate")] 
+        public string ReceiveDate { get; set; }
 
         //public bool ReceiveDateSpecified => ReceiveDate.HasValue;
 

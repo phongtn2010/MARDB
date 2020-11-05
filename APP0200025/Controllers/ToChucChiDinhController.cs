@@ -11,11 +11,15 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Collections.Generic;
 using System.Linq;
+using DATA0200025.WebServices;
+using DATA0200025.WebServices.XmlType.Request;
 
 namespace APP0200025.Controllers
 {
     public class ToChucChiDinhController : Controller
     {
+        private SendService _sendService = new SendService();
+
         Bang bang = new Bang("CNN25_HoSo");
         public ActionResult Index(sHoSoModels models)
         {
@@ -41,6 +45,71 @@ namespace APP0200025.Controllers
         public ActionResult KetQuaUpload()
         {
             return View();
+        }
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult GuiKetQua(string iID_MaHoSo, string iID_MaHangHoa, string sMaHoSo, string sTenHangHoa, string sSoTiepNhan)
+        {
+            if (string.IsNullOrEmpty(iID_MaHoSo))
+            {
+                return RedirectToAction("Index");
+            }
+            if (string.IsNullOrEmpty(iID_MaHangHoa))
+            {
+                return RedirectToAction("Index");
+            }
+
+            DataTable dtCNHQ = CToChucChiDinh.Get_ChungNhanHopQuy(Convert.ToInt64(iID_MaHoSo), Convert.ToInt64(iID_MaHangHoa));
+            DataTable dtKQPT = CToChucChiDinh.Get_KetQuaPhanTich(Convert.ToInt64(iID_MaHoSo), Convert.ToInt64(iID_MaHangHoa));
+
+            int iKetQua = 0;
+            if (Convert.ToBoolean(dtCNHQ.Rows[0]["bKetQuaDanhGia"]) == true)
+            {
+                iKetQua = 1;
+            }
+            else
+            {
+                iKetQua = 2;
+            }
+
+
+            //Gui sang NSW
+            TCCDGuiKetQuaKT resNSW = new TCCDGuiKetQuaKT();
+            resNSW.NSWFileCode = sMaHoSo;
+            resNSW.AssignID = Convert.ToString(dtCNHQ.Rows[0]["sMaTCCD"]);
+            resNSW.AssignName = Convert.ToString(dtCNHQ.Rows[0]["sTenTCCD"]);
+            resNSW.GoodsId = Convert.ToInt64(iID_MaHangHoa);
+            resNSW.NameOfGoods = sTenHangHoa;
+            resNSW.ResultTest = iKetQua;
+            resNSW.TestConfirmNumber = Convert.ToString(dtCNHQ.Rows[0]["sSoChungNhan"]);
+            resNSW.TestConfirmDate = Convert.ToDateTime(dtCNHQ.Rows[0]["dNgayCap"]);
+            resNSW.TestConfirmAttachmentId = Convert.ToString(dtCNHQ.Rows[0]["iID_ChungNhanHopQuy"]); ;
+            resNSW.TestConfirmFileName = Convert.ToString(dtCNHQ.Rows[0]["sTenFile"]); ;
+            resNSW.TestConfirmFileLink = string.Format("{0}{1}", clCommon.BNN_Url, Convert.ToString(dtCNHQ.Rows[0]["sDuongDan"]));
+
+            if (dtKQPT.Rows.Count > 0)
+            {
+                List<AttachmentResult> lstFile = new List<AttachmentResult>();
+
+                for (int i = 0; i < dtKQPT.Rows.Count; i++)
+                {
+                    lstFile.Add(new AttachmentResult { FileCode=50, AttachmentId = Convert.ToString(dtKQPT.Rows[0]["iID_KetQuaPhanTich"]), FileName = Convert.ToString(dtKQPT.Rows[0]["sTenFile"]), FileLink = Convert.ToString(dtKQPT.Rows[0]["sDuongDan"]) });
+                }
+
+                resNSW.ListAttachmentResults = lstFile;
+            }
+            dtKQPT.Dispose();
+            dtCNHQ.Dispose();
+
+            string error = _sendService.TCCDGuiKetQuaKT(sMaHoSo, resNSW);
+            if (error.Equals("99"))
+            {
+                CHoSo.UpDate_TrangThai(Convert.ToInt64(iID_MaHoSo), 28);
+                CHangHoa.UpDate_TrangThai(Convert.ToInt64(iID_MaHangHoa), 28);
+
+                clLichSuHoSo.InsertLichSuNsw(Convert.ToInt64(iID_MaHoSo), User.Identity.Name, User.Identity.Name, (int)clDoiTuong.DoiTuong.ToChucChiDinh, (int)clHanhDong.HanhDong.UpLoadKetQuaKiemTra, "", "", 27, "Chờ kết quả đánh giá sự phù hợp", 28);
+            }
+
+            return RedirectToAction("ThongTinHoangHoa", "ToChucChiDinh", new { iID_MaHoSo = iID_MaHoSo.ToString() });
         }
         public ActionResult XemKetQuaUpload()
         {
@@ -100,7 +169,7 @@ namespace APP0200025.Controllers
         public static DataTable GetHoangHoaByIdHoSo(string iID_MaHoSo)
         {
             SqlCommand cmd = new SqlCommand();
-            string SQL = string.Format("SELECT A.iID_MaHoSo,A.sMaHoSo ,A.iID_MaHangHoa ,A.sTenHangHoa as 'sTenHangHoa', B.rKhoiLuong , B.rSoLuong FROM CNN25_HangHoa A left join CNN25_HangHoa_SoLuong B on A.iID_MaHangHoa = B.iID_MaHangHoa WHERE A.iID_MaHoSo = {0} ", iID_MaHoSo);
+            string SQL = string.Format("SELECT A.iID_MaHoSo,A.sMaHoSo ,A.iID_MaHangHoa ,A.sTenHangHoa as 'sTenHangHoa', A.iID_MaTrangThai, B.rKhoiLuong , B.rSoLuong FROM CNN25_HangHoa A left join CNN25_HangHoa_SoLuong B on A.iID_MaHangHoa = B.iID_MaHangHoa WHERE A.iID_MaHoSo = {0} ", iID_MaHoSo);
             cmd.CommandText = SQL;
             string sOrder = "iID_MaHoSo DESC";
             DataTable dt = CommonFunction.dtData(cmd, sOrder, 1, 10000);
@@ -186,6 +255,9 @@ namespace APP0200025.Controllers
             var sDateTime = string.Empty;
             string _sTenFile = string.Empty;
             string _sDuongDan = string.Empty;
+            string sMaTCCD = "", sTenTCCD = "";
+
+            
 
             string _iID_MaHoSo = CString.SafeString(Request.Form["_iID_MaHoSo"]);
             string _iID_MaHangHoa = CString.SafeString(Request.Form["_iID_MaHangHoa"]);
@@ -193,6 +265,14 @@ namespace APP0200025.Controllers
             string _sSoChungNhan = CString.SafeString(Request.Form["_sSoChungNhan"]);
             string _bKetQuaDanhGia = CString.SafeString(Request.Form["_bKetQuaDanhGia"]);
             string _dNgayCap = CString.SafeString(Request.Form["_dNgayCap"]) as string;
+
+            DataTable dtHSTCCD = CHoSo.Get_HoSo_TCCD(Convert.ToInt64(_iID_MaHoSo));
+            if(dtHSTCCD.Rows.Count > 0)
+            {
+                sMaTCCD = Convert.ToString(dtHSTCCD.Rows[0]["iID_MaToChuc"]);
+                sTenTCCD = Convert.ToString(dtHSTCCD.Rows[0]["sTenToChuc"]);
+            }
+            dtHSTCCD.Dispose();
 
             for (var i = 0; i < Request.Files.Count; i++)
             {
@@ -264,8 +344,8 @@ namespace APP0200025.Controllers
             }
             else
             {
-                var DSTruong = "iID_MaHoSo,iID_MaHangHoa,sSoChungNhan,dNgayCap,bKetQuaDanhGia,sTenFile,sDuongDan";
-                var DSGiaTri = string.Format("'{0}','{1}','{2}','{3}',{4},'{5}','{6}'", _iID_MaHoSo, _iID_MaHangHoa, _sSoChungNhan, sDateTime, _bKetQuaDanhGia, _sTenFile, _sDuongDan);
+                var DSTruong = "iID_MaHoSo,iID_MaHangHoa,sMaTCCD,sTenTCCD,sSoChungNhan,dNgayCap,bKetQuaDanhGia,sTenFile,sDuongDan";
+                var DSGiaTri = string.Format("'{0}','{1}','{2}','{3}',{4},'{5}','{6}','{7}','{8}'", _iID_MaHoSo, _iID_MaHangHoa, sMaTCCD, sTenTCCD, _sSoChungNhan, sDateTime, _bKetQuaDanhGia, _sTenFile, _sDuongDan);
                 var SQL = String.Format("INSERT INTO {0}({1}) VALUES({2});", "CNN25_ChungNhanHopQuy", DSTruong, DSGiaTri);
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = SQL;

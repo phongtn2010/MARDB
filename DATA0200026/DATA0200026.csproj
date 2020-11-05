@@ -31,10 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -55,40 +62,45 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\BangDuLieu.cs" />
-    <Compile Include="BangChiTieuBaoCao.cs" />
-    <Compile Include="BangMauHangMauDonViModels.cs" />
-    <Compile Include="BangMauHangMauModels.cs" />
-    <Compile Include="BangMauModels.cs" />
-    <Compile Include="BangMenuItem.cs" />
-    <Compile Include="BangModels.cs" />
     <Compile Include="BangModels_Sub\BangModels_CongThuc.cs" />
     <Compile Include="BangModels_Sub\BangModels_HamChung.cs" />
     <Compile Include="BangModels_Sub\BangModels_TaoBangMoi.cs" />
-    <Compile Include="BieuDo.cs" />
-    <Compile Include="CBangMau.cs" />
-    <Compile Include="CBangMauKieuNhapLieu.cs" />
-    <Compile Include="CCongTy.cs" />
-    <Compile Include="CDonVi.cs" />
-    <Compile Include="CLanguage.cs" />
-    <Compile Include="CLoaiBaoCao.cs" />
-    <Compile Include="CLoaiSanPham.cs" />
-    <Compile Include="CMenu.cs" />
-    <Compile Include="CMien.cs" />
-    <Compile Include="CPhongBan.cs" />
-    <Compile Include="CPQ_BANG.cs" />
-    <Compile Include="CPQ_LUAT.cs" />
-    <Compile Include="CPQ_MENU.cs" />
+    <Compile Include="CHangHoa26.cs" />
+    <Compile Include="CHoSo26.cs" />
+    <Compile Include="CHoSoSearch.cs" />
+    <Compile Include="CLichSuHoSo.cs" />
     <Compile Include="CPQ_NGUOIDUNG.cs" />
-    <Compile Include="CPQ_NHOMNGUOIDUNG.cs" />
     <Compile Include="CThamSo.cs" />
-    <Compile Include="CTinh.cs" />
-    <Compile Include="CVung.cs" />
-    <Compile Include="DongMoKyBaoCaoModels.cs" />
+    <Compile Include="DTO\AnToanVM.cs" />
+    <Compile Include="DTO\AttachmentVM.cs" />
+    <Compile Include="DTO\ChatLuongVM.cs" />
+    <Compile Include="DTO\Extensions\ProResponseEdit.cs" />
+    <Compile Include="DTO\Extensions\RequestProEditVM.cs" />
+    <Compile Include="DTO\HangHoaVM.cs" />
+    <Compile Include="DTO\HoSoVM.cs" />
+    <Compile Include="DTO\Request\ResponseCancel.cs" />
+    <Compile Include="DTO\SoLuongVM.cs" />
     <Compile Include="HamRiengModels.cs" />
-    <Compile Include="HangMauModels.cs" />
-    <Compile Include="MoKyCacBang.cs" />
+    <Compile Include="HangHoa26Models.cs" />
+    <Compile Include="HoSo26Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WordActionResult.cs" />
+    <Compile Include="ResultModels.cs" />
+    <Compile Include="WebServices\SendService.cs" />
+    <Compile Include="WebServices\WsConstants.cs" />
+    <Compile Include="WebServices\WsHelper.cs" />
+    <Compile Include="WebServices\WsProcessingService.cs" />
+    <Compile Include="WebServices\XmlType\Body.cs" />
+    <Compile Include="WebServices\XmlType\Content.cs" />
+    <Compile Include="WebServices\XmlType\Envelope.cs" />
+    <Compile Include="WebServices\XmlType\Error.cs" />
+    <Compile Include="WebServices\XmlType\Header.cs" />
+    <Compile Include="WebServices\XmlType\Request\PhanHoiDonXM.cs" />
+    <Compile Include="WebServices\XmlType\Request\RequestCancelVM.cs" />
+    <Compile Include="WebServices\XmlType\Request\RequestEditCerVM.cs" />
+    <Compile Include="WebServices\XmlType\Request\RequestProCancelVM.cs" />
+    <Compile Include="WebServices\XmlType\Request\ThongBaoThuHoiCVMienKiem.cs" />
+    <Compile Include="WebServices\XmlType\Request\CVMienKiem.cs" />
+    <Compile Include="WebServices\XmlType\Response\EnvelopeResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

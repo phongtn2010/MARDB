@@ -89,7 +89,7 @@
             <div class="form-group">
                 <label for="inputEmail3" class="col-sm-4 control-label" style="text-align:left">Quy chuẩn kỹ thuật:</label>
                 <div class="col-sm-6">
-                    <label class="control-label" style="text-align:left">@Model.sQuyChuan</label>
+                    <label class="control-label" style="text-align:left">@(HamRiengModels.Get_Name_QuyChuanKyThuat(Convert.ToInt32(Model.sQuyChuan)))</label>
                 </div>
             </div>
             <div class="form-group">
