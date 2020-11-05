@@ -105,6 +105,9 @@
                                         {
                                             R = dt.Rows[i];
                                             int iSTT = i + 1;
+
+                                            int iTrangThai = Convert.ToInt32(R["iID_MaTrangThai"]);
+
                                             String strInsert = MyHtmlHelper.ActionLink(Url.Action("KetQuaUpload", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], sTenHangHoa = R["sTenHangHoa"], iID_MaHangHoa = R["iID_MaHangHoa"], _sMaHoSo = _sMaHoSo, _sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-pencil'></i></span>", "Edit", "");
                                             String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiKetQua", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], iID_MaHangHoa = R["iID_MaHangHoa"], sMaHoSo = _sMaHoSo, sTenHangHoa = R["sTenHangHoa"], sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-fw fa-paper-plane-o'></i></span>", "Edit", "");
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("XemKetQuaUpload", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], sTenHangHoa = R["sTenHangHoa"], iID_MaHangHoa = R["iID_MaHangHoa"], _sMaHoSo = _sMaHoSo, _sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Edit", "");
@@ -119,7 +122,12 @@
                                                     @MvcHtmlString.Create(strInsert)
                                                 </td>
                                                 <td style='text-align:center;'>
-                                                    @MvcHtmlString.Create(strSend)
+                                                    @{
+                                                        if (iTrangThai == 27)
+                                                        {
+                                                            @MvcHtmlString.Create(strSend)
+                                                        }
+                                                    }
                                                 </td>
                                                 <td style='text-align:center;'>
                                                     @MvcHtmlString.Create(strView)
