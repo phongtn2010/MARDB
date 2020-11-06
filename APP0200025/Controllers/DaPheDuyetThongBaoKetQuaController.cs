@@ -10,6 +10,9 @@ using DATA0200025.SearchModels;
 
 using DATA0200025.WebServices.XmlType.Request;
 using DATA0200025.WebServices;
+using System.Collections.Generic;
+using System.Data;
+
 namespace APP0200025.Controllers
 {
     public class DaPheDuyetThongBaoKetQuaController : Controller
@@ -40,9 +43,8 @@ namespace APP0200025.Controllers
             //    return RedirectToAction("Index", "PermitionMessage");
             //}
             clHoSo.UpdateNguoiXem(iID_MaHangHoa, User.Identity.Name);
-            ViewData["DuLieuMoi"] = "0";
-            ViewData["smenu"] = 187;
-            HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHangHoa));
+
+            HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHangHoa));
 
             return View(models);
         }
@@ -64,25 +66,110 @@ namespace APP0200025.Controllers
         /// <param name="MaHoSo"></param>
         /// <returns></returns>
         //[Authorize, ValidateInput(false), HttpPost]
-        public ActionResult GuiDoanhNghiep(String iID_MaHoSo, String iID_MaHangHoa)
+        public ActionResult GuiDoanhNghiep(String iID_MaHangHoa)
         {
             //string iID_MaHangHoa = Request.Form[ParentID + "_iID_MaHangHoa"];
-            HangHoaModels hangHoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
+            HangHoaModels hangHoa = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNThongBaoKetQuaKiemTra, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
             HoSoModels hoSo = clHoSo.GetHoSoById(hangHoa.iID_MaHoSo);
             string error = "99";
             if (hoSo.iID_MaLoaiHoSo==3)//2c
             {
+                String sMaCoQuanDanhGiaXNCL = "", sTenCoQuanDanhGiaXNCL = "", sGiayChungNhan_HopQuy = "";
+                DateTime dNgayXacNhanHopQuy = DateTime.Now;
+                DataTable dtHoSoXNCL = CHoSo.Get_HoSo_XNCL(hangHoa.iID_MaHoSo, hangHoa.iID_MaHangHoa);
+                if(dtHoSoXNCL.Rows.Count > 0)
+                {
+                    sMaCoQuanDanhGiaXNCL = Convert.ToString(dtHoSoXNCL.Rows[0]["iID_MaToChuc"]);
+                    sTenCoQuanDanhGiaXNCL = Convert.ToString(dtHoSoXNCL.Rows[0]["sTenToChuc"]);
+                    sGiayChungNhan_HopQuy = Convert.ToString(dtHoSoXNCL.Rows[0]["sGiayChungNhan"]);
+                    if(String.IsNullOrEmpty(Convert.ToString(dtHoSoXNCL.Rows[0]["dNgayCap"])) == false)
+                    {
+                        dNgayXacNhanHopQuy = Convert.ToDateTime(dtHoSoXNCL.Rows[0]["dNgayCap"]);
+                    }
+                    sTenCoQuanDanhGiaXNCL = Convert.ToString(dtHoSoXNCL.Rows[0]["sTenToChuc"]);
+                }
+                dtHoSoXNCL.Dispose();
+
+                List<ContractList> lstHopDong = new List<ContractList>();
+                ContractList itemHdong;
+                DataTable dtHopDong = clHoSo.Get_ThongTin_HopDong(hoSo.iID_MaHoSo);
+                if (dtHopDong.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dtHopDong.Rows.Count; i++)
+                    {
+                        DateTime dNgayHD;
+                        if(String.IsNullOrEmpty(Convert.ToString(dtHopDong.Rows[i]["dNgayHopDong"])) == false)
+                        {
+                            dNgayHD = Convert.ToDateTime(dtHopDong.Rows[i]["dNgayHopDong"]);
+                        }
+                        else
+                        {
+                            dNgayHD = DateTime.Now;
+                        }
+
+                        itemHdong = new ContractList
+                        {
+                            ContractNo = Convert.ToString(dtHopDong.Rows[i]["sHopDong"]),
+                            ContractDate = dNgayHD
+                        };
+                        lstHopDong.Add(itemHdong);
+                    }
+                }
+
+                List<InvoiceList> lstHoaDon = new List<InvoiceList>();
+                InvoiceList itemHdon;
+                DataTable dtHoaDon= clHoSo.Get_ThongTin_HoaDon(hoSo.iID_MaHoSo);
+                if (dtHoaDon.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dtHoaDon.Rows.Count; i++)
+                    {
+                        DateTime dNgayHD;
+                        if (String.IsNullOrEmpty(Convert.ToString(dtHoaDon.Rows[i]["dNgayHopDong"])) == false)
+                        {
+                            dNgayHD = Convert.ToDateTime(dtHoaDon.Rows[i]["dNgayHopDong"]);
+                        }
+                        else
+                        {
+                            dNgayHD = DateTime.Now;
+                        }
+
+                        itemHdon = new InvoiceList
+                        {
+                            InvoiceNo = Convert.ToString(dtHoaDon.Rows[i]["sHopDong"]),
+                            InvoiceDate = dNgayHD
+                        };
+                        lstHoaDon.Add(itemHdon);
+                    }
+                }
 
                 //Gui sang NSW
                 GiayXNCL resultConfirm = new GiayXNCL();
-                resultConfirm.NSWFileCode = hangHoa.sMaHoSo;
+                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
                 resultConfirm.DepartmentCode = "10";
                 resultConfirm.DepartmentName = "Cục chăn nuôi";
                 resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
                 resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
-                resultConfirm.SignCerDateString = "Cục chăn nuôi";
+                resultConfirm.SignCerDate = DateTime.Now;
                 resultConfirm.SignCerDate = hangHoa.dSoThongBaoKetQua_NgayKy;
+                resultConfirm.ListHangHoa = clHangHoa.GetHoaGXNCL(hoSo.iID_MaHoSo);
+                resultConfirm.PortOfDestinationName = hoSo.sMua_NoiNhan;
+                resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
+                resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
+                resultConfirm.ListContract = lstHopDong;
+                resultConfirm.ListInvoice = lstHoaDon;
+                resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
+                resultConfirm.SignConfirmDate = hoSo.dNgayXacNhan;
+                resultConfirm.Buyer = hoSo.sMua_Name;
+                resultConfirm.BuyerAddress = hoSo.sMua_DiaChi;
+                resultConfirm.StandardBase = hangHoa.sSoHieu;
+                resultConfirm.ResultTechnicalRegulations = hangHoa.sQuyChuan;
+                resultConfirm.ImportCerNo = sGiayChungNhan_HopQuy;
+                resultConfirm.AssignCode = sMaCoQuanDanhGiaXNCL;
+                resultConfirm.AssignName = sTenCoQuanDanhGiaXNCL;
+                resultConfirm.ImportCerDate = dNgayXacNhanHopQuy;
+                resultConfirm.SignCerName = hangHoa.sSoThongBaoKetQua_NguoiKy;
+
                 error = _sendService.GiayXNCL(hangHoa.sMaHoSo, resultConfirm);
             }
             if (error == "99")

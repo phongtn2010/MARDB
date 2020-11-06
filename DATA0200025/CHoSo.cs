@@ -276,6 +276,20 @@ namespace DATA0200025
             return vR;
         }
 
+        public static DataTable Get_HoSo_XNCL(long iID_MaHoSo, long iID_MaHangHoa)
+        {
+            DataTable vR = null;
+
+            string SQL = "SELECT TOP 1 * FROM CNN25_HoSo_XNCL WHERE iID_MaHoSo=@iID_MaHoSo AND iID_MaHangHoa=@iID_MaHangHoa ORDER BY dNgayTao DESC";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return vR;
+        }
+
         public static long ThemHoSoHuy(long iID_MaHoSo, long iID_MaHangHoa,
             string sMaHoSo, DateTime dNgayHuy, string sLyDo,
             string sMaFile, string sTenFile, string sLinkFile,

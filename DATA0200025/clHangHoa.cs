@@ -26,7 +26,7 @@ namespace DATA0200025
                 return results;
             }
         }
-        public static HangHoaModels GetHangHoaById(int iID_MaHangHoa)
+        public static HangHoaModels GetHangHoaById(long iID_MaHangHoa)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {
@@ -222,6 +222,52 @@ namespace DATA0200025
                 }
                 hanghoaXND.ListAnanyticals = lstChiTieu;
                 lst.Add(hanghoaXND);
+            }
+            return lst;
+        }
+
+        public static List<HangHoaGXNCL> GetHoaGXNCL(int iID_MaHoSo)
+        {
+            var hangHoas = GetListHangHoaByHoSo(iID_MaHoSo);
+            List<HangHoaGXNCL> lst = new List<HangHoaGXNCL>();
+            HangHoaGXNCL hanghoa;
+            foreach (var item in hangHoas)
+            {
+                hanghoa = new HangHoaGXNCL
+                {
+                    GoodsId = item.iID_MaHangHoaNSW,
+                    NameOfGoods = item.sTenHangHoa,
+                    RegistrationNumber = item.sMaSoCongNhan,
+                    Manufacture = item.sHangSanXuat,
+                    ManufactureStateCode = item.sMaQuocGia,
+                    ManufactureState = item.sTenQuocGia
+                };
+
+                DataTable dtKL = Get_ThongTinKhoiLuong(item.iID_MaHangHoa);
+                List<QuantityVolumeList> lstSoLuong = new List<QuantityVolumeList>();
+                QuantityVolumeList ananytical;
+                if(dtKL.Rows.Count > 0)
+                {
+                    for(int i=0; i< dtKL.Rows.Count; i++)
+                    {
+                        ananytical = new QuantityVolumeList
+                        {
+                            Volume = Convert.ToDouble(dtKL.Rows[i]["rKhoiLuong"]),
+                            VolumeUnitID = Convert.ToString(dtKL.Rows[i]["sMaDonViTinhKL"]),
+                            VolumeUnit = Convert.ToString(dtKL.Rows[i]["sDonViTinhKL"]),
+                            Quantity = Convert.ToDouble(dtKL.Rows[i]["rSoLuong"]),
+                            QuantityUnitID = Convert.ToString(dtKL.Rows[i]["sMaDonViTinhSL"]),
+                            QuantityUnitName = Convert.ToString(dtKL.Rows[i]["sDonViTinhSL"])
+                        };
+                        lstSoLuong.Add(ananytical);
+                    }    
+                }
+                dtKL.Dispose();
+
+                hanghoa.ListQuantityVolume = lstSoLuong;
+                hanghoa.Note = "";
+
+                lst.Add(hanghoa);
             }
             return lst;
         }
