@@ -87,29 +87,21 @@
                                 <div class="form-group">
                                     <label class="col-xs-2 control-label">Số<span style="color: red;">&nbsp;*</span></label>
                                     <div class="col-xs-10">
-                                        <span id="sSoChungNhan"></span>
+                                        <input class="form-control" id="sSoChungNhan" name="sSoChungNhan" />
                                     </div>
                                 </div>
-
-                                <div class="col-xs-1 text-align-right">
-                                    <b>Số</b>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">Ngày cấp<span style="color: red;">&nbsp;*</span></label>
+                                    <div class="col-xs-10">
+                                        <input class="form-control" id="dNgayCap" name="dNgayCap" />
+                                    </div>
                                 </div>
-                                <div class="col-xs-2">
-                                    
-                                </div>
-                                <div class="col-xs-2 text-align-right">
-                                    <b> Ngày cấp</b>
-                                </div>
-                                <div class="col-xs-2">
-                                    <span id="dNgayCap"></span>
-                                </div>
-                                <div class="col-xs-2 text-align-right">
-                                    <b> File đính kèm</b>
-                                </div>
-                                <div class="col-xs-3">
-                                    <span id="sTenFile">
-                                    </span>
-                                    <span id="sFileDownload"></span>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">File đính kèm<span style="color: red;">&nbsp;*</span></label>
+                                    <div class="col-xs-10">
+                                        <span id="sTenFile"></span>
+                                        <span id="sFileDownload"></span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -195,8 +187,8 @@
     }
     var XuLyKhoiTao = function (data) {
         if (data.ThongTin != null) {
-            jQuery("[id$='sSoChungNhan']").text(data.ThongTin.sSoChungNhan);
-            jQuery("[id$='dNgayCap']").text(data.ThongTin.dNgayCap);
+            jQuery("[id$='sSoChungNhan']").val(data.ThongTin.sSoChungNhan);
+            jQuery("[id$='dNgayCap']").val(data.ThongTin.dNgayCap);
             jQuery("[id$='sTenFile']").html('<a href="' + data.ThongTin.sDuongDan + '">' + data.ThongTin.sTenFile +'</a>');
             if (data.ThongTin.bKetQuaDanhGia) {
                 jQuery("input[id$='bKetQuaDanhGia']:eq(0)").prop('checked', 'checked');

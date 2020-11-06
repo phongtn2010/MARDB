@@ -182,7 +182,7 @@
                                         {
                                             r = dt.Rows[i];
 
-                                            String strSoanPhuLuc = MyHtmlHelper.ActionLink(Url.Action("ThongTinHoangHoa", "ToChucChiDinh", new { iID_MaHoSo = r["iID_MaHoSo"], sMaHoSo = r["sMaHoSo"], sSoTiepNhan = r["sSoTiepNhan"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
+                                            String strSoanPhuLuc = MyHtmlHelper.ActionLink(Url.Action("ThongTinHoangHoa", "ToChucChiDinh", new { iID_MaHoSo = r["iID_MaHoSo"], sMaHoSo = r["sMaHoSo"], sSoTiepNhan = r["sSoTiepNhan"] }), "<span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                             String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-pencil'></i></span>", "Edit", "");
                                             <tr>

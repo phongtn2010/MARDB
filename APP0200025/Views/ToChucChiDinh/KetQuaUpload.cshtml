@@ -13,60 +13,31 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    //String ServerURL = CHamRieng.Get_Domain();
-    //String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
     String ParentID = "Index";
 
-    //int iID_MaNgonNgu = 1;
-    //if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
-    //{
-    //    Session["LANGUAGEID"] = 1;
-    //    Session["LANGUAGECODE"] = "vn";
-    //}
-    //else
-    //{
-    //    iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
-    //}
-    //Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
 
 
-    //string TenBang = "BC_Vung";
-    //String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
+    string TenBang = "BC_Vung";
+    String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
-    //String _MaMien = CString.SafeString(Request.QueryString["_MaMien"]);
     String _sTenHangHoa = CString.SafeString(Request.QueryString["sTenHangHoa"]);
     String _iID_MaHangHoa = CString.SafeString(Request.QueryString["iID_MaHangHoa"]);
     String _iID_MaHoSo = CString.SafeString(Request.QueryString["iID_MaHoSo"]);
     String _sMaHoSo = CString.SafeString(Request.QueryString["_sMaHoSo"]);
     String _sSoTiepNhan = CString.SafeString(Request.QueryString["_sSoTiepNhan"]);
-    //SelectOptionList slMien = CMien.Get_Dropdown("--- Miền ---");
-    //int Page = Model.Page;
-
-    //int CurrentPage = 1;
-    //if (Page != 0)
-    //{
-    //    CurrentPage = Page;
-    //}
-
-    //if (Model.PageSize == 0)
-    //{
-    //    Model.PageSize = Globals.PageSize;
-    //}
-    //int nMax = Model.PageSize;
-    //int iTu = (CurrentPage - 1) * nMax;
-    //DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax);
-    //double nums = clHoSo.GetCount(Model);
-    //int RC = dt.Rows.Count;
-    //int TotalPages = (int)Math.Ceiling(nums / nMax);
-
-
-
-    //DataRow r;
-    //SelectOptionList ttDDL = clTrangThai.GetTrangThai_ToChucChiDinh();
-
-    //String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoTiepNhanHoSo", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
-
-    //// String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 
 }
 <!-- Main content -->

@@ -313,6 +313,8 @@ namespace APP0200025.Controllers
                     Connection.UpdateDatabase(cmd_PhanTich, 0);
                 }
             }
+
+
             SqlCommand cmd_KiemTraTonTai = new SqlCommand();
             string SQL_KiemTraTonTai = string.Format("SELECT iID_MaHangHoa FROM {0} WHERE iID_MaHoSo = {1} and iID_MaHangHoa = {2}", "CNN25_ChungNhanHopQuy", _iID_MaHoSo, _iID_MaHangHoa);
             cmd_KiemTraTonTai.CommandText = SQL_KiemTraTonTai;
@@ -343,32 +345,11 @@ namespace APP0200025.Controllers
             else
             {
                 var DSTruong = "iID_MaHoSo,iID_MaHangHoa,sMaTCCD,sTenTCCD,sSoChungNhan,dNgayCap,bKetQuaDanhGia,sTenFile,sDuongDan";
-                var DSGiaTri = string.Format("'{0}','{1}','{2}','{3}',{4},'{5}','{6}','{7}','{8}'", _iID_MaHoSo, _iID_MaHangHoa, sMaTCCD, sTenTCCD, _sSoChungNhan, sDateTime, _bKetQuaDanhGia, _sTenFile, _sDuongDan);
+                var DSGiaTri = string.Format("'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}'", _iID_MaHoSo, _iID_MaHangHoa, sMaTCCD, sTenTCCD, _sSoChungNhan, sDateTime, _bKetQuaDanhGia, _sTenFile, _sDuongDan);
                 var SQL = String.Format("INSERT INTO {0}({1}) VALUES({2});", "CNN25_ChungNhanHopQuy", DSTruong, DSGiaTri);
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = SQL;
                 Connection.UpdateDatabase(cmd, CThamSo.iKetNoi);
-
-                //Bang bang = new Bang("CNN25_ChungNhanHopQuy");
-                //bang.MaNguoiDungSua = User.Identity.Name;
-                //bang.IPSua = Request.UserHostAddress;
-
-                //bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", _iID_MaHoSo);
-                //bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", _iID_MaHangHoa);
-                //bang.CmdParams.Parameters.AddWithValue("@sMaTCCD", sMaTCCD);
-                //bang.CmdParams.Parameters.AddWithValue("@sTenTCCD", sTenTCCD);
-                //bang.CmdParams.Parameters.AddWithValue("@sSoChungNhan", _sSoChungNhan);
-                //if (_dNgayCap != null)
-                //{
-                //    bang.CmdParams.Parameters.AddWithValue("@dNgayCap", _dNgayCap);
-                //}
-                //bang.CmdParams.Parameters.AddWithValue("@bKetQuaDanhGia", _bKetQuaDanhGia);
-                //bang.CmdParams.Parameters.AddWithValue("@sTenFile", _sTenFile);
-                //bang.CmdParams.Parameters.AddWithValue("@sDuongDan", _sDuongDan);
-
-                //bang.DuLieuMoi = true;
-                //bang.Save();
-
             }
             return null;
         }
