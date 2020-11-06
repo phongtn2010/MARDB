@@ -151,7 +151,7 @@ namespace APP0200025.Controllers
                 resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
                 resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
                 resultConfirm.SignCerDateString = hangHoa.sSoThongBaoKetQua_NoiKy;
-                resultConfirm.SignCerDate = hangHoa.sSoThongBaoKetQua_NgayKy;
+                resultConfirm.SignCerDate = hangHoa.dSoThongBaoKetQua_NgayKy;
                 resultConfirm.SignCerName = hangHoa.sSoThongBaoKetQua_NguoiKy;
                 resultConfirm.ListHangHoa = clHangHoa.GetHoaGXNCL(hoSo.iID_MaHoSo);
                 resultConfirm.PortOfDestinationName = hoSo.sMua_NoiNhan;
