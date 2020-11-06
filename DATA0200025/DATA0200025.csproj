@@ -114,6 +114,7 @@
     <Compile Include="CPQ_NHOMNGUOIDUNG.cs" />
     <Compile Include="CThamSo.cs" />
     <Compile Include="CTinh.cs" />
+    <Compile Include="CToChucChiDinh.cs" />
     <Compile Include="CVung.cs" />
     <Compile Include="DongMoKyBaoCaoModels.cs" />
     <Compile Include="DTO\AnToanVM.cs" />
