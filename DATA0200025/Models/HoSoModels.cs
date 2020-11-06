@@ -44,5 +44,15 @@ namespace DATA0200025.Models
         public DateTime dDangKy_FromDate { get; set; }
         public DateTime dDangKy_ToDate { get; set; }
         public string sSoTiepNhan { get; set; }
+        public string sKyHoSo_Tinh { get; set; }
+        public string sKyHoSo_NguoiKy { get; set; }
+        public string sKyHoSo_NguoiKy_ChucDanh { get; set; }
+        public DateTime sKyHoSo_NgayKy { get; set; }
+        public string sLienHe_Name { get; set; }
+        public string sLieHe_DiaChi { get; set; }
+        public string sLienHe_Tel { get; set; }
+        public string sLienHe_Email { get; set; }
+        public string sDiaDiemTapKet { get; set; }
+        public string sDiaDiemDangKy { get; set; }
     }
 }

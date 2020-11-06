@@ -114,16 +114,16 @@ namespace APP0200025.Controllers
 
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-
-            KetQuaXuLy resultConfirm = new KetQuaXuLy();
-            resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
-            resultConfirm.AttachmentId = "01";
-            resultConfirm.FileName = "";
-            resultConfirm.FileLink = "";
-            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-            resultConfirm.ResponseDate = DateTime.Now;
-            string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
+            string error = "99";
+            //KetQuaXuLy resultConfirm = new KetQuaXuLy();
+            //resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+            //resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+            //resultConfirm.AttachmentId = "01";
+            //resultConfirm.FileName = "";
+            //resultConfirm.FileLink = "";
+            //resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+            //resultConfirm.ResponseDate = DateTime.Now;
+            //error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
             if (error == "99")
             {
                 bang.MaNguoiDungSua = User.Identity.Name;

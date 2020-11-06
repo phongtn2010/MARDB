@@ -6,6 +6,8 @@
 @using DomainModel
 @using DomainModel.Controls
 @using DATA0200025
+@using DATA0200025.Models
+@model HoSoModels
 @{
     Layout = null;
     string ParentID = "Edit";
@@ -20,14 +22,14 @@
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Địa điểm tập kết hàng</label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Công ty A", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sDiaDiemTapKet, "sDiaDiemTapKet", "", "type=\"text\" class=\"form-control\""))
 
             </div>
         </div>
         <div class="col-xs-6">
             <div class="form-group">
                 <label for="">Ngày đăng ký lấy mẫu kiểm tra<span style="color: red;">&nbsp;*</span></label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Argentina", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(string.Format("{0:dd/MM/yyyy}-{1:dd/MM/yyyy}",Model.dDangKy_FromDate,Model.dDangKy_ToDate), "Nuoc", "", "type=\"text\" class=\"form-control\""))
 
             </div>
         </div>
@@ -37,9 +39,9 @@
             <div class="form-group">
                 <label for="">Địa điểm đăng ký lấy mẫu kiểm tra</label>
 
-                @MvcHtmlString.Create(MyHtmlHelper.Label("Số 1", "Nuoc", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sDiaDiemDangKy, "sDiaDiemDangKy", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
-     
+
     </div>
 </div>
