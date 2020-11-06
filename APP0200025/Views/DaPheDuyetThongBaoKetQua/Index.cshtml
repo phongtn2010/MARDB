@@ -204,7 +204,7 @@
                                             String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "DaPheDuyetThongBaoKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
                                             String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "DaPheDuyetThongBaoKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
 
-                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "DaPheDuyetThongBaoKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
+                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "DaPheDuyetThongBaoKetQua", new { iID_MaHangHoa = r["iID_MaHoSo"] }), "<span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
 
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
