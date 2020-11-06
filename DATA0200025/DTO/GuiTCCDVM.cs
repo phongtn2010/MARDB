@@ -37,7 +37,7 @@ namespace DATA0200025.DTO
         public int fiGroupFoodOfGoods { set; get; }
 
         [XmlElement("GoodTypeId")]
-        public int fiGoodTypeId { set; get; }
+        public string fiGoodTypeId { set; get; }
 
         [XmlElement("GoodTypeName")]
         public string fiGoodTypeName { set; get; }
