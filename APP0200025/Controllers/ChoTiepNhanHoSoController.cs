@@ -178,7 +178,7 @@ namespace APP0200025.Controllers
                 ViewData["iID_MaHoSo"] = CString.SafeString(iID_MaHoSo);
                 return View();
             }
-            string sFileTemp = "";
+            string sFileTemp = "", sFileName = "";
             for (int i = 0; i < files.Count; i++)
             {
                 HttpPostedFileBase postedFile = files[i];
@@ -191,6 +191,7 @@ namespace APP0200025.Controllers
                     string subName = TG.ToString("HHmmssfff") + "_" + guid;
                     string newPath = string.Format("{0}/{1}", sPath, subPath);
                     CImage.CreateDirectory(Server.MapPath("~" + newPath));
+                    sFileName = string.Format("{0}_{1}", subName, postedFile.FileName);
                     sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
                     string filePath = Server.MapPath("~" + sFileTemp);
                     postedFile.SaveAs(filePath);
@@ -201,9 +202,9 @@ namespace APP0200025.Controllers
             KetQuaXuLy resultConfirm = new KetQuaXuLy();
             resultConfirm.NSWFileCode = hoSo.sMaHoSo;
             resultConfirm.Reason = "Yêu cầu bổ sung";
-            resultConfirm.AttachmentId = "01";
-            resultConfirm.FileName = "";
-            resultConfirm.FileLink = "";
+            resultConfirm.AttachmentId = "";
+            resultConfirm.FileName = sFileName;
+            resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
             resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
             resultConfirm.ResponseDate = DateTime.Now;
             string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "07");

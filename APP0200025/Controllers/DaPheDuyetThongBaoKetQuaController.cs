@@ -15,7 +15,7 @@ namespace APP0200025.Controllers
     public class DaPheDuyetThongBaoKetQuaController : Controller
     {
         // GET: DaPheDuyetThongBaoKetQua
-        Bang bang = new Bang("CNN25_HoSo");
+        Bang bang = new Bang("CNN25_HangHoa");
 
         private string ViewPath = "~/Views/DaPheDuyetThongBaoKetQua/";
         private SendService _sendService = new SendService();
@@ -81,8 +81,8 @@ namespace APP0200025.Controllers
                 resultConfirm.DepartmentName = "Cục chăn nuôi";
                 resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
                 resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
-                resultConfirm.SignCerDateString = "Cục chăn nuôi";
-                resultConfirm.SignCerDate = hangHoa.dSoThongBaoKetQua_NgayKy;
+                resultConfirm.SignCerDateString = hangHoa.sSoThongBaoKetQua_NoiKy;
+                resultConfirm.SignCerDate = hangHoa.sSoThongBaoKetQua_NgayKy;
                 error = _sendService.GiayXNCL(hangHoa.sMaHoSo, resultConfirm);
             }
             if (error == "99")
