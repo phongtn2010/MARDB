@@ -42,7 +42,7 @@ namespace APP0200025.Controllers
             //{
             //    return RedirectToAction("Index", "PermitionMessage");
             //}
-            clHoSo.UpdateNguoiXem(iID_MaHangHoa, User.Identity.Name);
+            clHangHoa.UpdateNguoiXem(iID_MaHangHoa, User.Identity.Name);
 
             HangHoaModels models = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
 
@@ -150,12 +150,9 @@ namespace APP0200025.Controllers
                 resultConfirm.DepartmentName = "Cục chăn nuôi";
                 resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
                 resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
-<<<<<<< HEAD
                 resultConfirm.SignCerDateString = hangHoa.sSoThongBaoKetQua_NoiKy;
                 resultConfirm.SignCerDate = hangHoa.sSoThongBaoKetQua_NgayKy;
-=======
-                resultConfirm.SignCerDate = DateTime.Now;
-                resultConfirm.SignCerDate = hangHoa.dSoThongBaoKetQua_NgayKy;
+                resultConfirm.SignCerName = hangHoa.sSoThongBaoKetQua_NguoiKy;
                 resultConfirm.ListHangHoa = clHangHoa.GetHoaGXNCL(hoSo.iID_MaHoSo);
                 resultConfirm.PortOfDestinationName = hoSo.sMua_NoiNhan;
                 resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
@@ -172,9 +169,7 @@ namespace APP0200025.Controllers
                 resultConfirm.AssignCode = sMaCoQuanDanhGiaXNCL;
                 resultConfirm.AssignName = sTenCoQuanDanhGiaXNCL;
                 resultConfirm.ImportCerDate = dNgayXacNhanHopQuy;
-                resultConfirm.SignCerName = hangHoa.sSoThongBaoKetQua_NguoiKy;
 
->>>>>>> f950dc05c604aa26fc90d980ec49e10d46b97572
                 error = _sendService.GiayXNCL(hangHoa.sMaHoSo, resultConfirm);
             }
             if (error == "99")
