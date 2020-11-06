@@ -38,7 +38,7 @@ namespace DATA0200025.Models
         public string sGhiChu { get; set; }
         public string sSoThongBaoKetQua { get; set; }
         public string sSoThongBaoKetQua_NoiKy { get; set; }
-        public DateTime dSoThongBaoKetQua_NgayKy { get; set; }
+        public DateTime sSoThongBaoKetQua_NgayKy { get; set; }
         public string sBanChat { get; set; }
     }
 }
