@@ -265,10 +265,13 @@
 
                                                                             </td>
                                                                             <td align="center" title="Thu hồi">
-                                                                                <a class="openthuhoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
-                                                                                    <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
-                                                                                </a>
-                                                                            </td>
+                                                                                @if (!TCDY)
+                                                                                {
+                                                                                    <a class="openthuhoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
+                                                                                        <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
+                                                                                    </a>
+                                                                                        }
+                                                                                </td>
                                                                             <td align="center" title="Quá hạn">
                                                                                 <a data-id="@r["iID_MaHoSo"]" >
                                                                                     <span class='badge bg-red'><i class='fa fa-exclamation'></i></span>
