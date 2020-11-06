@@ -150,7 +150,6 @@ namespace APP0200025.Controllers
                 resultConfirm.DepartmentName = "Cục chăn nuôi";
                 resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
                 resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
-                resultConfirm.SignCerDateString = Convert.ToString(hangHoa.dSoThongBaoKetQua_NgayKy);
                 resultConfirm.SignCerDate = hangHoa.dSoThongBaoKetQua_NgayKy;
                 resultConfirm.SignCerName = hangHoa.sSoThongBaoKetQua_NguoiKy;
                 resultConfirm.ListHangHoa = clHangHoa.GetHoaGXNCL(hoSo.iID_MaHoSo);
