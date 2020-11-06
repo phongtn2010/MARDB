@@ -63,10 +63,10 @@ namespace APP0200025.Controllers
         /// <param name="ParentID"></param>
         /// <param name="MaHoSo"></param>
         /// <returns></returns>
-        [Authorize, ValidateInput(false), HttpPost]
-        public ActionResult GuiDoanhNghiep(String ParentID)
+        //[Authorize, ValidateInput(false), HttpPost]
+        public ActionResult GuiDoanhNghiep(String iID_MaHoSo, String iID_MaHangHoa)
         {
-            string iID_MaHangHoa = Request.Form[ParentID + "_iID_MaHangHoa"];
+            //string iID_MaHangHoa = Request.Form[ParentID + "_iID_MaHangHoa"];
             HangHoaModels hangHoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNThongBaoKetQuaKiemTra, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
             HoSoModels hoSo = clHoSo.GetHoSoById(hangHoa.iID_MaHoSo);
@@ -80,9 +80,9 @@ namespace APP0200025.Controllers
                 resultConfirm.DepartmentCode = "10";
                 resultConfirm.DepartmentName = "Cục chăn nuôi";
                 resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
-                resultConfirm.SignCerPlace = hangHoa.sTenHangHoa;
+                resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
                 resultConfirm.SignCerDateString = "Cục chăn nuôi";
-                resultConfirm.SignCerDate = DateTime.Now;         
+                resultConfirm.SignCerDate = hangHoa.dSoThongBaoKetQua_NgayKy;
                 error = _sendService.GiayXNCL(hangHoa.sMaHoSo, resultConfirm);
             }
             if (error == "99")
@@ -90,7 +90,7 @@ namespace APP0200025.Controllers
 
                 bang.MaNguoiDungSua = User.Identity.Name;
                 bang.IPSua = Request.UserHostAddress;
-                bang.TruyenGiaTri(ParentID, Request.Form);
+                //bang.TruyenGiaTri(ParentID, Request.Form);
                 bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy ?? "");
                 bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
