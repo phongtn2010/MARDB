@@ -151,6 +151,11 @@ namespace APP0200025.Controllers
                 resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
                 resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
                 resultConfirm.SignCerDateString = hangHoa.sSoThongBaoKetQua_NoiKy;
+<<<<<<< HEAD
+=======
+                resultConfirm.SignCerDate = hangHoa.dSoThongBaoKetQua_NgayKy;
+                resultConfirm.SignCerDate = DateTime.Now;
+>>>>>>> fd985845e1ad3c41d8e14a005a8ecee36527796c
                 resultConfirm.SignCerDate = hangHoa.dSoThongBaoKetQua_NgayKy;
                 resultConfirm.SignCerName = hangHoa.sSoThongBaoKetQua_NguoiKy;
                 resultConfirm.ListHangHoa = clHangHoa.GetHoaGXNCL(hoSo.iID_MaHoSo);

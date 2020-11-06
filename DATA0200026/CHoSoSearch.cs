@@ -19,7 +19,6 @@ namespace DATA0200026
         public string DenNgayDen { get; set; }
         public string TuNgayTiepNhan { get; set; }
         public string DenNgayTiepNhan { get; set; }
-
         public string TuNgayXacNhan { get; set; }
         public string DenNgayXacNhan { get; set; }
         public int Page { get; set; }
