@@ -319,7 +319,10 @@ namespace APP0200025.Controllers
             bangHH.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
             bangHH.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
             bangHH.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hangHoa.iID_MaTrangThai);
-            bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua", taoSoTB.SoTB);
+            bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua", taoSoTB.SoTB);  
+            bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NoiKy","Hà Nội"); 
+            bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NgayKy",DateTime.Now);
+            bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NguoiKy", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
             bangHH.Save();
             clHoSo.CleanNguoiXem(iID_MaHangHoa);
             clLichSuHoSo.InsertLichSu(hangHoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.KySoPheDuyetThongBaoKetQua, "ký số phê duyệt thông báo kết quả kiểm tra:" , "", hangHoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
