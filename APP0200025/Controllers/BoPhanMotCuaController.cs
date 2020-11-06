@@ -23,7 +23,6 @@ namespace APP0200025.Controllers
             return View();
         }
 
-
         public ActionResult MienGiam_ChoTiepNhan(CHoSoSearch hoSoSearch)
         {
             if (hoSoSearch == null || hoSoSearch.iID_MaTrangThai == 0)

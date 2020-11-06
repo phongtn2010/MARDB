@@ -1,0 +1,37 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@model  HoSo26Models
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+    string urldetail = Url.Action("HangHoaChiTiet", "ChoTiepNhanHoSo");
+}
+@{Html.RenderPartial("~/Views/PartialMienGiam/Partial_ThongTinHoSo.cshtml", Model);}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_DanhSachTACN.cshtml", Model);}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_ThongTinKyHoSoDoanhNghiep.cshtml", Model);}
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    urldetail = '@Html.Raw(urldetail)';
+</script>

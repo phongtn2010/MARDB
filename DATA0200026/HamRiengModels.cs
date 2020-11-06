@@ -57,6 +57,19 @@ namespace DATA0200026
             return table;
         }
 
+        public static String Get_Name_TrangThai(int iMa)
+        {
+            string vR = "";
+            DataTable dt = GetTable_TrangThai();
+            var rowColl = dt.AsEnumerable();
+            vR = (from r in rowColl
+                  where r.Field<int>("ID") == iMa
+                  select r.Field<string>("NAME")).First<string>();
+            dt.Dispose();
+
+            return vR;
+        }
+
         public static SelectOptionList Get_Select_TrangThai()
         {
             DataTable dt = GetTable_TrangThai();

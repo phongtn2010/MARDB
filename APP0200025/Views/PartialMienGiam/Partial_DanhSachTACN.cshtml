@@ -1,0 +1,87 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@model  HoSo26Models
+@{
+    Layout = null;
+    string ParentID = "Detail";
+    string userName = User.Identity.Name;
+    DataTable dtHH = CHangHoa26.Get_HangHoa(Model.iID_MaHoSo);
+}
+
+<div class="box-header with-border">
+    <h3 class="box-title">Danh sách TACN</h3>
+</div><!-- /.box-header -->
+<div class="box-body">
+    <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
+        <thead>
+            <tr>
+                <th style="width: 3%;" align="center">STT</th>
+                <th align="center">Tên TACN</th>
+                <th style="width: 12%;" align="center">Mã hồ sơ TACN</th>
+                <th style="width: 12%;" align="center">Mã số công nhận</th>
+                <th style="width: 10%;" align="center">Hãng sản xuất</th>
+                <th style="width: 10%;" align="center">Nước sản xuất</th>
+                <th style="width: 10%;" align="center">Thành phần nguyên liệu</th>
+                <th style="width: 10%;" align="center">Dạng, màu sản phẩm</th>
+                <th style="width: 5%;">Xem chi tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (dtHH.Rows.Count > 0)
+                {
+                    int iSTT = 0;
+                    DataRow R;
+                    for (int i = 0; i < dtHH.Rows.Count; i++)
+                    {
+                        R = dtHH.Rows[i];
+
+                        iSTT ++;
+
+                        string sUserNguoiXem = Convert.ToString(R["sUserNguoiXem"]);
+
+                        String strView = MyHtmlHelper.ActionLink(Url.Action("MienGiam_ChoTiepNhan_Detail", "BoPhanMotCua", new { iID_MaHangHoa = R["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
+
+                        <tr>
+                            <td style="text-align: center;">@(iSTT)</td>
+                            <td>@R["sTenHangHoa"]</td>
+                            <td><a href="@Url.Action("Index", "HoSo", new { sMaHoSo = R["sMaHoSo_DangKy"] })">@R["sMaHoSo_DangKy"]</a></td>
+                            <td>@R["sMaSoCongNhan"]</td>
+                            <td>@R["sHangSanXuat"]</td>
+                            <td>@R["sTenQuocGia"]</td>
+                            <td>@R["sThanhPhan"]</td>
+                            <td>@R["sMauSac"]</td>
+                            <td class="head-td-icon">
+                                @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
+                                {
+                                    @MvcHtmlString.Create(strView)
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                dtHH.Dispose();
+            }
+        </tbody>
+    </table>
+</div>
+<script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
+<script>
+    $(function () {
+        $('#tblListData').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false
+        });
+    });
+</script>

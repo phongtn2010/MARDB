@@ -253,6 +253,7 @@
     <Compile Include="Controllers\BoPhanMotCuaController.cs" />
     <Compile Include="Controllers\ChoXemXetKetQuaController.cs" />
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
+    <Compile Include="Controllers\HoSoController.cs" />
     <Compile Include="WebServices\Mard26Service.asmx.cs">
       <DependentUpon>Mard26Service.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -3089,6 +3090,11 @@
     <Content Include="Views\PartialMienGiam\Partial_LichSuHoSo.cshtml" />
     <Content Include="Views\BoPhanMotCua\MienGiam_ChoTiepNhan_Detail.cshtml" />
     <Content Include="Views\ToChucChiDinh\XemKetQuaUpload.cshtml" />
+    <Content Include="Views\PartialMienGiam\Partial_Detail.cshtml" />
+    <Content Include="Views\PartialMienGiam\Partial_ThongTinHoSo.cshtml" />
+    <Content Include="Views\PartialMienGiam\Partial_DanhSachTACN.cshtml" />
+    <Content Include="Views\PartialMienGiam\Partial_ThongTinKyHoSoDoanhNghiep.cshtml" />
+    <Content Include="Views\HoSo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

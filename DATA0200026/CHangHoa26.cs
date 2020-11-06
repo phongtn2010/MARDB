@@ -1,4 +1,5 @@
-﻿using DomainModel;
+﻿using Dapper;
+using DomainModel;
 using DomainModel.Abstract;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,30 @@ namespace DATA0200026
             }
 
             return vR;
+        }
+
+        public static DataTable Get_HangHoa(long iID_MaHoSo)
+        {
+            DataTable vR = null;
+
+            string SQL = "SELECT TOP 1 * FROM CNN26_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo ORDER BY iID_MaHangHoa";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            vR = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+            cmd.Dispose();
+
+            return vR;
+        }
+
+        public static HangHoa26Models Get_Detail(long iID_MaHangHoa)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN26_HangHoa 
+                            WHERE iID_MaHangHoa=@iID_MaHangHoa";
+                HangHoa26Models results = connect.Query<HangHoa26Models>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).FirstOrDefault();
+                return results;
+            }
         }
 
         public static DataTable Get_HangHoa_Detail_Nsw(long iID_MaHoSo, long iID_MaHangHoaNSW)
