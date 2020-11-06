@@ -102,6 +102,43 @@ namespace APP0200025.Controllers
             clHangHoa.CleanNguoiXem(iID_MaHangHoa);
             return RedirectToAction("Index");
         }
+
+        public ActionResult GuiDoanhNghiep(String iID_MaHangHoa)
+        {
+            HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
+            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanKetQuaKiemTra, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
+            //Gui sang NSW
+            XuLyKetQua resultConfirm = new XuLyKetQua();
+            resultConfirm.NSWFileCode = hanghoa.sMaHoSo;
+            resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+            resultConfirm.GoodsId = hanghoa.iID_MaHangHoa;
+            resultConfirm.NameOfGoods = hanghoa.sTenHangHoa;
+            resultConfirm.FileName = "";
+            resultConfirm.FileLink = "";
+            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+            resultConfirm.ResponseDate = DateTime.Now;
+            string error = _sendService.XuLyKetQua(hanghoa.sMaHoSo, resultConfirm, "20");
+
+            if (error == "99")
+            {
+                bang.MaNguoiDungSua = User.Identity.Name;
+                bang.IPSua = Request.UserHostAddress;
+                bang.DuLieuMoi = false;
+                bang.GiaTriKhoa = iID_MaHangHoa;
+                //bang.TruyenGiaTri(ParentID, Request.Form);
+                bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
+                bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
+                bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
+                bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
+                bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hanghoa.iID_MaTrangThai);
+                bang.Save();
+                clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanKetQuaKiemTra, "Tiếp nhận kết quả kiểm tra", "", hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+            }
+            clHangHoa.CleanNguoiXem(iID_MaHangHoa);
+            return RedirectToAction("Index");
+        }
         /// <summary>
         /// update data màn hình YeuCauBoXung
         /// </summary>
