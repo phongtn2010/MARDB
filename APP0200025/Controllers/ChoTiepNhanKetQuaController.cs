@@ -86,7 +86,9 @@ namespace APP0200025.Controllers
             {
                 bang.MaNguoiDungSua = User.Identity.Name;
                 bang.IPSua = Request.UserHostAddress;
-                bang.TruyenGiaTri(ParentID, Request.Form);
+                bang.DuLieuMoi = false;
+                bang.GiaTriKhoa = iID_MaHangHoa;
+                //bang.TruyenGiaTri(ParentID, Request.Form);
                 bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
                 bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
                 bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
@@ -166,7 +168,7 @@ namespace APP0200025.Controllers
             {
                 bang.MaNguoiDungSua = User.Identity.Name;
                 bang.IPSua = Request.UserHostAddress;
-                bang.TruyenGiaTri(ParentID, Request.Form);
+                //bang.TruyenGiaTri(ParentID, Request.Form);
                 bang.DuLieuMoi = false;
                 bang.GiaTriKhoa = iID_MaHangHoa;
                 bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);

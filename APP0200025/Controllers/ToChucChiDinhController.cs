@@ -257,8 +257,6 @@ namespace APP0200025.Controllers
             string _sDuongDan = string.Empty;
             string sMaTCCD = "", sTenTCCD = "";
 
-            
-
             string _iID_MaHoSo = CString.SafeString(Request.Form["_iID_MaHoSo"]);
             string _iID_MaHangHoa = CString.SafeString(Request.Form["_iID_MaHangHoa"]);
             string _sKetQuaDanhGia = CString.SafeString(Request.Form["_sKetQuaDanhGia"]);
@@ -349,7 +347,28 @@ namespace APP0200025.Controllers
                 var SQL = String.Format("INSERT INTO {0}({1}) VALUES({2});", "CNN25_ChungNhanHopQuy", DSTruong, DSGiaTri);
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = SQL;
-                Connection.UpdateDatabase(cmd, 0);
+                Connection.UpdateDatabase(cmd, CThamSo.iKetNoi);
+
+                //Bang bang = new Bang("CNN25_ChungNhanHopQuy");
+                //bang.MaNguoiDungSua = User.Identity.Name;
+                //bang.IPSua = Request.UserHostAddress;
+
+                //bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", _iID_MaHoSo);
+                //bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", _iID_MaHangHoa);
+                //bang.CmdParams.Parameters.AddWithValue("@sMaTCCD", sMaTCCD);
+                //bang.CmdParams.Parameters.AddWithValue("@sTenTCCD", sTenTCCD);
+                //bang.CmdParams.Parameters.AddWithValue("@sSoChungNhan", _sSoChungNhan);
+                //if (_dNgayCap != null)
+                //{
+                //    bang.CmdParams.Parameters.AddWithValue("@dNgayCap", _dNgayCap);
+                //}
+                //bang.CmdParams.Parameters.AddWithValue("@bKetQuaDanhGia", _bKetQuaDanhGia);
+                //bang.CmdParams.Parameters.AddWithValue("@sTenFile", _sTenFile);
+                //bang.CmdParams.Parameters.AddWithValue("@sDuongDan", _sDuongDan);
+
+                //bang.DuLieuMoi = true;
+                //bang.Save();
+
             }
             return null;
         }

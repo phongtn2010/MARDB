@@ -210,7 +210,7 @@ namespace DATA0200025
         {
             DataTable vR = null;
 
-            string SQL = "SELECT TOP 1 * FROM CNN25_ChungNhanHopQuy WHERE iID_MaHoSo=@iID_MaHoSo ORDER BY dNgayTao DESC";
+            string SQL = "SELECT TOP 1 * FROM CNN25_HoSo_TCCD WHERE iID_MaHoSo=@iID_MaHoSo ORDER BY dNgayTao DESC";
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
             vR = Connection.GetDataTable(cmd);
