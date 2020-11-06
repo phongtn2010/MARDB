@@ -36,13 +36,14 @@
                             @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa)
                             <div class="box-footer clearfix text-center">
                                 <div class="col-xs-4">
-                                    <button class="btn btn-block btn-primary" type="submit">Gửi doanh nghiệp</button>
+                                    <a class="btn btn-block btn-primary" data-id="@Model.iID_MaHoSo" href="@Url.Action("GuiDoanhNghiep", "DaPheDuyetThongBaoKetQua", new { iID_MaHoSo = Model.iID_MaHoSo, iID_MaHangHoa = Model.iID_MaHangHoa })">Gửi doanh nghiệp</a>
                                 </div>
                                 <div class="col-xs-4">
-                                    <a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHangHoa">Tải giấy XNCL</a>
+                                    @*<a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHangHoa">Tải giấy XNCL</a>*@
+                                    <button class="btn btn-block btn-danger" type="submit">Tải giấy XNCL</button>
                                 </div>
                                 <div class="col-xs-4">
-                                    <a class="btn btn-block" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
+                                    <a class="btn btn-block" style="background-color:#023658;color:white;" onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
                                 </div>
                             </div>
                         </form>
