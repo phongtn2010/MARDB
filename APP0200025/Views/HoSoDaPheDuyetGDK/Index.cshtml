@@ -210,6 +210,7 @@
                                             String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
                                             String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
 
+                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
 
 
                                             <tr>
@@ -235,14 +236,10 @@
                                                 <td class="head-td-icon">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
-                                                        @*<a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">*@
-                                                        <span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>
-                                                        @*</a>*@
+                                                        @MvcHtmlString.Create(strSend)
                                                     }
-
                                                 </td>
                                                 <td style="width: 10px;" title="Quá hạn"></td>
-
                                             </tr>
                                         }
                                     }

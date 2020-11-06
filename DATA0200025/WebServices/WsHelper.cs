@@ -96,7 +96,7 @@ namespace DATA0200025.WebServices
             webRequest.ContentType = "text/xml;charset=\"utf-8\"";
             webRequest.Accept = "text/xml";
             webRequest.Method = "POST";
-            webRequest.Timeout = 1000000;
+            webRequest.Timeout = 100000;
             return webRequest;
         }
 

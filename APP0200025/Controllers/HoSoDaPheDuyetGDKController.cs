@@ -55,10 +55,10 @@ namespace APP0200025.Controllers
         /// <param name="ParentID"></param>
         /// <param name="MaHoSo"></param>
         /// <returns></returns>
-        [Authorize, ValidateInput(false), HttpPost]
-        public ActionResult GuiDoanhNghiep(String ParentID)
+        //[Authorize, ValidateInput(false), HttpPost]
+        public ActionResult GuiDoanhNghiep(String iID_MaHoSo)
         {
-            string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
+            //string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
             HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
@@ -67,14 +67,13 @@ namespace APP0200025.Controllers
             resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
             resultConfirm.DepartmentCode = "10";
             resultConfirm.DepartmentName = "Cục chăn nuôi";
-            resultConfirm.ImportingFromDateString = hoSo.sMua_FromDate.ToString();
-            resultConfirm.ImportingToDateString = hoSo.sMua_ToDate.ToString();
+            resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
+            resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
             resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
             resultConfirm.ImportingToDate= hoSo.sMua_ToDate;
             resultConfirm.AssignID = "";
             resultConfirm.AssignName = "";
             resultConfirm.AssignNameOther = "";
-            resultConfirm.SignConfirmDateString = hoSo.dNgayXacNhan.ToString();
             resultConfirm.SignConfirmDate = hoSo.dNgayXacNhan;
             resultConfirm.SignConfirmPlace = "Hà nội";
             resultConfirm.SignConfirmName = "Lãnh đạo cục";
@@ -94,7 +93,7 @@ namespace APP0200025.Controllers
             {
                 bang.MaNguoiDungSua = User.Identity.Name;
                 bang.IPSua = Request.UserHostAddress;
-                bang.TruyenGiaTri(ParentID, Request.Form);
+                //bang.TruyenGiaTri(ParentID, Request.Form);
                 bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
                 bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
