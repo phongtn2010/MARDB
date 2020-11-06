@@ -112,7 +112,7 @@ namespace DATA0200025
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {
-                string SQL = @"SELECT * FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa";
+                string SQL = @"SELECT * FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND bChon=1";
                 var results = connect.Query<ChiTieuModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).ToList();
                 return results;
             }
