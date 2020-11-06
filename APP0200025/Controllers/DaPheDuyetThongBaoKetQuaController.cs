@@ -44,7 +44,7 @@ namespace APP0200025.Controllers
             //}
             clHoSo.UpdateNguoiXem(iID_MaHangHoa, User.Identity.Name);
 
-            HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHangHoa));
+            HangHoaModels models = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
 
             return View(models);
         }

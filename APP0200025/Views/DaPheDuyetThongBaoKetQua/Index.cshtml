@@ -48,8 +48,8 @@
     }
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
-    DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax);
-    double nums = clHoSo.GetCount(Model);
+    DataTable dt = clHoSo.GetDataTableHH(Model, CurrentPage, nMax);
+    double nums = clHoSo.GetCountHH(Model);
     int RC = dt.Rows.Count;
     int TotalPages = (int)Math.Ceiling(nums / nMax);
 
@@ -199,12 +199,9 @@
                                             r = dt.Rows[i];
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
-                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "DaPheDuyetThongBaoKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
-                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "DaPheDuyetThongBaoKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "DaPheDuyetThongBaoKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "DaPheDuyetThongBaoKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
 
-                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "DaPheDuyetThongBaoKetQua", new { iID_MaHangHoa = r["iID_MaHoSo"] }), "<span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
+                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "DaPheDuyetThongBaoKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
+                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "DaPheDuyetThongBaoKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
 
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
@@ -213,7 +210,7 @@
                                                 <td>@String.Format("{0:dd-MM-yyyy}", r["dNgayXacNhan"])</td>
                                                 <td>@r["sSoGDK"]</td>
                                                 <td>@r["sTenDoanhNghiep"]</td>
-                                                <td>@r["sTenTACN"]</td>
+                                                <td>@r["sTenHangHoa"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
 
                                                 <td>@r["sKetQuaXuLy"]</td>
