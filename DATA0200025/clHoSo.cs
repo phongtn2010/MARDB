@@ -25,7 +25,7 @@ namespace DATA0200025
                 return results;
             }
         }
-        public static HoSoModels GetHoSoById(int iID_MaHoSo)
+        public static HoSoModels GetHoSoById(long iID_MaHoSo)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {
@@ -666,6 +666,7 @@ namespace DATA0200025
             return dt;
         }
         #endregion
+
         #region list trạng thai theo màn hình
 
         #region danh sách màn hình BPMC Xử lý hồ sơ giấy đăng ký
@@ -919,6 +920,7 @@ namespace DATA0200025
             return lst;
         }
         #endregion
+
         #region Chuyên viên
         /// <summary>
         /// Chuyen viên loại danh sach=7
@@ -1299,6 +1301,7 @@ namespace DATA0200025
         }
 
         #endregion
+
         #region Update
         public static void UpdateNguoiXem(string iID_MaHoSo, string MaND)
         {
@@ -1328,7 +1331,41 @@ namespace DATA0200025
         }
         #endregion
 
-       
+        #region LayThongTinHopDong
+        public static DataTable Get_ThongTin_HopDong(long iID_MaHoSo)
+        {
+            string SQL = "SELECT * FROM CNN25_DinhKem WHERE iID_MaHoSo=@iID_MaHoSo AND iID_MaLoaiFile = 100";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            DataTable dt = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+            cmd.Dispose();
+            return dt;
+        }
+        #endregion
+
+        #region LayThongTinHoaDon
+        public static DataTable Get_ThongTin_HoaDon(long iID_MaHoSo)
+        {
+            string SQL = "SELECT * FROM CNN25_DinhKem WHERE iID_MaHoSo=@iID_MaHoSo AND iID_MaLoaiFile = 101";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            DataTable dt = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+            cmd.Dispose();
+            return dt;
+        }
+        #endregion
+
+        #region LayThongTinPhieuDongGoi
+        public static DataTable Get_ThongTin_PhieuDongGoi(long iID_MaHoSo)
+        {
+            string SQL = "SELECT * FROM CNN25_DinhKem WHERE iID_MaHoSo=@iID_MaHoSo AND iID_MaLoaiFile = 102";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            DataTable dt = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+            cmd.Dispose();
+            return dt;
+        }
+        #endregion
     }
 }
 

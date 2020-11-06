@@ -26,6 +26,7 @@ namespace DATA0200025.Models
         public string sTenLoaiHangHoa { get; set; }
         public string sMaSoCongNhan { get; set; }
         public string sHangSanXuat { get; set; }
+        public string sMaQuocGia { get; set; }
         public string sTenQuocGia { get; set; }
         public string sThanhPhan { get; set; }
         public string sMauSac { get; set; }
