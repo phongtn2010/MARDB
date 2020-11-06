@@ -24,21 +24,15 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-                        @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_Detail.cshtml", Model);} 
-                        <form action="@Url.Action("TiepNhanHoSo", "ChoTiepNhanHoSo", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"])
+                        @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_Detail.cshtml", Model);}
+                        <form action="@Url.Action("LanhDaoCuc_ChoPheDuyet_World", "MienGiam", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
                             @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo)
+                            @Html.Hidden(ParentID + "_sMaHoSo", Model.sMaHoSo)
                             <div class="box-footer clearfix text-center">
-                                <div class="col-xs-3">
-                                    <button class="btn btn-block btn-primary" type="submit">Tiếp nhận</button>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-block btn-primary" type="submit">Xuất word</button>
                                 </div>
-                                <div class="col-xs-3">
-                                    <a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>
-                                </div>
-                                <div class="col-xs-3">
-                                    <a class="btn btn-block openyeucaubosung" style="background-color:#f1bc10;color:white;" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
-                                </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-6">
                                     <a class="btn btn-block" style="background-color:#023658;color:white;" onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
                                 </div>
                             </div>

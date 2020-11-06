@@ -70,6 +70,7 @@
     <Compile Include="CHoSoSearch.cs" />
     <Compile Include="CLichSuHoSo.cs" />
     <Compile Include="CPQ_NGUOIDUNG.cs" />
+    <Compile Include="CTaoMaTiepNhan.cs" />
     <Compile Include="CThamSo.cs" />
     <Compile Include="DTO\AnToanVM.cs" />
     <Compile Include="DTO\AttachmentVM.cs" />
