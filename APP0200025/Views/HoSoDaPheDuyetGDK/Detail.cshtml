@@ -14,45 +14,45 @@
     Layout = "~/Views/Shared/_Layout_cms.cshtml";
     string ParentID = "Detail";
 }
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Giấy đăng ký kiểm tra xác nhận chất lượng</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Lịch sử xử lý hồ sơ</a></li>
 
-<div class="row">
-    <div class="col-md-12">
-        <!-- Custom Tabs -->
-        <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab_1" data-toggle="tab">Giấy đăng ký kiểm tra xác nhận chất lượng</a></li>
-                <li><a href="#tab_2" data-toggle="tab">Lịch sử xử lý hồ sơ</a></li>
+                    <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
 
-                <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="tab_1">
-
-                    @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml",Model);}
-                    <form action="@Url.Action("GuiDoanhNghiep", "HoSoDaPheDuyetGDK", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                        @Html.Hidden(ParentID + "_DuLieuMoi", 0);
-                        @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
-                        <div class="box-footer clearfix text-center">
-                            <div class="col-xs-4">
-                                <a class="btn btn-block btn-primary" data-id="@Model.iID_MaHoSo" href="@Url.Action("GuiDoanhNghiep", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = Model.iID_MaHoSo })">Gửi doanh nghiệp</a>
+                        @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", Model);}
+                        <form action="@Url.Action("GuiDoanhNghiep", "HoSoDaPheDuyetGDK", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+                            @Html.Hidden(ParentID + "_DuLieuMoi", 0);
+                            @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
+                            <div class="box-footer clearfix text-center">
+                                <div class="col-xs-4">
+                                    <a class="btn btn-block btn-primary" data-id="@Model.iID_MaHoSo" href="@Url.Action("GuiDoanhNghiep", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = Model.iID_MaHoSo })">Gửi doanh nghiệp</a>
+                                </div>
+                                <div class="col-xs-4">
+                                    <button class="btn btn-block btn-gray" type="submit">Xuất Word</button>
+                                </div>
+                                <div class="col-xs-4">
+                                    <a class="btn btn-block" style="background-color:#023658;color:white;" onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
+                                </div>
                             </div>
-                            <div class="col-xs-4">
-                                <button class="btn btn-block btn-gray" type="submit">Xuất Word</button>
-                            </div>
-                            <div class="col-xs-4">
-                                <a class="btn btn-block" style="background-color:#023658;color:white;" onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
-                            </div>
-                        </div>
-                    </form>
-                </div><!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_2">
-                    @{Html.RenderPartial("~/Views/Partial/Partial_LichSuHoSo.cshtml", Model);}
-                </div><!-- /.tab-pane -->
+                        </form>
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        @{Html.RenderPartial("~/Views/Partial/Partial_LichSuHoSo.cshtml", Model);}
+                    </div><!-- /.tab-pane -->
 
-            </div><!-- /.tab-content -->
-        </div><!-- nav-tabs-custom -->
-    </div><!-- /.col -->
+                </div><!-- /.tab-content -->
+            </div><!-- nav-tabs-custom -->
+        </div><!-- /.col -->
 
-</div>
-
+    </div>
+</section>
 @*<script src="@Url.Content("~/ScriptsERP/jsHoSoDaBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>*@
