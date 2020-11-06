@@ -37,8 +37,10 @@ namespace DATA0200025.Models
         public double rGiaUSD { get; set; }
         public string sGhiChu { get; set; }
         public string sSoThongBaoKetQua { get; set; }
+        public string sSoThongBaoKetQua_NguoiKy { get; set; }
         public string sSoThongBaoKetQua_NoiKy { get; set; }
         public DateTime dSoThongBaoKetQua_NgayKy { get; set; }
         public string sBanChat { get; set; }
+        
     }
 }
