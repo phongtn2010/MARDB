@@ -47,7 +47,7 @@ namespace DATA0200025.Models
         public string sKyHoSo_Tinh { get; set; }
         public string sKyHoSo_NguoiKy { get; set; }
         public string sKyHoSo_NguoiKy_ChucDanh { get; set; }
-        public DateTime sKyHoSo_NgayKy { get; set; }
+        public DateTime dKyHoSo_NgayKy { get; set; }
         public string sLienHe_Name { get; set; }
         public string sLieHe_DiaChi { get; set; }
         public string sLienHe_Tel { get; set; }

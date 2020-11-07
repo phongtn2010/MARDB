@@ -17,11 +17,10 @@
 }
 @using (Ajax.BeginForm("XuLyChiTieuSubmit", "ChuyenVien", new AjaxOptions{OnSuccess = "OnSuccessXuLyChiTieu",OnBegin = "OnBeginXuLyChiTieu"}, new { id = "formXuLyChiTieu", enctype = "multipart/form-data" }))
 {
-    <script>
+    <script type="text/javascript">
         function OnBeginXuLyChiTieu() {
             $('html, body').animate({ scrollTop: 10 }, 'slow');
         }
-
         function OnSuccessXuLyChiTieu(data) {
             alert("cập nhật thành công");
             $('#XuLyChiTieu').modal('hide');

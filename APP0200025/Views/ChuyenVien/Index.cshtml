@@ -68,6 +68,14 @@
     // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 
 }
+
+<script type="text/javascript">
+        $(function () {
+            var a = '@TempData["msg"]';
+            if (a != '')
+                showToast_Success();
+        })
+</script>
 <!-- Main content -->
 <section class="content">
     <div class="row">

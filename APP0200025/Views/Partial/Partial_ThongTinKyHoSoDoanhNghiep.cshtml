@@ -23,21 +23,27 @@
             <div class="form-group">
                 <label for="">Nơi ký</label>
                 @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sKyHoSo_Tinh, "sKyHoSo_Tinh", "", "type=\"text\" class=\"form-control\""))
-
             </div>
         </div>
         <div class="col-xs-4">
             <div class="form-group">
                 <label for="">Ngày ký<span style="color: red;">&nbsp;*</span></label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label(string.Format("{0:dd/MM/yyyy}",Model.sKyHoSo_NgayKy), "sKyHoSo_NgayKy", "", "type=\"text\" class=\"form-control\""))
-
+                @{
+                    if (Model.dKyHoSo_NgayKy != null && Model.dKyHoSo_NgayKy.Year > 1990)
+                    {
+                        @MvcHtmlString.Create(MyHtmlHelper.Label(string.Format("{0:dd/MM/yyyy}", Model.dKyHoSo_NgayKy), "dKyHoSo_NgayKy", "", "type=\"text\" class=\"form-control\""))
+                    }
+                    else
+                    {
+                        @MvcHtmlString.Create(MyHtmlHelper.Label("", "dKyHoSo_NgayKy", "", "type=\"text\" class=\"form-control\""))
+                    }
+                }
             </div>
         </div>
         <div class="col-xs-4">
             <div class="form-group">
                 <label for="">Người ký<span style="color: red;">&nbsp;*</span></label>
                 @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sKyHoSo_NguoiKy, "sKyHoSo_NguoiKy", "", "type=\"text\" class=\"form-control\""))
-
             </div>
         </div>
     </div>

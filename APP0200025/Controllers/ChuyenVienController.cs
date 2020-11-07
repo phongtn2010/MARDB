@@ -123,6 +123,7 @@ namespace APP0200025.Controllers
                 }
                 cmd.Dispose();
             }
+
             return RedirectToAction("Index");
         }
         /// <summary>
@@ -149,6 +150,8 @@ namespace APP0200025.Controllers
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
             clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.DongYSoanPhuLucTrinhLanhXemXet, "Trình lãnh đạo", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+
+            TempData["msg"] = "success";
             return RedirectToAction("Index");
         }
         /// <s
@@ -240,7 +243,8 @@ namespace APP0200025.Controllers
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
             clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai,"Thu hồi và xử lý lại", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
-           
+
+            TempData["msg"] = "success";
             return RedirectToAction("Index");
         }
         [Authorize, ValidateInput(false), HttpPost]
@@ -263,6 +267,7 @@ namespace APP0200025.Controllers
             clHoSo.CleanNguoiXem(iID_MaHoSo);
             clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, "Thu hồi và xử lý lại", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
+            TempData["msg"] = "success";
             return RedirectToAction("Index");
         }
         /// <summary>
@@ -356,6 +361,8 @@ namespace APP0200025.Controllers
                 TuNgayTiepNhan = _FromDateTiepNhan,
                 DenNgayTiepNhan = _ToDateTiepNhan
             };
+
+            TempData["msg"] = "success";
             return RedirectToAction("Index", models);
         }
 
