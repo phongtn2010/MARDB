@@ -1588,6 +1588,7 @@
     <Content Include="Content\images\blue-paper.png" />
     <Content Include="Content\images\calendar.png" />
     <Content Include="Content\images\cnn25.png" />
+    <Content Include="Content\images\cnn26.png" />
     <Content Include="Content\images\cross.png" />
     <Content Include="Content\images\currency.png" />
     <Content Include="Content\images\currency_vnd.png" />

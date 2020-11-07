@@ -37,14 +37,20 @@
 <section class="content">
     <div class="row">
         <div class="col-md-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">LUỒNG QUY TRÌNH THỦ TỤC 25</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <img src="@(ServerURL)/Content/images/cnn25.png" alt="chart" width="100%" />
-                </div><!-- /.box-body -->
-            </div>
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab" class="text-uppercase">LUỒNG QUY TRÌNH THỦ TỤC 25</a></li>
+                    <li><a href="#tab_2" data-toggle="tab" class="text-uppercase">LUỒNG QUY TRÌNH THỦ TỤC 26</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        <img src="@(ServerURL)/Content/images/cnn25.png" alt="chart" width="100%" />
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        <img src="@(ServerURL)/Content/images/cnn26.png" alt="chart" width="100%" />
+                    </div><!-- /.tab-pane -->
+                </div><!-- /.tab-content -->
+            </div><!-- nav-tabs-custom -->
         </div>
     </div>
 </section>
