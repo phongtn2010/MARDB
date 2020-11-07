@@ -44,8 +44,8 @@ namespace APP0200025.Controllers
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
-            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viFromDate"]);
-            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
+            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
+            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
             CHoSoSearch models = new CHoSoSearch
             {
                 iID_MaTrangThai = 1,
@@ -140,8 +140,8 @@ namespace APP0200025.Controllers
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
-            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viFromDate"]);
-            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
+            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
+            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
             CHoSoSearch models = new CHoSoSearch
             {
                 iID_MaTrangThai = 1,
@@ -233,8 +233,8 @@ namespace APP0200025.Controllers
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
-            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viFromDate"]);
-            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
+            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
+            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
             CHoSoSearch models = new CHoSoSearch
             {
                 iID_MaTrangThai = 1,

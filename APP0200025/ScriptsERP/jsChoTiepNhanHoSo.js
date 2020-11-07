@@ -85,7 +85,6 @@ $(function () {
             type: 'POST',
             data: { iID_MaHoSo: iID_MaHoSo },
             success: function (response) {
-
                 if (response.success) {
                     location.reload();
                 }
