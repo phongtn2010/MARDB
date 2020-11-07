@@ -2669,6 +2669,8 @@
     <Content Include="Content\plugins\timepicker\bootstrap-timepicker.js" />
     <Content Include="Content\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="Content\plugins\timepicker\bootstrap-timepicker.min.js" />
+    <Content Include="Content\plugins\toast\jquery.toast.css" />
+    <Content Include="Content\plugins\toast\jquery.toast.js" />
     <Content Include="Content\Scripts\carousel\carousel.css" />
     <Content Include="Content\Scripts\carousel\images\cP7FTknYc8a.png" />
     <Content Include="Content\Scripts\carousel\owl.carousel.js" />

@@ -86,8 +86,12 @@ $(function () {
             data: { iID_MaHoSo: iID_MaHoSo },
             success: function (response) {
                 if (response.success) {
+                    showToast_Success();
                     location.reload();
                 }
+            },
+            error: function (response) {
+                showToast_Error();
             }
         });
     });

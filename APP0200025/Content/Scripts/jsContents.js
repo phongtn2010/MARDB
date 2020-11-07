@@ -198,3 +198,43 @@ function jsEbank_AddToDanhGia(sMaSanPhan, iSao, sHoTen, sEmail, sNoiDung) {
         alert(item.sMess);
     });
 }
+
+function showToast_Success() {
+    $.toast({
+        heading: 'Thông báo!',
+        icon: 'success',
+        text: 'Bạn đã thao tác thành công!',
+        position: 'bottom-right',
+        stack: false
+    })
+}
+
+function showToast_Warning() {
+    $.toast({
+        heading: 'Cảnh báo!',
+        icon: 'warning',
+        text: 'Cảnh báo thao tác của bạn không đúng!',
+        position: 'bottom-right',
+        stack: false
+    })
+}
+
+function showToast_Error() {
+    $.toast({
+        heading: 'Thông báo lỗi!',
+        icon: 'error',
+        text: 'Bạn đã thao tác không thành công!',
+        position: 'bottom-right',
+        stack: false
+    })
+}
+
+function showToast_Info() {
+    $.toast({
+        heading: 'Thông tin chi tiết!',
+        icon: 'info',
+        text: 'Bạn cần đọc kỹ thông tin trước khi thêm!',
+        position: 'bottom-right',
+        stack: false
+    })
+}

@@ -4,7 +4,6 @@
 @using DomainModel
 @using DomainModel.Controls
 @model HangHoaModels
-
 @{
     Layout = null;
     DataTable dt = clHangHoa.Get_ThongTinChiTieuAnToanDN(Model.iID_MaHangHoa);
@@ -12,55 +11,54 @@
     DataRow r;
     string ParentID = "ATDN";
 }
-
-
-    <div class="box-header with-border">
-        <h3 class="box-title">Thông tin chi tiêu an toàn - Doanh nghiệp</h3>
-
-        <div class="box-body no-padding">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover table-striped">
-                    <tr>
-                        <th style="width: 3%; text-align: center;">STT</th>
-                        <th>Chọn</th>
-                        <th style="width: 25%; text-align: center;">Tên chỉ tiêu an toàn</th>
-                        <th style="width: 25%; text-align: center;">Hình thức công bố</th>
-                        <th style="width: 10%; text-align: center;">Hàm lượng</th>
-                        <th style="width: 10%; text-align: center;">Đơn vị tính</th>
-                        <th style="width: 30%; text-align: center;">Ghi chú</th>
-                    </tr>
-                    @{
-                        if (rc > 0)
-                        {
-                            for (int i = 0; i < rc; i++)
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title text-uppercase">Thông tin chi tiêu an toàn - Doanh nghiệp</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <tr>
+                            <th style="width: 3%; text-align: center;">STT</th>
+                            <th>Chọn</th>
+                            <th style="width: 20%; text-align: center;">Tên chỉ tiêu</th>
+                            <th style="width: 20%; text-align: center;">Hình thức công bố</th>
+                            <th style="width: 15%; text-align: center;">Hàm lượng</th>
+                            <th style="width: 15%; text-align: center;">Đơn vị tính</th>
+                            <th style="width: 30%; text-align: center;">Ghi chú</th>
+                        </tr>
+                        @{
+                            if (rc > 0)
                             {
-                                r = dt.Rows[i];
-
-                                int iSTT = i + 1;
-                                string schecked = "";
-                                if (Convert.ToBoolean(r["bChon"]))
+                                for (int i = 0; i < rc; i++)
                                 {
-                                    schecked = "checked=checked";
+                                    r = dt.Rows[i];
+
+                                    int iSTT = i + 1;
+                                    string schecked = "";
+                                    if (Convert.ToBoolean(r["bChon"]))
+                                    {
+                                        schecked = "checked=checked";
+                                    }
+
+                                    <tr>
+                                        <td align="center">@iSTT.ToString()</td>
+                                        <td align="center"><input type="checkbox" value="@r["iID_MahangHoaAT"]" @schecked name="@string.Format("{0}_bChon",ParentID)" /></td>
+                                        <td>@r["sChiTieu"]</td>
+                                        <td align="center">@r["sHinhThuc"]</td>
+                                        <td align="center">@r["sHamLuong"]</td>
+                                        <td align="center">@r["sDonViTinh"]</td>
+                                        <td>@MvcHtmlString.Create(MyHtmlHelper.TextBox(string.Format("{0}{1}", ParentID, r["iID_MahangHoaAT"]), r["sGhiChu"], "sGhiChu", "", "type=\"text\" class=\"form-control\""))</td>
+                                    </tr>
                                 }
-
-
-                                        <tr>
-                                            <td style="text-align: center;">@iSTT.ToString()</td>
-                                            <td><input type="checkbox" value="@r["iID_MahangHoaAT"]" @schecked name="@string.Format("{0}_bChon",ParentID)"/></td>
-                                            <td style="text-align: center;">@r["sChiTieu"]</td>
-                                            <td>@r["sHinhThuc"]</td>
-                                            <td>@r["sHamLuong"]</td>
-                                            <td>@r["sDonViTinh"]</td>
-
-                                            <td>@MvcHtmlString.Create(MyHtmlHelper.TextBox(string.Format("{0}{1}",ParentID,r["iID_MahangHoaAT"]),r["sGhiChu"],"sGhiChu","", "type=\"text\" class=\"form-control\""))</td>
-                                        </tr>
                             }
+                            dt.Dispose();
                         }
-                        dt.Dispose();
-                    }
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
-
     </div>
-
+</div>
