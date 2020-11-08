@@ -38,7 +38,8 @@ namespace APP0200025.Controllers
         public ActionResult Detail(string iID_MaHoSo)
         {
             HoSoModels hoSo = clHoSo.GetHoSoById(iID_MaHoSo);
-            ViewData["DuLieuMoi"] = "0";
+
+            ViewData["menu"] = 207;
             return View(hoSo);
         }
    
@@ -71,18 +72,21 @@ namespace APP0200025.Controllers
             }    
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
-            bang.TruyenGiaTri(ParentID, Request.Form);
-            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+            bang.DuLieuMoi = false;
+            //bang.TruyenGiaTri(ParentID, Request.Form);
+            bang.GiaTriKhoa = hoSo.iID_MaHoSo;
             bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
             bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
+            bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
             clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, trangThaiTiepTheo.sTen, "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
-            return RedirectToAction("Index");
+
+            TempData["msg"] = "success";
+            return RedirectToAction("HoSoChoXemXet");
         }
 
         [Authorize, ValidateInput(false), HttpPost]
@@ -135,11 +139,13 @@ namespace APP0200025.Controllers
             
                     bang.Save();
                     clHoSo.CleanNguoiXem(arr[i]);
-                    clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, trangThaiTiepTheo.sTen, "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
+                    clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, trangThaiTiepTheo.sTen, "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
                 }
             }
-           return RedirectToAction("HoSoDaXemXet");
+
+            TempData["msg"] = "success";
+            return RedirectToAction("HoSoChoXemXet");
         }
 
         /// <summary>
@@ -234,7 +240,7 @@ namespace APP0200025.Controllers
             clHoSo.CleanNguoiXem(iID_MaHoSo);
 
             result.success = true;
-            result.value = Url.Action("Index");
+            result.value = Url.Action("HoSoChoXemXet");
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -303,7 +309,7 @@ namespace APP0200025.Controllers
             clHoSo.CleanNguoiXem(iID_MaHoSo);
             clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
             ResultModels result = new ResultModels { success = true };
-            result.value = Url.Action("Index");
+            result.value = Url.Action("HoSoChoXemXet");
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
@@ -329,7 +335,7 @@ namespace APP0200025.Controllers
                 TuNgayTiepNhan = _FromDateTiepNhan,
                 DenNgayTiepNhan = _ToDateTiepNhan
             };
-            return RedirectToAction("Index", models);
+            return RedirectToAction("HoSoChoXemXet", models);
         }
 
         public ActionResult HoSoChoXemXet(sHoSoModels models)
@@ -343,6 +349,8 @@ namespace APP0200025.Controllers
                     LoaiDanhSach = 10
                 };
             }
+
+            ViewData["menu"] = 207;
             return View(models);
         }
 
@@ -357,6 +365,8 @@ namespace APP0200025.Controllers
                     LoaiDanhSach = 11
                 };
             }
+
+            ViewData["menu"] = 207;
             return View(models);
         }
 
