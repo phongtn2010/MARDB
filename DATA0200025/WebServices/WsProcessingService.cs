@@ -8,6 +8,7 @@ using DATA0200025.DTO;
 using DATA0200025.Models;
 using DATA0200025.Models.Enums;
 using DATA0200025.WebServices.XmlType;
+using DomainModel.Abstract;
 using Microsoft.Office.Interop.Excel;
 
 namespace DATA0200025.WebServices
@@ -599,11 +600,20 @@ namespace DATA0200025.WebServices
                         long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "Upload Báo Cáo", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId));
                     }
 
-                    //Update Trang Thai Hang Hoa
-                    CHoSo.UpDate_TrangThai(iID_MaHoSo, 29);
+                    //Update Trang Thai Hồ sơ
+                    Bang bang = new Bang("CNN25_HoSo");
+                    bang.MaNguoiDungSua = sUserName;
+                    bang.IPSua = sIP;
+                    bang.DuLieuMoi = false;
+                    bang.GiaTriKhoa = iID_MaHoSo;
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", 5);
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", 4);
+                    bang.Save();
+
+                    //CHoSo.UpDate_TrangThai(iID_MaHoSo, 5);
 
                     //Ghi Lai Lich Su
-                    clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhNghiep, 1, 25, "", "", 0, "Doanh nghiệp Chuyển chỉ tiêu kiểm tra của cả lô hàng cho tổ chức chỉ định đối với hình thức kiểm tra 2c từ NSW", 1);
+                    clLichSuHoSo.InsertLichSu(iID_MaHoSo, sUserName, (int)clDoiTuong.DoiTuong.DoanhNghiep, (int)clHanhDong.HanhDong.UpLoadBaoCao, "", "", 4, 5);
                 }
                 catch (Exception ex)
                 {
