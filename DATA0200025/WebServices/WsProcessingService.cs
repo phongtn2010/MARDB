@@ -603,7 +603,6 @@ namespace DATA0200025.WebServices
                     CHoSo.UpDate_TrangThai(iID_MaHoSo, 29);
 
                     //Ghi Lai Lich Su
-                    //Ghi Lai Lich Su
                     clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhNghiep, 1, 25, "", "", 0, "Doanh nghiệp Chuyển chỉ tiêu kiểm tra của cả lô hàng cho tổ chức chỉ định đối với hình thức kiểm tra 2c từ NSW", 1);
                 }
                 catch (Exception ex)
