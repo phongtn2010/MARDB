@@ -162,14 +162,12 @@ namespace APP0200025.Controllers
 
                     clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
-                    TempData["msg"] = "success";
                     result.success = true;
                 }
                 else
                 {
                     //clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
-                    TempData["msg"] = "error";
                     result.success = false;
                 }
             }
