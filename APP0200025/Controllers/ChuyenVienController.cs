@@ -342,11 +342,11 @@ namespace APP0200025.Controllers
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
-            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viFromDate"]);
-            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
+            string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
+            string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
             string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
-            string _FromDateTiepNhan = CString.SafeString(Request.Form[ParentID + "_viFromDateTiepNhan"]);
-            string _ToDateTiepNhan = CString.SafeString(Request.Form[ParentID + "_viToDateTiepNhan"]);
+            string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
+            string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
             sHoSoModels models = new sHoSoModels
             {
                 LoaiDanhSach=7,
@@ -355,11 +355,11 @@ namespace APP0200025.Controllers
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
-                TuNgayDen = _FromDate,
-                DenNgayDen = _ToDate,
+                TuNgayDen = _TuNgayDen,
+                DenNgayDen = _DenNgayDen,
                 sSoTiepNhan = _sSoTiepNhan,
-                TuNgayTiepNhan = _FromDateTiepNhan,
-                DenNgayTiepNhan = _ToDateTiepNhan
+                TuNgayTiepNhan = _TuNgayTiepNhan,
+                DenNgayTiepNhan = _DenNgayTiepNhan
             };
 
             TempData["msg"] = "success";

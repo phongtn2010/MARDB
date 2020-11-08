@@ -158,8 +158,8 @@
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-1 control-label">Kết quả xử lý</label>
                             <div class="col-xs-5">
-                                <select class="form-control" id="Index_iID_MaTrangThai" name="Index_iID_MaTrangThai">
-                                    <option>--Tất cả--</option>
+                                <select class="form-control" id="Index_iID_KetQuaXuLy" name="Index_iID_KetQuaXuLy">
+                                    <option value="-1">--Tất cả--</option>
                                     <option value="1">Đạt cấp giấy đăng ký</option>
                                     <option value="2">Từ chối cấp GĐK</option>
                                     <option value="3">Yêu cầu bổ xung</option>
@@ -177,7 +177,12 @@
                             </div>
                         </div>
                     </div>
-
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#Index_iID_MaTrangThai').multiselect('rebuild');
+                            $('#Index_iID_KetQuaXuLy').multiselect('rebuild');
+                        });
+                    </script>
                 }
 
             </div><!-- /.box -->
