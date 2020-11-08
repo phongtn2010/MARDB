@@ -41,7 +41,6 @@ namespace APP0200025.Controllers
             //    return RedirectToAction("Index", "PermitionMessage");
             //}
             clHoSo.UpdateNguoiXem(iID_MaHoSo, User.Identity.Name);
-            ViewData["DuLieuMoi"] = "0";
             ViewData["menu"] = 229;
             HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
 
@@ -67,47 +66,55 @@ namespace APP0200025.Controllers
         [Authorize, ValidateInput(false), HttpPost]
         public ActionResult TiepNhanHoSo(String ParentID)
         {
-            string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
-            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
-
-            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
-
-            //Gui sang NSW
-            KetQuaXuLy resultConfirm = new KetQuaXuLy();
-            resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
-            resultConfirm.AttachmentId = "01";
-            resultConfirm.FileName = "";
-            resultConfirm.FileLink = "";
-            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-            resultConfirm.ResponseDate = DateTime.Now;
-            string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
-
-            if (error == "99")
+            string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
+            if (String.IsNullOrEmpty(iID_MaHoSo) == false)
             {
-                bang.MaNguoiDungSua = User.Identity.Name;
-                bang.IPSua = Request.UserHostAddress;
-                bang.TruyenGiaTri(ParentID, Request.Form);
-                bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
-                bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
-                bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
-                bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
-                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
-                bang.Save();
+                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+
+                TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+
+                //Gui sang NSW
+                KetQuaXuLy resultConfirm = new KetQuaXuLy();
+                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+                resultConfirm.AttachmentId = "";
+                resultConfirm.FileName = "";
+                resultConfirm.FileLink = "";
+                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                resultConfirm.ResponseDate = DateTime.Now;
+                string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
+
+                if (error == "99")
+                {
+                    bang.MaNguoiDungSua = User.Identity.Name;
+                    bang.IPSua = Request.UserHostAddress;
+                    bang.DuLieuMoi = false;
+                    bang.TruyenGiaTri(ParentID, Request.Form);
+                    bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
+                    bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
+                    bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
+                    bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
+                    bang.Save();
 
 
-                clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+                    clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
-                TempData["msg"] = "success";
+                    TempData["msg"] = "success";
+                }
+                else
+                {
+                    //clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+
+                    TempData["msg"] = "error";
+                }
             }
             else
             {
-                //clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
-
                 TempData["msg"] = "error";
             }
-
+            
             clHoSo.CleanNguoiXem(iID_MaHoSo);
 
             return RedirectToAction("Index");
@@ -115,44 +122,52 @@ namespace APP0200025.Controllers
         [Authorize, ValidateInput(false), HttpPost]
         public ActionResult TiepNhanHoSoSubmit(String iID_MaHoSo)
         {
-            //  string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
-            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
-
-            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
-
-            KetQuaXuLy resultConfirm = new KetQuaXuLy();
-            resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
-            resultConfirm.AttachmentId = "01";
-            resultConfirm.FileName = "";
-            resultConfirm.FileLink = "";
-            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-            resultConfirm.ResponseDate = DateTime.Now;
-            string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
-            if (error == "99")
+            ResultModels result = new ResultModels();
+            if (String.IsNullOrEmpty(iID_MaHoSo) == false)
             {
-                bang.MaNguoiDungSua = User.Identity.Name;
-                bang.IPSua = Request.UserHostAddress;
-                bang.GiaTriKhoa = iID_MaHoSo;
-                bang.DuLieuMoi = false;
-                bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
-                bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
-                bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
-                bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
-                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
-                bang.Save();
+                //  string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
+                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
 
-                clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+                TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-                TempData["msg"] = "success";
+                KetQuaXuLy resultConfirm = new KetQuaXuLy();
+                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+                resultConfirm.AttachmentId = "";
+                resultConfirm.FileName = "";
+                resultConfirm.FileLink = "";
+                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                resultConfirm.ResponseDate = DateTime.Now;
+                string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
+                if (error == "99")
+                {
+                    bang.MaNguoiDungSua = User.Identity.Name;
+                    bang.IPSua = Request.UserHostAddress;
+                    bang.DuLieuMoi = false;
+                    bang.GiaTriKhoa = iID_MaHoSo;
+                    bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
+                    bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
+                    bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
+                    bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
+                    bang.Save();
+
+                    clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+
+                    TempData["msg"] = "success";
+                    result.success = true;
+                }
+                else
+                {
+                    TempData["msg"] = "error";
+                    result.success = false;
+                }
             }
             else
             {
-                TempData["msg"] = "error";
-            }
-
-            ResultModels result = new ResultModels { success = true };
+                result.success = false;
+            }    
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -299,7 +314,7 @@ namespace APP0200025.Controllers
             KetQuaXuLy resultConfirm = new KetQuaXuLy();
             resultConfirm.NSWFileCode = hoSo.sMaHoSo;
             resultConfirm.Reason = "Từ chối hồ sơ";
-            resultConfirm.AttachmentId = "01";
+            resultConfirm.AttachmentId = "";
             resultConfirm.FileName = "";
             resultConfirm.FileLink = "";
             resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);

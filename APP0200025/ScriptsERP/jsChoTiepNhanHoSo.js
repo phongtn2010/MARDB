@@ -83,7 +83,6 @@ $(function () {
                     $('#TuChoi').modal('toggle');
                     showToast_Error();
                 }
-
             });
             return false;
         }
