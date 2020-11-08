@@ -9,17 +9,19 @@ using DATA0200025.Models;
 using System.Data.SqlClient;
 using DomainModel;
 using System.Data;
+using DATA0200025.WebServices.XmlType.Request;
+using DATA0200025.WebServices;
 
 namespace DATA0200025
 {
     public class CHoSo
     {
-        public static long ThemHoSo(long iID_MaHoSo_Sua, int iID_MaTrangThai, int iID_MaLoaiHoSo, long iID_MaHoSo_ThayThe, 
+        public static long ThemHoSo(long iID_MaHoSo_Sua, int iID_MaTrangThai, int iID_MaLoaiHoSo, long iID_MaHoSo_ThayThe,
             string sMaHoSo, string sMaHoSo_ThayThe, DateTime dNgayTaoHoSo, bool bDaTiepNhan, string sSoTiepNhan, DateTime? dNgayTiepNhan,
             string sSoGDK, string sSoGDK_ThayThe, DateTime? dNgayXacNhan,
             string sMaSoThue, string sTenDoanhNghiep, string sLoaiHinhThucKiemTra, string sDonViThucHienDanhGia, string sTenHangHoa,
             string sBan_Name, string sBan_DiaChi, string sBan_Tel, string sBan_Fax, string sBan_Email, string sBan_MaQuocGia, string sBan_QuocGia, string sBan_NoiXuat,
-            string sMua_Name , string sMua_DiaChi, string sMua_Tel, string sMua_Fax, string sMua_Email, string sMua_NoiNhan, DateTime? sMua_FromDate, DateTime? sMua_ToDate,
+            string sMua_Name, string sMua_DiaChi, string sMua_Tel, string sMua_Fax, string sMua_Email, string sMua_NoiNhan, DateTime? sMua_FromDate, DateTime? sMua_ToDate,
             string sDiaDiemTapKet, string sDiaDiemDangKy, DateTime dDangKy_FromDate, DateTime dDangKy_ToDate,
             string sLienHe_Name, string sLieHe_DiaChi, string sLienHe_Tel, string sLienHe_Email,
             string sKyHoSo_MaTinh, string sKyHoSo_Tinh, string sKyHoSo_NguoiKy, string sKyHoSo_NguoiKy_ChucDanh,
@@ -35,13 +37,13 @@ namespace DATA0200025
                 Bang bang = new Bang("CNN25_HoSo");
                 bang.MaNguoiDungSua = sUserName;
                 bang.IPSua = sIP;
-                
+
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaLoaiHoSo", iID_MaLoaiHoSo);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo_ThayThe", iID_MaHoSo_ThayThe);
                 bang.CmdParams.Parameters.AddWithValue("@sMaHoSo", sMaHoSo);
                 bang.CmdParams.Parameters.AddWithValue("@sMaHoSo_ThayThe", sMaHoSo_ThayThe);
-                if(dNgayTaoHoSo != null)
+                if (dNgayTaoHoSo != null)
                 {
                     bang.CmdParams.Parameters.AddWithValue("@dNgayTaoHoSo", dNgayTaoHoSo);
                 }
@@ -88,7 +90,7 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@sDiaDiemDangKy", sDiaDiemDangKy);
                 if (dDangKy_FromDate != null)
                 {
-                    if(dDangKy_FromDate.Year > 2000)
+                    if (dDangKy_FromDate.Year > 2000)
                     {
                         bang.CmdParams.Parameters.AddWithValue("@dDangKy_FromDate", dDangKy_FromDate);
                     }
@@ -110,7 +112,7 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@sKyHoSo_NguoiKy_ChucDanh", sKyHoSo_NguoiKy_ChucDanh);
                 bang.CmdParams.Parameters.AddWithValue("@sHashCode", sHashCode);
 
-                if(iID_MaHoSo_Sua > 0)
+                if (iID_MaHoSo_Sua > 0)
                 {
                     bang.DuLieuMoi = false;
                     bang.GiaTriKhoa = iID_MaHoSo_Sua;
@@ -123,10 +125,10 @@ namespace DATA0200025
                     bang.DuLieuMoi = true;
                     iID_MaHoSo = Convert.ToInt64(bang.Save());
                 }
-                
+
                 vR = iID_MaHoSo;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 vR = -1;
             }
@@ -164,7 +166,41 @@ namespace DATA0200025
             return vR;
         }
 
-        public static long ThemHoSoTCCD(long iID_MaHoSo_TCCD_Sua, long iID_MaHoSo, string iID_MaHangHoa, string iID_MaToChuc, string sMaHoSo, string sTenToChuc, 
+        public static int XuLy_TuDong_HoSo_2D(long iID_MaHoSo, string sMaHoSo, string sNguoiXuLy, string sUserName, string sIP)
+        {
+            int vR = 0;
+
+            SendService _sendService = new SendService();
+
+            DaTiepNhanHoSo2d resultConfirm = new DaTiepNhanHoSo2d();
+            resultConfirm.NSWFileCode = sMaHoSo;
+            resultConfirm.ResponseDate = DateTime.Now;
+            string error = _sendService.DaTiepNhanHoSo2d(sMaHoSo, resultConfirm);
+
+            if (error == "99")
+            {
+                Bang bang = new Bang("CNN25_HoSo");
+                bang.MaNguoiDungSua = sUserName;
+                bang.IPSua = sIP;
+                bang.DuLieuMoi = false;
+                bang.GiaTriKhoa = iID_MaHoSo;
+                bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
+                bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", sUserName);
+                bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
+                bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(sUserName));
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", 4);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", 1);
+                bang.Save();
+
+                clLichSuHoSo.InsertLichSu(iID_MaHoSo, sUserName, (int)clDoiTuong.DoiTuong.HeThongBNN, (int)clHanhDong.HanhDong.TiepNhanHoSo, "", "", 1, 4);
+
+                vR = 1;
+            }
+
+            return vR;
+        }
+
+        public static long ThemHoSoTCCD(long iID_MaHoSo_TCCD_Sua, long iID_MaHoSo, string iID_MaHangHoa, string iID_MaToChuc, string sMaHoSo, string sTenToChuc,
             String sUserName, String sIP)
         {
             long vR = 0;
@@ -232,7 +268,7 @@ namespace DATA0200025
                 Bang bang = new Bang("CNN25_HoSo_XNCL");
                 bang.MaNguoiDungSua = sUserName;
                 bang.IPSua = sIP;
-                
+
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaToChuc", iID_MaToChuc);

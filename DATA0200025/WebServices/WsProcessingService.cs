@@ -37,9 +37,11 @@ namespace DATA0200025.WebServices
             List<AttachmentVM> lstDinhKem = hoso.ListAttachment;
 
             string sError = "";
+            
             long iID_MaHoSo = 0, iID_MaHoSo_ThayThe = 0;
             string sMaHoSo = hoso.fiNSWFileCode;
             string sTenDoanhnghiep = hoso.sMua_Name;
+            int iID_MaLoaiHoSo = hoso.fiTypeAniFeed;
 
             string sUserName = "doanhnghiep";
 
@@ -59,75 +61,89 @@ namespace DATA0200025.WebServices
                 hoso.fiContactPerson, hoso.fiContactAddress, hoso.fiContactTel, hoso.fiContactEmail,
                 hoso.fiSignPlace, hoso.fiSignPlace, hoso.fiSignName, "", sUserName, sIP);
 
-                int iHH = 0;
-                foreach (var hh in lstHangHoa)
+                if(iID_MaHoSo > 0)
                 {
-                    iHH++;
-
-                    long iID_MaHangHoa = 0;
-
-                    List<ChatLuongVM> lstChatLuong = hh.ListChatLuong;
-                    List<AnToanVM> lstAnToan = hh.ListAnToan;
-                    List<SoLuongVM> lstSoLuong = hh.ListSoLuong;
-
-                    iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
-                        hh.fiGroupGoodName, hh.fiGoodTypeName, hh.fiGroupTypeName, sMaHoSo, hh.fiNameOfGoods, hh.fiRegistrationNumber, hh.fiManufacture, hh.fiManufactureStateCode, hh.fiManufactureState,
-                        hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "", sUserName, sIP);
-
-                    if (iID_MaHangHoa > 0)
+                    int iHH = 0;
+                    foreach (var hh in lstHangHoa)
                     {
-                        foreach (var cl in lstChatLuong)
-                        {
-                            string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
-                            long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
-                        }
+                        iHH++;
 
-                        foreach (var at in lstAnToan)
-                        {
-                            string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
-                            long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
-                        }
+                        long iID_MaHangHoa = 0;
 
-                        foreach (var sl in lstSoLuong)
+                        List<ChatLuongVM> lstChatLuong = hh.ListChatLuong;
+                        List<AnToanVM> lstAnToan = hh.ListAnToan;
+                        List<SoLuongVM> lstSoLuong = hh.ListSoLuong;
+
+                        iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
+                            hh.fiGroupGoodName, hh.fiGoodTypeName, hh.fiGroupTypeName, sMaHoSo, hh.fiNameOfGoods, hh.fiRegistrationNumber, hh.fiManufacture, hh.fiManufactureStateCode, hh.fiManufactureState,
+                            hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "", sUserName, sIP);
+
+                        if (iID_MaHangHoa > 0)
                         {
-                            long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
+                            foreach (var cl in lstChatLuong)
+                            {
+                                string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
+                                long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
+                            }
+
+                            foreach (var at in lstAnToan)
+                            {
+                                string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
+                                long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
+                            }
+
+                            foreach (var sl in lstSoLuong)
+                            {
+                                long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
+                            }
+                        }
+                        else
+                        {
+
                         }
                     }
-                    else
-                    {
 
+                    int iHD = 0;
+                    foreach (var hd in lstHopDong)
+                    {
+                        iHD++;
+                        long iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 100, hd.fiContractAttachmentId, sMaHoSo, "File Hợp Đồng Hồ Sơ", hd.fiContractName, hd.fiContractNo, hd.fiContractDate, 1, hd.fiContractFileLink, sUserName, sIP, Convert.ToInt64(hd.fiContractAttachmentId));
+                    }
+
+                    int iHDon = 0;
+                    foreach (var hd in lstHoaDon)
+                    {
+                        iHDon++;
+                        long iHoaDon = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 101, hd.fiInvoiceAttachmentId, sMaHoSo, "File Hóa Đơn  Hồ Sơ", hd.fiInvoiceName, hd.fiInvoiceNo, hd.fiInvoiceDate, 1, hd.fiInvoiceFileLink, sUserName, sIP, Convert.ToInt64(hd.fiInvoiceAttachmentId));
+                    }
+
+                    int iPDG = 0;
+                    foreach (var p in lstPhieuDongGoi)
+                    {
+                        iPDG++;
+                        long iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 102, p.fiPackingAttachmentId, sMaHoSo, "File Phiếu Đóng Gói  Hồ Sơ", p.fiPackingName, p.fiPackingNo, p.fiPackingDate, 1, p.fiPackingFileLink, sUserName, sIP, Convert.ToInt64(p.fiPackingAttachmentId));
+                    }
+
+                    int iF = 0;
+                    foreach (var f in lstDinhKem)
+                    {
+                        iF++;
+                        long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Khác  Hồ Sơ", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId));
+                    }
+
+                    clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhnghiep, 1, 1, "", "", 0, "Doanh nghiệp đăng ký từ NSW chuyển sang", 1);
+
+
+                    //Doi voi ho so là 2d --> Chuyen trang thai sang 4 và gui ban tin 22_25
+                    if (iID_MaLoaiHoSo == 4)
+                    {
+                        int hs2D = CHoSo.XuLy_TuDong_HoSo_2D(iID_MaHoSo, sMaHoSo, "Bộ phận một cửa", sUserName, sIP);
                     }
                 }
-
-                int iHD = 0;
-                foreach (var hd in lstHopDong)
+                else
                 {
-                    iHD++;
-                    long iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 100, hd.fiContractAttachmentId, sMaHoSo, "File Hợp Đồng Hồ Sơ", hd.fiContractName, hd.fiContractNo, hd.fiContractDate, 1, hd.fiContractFileLink, sUserName, sIP, Convert.ToInt64(hd.fiContractAttachmentId));
-                }
 
-                int iHDon = 0;
-                foreach (var hd in lstHoaDon)
-                {
-                    iHDon++;
-                    long iHoaDon = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 101, hd.fiInvoiceAttachmentId, sMaHoSo, "File Hóa Đơn  Hồ Sơ", hd.fiInvoiceName, hd.fiInvoiceNo, hd.fiInvoiceDate, 1, hd.fiInvoiceFileLink, sUserName, sIP, Convert.ToInt64(hd.fiInvoiceAttachmentId));
                 }
-
-                int iPDG = 0;
-                foreach (var p in lstPhieuDongGoi)
-                {
-                    iPDG++;
-                    long iHopDong = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, 102, p.fiPackingAttachmentId, sMaHoSo, "File Phiếu Đóng Gói  Hồ Sơ", p.fiPackingName, p.fiPackingNo, p.fiPackingDate, 1, p.fiPackingFileLink, sUserName, sIP, Convert.ToInt64(p.fiPackingAttachmentId));
-                }
-
-                int iF = 0;
-                foreach (var f in lstDinhKem)
-                {
-                    iF++;
-                    long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, 0, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Khác  Hồ Sơ", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId));
-                }
-
-                clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhnghiep, 1, 1, "", "", 0, "Doanh nghiệp đăng ký từ NSW chuyển sang", 1);
             }
             catch (Exception ex)
             {
@@ -169,6 +185,7 @@ namespace DATA0200025.WebServices
             long iID_MaHoSo = 0, iID_MaHoSo_ThayThe = 0, iID_MaHoSo_Sua = 0;
             string sMaHoSo = hoso.fiNSWFileCode;
             string sTenDoanhnghiep = hoso.sMua_Name;
+            int iID_MaLoaiHoSo = hoso.fiTypeAniFeed;
 
             string sUserName = "doanhnghiep";
 
@@ -269,6 +286,12 @@ namespace DATA0200025.WebServices
                 }
 
                 clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhnghiep, 1, 1, "", "", 0, "Sửa hồ sơ trước khi BNN tiếp nhận hồ sơ", 1);
+
+                //Doi voi ho so là 2d --> Chuyen trang thai sang 4 và gui ban tin 22_25
+                if (iID_MaLoaiHoSo == 4)
+                {
+                    int hs2D = CHoSo.XuLy_TuDong_HoSo_2D(iID_MaHoSo, sMaHoSo, "Bộ phận một cửa", sUserName, sIP);
+                }
             }
             catch (Exception ex)
             {
@@ -296,6 +319,7 @@ namespace DATA0200025.WebServices
             long iID_MaHoSo = 0, iID_MaHoSo_ThayThe = 0, iID_MaHoSo_Sua = 0;
             string sMaHoSo = hoso.fiNSWFileCode;
             string sTenDoanhnghiep = hoso.sMua_Name;
+            int iID_MaLoaiHoSo = hoso.fiTypeAniFeed;
 
             string sUserName = "doanhnghiep";
 
@@ -396,6 +420,12 @@ namespace DATA0200025.WebServices
                 }
 
                 clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhnghiep, 1, 2, "", "", 0, "Chờ tiếp nhận hồ sơ gửi bổ sung theo BPMC", 3);
+
+                //Doi voi ho so là 2d --> Chuyen trang thai sang 4 và gui ban tin 22_25
+                if (iID_MaLoaiHoSo == 4)
+                {
+                    int hs2D = CHoSo.XuLy_TuDong_HoSo_2D(iID_MaHoSo, sMaHoSo, "Bộ phận một cửa", sUserName, sIP);
+                }
             }
             catch (Exception ex)
             {
@@ -423,6 +453,7 @@ namespace DATA0200025.WebServices
             long iID_MaHoSo = 0, iID_MaHoSo_ThayThe = 0, iID_MaHoSo_Sua = 0;
             string sMaHoSo = hoso.fiNSWFileCode;
             string sTenDoanhnghiep = hoso.sMua_Name;
+            int iID_MaLoaiHoSo = hoso.fiTypeAniFeed;
 
             string sUserName = "doanhnghiep";
 
@@ -523,6 +554,12 @@ namespace DATA0200025.WebServices
                 }
 
                 clLichSuHoSo.InsertLichSuNsw(iID_MaHoSo, sUserName, sTenDoanhnghiep, 1, 2, "", "", 0, "Chờ tiếp nhận hồ sơ gửi bổ sung theo phòng TACN", 4);
+
+                //Doi voi ho so là 2d --> Chuyen trang thai sang 4 và gui ban tin 22_25
+                if (iID_MaLoaiHoSo == 4)
+                {
+                    int hs2D = CHoSo.XuLy_TuDong_HoSo_2D(iID_MaHoSo, sMaHoSo, "Bộ phận một cửa", sUserName, sIP);
+                }
             }
             catch (Exception ex)
             {

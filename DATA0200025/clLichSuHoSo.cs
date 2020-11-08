@@ -19,7 +19,7 @@ namespace DATA0200025
         /// <param name="sNoiDung"></param>
         /// <param name="sFile"></param>
         /// <param name="iID_MaTrangThai"></param>
-        public static void InsertLichSu(int iID_MaHoSo,string MaND,int iID_MaDoiTuong,int iID_MaHanhDong,string sNoiDung,string sFile,int iID_MaTrangThaiTruoc, int iID_MaTrangThai)
+        public static void InsertLichSu(long iID_MaHoSo,string MaND,int iID_MaDoiTuong,int iID_MaHanhDong,string sNoiDung,string sFile,int iID_MaTrangThaiTruoc, int iID_MaTrangThai)
         {
 
             SqlCommand cmd = new SqlCommand();
