@@ -39,7 +39,9 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/daterangepicker/daterangepicker-bs3.css")">
     <!-- Toast -->
     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/toast/jquery.toast.css")">
-
+    <!-- bootstrapValidator -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/bootstrapValidator/bootstrapValidator.min.css")">
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css" />*@
     <link rel="Stylesheet" href="@Url.Content("~/Scripts/JQuery/jquery-ui.css")" type="text/css" />
     <link rel="Stylesheet" href="@Url.Content("~/Content/dist/css/diagram.css")" type="text/css" />
 
@@ -107,22 +109,39 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/jquery-1.10.2.js"))"></script>
     <script type="text/javascript" src="@(Url.Content("~/Scripts/modernizr-2.8.3.js"))"></script>
-    <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/jquery-1.8.2.js"))"></script>
+    @*<script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/jquery-1.8.2.js"))"></script>*@
     <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/jquery-ui.js"))"></script>
+    @*<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            if (!window.jQuery) {
+                document.write('<script type="text/javascript" src='@(Url.Content("~/Scripts/JQuery/jquery-1.8.2.js"))'></script>');
+            }
+        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script>
+            if (!window.jQuery.ui) {
+                document.write('<script type="text/javascript" src='@(Url.Content("~/Scripts/JQuery/jquery-ui.js"))'></script>');
+            }
+        </script>*@
 
     <script type="text/javascript" src="@(Url.Content("~/Scripts/MicrosoftAjax.js"))"></script>
     <script type="text/javascript" src="@(Url.Content("~/Scripts/MicrosoftMvcAjax.js"))"></script>
 
     <!-- Bootstrap 3.3.5 -->
+    @*<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>*@
+    <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/bootstrap.min.js"))"></script>
     <script src="@(Url.Content("~/Scripts/jquery.unobtrusive-ajax.js"))"></script>
     <script src="@(Url.Content("~/Scripts/jquery.validate.js"))"></script>
     <script src="@(Url.Content("~/Scripts/jquery.validate.unobtrusive.js"))"></script>
     <!-- Toast -->
     <script src="@(Url.Content("~/Content/plugins/toast/jquery.toast.js"))"></script>
+    <!-- bootstrapValidator -->
+    <script src="@(Url.Content("~/Content/plugins/bootstrapValidator/bootstrapValidator.min.js"))"></script>
+    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js"></script>*@
 
-    @*<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>*@
-    <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/bootstrap.min.js"))"></script>
     <script src="@Url.Content("~/Content/Scripts/jquery.mb.browser.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Content/Scripts/jquery.ui.datepicker-vi.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.icolor.min.js")" type="text/javascript"></script>
@@ -156,15 +175,15 @@
 
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script type="text/javascript">
-        $(document).ajaxStart(function () {
-            $(".loading").css("height", $("body").height());
-            $("#infscr-loading").show();
-        });
+                $(document).ajaxStart(function () {
+                    $(".loading").css("height", $("body").height());
+                    $("#infscr-loading").show();
+                });
 
-        $(document).ajaxStop(function () {
-            $("#infscr-loading").hide();
-        });
-        //end
+                $(document).ajaxStop(function () {
+                    $("#infscr-loading").hide();
+                });
+                //end
     </script>
     <script>
         $.widget.bridge('uibutton', $.ui.button);

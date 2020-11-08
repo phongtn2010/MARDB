@@ -69,6 +69,17 @@
     // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 
 }
+<script type="text/javascript">
+        $(function () {
+            var a = '@TempData["msg"]';
+            if (a == 'success') {
+                showToast_Success();
+            }
+            else if (a == 'error'){
+                showToast_Error();
+            }  
+        })
+</script>
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -197,7 +208,7 @@
                                                 <td class="head-td-icon">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
-                                                        <span class='badge bg-green btnTiepNhan' data-id="@r["iID_MaHoSo"]"><i class='fa fa-fw fa-check'></i></span>
+                                                        <span class='badge bg-green btnTiepNhan' data-id="@r["iID_MaHoSo"]" style="cursor: pointer;"><i class='fa fa-fw fa-check'></i></span>
                                                     }
                                                 </td>
                                                 <td class="head-td-icon">

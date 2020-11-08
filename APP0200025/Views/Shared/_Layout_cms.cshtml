@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>QUẢN TRỊ ERP - NỘI DUNG WEBSITE</title>
+    <title>CỤC CHĂN NUÔI - BỘ NÔNG NGHIỆP & PTNT</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- ICON -->
@@ -37,10 +37,16 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/datepicker/datepicker3.css")">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/daterangepicker/daterangepicker-bs3.css")">
-    @*<link rel="stylesheet" href="https://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">*@
+    <!-- Toast -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/toast/jquery.toast.css")">
+    <!-- bootstrapValidator -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/bootstrapValidator/bootstrapValidator.min.css")">
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css" />*@
     <link rel="Stylesheet" href="@Url.Content("~/Scripts/JQuery/jquery-ui.css")" type="text/css" />
-    @*<link rel="Stylesheet" href="@Url.Content("~/Content/jquery-1.11.4/jquery-ui.css")" type="text/css" />*@
     <link rel="Stylesheet" href="@Url.Content("~/Content/dist/css/diagram.css")" type="text/css" />
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.css")">
 
     <style>
         .infscr-loading {
@@ -50,6 +56,23 @@
             text-align: center;
             width: 100%;
             z-index: 9999;
+        }
+
+        fieldset.scheduler-border {
+            border: 1px groove !important;
+            padding: 0 1.4em 1.4em 1.4em !important;
+            margin: 0 0 1.5em 0 !important;
+            -webkit-box-shadow: 0px 0px 0px 0px #000;
+            box-shadow: 0px 0px 0px 0px #000;
+        }
+
+        legend.scheduler-border {
+            font-size: 1.2em !important;
+            font-weight: bold !important;
+            text-align: left !important;
+            width: auto;
+            padding: 0 10px;
+            border-bottom: none;
         }
 
         #infscr-loading {
@@ -66,6 +89,12 @@
             #infscr-loading img {
                 margin-bottom: 9px;
             }
+
+        .head-td-icon {
+            text-align: center;
+            white-space: nowrap;
+            width: 30px;
+        }
     </style>
 
     <script type="text/javascript">
@@ -80,30 +109,39 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="@(Url.Content("~/Scripts/modernizr-2.8.3.js"))"></script>
-    <!-- jQuery 2.1.4 -->
-    @*<script type="text/javascript" src="@(Url.Content("~/Content/plugins/jQuery/jQuery-2.1.4.min.js"))"></script>*@
-    <!-- jQuery UI 1.11.4 -->
-    @*<script type="text/javascript" src="@(Url.Content("~/Content/plugins/jQueryUI/jquery-ui.min.js"))"></script>*@
 
-    <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/jquery-1.8.2.js"))"></script>
-    <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/jquery-ui.js"))"></script>
-    @*<script src="https://code.jquery.com/jquery-1.8.2.js"></script>
-        <script src="https://code.jquery.com/ui/1.8.24/jquery-ui.js"></script>*@
+    <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/jquery-1.10.2.js"))"></script>
     <script type="text/javascript" src="@(Url.Content("~/Scripts/modernizr-2.8.3.js"))"></script>
-    <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/jquery-1.8.2.js"))"></script>
+    @*<script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/jquery-1.8.2.js"))"></script>*@
     <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/jquery-ui.js"))"></script>
+    @*<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            if (!window.jQuery) {
+                document.write('<script type="text/javascript" src='@(Url.Content("~/Scripts/JQuery/jquery-1.8.2.js"))'></script>');
+            }
+        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script>
+            if (!window.jQuery.ui) {
+                document.write('<script type="text/javascript" src='@(Url.Content("~/Scripts/JQuery/jquery-ui.js"))'></script>');
+            }
+        </script>*@
 
     <script type="text/javascript" src="@(Url.Content("~/Scripts/MicrosoftAjax.js"))"></script>
     <script type="text/javascript" src="@(Url.Content("~/Scripts/MicrosoftMvcAjax.js"))"></script>
+
     <!-- Bootstrap 3.3.5 -->
+    @*<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>*@
+    <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/bootstrap.min.js"))"></script>
     <script src="@(Url.Content("~/Scripts/jquery.unobtrusive-ajax.js"))"></script>
     <script src="@(Url.Content("~/Scripts/jquery.validate.js"))"></script>
     <script src="@(Url.Content("~/Scripts/jquery.validate.unobtrusive.js"))"></script>
+    <!-- Toast -->
+    <script src="@(Url.Content("~/Content/plugins/toast/jquery.toast.js"))"></script>
+    <!-- bootstrapValidator -->
+    <script src="@(Url.Content("~/Content/plugins/bootstrapValidator/bootstrapValidator.min.js"))"></script>
+    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js"></script>*@
 
-    @*<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>*@
-    <script type="text/javascript" src="@(Url.Content("~/Scripts/JQuery/bootstrap.min.js"))"></script>
-    @*<script type="text/javascript" src="@(Url.Content("~/Content/bootstrap/js/bootstrap.min.js"))"></script>*@
     <script src="@Url.Content("~/Content/Scripts/jquery.mb.browser.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Content/Scripts/jquery.ui.datepicker-vi.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.icolor.min.js")" type="text/javascript"></script>
@@ -117,7 +155,7 @@
 
     <script src="@Url.Content("~/Content/Scripts/jsContents.js")"></script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue fixed sidebar-mini">
     <div class="wrapper">
         @{Html.RenderPartial("~/Views/Shared/_HeaderPartial.cshtml");}
         @{Html.RenderPartial("~/Views/Shared/_SidebarPartial_Cms.cshtml");}
@@ -177,5 +215,4 @@
     <script src="@(Url.Content("~/Content/dist/js/demo.js"))"></script>
 </body>
 </html>
-
 

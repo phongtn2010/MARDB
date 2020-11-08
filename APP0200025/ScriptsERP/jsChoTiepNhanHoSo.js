@@ -1,9 +1,12 @@
 ﻿$(function () {
-    $("body").on("click", "#btnBoSungYeuCau", function () {    
-        var formData = new FormData($("#formYeuCau")[0]);
+    $("body").on("click", "#btnBoSungYeuCau", function () {   
+        var bootstrapValidator = $("#formYeuCau").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if (bootstrapValidator.isValid()) {
+            var formData = new FormData($("#formYeuCau")[0]);
             //var OrderService = $("#OrderService").val();
             $.ajax({
-                url: '/ChoTiepNhanHoSo/YeuCauBoSungSubmit',
+                url: ServerUrl + '/ChoTiepNhanHoSo/YeuCauBoSungSubmit',
                 type: 'POST',
                 data: formData,
                 async: false,
@@ -12,18 +15,23 @@
                 enctype: 'multipart/form-data',
                 processData: false,
                 success: function (response) {
-                    $('#responsive').modal('toggle');
+                    $('#YeuCauBoSung').modal('toggle');
                     if (response.success) {
+                        showToast_Success();
                         location.href = response.value;
+                    }
+                    else {
+                        showToast_Error();
                     }
                 },
                 error: function (response) {
-                    
-                    $('#responsive').modal('toggle');
+                    $('#YeuCauBoSung').modal('toggle');
+                    showToast_Error();
                 }
-
             });
             return false;
+        }
+        else return;        
     });
 });
 
@@ -34,7 +42,6 @@ $(function () {
         $("#BS_iID_MaHoSo").val(iID_MaHoSo);
     });
 });
-
 
 $(function () {
     $("body").on("click", ".opentuchoi", function () {
@@ -48,40 +55,47 @@ $(function () {
 
 $(function () {
     $("body").on("click", "#btnTuChoi", function () {
-        var formData = new FormData($("#formTuChoi")[0]);
-        //var OrderService = $("#OrderService").val();
-        $.ajax({
-            url: '/ChoTiepNhanHoSo/TuChoiHoSoSubmit',
-            type: 'POST',
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false,
-            enctype: 'multipart/form-data',
-            processData: false,
-            success: function (response) {
-                $('#TuChoi').modal('toggle');
-                if (response.success) {
-                    location.href = response.value;
+        var bootstrapValidator = $("#formTuChoi").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if (bootstrapValidator.isValid()) {
+            var formData = new FormData($("#formTuChoi")[0]);
+            //var OrderService = $("#OrderService").val();
+            $.ajax({
+                url: ServerUrl + '/ChoTiepNhanHoSo/TuChoiHoSoSubmit',
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (response) {
+                    $('#TuChoi').modal('toggle');
+                    if (response.success) {
+                        showToast_Success();
+                        location.href = response.value;
+                    }
+                    else {
+                        showToast_Error();
+                    }
+                },
+                error: function (response) {
+                    $('#TuChoi').modal('toggle');
+                    showToast_Error();
                 }
-            },
-            error: function (response) {
-             
-                $('#responsive').modal('toggle');
-            }
 
-        });
-        return false;
+            });
+            return false;
+        }
+        else return;
     });
 });
-
-
 
 $(function () {
     $("body").on("click", ".btnTiepNhan", function () {
         var iID_MaHoSo = $(this).data("id");
         $.ajax({
-            url: '/ChoTiepNhanHoSo/TiepNhanHoSoSubmit',
+            url: ServerUrl + '/ChoTiepNhanHoSo/TiepNhanHoSoSubmit',
             type: 'POST',
             data: { iID_MaHoSo: iID_MaHoSo },
             success: function (response) {
@@ -101,14 +115,17 @@ $(function () {
     $("body").on("click", "#btnThoat", function () {
         var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
         $.ajax({
-            url: '/ChoTiepNhanHoSo/Thoat',
+            url: ServerUrl + '/ChoTiepNhanHoSo/Thoat',
             type: 'POST',
             data: { iID_MaHoSo: iID_MaHoSo},
             success: function (response) {
-                
                 if (response.success) {
+                    showToast_Success();
                     location.href = response.value;
                 }
+            },
+            error: function (response) {
+                showToast_Error();
             }
         });
     });

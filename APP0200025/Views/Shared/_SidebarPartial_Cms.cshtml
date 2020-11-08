@@ -29,9 +29,13 @@
     String MaLuat = "";
 
     int sMenu_Active = 0;
-    if (Convert.ToString(ViewData["smenu"]) != null && Convert.ToString(ViewData["smenu"]) != "")
+    if (Convert.ToString(ViewData["menu"]) != null && Convert.ToString(ViewData["menu"]) != "")
     {
-        sMenu_Active = Convert.ToInt32(ViewData["smenu"]);
+        sMenu_Active = CPQ_MENU.Get_MaCha_Menu(Convert.ToString(ViewData["menu"]));
+    }
+    else if(Convert.ToString(TempData["menu"]) != null && Convert.ToString(TempData["menu"]) != "")
+    {
+        sMenu_Active = CPQ_MENU.Get_MaCha_Menu(Convert.ToString(TempData["menu"]));
     }
     else
     {

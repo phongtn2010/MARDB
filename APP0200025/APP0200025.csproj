@@ -255,6 +255,7 @@
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="Controllers\HoSoController.cs" />
     <Compile Include="Controllers\MienGiamController.cs" />
+    <Compile Include="Controllers\Test1Controller.cs" />
     <Compile Include="WebServices\Mard26Service.asmx.cs">
       <DependentUpon>Mard26Service.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -1956,6 +1957,8 @@
     <Content Include="Content\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.min.js" />
     <Content Include="Content\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.css" />
     <Content Include="Content\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.min.css" />
+    <Content Include="Content\plugins\bootstrapValidator\bootstrapValidator.min.css" />
+    <Content Include="Content\plugins\bootstrapValidator\bootstrapValidator.min.js" />
     <Content Include="Content\plugins\chartjs\Chart.js" />
     <Content Include="Content\plugins\chartjs\Chart.min.js" />
     <Content Include="Content\plugins\ckeditor\adapters\jquery.js" />
@@ -2886,6 +2889,7 @@
     <Content Include="Scripts\JQuery\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Scripts\JQuery\images\ui-icons_d8e7f3_256x240.png" />
     <Content Include="Scripts\JQuery\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Scripts\JQuery\jquery-1.10.2.js" />
     <Content Include="Scripts\JQuery\jquery-1.8.2.js" />
     <Content Include="Scripts\JQuery\jquery-ui.css" />
     <Content Include="Scripts\JQuery\jquery-ui.js" />
@@ -3104,6 +3108,7 @@
     <Content Include="Views\BoPhanMotCua\MienGiam_DaDuyet_Detail.cshtml" />
     <Content Include="Views\BoPhanMotCua\MienGiam_DaTraKQ.cshtml" />
     <Content Include="Views\BoPhanMotCua\MienGiam_DaTraKQ_Detail.cshtml" />
+    <Content Include="Views\Test1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
