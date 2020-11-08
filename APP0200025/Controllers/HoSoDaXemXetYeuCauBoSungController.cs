@@ -176,6 +176,10 @@ namespace APP0200025.Controllers
             HttpFileCollectionBase files = Request.Files;
             string _sNoiDung = CString.SafeString(Request.Form[ParentID + "_sNoiDung"]);
             string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
+            if (string.IsNullOrEmpty(iID_MaHoSo))
+            {
+                values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
+            }
             if (string.IsNullOrEmpty(_sNoiDung))
             {
                 values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
