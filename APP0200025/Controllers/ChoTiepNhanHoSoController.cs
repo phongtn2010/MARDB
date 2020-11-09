@@ -238,6 +238,7 @@ namespace APP0200025.Controllers
             }
             
             int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+
             KetQuaXuLy resultConfirm = new KetQuaXuLy();
             resultConfirm.NSWFileCode = hoSo.sMaHoSo;
             resultConfirm.Reason = _sNoiDung;
@@ -259,10 +260,16 @@ namespace APP0200025.Controllers
                 bang.Save();
                
                 clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, iTrangThaiTiepTheo);
-            }
-            clHoSo.CleanNguoiXem(iID_MaHoSo);
 
-            result.success = true;
+                result.success = true;
+            }
+            else
+            {
+                result.success = false;
+            }
+
+            clHoSo.CleanNguoiXem(iID_MaHoSo);
+                        
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);
         }

@@ -32,7 +32,6 @@
 
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoSoModels);}
                         <form action="@Url.Action("TiepNhanHoSo", "ChoTiepNhanKetQua", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"])
                             @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa)
                             <div class="box-footer clearfix text-center">
                                 <div class="col-xs-4">
@@ -56,5 +55,4 @@
     </div>
 </section>
 @{Html.RenderPartial("~/Views/ChoTiepNhanKetQua/Partial_Model_YeuCauBoSung.cshtml");}
-@{Html.RenderPartial("~/Views/ChoTiepNhanKetQua/Partial_Model_TuChoi.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsChoTiepNhanKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

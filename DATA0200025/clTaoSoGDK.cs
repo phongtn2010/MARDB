@@ -43,7 +43,7 @@ namespace DATA0200025
         }
         public static clTaoSoGDK  GetSoGDK()
         {
-            //STT.DD.MM.YY.15.G10
+            //STT/YY/GĐK-CN
             DateTime date = DateTime.Now;
             lock (objlockgdk)
             {
@@ -54,9 +54,9 @@ namespace DATA0200025
                 int inam = date.Year - Ngay.Year;
                 if (STT == 0 || inam > 0)
                 {
-                    
                      TaoSoGDK.KhoiTao();
                 }
+
                 STT++;
                 SqlCommand cmd = new SqlCommand();
                 cmd.Parameters.AddWithValue("@iNam", date.Year);
