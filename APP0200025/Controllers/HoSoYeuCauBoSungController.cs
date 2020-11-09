@@ -342,7 +342,7 @@ namespace APP0200025.Controllers
                         postedFile.SaveAs(filePath);
 
                         //Luu vao bang Dinh Kem
-                        iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 20, "0", hoSo.sMaHoSo, "File từ chối hồ sơ chờ tiếp nhận BPMC.", sFileName, "", null, 1, sFileTemp, sUserName, sIP);
+                        iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 21, "0", hoSo.sMaHoSo, "File từ chối hồ sơ bổ sung BPMC.", sFileName, "", null, 1, sFileTemp, sUserName, sIP);
                     }  
                 }
             }
