@@ -129,8 +129,8 @@ namespace APP0200025.Controllers
             resultConfirm.NSWFileCode = hoSo.sMaHoSo;
             resultConfirm.CancelDate = DateTime.Now;
             resultConfirm.Reason = _sNoiDung;
-            resultConfirm.SignConfirmDate = DateTime.Now;
-            resultConfirm.SignConfirmName = "Cục chăn nuôi";
+            resultConfirm.SignConfirmDate = hoSo.dNgayKyGDK;
+            resultConfirm.SignConfirmName = hoSo.sNguoiKyGDK;
             resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
             resultConfirm.AttachmentId = iID_MaDinhKem.ToString(); ;
             resultConfirm.FileName = sFileName;

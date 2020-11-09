@@ -17,6 +17,8 @@ namespace DATA0200025.Models
         public string sMaHoSo_ThayThe { get; set; }
         public string sSoGDK { get; set; }
         public string sSoGDK_ThayThe { get; set; }
+        public DateTime dNgayKyGDK { get; set; }
+        public string sNguoiKyGDK { get; set; }
         public string sUserTiepNhan { get; set; }
         public string sTenNguoiTiepNhan { get; set; }
         public string sTenDoanhNghiep { get; set; }

@@ -66,6 +66,8 @@ namespace APP0200025.Controllers
             bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
             bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
             bang.CmdParams.Parameters.AddWithValue("@sSoGDK", taoSoGDK.SoGDK);
+            bang.CmdParams.Parameters.AddWithValue("@dNgayKyGDK", DateTime.Now);
+            bang.CmdParams.Parameters.AddWithValue("@sNguoiKyGDK", "Lãnh đạo cục");
             bang.Save();
             clHoSo.CleanNguoiXem(iID_MaHoSo);
             clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo,User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.DongYXacNhanGDK, "Đồng ý xác nhận GĐK số:" + taoSoGDK.SoGDK, "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
