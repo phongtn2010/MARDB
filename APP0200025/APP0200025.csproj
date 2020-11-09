@@ -2831,6 +2831,7 @@
     <Content Include="ScriptsERP\jsDaCapThongBaoKetQua.js" />
     <Content Include="ScriptsERP\jsDaPheDuyetThongBaoKetQua.js" />
     <Content Include="ScriptsERP\jsDetail.js" />
+    <Content Include="ScriptsERP\jsHoSoDaTuChoiXacNhan.js" />
     <Content Include="ScriptsERP\jsLanhDaoCuc.js" />
     <Content Include="ScriptsERP\jsLanhDaoPhong.js" />
     <Content Include="ScriptsERP\jsPhongTACNYeuCauBoSungKetQua.js" />

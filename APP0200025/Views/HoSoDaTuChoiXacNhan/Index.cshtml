@@ -106,11 +106,11 @@
                             <div class="col-xs-5">
                                 <div class="row">
                                     <div class="col-xs-5">
-                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayDen, "FromDate", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayDen, "TuNgayDen", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
                                     </div>
                                     <div class="col-xs-2 text-align-center"><b>-</b></div>
                                     <div class="col-xs-5">
-                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayDen, "ToDate", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayDen, "DenNgayDen", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
                                     </div>
                                 </div>
                             </div>
@@ -187,14 +187,8 @@
                                         {
                                             r = dt.Rows[i];
 
-
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
-                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "HoSoDaTuChoiXacNhan", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "HoSoDaTuChoiXacNhan", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "HoSoDaTuChoiXacNhan", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "HoSoDaTuChoiXacNhan", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
-
-
 
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
@@ -219,14 +213,10 @@
                                                 <td class="head-td-icon">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
-                                                        <a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
-                                                            <span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>
-                                                        </a>
+                                                        <span class='badge bg-yellow-gradient btnGuiDoanhNghiep' data-id="@r["iID_MaHoSo"]" style="cursor: pointer;"><i class='fa fa-fw fa-send'></i></span>
                                                     }
-
                                                 </td>
-                                                <td style="width: 10px;" title="Quá hạn"></td>
-
+                                                <td class="head-td-icon"><span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span></td>
                                             </tr>
                                         }
                                     }
@@ -243,9 +233,7 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_TuChoi.cshtml");}
-<script src="@Url.Content("~/ScriptsERP/jsHoSoDaBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+<script src="@Url.Content("~/ScriptsERP/jsHoSoDaTuChoiXacNhan.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
 
 <script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
 <script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
