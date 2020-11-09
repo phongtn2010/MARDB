@@ -92,8 +92,8 @@
                             <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaHoSo", "", "placeholder=\"Mã hồ sơ\" type=\"text\" class=\"form-control\""))
                             </div>
-                            <div class="col-xs-1 text-align-right" style="display: none;"><label class="control-label">Trạng thái hồ sơ</label></div>
-                            <div class="col-xs-5" style="display: none;">
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Trạng thái hồ sơ</label></div>
+                            <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, Convert.ToString(Model.iID_MaTrangThai), "iID_MaTrangThai", "", "type=\"text\" class=\"form-control\""))
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped dataTable">
+                        <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
                             <thead>
                                 <tr>
                                     <th class="sorting_asc" style="width: 3%;" align="center">STT</th>
@@ -203,7 +203,7 @@
                                             r = dt.Rows[i];
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
-                                            
+
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoTiepNhanKetQuaGuiBoSung", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                             String strTiepNhan = MyHtmlHelper.ActionLink(Url.Action("TiepNhanHangHoa", "ChoTiepNhanKetQuaGuiBoSung", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
 
@@ -266,3 +266,18 @@
 @{Html.RenderPartial("~/Views/ChoTiepNhanKetQuaGuiBoSung/Partial_Model_YeuCauBoSung.cshtml");}
 @{Html.RenderPartial("~/Views/ChoTiepNhanKetQuaGuiBoSung/Partial_Model_TuChoi.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsChoTiepNhanKetQuaGuiBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+
+<script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
+<script>
+    $(function () {
+        $('#tblListData').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false
+        });
+    });
+</script>

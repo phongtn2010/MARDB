@@ -184,17 +184,17 @@
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped dataTable">
+                        <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
                             <thead>
                                 <tr>
-                                    <th class="sorting_asc" style="width: 3%;" align="center">STT</th>
-                                    <th class="sorting" style="width: 15%;" align="center">Mã hồ sơ</th>
-                                    <th class="sorting" style="width: 10%; text-align: center;" align="center">Ngày đến</th>
-                                    <th class="sorting" style="text-align: center;" align="center">Số GĐK</th>
-                                    <th class="sorting" style="width: 10%; text-align: center;" align="center">Ngày xác nhận</th>
-                                    <th class="sorting" style="text-align: center;" align="center">Doanh nghiệp</th>
-                                    <th class="sorting" style="width: 10%; text-align: center;" align="center">Tên TACN</th>
-                                    <th class="sorting" style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
+                                    <th style="width: 3%;" align="center">STT</th>
+                                    <th style="width: 15%;" align="center">Mã hồ sơ</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Ngày đến</th>
+                                    <th style="text-align: center;" align="center">Số GĐK</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Ngày xác nhận</th>
+                                    <th style="text-align: center;" align="center">Doanh nghiệp</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Tên TACN</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
                                     <th style="width: 5%;">Xem</th>
                                     <th style="width: 5%;">Tiếp nhận</th>
                                     <th style="width: 5%;">YC bồ sung</th>
@@ -212,7 +212,7 @@
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
 
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoTiepNhanKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            
+
                                             String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "ChoTiepNhanKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
 
 
@@ -267,3 +267,18 @@
 </section><!-- /.content -->
 @{Html.RenderPartial("~/Views/ChoTiepNhanKetQua/Partial_Model_YeuCauBoSung.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsChoTiepNhanKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+
+<script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
+<script>
+    $(function () {
+        $('#tblListData').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false
+        });
+    });
+</script>
