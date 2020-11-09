@@ -96,6 +96,9 @@ namespace DATA0200025
         public static SelectOptionList GetDDL()
         {
             DataTable dt = GetDataTable();
+            dt.Rows.InsertAt(dt.NewRow(), 0);
+            dt.Rows[0]["iID_MaTrangThai"] = 0;
+            dt.Rows[0]["sTen"] = "-- Tất cả --";
             SelectOptionList DDL = new SelectOptionList(dt, "iID_MaTrangThai", "sTen");
             return DDL;
         }

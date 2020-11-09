@@ -59,8 +59,6 @@
     int RC = dt.Rows.Count;
     int TotalPages = (int)Math.Ceiling(nums / nMax);
 
-
-
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
     String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChuyenVien", new { _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
@@ -179,8 +177,24 @@
                     </div>
                     <script type="text/javascript">
                         $(document).ready(function () {
-                            $('#Index_iID_MaTrangThai').multiselect('rebuild');
-                            $('#Index_iID_KetQuaXuLy').multiselect('rebuild');
+                            var iTrangThai = '@(Model.iID_MaTrangThai)';
+                            var iKetQuaXyLy = '@(Model.iID_KetQuaXuLy)';
+                            if (iTrangThai != null) {
+                                $('#Index_iID_MaTrangThai').val(iTrangThai);
+                                $('#Index_iID_MaTrangThai').multiselect('rebuild');
+                            }
+                            else {
+                                $('#Index_iID_MaTrangThai').val(0);
+                                $('#Index_iID_MaTrangThai').multiselect('rebuild');
+                            }
+                            if (iKetQuaXyLy != null) {
+                                $('#Index_iID_KetQuaXuLy').val(iKetQuaXyLy);
+                                $('#Index_iID_KetQuaXuLy').multiselect('rebuild');
+                            }
+                            else {
+                                $('#Index_iID_KetQuaXuLy').val(-1);
+                                $('#Index_iID_KetQuaXuLy').multiselect('rebuild');
+                            }
                         });
                     </script>
                 }
