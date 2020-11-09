@@ -189,6 +189,9 @@ namespace APP0200025.Controllers
         {
             ResultModels result = new ResultModels();
 
+            String sUserName = User.Identity.Name;
+            String sIP = Request.UserHostAddress;
+
             ////  HttpPostedFile fileư= Request.Files;
             String ParentID = "BS";
             NameValueCollection values = new NameValueCollection();
@@ -214,32 +217,42 @@ namespace APP0200025.Controllers
                 result.value = Url.Action("Index");
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
+
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+
+            long iID_MaDinhKem = -1;
             string sFileTemp = "", sFileName = "";
             for (int i = 0; i < files.Count; i++)
             {
                 HttpPostedFileBase postedFile = files[i];
-                if (postedFile != null)
+                if (postedFile != null && postedFile.ContentLength > 0)
                 {
-                    string guid = Guid.NewGuid().ToString();
-                    string sPath = "/Uploads/File";
-                    DateTime TG = DateTime.Now;
-                    string subPath = TG.ToString("yyyy/MM/dd");
-                    string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                    string newPath = string.Format("{0}/{1}", sPath, subPath);
-                    CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                    sFileName = string.Format("{0}_{1}", subName, postedFile.FileName);
-                    sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
-                    string filePath = Server.MapPath("~" + sFileTemp);
-                    postedFile.SaveAs(filePath);
+                    if (CommonFunction.FileUploadCheck(postedFile))
+                    {
+                        string guid = Guid.NewGuid().ToString();
+                        string sPath = "/Uploads/File";
+                        DateTime TG = DateTime.Now;
+                        string subPath = TG.ToString("yyyy/MM/dd");
+                        string subName = TG.ToString("HHmmssfff") + "_" + guid;
+                        string newPath = string.Format("{0}/{1}", sPath, subPath);
+                        CImage.CreateDirectory(Server.MapPath("~" + newPath));
+                        sFileName = string.Format("{0}_{1}", subName, postedFile.FileName);
+                        sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
+                        string filePath = Server.MapPath("~" + sFileTemp);
+                        postedFile.SaveAs(filePath);
+
+                        //Luu vao bang Dinh Kem
+                        iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 31, "0", hoSo.sMaHoSo, "File bổ sung hồ sơ bổ sung BPMC.", sFileName, "", null, 1, sFileTemp, sUserName, sIP);
+                    } 
                 }
             }
-            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+            
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
             KetQuaXuLy resultConfirm = new KetQuaXuLy();
             resultConfirm.NSWFileCode = hoSo.sMaHoSo;
             resultConfirm.Reason = "Yêu cầu bổ sung";
-            resultConfirm.AttachmentId = "";
+            resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
             resultConfirm.FileName = sFileName;
             resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
             resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
@@ -275,6 +288,9 @@ namespace APP0200025.Controllers
         [Authorize, ValidateInput(false), HttpPost]
         public ActionResult TuChoiHoSoSubmit()
         {
+            String sUserName = User.Identity.Name;
+            String sIP = Request.UserHostAddress;
+
             ResultModels result = new ResultModels();
 
             String ParentID = "TC";
@@ -301,34 +317,44 @@ namespace APP0200025.Controllers
                 result.value = Url.Action("Index");
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
-            string sFileTemp = "";
+
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+
+            long iID_MaDinhKem = -1;
+            string sFileTemp = "", sFileName = "";
             for (int i = 0; i < files.Count; i++)
             {
                 HttpPostedFileBase postedFile = files[i];
                 if (postedFile != null && postedFile.ContentLength > 0)
                 {
-                    string guid = Guid.NewGuid().ToString();
-                    string sPath = "/Uploads/File";
-                    DateTime TG = DateTime.Now;
-                    string subPath = TG.ToString("yyyy/MM/dd");
-                    string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                    string newPath = string.Format("{0}/{1}", sPath, subPath);
-                    CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                    sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
-                    string filePath = Server.MapPath("~" + sFileTemp);
-                    postedFile.SaveAs(filePath);
+                    if (CommonFunction.FileUploadCheck(postedFile))
+                    {
+                        sFileName = postedFile.FileName;
+                        string guid = Guid.NewGuid().ToString();
+                        string sPath = "/Uploads/File";
+                        DateTime TG = DateTime.Now;
+                        string subPath = TG.ToString("yyyy/MM/dd");
+                        string subName = TG.ToString("HHmmssfff") + "_" + guid;
+                        string newPath = string.Format("{0}/{1}", sPath, subPath);
+                        CImage.CreateDirectory(Server.MapPath("~" + newPath));
+                        sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
+                        string filePath = Server.MapPath("~" + sFileTemp);
+                        postedFile.SaveAs(filePath);
+
+                        //Luu vao bang Dinh Kem
+                        iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 20, "0", hoSo.sMaHoSo, "File từ chối hồ sơ chờ tiếp nhận BPMC.", sFileName, "", null, 1, sFileTemp, sUserName, sIP);
+                    }  
                 }
             }
 
-            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
             KetQuaXuLy resultConfirm = new KetQuaXuLy();
             resultConfirm.NSWFileCode = hoSo.sMaHoSo;
             resultConfirm.Reason = "Từ chối hồ sơ";
-            resultConfirm.AttachmentId = "01";
-            resultConfirm.FileName = "";
-            resultConfirm.FileLink = "";
+            resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
+            resultConfirm.FileName = sFileName;
+            resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
             resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
             resultConfirm.ResponseDate = DateTime.Now;
             string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "08");

@@ -1238,7 +1238,7 @@ namespace DomainModel
             {
                 String FileName = hpf.FileName;
                 string ext = System.IO.Path.GetExtension(FileName).ToLower();
-                string[] exts = { ".doc", ".docx", ".pdf", ".rtf", ".xls", ".xlsx", ".png", ".jpg", ".gif", ".bmp", ".rar", ".zip" };
+                string[] exts = { ".doc", ".docx", ".pdf", ".rtf", ".xls", ".xlsx", ".rar", ".zip", ".jpg", ".jpeg", ".bmp", ".png", ".emf", ".exif", ".gif", ".icon", ".MemoryBmp", ".tiff", ".wmf" };
                 for (int i = 0; i < exts.Length; i++)
                 {
                     if (ext == exts[i])
