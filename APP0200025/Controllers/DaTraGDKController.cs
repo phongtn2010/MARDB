@@ -130,7 +130,7 @@ namespace APP0200025.Controllers
             resultConfirm.CancelDate = DateTime.Now;
             resultConfirm.Reason = _sNoiDung;
             resultConfirm.SignConfirmDate = DateTime.Now;
-            resultConfirm.SignConfirmName = "Cục chăn nuôi;
+            resultConfirm.SignConfirmName = "Cục chăn nuôi";
             resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
             resultConfirm.AttachmentId = iID_MaDinhKem.ToString(); ;
             resultConfirm.FileName = sFileName;
