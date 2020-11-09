@@ -27,10 +27,8 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", Model);}
                         <form action="@Url.Action("GuiDoanhNghiep", "HoSoDaPheDuyetGDK", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_DuLieuMoi", 0);
                             @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
                             <div class="box-footer clearfix text-center">
                                 <div class="col-xs-4">
@@ -40,7 +38,7 @@
                                     <button class="btn btn-block btn-gray" type="submit">Xuất Word</button>
                                 </div>
                                 <div class="col-xs-4">
-                                    <a class="btn btn-block" style="background-color:#023658;color:white;" onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
+                                    <a class="btn btn-block" style="background-color:#023658; color:white;" href="@Url.Action("Thoat", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = Model.iID_MaHoSo })">Thoát</a>
                                 </div>
                             </div>
                         </form>
@@ -48,11 +46,8 @@
                     <div class="tab-pane" id="tab_2">
                         @{Html.RenderPartial("~/Views/Partial/Partial_LichSuHoSo.cshtml", Model);}
                     </div><!-- /.tab-pane -->
-
                 </div><!-- /.tab-content -->
             </div><!-- nav-tabs-custom -->
         </div><!-- /.col -->
-
     </div>
 </section>
-@*<script src="@Url.Content("~/ScriptsERP/jsHoSoDaBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>*@

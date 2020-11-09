@@ -32,6 +32,8 @@ namespace APP0200025.Controllers
                     PageSize = Globals.PageSize
                 };
             }
+
+            ViewData["menu"] = 233;
             return View(models);
         }
         public ActionResult Detail(string iID_MaHoSo)
@@ -41,89 +43,100 @@ namespace APP0200025.Controllers
             //    return RedirectToAction("Index", "PermitionMessage");
             //}
             clHoSo.UpdateNguoiXem(iID_MaHoSo, User.Identity.Name);
-            ViewData["DuLieuMoi"] = "0";
-            ViewData["smenu"] = 187;
+            
             HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
 
+            ViewData["menu"] = 233;
             return View(models);
         }
     
-
         /// <summary>
         /// update data màn hình TiepNhanHoSo
         /// </summary>
         /// <param name="ParentID"></param>
         /// <param name="MaHoSo"></param>
         /// <returns></returns>
-        //[Authorize, ValidateInput(false), HttpPost]
         public ActionResult GuiDoanhNghiep(String iID_MaHoSo)
         {
             //string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
-            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
-            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+            if (String.IsNullOrEmpty(iID_MaHoSo) == false)
+            {
+                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
+                TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-            XacNhanDon resultConfirm = new XacNhanDon();
-            resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
-            resultConfirm.DepartmentCode = "10";
-            resultConfirm.DepartmentName = "Cục chăn nuôi";
-            resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
-            resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
-            resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
-            resultConfirm.ImportingToDate= hoSo.sMua_ToDate;
-            resultConfirm.AssignID = "";
-            resultConfirm.AssignName = "";
-            resultConfirm.AssignNameOther = "";
-            resultConfirm.SignConfirmDate = hoSo.dNgayXacNhan;
-            resultConfirm.SignConfirmPlace = "Hà nội";
-            resultConfirm.SignConfirmName = "Lãnh đạo cục";
-            resultConfirm.NSWFileCodeOld = hoSo.sMaHoSo_ThayThe;
-            resultConfirm.AniFeedConfirmOldNo = hoSo.sSoGDK_ThayThe;
-            resultConfirm.ListHangHoa = clHangHoa.GetHoaXND(hoSo.iID_MaHoSo);
-            if(hoSo.iID_MaLoaiHoSo==1)
-              resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
+                XacNhanDon resultConfirm = new XacNhanDon();
+                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
+                resultConfirm.DepartmentCode = "10";
+                resultConfirm.DepartmentName = "Cục chăn nuôi";
+                resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
+                resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
+                resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
+                resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
+                resultConfirm.AssignID = "";
+                resultConfirm.AssignName = "";
+                resultConfirm.AssignNameOther = "";
+                resultConfirm.SignConfirmDate = hoSo.dNgayXacNhan;
+                resultConfirm.SignConfirmPlace = "Hà nội";
+                resultConfirm.SignConfirmName = "Lãnh đạo cục";
+                resultConfirm.NSWFileCodeOld = hoSo.sMaHoSo_ThayThe;
+                resultConfirm.AniFeedConfirmOldNo = hoSo.sSoGDK_ThayThe;
+                resultConfirm.ListHangHoa = clHangHoa.GetHoaXND(hoSo.iID_MaHoSo);
+                if (hoSo.iID_MaLoaiHoSo == 1)
+                    resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
                                             người nhập khẩu phải nộp kết quả tự đánh giá sự phù hợp theo quy định 
                                             về Cục Chăn nuôi thông qua hệ thống Một cửa Quốc gia.";
-            if (hoSo.iID_MaLoaiHoSo == 2)
-                resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
+                if (hoSo.iID_MaLoaiHoSo == 2)
+                    resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
                                         người nhập khẩu phải nộp bản sao ý bản chính (có ký tên và đóng dấu của người nhập khẩu) 
                                         Giấy chứng nhận hợp quy lô hàng thức ăn chăn nuôi nhập khẩu theo quy định về Cục Chăn nuôi thông qua hệ thống Một cửa Quốc gia.";
                 string error = _sendService.XacNhanDon(hoSo.sMaHoSo, resultConfirm);
-            if (error.Equals("99"))
-            {
-                bang.MaNguoiDungSua = User.Identity.Name;
-                bang.IPSua = Request.UserHostAddress;
-                bang.DuLieuMoi = false;
-                bang.GiaTriKhoa = iID_MaHoSo;
-                //bang.TruyenGiaTri(ParentID, Request.Form);
-                bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
-                bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
-                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
-                bang.Save();
-                clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, "Chuyển phụ lục GĐK", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+                if (error.Equals("99"))
+                {
+                    bang.MaNguoiDungSua = User.Identity.Name;
+                    bang.IPSua = Request.UserHostAddress;
+                    bang.DuLieuMoi = false;
+                    bang.GiaTriKhoa = iID_MaHoSo;
+                    bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
+                    bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
+                    bang.Save();
+                    clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, "Chuyển phụ lục GĐK", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
+                    TempData["msg"] = "success";
+                }
+                else
+                {
+                    TempData["msg"] = "error";
+                }
             }
+            else
+            {
+                TempData["msg"] = "error";
+            }    
 
             clHoSo.CleanNguoiXem(iID_MaHoSo);
+
             return RedirectToAction("Index");
         }
-       
-      
-        public JsonResult Thoat(string iID_MaHoSo)
+
+        public ActionResult Thoat(String iID_MaHoSo)
         {
             ResultModels result = clHoSo.CleanNguoiXem(iID_MaHoSo);
-            result.value = Url.Action("Index");
-            return Json(result, JsonRequestBehavior.AllowGet);
+
+            TempData["msg"] = "success";
+            return RedirectToAction("Index");
         }
+
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID)
         {
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
-            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viFromDate"]);
-            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
+            string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
+            string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
             string TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
             string DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
             string sSoTiepNhan= CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
@@ -133,13 +146,16 @@ namespace APP0200025.Controllers
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
-                TuNgayDen = _FromDate,
-                DenNgayDen = _ToDate,
+                TuNgayDen = _TuNgayDen,
+                DenNgayDen = _DenNgayDen,
                 TuNgayTiepNhan= TuNgayTiepNhan,
                 DenNgayTiepNhan = DenNgayTiepNhan,
                 sSoTiepNhan= sSoTiepNhan
-
             };
+
+            TempData["menu"] = 233;
+            TempData["msg"] = "success";
+
             return RedirectToAction("Index", models);
         }
     }

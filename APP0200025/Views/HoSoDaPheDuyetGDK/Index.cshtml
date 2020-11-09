@@ -63,6 +63,17 @@
     // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 
 }
+<script type="text/javascript">
+    $(function () {
+        var a = '@TempData["msg"]';
+        if (a == 'success') {
+            showToast_Success();
+        }
+        else if (a == 'error'){
+            showToast_Error();
+        }
+    })
+</script>
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -203,15 +214,10 @@
                                         {
                                             r = dt.Rows[i];
 
-
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
-                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
+                                            
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
-
                                             String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
-
 
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
@@ -231,7 +237,6 @@
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
-
                                                 <td style="width: 10px;" title="người xem">@r["sTenNguoiXem"]</td>
                                                 <td class="head-td-icon">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
@@ -239,7 +244,7 @@
                                                         @MvcHtmlString.Create(strSend)
                                                     }
                                                 </td>
-                                                <td style="width: 10px;" title="Quá hạn"></td>
+                                                <td class="head-td-icon"><span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span></td>
                                             </tr>
                                         }
                                     }
@@ -256,9 +261,6 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}
-@{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_TuChoi.cshtml");}
-<script src="@Url.Content("~/ScriptsERP/jsHoSoDaBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
 
 <script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
 <script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>

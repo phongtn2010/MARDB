@@ -148,6 +148,8 @@ namespace DATA0200025
             table.Rows.Add(50, "File bổ sung hồ sơ Chuyên Viên.");
             table.Rows.Add(60, "File từ chối hồ sơ Lãnh Đạo Phòng.");
             table.Rows.Add(80, "File từ chối hồ sơ Lãnh Đạo Cục.");
+            table.Rows.Add(90, "File Thu hồi giấy GDK.");
+            table.Rows.Add(91, "File Thu hồi giấy XNCL.");
             table.Rows.Add(100, "File Hợp Đồng Hồ Sơ");
             table.Rows.Add(101, "File Hóa Đơn  Hồ Sơ");
             table.Rows.Add(102, "File Phiếu Đóng Gói  Hồ Sơ");

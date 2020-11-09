@@ -236,7 +236,7 @@ namespace APP0200025.Controllers
 
             KetQuaXuLy resultConfirm = new KetQuaXuLy();
             resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.Reason = "Từ chối hồ sơ";
+            resultConfirm.Reason = _sNoiDung;
             resultConfirm.AttachmentId = iID_MaDinhKem.ToString(); ;
             resultConfirm.FileName = sFileName;
             resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
@@ -257,11 +257,16 @@ namespace APP0200025.Controllers
                 bang.Save();
 
                 clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TraChuyenVienXuLyLai, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
-            }
 
+                result.success = true;
+            }
+            else
+            {
+                result.success = false;
+            }   
+            
             clHoSo.CleanNguoiXem(iID_MaHoSo);
             
-            result.success = true;
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);
         }

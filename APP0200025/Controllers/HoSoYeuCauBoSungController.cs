@@ -251,7 +251,7 @@ namespace APP0200025.Controllers
 
             KetQuaXuLy resultConfirm = new KetQuaXuLy();
             resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.Reason = "Yêu cầu bổ sung";
+            resultConfirm.Reason = _sNoiDung;
             resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
             resultConfirm.FileName = sFileName;
             resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
@@ -351,7 +351,7 @@ namespace APP0200025.Controllers
 
             KetQuaXuLy resultConfirm = new KetQuaXuLy();
             resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.Reason = "Từ chối hồ sơ";
+            resultConfirm.Reason = _sNoiDung;
             resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
             resultConfirm.FileName = sFileName;
             resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);

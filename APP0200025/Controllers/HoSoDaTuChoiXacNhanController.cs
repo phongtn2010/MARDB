@@ -31,6 +31,7 @@ namespace APP0200025.Controllers
                     PageSize = Globals.PageSize
                 };
             }
+            ViewData["menu"] = 232;
             return View(models);
         }
         public ActionResult Detail(string iID_MaHoSo)
@@ -40,8 +41,8 @@ namespace APP0200025.Controllers
             //    return RedirectToAction("Index", "PermitionMessage");
             //}
             clHoSo.UpdateNguoiXem(iID_MaHoSo, User.Identity.Name);
-            ViewData["DuLieuMoi"] = "0";
-            ViewData["smenu"] = 187;
+
+            ViewData["menu"] = 232;
             HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
 
             return View(models);
