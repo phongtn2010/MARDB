@@ -256,6 +256,7 @@
     <Compile Include="Controllers\HoSoController.cs" />
     <Compile Include="Controllers\MienGiamController.cs" />
     <Compile Include="Controllers\Test1Controller.cs" />
+    <Compile Include="Controllers\TraCuuHoSoController.cs" />
     <Compile Include="WebServices\Mard26Service.asmx.cs">
       <DependentUpon>Mard26Service.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -3111,6 +3112,8 @@
     <Content Include="Views\Test1\Index.cshtml" />
     <Content Include="Views\DaTraGDK\Partial_Model_ThuHoi.cshtml" />
     <Content Include="Views\ChoTiepNhanKetQuaGuiBoSung\Partial_Model_TuChoi.cshtml" />
+    <Content Include="Views\TraCuuHoSo\Index.cshtml" />
+    <Content Include="Views\TraCuuHoSo\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
