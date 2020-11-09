@@ -223,20 +223,23 @@ namespace APP0200025.Controllers
                 HttpPostedFileBase postedFile = files[i];
                 if (postedFile != null && postedFile.ContentLength > 0)
                 {
-                    string guid = Guid.NewGuid().ToString();
-                    string sPath = "/Uploads/File";
-                    DateTime TG = DateTime.Now;
-                    string subPath = TG.ToString("yyyy/MM/dd");
-                    string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                    string newPath = string.Format("{0}/{1}", sPath, subPath);
-                    CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                    sFileName = string.Format("{0}_{1}", subName, postedFile.FileName);
-                    sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
-                    string filePath = Server.MapPath("~" + sFileTemp);
-                    postedFile.SaveAs(filePath);
+                    if (CommonFunction.FileUploadCheck(postedFile))
+                    {
+                        sFileName = postedFile.FileName;
+                        string guid = Guid.NewGuid().ToString();
+                        string sPath = "/Uploads/File";
+                        DateTime TG = DateTime.Now;
+                        string subPath = TG.ToString("yyyy/MM/dd");
+                        string subName = TG.ToString("HHmmssfff") + "_" + guid;
+                        string newPath = string.Format("{0}/{1}", sPath, subPath);
+                        CImage.CreateDirectory(Server.MapPath("~" + newPath));
+                        sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
+                        string filePath = Server.MapPath("~" + sFileTemp);
+                        postedFile.SaveAs(filePath);
 
-                    //Luu vao bang Dinh Kem
-                    iID_MaDinhKem = CDinhKem.ThemDinhKem(hangHoa.iID_MaHoSo, hangHoa.iID_MaHangHoa, 35, "0", hangHoa.sMaHoSo, "File bổ sung XCNL chờ tiếp nhận XNCL.", sFileName, "", null, 1, sFileTemp, sUserName, sIP);
+                        //Luu vao bang Dinh Kem
+                        iID_MaDinhKem = CDinhKem.ThemDinhKem(hangHoa.iID_MaHoSo, hangHoa.iID_MaHangHoa, 35, "0", hangHoa.sMaHoSo, "File bổ sung XCNL chờ tiếp nhận XNCL.", sFileName, "", null, 1, sFileTemp, sUserName, sIP);
+                    }   
                 }
             }
             
