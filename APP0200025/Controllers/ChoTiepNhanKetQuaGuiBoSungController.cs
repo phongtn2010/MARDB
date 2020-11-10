@@ -47,7 +47,7 @@ namespace APP0200025.Controllers
 
             clHangHoa.UpdateNguoiXem(iID_MaHangHoa, User.Identity.Name);
 
-            HangHoaModels models = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
+            HangHoaModels models = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
 
             ViewData["menu"] = 236;
             return View(models);

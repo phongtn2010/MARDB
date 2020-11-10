@@ -15,7 +15,7 @@
     Layout = "~/Views/Shared/_Layout_cms.cshtml";
     string ParentID = "Detail";
 
-    HoSoModels hoSoModels = clHoSo.GetHoSoById(Model.iID_MaHangHoa);
+    HoSoModels hoSoModels = clHoSo.GetHoSoById(Model.iID_MaHoSo);
 }
 <section class="content">
     <div class="row">
@@ -32,31 +32,31 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoSoModels);}
-                        <form action="@Url.Action("TiepNhanHangHoaSubmit", "ChoTiepNhanKetQuaGuiBoSung", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa)
-                            <div class="box-footer clearfix text-center">
-                                <div class="col-xs-4">
-                                    <button class="btn btn-block btn-primary" type="submit">Tiếp nhận</button>
-                                </div>
-                                @*<div class="col-xs-3">
-                                    <a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>
-                                </div>*@
-                                <div class="col-xs-4">
-                                    <a class="btn btn-block openyeucaubosung" style="background-color:#f1bc10;color:white;" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a class="btn btn-block" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
-                                </div>
-                            </div>
-                        </form>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
                         @{Html.RenderPartial("~/Views/Partial/Partial_HH_LichSuHoSo.cshtml", Model);}
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_3">
-                        @{Html.RenderPartial("~/Views/ChoXemXetKetQua/Partial_HoSoXinCapXNCL.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/Partial/Partial_HoSoXinCapXNCL.cshtml", Model);}
                     </div><!-- /.tab-pane -->
                 </div><!-- /.tab-content -->
+                <form action="@Url.Action("TiepNhanHangHoaSubmit", "ChoTiepNhanKetQuaGuiBoSung", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+                    @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa)
+                    <div class="box-footer clearfix text-center">
+                        <div class="col-xs-4">
+                            <button class="btn btn-block btn-primary" type="submit">Tiếp nhận</button>
+                        </div>
+                        @*<div class="col-xs-3">
+                    <a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>
+                </div>*@
+                        <div class="col-xs-4">
+                            <a class="btn btn-block openyeucaubosung" style="background-color:#f1bc10;color:white;" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
+                        </div>
+                        <div class="col-xs-4">
+                            <a class="btn btn-block" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
+                        </div>
+                    </div>
+                </form>
             </div><!-- nav-tabs-custom -->
         </div><!-- /.col -->
     </div>
