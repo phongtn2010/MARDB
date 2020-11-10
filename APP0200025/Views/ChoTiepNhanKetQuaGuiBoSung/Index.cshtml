@@ -190,7 +190,7 @@
                                     <th style="width: 5%;">Xem</th>
                                     <th style="width: 5%;">Tiếp nhận</th>
                                     <th style="width: 5%;">YC bồ sung</th>
-                                    <th style="width: 5%;">Từ chối</th>
+                                    @*<th style="width: 5%;">Từ chối</th>*@
                                     <th style="width: 5%;">Người xem</th>
                                 </tr>
                             </thead>
@@ -236,14 +236,14 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                @*<td class="head-td-icon">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <a class="opentuchoi" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoi">
                                                             <span class='badge bg-red'><i class='fa fa-fw fa-remove'></i></span>
                                                         </a>
                                                     }
-                                                </td>
+                                                </td>*@
                                                 <td style="width: 10px;" title="người xem">@r["sTenNguoiXem"]</td>
                                             </tr>
                                         }

@@ -16,11 +16,16 @@ namespace APP0200025.Controllers
         // GET: PhongTACNYeuCauBoSunghangHoa
         Bang bang = new Bang("CNN25_HangHoa");
 
-        private string ViewPath = "~/Views/PhongTACNYeuCauBoSungKetQua/";
         private SendService _sendService = new SendService();
+
         // GET: ChoTiepNhanhangHoa
         public ActionResult Index(sHoSoModels models)
         {
+            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            //{
+            //    return RedirectToAction("Index", "PermitionMessage");
+            //}
+
             if (models == null || models.LoaiDanhSach == 0)
             {
                 models = new sHoSoModels
@@ -30,6 +35,8 @@ namespace APP0200025.Controllers
                     PageSize = Globals.PageSize
                 };
             }
+
+            ViewData["menu"] = 237;
             return View(models);
         }
         public ActionResult Detail(string iID_MaHangHoa)
@@ -39,21 +46,11 @@ namespace APP0200025.Controllers
             //    return RedirectToAction("Index", "PermitionMessage");
             //}
             clHangHoa.UpdateNguoiXem(iID_MaHangHoa, User.Identity.Name);
-            ViewData["DuLieuMoi"] = "0";
-            ViewData["smenu"] = 187;
+            
             HangHoaModels models = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
 
+            ViewData["menu"] = 237;
             return View(models);
-        }
-        /// <summary>
-        /// view màn hình TiepNhanhangHoa
-        /// </summary>
-        /// <returns></returns>
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult TiepNhanhangHoa()
-        {
-            ViewData["DuLieuMoi"] = "0";
-            return View();
         }
 
         /// <summary>
