@@ -142,6 +142,7 @@ namespace DATA0200025
             table.Rows.Add(21, "File từ chối hồ sơ bổ sung BPMC.");
             table.Rows.Add(22, "File từ chối hồ sơ bổ sung Phòng TACN.");
             table.Rows.Add(26, "File từ chối XCNL bổ sung BPMC");
+            table.Rows.Add(27, "File từ chối XCNL bổ sung BPMC Phòng TACN");
             table.Rows.Add(30, "File bổ sung hồ sơ chờ tiếp nhận BPMC.");
             table.Rows.Add(31, "File bổ sung hồ sơ bổ sung BPMC.");
             table.Rows.Add(32, "File bổ sung hồ sơ bổ sung Phòng TACN.");
