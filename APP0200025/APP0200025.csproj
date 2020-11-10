@@ -2607,6 +2607,8 @@
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.min.js" />
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.skinFlat.css" />
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.skinNice.css" />
+    <Content Include="Content\plugins\jquery.wordexport\FileSaver.js" />
+    <Content Include="Content\plugins\jquery.wordexport\jquery.wordexport.js" />
     <Content Include="Content\plugins\jQueryCookie\jquery.cookie.js" />
     <Content Include="Content\plugins\jQueryUI\jquery-ui.js" />
     <Content Include="Content\plugins\jQueryUI\jquery-ui.min.js" />
@@ -3084,14 +3086,12 @@
     <Content Include="Views\ChoXemXetKetQua\Index.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Detail.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Partial_Model_TuChoi.cshtml" />
-    <Content Include="Views\ChoXemXetKetQua\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Partial_ThongBaoKetQua.cshtml" />
     <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_Model_TuChoi_HH.cshtml" />
     <Content Include="Views\LanhDaoCuc\DetailHH.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_ThongBaoKetQua.cshtml" />
-    <Content Include="Views\DaCapThongBaoKetQua\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\DaCapThongBaoKetQua\Partial_ThongBaoKetQua.cshtml" />
     <Content Include="Views\LanhDaoPhong\Partial_Modal_ThuHoi.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_Model_ThuHoi.cshtml" />
@@ -3115,8 +3115,12 @@
     <Content Include="Views\ChoTiepNhanKetQuaGuiBoSung\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\TraCuuHoSo\Index.cshtml" />
     <Content Include="Views\TraCuuHoSo\Detail.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\TraCuuHangHoa\Detail.cshtml" />
     <Content Include="Views\TraCuuHangHoa\Index.cshtml" />
+=======
+    <Content Include="Views\Partial\Partial_HoSoXinCapXNCL.cshtml" />
+>>>>>>> 6e91b91cadf1765f0e8a906aa45e057055179bcb
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

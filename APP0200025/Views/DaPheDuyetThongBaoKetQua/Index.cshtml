@@ -63,6 +63,17 @@
     // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 
 }
+<script type="text/javascript">
+    $(function () {
+        var a = '@TempData["msg"]';
+        if (a == 'success') {
+            showToast_Success();
+        }
+        else if (a == 'error'){
+            showToast_Error();
+        }
+    })
+</script>
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -83,19 +94,16 @@
                             <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sMaHoSo, "sMaHoSo", "", "placeholder=\"Mã hồ sơ\" type=\"text\" class=\"form-control\""))
                             </div>
-                            <div class="col-xs-1 text-align-right"><label class="control-label">Tên TACN</label></div>
-                            <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenTACN, "sTenTACN", "", "placeholder=\"Tên thức ăn chăn nuôi\" type=\"text\" class=\"form-control\""))
-                            </div>
-
-                        </div>
-                        <div class="form-group">
-
                             <div class="col-xs-1 text-align-right"><label class="control-label">Trạng thái hồ sơ</label></div>
                             <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, Convert.ToString(Model.iID_MaTrangThai), "iID_MaTrangThai", "", "type=\"text\" class=\"form-control\""))
                             </div>
-
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Tên TACN</label></div>
+                            <div class="col-xs-5">
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenTACN, "sTenTACN", "", "placeholder=\"Tên thức ăn chăn nuôi\" type=\"text\" class=\"form-control\""))
+                            </div>
                             <div class="col-xs-1 text-align-right">
                                 <label class="control-label">Tên doanh nghiệp</label>
                             </div>
@@ -166,25 +174,25 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Chờ tiếp nhận kết quả</h3>
+                    <h3 class="box-title text-uppercase">Chờ tiếp nhận kết quả</h3>
                     <ul class="pagination pagination-sm no-margin pull-right">
                         <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
                     </ul>
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped dataTable">
+                        <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
                             <thead>
                                 <tr>
-                                    <th class="sorting_asc" style="width: 3%;" align="center">STT</th>
-                                    <th class="sorting" style="width: 10%;" align="center">Mã hồ sơ</th>
-                                    <th class="sorting" style="width: 10%; text-align: center;" align="center">Ngày đến</th>
-                                    <th class="sorting" style="text-align: center;" align="center">Số GĐK</th>
-                                    <th class="sorting" style="width: 10%; text-align: center;" align="center">Ngày xác nhận</th>
-                                    <th class="sorting" style="text-align: center;" align="center">Doanh nghiệp</th>
-                                    <th class="sorting" style="width: 10%; text-align: center;" align="center">Tên TACN</th>
-                                    <th class="sorting" style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
-                                    <th class="sorting" style="width: 10%; text-align: center;" align="center">Kết quả xử lý</th>
+                                    <th style="width: 3%;" align="center">STT</th>
+                                    <th style="width: 10%;" align="center">Mã hồ sơ</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Ngày đến</th>
+                                    <th style="text-align: center;" align="center">Số GĐK</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Ngày xác nhận</th>
+                                    <th style="text-align: center;" align="center">Doanh nghiệp</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Tên TACN</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Kết quả xử lý</th>
                                     <th style="width: 5%;">Xem</th>
                                     <th style="width: 5%;">Người xem</th>
                                     <th style="width: 5%;">Gửi doanh nghiệp</th>
@@ -207,8 +215,8 @@
                                                 <td style="text-align: center;">@r["rownum"]</td>
                                                 <td>@r["sMaHoSo"]</td>
                                                 <td>@String.Format("{0:dd-MM-yyyy}", r["dNgayTaoHoSo"])</td>
-                                                <td>@String.Format("{0:dd-MM-yyyy}", r["dNgayXacNhan"])</td>
                                                 <td>@r["sSoGDK"]</td>
+                                                <td>@String.Format("{0:dd-MM-yyyy}", r["dNgayXacNhan"])</td>
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>@r["sTenHangHoa"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
@@ -220,8 +228,8 @@
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
-                                                <td style="width: 10px;" title="người xem">@r["sTenNguoiXem"]</td>
-                                                <td style="width: 10px;" title="Gửi doanh nghiệp">
+                                                <td title="người xem">@r["sTenNguoiXem"]</td>
+                                                <td class="head-td-icon" title="Gửi doanh nghiệp">
                                                     @MvcHtmlString.Create(strSend)
                                                 </td>
                                             </tr>
@@ -242,6 +250,19 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-@*@{Html.RenderPartial("~/Views/DaPheDuyetThongBaoKetQua/Partial_Model_YeuCauBoSung.cshtml");}
-    @{Html.RenderPartial("~/Views/DaPheDuyetThongBaoKetQua/Partial_Model_TuChoi.cshtml");}*@
 <script src="@Url.Content("~/ScriptsERP/jsDaPheDuyetThongBaoKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+
+<script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
+<script>
+    $(function () {
+        $('#tblListData').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false
+        });
+    });
+</script>
