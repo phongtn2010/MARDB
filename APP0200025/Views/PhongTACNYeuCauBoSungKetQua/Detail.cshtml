@@ -30,10 +30,8 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoSoModels);}
-                        <form action="@Url.Action("GuiDoanhNghiep", "PhongTACNYeuCauBoSungKetQua", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"])
+                        <form action="@Url.Action("GuiDoanhNghiepSubmit", "PhongTACNYeuCauBoSungKetQua", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
                             @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa)
                             <div class="box-footer clearfix text-center">
                                 <div class="col-xs-4">
