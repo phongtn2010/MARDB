@@ -188,6 +188,18 @@ namespace DATA0200025
                 DK += " AND sTenTACN LIKE @sTenTACN";
                 cmd.Parameters.AddWithValue("@sTenTACN", "%" + models.sTenTACN + "%");
             }
+
+            if (!string.IsNullOrEmpty(models.sSoTiepNhan))
+            {
+                DK += " AND sSoTiepNhan = @sSoTiepNhan";
+                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
+            }
+
+            if (!string.IsNullOrEmpty(models.sSoGDK))
+            {
+                DK += " AND sSoGDK = @sSoGDK";
+                cmd.Parameters.AddWithValue("@sSoGDK", models.sSoGDK);
+            }
             string SQL = string.Format("SELECT count(iID_MaHoSo) as value FROM CNN25_HoSo WHERE {0} ", DK);
             cmd.CommandText = SQL;
             int vR = Convert.ToInt32(Connection.GetValue(cmd, 0));
@@ -335,11 +347,7 @@ namespace DATA0200025
                 DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
                 cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
             }
-            if (!string.IsNullOrEmpty(models.sSoTiepNhan))
-            {
-                DK += " AND sSoTiepNhan <= @sSoTiepNhan";
-                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
-            }
+            
             if(models.iID_KetQuaXuLy>0)
             {
                 DK += " AND iID_KetQuaXuLy = @iID_KetQuaXuLy";
@@ -349,6 +357,18 @@ namespace DATA0200025
             {
                 DK += " AND sTenTACN LIKE @sTenTACN";
                 cmd.Parameters.AddWithValue("@sTenTACN", "%" + models.sTenTACN + "%");
+            }
+
+            if (!string.IsNullOrEmpty(models.sSoTiepNhan))
+            {
+                DK += " AND sSoTiepNhan = @sSoTiepNhan";
+                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
+            }
+
+            if (!string.IsNullOrEmpty(models.sSoGDK))
+            {
+                DK += " AND sSoGDK = @sSoGDK";
+                cmd.Parameters.AddWithValue("@sSoGDK", models.sSoGDK);
             }
             string SQL = string.Format("SELECT * FROM CNN25_HoSo WHERE {0} ", DK);
             cmd.CommandText = SQL;
