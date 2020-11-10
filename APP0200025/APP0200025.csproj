@@ -2606,6 +2606,8 @@
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.min.js" />
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.skinFlat.css" />
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.skinNice.css" />
+    <Content Include="Content\plugins\jquery.wordexport\FileSaver.js" />
+    <Content Include="Content\plugins\jquery.wordexport\jquery.wordexport.js" />
     <Content Include="Content\plugins\jQueryCookie\jquery.cookie.js" />
     <Content Include="Content\plugins\jQueryUI\jquery-ui.js" />
     <Content Include="Content\plugins\jQueryUI\jquery-ui.min.js" />
@@ -3089,7 +3091,6 @@
     <Content Include="Views\LanhDaoCuc\DetailHH.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_ThongBaoKetQua.cshtml" />
-    <Content Include="Views\DaCapThongBaoKetQua\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\DaCapThongBaoKetQua\Partial_ThongBaoKetQua.cshtml" />
     <Content Include="Views\LanhDaoPhong\Partial_Modal_ThuHoi.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_Model_ThuHoi.cshtml" />

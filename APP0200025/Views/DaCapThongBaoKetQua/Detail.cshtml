@@ -26,36 +26,34 @@
                     <li><a href="#tab_2" data-toggle="tab">Lịch sử xử lý hồ sơ</a></li>
                     <li><a href="#tab_3" data-toggle="tab">Hồ sơ xin cấp XNCL</a></li>
                     <li><a href="#tab_4" data-toggle="tab">Thông báo kết quả lô hàng</a></li>
+
                     <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoSoModels);}
-                        <form action="@Url.Action("GuiDoanhNghiep", "DaCapThongBaoKetQua", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"])
-                            @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa)
-                            <div class="box-footer clearfix text-center">
-                                
-                                <div class="col-xs-4">
-                                    <a class="btn btn-primary btn-block" data-id="@Model.iID_MaHangHoa">Xuất word</a>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a class="btn btn-block" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
-                                </div>
-                            </div>
-                        </form>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
                         @{Html.RenderPartial("~/Views/Partial/Partial_HH_LichSuHoSo.cshtml", Model);}
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_3">
-                        @{Html.RenderPartial("~/Views/ChoXemXetKetQua/Partial_HoSoXinCapXNCL.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/Partial/Partial_HoSoXinCapXNCL.cshtml", Model);}
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_4">
-                        @{Html.RenderPartial("~/Views/ChoXemXetKetQua/Partial_ThongBaoKetQua.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/DaCapThongBaoKetQua/Partial_ThongBaoKetQua.cshtml", Model);}
                     </div><!-- /.tab-pane -->
                 </div><!-- /.tab-content -->
+                <div class="box-footer clearfix text-center">
+                    <div class="col-xs-4">
+                        <a class="btn btn-block btn-primary btnXuatWord" data-id="@Model.iID_MaHangHoa">Xuất word</a>
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="btn btn-block openthuhoi" style="background-color:#f1bc10;color:white;" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#ThuHoi" data-dismiss="modal" type="button">Thu hồi</a>
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="btn btn-block" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
+                    </div>
+                </div>
             </div><!-- nav-tabs-custom -->
         </div><!-- /.col -->
     </div>
