@@ -198,9 +198,7 @@ namespace APP0200025.Controllers
             }
 
             result.value = Url.Action("SoanPhuLuc", "ChuyenVien", new { iID_MaHoSo = hanghoa.iID_MaHoSo });
-            //result.value = Url.Action("SoanPhuLuc");
             return Json(result, JsonRequestBehavior.AllowGet);
-            //return RedirectToAction("Index");
         }
         
         /// <summary>
