@@ -53,7 +53,7 @@
     }
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
-    
+
 
     DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax);
     double nums = clHoSo.GetCount(Model);
@@ -74,7 +74,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("Search", "DanhSachHoSoDaPheDuyet", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("Search", "DanhSachHoSoDaPheDuyet", new { ParentID = ParentID }, FormMethod.Post, new { id = "formSearch", @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
@@ -154,17 +154,10 @@
                         </div>
 
                     </div><!-- /.box-body -->
-                    <div class="box-footer clearfix">
-                        <div class="box-body">
-                            <div class="form-group">
-                                <div class="col-sm-12 text-center">
-                                    <button class="btn btn-primary btn-sm" type="submit">Tìm kiếm</button>
-                                    <button class="btn btn-danger btn-sm" type="button">Nhập lại</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="box-footer clearfix text-align-center">
+                        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                        <button class="btn btn-danger" type="button" onclick="clearFromSearch()">Nhập lại</button>
                     </div>
-
                 }
 
             </div><!-- /.box -->
@@ -214,29 +207,29 @@
                                         String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "DanhSachHoSoDaPheDuyet", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                         String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "DanhSachHoSoDaPheDuyet", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
                                         String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "DanhSachHoSoDaPheDuyet", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
-                                        String strSoanPhuLuc= MyHtmlHelper.ActionLink(Url.Action("SoanPhuLuc", "DanhSachHoSoDaPheDuyet", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
+                                        String strSoanPhuLuc = MyHtmlHelper.ActionLink(Url.Action("SoanPhuLuc", "DanhSachHoSoDaPheDuyet", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
 
 
-                                                        <tr>
-                                                            <td style="text-align: center;">@r["rownum"]</td>
-                                                            <td>@r["sMaHoSo"]</td>
-                                                            <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")</td>
-                                                            <td>@r["sSoTiepNhan"]</td>
-                                                            <td>@r["dNgayTiepNhan"]</td>
-                                                            <td>@r["sTenDoanhNghiep"]</td>
-                                                            <td>@r["sTenTACN"]</td>
-                                                            <td>@r["sSoGDK"]</td>
-                                                            <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
-                                                            <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
-                                                            <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
+                                        <tr>
+                                            <td style="text-align: center;">@r["rownum"]</td>
+                                            <td>@r["sMaHoSo"]</td>
+                                            <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")</td>
+                                            <td>@r["sSoTiepNhan"]</td>
+                                            <td>@r["dNgayTiepNhan"]</td>
+                                            <td>@r["sTenDoanhNghiep"]</td>
+                                            <td>@r["sTenTACN"]</td>
+                                            <td>@r["sSoGDK"]</td>
+                                            <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
+                                            <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
+                                            <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
 
-                                                            <td style="width: 10px;" title="người xem">@r["sTenNguoiTiepNhan"]</td>
-                                                            <td style="width: 10px;" title="Gửi doanh nghiệp">
-                                                                <span class='badge bg-blue'><i class='fa fa-send'></i></span>
+                                            <td style="width: 10px;" title="người xem">@r["sTenNguoiTiepNhan"]</td>
+                                            <td style="width: 10px;" title="Gửi doanh nghiệp">
+                                                <span class='badge bg-blue'><i class='fa fa-send'></i></span>
 
-                                                            </td>
-                                                            <td style="width: 10px;" title="Quá hạn"></td>
-                                                        </tr>
+                                            </td>
+                                            <td style="width: 10px;" title="Quá hạn"></td>
+                                        </tr>
                                     }
                                 }
                                 dt.Dispose();
