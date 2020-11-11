@@ -193,6 +193,10 @@ namespace APP0200025.Controllers
             {
                 values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
             }
+            if (string.IsNullOrEmpty(_sNoiDung))
+            {
+                values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
+            }
             if (values.Count > 0)
             {
                 //for (int i = 0; i <= (values.Count - 1); i++)
@@ -219,6 +223,7 @@ namespace APP0200025.Controllers
                 {
                     if (CommonFunction.FileUploadCheck(postedFile))
                     {
+                        sFileName = postedFile.FileName;
                         string guid = Guid.NewGuid().ToString();
                         string sPath = "/Uploads/File";
                         DateTime TG = DateTime.Now;
@@ -226,7 +231,6 @@ namespace APP0200025.Controllers
                         string subName = TG.ToString("HHmmssfff") + "_" + guid;
                         string newPath = string.Format("{0}/{1}", sPath, subPath);
                         CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                        sFileName = string.Format("{0}_{1}", subName, postedFile.FileName);
                         sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
                         string filePath = Server.MapPath("~" + sFileTemp);
                         postedFile.SaveAs(filePath);
@@ -292,9 +296,13 @@ namespace APP0200025.Controllers
             HttpFileCollectionBase files = Request.Files;
             string _sNoiDung = CString.SafeString(Request.Form[ParentID + "_sNoiDung"]);
             string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
+            if (string.IsNullOrEmpty(iID_MaHoSo))
+            {
+                values.Add("err_sNoiDung", "Bạn nhập nội dung từ chối");
+            }
             if (string.IsNullOrEmpty(_sNoiDung))
             {
-                values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
+                values.Add("err_sNoiDung", "Bạn nhập nội dung từ chối");
             }
             if (values.Count > 0)
             {
