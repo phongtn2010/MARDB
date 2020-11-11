@@ -31,6 +31,9 @@ namespace DATA0200025.SearchModels
         public string FromDateTiepNhan { get; set; }
         public string ToDateTiepNhan { get; set; }
         public int iID_KetQuaXuLy { get; set; }
+        public string sSoThongBaoKetQua { get; set; }
+        public string TuNgayThongBaoKetQua { get; set; }
+        public string DenNgayThongBaoKetQua { get; set; }
 
 
     }
