@@ -3113,9 +3113,18 @@
     <Content Include="Views\ChoTiepNhanKetQuaGuiBoSung\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\TraCuuHoSo\Index.cshtml" />
     <Content Include="Views\TraCuuHoSo\Detail.cshtml" />
+<<<<<<< HEAD
+
+    <Content Include="Views\TraCuuHangHoa\Detail.cshtml" />
+    <Content Include="Views\TraCuuHangHoa\Index.cshtml" />
+
+    <Content Include="Views\Partial\Partial_HoSoXinCapXNCL.cshtml" />
+
+=======
     <Content Include="Views\TraCuuHangHoa\Detail.cshtml" />
     <Content Include="Views\TraCuuHangHoa\Index.cshtml" />
     <Content Include="Views\Partial\Partial_HoSoXinCapXNCL.cshtml" />
+>>>>>>> 333497216d02e3458618a2764e2a9077e701385a
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
