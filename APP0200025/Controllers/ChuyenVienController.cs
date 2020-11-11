@@ -126,6 +126,8 @@ namespace APP0200025.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
 
+            HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
+
             try
             {
                 if (!string.IsNullOrEmpty(CL_Chons))
@@ -195,7 +197,8 @@ namespace APP0200025.Controllers
                 result.success = false;
             }
 
-            result.value = Url.Action("Index");
+            result.value = Url.Action("SoanPhuLuc", "ChuyenVien", new { iID_MaHoSo = hanghoa.iID_MaHoSo });
+            //result.value = Url.Action("SoanPhuLuc");
             return Json(result, JsonRequestBehavior.AllowGet);
             //return RedirectToAction("Index");
         }

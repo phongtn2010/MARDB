@@ -37,7 +37,6 @@
 
 $(function () {
     $("body").on("click", ".openyeucaubosung", function () {
-
         var iID_MaHoSo = $(this).data("id");
         $("#BS_iID_MaHoSo").val(iID_MaHoSo);
     });
