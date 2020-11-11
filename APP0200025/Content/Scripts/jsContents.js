@@ -199,6 +199,10 @@ function jsEbank_AddToDanhGia(sMaSanPhan, iSao, sHoTen, sEmail, sNoiDung) {
     });
 }
 
+function clearFromSearch() {
+    document.getElementById("formSearch").reset();
+}
+
 function showToast_Success() {
     $.toast({
         heading: 'Thông báo!',

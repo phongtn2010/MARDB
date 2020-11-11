@@ -19,7 +19,7 @@ namespace DATA0200025.DTO
         public int fiSafetyFormOfPublication { set; get; }
 
         [XmlElement("SafetyRequire")]
-        public decimal fiSafetyRequire { set; get; }
+        public string fiSafetyRequire { set; get; }
 
         [XmlElement("SafetyRequireUnitID")]
         public string fiSafetyRequireUnitID { set; get; }

@@ -97,13 +97,14 @@ namespace DATA0200025
             table.Columns.Add("ID", typeof(int));
             table.Columns.Add("NAME", typeof(string));
 
+            table.Rows.Add(0, "Không có");
             table.Rows.Add(1, "<");
             table.Rows.Add(2, ">");
             table.Rows.Add(3, "=");
             table.Rows.Add(4, "<=");
             table.Rows.Add(5, ">=");
             table.Rows.Add(6, "min - max");
-
+            
             return table;
         }
         public static String Get_Name_HinhThucCongBo(int iMa)
@@ -143,16 +144,20 @@ namespace DATA0200025
             table.Rows.Add(22, "File từ chối hồ sơ bổ sung Phòng TACN.");
             table.Rows.Add(26, "File từ chối XCNL bổ sung BPMC");
             table.Rows.Add(27, "File từ chối XCNL bổ sung BPMC Phòng TACN");
+
             table.Rows.Add(30, "File bổ sung hồ sơ chờ tiếp nhận BPMC.");
             table.Rows.Add(31, "File bổ sung hồ sơ bổ sung BPMC.");
             table.Rows.Add(32, "File bổ sung hồ sơ bổ sung Phòng TACN.");
             table.Rows.Add(35, "File bổ sung XCNL chờ tiếp nhận XNCL.");
             table.Rows.Add(36, "File bổ sung XCNL bổ sung XNCL.");
             table.Rows.Add(37, "File bổ sung XCNL bổ sung XNCL Phòng TACN.");
+
             table.Rows.Add(40, "File từ chối hồ sơ Chuyên Viên.");
             table.Rows.Add(50, "File bổ sung hồ sơ Chuyên Viên.");
+
             table.Rows.Add(60, "File từ chối hồ sơ Lãnh Đạo Phòng.");
             table.Rows.Add(80, "File từ chối hồ sơ Lãnh Đạo Cục.");
+
             table.Rows.Add(90, "File Thu hồi giấy GDK.");
             table.Rows.Add(91, "File Thu hồi giấy XNCL.");
             table.Rows.Add(100, "File Hợp Đồng Hồ Sơ");
