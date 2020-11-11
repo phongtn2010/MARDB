@@ -128,6 +128,32 @@ namespace DATA0200025
             return dt;
         }
 
+        public static DataTable Get_ThongTinChiTieuAnToan_KyThuat_DanhMuc(string iID_MaLoaiTACN)
+        {
+            DataTable vR;
+
+            string SQL = "SELECT * FROM CNN25_HangHoa_AnToan_KyThuat WHERE iID_MaLoaiTACN=@iID_MaLoaiTACN";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaLoaiTACN", iID_MaLoaiTACN);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return vR;
+        }
+
+        public static DataTable Get_ThongTinChiTieuAnToan_KyThuat_Detail(int iID_MaHangHoaATKT)
+        {
+            DataTable vR;
+
+            string SQL = "SELECT * FROM CNN25_HangHoa_AnToan_KyThuat WHERE iID_MaHangHoaATKT=@iID_MaHangHoaATKT";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoaATKT", iID_MaHangHoaATKT);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return vR;
+        }
+
         public static GiayChungNhanHopQuyModels GetChungNhanHopQuy(long iID_MaHangHoa)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
@@ -149,18 +175,6 @@ namespace DATA0200025
             }
         }
 
-        public static void Update_ResetbChon(string iID_MaHangHoa)
-        {
-            string SQL = "Update CNN25_HangHoa_AnToan_KyThuat SET bChon=0,sGhiChu='' WHERE iID_MaHangHoa=@iID_MaHangHoa";
-            SqlCommand cmd = new SqlCommand(SQL);
-            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
-            Connection.UpdateDatabase(cmd);
-            cmd.CommandText= "Update CNN25_HangHoa_AnToan SET bChon=0,sGhiChu='' WHERE iID_MaHangHoa=@iID_MaHangHoa";
-            Connection.UpdateDatabase(cmd);
-            cmd.CommandText = "Update CNN25_HangHoa_ChatLuong SET bChon=0,sGhiChu='' WHERE iID_MaHangHoa=@iID_MaHangHoa";
-            Connection.UpdateDatabase(cmd);
-            cmd.Dispose();
-        }
         public static void UpdateNguoiXem(string iID_MaHangHoa, string MaND)
         {
             string SQL = "UPDATE CNN25_HangHoa SET sTenNguoiXem=@sTenNguoiXem,sUserNguoiXem=@sUserNguoiXem WHERE iID_MaHangHoa=@iID_MaHangHoa AND (sUserNguoiXem IS NULL OR sUserNguoiXem='')";

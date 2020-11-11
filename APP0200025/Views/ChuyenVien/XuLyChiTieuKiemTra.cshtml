@@ -15,7 +15,7 @@
     string ParentID = "Edit";
 
 }
-@using (Ajax.BeginForm("XuLyChiTieuSubmit", "ChuyenVien", new AjaxOptions{OnSuccess = "OnSuccessXuLyChiTieu",OnBegin = "OnBeginXuLyChiTieu"}, new { id = "formXuLyChiTieu", enctype = "multipart/form-data" }))
+@using (Ajax.BeginForm("XuLyChiTieuSubmit", "ChuyenVien", new AjaxOptions{OnSuccess = "OnSuccessXuLyChiTieu",OnBegin = "OnBeginXuLyChiTieu"}, new { id = "formXuLyChiTieu", enctype = "multipart/form-data", @class = "form-horizontal" }))
 {
     <script type="text/javascript">
         function OnBeginXuLyChiTieu() {
@@ -46,8 +46,40 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Thoát</button>
-                <button type="submit" class="btn btn-primary" id="btnTuChoi">Cập nhật</button>
+                <button type="button" class="btn btn-primary" id="btnXuLyChiTieuKiemTra">Cập nhật</button>
             </div>
         </div>
     </div>
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#formXuLyChiTieu').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                BS_sNoiDung: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Bạn cần nhập lý do hoặc ý kiến'
+                        }
+                    }
+                },
+                fileUpload: {
+                    validators: {
+                        file: {
+                            extension: 'jpg,jpeg,png,pdf,tif',
+                            type: 'image/gif,image/jpeg,image/png,application/pdf',
+                            maxSize: 2048 * 1024,
+                            message: 'File chưa đúng định dạng!'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>

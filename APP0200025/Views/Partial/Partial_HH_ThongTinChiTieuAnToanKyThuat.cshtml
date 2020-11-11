@@ -6,7 +6,7 @@
 @model HangHoaModels
 @{
     Layout = null;
-    DataTable dt = clHangHoa.Get_ThongTinChiTieuAnToanKyThuat(Model.iID_MaHangHoa);
+    DataTable dt = clHangHoa.Get_ThongTinChiTieuAnToan_KyThuat_DanhMuc(Model.iID_MaLoai);
     int rc = dt.Rows.Count;
     DataRow r;
     string ParentID = "ATKT";
@@ -22,7 +22,7 @@
                     <table class="table table-bordered table-hover table-striped">
                         <tr>
                             <th style="width: 3%; text-align: center;">STT</th>
-                            <th>Chọn</th>
+                            <th style="width: 5%; ">Chọn</th>
                             <th style="width: 20%; text-align: center;">Tên chỉ tiêu an toàn</th>
                             <th style="width: 20%; text-align: center;">Hình thức công bố</th>
                             <th style="width: 15%; text-align: center;">Hàm lượng</th>
@@ -50,7 +50,7 @@
                                         <td align="center">@r["sHinhThuc"]</td>
                                         <td align="center">@r["sHamLuong"]</td>
                                         <td align="center">@r["sDonViTinh"]</td>
-                                        <td>@MvcHtmlString.Create(MyHtmlHelper.TextBox(string.Format("{0}{1}", ParentID, r["iID_MaHangHoaATKT"]), r["sGhiChu"], "sGhiChu", "", "type=\"text\" class=\"form-control\""))</td>
+                                        <td>@MvcHtmlString.Create(MyHtmlHelper.TextBox(string.Format("{0}{1}", ParentID, r["iID_MaHangHoaATKT"]), "", "sGhiChu", "", "type=\"text\" class=\"form-control\""))</td>
                                     </tr>
                                 }
                             }

@@ -23,11 +23,11 @@
 <table class="table table-bordered table-hover table-striped dataTable">
     <thead>
         <tr>
-            <th style="width: 5%; text-align: center">STT</th>
+            <th style="width: 3%; text-align: center">STT</th>
             <th>Tên TACN</th>
-            <th style="width: 15%;">Nhóm TACN</th>
-            <th style="width: 15%;">Loại TACN</th>
-            <th style="width: 10%;">Mã công nhận TACN</th>
+            <th style="width: 20%;">Nhóm TACN</th>
+            <th style="width: 20%;">Loại TACN</th>
+            <th style="width: 15%;">Mã công nhận TACN</th>
             <th style="width: 5%; text-align: center">Xử lý</th>
         </tr>
     </thead>
@@ -39,11 +39,14 @@
                 {
                     r = dt.Rows[i];
 
+                    String sTenNhomTACN = clDanhMuc.Get_Name_DanhMuc("NHOMTACN", Convert.ToString(r["iID_MaNhom"]));
+                    String sTenLoaiTACN = clDanhMuc.Get_Name_DanhMuc("LOAITACN", Convert.ToString(r["iID_MaLoai"]));
+
                     <tr>
                         <td align="center">@(i+1)</td>
                         <td>@r["sTenHangHoa"]</td>
-                        <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ddlNhomTACN, r["iID_MaNhom"], "iID_MaNhom"))</td>
-                        <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ddlLoaiTACN, r["iID_MaLoai"], "iID_MaLoai"))</td>
+                        <td>@MvcHtmlString.Create(sTenNhomTACN.ToString())</td>
+                        <td>@MvcHtmlString.Create(sTenLoaiTACN.ToString())</td>
                         <td>@r["sMaSoCongNhan"]</td>
                         <td align="center">
                             <a class="openXuLyChiTieu" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#XuLyChiTieu">

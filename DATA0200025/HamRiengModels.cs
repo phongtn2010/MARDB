@@ -97,13 +97,14 @@ namespace DATA0200025
             table.Columns.Add("ID", typeof(int));
             table.Columns.Add("NAME", typeof(string));
 
+            table.Rows.Add(0, "Không có");
             table.Rows.Add(1, "<");
             table.Rows.Add(2, ">");
             table.Rows.Add(3, "=");
             table.Rows.Add(4, "<=");
             table.Rows.Add(5, ">=");
             table.Rows.Add(6, "min - max");
-
+            
             return table;
         }
         public static String Get_Name_HinhThucCongBo(int iMa)
