@@ -1,9 +1,11 @@
 ﻿$(function () {
     $("body").on("click", "#btnBoSungYeuCau", function () {    
-        var formData = new FormData($("#formYeuCau")[0]);
-            //var OrderService = $("#OrderService").val();
+        var bootstrapValidator = $("#formTuChoi").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if (bootstrapValidator.isValid()) {
+            var formData = new FormData($("#formYeuCau")[0]);
             $.ajax({
-                url: '/ChoXuLyKetQua/YeuCauBoSungSubmit',
+                url: ServerUrl + '/ChoXuLyKetQua/YeuCauBoSungSubmit',
                 type: 'POST',
                 data: formData,
                 async: false,
@@ -12,18 +14,23 @@
                 enctype: 'multipart/form-data',
                 processData: false,
                 success: function (response) {
-                    $('#responsive').modal('toggle');
+                    $('#YeuCauBoSung').modal('toggle');
                     if (response.success) {
+                        showToast_Success();
                         location.href = response.value;
+                    }
+                    else {
+                        showToast_Error();
                     }
                 },
                 error: function (response) {
-                    
-                    $('#responsive').modal('toggle');
+                    $('#YeuCauBoSung').modal('toggle');
+                    showToast_Error();
                 }
-
             });
             return false;
+        }
+        else return;
     });
 });
 
