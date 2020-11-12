@@ -16,7 +16,7 @@
 <script src="@(Url.Content("~/Content/plugins/jquery.wordexport/jquery.wordexport.js"))"></script>
 <section>
     <div class="box-body">
-        <div id="divWord" class="row" style="width: 854px; height: auto; padding: 30px 40px; border: solid 2px #000000; margin-left: 150px;">
+        <div id="divWord" class="row" style="margin: auto; width: 854px; padding: 30px 40px; border: solid 2px #000000;">
             <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
                 <tr>
                     <td align="center" valign="top" style="width: 40%;">
@@ -141,22 +141,22 @@
         </div>
 
         @*<div class="row">
-                <div class="col-sm-12 text-center">
+            <div class="col-sm-12 text-center">
 
-                    <a class="word-export" href="#">Click me</a>
+                <a class="word-export" href="#">Click me</a>
 
-                    @if (Model.iID_MaTrangThai == 34)
-                    {
-                        <button class="btn btn-danger" data-id="@Model.iID_MaHangHoa" id="btnThuHoi">Thu hồi </button>
-                    }
-                    else
-                    {
-                        <a class="btn" style="background-color:#10de79;color:white;margin-right:5px;" href="@Url.Action("SoanThongBaoKetQua","ChoXuLyKetQua",new {iID_MaHangHoa=Model.iID_MaHangHoa })">Soạn thông báo kết quả kiểm tra</a>
-                        <a class="btn openyeucaubosung" style="background-color:#f1bc10;color:white;margin-right: 5px;" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
-                        <a class="btn" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
-                    }
-                </div>
-            </div>*@
+                @if (Model.iID_MaTrangThai == 34)
+                {
+                    <button class="btn btn-danger" data-id="@Model.iID_MaHangHoa" id="btnThuHoi">Thu hồi </button>
+                }
+                else
+                {
+                    <a class="btn" style="background-color:#10de79;color:white;margin-right:5px;" href="@Url.Action("SoanThongBaoKetQua","ChoXuLyKetQua",new {iID_MaHangHoa=Model.iID_MaHangHoa })">Soạn thông báo kết quả kiểm tra</a>
+                    <a class="btn openyeucaubosung" style="background-color:#f1bc10;color:white;margin-right: 5px;" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
+                    <a class="btn" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
+                }
+            </div>
+        </div>*@
     </div>
 </section>
 <script type="text/javascript">

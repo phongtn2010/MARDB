@@ -32,8 +32,24 @@ namespace APP0200025.Controllers
                     LoaiDanhSach = 50
                 };
             }
+
+            ViewData["menu"] = 244;
             return View(models);
         }
+        public ActionResult Detail(string iID_MaHoSo)
+        {
+            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            //{
+            //    return RedirectToAction("Index", "PermitionMessage");
+            //}
+            clHangHoa.UpdateNguoiXem(iID_MaHoSo, User.Identity.Name);
+
+            HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
+
+            ViewData["menu"] = 244;
+            return View(models);
+        }
+
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ThongTinHoangHoa(string iID_MaHoSo)
         {

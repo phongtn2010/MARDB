@@ -183,8 +183,8 @@
                                             r = dt.Rows[i];
 
                                             String strSoanPhuLuc = MyHtmlHelper.ActionLink(Url.Action("ThongTinHoangHoa", "ToChucChiDinh", new { iID_MaHoSo = r["iID_MaHoSo"], sMaHoSo = r["sMaHoSo"], sSoTiepNhan = r["sSoTiepNhan"] }), "<span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
-                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "ChoTiepNhanHoSo", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-pencil'></i></span>", "Edit", "");
+                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ToChucChiDinh", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
+                                            
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
                                                 <td>@r["sMaHoSo"]</td>
@@ -205,17 +205,10 @@
                                                 <td>@r["sTenTACN"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
                                                 <td class="head-td-icon">
-                                                    @*@if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
-                                                        {
-                                                            @MvcHtmlString.Create(strView)
-                                                        }*@
                                                     @MvcHtmlString.Create(strView)
                                                 </td>
                                                 <td class="head-td-icon">
                                                     @MvcHtmlString.Create(strSoanPhuLuc)
-                                                    @*<a class="strSoanPhuLuc" onclick="GetDsHangHoa(@r["iID_MaHoSo"],'@r["sMaHoSo"]','@r["sSoTiepNhan"]')" data-toggle="modal" href="#HangHoa">
-                                                            <span class='badge bg-blue'><i class='fa fa-pencil'></i></span>
-                                                        </a>*@
                                                 </td>
                                             </tr>
                                         }

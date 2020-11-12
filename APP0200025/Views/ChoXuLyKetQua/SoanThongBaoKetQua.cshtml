@@ -16,369 +16,154 @@
     HoSoModels hoSo = clHoSo.GetHoSoById(Model.iID_MaHoSo);
 }
 
-
+<script src="@(Url.Content("~/Content/plugins/jquery.wordexport/FileSaver.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/jquery.wordexport/jquery.wordexport.js"))"></script>
 <section class="content">
     @using (Html.BeginForm("EditSubmit", "ChoXuLyKetQua", new { ParentID = ParentID }))
     {
-        <input type="hidden" id="Edit_iID_MaHangHoa" name="Edit_iID_MaHangHoa" value="@Model.iID_MaHangHoa"/>
+        <input type="hidden" id="Edit_iID_MaHangHoa" name="Edit_iID_MaHangHoa" value="@Model.iID_MaHangHoa" />
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-danger">
                     <div class="box-header  with-border">
-                        <h3 class="box-title">Soạn thông báo kết quả</h3>
+                        <h3 class="box-title text-uppercase">Soạn thông báo kết quả - mã hồ sơ: @Model.sMaHoSo</h3>
                         <div class="box-tools pull-right">
                             <button class="btn btn-box-tool" type="button" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             <button class="btn btn-box-tool" type="button" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                        <div class="form-group">
-                            <div class="col-xs-2 text-align-center">
-                                BỘ NÔNG NGHIỆP<br />
-                                VÀ PHÁT TRIỂN NÔNG THÔN<br />
-                                CỤC CHĂN NUÔI<br />
-                                Số:               /TB-CN
-                            </div>
-                            <div class="col-xs-8">
-                            </div>
-                            <div class="col-xs-2  text-align-center">
-                                CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM<br />
-                                Độc lập - Tự do - Hạnh phúc<br />
-                                Hà Nội, ngày        tháng       năm<br />
-                            </div>
+                        <div id="divWord" class="row" style="margin: auto; width: 854px; padding: 30px 40px; border: solid 2px #000000;">
+                            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                                <tr>
+                                    <td align="center" valign="top" style="width: 40%;">
+                                        <p style="margin: 0; padding: 5px 0px;">BỘ NÔNG NGHIỆP</p>
+                                        <p style="margin: 0; padding: 5px 0px;">VÀ PHÁT TRIỂN NÔNG THÔN</p>
+                                        <p style="margin: 0; padding: 5px 0px;"><u><b>CỤC CHĂN NUÔI</b></u></p>
+                                    </td>
+                                    <td align="center" valign="top" style="width: 60%;">
+                                        <p style="margin: 0; padding: 5px 0px;"><b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</b></p>
+                                        <p style="margin: 0; padding: 5px 0px;"><u><b>Độc lập - Tự do - Hạnh phúc</b></u></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding: 10px 0px;">
+                                        <p>Số:            /TB-CN</p>
+                                    </td>
+                                    <td align="center" style="padding: 10px 0px;">
+                                        <p>Hà Nội, ngày ... tháng ... năm .....</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2" style="padding: 10px 0px;"><p style="font-size: 16px;"><b>THÔNG BÁO</b></p></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2" style="padding: 6px 0px;"><p><u><b>Kết quả kiểm tra nhà nước về chất lượng thức ăn chăn nuôi nhập khẩu</b></u></p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>1. Thông tin của lô TACN được kiểm tra</b></p></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" valign="top" style="padding: 5px 0px;">
+                                        <table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+                                            <tr style="height: 35px;">
+                                                <td align="center" style="width: 5%;"><b>STT</b></td>
+                                                <td align="center"><b>Tên TACN</b></td>
+                                                <td align="center" style="width: 10%;"><b>Mã số công nhận</b></td>
+                                                <td align="center" style="width: 15%;"><b>Hãng sản xuất</b></td>
+                                                <td align="center" style="width: 15%;"><b>Nước sản xuất</b></td>
+                                                <td align="center" style="width: 15%;"><b>Khối lượng</b></td>
+                                                <td align="center" style="width: 15%;"><b>Số lượng</b></td>
+                                                <td align="center" style="width: 10%;"><b>Ghi chú</b></td>
+                                            </tr>
+                                            <tr style="height: 25px;">
+                                                <td align="center">1</td>
+                                                <td align="left">@Model.sTenHangHoa</td>
+                                                <td align="left">@Model.sMaSoCongNhan</td>
+                                                <td align="left">@Model.sHangSanXuat</td>
+                                                <td align="left">@Model.sTenQuocGia</td>
+                                                <td align="left">1300 KLGRM; 2300 KLGRM</td>
+                                                <td align="left">3 Kiện/Hộp/Bao</td>
+                                                <td align="left">@Model.sGhiChu</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Cửa khẩu nhập: @hoSo.sMua_NoiNhan</p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Thời gian nhập khẩu <i>(tháng, năm)</i>: @hoSo.sMua_FromDate-@hoSo.sMua_ToDate</p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Thuộc lô hàng có các chứng từ sau: </p></td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" colspan="2" style="padding: 5px 0px;">
+                                        @{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_FileHopDong.cshtml", hoSo);}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" colspan="2" style="padding: 5px 0px;">
+                                        @{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_FileHoaDon.cshtml", hoSo);}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Giấy đăng ký kiểm tra xác nhận chất lượng số:  @hoSo.sSoGDK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ngày: @string.Format("{0:dd/MM/yyyy}", hoSo.dNgayXacNhan)</p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Tên tổ chức nhập khẩu: @hoSo.sTenDoanhNghiep</p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Địa chỉ: @hoSo.sMua_DiaChi</p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>2. Căn cứ kiểm tra</b></p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Tiêu chuẩn công bố áp dụng (số hiệu TCCS): TCCS1????</p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Quy chuẩn kỹ thuật <i>(nhóm, loại hàng hóa tại QCVN 01-190/BNNPTNT)</i>: Thức ăn truyền thống cám tại QCVN 01-190/BNNPTNT</p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>3. Kết quả đánh giá sự phù hợp</b></p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Giấy chứng nhận hợp quy lô TACN nhập khẩu số: 03432429/2020/CN</p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Do: Tổ chức chứng nhận VCNET</p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Cấp ngày: 20/11/2020</p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>4. Kết quả kiểm tra nhà nước</b></p></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>Lô hàng đáp ứng yêu cầu chất lượng hàng hóa nhập khẩu./.</b></p></td>
+                                </tr>
+                            </table>
                         </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;<br />
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12 text-align-center">
-                                THÔNG BÁO<br />
-                                Kết quả kiểm tra nhà nước về chất lượng thức ăn chăn nuôi nhập khẩu
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-10">
-                                    <b> 1. Thông tin của lô TACN được kiểm tra</b>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-10">
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td class="text-align-center">STT</td>
-                                            <td class="text-align-center">Tên TACN </td>
-                                            <td class="text-align-center">Mã số công nhận  </td>
-                                            <td class="text-align-center">Hãng sản xuất </td>
-                                            <td class="text-align-center">Nước sản xuất </td>
-                                            <td class="text-align-center">Khối lượng </td>
-                                            <td class="text-align-center">Số lượng </td>
-                                            <td class="text-align-center">Ghi chú </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>@Model.sTenHangHoa</td>
-                                            <td>@Model.sMaSoCongNhan</td>
-                                            <td>@Model.sHangSanXuat</td>
-                                            <td>@Model.sTenQuocGia</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sGhiChu, "sGhiChu", "", "type=\"text\" placeholder=\"Ghi chú\" class=\"form-control\""))
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;<br />
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-1">
-                                    Cửa khẩu nhập
-                                </div>
-                                <div class="col-xs-2">
-                                    @hoSo.sMua_NoiNhan
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-1">
-                                    Thời gian nhập khẩu
-                                </div>
-                                <div class="col-xs-2">
-                                    @hoSo.sMua_FromDate-@hoSo.sMua_ToDate
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-11">
-                                    Thuộc lô hàng có chứng từ sau:
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-9">
-
-                                    @{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_FileHopDong.cshtml", hoSo);}
-
-                                    @{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_FileHoaDon.cshtml", hoSo);}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-2">
-                                    Giấy đăng ký kiểm tra xác nhận chất lượng số
-                                </div>
-                                <div class="col-xs-1">
-                                    @hoSo.sSoGDK
-                                </div>
-                                <div class="col-xs-1">
-                                    Ngày
-                                </div>
-                                <div class="col-xs-6">
-
-                                    @string.Format("{0:dd/MM/yyyy}", hoSo.dNgayXacNhan)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-2">
-                                    Tên tổ chức nhập khẩu
-                                </div>
-                                <div class="col-xs-8">
-                                    @hoSo.sTenDoanhNghiep
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-2">
-                                    Địa chỉ
-                                </div>
-                                <div class="col-xs-8">
-                                    @hoSo.sMua_DiaChi
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-1">
-                                    <b>2. Căn cứ kiểm tra</b>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-2">
-                                    Tiêu chuẩn công bố áp dụng
-                                </div>
-                                <div class="col-xs-8">
-                                    TCCS1????
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-2">
-                                    Quy chuẩn kỹ thuật
-                                </div>
-                                <div class="col-xs-8">
-                                    Thức ăn truyền thống, cám tại QCVN 01-190/BNNPTNT ????/
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-10">
-                                    <b>3. Kết quả đánh giá sự phù hợp</b>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-2">
-                                    Giấy chứng nhận hợp quy lô TACN nhập khẩu số
-                                </div>
-                                <div class="col-xs-8">
-                                    0001/2020/CN
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-2">
-                                    Do
-                                </div>
-                                <div class="col-xs-8">
-                                    Tổ chức chỉ định VCNET
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-2">
-                                    Cấp ngày
-                                </div>
-                                <div class="col-xs-8">
-                                    20/10/2019
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-10">
-                                    <b>4. Kết quả kiểm tra nhà nước:</b>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="col-xs-1">
-                                </div>
-                                <div class="col-xs-10">
-                                    Lô hàng đáp ứng yêu cầu chất lượng hàng hóa nhập khẩu./.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 text-center">
-                            <div class="col-xs-3">
-                                <button class="btn btn-primary" type="submit">Lưu</button>&nbsp;&nbsp;
-                            </div>
-                            <div class="col-xs-3">
-                                <button class="btn btn-success" type="button" data-id="@Model.iID_MaHangHoa" id="btnTrinhLanhDao">Trình lãnh đạo</button>&nbsp;&nbsp;
-                            </div>
-                            <div class="col-xs-3">
-                                <button class="btn btn-danger" type="button" id="btnThoat">Thoát</button>&nbsp;&nbsp;
-                            </div>
-                            
-                            
-                           
-                        </div>
+                    </div>
+                    <div class="box-footer clearfix text-center">
+                        <button class="btn btn-primary" type="submit">Lưu</button>
+                        <a class="btn btn-primary btnXuatWord" data-id="@Model.iID_MaHangHoa">Xuất word</a>
+                        <button class="btn btn-success" type="button" data-id="@Model.iID_MaHangHoa" id="btnTrinhLanhDao">Trình lãnh đạo</button>
+                        <button class="btn btn-danger" type="button" id="btnThoat">Thoát</button>
                     </div>
                 </div>
             </div>
         </div>
     }
-    </section>
-<script src="~/ScriptsERP/jsChoXuLyKetQua.js"></script>
+</section>
+<script src="@Url.Content("~/ScriptsERP/jsChoXuLyKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $("a.btnXuatWord").click(function (event) {
+            $("#divWord").wordExport();
+        });
+    });
+</script>
 

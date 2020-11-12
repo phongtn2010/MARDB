@@ -2906,6 +2906,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\LanhDaoPhong\HoSoChoXemXet.cshtml" />
     <Content Include="Views\Partial\Partial_HoSoXinCapXNCL.cshtml" />
+    <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
     <Content Include="WebServices\Mard26Service.asmx" />
     <Content Include="WebServices\MardService.asmx" />
     <Content Include="XML\en.gif" />
@@ -3076,11 +3077,9 @@
     <Content Include="Views\ChoXuLyKetQua\Partial_HangHoa.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_Model_YeuCauBoSung.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\SoanThongBaoKetQua.cshtml" />
-    <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
     <Content Include="Views\Partial\Partial_HH_LichSuHoSo.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_FileHopDong.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_FileHoaDon.cshtml" />
-    <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Index.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Detail.cshtml" />
@@ -3117,6 +3116,7 @@
     <Content Include="Views\TraCuuHangHoa\Detail.cshtml" />
     <Content Include="Views\TraCuuHangHoa\Index.cshtml" />
     <Content Include="Views\Partial\Partial_XNCL_ThongBaoKetQua.cshtml" />
+    <Content Include="Views\ToChucChiDinh\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

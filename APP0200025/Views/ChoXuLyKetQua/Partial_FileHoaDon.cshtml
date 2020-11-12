@@ -19,10 +19,10 @@
 <fieldset class="scheduler-border">
     <legend class="scheduler-border">Thông tin hoa đơn</legend>
     <div class="control-group">
-        <table id="tblListData" class="table table-bordered table-hover table-striped">
+        <table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
             <tr>
                 <th style="width: 3%; text-align: center;">STT</th>
-                <th style="width: 30%; text-align: center;">Hóa đơn mua bán số</th>
+                <th style="text-align: center;">Hóa đơn mua bán số</th>
                 <th style="width: 30%; text-align: center;">Ngày hóa đơn</th>
             </tr>
             @foreach (var item in lstFile)
@@ -30,12 +30,10 @@
                 i++;
                 <tr>
                     <td style="text-align: center;">@i</td>
-                    <td>@item.sTenLoaiFile</td>
-                    <td>@item.sHopDong , @string.Format("{0:dd/MM/yyyy}", item.dNgayHopDong)</td>
+                    <td align="left">@item.sTenLoaiFile</td>
+                    <td align="left">@item.sHopDong , @string.Format("{0:dd/MM/yyyy}", item.dNgayHopDong)</td>
                 </tr>
             }
-
-
         </table>
     </div>
 </fieldset>
