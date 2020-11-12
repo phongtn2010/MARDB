@@ -254,7 +254,6 @@
     <Compile Include="Controllers\ChoXemXetKetQuaController.cs" />
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="Controllers\HoSoController.cs" />
-    <Compile Include="Controllers\LanhDaoPhongXNCLController.cs" />
     <Compile Include="Controllers\MienGiamController.cs" />
     <Compile Include="Controllers\TraCuuHangHoaController.cs" />
     <Compile Include="Controllers\TraCuuHoSoController.cs" />
@@ -3115,8 +3114,6 @@
     <Content Include="Views\TraCuuHangHoa\Index.cshtml" />
     <Content Include="Views\Partial\Partial_XNCL_ThongBaoKetQua.cshtml" />
     <Content Include="Views\ToChucChiDinh\Detail.cshtml" />
-    <Content Include="Views\LanhDaoPhongXNCL\Index.cshtml" />
-    <Content Include="Views\LanhDaoPhongXNCL\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

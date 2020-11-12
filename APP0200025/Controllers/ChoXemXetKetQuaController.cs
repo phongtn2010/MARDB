@@ -37,7 +37,7 @@ namespace APP0200025.Controllers
             //}
             clHangHoa.UpdateNguoiXem(iID_MaHangHoa, User.Identity.Name);
             ViewData["DuLieuMoi"] = "0";
-            ViewData["smenu"] = 187;
+            ViewData["smenu"] = 208;
             HangHoaModels models = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
 
             return View(models);
