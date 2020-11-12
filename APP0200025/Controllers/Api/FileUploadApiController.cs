@@ -1,4 +1,5 @@
 ﻿using DATA0200025;
+using DomainModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,12 @@ namespace APP0200025.Controllers.Api
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-            string rootPath = HttpContext.Current.Server.MapPath("~/Files");
+            string sPath = "/Uploads/Files";
+            string guid = Guid.NewGuid().ToString();
+            DateTime TG = DateTime.Now;
+            string subPath = TG.ToString("yyyy/MM/dd");
+            string newPath = string.Format("{0}/{1}", sPath, subPath);
+            string rootPath = HttpContext.Current.Server.MapPath("~" + newPath);
             if (!Directory.Exists(rootPath))
                 Directory.CreateDirectory(rootPath);
             var pathProvider = new MultipartFileStreamProvider(rootPath);
@@ -42,7 +48,8 @@ namespace APP0200025.Controllers.Api
                             string newFileName = Guid.NewGuid() + Path.GetExtension(fileName);
                             File.Move(item.LocalFileName, Path.Combine(rootPath, newFileName));
                             Uri baseuri = new Uri(Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.PathAndQuery, string.Empty));
-                            string fileRelativePath = "~/Files/" + newFileName;
+
+                            string fileRelativePath = "~" + newPath + "/" + newFileName;
                             Uri fileFullPath = new Uri(baseuri, VirtualPathUtility.ToAbsolute(fileRelativePath));
 
                             //Them File vao Bang DinhKem

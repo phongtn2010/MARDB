@@ -191,6 +191,7 @@ namespace APP0200025.Controllers
                     string subName = TG.ToString("HHmmssfff") + "_" + guid;
                     string newPath = string.Format("{0}/{1}", sPath, subPath);
                     CImage.CreateDirectory(Server.MapPath("~" + newPath));
+
                     sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
                     string filePath = Server.MapPath("~" + sFileTemp);
                     postedFile.SaveAs(filePath);
