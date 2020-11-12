@@ -45,18 +45,27 @@ namespace APP0200025.Controllers.Api
                         try
                         {
                             string fileName = item.Headers.ContentDisposition.FileName.Replace("\"", "");
-                            string newFileName = Guid.NewGuid() + Path.GetExtension(fileName);
-                            File.Move(item.LocalFileName, Path.Combine(rootPath, newFileName));
-                            Uri baseuri = new Uri(Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.PathAndQuery, string.Empty));
+                            string ext = Path.GetExtension(fileName);
 
-                            string fileRelativePath = "~" + newPath + "/" + newFileName;
-                            Uri fileFullPath = new Uri(baseuri, VirtualPathUtility.ToAbsolute(fileRelativePath));
+                            if (CommonFunction.FileUploadCheck_Api(ext))
+                            {
+                                string newFileName = Guid.NewGuid() + Path.GetExtension(fileName);
+                                File.Move(item.LocalFileName, Path.Combine(rootPath, newFileName));
+                                Uri baseuri = new Uri(Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.PathAndQuery, string.Empty));
 
-                            //Them File vao Bang DinhKem
-                            long iID_MaFile = CDinhKem.ThemDinhKem(0, 0, 0, "", "", "", fileName, "", null, 1, fileFullPath.ToString(), "doanhnghiep", "");
+                                string fileRelativePath = "~" + newPath + "/" + newFileName;
+                                Uri fileFullPath = new Uri(baseuri, VirtualPathUtility.ToAbsolute(fileRelativePath));
 
-                            //Gui lai thong tin ID và duong dan cho nsw
-                            savedFilePath.Add(new ResUpLoadFile { ItemId= iID_MaFile, UrlFile = fileFullPath.ToString() });
+                                //Them File vao Bang DinhKem
+                                long iID_MaFile = CDinhKem.ThemDinhKem(0, 0, 0, "", "", "", fileName, "", null, 1, fileFullPath.ToString(), "doanhnghiep", "");
+
+                                //Gui lai thong tin ID và duong dan cho nsw
+                                savedFilePath.Add(new ResUpLoadFile { ItemId = iID_MaFile, UrlFile = fileFullPath.ToString() });
+                            }
+                            else
+                            {
+                                savedFilePath.Add(new ResUpLoadFile { ItemId = -1, UrlFile = "Upload File Error: Không đúng định dạng file!" });
+                            }
 
                             i++;
                         }
