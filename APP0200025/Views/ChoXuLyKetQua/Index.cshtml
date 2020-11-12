@@ -226,12 +226,9 @@
                                             {
                                                 bThuHoi = true;
                                             }
-                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "ChoXuLyKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
+                                            
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoXuLyKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "ChoXuLyKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "ChoXuLyKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
-                                            String strSoanPhuLuc = MyHtmlHelper.ActionLink(Url.Action("SoanThongBaoKetQua", "ChoXuLyKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
-
+                                            String strSoanPhuLuc = MyHtmlHelper.ActionLink(Url.Action("SoanThongBaoKetQua", "ChoXuLyKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
 
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
@@ -253,15 +250,15 @@
                                                 <td class="head-td-icon">
                                                     @if (!bThuHoi)
                                                     {
-                                                        <a class="openyeucaubosung" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#YeuCauBoSung">
-                                                            <span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>
+                                                        <a class="openyeucaubosung" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#YeuCauBoSung">
+                                                            <span class='badge bg-yellow'><i class='fa fa-fw fa-plus'></i></span>
                                                         </a>
                                                     }
                                                 </td>
                                                 <td class="head-td-icon">
                                                     @if (bThuHoi)
                                                     {
-                                                        <a class="openthuhoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#ThuHoi">
+                                                        <a data-id="@r["iID_MaHangHoa"]" id="btnThuHoi">
                                                             <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
                                                         </a>
                                                     }
@@ -286,7 +283,7 @@
     </div><!-- /.row -->
 </section><!-- /.content -->
 @{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_Model_YeuCauBoSung.cshtml");}
-
+@{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_Model_ThuHoi.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsChoXuLyKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
 
 <script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>

@@ -32,24 +32,37 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoSo);}
-                        <form action="@Url.Action("ThuHoiSubmit", "ChoXuLyKetQua", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
-                            @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa);
-                            <div class="box-footer clearfix text-center">
-                                 <button class="btn btn-primary btn-sm" type="button">Xuất word</button>
-                            </div>
-                        </form>
+                        @*<form action="@Url.Action("ThuHoiSubmit", "ChoXuLyKetQua", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+                                @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
+                                @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa);
+                                <div class="box-footer clearfix text-center">
+                                    <button class="btn btn-primary btn-sm" type="button">Xuất word</button>
+                                </div>
+                            </form>*@
+                        <div class="box-footer clearfix text-center">
+                            <a class="btn btn-primary btnXuatWord" data-id="@Model.iID_MaHangHoa">Xuất word</a>&nbsp;&nbsp;
+                            <a class="btn" style="background-color:#023658; color:white;" id="btnThoat">Thoát</a>
+                        </div>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
                         @{Html.RenderPartial("~/Views/Partial/Partial_HH_LichSuHoSo.cshtml", Model);}
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_3">
-                        @{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_Model_HoSoXinCapXNCL.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/Partial/Partial_HoSoXinCapXNCL.cshtml", Model);}
+                        <div class="box-footer clearfix text-center">
+                            <a class="btn btn-primary" href="@Url.Action("SoanThongBaoKetQua", "ChoXuLyKetQua", new { iID_MaHangHoa = Model.iID_MaHangHoa })">Soạn thông báo kết quả kiểm tra</a>&nbsp;&nbsp;
+                            <a class="btn btn-danger openyeucaubosung" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>&nbsp;&nbsp;
+                            <a class="btn" style="background-color:#023658; color:white;" id="btnThoat">Thoát</a>
+                        </div>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_4">
-                        @{Html.RenderPartial("~/Views/Partial/Partial_HH_LichSuHoSo.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/Partial/Partial_XNCL_ThongBaoKetQua.cshtml", Model);}
+                        <div class="box-footer clearfix text-center">
+                            <a class="btn btn-primary btnXuatWord" data-id="@Model.iID_MaHangHoa">Xuất word</a>&nbsp;&nbsp;
+                            <a class="btn btn-danger" data-id="@Model.iID_MaHangHoa" id="btnThuHoi">Thu hồi</a>&nbsp;&nbsp;
+                            <a class="btn" style="background-color:#023658; color:white;" id="btnThoat">Thoát</a>
+                        </div>
                     </div><!-- /.tab-pane -->
                 </div>
             </div>
@@ -57,4 +70,5 @@
     </div>
 </section>
 @{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_Model_YeuCauBoSung.cshtml");}
+@{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_Model_ThuHoi.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsChoXuLyKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
