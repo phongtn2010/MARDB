@@ -53,7 +53,7 @@
                         <div class="box-footer clearfix text-center">
                             <a class="btn btn-primary" href="@Url.Action("SoanThongBaoKetQua", "ChoXuLyKetQua", new { iID_MaHangHoa = Model.iID_MaHangHoa })">Soạn thông báo kết quả kiểm tra</a>&nbsp;&nbsp;
                             <a class="btn btn-danger openyeucaubosung" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>&nbsp;&nbsp;
-                            <a class="btn" style="background-color:#023658; color:white;" id="btnThoat">Thoát</a>
+                            <a class="btn" style="background-color:#023658; color:white;" data-id="@Model.iID_MaHangHoa" id="btnThoat">Thoát</a>
                         </div>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_4">
@@ -61,7 +61,7 @@
                         <div class="box-footer clearfix text-center">
                             <a class="btn btn-primary btnXuatWord" data-id="@Model.iID_MaHangHoa">Xuất word</a>&nbsp;&nbsp;
                             <a class="btn btn-danger" data-id="@Model.iID_MaHangHoa" id="btnThuHoi">Thu hồi</a>&nbsp;&nbsp;
-                            <a class="btn" style="background-color:#023658; color:white;" id="btnThoat">Thoát</a>
+                            <a class="btn" style="background-color:#023658; color:white;" data-id="@Model.iID_MaHangHoa" id="btnThoat">Thoát</a>
                         </div>
                     </div><!-- /.tab-pane -->
                 </div>

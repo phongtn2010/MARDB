@@ -139,6 +139,7 @@ namespace DATA0200025
             table.Rows.Add(7, "Giấy chứng nhận thực hành sản xuất tốt (GMP)");
             table.Rows.Add(8, "Giấy chứng nhận phân tích nguy cơ và kiểm soát điểm tới hạn (HACCP) hoặc giấy chứng nhận tương đương của cơ sở sản xuất đối với nguyên liệu đơn.");
             table.Rows.Add(9, "Tài liệu khác.");
+
             table.Rows.Add(20, "File từ chối hồ sơ chờ tiếp nhận BPMC.");
             table.Rows.Add(21, "File từ chối hồ sơ bổ sung BPMC.");
             table.Rows.Add(22, "File từ chối hồ sơ bổ sung Phòng TACN.");
@@ -161,7 +162,9 @@ namespace DATA0200025
             table.Rows.Add(71, "File phiếu kết quả phân tích Tổ chức chỉ định.");
 
             table.Rows.Add(60, "File từ chối hồ sơ Lãnh Đạo Phòng.");
+            table.Rows.Add(61, "File từ chối XNCL Lãnh Đạo Phòng.");
             table.Rows.Add(80, "File từ chối hồ sơ Lãnh Đạo Cục.");
+            table.Rows.Add(81, "File từ chối XNCL Lãnh Đạo Cục.");
 
             table.Rows.Add(90, "File Thu hồi giấy GDK.");
             table.Rows.Add(91, "File Thu hồi giấy XNCL.");

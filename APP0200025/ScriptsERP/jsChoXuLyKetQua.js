@@ -91,11 +91,11 @@ $(function () {
 
 $(function () {
     $("body").on("click", "#btnThoat", function () {
-        var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
+        var iID_MaHangHoa = $(this).data("id");
         $.ajax({
             url: ServerUrl + '/ChoXuLyKetQua/Thoat',
             type: 'POST',
-            data: { iID_MaHoSo: iID_MaHoSo },
+            data: { iID_MaHangHoa: iID_MaHangHoa },
             success: function (response) {
                 if (response.success) {
                     showToast_Success();
