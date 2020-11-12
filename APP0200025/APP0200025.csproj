@@ -3082,7 +3082,6 @@
     <Content Include="Views\ChoXemXetKetQua\Index.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Detail.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Partial_Model_TuChoi.cshtml" />
-    <Content Include="Views\ChoXemXetKetQua\Partial_ThongBaoKetQua.cshtml" />
     <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_Model_TuChoi_HH.cshtml" />
     <Content Include="Views\LanhDaoCuc\DetailHH.cshtml" />

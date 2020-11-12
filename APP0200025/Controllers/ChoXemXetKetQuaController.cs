@@ -45,34 +45,42 @@ namespace APP0200025.Controllers
             return View(models);
         }
         
-        
-        [Authorize, ValidateInput(false), HttpPost]
         public ActionResult DongY(string iID_MaHangHoa)
         {
-            HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
-            if (hanghoa.iID_MaTrangThai == 34 || hanghoa.iID_MaTrangThai == 35 || hanghoa.iID_MaTrangThai == 43)
+            if (String.IsNullOrEmpty(iID_MaHangHoa) == false)
             {
-                int HanhDong = (int)clHanhDong.HanhDong.DongYXemXetThongBaoKetQua;
-                if (hanghoa.iID_MaTrangThai == 34)
+                HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
+                if (hanghoa.iID_MaTrangThai == 34 || hanghoa.iID_MaTrangThai == 35 || hanghoa.iID_MaTrangThai == 43)
                 {
-                    HanhDong = (int)clHanhDong.HanhDong.DongYYeuCauBoSungKetQua;
+                    int HanhDong = (int)clHanhDong.HanhDong.DongYXemXetThongBaoKetQua;
+                    if (hanghoa.iID_MaTrangThai == 34)
+                    {
+                        HanhDong = (int)clHanhDong.HanhDong.DongYYeuCauBoSungKetQua;
+                    }
+                    TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
+
+                    bang.MaNguoiDungSua = User.Identity.Name;
+                    //bang.IPSua = Request.UserHostAddress;
+                    bang.DuLieuMoi = false;
+                    bang.GiaTriKhoa = iID_MaHangHoa;
+                    bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
+                    bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hanghoa.iID_MaTrangThai);
+                    bang.Save();
+                    
+                    clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, "Đồng ý", "", hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
                 }
-                TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
-                bang.MaNguoiDungSua = User.Identity.Name;
-                bang.IPSua = Request.UserHostAddress;
-                bang.DuLieuMoi = false;
-                bang.GiaTriKhoa = iID_MaHangHoa;
-                bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
-                bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
-                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hanghoa.iID_MaTrangThai);
-                bang.Save();
+
                 clHangHoa.CleanNguoiXem(iID_MaHangHoa);
-                clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, "Đồng ý", "", hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+
+                TempData["msg"] = "success";
             }
-            ResultModels result = new ResultModels { success = true };
-            result.value = Url.Action("Index");
-            return Json(result, JsonRequestBehavior.AllowGet);
+            else
+            {
+                TempData["msg"] = "error";
+            }
+            return RedirectToAction("Index");
         }
 
         [Authorize, ValidateInput(false), HttpPost]

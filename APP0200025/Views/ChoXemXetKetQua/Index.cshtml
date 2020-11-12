@@ -216,7 +216,7 @@
                                                 int iID_MaTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
 
                                                 String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                                String strThuHoi = MyHtmlHelper.ActionLink(Url.Action("ThuHoi", "ChoXemXetKetQua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-mail-reply-all''></i></span>", "Edit", "");
+                                                String strThuHoi = MyHtmlHelper.ActionLink(Url.Action("ThuHoi", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-red'><i class='fa fa-mail-reply-all''></i></span>", "Edit", "");
 
                                                 <tr>
                                                     <td style="text-align: center;">@r["rownum"]</td>
