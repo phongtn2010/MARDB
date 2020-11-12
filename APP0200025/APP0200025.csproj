@@ -3108,7 +3108,6 @@
     <Content Include="Views\BoPhanMotCua\MienGiam_DaDuyet_Detail.cshtml" />
     <Content Include="Views\BoPhanMotCua\MienGiam_DaTraKQ.cshtml" />
     <Content Include="Views\BoPhanMotCua\MienGiam_DaTraKQ_Detail.cshtml" />
-    <Content Include="Views\Test1\Index.cshtml" />
     <Content Include="Views\DaTraGDK\Partial_Model_ThuHoi.cshtml" />
     <Content Include="Views\ChoTiepNhanKetQuaGuiBoSung\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\TraCuuHoSo\Index.cshtml" />

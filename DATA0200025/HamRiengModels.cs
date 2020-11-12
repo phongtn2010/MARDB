@@ -157,6 +157,9 @@ namespace DATA0200025
             table.Rows.Add(50, "File bổ sung hồ sơ Chuyên Viên.");
             table.Rows.Add(51, "File bổ sung XNCL Chuyên Viên.");
 
+            table.Rows.Add(70, "File chứng nhận hợp quy Tổ chức chỉ định.");
+            table.Rows.Add(71, "File phiếu kết quả phân tích Tổ chức chỉ định.");
+
             table.Rows.Add(60, "File từ chối hồ sơ Lãnh Đạo Phòng.");
             table.Rows.Add(80, "File từ chối hồ sơ Lãnh Đạo Cục.");
 
