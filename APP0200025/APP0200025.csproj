@@ -254,6 +254,7 @@
     <Compile Include="Controllers\ChoXemXetKetQuaController.cs" />
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="Controllers\HoSoController.cs" />
+    <Compile Include="Controllers\LanhDaoPhongXNCLController.cs" />
     <Compile Include="Controllers\MienGiamController.cs" />
     <Compile Include="Controllers\TraCuuHangHoaController.cs" />
     <Compile Include="Controllers\TraCuuHoSoController.cs" />
@@ -2904,7 +2905,6 @@
     <Content Include="Scripts\MicrosoftAjax.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Views\LanhDaoPhong\HoSoChoXemXet.cshtml" />
     <Content Include="Views\Partial\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
     <Content Include="WebServices\Mard26Service.asmx" />
@@ -3030,7 +3030,6 @@
     <Content Include="Views\LanhDaoCuc\Index.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\LanhDaoPhong\Detail.cshtml" />
-    <Content Include="Views\LanhDaoPhong\HoSoXacNhanChatLuong.cshtml" />
     <Content Include="Views\LanhDaoPhong\Index.cshtml" />
     <Content Include="Views\LanhDaoPhong\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\ToChucChiDinh\Index.cshtml" />
@@ -3116,6 +3115,8 @@
     <Content Include="Views\TraCuuHangHoa\Index.cshtml" />
     <Content Include="Views\Partial\Partial_XNCL_ThongBaoKetQua.cshtml" />
     <Content Include="Views\ToChucChiDinh\Detail.cshtml" />
+    <Content Include="Views\LanhDaoPhongXNCL\Index.cshtml" />
+    <Content Include="Views\LanhDaoPhongXNCL\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
