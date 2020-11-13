@@ -103,12 +103,12 @@
                     <p class="login-box-msg" style="padding-bottom: 5px;"><b>ĐĂNG NHẬP HỆ THỐNG</b></p>
                     @Html.ValidationSummary(true)
                     <div class="form-group has-feedback">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sUserName", "", " placeholder=\"UserName\" type=\"text\" class=\"form-control\""))
+                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sUserName", "", " placeholder=\"Tên đăng nhập\" type=\"text\" class=\"form-control\""))
                         @Html.ValidationMessage(ParentID + "_" + "err_sUserName")
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sPassword", "", " placeholder=\"" + Lang["Login_Item04"].ToString() + "\" type=\"password\" class=\"form-control\""))
+                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sPassword", "", " placeholder=\"Mật khẩu\" type=\"password\" class=\"form-control\""))
                         @Html.ValidationMessage(ParentID + "_" + "err_sMatKhau")
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
@@ -121,20 +121,18 @@
                             </div>
                         </div><!-- /.col -->
                         <div class="col-xs-4">
-                            <button id="logon" type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                            <button id="logon" type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
                         </div><!-- /.col -->
                     </div>
-                    <div class="social-auth-links text-center">
-                        @*<section id="socialLoginForm">
-                            @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
-                        </section>*@
+                    @*<div class="social-auth-links text-center">
                         <p>- OR -</p>
                         <a href="@Url.Action("OpenidLogin", "Account", new { provider = "facebook", returnUrl = ViewBag.ReturnUrl })" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>
                         <a href="@Url.Action("OpenidLogin", "Account", new { provider = "google", returnUrl = ViewBag.ReturnUrl })" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
                         <a href="@Url.Action("OpenidLogin", "Account", new { provider = "twitter", returnUrl = ViewBag.ReturnUrl })" class="btn btn-block btn-social btn-twitter btn-flat"><i class="fa fa-twitter"></i> Sign in using Twitter</a>
-                    </div><!-- /.social-auth-links -->
-                    <a href="#">I forgot my password</a><br>
-                    <a href="@Url.Action("Register", "Account")" class="text-center">Register a new membership</a>
+                    </div>*@
+                    <a href="#">Quên mật khẩu</a><br>
+                    <a href="#" class="text-center">Đăng ký</a>
+                    @*<a href="@Url.Action("Register", "Account")" class="text-center">Đăng ký</a>*@
                 }
             </div><!-- /.login-box-body -->
         </div><!-- /.login-box -->
