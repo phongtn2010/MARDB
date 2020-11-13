@@ -6192,7 +6192,7 @@ table,th, td
 border: 1px solid #ccc;
 }
 */
-.check {
+.checktick {
     background: url(../img/tick.png) no-repeat top left;
     width: 16px;
     height: 16px;
@@ -6200,7 +6200,7 @@ border: 1px solid #ccc;
     display: block;
 }
 
-.cancel {
+.cancelcheck {
     background: url(../img/cross.png) no-repeat top left;
     width: 16px;
     height: 16px;
@@ -6208,7 +6208,7 @@ border: 1px solid #ccc;
     display: block;
 }
 
-.check, .cancel {
+.checktick, .cancelcheck {
     behavior: url(Content/Themes/images/iepngfix.htc)
 }
 .icon_them {

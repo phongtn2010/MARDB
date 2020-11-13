@@ -204,7 +204,7 @@
                                                 <td class="head-td-icon">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
-                                                        <span class='badge bg-green btnTiepNhan' data-id="@r["iID_MaHoSo"]" style="cursor: pointer;"><i class='fa fa-fw fa-check'></i></span>
+                                                        <span id="btnTiepNhan" class='badge bg-green btnTiepNhan' data-id="@r["iID_MaHoSo"]" style="cursor: pointer;"><i class='fa fa-fw fa-check'></i></span>
                                                     }
                                                 </td>
                                                 <td class="head-td-icon">
@@ -243,6 +243,7 @@
 </section><!-- /.content -->
 @{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_YeuCauBoSung.cshtml");}
 @{Html.RenderPartial("~/Views/ChoTiepNhanHoSo/Partial_Model_TuChoi.cshtml");}
+<script src="https://www.jqueryscript.net/demo/Sliding-Confirm-Dialog-Plugin-with-jQuery-Bootstrap-Confirm/jquery.confirm.js"></script>
 <script src="@Url.Content("~/ScriptsERP/jsChoTiepNhanHoSo.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
 
 <script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>

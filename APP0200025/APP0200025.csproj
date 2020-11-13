@@ -2606,6 +2606,7 @@
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.min.js" />
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.skinFlat.css" />
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.skinNice.css" />
+    <Content Include="Content\plugins\jquery.confirm\jquery.confirm.js" />
     <Content Include="Content\plugins\jquery.wordexport\FileSaver.js" />
     <Content Include="Content\plugins\jquery.wordexport\jquery.wordexport.js" />
     <Content Include="Content\plugins\jQueryCookie\jquery.cookie.js" />
