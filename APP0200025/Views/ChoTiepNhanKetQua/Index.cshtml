@@ -209,7 +209,7 @@
 
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoTiepNhanKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
 
-                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "ChoTiepNhanKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Edit", "onclick=\"sendConfim();\"");
+                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "ChoTiepNhanKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Edit", "onclick=\"sendConfim(this);\"");
 
 
                                             <tr>
@@ -278,18 +278,22 @@
         });
     });
 
-    function sendConfim() {
-        $.confirm({
-            title: "THÔNG BÁO XÁC NHẬN",
-            text: "Bạn có chắc chắn muốn tiếp nhận hồ sơ không?",
-            confirm: function (button) {
-                return true;
-            },
-            cancel: function (button) {
-                return false;
-            },
-            confirmButton: "Đồng ý",
-            cancelButton: "Từ chối"
-        });
+    function sendConfim(id) {
+        if (confirm('Bạn có chắc chắn muốn tiếp nhận hồ sơ không?'))
+        { return true; }
+        else { event.stopPropagation(); event.preventDefault(); };
+
+        //$.confirm({
+        //    title: "THÔNG BÁO XÁC NHẬN",
+        //    text: "Bạn có chắc chắn muốn tiếp nhận hồ sơ không?",
+        //    confirm: function (button) {
+        //        return true;
+        //    },
+        //    cancel: function (button) {
+        //        event.stopPropagation(); event.preventDefault();
+        //    },
+        //    confirmButton: "Đồng ý",
+        //    cancelButton: "Từ chối"
+        //});
     }
 </script>
