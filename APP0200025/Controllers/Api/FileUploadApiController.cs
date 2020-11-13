@@ -1,4 +1,5 @@
 ﻿using DATA0200025;
+using DomainModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,12 @@ namespace APP0200025.Controllers.Api
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-            string rootPath = HttpContext.Current.Server.MapPath("~/Files");
+            string sPath = "/Uploads/Files";
+            string guid = Guid.NewGuid().ToString();
+            DateTime TG = DateTime.Now;
+            string subPath = TG.ToString("yyyy/MM/dd");
+            string newPath = string.Format("{0}/{1}", sPath, subPath);
+            string rootPath = HttpContext.Current.Server.MapPath("~" + newPath);
             if (!Directory.Exists(rootPath))
                 Directory.CreateDirectory(rootPath);
             var pathProvider = new MultipartFileStreamProvider(rootPath);
@@ -39,17 +45,27 @@ namespace APP0200025.Controllers.Api
                         try
                         {
                             string fileName = item.Headers.ContentDisposition.FileName.Replace("\"", "");
-                            string newFileName = Guid.NewGuid() + Path.GetExtension(fileName);
-                            File.Move(item.LocalFileName, Path.Combine(rootPath, newFileName));
-                            Uri baseuri = new Uri(Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.PathAndQuery, string.Empty));
-                            string fileRelativePath = "~/Files/" + newFileName;
-                            Uri fileFullPath = new Uri(baseuri, VirtualPathUtility.ToAbsolute(fileRelativePath));
+                            string ext = Path.GetExtension(fileName);
 
-                            //Them File vao Bang DinhKem
-                            long iID_MaFile = CDinhKem.ThemDinhKem(0, 0, 0, "", "", "", fileName, "", null, 1, fileFullPath.ToString(), "doanhnghiep", "");
+                            if (CommonFunction.FileUploadCheck_Api(ext))
+                            {
+                                string newFileName = Guid.NewGuid() + Path.GetExtension(fileName);
+                                File.Move(item.LocalFileName, Path.Combine(rootPath, newFileName));
+                                Uri baseuri = new Uri(Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.PathAndQuery, string.Empty));
 
-                            //Gui lai thong tin ID và duong dan cho nsw
-                            savedFilePath.Add(new ResUpLoadFile { ItemId= iID_MaFile, UrlFile = fileFullPath.ToString() });
+                                string fileRelativePath = "~" + newPath + "/" + newFileName;
+                                Uri fileFullPath = new Uri(baseuri, VirtualPathUtility.ToAbsolute(fileRelativePath));
+
+                                //Them File vao Bang DinhKem
+                                long iID_MaFile = CDinhKem.ThemDinhKem(0, 0, 0, "", "", "", fileName, "", null, 1, fileFullPath.ToString(), "doanhnghiep", "");
+
+                                //Gui lai thong tin ID và duong dan cho nsw
+                                savedFilePath.Add(new ResUpLoadFile { ItemId = iID_MaFile, UrlFile = fileFullPath.ToString() });
+                            }
+                            else
+                            {
+                                savedFilePath.Add(new ResUpLoadFile { ItemId = -1, UrlFile = "Upload File Error: Không đúng định dạng file!" });
+                            }
 
                             i++;
                         }

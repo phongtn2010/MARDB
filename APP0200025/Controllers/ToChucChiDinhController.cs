@@ -32,8 +32,25 @@ namespace APP0200025.Controllers
                     LoaiDanhSach = 50
                 };
             }
+
+            ViewData["menu"] = 244;
             return View(models);
         }
+
+        public ActionResult Detail(string iID_MaHoSo)
+        {
+            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            //{
+            //    return RedirectToAction("Index", "PermitionMessage");
+            //}
+            clHangHoa.UpdateNguoiXem(iID_MaHoSo, User.Identity.Name);
+
+            HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
+
+            ViewData["menu"] = 244;
+            return View(models);
+        }
+
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ThongTinHoangHoa(string iID_MaHoSo)
         {
@@ -51,10 +68,12 @@ namespace APP0200025.Controllers
         {
             if (string.IsNullOrEmpty(iID_MaHoSo))
             {
+                TempData["msg"] = "error";
                 return RedirectToAction("Index");
             }
             if (string.IsNullOrEmpty(iID_MaHangHoa))
             {
+                TempData["msg"] = "error";
                 return RedirectToAction("Index");
             }
 
@@ -92,7 +111,7 @@ namespace APP0200025.Controllers
 
                 for (int i = 0; i < dtKQPT.Rows.Count; i++)
                 {
-                    lstFile.Add(new AttachmentResult { FileCode=50, AttachmentId = Convert.ToString(dtKQPT.Rows[0]["iID_KetQuaPhanTich"]), FileName = Convert.ToString(dtKQPT.Rows[0]["sTenFile"]), FileLink = Convert.ToString(dtKQPT.Rows[0]["sDuongDan"]) });
+                    lstFile.Add(new AttachmentResult { FileCode=71, AttachmentId = Convert.ToString(dtKQPT.Rows[0]["iID_KetQuaPhanTich"]), FileName = Convert.ToString(dtKQPT.Rows[0]["sTenFile"]), FileLink = Convert.ToString(dtKQPT.Rows[0]["sDuongDan"]) });
                 }
 
                 resNSW.ListAttachmentResults = lstFile;
@@ -107,6 +126,12 @@ namespace APP0200025.Controllers
                 CHangHoa.UpDate_TrangThai(Convert.ToInt64(iID_MaHangHoa), 28);
 
                 clLichSuHoSo.InsertLichSuNsw(Convert.ToInt64(iID_MaHoSo), User.Identity.Name, User.Identity.Name, (int)clDoiTuong.DoiTuong.ToChucChiDinh, (int)clHanhDong.HanhDong.UpLoadKetQuaKiemTra, "", "", 27, "Chờ kết quả đánh giá sự phù hợp", 28);
+
+                TempData["msg"] = "success";
+            }
+            else
+            {
+                TempData["msg"] = "error";
             }
 
             return RedirectToAction("ThongTinHoangHoa", "ToChucChiDinh", new { iID_MaHoSo = iID_MaHoSo.ToString() });
@@ -127,11 +152,11 @@ namespace APP0200025.Controllers
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
-            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viFromDate"]);
-            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viToDate"]);
+            string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
+            string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
             string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
-            string _FromDateTiepNhan = CString.SafeString(Request.Form[ParentID + "_viFromDateTiepNhan"]);
-            string _ToDateTiepNhan = CString.SafeString(Request.Form[ParentID + "_viToDateTiepNhan"]);
+            string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
+            string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
             string _iID_MaTrangThai = CString.SafeString(Request.Form[ParentID + "_iID_MaTrangThai"]);
             int LoaiDanhSach = 50;
             if (_iID_MaTrangThai != "0")
@@ -152,12 +177,15 @@ namespace APP0200025.Controllers
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
-                TuNgayDen = _FromDate,
-                DenNgayDen = _ToDate,
-                TuNgayTiepNhan = _FromDateTiepNhan,
-                DenNgayTiepNhan = _ToDateTiepNhan,
+                TuNgayDen = _TuNgayDen,
+                DenNgayDen = _DenNgayDen,
+                TuNgayTiepNhan = _TuNgayTiepNhan,
+                DenNgayTiepNhan = _DenNgayTiepNhan,
                 sSoTiepNhan = _sSoTiepNhan
             };
+
+            TempData["menu"] = 244;
+            TempData["msg"] = "success";
             return RedirectToAction("Index", models);
         }
         [HttpPost]

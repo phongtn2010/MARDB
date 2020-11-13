@@ -171,11 +171,11 @@ namespace DomainModel
                 {
                     if (Convert.ToString(Text).ToUpper() == "TRUE" || Convert.ToString(Text).ToUpper() == "1" || Convert.ToString(Text).ToUpper() == "ON")
                     {
-                        Attributes = "class='check'";
+                        Attributes = "class='checktick'";
                     }
                     else
                     {
-                        Attributes = "class='cancel'";
+                        Attributes = "class='cancelcheck'";
                     }
                 }
             }

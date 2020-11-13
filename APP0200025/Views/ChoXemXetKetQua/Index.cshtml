@@ -151,31 +151,14 @@
                             <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, _TrangThaiHoSo, "iID_MaTrangThai", "", "class=\"form-control\""))
                             </div>
-
-                            <div class="col-xs-1 text-align-right">
-                                <label class="control-label">Quá hạn</label>
-                            </div>
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Kết quả xử lý</label></div>
                             <div class="col-xs-5">
-                                <select class="form-control" id="@(ParentID)_iID_QuaHan" name="@(ParentID)_iID_QuaHan">
+                                <select class="form-control" id="@(ParentID)_iID_KetQuaXuLy" name="@(ParentID)_iID_KetQuaXuLy">
                                     <option>--Tất cả--</option>
-                                    <option value="1">Chưa tới hạn</option>
-                                    <option value="2">Quá hạn</option>
+                                    <option value="1">Thông báo kết quả kiểm tra</option>
+                                    <option value="2">Yêu cầu bổ sung KQĐGSPH</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-1 text-align-right">
-                                <label class="control-label">Quá hạn</label>
-                            </div>
-                            <div class="col-xs-5">
-                                <select class="form-control" id="@(ParentID)_iID_MaTrangThai" name="@(ParentID)_iID_MaTrangThai">
-                                    <option>--Tất cả--</option>
-                                    <option value="1">Đạt cấp giấy đăng ký</option>
-                                    <option value="2">Từ chối cấp GĐK</option>
-                                    <option value="3">Yêu cầu bổ xung</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-6"></div>
                         </div>
                     </div><!-- /.box-body -->
                     <div class="box-footer clearfix text-align-center">
@@ -201,18 +184,18 @@
                 {
                     <div class="box-body no-padding">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped dataTable" id="tblGrid">
+                            <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
                                 <thead>
                                     <tr>
-                                        <th class="sorting_asc" style="width: 3%;" align="center">STT</th>
-                                        <th class="sorting" style="" align="center">Mã hồ sơ</th>
-                                        <th class="sorting" align="center">Ngày đến</th>
-                                        <th class="sorting" align="center">Số tiếp nhận</th>
-                                        <th class="sorting" align="center">Ngày tiếp nhận</th>
-                                        <th class="sorting" style="text-align: center;" align="center">Doanh nghiệp</th>
-                                        <th class="sorting" style="text-align: center;" align="center">Tên TACN</th>
-                                        <th class="sorting" style="text-align: center;" align="center">Trạng thái hồ sơ</th>
-                                        <th class="sorting" style="text-align: center;" align="center">Kết quả xử lý</th>
+                                        <th style="width: 3%;" align="center">STT</th>
+                                        <th style="" align="center">Mã hồ sơ</th>
+                                        <th align="center">Ngày đến</th>
+                                        <th align="center">Số tiếp nhận</th>
+                                        <th align="center">Ngày tiếp nhận</th>
+                                        <th style="text-align: center;" align="center">Doanh nghiệp</th>
+                                        <th style="text-align: center;" align="center">Tên TACN</th>
+                                        <th style="text-align: center;" align="center">Trạng thái hồ sơ</th>
+                                        <th style="text-align: center;" align="center">Kết quả xử lý</th>
                                         <th style="width: 5%; text-align: center;">Xem</th>
                                         <th style="width: 5%; text-align: center;">
                                             <span>Đồng ý</span>
@@ -231,10 +214,9 @@
                                                 r = dt.Rows[i];
 
                                                 int iID_MaTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
-                                                String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                                String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                                String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
 
+                                                String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
+                                                String strThuHoi = MyHtmlHelper.ActionLink(Url.Action("ThuHoi", "ChoXemXetKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-red'><i class='fa fa-mail-reply-all''></i></span>", "Edit", "");
 
                                                 <tr>
                                                     <td style="text-align: center;">@r["rownum"]</td>
@@ -256,17 +238,15 @@
                                                     <td align="center" title="Từ chối">
                                                         @if (iID_MaTrangThai == 34 || iID_MaTrangThai == 35 || iID_MaTrangThai == 43)
                                                         {
-                                                            <a class="opentuchoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoi">
+                                                            <a class="opentuchoi" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoi">
                                                                 <span class='badge bg-red'><i class='fa fa-times'></i></span>
                                                             </a>
                                                         }
                                                     </td>
-                                                    <td align="center" title="Quá hạn">
+                                                    <td align="center" title="Thu hồi">
                                                         @if (iID_MaTrangThai == 40 || iID_MaTrangThai == 36)
                                                         {
-                                                            <a class="openthuhoi" data-id=">@r["iID_MaHangHoa"]" data-toggle="modal" href="#ThuHoi">
-                                                                <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
-                                                            </a>
+                                                            @MvcHtmlString.Create(strThuHoi)
                                                         }
                                                     </td>
                                                 </tr>
@@ -279,22 +259,36 @@
                         </div>
                     </div><!-- /.box-body -->
                     <div class="box-footer clearfix">
-                        <div class="col-xs-3">
-                            <button class="btn btn-block btn-primary" type="submit">Đồng ý</button>
+                        <div class="col-xs-5 text-align-right">
+                            <button class="btn btn-primary" type="submit">Đồng ý</button>
                         </div>
-                        <div class="col-xs-9">
+                        <div class="col-xs-7">
                             @MvcHtmlString.Create(strPhanTrang)
                         </div>
                     </div>
                 }
-                @*<div class="box-footer clearfix">
-                    </div>*@
             </div>
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
 @{Html.RenderPartial("~/Views/ChoXemXetKetQua/Partial_Model_TuChoi.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsChoXemXetKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+
+<script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
+<script>
+    $(function () {
+        $('#tblListData').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "columnDefs": [{ "orderable": false, "targets": 10 }]
+        });
+    });
+</script>
 <script type="text/javascript" language="javascript">
     function CheckAll(value) {
         $("input:checkbox[check-group='HangHoa']").each(function (i) {

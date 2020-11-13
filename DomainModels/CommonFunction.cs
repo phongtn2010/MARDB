@@ -1249,6 +1249,23 @@ namespace DomainModel
             return vR;
         }
 
+        public static bool FileUploadCheck_Api(string sDinhDangFile)
+        {
+            bool vR = false;
+            if (sDinhDangFile != null)
+            {
+                string ext = sDinhDangFile.ToLower();
+                string[] exts = { ".doc", ".docx", ".pdf", ".rtf", ".xls", ".xlsx", ".rar", ".zip", ".jpg", ".jpeg", ".bmp", ".png", ".emf", ".exif", ".gif", ".icon", ".MemoryBmp", ".tiff", ".wmf" };
+                for (int i = 0; i < exts.Length; i++)
+                {
+                    if (ext == exts[i])
+                        vR = true;
+                }
+            }
+
+            return vR;
+        }
+
         public static bool FileUploadCheck_Video(HttpPostedFileBase hpf)
         {
             bool vR = false;

@@ -12,10 +12,8 @@ $(function () {
     $("body").on("click", ".openXuLyChiTieu", function () {
         var iID_MaHangHoa = $(this).data("id");
         var Url = ServerUrl + "/ChuyenVien/XuLyChiTieuKiemTra?iID_MaHangHoa=" + iID_MaHangHoa;
-        //var sMaHoSo = $(this).data("mahoso");
-        //$("#TC_iID_MaHoSo").val(iID_MaHoSo);
         $("#XuLyChiTieu").load(Url);
-        $("#XuLyChiTieu").modal("Show");
+        //$("#XuLyChiTieu").modal("Show");
     });
 });
 

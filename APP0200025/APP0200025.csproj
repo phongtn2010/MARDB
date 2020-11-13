@@ -255,6 +255,7 @@
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="Controllers\HoSoController.cs" />
     <Compile Include="Controllers\MienGiamController.cs" />
+    <Compile Include="Controllers\TraCuuHangHoaController.cs" />
     <Compile Include="Controllers\TraCuuHoSoController.cs" />
     <Compile Include="WebServices\Mard26Service.asmx.cs">
       <DependentUpon>Mard26Service.asmx</DependentUpon>
@@ -2605,6 +2606,7 @@
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.min.js" />
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.skinFlat.css" />
     <Content Include="Content\plugins\ionslider\ion.rangeSlider.skinNice.css" />
+    <Content Include="Content\plugins\jquery.confirm\jquery.confirm.js" />
     <Content Include="Content\plugins\jquery.wordexport\FileSaver.js" />
     <Content Include="Content\plugins\jquery.wordexport\jquery.wordexport.js" />
     <Content Include="Content\plugins\jQueryCookie\jquery.cookie.js" />
@@ -2903,7 +2905,8 @@
     <Content Include="Scripts\MicrosoftAjax.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Views\LanhDaoPhong\HoSoChoXemXet.cshtml" />
+    <Content Include="Views\Partial\Partial_HoSoXinCapXNCL.cshtml" />
+    <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
     <Content Include="WebServices\Mard26Service.asmx" />
     <Content Include="WebServices\MardService.asmx" />
     <Content Include="XML\en.gif" />
@@ -3027,7 +3030,6 @@
     <Content Include="Views\LanhDaoCuc\Index.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\LanhDaoPhong\Detail.cshtml" />
-    <Content Include="Views\LanhDaoPhong\HoSoXacNhanChatLuong.cshtml" />
     <Content Include="Views\LanhDaoPhong\Index.cshtml" />
     <Content Include="Views\LanhDaoPhong\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\ToChucChiDinh\Index.cshtml" />
@@ -3072,19 +3074,15 @@
     <Content Include="Views\ChoXuLyKetQua\Detail.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Index.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_HangHoa.cshtml" />
-    <Content Include="Views\ChoXuLyKetQua\Partial_Model_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_Model_YeuCauBoSung.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\SoanThongBaoKetQua.cshtml" />
-    <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
     <Content Include="Views\Partial\Partial_HH_LichSuHoSo.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_FileHopDong.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_FileHoaDon.cshtml" />
-    <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Index.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Detail.cshtml" />
     <Content Include="Views\ChoXemXetKetQua\Partial_Model_TuChoi.cshtml" />
-    <Content Include="Views\ChoXemXetKetQua\Partial_ThongBaoKetQua.cshtml" />
     <Content Include="Views\PhongTACNYeuCauBoSungKetQua\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_Model_TuChoi_HH.cshtml" />
     <Content Include="Views\LanhDaoCuc\DetailHH.cshtml" />
@@ -3108,15 +3106,21 @@
     <Content Include="Views\BoPhanMotCua\MienGiam_DaDuyet_Detail.cshtml" />
     <Content Include="Views\BoPhanMotCua\MienGiam_DaTraKQ.cshtml" />
     <Content Include="Views\BoPhanMotCua\MienGiam_DaTraKQ_Detail.cshtml" />
-    <Content Include="Views\Test1\Index.cshtml" />
     <Content Include="Views\DaTraGDK\Partial_Model_ThuHoi.cshtml" />
     <Content Include="Views\ChoTiepNhanKetQuaGuiBoSung\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\TraCuuHoSo\Index.cshtml" />
     <Content Include="Views\TraCuuHoSo\Detail.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Partial\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\TraCuuHangHoa\Detail.cshtml" />
     <Content Include="Views\TraCuuHangHoa\Index.cshtml" />
 
+=======
+    <Content Include="Views\TraCuuHangHoa\Detail.cshtml" />
+    <Content Include="Views\TraCuuHangHoa\Index.cshtml" />
+    <Content Include="Views\Partial\Partial_XNCL_ThongBaoKetQua.cshtml" />
+    <Content Include="Views\ToChucChiDinh\Detail.cshtml" />
+>>>>>>> 8273058c0f468cb2d24b2cae022b42c7c6072ca1
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

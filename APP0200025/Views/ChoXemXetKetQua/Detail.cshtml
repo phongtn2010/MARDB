@@ -54,16 +54,10 @@
                                     </div>
                                 </div>
                             </section>
+
                             <div class="box-footer clearfix text-center">
-                                <div class="col-xs-4">
-                                 
-                                </div>
-                                <div class="col-xs-4">
-                                    <a class="btn btn-danger btn-block" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoi" type="button">Xuất word</a>
-                                </div>
-                                <div class="col-xs-4">
-                                   
-                                </div>
+                                <a class="btn btn-primary btnXuatWord" data-id="@Model.iID_MaHangHoa">Xuất word</a>&nbsp;&nbsp;
+                                <a class="btn" style="background-color:#023658; color:white;" data-id="@Model.iID_MaHangHoa" id="btnThoat">Thoát</a>
                             </div>
                         </form>
                     </div><!-- /.tab-pane -->
@@ -72,9 +66,19 @@
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_3">
                         @{Html.RenderPartial("~/Views/Partial/Partial_HoSoXinCapXNCL.cshtml", Model);}
+                        <div class="box-footer clearfix text-center">
+                            <a class="btn btn-primary" data-id="@Model.iID_MaHangHoa" href="@Url.Action("DongY", "ChoXemXetKetQua", new { iID_MaHangHoa = @Model.iID_MaHangHoa})">Đồng ý</a>&nbsp;&nbsp;
+                            <a class="btn btn-danger opentuchoi" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoi">Từ chối</a>&nbsp;&nbsp;
+                            <a class="btn" style="background-color:#023658; color:white;" data-id="@Model.iID_MaHangHoa" id="btnThoat">Thoát</a>
+                        </div>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_4">
-                        @{Html.RenderPartial("~/Views/ChoXemXetKetQua/Partial_ThongBaoKetQua.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/Partial/Partial_XNCL_ThongBaoKetQua.cshtml", Model);}
+                        <div class="box-footer clearfix text-center">
+                            <a class="btn btn-primary" data-id="@Model.iID_MaHangHoa" href="@Url.Action("DongY", "ChoXemXetKetQua", new { iID_MaHangHoa = @Model.iID_MaHangHoa})">Đồng ý</a>&nbsp;&nbsp;
+                            <a class="btn btn-danger opentuchoi" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoi">Từ chối</a>&nbsp;&nbsp;
+                            <a class="btn" style="background-color:#023658; color:white;" data-id="@Model.iID_MaHangHoa" id="btnThoat">Thoát</a>
+                        </div>
                     </div><!-- /.tab-pane -->
 
                 </div><!-- /.tab-content -->

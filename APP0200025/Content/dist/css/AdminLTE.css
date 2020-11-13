@@ -6013,7 +6013,7 @@ ul.list-function {
     top: 0!important;
 }*/
 .form-control, form.bc-form input, form.bc-form select, form.bc-form .fake-select {
-    height: 35px;
+    height: 30px;
     min-width: 0;
     box-shadow: none;
     -webkit-box-shadow: none;
@@ -6192,7 +6192,7 @@ table,th, td
 border: 1px solid #ccc;
 }
 */
-.check {
+.checktick {
     background: url(../img/tick.png) no-repeat top left;
     width: 16px;
     height: 16px;
@@ -6200,7 +6200,7 @@ border: 1px solid #ccc;
     display: block;
 }
 
-.cancel {
+.cancelcheck {
     background: url(../img/cross.png) no-repeat top left;
     width: 16px;
     height: 16px;
@@ -6208,7 +6208,7 @@ border: 1px solid #ccc;
     display: block;
 }
 
-.check, .cancel {
+.checktick, .cancelcheck {
     behavior: url(Content/Themes/images/iepngfix.htc)
 }
 .icon_them {
@@ -6972,7 +6972,7 @@ table.displayname {
 
 .pagination-sm > li > a,
 .pagination-sm > li > span {
-    padding: 2px 10px;
+    padding: 5px 10px;
     font-size: 12px;
     line-height: 1.5;
 }

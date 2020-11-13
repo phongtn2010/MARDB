@@ -104,6 +104,15 @@ namespace DATA0200025
                 case 18:
                     TrangThais = BPMC_DaCapThongBaoKetQua();
                     break;
+                case 50:
+                    TrangThais = ToChucChiDinh(null);
+                    break;
+                case 51:
+                    TrangThais = ToChucChiDinh(27);
+                    break;
+                case 52:
+                    TrangThais = ToChucChiDinh(28);
+                    break;
                 default:
                     TrangThais = new List<TrangThaiModels>();
                     break;
