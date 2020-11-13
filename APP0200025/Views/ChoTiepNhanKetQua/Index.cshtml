@@ -209,7 +209,7 @@
 
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChoTiepNhanKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
 
-                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "ChoTiepNhanKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "id='btnGuiDoanhNghiep' data-title='Hello there!' data-confirm-button='Yes I am' <span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
+                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "ChoTiepNhanKetQua", new { iID_MaHangHoa = r["iID_MaHangHoa"] }), "<span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Edit", "onclick=\"sendConfim();\"");
 
 
                                             <tr>
@@ -268,8 +268,6 @@
 <script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
 <script>
     $(function () {
-        $("#btnGuiDoanhNghiep").confirm();
-
         $('#tblListData').DataTable({
             "paging": false,
             "lengthChange": false,
@@ -279,4 +277,19 @@
             "autoWidth": false
         });
     });
+
+    function sendConfim() {
+        $.confirm({
+            title: "THÔNG BÁO XÁC NHẬN",
+            text: "Bạn có chắc chắn muốn tiếp nhận hồ sơ không?",
+            confirm: function (button) {
+                return true;
+            },
+            cancel: function (button) {
+                return false;
+            },
+            confirmButton: "Đồng ý",
+            cancelButton: "Từ chối"
+        });
+    }
 </script>
