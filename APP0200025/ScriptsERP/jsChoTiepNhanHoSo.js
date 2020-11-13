@@ -93,11 +93,11 @@ $(function () {
 
 $(function () {
     $("body").on("click", ".btnTiepNhan", function () {
+        var iID_MaHoSo = $(this).data("id");
         $.confirm({
             title: "THÔNG BÁO XÁC NHẬN",
             text: "Bạn có chắc chắn muốn tiếp nhận hồ sơ không?",
-            confirm: function (button) {
-                var iID_MaHoSo = $(this).data("id");
+            confirm: function (button) {               
                 $.ajax({
                     url: ServerUrl + '/ChoTiepNhanHoSo/TiepNhanHoSoSubmit',
                     type: 'POST',
