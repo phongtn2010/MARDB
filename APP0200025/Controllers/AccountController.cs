@@ -105,7 +105,8 @@ namespace APP0200025.Controllers
                 var user = await UserManager.FindByEmailAsync(sUserName);
                 if (user == null)
                 {
-                    values.Add("err_sUserName", "UserName không tồn tại trên hệ thống!");
+                    values.Add("err_sMessage", "UserName không tồn tại trên hệ thống!");
+                    ModelState.AddModelError(ParentID + "_" + values.GetKey(0), values[0]);
                     return View();
                 }
                 else
@@ -128,13 +129,15 @@ namespace APP0200025.Controllers
                         return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = bRememberMe });
                     case SignInStatus.Failure:
                     default:
-                        values.Add("err_sUserName", "UserName không tồn tại trên hệ thống!");
+                        values.Add("err_sMessage", "Tên đăng nhập hoặc mật khẩu không đúng!");
+                        ModelState.AddModelError(ParentID + "_" + values.GetKey(0), values[0]);
                         return View();
                 }
             }
             else
             {
-                values.Add("err_sUserName", "UserName không tồn tại trên hệ thống!");
+                values.Add("err_sMessage", "Tên đăng nhập hoặc mật khẩu không đúng!");
+                ModelState.AddModelError(ParentID + "_" + values.GetKey(0), values[0]);
                 return View();
             }
         }
