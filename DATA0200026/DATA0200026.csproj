@@ -69,6 +69,7 @@
     <Compile Include="CHoSo26.cs" />
     <Compile Include="CHoSoSearch.cs" />
     <Compile Include="CLichSuHoSo.cs" />
+    <Compile Include="CLogNSW.cs" />
     <Compile Include="CPQ_NGUOIDUNG.cs" />
     <Compile Include="CTaoMaTiepNhan.cs" />
     <Compile Include="CThamSo.cs" />
