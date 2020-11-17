@@ -5,7 +5,7 @@
         if (bootstrapValidator.isValid()) {
             var formData = new FormData($("#formYeuCau")[0]);
             $.ajax({
-                url: ServerUrl + '/ChoXemXetKetQua/YeuCauBoSungSubmit',
+                url: ServerUrl + '/ChoTiepNhanKetQua/YeuCauBoSungSubmit',
                 type: 'POST',
                 data: formData,
                 async: false,
@@ -47,7 +47,7 @@ $(function () {
     $("body").on("click", "#btnThoat", function () {
         var iID_MaHoSo = $("#Detail_iID_MaHangHoa").val();
         $.ajax({
-            url: ServerUrl + '/ChoXemXetKetQua/Thoat',
+            url: ServerUrl + '/ChoTiepNhanKetQua/Thoat',
             type: 'POST',
             data: { iID_MaHoSo: iID_MaHoSo },
             success: function (response) {
