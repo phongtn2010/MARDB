@@ -25,6 +25,16 @@ namespace DATA0200025
                 return results;
             }
         }
+        public static IEnumerable<FileDinhKemModels> GetFileByHoSoLoaiKhac(int iID_MaHoSo)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN25_DinhKem 
+                            WHERE iID_MaHoSo=@iID_MaHoSo AND iID_MaLoaiFile <= 9";
+                var results = connect.Query<FileDinhKemModels>(SQL, new { iID_MaHoSo = iID_MaHoSo }).ToList();
+                return results;
+            }
+        }
         public static IEnumerable<FileDinhKemModels> GetFileByLoai(int iID_MaHoSo,int iID_MaLoaiFile)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
