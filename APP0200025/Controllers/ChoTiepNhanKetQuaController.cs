@@ -256,7 +256,8 @@ namespace APP0200025.Controllers
             resultConfirm.FileLink = string.Format("{0}{1}",clCommon.BNN_Url,sFileTemp);
             resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
             resultConfirm.ResponseDate = DateTime.Now;
-            string error = _sendService.XuLyKetQua(hangHoa.sMaHoSo, resultConfirm, "21");
+
+            string error = _sendService.XuLyKetQua(hangHoa.sMaHoSo, resultConfirm, "19");
 
             if (error == "99")
             {
