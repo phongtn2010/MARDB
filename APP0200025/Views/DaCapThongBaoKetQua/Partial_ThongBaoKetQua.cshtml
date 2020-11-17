@@ -9,6 +9,8 @@
 @{
     Layout = null;
     string ParentID = "TC";
+
+    HoSoModels hoSo = clHoSo.GetHoSoById(Model.iID_MaHoSo);
 }
 @*<script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/FileSaver.js"></script>
 <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>*@
@@ -93,28 +95,32 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Cửa khẩu nhập: </p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Cửa khẩu nhập: @hoSo.sMua_NoiNhan</p></td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Thời gian nhập khẩu <i>(tháng, năm)</i>: </p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Thời gian nhập khẩu <i>(tháng, năm)</i>: @hoSo.sMua_FromDate-@hoSo.sMua_ToDate</p></td>
                 </tr>
                 <tr>
                     <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Thuộc lô hàng có các chứng từ sau: </p></td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Hợp đồng số 12345 ngày 16 tháng 06 năm 2019</p></td>
+                    <td valign="top" colspan="2" style="padding: 5px 0px;">
+                        @{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_FileHopDong.cshtml", hoSo);}
+                    </td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Hóa đơn số 12345 ngày 16 tháng 06 năm 2019</p></td>
+                    <td valign="top" colspan="2" style="padding: 5px 0px;">
+                        @{Html.RenderPartial("~/Views/ChoXuLyKetQua/Partial_FileHoaDon.cshtml", hoSo);}
+                    </td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Giấy đăng ký kiểm tra chất lượng số: 12345 ngày 16 tháng 06 năm 2019</p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Giấy đăng ký kiểm tra chất lượng số: @hoSo.sSoGDK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ngày: @string.Format("{0:dd/MM/yyyy}", hoSo.dNgayXacNhan)</p></td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Tên tổ chức nhập khẩu: Công ty TNHH Ánh Sao </p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Tên tổ chức nhập khẩu: @hoSo.sTenDoanhNghiep </p></td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Địa chỉ: Cầu Giấy, Hà Nội</p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Địa chỉ: @hoSo.sMua_DiaChi</p></td>
                 </tr>
                 <tr>
                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>2. Căn cứ kiểm tra</b></p></td>

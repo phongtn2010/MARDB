@@ -293,7 +293,19 @@
                                                     }
                                                 </td>
                                                 <td class="head-td-icon">@r["sTenNguoiTiepNhan"]</td>
-                                                <td class="head-td-icon"><span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span></td>
+                                                <td class="head-td-icon">
+                                                    @{
+                                                        int[] arrTrangThai = { 7, 10, 11, 12, 14, 16, 18, 23 };
+                                                        if (arrTrangThai.Contains(iID_MaTrangThai))
+                                                        {
+                                                            bool bQuaHan = HamRiengModels.XulyQuaHan(Convert.ToDateTime(r["dNgayTiepNhan"]));
+                                                            if (bQuaHan == true)
+                                                            {
+                                                                <span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span>
+                                                            }
+                                                        }
+                                                    }
+                                                </td>
                                             </tr>
                                         }
                                     }

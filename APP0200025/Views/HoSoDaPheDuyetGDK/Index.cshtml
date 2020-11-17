@@ -213,6 +213,8 @@
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
 
+                                            int iID_MaTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
+
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                             String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
 
@@ -241,7 +243,18 @@
                                                         @MvcHtmlString.Create(strSend)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon"><span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span></td>
+                                                <td class="head-td-icon">
+                                                    @{
+                                                        if (iID_MaTrangThai == 24)
+                                                        {
+                                                            bool bQuaHan = HamRiengModels.XulyQuaHan(Convert.ToDateTime(r["dNgayTiepNhan"]));
+                                                            if (bQuaHan == true)
+                                                            {
+                                                                <span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span>
+                                                            }
+                                                        }
+                                                    }
+                                                </td>
                                             </tr>
                                         }
                                     }

@@ -279,9 +279,17 @@
                                                         }
                                                     </td>
                                                     <td align="center" title="Quá hạn">
-                                                        <a data-id="@r["iID_MaHoSo"]">
-                                                            <span class='badge bg-red'><i class='fa fa-exclamation'></i></span>
-                                                        </a>
+                                                        @{
+                                                            int[] arrTrangThai = { 10, 11, 12, 20, 25, 17, 22, 13 };
+                                                            if (arrTrangThai.Contains(iID_MaTrangThai))
+                                                            {
+                                                                bool bQuaHan = HamRiengModels.XulyQuaHan(Convert.ToDateTime(r["dNgayTiepNhan"]));
+                                                                if (bQuaHan == true)
+                                                                {
+                                                                    <span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span>
+                                                                }
+                                                            }
+                                                        }
                                                     </td>
                                                 </tr>
                                             }

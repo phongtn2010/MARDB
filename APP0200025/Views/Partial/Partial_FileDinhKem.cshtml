@@ -11,56 +11,162 @@
 @model DATA0200025.Models.HoSoModels
 @{
     Layout = null;
-    var lstFile = clFileDinhKem.GetFileByHoSo(Model.iID_MaHoSo);
+    var lstFile = clFileDinhKem.GetFileByHoSoLoaiKhac(Model.iID_MaHoSo);
+    var lstFileHD = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 100);
+    var lstFileHDon = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 101);
+    var lstFilePDG = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 102);
     int i = 0;
-    string path = "";
+    List<string> lstPath = new List<string>();
 }
 <div class="box-header with-border">
     <h3 class="box-title">Danh sách TACN</h3>
-
 </div><!-- /.box-header -->
 <div class="box-body">
-    <div class="table-responsive" style="margin-top:30px;height:auto;">
-        <table id="tblListData" class="table table-bordered table-hover table-striped">
-            <tr>
-                <th style="width: 3%; text-align: center;">STT</th>
-                <th style="width: 30%; text-align: center;">Tên file</th>
-                <th style="width: 30%; text-align: center;">Thông tin file (Số,ngày)</th>
-                <th style="width: 18%; text-align: center;">Xem</th>
-                <th style="width: 18%; text-align: center;">Tảis</th>
-            </tr>
-            @foreach (var item in lstFile)
-            {
-                i++;
-                if(i==1)
-                {
-                    path = item.sDuongDan;
-                }
-                <tr>
-                    <td style="text-align: center;">@i</td>
-                    <td>@item.sTenLoaiFile</td>
-                    <td>@item.sHopDong , @string.Format("{0:dd/MM/yyyy}",item.dNgayHopDong)</td>
-                    <td><span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span></td>
-                    <td> <a class="openyeucaubosung" href="@item.sDuongDan" >
-                            <span class='badge bg-blue'><i class='fa fa-download'></i></span>
-                        </a>
-                    </td>
-                </tr>
-            }
-
-
-        </table>
+    <div class="table-responsive">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Thông tin hợp đồng mua bán</legend>
+            <div class="control-group">
+                <table id="tblListData" class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th style="width: 3%; text-align: center;">STT</th>
+                        <th style="width: 30%; text-align: center;">Hợp đồng mua bán số</th>
+                        <th style="width: 30%; text-align: center;">Ngày hợp đồng</th>
+                        <th style="width: 18%; text-align: center;">Xem</th>
+                        <th style="width: 18%; text-align: center;">Tải</th>
+                    </tr>
+                    @foreach (var item in lstFileHD)
+                    {
+                        i++;
+                        if (i == 1)
+                        {
+                            lstPath.Add(item.sDuongDan);
+                        }
+                        <tr>
+                            <td style="text-align: center;">@i</td>
+                            <td>@item.sHopDong</td>
+                            <td>@string.Format("{0:dd/MM/yyyy}", item.dNgayHopDong)</td>
+                            <td align="center"><span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span></td>
+                            <td align="center">
+                                <a class="openyeucaubosung" href="@item.sDuongDan">
+                                    <span class='badge bg-blue'><i class='fa fa-download'></i></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table><br />
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Thông tin hóa đơn mua bán</legend>
+            <div class="control-group">
+                <table id="tblListData" class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th style="width: 3%; text-align: center;">STT</th>
+                        <th style="width: 30%; text-align: center;">Hóa đơn mua bán số</th>
+                        <th style="width: 30%; text-align: center;">Ngày trên hóa đơn</th>
+                        <th style="width: 18%; text-align: center;">Xem</th>
+                        <th style="width: 18%; text-align: center;">Tải</th>
+                    </tr>
+                    @foreach (var item in lstFileHDon)
+                    {
+                        i++;
+                        if (i == 1)
+                        {
+                            lstPath.Add(item.sDuongDan);
+                        }
+                        <tr>
+                            <td style="text-align: center;">@i</td>
+                            <td>@item.sHopDong</td>
+                            <td>@string.Format("{0:dd/MM/yyyy}", item.dNgayHopDong)</td>
+                            <td align="center"><span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span></td>
+                            <td align="center">
+                                <a class="openyeucaubosung" href="@item.sDuongDan">
+                                    <span class='badge bg-blue'><i class='fa fa-download'></i></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table><br />
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Thông tin phiếu đóng gói</legend>
+            <div class="control-group">
+                <table id="tblListData" class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th style="width: 3%; text-align: center;">STT</th>
+                        <th style="width: 30%; text-align: center;">Phiếu đóng gói số</th>
+                        <th style="width: 30%; text-align: center;">Ngày đóng gói</th>
+                        <th style="width: 18%; text-align: center;">Xem</th>
+                        <th style="width: 18%; text-align: center;">Tải</th>
+                    </tr>
+                    @foreach (var item in lstFilePDG)
+                    {
+                        i++;
+                        if (i == 1)
+                        {
+                            lstPath.Add(item.sDuongDan);
+                        }
+                        <tr>
+                            <td style="text-align: center;">@i</td>
+                            <td>@item.sHopDong</td>
+                            <td>@string.Format("{0:dd/MM/yyyy}", item.dNgayHopDong)</td>
+                            <td align="center"><span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span></td>
+                            <td align="center">
+                                <a class="openyeucaubosung" href="@item.sDuongDan">
+                                    <span class='badge bg-blue'><i class='fa fa-download'></i></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table><br />
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Thông tin file đính kèm khác</legend>
+            <div class="control-group">
+                <table id="tblListData" class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th style="width: 3%; text-align: center;">STT</th>
+                        <th style="text-align: center;">Tên loại file</th>
+                        <th style="width: 18%; text-align: center;">Xem</th>
+                        <th style="width: 18%; text-align: center;">Tải</th>
+                    </tr>
+                    @foreach (var item in lstFile)
+                    {
+                        i++;
+                        if (i == 1)
+                        {
+                            lstPath.Add(item.sDuongDan);
+                        }
+                        <tr>
+                            <td style="text-align: center;">@i</td>
+                            <td>@item.sTenLoaiFile</td>
+                            <td align="center"><span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span></td>
+                            <td align="center">
+                                <a class="openyeucaubosung" href="@item.sDuongDan">
+                                    <span class='badge bg-blue'><i class='fa fa-download'></i></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table><br />
+            </div>
+        </fieldset>
     </div>
 </div>
+@{ 
+    String[] path = lstPath.ToArray();
+}
 <div class="box-body">
     <div style="height:643px;">
-        <iframe id="ifViewFile" src="@path" style="height:643px;width:560px; object-fit:fill;"> </iframe>
+        <iframe id="ifViewFile" src="@Convert.ToString(path[0])" style="height:643px;width:100%; object-fit:fill;"> </iframe>
     </div>
 </div>
 <script>
     $(document).ready(function () {
         $(document).on('click', '.btnview', function (e) {
-            debugger;
+            //debugger;
             var filePath = $(this).data("src");
             $("#ifViewFile").attr('src',filePath); 
         });

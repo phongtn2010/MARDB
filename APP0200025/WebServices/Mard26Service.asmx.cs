@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Xml.Serialization;
+using DATA0200026;
 using DATA0200026.WebServices;
 using DATA0200026.WebServices.XmlType;
 
@@ -78,11 +79,11 @@ namespace APP0200025.WebServices
                             break;
                     }
 
-                    //CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "doanhnghiep", "Thành công", payload, "", "");
+                    CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "NSW->BNN", nswFileCode, "Thành công", "99", payload, "", "");
                 }
                 else
                 {
-                    //CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "doanhnghiep", "Lỗi validate payload", payload, "", "");
+                    CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "NSW->BNN", nswFileCode, "Lỗi không đúng định dạng bản tin", "00", payload, "", "");
 
                     envelopReturn = Envelope.CreateEnvelopeError(nswFileCode,
                         WsConstants.PROCEDURE_CODE,
@@ -94,7 +95,7 @@ namespace APP0200025.WebServices
             }
             catch (Exception e)
             {
-                //CLogNSW.Add(nswFileCode, "doanhnghiep", e.Message, payload, "", "");
+                CLogNSW.Add(nswFileCode, "NSW->BNN", nswFileCode, e.Message, "00", payload, "", "");
 
                 envelopReturn = Envelope.CreateEnvelopeError(nswFileCode,
                     WsConstants.PROCEDURE_CODE,

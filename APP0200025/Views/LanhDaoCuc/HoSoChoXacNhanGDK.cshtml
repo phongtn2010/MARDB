@@ -208,6 +208,7 @@
                                             {
                                                 r = dt.Rows[i];
 
+                                                int iID_MaTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
 
                                                 String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "LanhDaoCuc", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                                 String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "LanhDaoCuc", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
@@ -234,14 +235,22 @@
                                                         </a>
                                                     </td>
                                                     @*<td align="center" title="Thu hồi">
-                                                <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
-                                                    <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
-                                                </a>
-                                            </td>*@
+                                                            <a class="openthuhoi" data-id=">@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
+                                                                <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
+                                                            </a>
+                                                        </td>*@
                                                     <td align="center" title="Quá hạn">
-                                                        <a class="openthuhoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#QuaHan">
-                                                            <span class='badge bg-red'><i class='fa fa-exclamation'></i></span>
-                                                        </a>
+                                                        @{
+                                                            int[] arrTrangThai = { 17, 22 };
+                                                            if (arrTrangThai.Contains(iID_MaTrangThai))
+                                                            {
+                                                                bool bQuaHan = HamRiengModels.XulyQuaHan(Convert.ToDateTime(r["dNgayTiepNhan"]));
+                                                                if (bQuaHan == true)
+                                                                {
+                                                                    <span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span>
+                                                                }
+                                                            }
+                                                        }
                                                     </td>
                                                 </tr>
                                             }
@@ -260,8 +269,8 @@
                             @MvcHtmlString.Create(strPhanTrang)
                         </div>
                     </div>
-                                        }
-                </div>
+                }
+            </div>
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
