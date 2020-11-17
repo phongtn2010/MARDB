@@ -189,6 +189,8 @@
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
 
+                                            int iID_MaTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
+
                                             String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "HoSoDaXemXetYeuCauBoSung", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "HoSoDaXemXetYeuCauBoSung", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                             String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "HoSoDaXemXetYeuCauBoSung", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
@@ -227,7 +229,18 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon"><span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span></td>
+                                                <td class="head-td-icon">
+                                                    @{
+                                                        if (iID_MaTrangThai == 13)
+                                                        {
+                                                            bool bQuaHan = HamRiengModels.XulyQuaHan(Convert.ToDateTime(r["dNgayTiepNhan"]));
+                                                            if (bQuaHan == true)
+                                                            {
+                                                                <span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span>
+                                                            }
+                                                        }
+                                                    }
+                                                </td>
                                             </tr>
                                         }
                                     }
