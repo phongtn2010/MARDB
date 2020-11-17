@@ -262,30 +262,88 @@ namespace DATA0200025
 
             DateTime dNow = DateTime.Now;
 
-            //Ngay dau tien trong tuan
-            DateTime dNgayDauTuan = CString.GetFirstDayOfWeek(dNow);
-            DateTime dThuBay = dNgayDauTuan.AddDays(5);
-            DateTime dChuNhat = dNgayDauTuan.AddDays(6);
+            DateTime dThuBay = new DateTime();
+            DateTime dChuNhat = new DateTime();
 
+            DayOfWeek day = date.DayOfWeek;
+            string dayToday = day.ToString();
+            if (day == DayOfWeek.Saturday)
+            {
+                dThuBay = date;
+            }
+            else if (day == DayOfWeek.Sunday)
+            {
+                dChuNhat = date;
+            }
+            else 
+            {
+                //Ngay dau tien trong tuan
+                DateTime dNgayDauTuan = CString.GetFirstDayOfWeek(dNow);
+                dThuBay = dNgayDauTuan.AddDays(5);
+                dChuNhat = dNgayDauTuan.AddDays(6);
+            }    
+
+            long iTimeHetHan = 0;
             if(date == dThuBay)
             {
-                vR = false;
+                string dNgayHetHan = date.AddDays(2).ToString("dd/MM/yyyy") + " 17:00";
+                String[] tgDate7 = dNgayHetHan.Split(' ');
+                String sNgaySua7 = Convert.ToString(tgDate7[0]);
+                String sGioSua7 = Convert.ToString(tgDate7[1]);
+                DateTime dThoiGianHetHan = Convert.ToDateTime(CommonFunction.LayNgayTuXau_Gio(sNgaySua7, sGioSua7));
+
+                iTimeHetHan = CommonFunction.ConvertToUnixTimestamp_Second(dThoiGianHetHan);
             }
             else if(date == dChuNhat)
             {
-                vR = false;
+                string dNgayHetHan = date.AddDays(1).ToString("dd/MM/yyyy") + " 17:00";
+                String[] tgDate8 = dNgayHetHan.Split(' ');
+                String sNgaySua8 = Convert.ToString(tgDate8[0]);
+                String sGioSua8 = Convert.ToString(tgDate8[1]);
+                DateTime dThoiGianHetHan = Convert.ToDateTime(CommonFunction.LayNgayTuXau_Gio(sNgaySua8, sGioSua8));
+
+                iTimeHetHan = CommonFunction.ConvertToUnixTimestamp_Second(dThoiGianHetHan);
             }
             else
             {
-                if(date.Hour >= 17)
+                string sThoiGian17h = date.ToString("dd/MM/yyyy") + " 17:00";
+                String[] tgDate17h = sThoiGian17h.Split(' ');
+                String sNgaySua17h = Convert.ToString(tgDate17h[0]);
+                String sGioSua17h = Convert.ToString(tgDate17h[1]);
+                DateTime dThoiGian17h = Convert.ToDateTime(CommonFunction.LayNgayTuXau_Gio(sNgaySua17h, sGioSua17h));
+
+                long iTime17h = CommonFunction.ConvertToUnixTimestamp_Second(dThoiGian17h);
+                long iTime = CommonFunction.ConvertToUnixTimestamp_Second(date);
+
+                if (iTime > iTime17h)
                 {
-                    vR = true;
-                }    
-                else if (date.AddDays(1) <= dNow)
+                    string dNgayHetHan = date.AddDays(1).ToString("dd/MM/yyyy") + " 17:00";
+                    String[] tgDate = dNgayHetHan.Split(' ');
+                    String sNgaySua = Convert.ToString(tgDate[0]);
+                    String sGioSua = Convert.ToString(tgDate[1]);
+                    DateTime dThoiGianHetHan = Convert.ToDateTime(CommonFunction.LayNgayTuXau_Gio(sNgaySua, sGioSua));
+
+                    iTimeHetHan = CommonFunction.ConvertToUnixTimestamp_Second(dThoiGianHetHan);
+                }
+                else
                 {
-                    vR = true;
+                    string dNgayHetHan = date.ToString("dd/MM/yyyy") + " 17:00";
+                    String[] tgDate = dNgayHetHan.Split(' ');
+                    String sNgaySua = Convert.ToString(tgDate[0]);
+                    String sGioSua = Convert.ToString(tgDate[1]);
+                    DateTime dThoiGianHetHan = Convert.ToDateTime(CommonFunction.LayNgayTuXau_Gio(sNgaySua, sGioSua));
+
+                    iTimeHetHan = CommonFunction.ConvertToUnixTimestamp_Second(dThoiGianHetHan);
                 }
             }
+
+            long iTimeNow = CommonFunction.ConvertToUnixTimestamp_Second(dNow);
+
+            if (iTimeNow > iTimeHetHan)
+            {
+                vR = true;
+            }
+
             return vR;
         }
     }

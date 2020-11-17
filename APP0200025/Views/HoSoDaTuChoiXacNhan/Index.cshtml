@@ -195,6 +195,8 @@
                                         {
                                             r = dt.Rows[i];
 
+                                            int iID_MaTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
+
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "HoSoDaTuChoiXacNhan", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
 
@@ -224,7 +226,18 @@
                                                         <span class='badge bg-yellow-gradient btnGuiDoanhNghiep' data-id="@r["iID_MaHoSo"]" style="cursor: pointer;"><i class='fa fa-fw fa-send'></i></span>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon"><span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span></td>
+                                                <td class="head-td-icon">
+                                                    @{
+                                                        if (iID_MaTrangThai == 19)
+                                                        {
+                                                            bool bQuaHan = HamRiengModels.XulyQuaHan(Convert.ToDateTime(r["dNgayTiepNhan"]));
+                                                            if (bQuaHan == true)
+                                                            {
+                                                                <span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span>
+                                                            }
+                                                        }
+                                                    }
+                                                </td>
                                             </tr>
                                         }
                                     }
