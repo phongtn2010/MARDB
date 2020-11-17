@@ -277,10 +277,14 @@ namespace DATA0200025
             }
             else
             {
-                if(date > dNow)
+                if(date.Hour >= 17)
                 {
                     vR = true;
                 }    
+                else if (date.AddDays(1) <= dNow)
+                {
+                    vR = true;
+                }
             }
             return vR;
         }
