@@ -255,5 +255,34 @@ namespace DATA0200025
             }
             return vR;
         }
+
+        public static bool XulyQuaHan(DateTime date)
+        {
+            bool vR = false;
+
+            DateTime dNow = DateTime.Now;
+
+            //Ngay dau tien trong tuan
+            DateTime dNgayDauTuan = CString.GetFirstDayOfWeek(dNow);
+            DateTime dThuBay = dNgayDauTuan.AddDays(5);
+            DateTime dChuNhat = dNgayDauTuan.AddDays(6);
+
+            if(date == dThuBay)
+            {
+                vR = false;
+            }
+            else if(date == dChuNhat)
+            {
+                vR = false;
+            }
+            else
+            {
+                if(date > dNow)
+                {
+                    vR = true;
+                }    
+            }
+            return vR;
+        }
     }
 }
