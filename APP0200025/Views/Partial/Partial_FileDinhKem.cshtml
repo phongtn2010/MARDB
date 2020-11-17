@@ -16,11 +16,10 @@
     var lstFileHDon = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 101);
     var lstFilePDG = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 102);
     int i = 0;
-    string path = "";
+    List<string> lstPath = new List<string>();
 }
 <div class="box-header with-border">
     <h3 class="box-title">Danh sách TACN</h3>
-
 </div><!-- /.box-header -->
 <div class="box-body">
     <div class="table-responsive">
@@ -40,7 +39,7 @@
                         i++;
                         if (i == 1)
                         {
-                            path = item.sDuongDan;
+                            lstPath.Add(item.sDuongDan);
                         }
                         <tr>
                             <td style="text-align: center;">@i</td>
@@ -73,7 +72,7 @@
                         i++;
                         if (i == 1)
                         {
-                            path = item.sDuongDan;
+                            lstPath.Add(item.sDuongDan);
                         }
                         <tr>
                             <td style="text-align: center;">@i</td>
@@ -106,7 +105,7 @@
                         i++;
                         if (i == 1)
                         {
-                            path = item.sDuongDan;
+                            lstPath.Add(item.sDuongDan);
                         }
                         <tr>
                             <td style="text-align: center;">@i</td>
@@ -138,7 +137,7 @@
                         i++;
                         if (i == 1)
                         {
-                            path = item.sDuongDan;
+                            lstPath.Add(item.sDuongDan);
                         }
                         <tr>
                             <td style="text-align: center;">@i</td>
@@ -156,15 +155,18 @@
         </fieldset>
     </div>
 </div>
+@{ 
+    String[] path = lstPath.ToArray();
+}
 <div class="box-body">
     <div style="height:643px;">
-        <iframe id="ifViewFile" src="@path" style="height:643px;width:100%; object-fit:fill;"> </iframe>
+        <iframe id="ifViewFile" src="@path[0]" style="height:643px;width:100%; object-fit:fill;"> </iframe>
     </div>
 </div>
 <script>
     $(document).ready(function () {
         $(document).on('click', '.btnview', function (e) {
-            debugger;
+            //debugger;
             var filePath = $(this).data("src");
             $("#ifViewFile").attr('src',filePath); 
         });
