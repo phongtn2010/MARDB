@@ -9,6 +9,10 @@
 @{
     Layout = null;
     string ParentID = "TC";
+
+    HoSoModels hoSo = clHoSo.GetHoSoById(Model.iID_MaHoSo);
+
+    int i = 0, j = 0;
 }
 @*<script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/FileSaver.js"></script>
 <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>*@
@@ -93,28 +97,78 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Cửa khẩu nhập: </p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Cửa khẩu nhập: @hoSo.sMua_NoiNhan</p></td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Thời gian nhập khẩu <i>(tháng, năm)</i>: </p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Thời gian nhập khẩu <i>(tháng, năm)</i>: @hoSo.sMua_FromDate-@hoSo.sMua_ToDate</p></td>
                 </tr>
                 <tr>
                     <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Thuộc lô hàng có các chứng từ sau: </p></td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Hợp đồng số 12345 ngày 16 tháng 06 năm 2019</p></td>
+                    <td valign="top" colspan="2" style="padding: 5px 0px;">
+                        @{ 
+                            var lstFileHD = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 100);
+                        }
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">Thông tin hợp đồng</legend>
+                            <div class="control-group">
+                                <table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+                                    <tr>
+                                        <th style="width: 3%; text-align: center;">STT</th>
+                                        <th style="text-align: center;">Hợp đồng mua bán số</th>
+                                        <th style="width: 30%; text-align: center;">Ngày hợp đồng</th>
+                                    </tr>
+                                    @foreach (var item in lstFileHD)
+                                    {
+                                        i++;
+                                        <tr>
+                                            <td style="text-align: center;">@i</td>
+                                            <td align="left">@item.sTenLoaiFile</td>
+                                            <td align="left">@item.sHopDong , @string.Format("{0:dd/MM/yyyy}", item.dNgayHopDong)</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </fieldset>
+                    </td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Hóa đơn số 12345 ngày 16 tháng 06 năm 2019</p></td>
+                    <td valign="top" colspan="2" style="padding: 5px 0px;">
+                        @{
+                            var lstFileHdon = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 101);
+                        }
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">Thông tin hoa đơn</legend>
+                            <div class="control-group">
+                                <table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+                                    <tr>
+                                        <th style="width: 3%; text-align: center;">STT</th>
+                                        <th style="text-align: center;">Hóa đơn mua bán số</th>
+                                        <th style="width: 30%; text-align: center;">Ngày hóa đơn</th>
+                                    </tr>
+                                    @foreach (var item in lstFileHdon)
+                                    {
+                                        j++;
+                                        <tr>
+                                            <td style="text-align: center;">@j</td>
+                                            <td align="left">@item.sTenLoaiFile</td>
+                                            <td align="left">@item.sHopDong , @string.Format("{0:dd/MM/yyyy}", item.dNgayHopDong)</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </fieldset>
+                    </td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Giấy đăng ký kiểm tra chất lượng số: 12345 ngày 16 tháng 06 năm 2019</p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Giấy đăng ký kiểm tra chất lượng số: @hoSo.sSoGDK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ngày: @string.Format("{0:dd/MM/yyyy}", hoSo.dNgayXacNhan)</p></td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Tên tổ chức nhập khẩu: Công ty TNHH Ánh Sao </p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>- Tên tổ chức nhập khẩu: @hoSo.sTenDoanhNghiep </p></td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Địa chỉ: Cầu Giấy, Hà Nội</p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Địa chỉ: @hoSo.sMua_DiaChi</p></td>
                 </tr>
                 <tr>
                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>2. Căn cứ kiểm tra</b></p></td>
@@ -136,6 +190,11 @@
                 </tr>
                 <tr>
                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>Lô hàng đáp ứng yêu cầu chất lượng hàng hóa nhập khẩu./.</b></p></td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="2" style="padding: 10px 0px;">
+                        <p></p>
+                    </td>
                 </tr>
             </table>
         </div>
