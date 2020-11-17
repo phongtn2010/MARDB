@@ -245,7 +245,7 @@ namespace APP0200025.Controllers
             
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSoDNCanBoSungKetQua, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
 
-            //XML 18(21)
+            //XML 18(19)
             XuLyKetQua resultConfirm = new XuLyKetQua();
             resultConfirm.NSWFileCode = hangHoa.sMaHoSo;
             resultConfirm.Reason = _sNoiDung;
