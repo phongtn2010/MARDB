@@ -251,7 +251,7 @@
 
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
                                             String strSoanPhuLuc = MyHtmlHelper.ActionLink(Url.Action("SoanPhuLuc", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Detail", "");
-                                            String strThuHoi = MyHtmlHelper.ActionLink(Url.Action("ThuHoi", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>", "Edit", "");
+                                            String strThuHoi = MyHtmlHelper.ActionLink(Url.Action("ThuHoi", "ChuyenVien", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>", "Edit", "onclick=\"sendConfim(this);\"");
 
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
@@ -342,4 +342,9 @@
             "autoWidth": false
         });
     });
+
+    function sendConfim(id) {
+        if (confirm('Bạn có chắc chắn muốn thu hồi không?')) { return true; }
+        else { event.stopPropagation(); event.preventDefault(); };
+    }
 </script>
