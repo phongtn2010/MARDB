@@ -93,7 +93,7 @@ $(function () {
 
 $(function () {
     $("body").on("click", "#btnTuChoiHH", function () {
-        var bootstrapValidator = $("#formTuChoi").data('bootstrapValidator');
+        var bootstrapValidator = $("#formTuChoiHH").data('bootstrapValidator');
         bootstrapValidator.validate();
         if (bootstrapValidator.isValid()) {
             var formData = new FormData($("#formTuChoiHH")[0]);
