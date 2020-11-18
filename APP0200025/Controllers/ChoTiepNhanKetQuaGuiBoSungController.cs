@@ -240,7 +240,7 @@ namespace APP0200025.Controllers
 
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSoDNCanBoSungKetQua, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
 
-            //XML 18(21)
+            //XML 18(19)
             XuLyKetQua resultConfirm = new XuLyKetQua();
             resultConfirm.NSWFileCode = hangHoa.sMaHoSo;
             resultConfirm.Reason = _sNoiDung;
@@ -251,7 +251,7 @@ namespace APP0200025.Controllers
             resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
             resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
             resultConfirm.ResponseDate = DateTime.Now;
-            string error = _sendService.XuLyKetQua(hangHoa.sMaHoSo, resultConfirm, "21");
+            string error = _sendService.XuLyKetQua(hangHoa.sMaHoSo, resultConfirm, "19");
 
             if (error == "99")
             {

@@ -45,7 +45,7 @@
 
     if (Model.PageSize == 0)
     {
-        Model.PageSize = 1;// Globals.PageSize;
+        Model.PageSize = Globals.PageSize;
     }
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
