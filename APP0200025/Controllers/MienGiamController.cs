@@ -104,7 +104,13 @@ namespace APP0200025.Controllers
                         CLichSuHoSo.Add(Convert.ToInt64(iID_MaHoSo), "", sUserName, sTenUser, eDoiTuong.TYPE_3, "Lãnh đạo cục", eHanhDong.TYPE_2_3, "Ký số", "", "", eTrangThai.TYPE_2, "Đã tiếp nhận", eTrangThai.TYPE_3, "Lãnh đạo cục đã phê duyệt ");
                     }   
                 }
+
+                TempData["msg"] = "success";
             }
+            else
+            {
+                TempData["msg"] = "error";
+            }    
 
             return RedirectToAction("LanhDaoCuc_ChoPheDuyet");
         }
