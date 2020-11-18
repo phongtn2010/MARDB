@@ -82,7 +82,7 @@ namespace APP0200025.Controllers
             {
                 CHoSo26.UpdateNguoiXem(iID_MaHoSo, sUserName);
 
-                //Gui sang NSW
+                //XML13(01)
                 PhanHoiDonXM resultConfirm = new PhanHoiDonXM();
                 resultConfirm.NSWFileCode = sMaHoSo;
                 resultConfirm.NameOfStaff = sTenUser;
@@ -180,13 +180,24 @@ namespace APP0200025.Controllers
             {
                 CHoSo26.UpdateNguoiXem(iID_MaHoSo, sUserName);
 
-                //Gui sang NSW
-                PhanHoiDonXM resultConfirm = new PhanHoiDonXM();
+                //XML 12(04)
+                CVMienKiem resultConfirm = new CVMienKiem();
                 resultConfirm.NSWFileCode = sMaHoSo;
-                resultConfirm.NameOfStaff = sTenUser;
-                resultConfirm.ResponseDate = DateTime.Now;
+                resultConfirm.ConfirmApplicationNo = sTenUser;
+                resultConfirm.Organization ="";
+                resultConfirm.SignConfirmDate = DateTime.Now;
+                resultConfirm.SignConfirmPlace = "";
+                resultConfirm.SignDate = DateTime.Now;
+                resultConfirm.DepartmentCode = "";
+                resultConfirm.DepartmentName = "";
 
-                string error = _sendService.PhanHoiDonXM(sMaHoSo, resultConfirm);
+                resultConfirm.ListHangHoa = null;
+
+                resultConfirm.PeriodFrom = DateTime.Now;
+                resultConfirm.PeriodTo = DateTime.Now;
+                resultConfirm.SignName = "";
+
+                string error = _sendService.CVMienKiem(sMaHoSo, resultConfirm);
                 if (error == "99")
                 {
                     bang.MaNguoiDungSua = sUserName;
@@ -380,7 +391,7 @@ namespace APP0200025.Controllers
                 }
             }
 
-            //Gui sang NSW
+            //XML 13(05)
             ThongBaoThuHoiCVMienKiem resultConfirm = new ThongBaoThuHoiCVMienKiem();
             resultConfirm.NSWFileCode = sMaHoSo;
             resultConfirm.CancelDate = DateTime.Now;
