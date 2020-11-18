@@ -60,7 +60,11 @@
                             <td class="head-td-icon">
                                 @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                 {
-                                    @MvcHtmlString.Create(strView)
+                                    <a class="openHangHoaChiTiet" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#HangHoaChiTiet">
+                                        <span class='badge bg-red'><i class='fa fa-pencil-square-o'></i></span>
+                                    </a>
+
+                                    @*@MvcHtmlString.Create(strView)*@
                                 }
                             </td>
                         </tr>

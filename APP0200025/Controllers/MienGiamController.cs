@@ -91,11 +91,13 @@ namespace APP0200025.Controllers
                     {
                         long iID_MaHoSo = Convert.ToInt64(arr[i]);
 
+                        string sSoGDK = CTaoSoGDK.GetSoGDK().SoGDK;
+
                         bang.MaNguoiDungSua = sUserName;
                         bang.IPSua = Request.UserHostAddress;
                         bang.DuLieuMoi = false;
                         bang.GiaTriKhoa = iID_MaHoSo;
-                        bang.CmdParams.Parameters.AddWithValue("@sSoGDK", CTaoSoGDK.GetSoGDK());
+                        bang.CmdParams.Parameters.AddWithValue("@sSoGDK", sSoGDK);
                         bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", DateTime.Now);
                         bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", 3);
                         bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", 2);
@@ -127,6 +129,15 @@ namespace APP0200025.Controllers
             
             CHoSo26.CleanNguoiXem(iID_MaHoSo);
             return RedirectToAction("LanhDaoCuc_ChoPheDuyet");
+        }
+
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public PartialViewResult HangHoaChiTiet(string iID_MaHangHoa)
+        {
+            HangHoa26Models hanghoa = CHangHoa26.Get_Detail(Convert.ToInt64(iID_MaHangHoa));
+
+            return PartialView(hanghoa);
         }
     }
 }
