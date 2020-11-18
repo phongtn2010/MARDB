@@ -1,19 +1,31 @@
 ﻿$(function () {
     $("body").on("click", ".btnGuiDoanhNghiep", function () {
         var iID_MaHoSo = $(this).data("id");
-        $.ajax({
-            url: ServerUrl + '/HoSoYeuCauBoSung/TiepNhanHoSoSubmit',
-            type: 'POST',
-            data: { iID_MaHoSo: iID_MaHoSo },
-            success: function (response) {
-                if (response.success) {
-                    showToast_Success();
-                    location.reload();
-                }
+        $.confirm({
+            title: "THÔNG BÁO XÁC NHẬN",
+            text: "Bạn có chắc chắn muốn gửi doanh nghiệp không?",
+            confirm: function (button) {
+                $.ajax({
+                    url: ServerUrl + '/HoSoDaXemXetYeuCauBoSung/GuiDoanhNghiepSubmit',
+                    type: 'POST',
+                    data: { iID_MaHoSo: iID_MaHoSo },
+                    success: function (response) {
+                        if (response.success) {
+                            showToast_Success();
+                            location.reload();
+                        }
+                    },
+                    error: function (response) {
+                        showToast_Error();
+                    }
+                });
             },
-            error: function (response) {
-                showToast_Error();
-            }
+            cancel: function (button) {
+                return false;
+                //alert("Bạn đã từ chối tiếp nhận!");
+            },
+            confirmButton: "Đồng ý",
+            cancelButton: "Từ chối"
         });
     });
 });
