@@ -2855,6 +2855,7 @@
     <Content Include="ScriptsERP\jsIBS.js" />
     <Content Include="ScriptsERP\jsInit.js" />
     <Content Include="ScriptsERP\jsNumber.js" />
+    <Content Include="ScriptsERP\jsMienGiam.js" />
     <Content Include="ScriptsERP\jsSoanPhuLuc.js" />
     <Content Include="ScriptsERP\jsString.js" />
     <Content Include="ScriptsERP\jsToChucChiDinh.js" />
@@ -3116,6 +3117,7 @@
     <Content Include="Views\Partial\Partial_XNCL_ThongBaoKetQua.cshtml" />
     <Content Include="Views\ToChucChiDinh\Detail.cshtml" />
     <Content Include="Views\BoPhanMotCua\Partial_Model_ThuHoi.cshtml" />
+    <Content Include="Views\BoPhanMotCua\Partial_HangHoaChiTiet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

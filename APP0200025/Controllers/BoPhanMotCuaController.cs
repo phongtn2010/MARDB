@@ -419,5 +419,14 @@ namespace APP0200025.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public PartialViewResult Partial_HangHoaChiTiet(string iID_MaHangHoa)
+        {
+            HangHoa26Models hanghoa = CHangHoa26.Get_Detail(Convert.ToInt64(iID_MaHangHoa));
+
+            return PartialView(hanghoa);
+        }
     }
 }

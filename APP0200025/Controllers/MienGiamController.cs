@@ -128,5 +128,14 @@ namespace APP0200025.Controllers
             CHoSo26.CleanNguoiXem(iID_MaHoSo);
             return RedirectToAction("LanhDaoCuc_ChoPheDuyet");
         }
+
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public PartialViewResult HangHoaChiTiet(string iID_MaHangHoa)
+        {
+            HangHoa26Models hanghoa = CHangHoa26.Get_Detail(Convert.ToInt64(iID_MaHangHoa));
+
+            return PartialView(hanghoa);
+        }
     }
 }
