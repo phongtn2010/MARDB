@@ -550,6 +550,11 @@ namespace DATA0200025
                 DKHH += " AND dSoThongBaoKetQua_NgayKy <= @DenNgayThongBaoKetQua";
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau(models.DenNgayThongBaoKetQua));
             }
+            if (models.iID_MaLoaiHoSo > 0)
+            {
+                DK += " AND iID_MaLoaiHoSo = @iID_MaLoaiHoSo";
+                cmd.Parameters.AddWithValue("@iID_MaLoaiHoSo", models.iID_MaLoaiHoSo);
+            }
             string SQL = string.Format(@"SELECT * FROM (SELECT COUNT(iID_MaHangHoa) as count FROM(select * from CNN25_HangHoa WHERE {0}) hh
                                         INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH, DK);
             cmd.CommandText = SQL;
@@ -729,6 +734,11 @@ namespace DATA0200025
                 DKHH += " AND dSoThongBaoKetQua_NgayKy <= @DenNgayThongBaoKetQua";
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau(models.DenNgayThongBaoKetQua));
             }
+            if(models.iID_MaLoaiHoSo>0)
+            {
+                DK += " AND iID_MaLoaiHoSo = @iID_MaLoaiHoSo";
+                cmd.Parameters.AddWithValue("@iID_MaLoaiHoSo", models.iID_MaLoaiHoSo);
+            }    
             string SQL = string.Format(@"SELECT * FROM (SELECT hh.*,
                                         hs.sTenDoanhNghiep,hs.dNgayTaoHoSo,hs.sSoTiepNhan,hs.dNgayTiepNhan,hs.sSoGDK,hs.dNgayXacNhan
                                         FROM(select * from CNN25_HangHoa WHERE {0}) hh

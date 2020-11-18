@@ -307,6 +307,7 @@ namespace APP0200025.Controllers
             {
                 models = new sHoSoModels
                 {
+                    iID_MaLoaiHoSo = 3,//Chuyen viên lãnh đạo phòng, lãnh đạo cục chỉ xử lý hồ sơ 2c
                     Page = 1,
                     PageSize = Globals.PageSize,
                     LoaiDanhSach = (int)clLoaiDanhSach.From.HoSoChatLuongChoDuyet,
