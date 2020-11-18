@@ -197,8 +197,6 @@
                                             <input type="checkbox" name="chkHoSo" id="chkHoSo" onclick="CheckAll(this.checked);" />
                                         </th>
                                         <th style="width: 5%; text-align: center;">Từ chối </th>
-                                        <th style="width: 5%; text-align: center;">Thu hồi</th>
-                                        <th style="width: 5%; text-align: center;">Quá hạn</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -230,18 +228,8 @@
                                                         <input type='checkbox' value='@r["iID_MaHangHoa"].ToString()' onclick='CheckValue();' check-group='HangHoa' id='@(ParentID)_HangHoa' name='@(ParentID)_HangHoa' />
                                                     </td>
                                                     <td align="center" title="Từ chối">
-                                                        <a class="opentuchoi" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoi">
+                                                        <a class="opentuchoiHH" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoiHH">
                                                             <span class='badge bg-red'><i class='fa fa-times'></i></span>
-                                                        </a>
-                                                    </td>
-                                                    <td align="center" title="Thu hồi">
-                                                        <a class="openthuhoi" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#ThuHoi">
-                                                            <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
-                                                        </a>
-                                                    </td>
-                                                    <td align="center" title="Quá hạn">
-                                                        <a class="openthuhoi" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#QuaHan">
-                                                            <span class='badge bg-red'><i class='fa fa-exclamation'></i></span>
                                                         </a>
                                                     </td>
                                                 </tr>

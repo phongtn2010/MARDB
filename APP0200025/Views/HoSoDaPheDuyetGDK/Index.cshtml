@@ -216,7 +216,7 @@
                                             int iID_MaTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
 
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
+                                            String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiDoanhNghiep", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-yellow-gradient'><i class='fa fa-fw fa-send'></i></span>", "Edit", "onclick=\"sendConfim(this);\"");
 
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
@@ -285,4 +285,9 @@
             "autoWidth": false
         });
     });
+
+    function sendConfim(id) {
+        if (confirm('Bạn có chắc chắn muốn gửi doanh nghiệp không?')) { return true; }
+        else { event.stopPropagation(); event.preventDefault(); };
+    }
 </script>

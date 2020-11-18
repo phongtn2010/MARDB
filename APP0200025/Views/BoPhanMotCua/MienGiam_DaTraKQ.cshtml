@@ -74,6 +74,17 @@
     }));
 
 }
+<script type="text/javascript">
+    $(function () {
+        var a = '@TempData["msg"]';
+        if (a == 'success') {
+            showToast_Success();
+        }
+        else if (a == 'error'){
+            showToast_Error();
+        }
+    })
+</script>
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -246,7 +257,11 @@
                                                     }
                                                 </td>
                                                 <td class="head-td-icon">
-                                                    @MvcHtmlString.Create(strThuHoi)
+                                                    <a class="openthuhoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
+                                                        <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
+                                                    </a>
+
+                                                    @*@MvcHtmlString.Create(strThuHoi)*@
                                                 </td>
                                             </tr>
                                         }
@@ -266,6 +281,7 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
+@{Html.RenderPartial("~/Views/BoPhanMotCua/Partial_Model_ThuHoi.cshtml");}
 <script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
 <script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
 <script>
@@ -277,6 +293,48 @@
             "ordering": true,
             "info": false,
             "autoWidth": false
+        });
+    });
+
+    $(function () {
+        $("body").on("click", ".openthuhoi", function () {
+            var iID_MaHoSo = $(this).data("id");
+            $("#TH_iID_MaHoSo").val(iID_MaHoSo);
+        });
+    });
+    $(function () {
+        $("body").on("click", "#btnThuHoi", function () {
+            var bootstrapValidator = $("#formThuHoi").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if (bootstrapValidator.isValid()) {
+                var formData = new FormData($("#formThuHoi")[0]);
+                $.ajax({
+                    url: ServerUrl + '/BoPhanMotCua/MienGiam_DaTraKQ_ThuHoiSubmit',
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    success: function (response) {
+                        $('#ThuHoi').modal('toggle');
+                        if (response.success) {
+                            showToast_Success();
+                            location.href = response.value;
+                        }
+                        else {
+                            showToast_Error();
+                        }
+                    },
+                    error: function (response) {
+                        $('#ThuHoi').modal('toggle');
+                        showToast_Error();
+                    }
+                });
+                return false;
+            }
+            else return;
         });
     });
 </script>

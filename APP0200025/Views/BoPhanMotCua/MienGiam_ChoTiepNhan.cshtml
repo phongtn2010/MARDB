@@ -60,6 +60,17 @@
     String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("MienGiam_ChoTiepNhan", "BoPhanMotCua", new { sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
 
 }
+<script type="text/javascript">
+    $(function () {
+        var a = '@TempData["msg"]';
+        if (a == 'success') {
+            showToast_Success();
+        }
+        else if (a == 'error'){
+            showToast_Error();
+        }
+    })
+</script>
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -154,7 +165,7 @@
                                             int iTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
-                                            String strTiepNhan = MyHtmlHelper.ActionLink(Url.Action("MienGiam_ChoTiepNhan_TiepNhan", "BoPhanMotCua", new { iID_MaHoSo = r["iID_MaHoSo"], sMaHoSo = Convert.ToString(r["sMaHoSo"]) }), "<span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Edit", "");
+                                            String strTiepNhan = MyHtmlHelper.ActionLink(Url.Action("MienGiam_ChoTiepNhan_TiepNhan", "BoPhanMotCua", new { iID_MaHoSo = r["iID_MaHoSo"], sMaHoSo = Convert.ToString(r["sMaHoSo"]) }), "<span class='badge bg-green'><i class='fa fa-fw fa-check'></i></span>", "Edit", "onclick=\"sendConfim(this);\"");
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("MienGiam_ChoTiepNhan_Detail", "BoPhanMotCua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
 
                                             <tr>
@@ -212,4 +223,9 @@
             "autoWidth": false
         });
     });
+
+    function sendConfim(id) {
+        if (confirm('Bạn có chắc chắn muốn tiếp nhận hồ sơ không?')) { return true; }
+        else { event.stopPropagation(); event.preventDefault(); };
+    }
 </script>
