@@ -39,12 +39,18 @@ namespace DATA0200025.WebServices
 
             string sError = "";
             
-            long iID_MaHoSo = 0, iID_MaHoSo_ThayThe = 0;
+            long iID_MaHoSo = 0, iID_MaHoSo_ThayThe = 0, iID_MaHoSo_Sua = 0;
             string sMaHoSo = hoso.fiNSWFileCode;
             string sTenDoanhnghiep = hoso.sMua_Name;
             int iID_MaLoaiHoSo = hoso.fiTypeAniFeed;
 
             string sUserName = "doanhnghiep";
+
+            HoSoModels hs = clHoSo.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
+            if (hs != null)
+            {
+                iID_MaHoSo_Sua = hs.iID_MaHoSo;
+            }
 
             try
             {
@@ -55,7 +61,7 @@ namespace DATA0200025.WebServices
                     sTenTACN += hh.fiNameOfGoods + ";";
                 }
 
-                iID_MaHoSo = CHoSo.ThemHoSo(0, 1, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode, hoso.fiNSWFileCodeOld, hoso.fiCreateDate, false, "", null, null, null, null,
+                iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 1, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode, hoso.fiNSWFileCodeOld, hoso.fiCreateDate, false, "", null, null, null, null,
                 hoso.fiTaxCode, sTenDoanhnghiep, sTenLoaiHoSo, "", sTenTACN, hoso.sBan_Name, hoso.sBan_DiaChi, hoso.sBan_Tel, hoso.sBan_Fax, "", hoso.sBan_MaQuocGia, hoso.sBan_QuocGia, hoso.sBan_NoiXuat,
                 hoso.sMua_Name, hoso.sMua_DiaChi, hoso.sMua_Tel, hoso.sMua_Fax, "", hoso.sMua_NoiNhan, hoso.sMua_FromDate, hoso.sMua_ToDate,
                 hoso.fiLocationOfStorage, hoso.fiLocationOfSampling, hoso.fiDateOfSamplingFrom, hoso.fiDateOfSamplingTo,
