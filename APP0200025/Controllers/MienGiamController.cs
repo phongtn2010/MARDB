@@ -35,6 +35,7 @@ namespace APP0200025.Controllers
                 };
             }
 
+            ViewData["menu"] = 212;
             return View(hoSoSearch);
         }
 
@@ -70,6 +71,7 @@ namespace APP0200025.Controllers
 
             HoSo26Models models = CHoSo26.Get_Detail(Convert.ToInt64(iID_MaHoSo));
 
+            ViewData["menu"] = 212;
             return View(models);
         }
 
@@ -93,7 +95,7 @@ namespace APP0200025.Controllers
                         bang.IPSua = Request.UserHostAddress;
                         bang.DuLieuMoi = false;
                         bang.GiaTriKhoa = iID_MaHoSo;
-                        bang.CmdParams.Parameters.AddWithValue("@sSoGDK", CTaoMaTiepNhan.GetSoTiepNhan());
+                        bang.CmdParams.Parameters.AddWithValue("@sSoGDK", CTaoSoGDK.GetSoGDK());
                         bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", DateTime.Now);
                         bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", 3);
                         bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", 2);
@@ -116,23 +118,7 @@ namespace APP0200025.Controllers
             string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
             string sMaHoSo = Request.Form[ParentID + "_sMaHoSo"];
 
-            CHoSo26.UpdateNguoiXem(iID_MaHoSo, sUserName);
             
-            if (!string.IsNullOrEmpty(iID_MaHoSo))
-            {
-                bang.MaNguoiDungSua = sUserName;
-                bang.IPSua = Request.UserHostAddress;
-                bang.DuLieuMoi = false;
-                bang.GiaTriKhoa = iID_MaHoSo;
-                bang.CmdParams.Parameters.AddWithValue("@sSoGDK", CTaoMaTiepNhan.GetSoTiepNhan());
-                bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", DateTime.Now);
-                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", 3);
-                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", 2);
-                bang.Save();
-
-                CLichSuHoSo.Add(Convert.ToInt64(iID_MaHoSo), sMaHoSo, sUserName, sTenUser, eDoiTuong.TYPE_3, "Lãnh đạo cục", eHanhDong.TYPE_2_3, "Ký số", "", "", eTrangThai.TYPE_2, "Đã tiếp nhận", eTrangThai.TYPE_3, "Lãnh đạo cục đã phê duyệt ");
-            }
-
             CHoSo26.CleanNguoiXem(iID_MaHoSo);
             return RedirectToAction("LanhDaoCuc_ChoPheDuyet");
         }
