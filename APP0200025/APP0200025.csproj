@@ -3115,7 +3115,7 @@
     <Content Include="Views\TraCuuHangHoa\Index.cshtml" />
     <Content Include="Views\Partial\Partial_XNCL_ThongBaoKetQua.cshtml" />
     <Content Include="Views\ToChucChiDinh\Detail.cshtml" />
-
+    <Content Include="Views\BoPhanMotCua\Partial_Model_ThuHoi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
