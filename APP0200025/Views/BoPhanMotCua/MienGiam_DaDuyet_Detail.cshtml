@@ -26,20 +26,11 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
                         @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_Detail.cshtml", Model);}
-                        <form action="@Url.Action("MienGiam_DaDuyet_Word", "BoPhanMotCua", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo)
-                            <div class="box-footer clearfix text-center">
-                                <div class="col-xs-4">
-                                    <button class="btn btn-block btn-pill" type="submit">Xuất word</button>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a class="btn btn-block btn-primary" data-id="@Model.iID_MaHoSo" href="@Url.Action("MienGiam_DaDuyet_Send", "BoPhanMotCua", new { iID_MaHoSo = Model.iID_MaHoSo })">Gửi doanh nghiệp</a>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a class="btn btn-block" style="background-color:red; color:white;" onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
-                                </div>
-                            </div>
-                        </form>
+                        <div class="box-footer clearfix text-center">
+                            <a class="btn btn-primary btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>
+                            <a class="btn btn-warning" data-id="@Model.iID_MaHoSo" href="@Url.Action("MienGiam_DaDuyet_Send", "BoPhanMotCua", new { iID_MaHoSo = Model.iID_MaHoSo })">Gửi doanh nghiệp</a>
+                            <a class="btn btn-danger" onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
+                        </div>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
                         @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_LichSuHoSo.cshtml", Model);}
