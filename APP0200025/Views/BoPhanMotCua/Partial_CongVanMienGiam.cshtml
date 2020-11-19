@@ -50,15 +50,15 @@
                     <td align="center" style="padding: 3px 0px;">
                         <p>Số: @Model.sSoGDK</p>
                     </td>
-                    <td align="center" style="padding: 5px 0px;">
+                    <td align="center" style="padding: 3px 0px;">
                         <p>Hà Nội, ngày @(Model.dNgayXacNhan.Day) tháng @(Model.dNgayXacNhan.Month) năm @(Model.dNgayXacNhan.Year)</p>
                     </td>
                 </tr>
                 <tr>
-                    <td align="center" style="padding: 3px 0px;">
+                    <td align="center" style="padding: 0px 0px;">
                         <p>v/v áp dụng chế độ miễn giảm kiểm tra chất lượng TACN có thời hạn</p>
                     </td>
-                    <td align="center" style="padding: 10px 0px;"></td>
+                    <td align="center" style="padding: 0px 0px;"></td>
                 </tr>
                 <tr>
                     <td align="center" colspan="2" style="padding: 5px 0px;"><p>Kính gửi: @Model.sTenDoanhNghiep</p></td>
@@ -129,7 +129,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" colspan="2" style="padding: 0px 0px;">
+                    <td valign="top" colspan="2" style="padding: 3px 0px;">
                         @{
                             var lstCL = CHangHoa26.Get_List_HangHoa_ChatLuong(hh.iID_MaHangHoa);
                         }
@@ -137,7 +137,7 @@
                             <tr>
                                 <th style="width: 3%; text-align: center;"><b>STT</b></th>
                                 <th style="text-align: center;"><b>Tên chỉ tiêu chất lượng</b></th>
-                                <th style="width: 15%; text-align: center;">Hình thức công bố</th>
+                                <th style="width: 25%; text-align: center;">Hình thức công bố</th>
                                 <th style="width: 20%; text-align: center;">Hàm lượng</th>
                                 <th style="width: 15%; text-align: center;">Đơn vị tính</th>
                             </tr>
@@ -161,7 +161,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" colspan="2" style="padding: 0px 0px;">
+                    <td valign="top" colspan="2" style="padding: 3px 0px;">
                         @{
                             var lstAT = CHangHoa26.Get_List_HangHoa_AnToan(hh.iID_MaHangHoa);
                         }
@@ -169,7 +169,7 @@
                             <tr>
                                 <th style="width: 3%; text-align: center;"><b>STT</b></th>
                                 <th style="text-align: center;"><b>Tên chỉ tiêu an toàn</b></th>
-                                <th style="width: 15%; text-align: center;">Hình thức công bố</th>
+                                <th style="width: 25%; text-align: center;">Hình thức công bố</th>
                                 <th style="width: 20%; text-align: center;">Hàm lượng</th>
                                 <th style="width: 15%; text-align: center;">Đơn vị tính</th>
                             </tr>
@@ -214,8 +214,8 @@
                                 </td>
                                 <td align="center" style="width: 30%" valign="top">
                                     <p><b>LÃNH ĐẠO CỤC</b></p>
-                                    <p><img src="@(strDau)" /></p>
-                                    <p><b>@(Model.sSoGDK_NguoiKy)</b></p>
+                                    <p style="margin: 0"><img src="@(strDau)" /></p>
+                                    <p style="margin: 0"><b>@(Model.sSoGDK_NguoiKy)</b></p>
                                 </td>
                             </tr>
                         </table>
