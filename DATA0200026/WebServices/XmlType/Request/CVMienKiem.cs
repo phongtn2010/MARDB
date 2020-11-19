@@ -60,7 +60,7 @@ namespace DATA0200026.WebServices.XmlType.Request
     {
         public long GoodsId { set; get; }
         public string NSWRegisterFileCode { get; set; }
-        public int GoodsCode { set; get; }
+        public long GoodsCode { set; get; }
         public string NameOfGoods { get; set; }
         public int GroupFoodOfGoods { set; get; }
         public string GoodTypeId { get; set; }
@@ -84,7 +84,7 @@ namespace DATA0200026.WebServices.XmlType.Request
     {
         public string QualityCriteriaName { get; set; }
         public int QualityFormOfPublication { get; set; }
-        public decimal QualityRequire { get; set; }
+        public string QualityRequire { get; set; }
         public string QualityRequireUnitID { get; set; }
         public string QualityRequireUnitName { get; set; }
     }
@@ -93,7 +93,7 @@ namespace DATA0200026.WebServices.XmlType.Request
     {
         public string SafetyCriteriaName { get; set; }
         public int SafetyFormOfPublication { get; set; }
-        public decimal SafetyRequire { get; set; }
+        public string SafetyRequire { get; set; }
         public string SafetyRequireUnitID { get; set; }
         public string SafetyRequireUnitName { get; set; }
     }

@@ -180,37 +180,45 @@ namespace APP0200025.Controllers
             {
                 CHoSo26.UpdateNguoiXem(iID_MaHoSo, sUserName);
 
-                //XML 12(04)
-                CVMienKiem resultConfirm = new CVMienKiem();
-                resultConfirm.NSWFileCode = sMaHoSo;
-                resultConfirm.ConfirmApplicationNo = sTenUser;
-                resultConfirm.Organization ="";
-                resultConfirm.SignConfirmDate = DateTime.Now;
-                resultConfirm.SignConfirmPlace = "";
-                resultConfirm.SignDate = DateTime.Now;
-                resultConfirm.DepartmentCode = "";
-                resultConfirm.DepartmentName = "";
-
-                resultConfirm.ListHangHoa = null;
-
-                resultConfirm.PeriodFrom = DateTime.Now;
-                resultConfirm.PeriodTo = DateTime.Now;
-                resultConfirm.SignName = "";
-
-                string error = _sendService.CVMienKiem(sMaHoSo, resultConfirm);
-                if (error == "99")
+                HoSo26Models hs = CHoSo26.Get_Detail(Convert.ToInt64(iID_MaHoSo));
+                if(hs != null)
                 {
-                    bang.MaNguoiDungSua = sUserName;
-                    bang.IPSua = Request.UserHostAddress;
-                    bang.DuLieuMoi = false;
-                    bang.GiaTriKhoa = iID_MaHoSo;
-                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", 4);
-                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", 3);
-                    bang.Save();
+                    //XML 12(04)
+                    CVMienKiem resultConfirm = new CVMienKiem();
+                    resultConfirm.NSWFileCode = hs.sMaHoSo;
+                    resultConfirm.ConfirmApplicationNo = hs.sSoGDK;
+                    resultConfirm.Organization = hs.sTenDoanhNghiep;
+                    resultConfirm.SignConfirmDate = hs.dNgayXacNhan;
+                    resultConfirm.SignConfirmPlace = hs.sSoGDK_NoiKy;
+                    resultConfirm.SignDate = hs.dNgayTaoHoSo;
+                    resultConfirm.DepartmentCode = eCoQuanXuLy.sCoQuan_Ma;
+                    resultConfirm.DepartmentName = eCoQuanXuLy.sCoQuan_Ten;
 
-                    CLichSuHoSo.Add(Convert.ToInt64(iID_MaHoSo), sMaHoSo, sUserName, sTenUser, eDoiTuong.TYPE_2, "Bộ phận 1 cửa", eHanhDong.TYPE_3_4, "Chuyển Doanh Nghiệp", "", "", eTrangThai.TYPE_3, "Lãnh đạo cục đã phê duyệt ", eTrangThai.TYPE_4, "Đã cấp công văn miễn giảm");
+                    resultConfirm.ListHangHoa = CHangHoa26.GetHoaXND(Convert.ToInt64(iID_MaHoSo));
 
-                    TempData["msg"] = "success";
+                    resultConfirm.PeriodFrom = hs.dNgayXacNhan;
+                    resultConfirm.PeriodTo = hs.dNgayHetHieuLuc;
+                    resultConfirm.SignName = hs.sSoGDK_NguoiKy;
+
+                    string error = _sendService.CVMienKiem(sMaHoSo, resultConfirm);
+                    if (error == "99")
+                    {
+                        bang.MaNguoiDungSua = sUserName;
+                        bang.IPSua = Request.UserHostAddress;
+                        bang.DuLieuMoi = false;
+                        bang.GiaTriKhoa = iID_MaHoSo;
+                        bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", 4);
+                        bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", 3);
+                        bang.Save();
+
+                        CLichSuHoSo.Add(Convert.ToInt64(iID_MaHoSo), sMaHoSo, sUserName, sTenUser, eDoiTuong.TYPE_2, "Bộ phận 1 cửa", eHanhDong.TYPE_3_4, "Chuyển Doanh Nghiệp", "", "", eTrangThai.TYPE_3, "Lãnh đạo cục đã phê duyệt ", eTrangThai.TYPE_4, "Đã cấp công văn miễn giảm");
+
+                        TempData["msg"] = "success";
+                    }
+                    else
+                    {
+                        TempData["msg"] = "error";
+                    }
                 }
                 else
                 {

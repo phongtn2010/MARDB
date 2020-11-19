@@ -8,6 +8,7 @@ namespace DATA0200026
 {
     public class HoSo26Models
     {
+        
         public int iID_MaHoSo { get; set; }
         public int iID_MaTrangThai { get; set; }
         public int iID_MaTrangThaiTruoc { get; set; }
@@ -15,6 +16,10 @@ namespace DATA0200026
         public string sMaHoSo { get; set; }
         public string sSoGDK { get; set; }
         public string sSoGDK_ThayThe { get; set; }
+        public DateTime dNgayXacNhan { get; set; }
+        public DateTime dNgayHetHieuLuc { get; set; }
+        public string sSoGDK_NoiKy { get; set; }
+        public string sSoGDK_NguoiKy { get; set; }
         public string sUserTiepNhan { get; set; }
         public string sTenNguoiTiepNhan { get; set; }
         public string sTenDoanhNghiep { get; set; }
@@ -22,7 +27,6 @@ namespace DATA0200026
         public DateTime dNgayTaoHoSo { get; set; }
         public DateTime dNgayTao { get; set; }
         public string sLoaiHinhThucKiemTra { get; set; }
-        public DateTime dNgayXacNhan { get; set; }
         public string sTenTACN { get; set; }
         public string sNoiLamHoSo { get; set; }
         public string sToChuc_Name { get; set; }

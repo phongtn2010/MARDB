@@ -98,7 +98,10 @@ namespace APP0200025.Controllers
                         bang.DuLieuMoi = false;
                         bang.GiaTriKhoa = iID_MaHoSo;
                         bang.CmdParams.Parameters.AddWithValue("@sSoGDK", sSoGDK);
+                        bang.CmdParams.Parameters.AddWithValue("@sSoGDK_NoiKy", eCoQuanXuLy.sNguoiKy_NoiKy);
+                        bang.CmdParams.Parameters.AddWithValue("@sSoGDK_NguoiKy", eCoQuanXuLy.sNguoiKy_Ten);
                         bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", DateTime.Now);
+                        bang.CmdParams.Parameters.AddWithValue("@dNgayHetHieuLuc", DateTime.Now.AddYears(1));
                         bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", 3);
                         bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", 2);
                         bang.Save();

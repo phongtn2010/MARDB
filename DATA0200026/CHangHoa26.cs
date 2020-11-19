@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using DATA0200026.WebServices.XmlType.Request;
 using DomainModel;
 using DomainModel.Abstract;
 using System;
@@ -92,13 +93,24 @@ namespace DATA0200026
         {
             DataTable vR = null;
 
-            string SQL = "SELECT TOP 1 * FROM CNN26_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo ORDER BY iID_MaHangHoa";
+            string SQL = "SELECT * FROM CNN26_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo ORDER BY iID_MaHangHoa";
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
             vR = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
             cmd.Dispose();
 
             return vR;
+        }
+
+        public static IEnumerable<HangHoa26Models> GetListHangHoaByHoSo(long iID_MaHoSo)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN26_HangHoa 
+                            WHERE iID_MaHoSo=@iID_MaHoSo";
+                var results = connect.Query<HangHoa26Models>(SQL, new { iID_MaHoSo = iID_MaHoSo }).ToList();
+                return results;
+            }
         }
 
         public static HangHoa26Models Get_Detail(long iID_MaHangHoa)
@@ -316,6 +328,80 @@ namespace DATA0200026
             }
 
             return vR;
+        }
+
+        public static List<HangHoaXND> GetHoaXND(long iID_MaHoSo)
+        {
+            var hangHoas = GetListHangHoaByHoSo(iID_MaHoSo);
+            List<HangHoaXND> lst = new List<HangHoaXND>();
+            HangHoaXND hanghoa;
+            foreach (var item in hangHoas)
+            {
+                hanghoa = new HangHoaXND
+                {
+                    GoodsId = item.iID_MaHangHoa,
+                    NSWRegisterFileCode = item.sMaHoSo_DangKy,
+                    GoodsCode = item.iID_MaHangHoa25,
+                    NameOfGoods = item.sTenHangHoa,
+                    GroupFoodOfGoods = item.iID_MaNhom,
+                    GoodTypeId = item.iID_MaLoai,
+                    GoodTypeName = item.sTenLoaiHangHoa,
+                    RegistrationNumber = item.sMaSoCongNhan,
+                    Manufacture = item.sHangSanXuat,
+                    ManufactureStateCode = item.sMaQuocGia,
+                    ManufactureState = item.sTenQuocGia,
+                    StandardBase = item.sSoHieu,
+                    Material = item.sThanhPhan,
+                    FormColorOfProducts = item.sMauSac
+                };
+
+                DataTable dtCL = Get_HangHoa_ChatLuong(item.iID_MaHangHoa);
+                List<QualityCriteriaList> lstChatLuong = new List<QualityCriteriaList>();
+                QualityCriteriaList cl;
+                if (dtCL.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dtCL.Rows.Count; i++)
+                    {
+                        cl = new QualityCriteriaList
+                        {
+                            QualityCriteriaName = Convert.ToString(dtCL.Rows[i]["sChiTieu"]),
+                            QualityFormOfPublication = Convert.ToInt32(dtCL.Rows[i]["iID_MaHinhThuc"]),
+                            QualityRequire = Convert.ToString(dtCL.Rows[i]["sHamLuong"]),
+                            QualityRequireUnitID = Convert.ToString(dtCL.Rows[i]["sMaDonViTinh"]),
+                            QualityRequireUnitName = Convert.ToString(dtCL.Rows[i]["sDonViTinh"])
+                        };
+                        lstChatLuong.Add(cl);
+                    }
+                }
+                dtCL.Dispose();
+
+                hanghoa.ListQualityCriteria = lstChatLuong;
+
+                DataTable dtAT = Get_HangHoa_AnToan(item.iID_MaHangHoa);
+                List<SafetyCriteriaList> lstAnToan = new List<SafetyCriteriaList>();
+                SafetyCriteriaList at;
+                if (dtAT.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dtAT.Rows.Count; i++)
+                    {
+                        at = new SafetyCriteriaList
+                        {
+                            SafetyCriteriaName = Convert.ToString(dtAT.Rows[i]["sChiTieu"]),
+                            SafetyFormOfPublication = Convert.ToInt32(dtAT.Rows[i]["iID_MaHinhThuc"]),
+                            SafetyRequire = Convert.ToString(dtAT.Rows[i]["sHamLuong"]),
+                            SafetyRequireUnitID = Convert.ToString(dtAT.Rows[i]["sMaDonViTinh"]),
+                            SafetyRequireUnitName = Convert.ToString(dtAT.Rows[i]["sDonViTinh"])
+                        };
+                        lstAnToan.Add(at);
+                    }
+                }
+                dtAT.Dispose();
+
+                hanghoa.ListSafetyCriteria = lstAnToan;
+
+                lst.Add(hanghoa);
+            }
+            return lst;
         }
     }
 }

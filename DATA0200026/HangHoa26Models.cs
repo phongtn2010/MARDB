@@ -8,16 +8,17 @@ namespace DATA0200026
 {
     public class HangHoa26Models
     {
-        public int iID_MaHangHoa { get; set; }
-        public int iID_MaHoSo { get; set; }
+        public long iID_MaHangHoa { get; set; }
+        public long iID_MaHangHoa25 { get; set; }
+        public long iID_MaHoSo { get; set; }
         public int iID_MaNhom { get; set; }
         public string iID_MaLoai { get; set; }
         public string iID_MaPhanLoai { get; set; }
-        public string iID_MaQuocGia { get; set; }
         public string iID_MaDonViTinh { get; set; }
         public int iID_MaTrangThai { get; set; }
         public int iID_MaTrangThaiTruoc { get; set; }
         public string sMaHoSo { get; set; }
+        public string sMaHoSo_DangKy { get; set; }
         public string sTenHangHoa { get; set; }
         public string sTenNhom { get; set; }
         public string sTenPhanNhom { get; set; }
@@ -25,6 +26,7 @@ namespace DATA0200026
         public string sTenLoaiHangHoa { get; set; }
         public string sMaSoCongNhan { get; set; }
         public string sHangSanXuat { get; set; }
+        public string sMaQuocGia { get; set; }
         public string sTenQuocGia { get; set; }
         public string sThanhPhan { get; set; }
         public string sMauSac { get; set; }
