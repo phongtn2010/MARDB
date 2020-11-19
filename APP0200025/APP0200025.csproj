@@ -3118,6 +3118,7 @@
     <Content Include="Views\ToChucChiDinh\Detail.cshtml" />
     <Content Include="Views\BoPhanMotCua\Partial_Model_ThuHoi.cshtml" />
     <Content Include="Views\BoPhanMotCua\Partial_HangHoaChiTiet.cshtml" />
+    <Content Include="Views\MienGiam\Partial_HangHoaChiTiet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

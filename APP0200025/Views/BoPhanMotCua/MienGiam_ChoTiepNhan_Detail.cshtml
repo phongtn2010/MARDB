@@ -25,24 +25,10 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
                         @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_Detail.cshtml", Model);} 
-                        <form action="@Url.Action("TiepNhanHoSo", "ChoTiepNhanHoSo", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"])
-                            @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo)
-                            <div class="box-footer clearfix text-center">
-                                <div class="col-xs-3">
-                                    <button class="btn btn-block btn-primary" type="submit">Tiếp nhận</button>
-                                </div>
-                                <div class="col-xs-3">
-                                    <a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>
-                                </div>
-                                <div class="col-xs-3">
-                                    <a class="btn btn-block openyeucaubosung" style="background-color:#f1bc10;color:white;" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
-                                </div>
-                                <div class="col-xs-3">
-                                    <a class="btn btn-block" style="background-color:#023658;color:white;" onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
-                                </div>
-                            </div>
-                        </form>
+                        <div class="box-footer clearfix text-center">
+                            <a class="btn btn-primary" href="@Url.Action("MienGiam_ChoTiepNhan_TiepNhan", "BoPhanMotCua", new { iID_MaHoSo = Model.iID_MaHoSo, sMaHoSo = Model.sMaHoSo })" onclick="sendConfim(this);">Tiếp nhận</a>
+                            <a class="btn btn-danger"  onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
+                        </div>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
                         @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_LichSuHoSo.cshtml", Model);}
@@ -56,3 +42,10 @@
 <div id="HangHoaChiTiet" class="modal fade" role="basic" tabindex="-1" aria-hidden="true"></div>
 
 <script src="@Url.Content("~/ScriptsERP/jsMienGiam.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+
+<script>
+    function sendConfim(id) {
+        if (confirm('Bạn có chắc chắn muốn tiếp nhận hồ sơ không?')) { return true; }
+        else { event.stopPropagation(); event.preventDefault(); };
+    }
+</script>
