@@ -65,6 +65,7 @@
     <Compile Include="BangModels_Sub\BangModels_CongThuc.cs" />
     <Compile Include="BangModels_Sub\BangModels_HamChung.cs" />
     <Compile Include="BangModels_Sub\BangModels_TaoBangMoi.cs" />
+    <Compile Include="CDanhMuc.cs" />
     <Compile Include="CHangHoa26.cs" />
     <Compile Include="CHoSo26.cs" />
     <Compile Include="CHoSoSearch.cs" />

@@ -26,7 +26,7 @@ namespace DATA0200026
             {
                 String sThamSo = "";
 
-                String sTenNhom = ""; //clDanhMuc.Get_Name_DanhMuc("NHOMTACN", iID_MaNhom.ToString());
+                String sTenNhom = CDanhMuc.Get_Name_DanhMuc("NHOMTACN", iID_MaNhom.ToString());
 
                 long iID_MaHangHoa = 0;
                 Bang bang = new Bang("CNN26_HangHoa");
@@ -224,6 +224,19 @@ namespace DATA0200026
             return vR;
         }
 
+        public static DataTable Get_HangHoa_ChatLuong(long iID_MaHangHoa)
+        {
+            DataTable vR = null;
+
+            string SQL = "SELECT * FROM CNN26_HangHoa_ChatLuong WHERE iID_MaHangHoa=@iID_MaHangHoa ORDER BY dNgayTao ASC";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return vR;
+        }
+
         public static int ThemhangHoaAnToan(long iID_MaHangHoa, int iID_MaLoaiAnToan, int iID_MaHinhThuc, string sChiTieu, string sHinhThuc, string sHamLuong, string sMaDonViTinh, string sDonViTinh, string sGhiChu, bool bChon,
             String sUserName, String sIP)
         {
@@ -254,6 +267,19 @@ namespace DATA0200026
             {
                 vR = -1;
             }
+
+            return vR;
+        }
+
+        public static DataTable Get_HangHoa_AnToan(long iID_MaHangHoa)
+        {
+            DataTable vR = null;
+
+            string SQL = "SELECT * FROM CNN26_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa ORDER BY dNgayTao ASC";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
 
             return vR;
         }

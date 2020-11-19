@@ -1,17 +1,7 @@
 ﻿$(function () {
-    $("body").on("change", "#Edit_iID_MaPhanLoai", function () {
-        var iID_MaPhanLoai = $(this).val();
-        var iID_MaHoSo = $("#Edit_iID_MaHoSo").val();
-        var url = ServerUrl + "/ChuyenVien/Partial_HangHoa?iID_MaHoSo=" + iID_MaHoSo + "&iID_MaPhanLoai=" + iID_MaPhanLoai;
-        $("#divHH").load(url);      
-    });
-});
-
-
-$(function () {
     $("body").on("click", ".openHangHoaChiTiet", function () {
         var iID_MaHangHoa = $(this).data("id");
-        var Url = ServerUrl + "/ChuyenVien/XuLyChiTieuKiemTra?iID_MaHangHoa=" + iID_MaHangHoa;
+        var Url = ServerUrl + "/BoPhanMotCua/Partial_HangHoaChiTiet?iID_MaHangHoa=" + iID_MaHangHoa;
         $("#HangHoaChiTiet").load(Url);
     });
 });
@@ -23,7 +13,7 @@ $(function () {
         if (bootstrapValidator.isValid()) {
             var formData = new FormData($("#formXuLyChiTieu")[0]);
             $.ajax({
-                url: ServerUrl + '/ChuyenVien/XuLyChiTieuSubmit',
+                url: ServerUrl + '/BoPhanMotCua/XuLyChiTieuSubmit',
                 type: 'POST',
                 data: formData,
                 async: false,
