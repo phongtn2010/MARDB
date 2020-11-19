@@ -1589,6 +1589,7 @@
     <Content Include="Content\images\blank.gif" />
     <Content Include="Content\images\blue-paper.png" />
     <Content Include="Content\images\calendar.png" />
+    <Content Include="Content\images\ccn-dau.png" />
     <Content Include="Content\images\cnn25.png" />
     <Content Include="Content\images\cnn26.png" />
     <Content Include="Content\images\cross.png" />
@@ -3119,6 +3120,8 @@
     <Content Include="Views\BoPhanMotCua\Partial_Model_ThuHoi.cshtml" />
     <Content Include="Views\BoPhanMotCua\Partial_HangHoaChiTiet.cshtml" />
     <Content Include="Views\MienGiam\Partial_HangHoaChiTiet.cshtml" />
+    <Content Include="Views\MienGiam\Partial_CongVanMienGiam.cshtml" />
+    <Content Include="Views\BoPhanMotCua\Partial_CongVanMienGiam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

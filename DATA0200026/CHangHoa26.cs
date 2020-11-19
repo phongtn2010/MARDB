@@ -112,7 +112,16 @@ namespace DATA0200026
                 return results;
             }
         }
-
+        public static HangHoa26Models GetListHangHoaByHoSoOne(long iID_MaHoSo)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN26_HangHoa 
+                            WHERE iID_MaHoSo=@iID_MaHoSo";
+                HangHoa26Models results = connect.Query<HangHoa26Models>(SQL, new { iID_MaHoSo = iID_MaHoSo }).FirstOrDefault();
+                return results;
+            }
+        }
         public static HangHoa26Models Get_Detail(long iID_MaHangHoa)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
@@ -249,6 +258,17 @@ namespace DATA0200026
             return vR;
         }
 
+        public static IEnumerable<ChatLuong26Models> Get_List_HangHoa_ChatLuong(long iID_MaHangHoa)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT * FROM CNN26_HangHoa_ChatLuong 
+                            WHERE iID_MaHangHoa=@iID_MaHangHoa";
+                var results = connect.Query<ChatLuong26Models>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).ToList();
+                return results;
+            }
+        }
+
         public static int ThemhangHoaAnToan(long iID_MaHangHoa, int iID_MaLoaiAnToan, int iID_MaHinhThuc, string sChiTieu, string sHinhThuc, string sHamLuong, string sMaDonViTinh, string sDonViTinh, string sGhiChu, bool bChon,
             String sUserName, String sIP)
         {
@@ -294,6 +314,17 @@ namespace DATA0200026
             cmd.Dispose();
 
             return vR;
+        }
+
+        public static IEnumerable<AnToan26Models> Get_List_HangHoa_AnToan(long iID_MaHangHoa)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT * FROM CNN26_HangHoa_AnToan 
+                            WHERE iID_MaHangHoa=@iID_MaHangHoa";
+                var results = connect.Query<AnToan26Models>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).ToList();
+                return results;
+            }
         }
 
         public static int ThemhangHoaSoLuong(long iID_MaHangHoa, decimal rKhoiLuong, string sMaDonViTinhKL, string sDonViTinhKL, decimal rKhoiLuongTan, decimal rSoLuong, string sMaDonViTinhSL, string sDonViTinhSL, string sGhiChu, bool bChon,

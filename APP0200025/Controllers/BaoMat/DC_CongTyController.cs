@@ -58,6 +58,7 @@ namespace APP0200025.Controllers
             string sTenCongTy = CString.SafeString(Request.Form[ParentID + "_sTenCongTy"]);
             string DuLieuMoi = CString.SafeString(Request.Form[ParentID + "_DuLieuMoi"]);
             String ctlFNName = ParentID + "_File";
+            String ctlFNDau = ParentID + "_FileDau";
 
             if (string.IsNullOrEmpty(sTenCongTy))
             {
@@ -97,6 +98,17 @@ namespace APP0200025.Controllers
                     byte[] sLogo = CommonFunction.ConvertToBytes(hpf);
 
                     bang.CmdParams.Parameters.AddWithValue("@sLogo", sLogo);
+                }
+
+                HttpPostedFileBase hpfDau = Request.Files[ctlFNDau] as HttpPostedFileBase;
+                if (hpfDau != null && hpfDau.ContentLength > 0)
+                {
+                    var filename = Path.GetFileName(hpfDau.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Uploads/Profile"), filename);
+                    hpfDau.SaveAs(path);
+                    byte[] sDau = CommonFunction.ConvertToBytes(hpfDau);
+
+                    bang.CmdParams.Parameters.AddWithValue("@sDau", sDau);
                 }
 
                 if (DuLieuMoi == "0")

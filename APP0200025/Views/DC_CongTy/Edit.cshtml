@@ -247,13 +247,19 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-6">
+                            <div class="col-xs-4">
                                 <div class="form-group">
                                     <label for="Edit_sFile">Logo</label>
                                     @MvcHtmlString.Create(MyHtmlHelper.UploadFile(ParentID, "File", ""))
                                 </div>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label for="Edit_sFile">Dấu</label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.UploadFile(ParentID, "FileDau", ""))
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
                                 <div class="form-group">
                                     <label for="Edit_bTrangThai">Trạng thái</label>
                                     @MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, tgTrangThai, "bTrangThai", "", "type=\"checkbox\""))
