@@ -129,7 +129,33 @@ namespace APP0200025.Controllers
             string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
             string sMaHoSo = Request.Form[ParentID + "_sMaHoSo"];
 
-            
+
+            if (!string.IsNullOrEmpty(iID_MaHoSo))
+            {
+                string sSoGDK = CTaoSoGDK.GetSoGDK().SoGDK;
+
+                bang.MaNguoiDungSua = sUserName;
+                bang.IPSua = Request.UserHostAddress;
+                bang.DuLieuMoi = false;
+                bang.GiaTriKhoa = iID_MaHoSo;
+                bang.CmdParams.Parameters.AddWithValue("@sSoGDK", sSoGDK);
+                bang.CmdParams.Parameters.AddWithValue("@sSoGDK_NoiKy", eCoQuanXuLy.sNguoiKy_NoiKy);
+                bang.CmdParams.Parameters.AddWithValue("@sSoGDK_NguoiKy", eCoQuanXuLy.sNguoiKy_Ten);
+                bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", DateTime.Now);
+                bang.CmdParams.Parameters.AddWithValue("@dNgayHetHieuLuc", DateTime.Now.AddYears(1));
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", 3);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", 2);
+                bang.Save();
+
+                CLichSuHoSo.Add(Convert.ToInt64(iID_MaHoSo), "", sUserName, sTenUser, eDoiTuong.TYPE_3, "Lãnh đạo cục", eHanhDong.TYPE_2_3, "Ký số", "", "", eTrangThai.TYPE_2, "Đã tiếp nhận", eTrangThai.TYPE_3, "Lãnh đạo cục đã phê duyệt ");
+
+                TempData["msg"] = "success";
+            }
+            else
+            {
+                TempData["msg"] = "error";
+            }
+
             CHoSo26.CleanNguoiXem(iID_MaHoSo);
             return RedirectToAction("LanhDaoCuc_ChoPheDuyet");
         }
