@@ -1,5 +1,6 @@
 ﻿@using System
 @using System.Collections.Specialized
+@using System.Data
 @using DomainModel
 @using DomainModel.Controls
 @using DATA0200025
@@ -13,9 +14,32 @@
     HoSoModels hoSo = clHoSo.GetHoSoById(Model.iID_MaHoSo);
 
     int i = 0, j = 0;
+
+    String strDau = "";
+    DataTable dtCty = CCongTy.Get_Table_Top(1);
+    if (dtCty.Rows.Count > 0)
+    {
+        if (String.IsNullOrEmpty(Convert.ToString(dtCty.Rows[0]["sDau"])) == false)
+        {
+            strDau = dtCty.Rows[0]["sDau"] != null ? "data:image/jpg;base64," + Convert.ToBase64String((byte[])dtCty.Rows[0]["sDau"]) : "";
+        }
+    }
+    dtCty.Dispose();
+
+    String sKhoiLuong = "", sSoLuong = "";
+    DataTable dtKhoiLuong = clHangHoa.Get_ThongTinKhoiLuong(Model.iID_MaHangHoa);
+    if(dtKhoiLuong.Rows.Count > 0)
+    {
+        for(int k=0; k<dtKhoiLuong.Rows.Count; k++)
+        {
+            sKhoiLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhKL"]) + "; ";
+            sSoLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rSoLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhSL"]) + "; ";
+        }
+    }
+    dtKhoiLuong.Dispose();
 }
 @*<script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/FileSaver.js"></script>
-<script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>*@
+    <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>*@
 <script src="@(Url.Content("~/Content/plugins/jquery.wordexport/FileSaver.js"))"></script>
 <script src="@(Url.Content("~/Content/plugins/jquery.wordexport/jquery.wordexport.js"))"></script>
 <section>
@@ -35,10 +59,28 @@
                 </tr>
                 <tr>
                     <td align="center" style="padding: 10px 0px;">
-                        <p>Số: </p>
+                        @{
+                            if (String.IsNullOrEmpty(Model.sSoThongBaoKetQua) == false)
+                            {
+                                <p>Số: @(Model.sSoThongBaoKetQua)</p>
+                            }
+                            else
+                            {
+                                <p>Số: ........./TB-CN</p>
+                            }
+                        }
                     </td>
                     <td align="center" style="padding: 10px 0px;">
-                        <p>Hà Nội, ngày ... tháng ... năm .....</p>
+                        @{
+                            if (String.IsNullOrEmpty(Model.dSoThongBaoKetQua_NgayKy.ToString()) == false)
+                            {
+                                <p>Hà Nội, ngày @(Model.dSoThongBaoKetQua_NgayKy.Day) tháng @(Model.dSoThongBaoKetQua_NgayKy.Month) năm @(Model.dSoThongBaoKetQua_NgayKy.Year)</p>
+                            }
+                            else
+                            {
+                                <p>Hà Nội, ngày ... tháng ... năm .....</p>
+                            }
+                        }
                     </td>
                 </tr>
                 <tr>
@@ -55,9 +97,9 @@
                         <table border="1" cellpadding="3" cellspacing="3" style="width: 100%;">
                             <tr style="height: 35px;">
                                 <td align="center" style="width: 5%;"><b>STT</b></td>
-                                <td align="center"><b>Tên TACN</b></td>
+                                <td align="center"><b>Tên hàng hóa</b></td>
                                 <td align="center" style="width: 10%;"><b>Mã số công nhận</b></td>
-                                <td align="center" style="width: 15%;"><b>Hãng sản xuất</b></td>
+                                <td align="center" style="width: 15%;"><b>Nhà sản xuất</b></td>
                                 <td align="center" style="width: 15%;"><b>Nước sản xuất</b></td>
                                 <td align="center" style="width: 15%;"><b>Khối lượng</b></td>
                                 <td align="center" style="width: 15%;"><b>Số lượng</b></td>
@@ -65,33 +107,13 @@
                             </tr>
                             <tr style="height: 25px;">
                                 <td align="center">1</td>
-                                <td align="left">Vi ta min B1</td>
-                                <td align="left">I.1</td>
-                                <td align="left">PROVIMI BV</td>
-                                <td align="left">NETHLDS</td>
-                                <td align="left">1300 KLGRM; 2300 KLGRM</td>
-                                <td align="left">3 Kiện/Hộp/Bao</td>
-                                <td align="left"></td>
-                            </tr>
-                            <tr style="height: 25px;">
-                                <td align="center">2</td>
-                                <td align="left">Vi ta min B1</td>
-                                <td align="left">I.1</td>
-                                <td align="left">PROVIMI BV</td>
-                                <td align="left">NETHLDS</td>
-                                <td align="left">1300 KLGRM; 2300 KLGRM</td>
-                                <td align="left">3 Kiện/Hộp/Bao</td>
-                                <td align="left"></td>
-                            </tr>
-                            <tr style="height: 25px;">
-                                <td align="center">3</td>
-                                <td align="left">Vi ta min B1</td>
-                                <td align="left">I.1</td>
-                                <td align="left">PROVIMI BV</td>
-                                <td align="left">NETHLDS</td>
-                                <td align="left">1300 KLGRM; 2300 KLGRM</td>
-                                <td align="left">3 Kiện/Hộp/Bao</td>
-                                <td align="left"></td>
+                                <td align="left">@(Model.sTenHangHoa)</td>
+                                <td align="left">@(Model.sMaSoCongNhan)</td>
+                                <td align="left">@(Model.sHangSanXuat)</td>
+                                <td align="left">@(Model.sTenQuocGia)</td>
+                                <td align="left">@(sKhoiLuong)</td>
+                                <td align="left">@(sSoLuong)</td>
+                                <td align="left">@(Model.sGhiChu)</td>
                             </tr>
                         </table>
                     </td>
@@ -107,7 +129,7 @@
                 </tr>
                 <tr>
                     <td valign="top" colspan="2" style="padding: 5px 0px;">
-                        @{ 
+                        @{
                             var lstFileHD = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 100);
                         }
                         <fieldset class="scheduler-border">
@@ -174,10 +196,10 @@
                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>2. Căn cứ kiểm tra</b></p></td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Tiêu chuẩn công bố áp dụng (số hiệu TCCS): </p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Tiêu chuẩn công bố áp dụng (số hiệu TCCS): @(Model.sSoHieu)</p></td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Quy chuẩn kỹ thuật <i>(nhóm, loại hàng hóa tại QCVN 01-190/BNNPTNT)</i>: Thức ăn truyền thống cám tại QCVN 01-190/BNNPTNT</p></td>
+                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Quy chuẩn kỹ thuật <i>(nhóm, loại hàng hóa tại QCVN 01-190/BNNPTNT)</i>: @(Model.sQuyChuan)</p></td>
                 </tr>
                 <tr>
                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>3. Kết quả đánh giá sự phù hợp</b></p></td>
@@ -192,30 +214,27 @@
                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>Lô hàng đáp ứng yêu cầu chất lượng hàng hóa nhập khẩu./.</b></p></td>
                 </tr>
                 <tr>
-                    <td align="right" colspan="2" style="padding: 10px 0px;">
-                        <p></p>
+                    <td align="left" colspan="2" style="padding:20px 0px 0px 0px;" valign="top">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td align="left" style="width: 70%" valign="top">
+                                    <p style="margin: 0"><b>Nơi nhận:</b></p>
+                                    <p style="margin: 0">- Như trên;</p>
+                                    <p style="margin: 0">- Hải quan cửa khẩu;</p>
+                                    <p style="margin: 0">- Lưu: VT, TACN.</p>
+                                </td>
+                                <td align="center" style="width: 30%" valign="top">
+                                    <p><b>CƠ QUAN KIỂM TRA</b></p>
+                                    <p style="margin: 0"><i>(Ký tên, đóng dấu)</i></p>
+                                    <p style="margin: 0"><img src="@(strDau)" /></p>
+                                    <p style="margin: 0"><b>@(Model.sSoThongBaoKetQua_NguoiKy)</b></p>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
             </table>
         </div>
-
-        @*<div class="row">
-            <div class="col-sm-12 text-center">
-
-                <a class="word-export" href="#">Click me</a>
-
-                @if (Model.iID_MaTrangThai == 34)
-                {
-                    <button class="btn btn-danger" data-id="@Model.iID_MaHangHoa" id="btnThuHoi">Thu hồi </button>
-                }
-                else
-                {
-                    <a class="btn" style="background-color:#10de79;color:white;margin-right:5px;" href="@Url.Action("SoanThongBaoKetQua","ChoXuLyKetQua",new {iID_MaHangHoa=Model.iID_MaHangHoa })">Soạn thông báo kết quả kiểm tra</a>
-                    <a class="btn openyeucaubosung" style="background-color:#f1bc10;color:white;margin-right: 5px;" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
-                    <a class="btn" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
-                }
-            </div>
-        </div>*@
     </div>
 </section>
 <script type="text/javascript">
