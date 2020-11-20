@@ -3122,6 +3122,8 @@
     <Content Include="Views\MienGiam\Partial_HangHoaChiTiet.cshtml" />
     <Content Include="Views\MienGiam\Partial_CongVanMienGiam.cshtml" />
     <Content Include="Views\BoPhanMotCua\Partial_CongVanMienGiam.cshtml" />
+    <Content Include="Views\MienGiam\List.cshtml" />
+    <Content Include="Views\BoPhanMotCua\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

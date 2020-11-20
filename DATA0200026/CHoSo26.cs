@@ -130,9 +130,11 @@ namespace DATA0200026
         {
             SqlCommand cmd = new SqlCommand();
             string DK = "1=1";
-            DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
-            cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
-
+            if (models.iID_MaTrangThai > 0)
+            {
+                DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
+            }
             if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
                 DK += " AND sMaHoSo=@sMaHoSo";
@@ -200,9 +202,11 @@ namespace DATA0200026
         {
             SqlCommand cmd = new SqlCommand();
             string DK = "1=1";
-            DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
-            cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
-
+            if (models.iID_MaTrangThai > 0)
+            {
+                DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
+            }
             if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
                 DK += " AND sMaHoSo=@sMaHoSo";

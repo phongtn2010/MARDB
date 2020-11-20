@@ -47,6 +47,7 @@ namespace DATA0200026
             table.Columns.Add("ID", typeof(int));
             table.Columns.Add("NAME", typeof(string));
 
+            table.Rows.Add(-1, "--- Tất cả trạng thái ---");
             table.Rows.Add(1, "Chờ tiếp nhận");
             table.Rows.Add(2, "Đã tiếp nhận");
             table.Rows.Add(3, "Lãnh đạo cục đã phê duyệt ");

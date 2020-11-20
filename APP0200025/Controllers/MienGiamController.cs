@@ -168,5 +168,57 @@ namespace APP0200025.Controllers
 
             return PartialView(hanghoa);
         }
+
+        public ActionResult List(CHoSoSearch hoSoSearch)
+        {
+            if (hoSoSearch == null || hoSoSearch.iID_MaTrangThai == 0)
+            {
+                hoSoSearch = new CHoSoSearch
+                {
+                    iID_MaTrangThai = -1,
+                    Page = 1,
+                    PageSize = Globals.PageSize
+                };
+            }
+
+            ViewData["menu"] = 212;
+            return View(hoSoSearch);
+        }
+
+        [Authorize, AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Search(string ParentID)
+        {
+            string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
+            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
+            string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
+            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
+            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
+            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
+            string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
+            string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
+            string _sSoGDK = CString.SafeString(Request.Form[ParentID + "_sSoGDK"]);
+            string _TuNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayXacNhan"]);
+            string _DenNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayXacNhan"]);
+            string _TrangThai = CString.SafeString(Request.Form[ParentID + "_iID_MaTrangThai"]);
+            CHoSoSearch models = new CHoSoSearch
+            {
+                iID_MaTrangThai = Convert.ToInt32(_TrangThai),
+                sMaHoSo = _sMaHoSo,
+                sTenDoanhNghiep = _sTenDoanhNghiep,
+                sTenTACN = _sTenTACN,
+                TuNgayDen = _FromDate,
+                DenNgayDen = _ToDate,
+                sSoTiepNhan = _sSoTiepNhan,
+                TuNgayTiepNhan = _TuNgayTiepNhan,
+                DenNgayTiepNhan = _DenNgayTiepNhan,
+                sSoGDK = _sSoGDK,
+                TuNgayXacNhan = _TuNgayXacNhan,
+                DenNgayXacNhan = _DenNgayXacNhan
+            };
+
+            TempData["menu"] = 212;
+            TempData["msg"] = "success";
+            return RedirectToAction("List", "MienGiam", models);
+        }
     }
 }

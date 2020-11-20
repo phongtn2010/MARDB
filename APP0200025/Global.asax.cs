@@ -17,7 +17,7 @@ namespace APP0200025
         {
             Connection.ConnectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-            Globals.PageSize = 30;
+            Globals.PageSize = 10;
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

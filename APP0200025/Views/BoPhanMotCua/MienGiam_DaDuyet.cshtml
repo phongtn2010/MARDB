@@ -90,7 +90,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("MienGiam_DaDuyet_Search", "BoPhanMotCua", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("MienGiam_DaDuyet_Search", "BoPhanMotCua", new { ParentID = ParentID }, FormMethod.Post, new { id = "formSearch", @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
@@ -171,7 +171,7 @@
                     <div class="box-footer clearfix">
                         <div class="col-xs-12 text-align-center">
                             <button class="btn btn-primary" type="submit">Tìm kiếm</button>
-                            <button class="btn btn-danger" type="button">Nhập lại</button>
+                            <button class="btn btn-danger" type="button" onclick="clearFromSearch()">Nhập lại</button>
                         </div>
                     </div>
 
