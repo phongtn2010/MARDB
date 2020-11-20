@@ -31,7 +31,6 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoSoModels);}
                         <form action="@Url.Action("DuyetHH", "LanhDaoCuc", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
                             @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
@@ -55,17 +54,15 @@
                                     </div>
                                 </div>
                             </section>
-
                             <div class="box-footer clearfix text-center">
-                                <div class="col-xs-4">
-                                    <button class="btn btn-block btn-primary" type="submit">Đồng ý</button>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a class="btn btn-block" style="background-color:#023658; color:white;" id="btnThoat" onclick="javascript:history.go(-1)">Quay lại</a>
-                                </div>
+                                @{
+                                    if (String.IsNullOrEmpty(Model.sSoThongBaoKetQua) == true)
+                                    {
+                                        <button class="btn btn-primary" type="submit">Đồng ý</button>
+                                    }
+                                }
+                                <a class="btn btn-danger opentuchoiHH" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoiHH" type="button">Từ chối</a>
+                                <a class="btn btn-default" id="btnThoatHH">Thoát</a>
                             </div>
                         </form>
                     </div><!-- /.tab-pane -->
@@ -74,9 +71,29 @@
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_3">
                         @{Html.RenderPartial("~/Views/LanhDaoCuc/Partial_HoSoXinCapXNCL.cshtml", Model);}
+                        <div class="box-footer clearfix text-center">
+                            @{
+                                if (String.IsNullOrEmpty(Model.sSoThongBaoKetQua) == true)
+                                {
+                                    <button class="btn btn-primary" type="button" id="btnDongY" name="btnDongY">Đồng ý</button>
+                                }
+                            }
+                            <a class="btn btn-danger opentuchoiHH" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoiHH" type="button">Từ chối</a>
+                            <a class="btn btn-default" id="btnThoatHH">Thoát</a>
+                        </div>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_4">
                         @{Html.RenderPartial("~/Views/LanhDaoCuc/Partial_ThongBaoKetQua.cshtml", Model);}
+                        <div class="box-footer clearfix text-center">
+                            @{
+                                if (String.IsNullOrEmpty(Model.sSoThongBaoKetQua) == true)
+                                {
+                                    <button class="btn btn-primary" type="button" id="btnDongY" name="btnDongY">Đồng ý</button>
+                                }
+                            }
+                            <a class="btn btn-danger opentuchoiHH" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoiHH" type="button">Từ chối</a>
+                            <a class="btn btn-default" id="btnThoatHH">Thoát</a>
+                        </div>
                     </div><!-- /.tab-pane -->
 
                 </div><!-- /.tab-content -->

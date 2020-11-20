@@ -71,16 +71,31 @@ $(function () {
 $(function () {
     $("body").on("click", "#btnDongY", function () {
         var iID_MaHangHoa = $(this).data("id");
-        $.ajax({
-            url: ServerUrl + '/LanhDaoCuc/DongY',
-            type: 'POST',
-            data: { iID_MaHangHoa: iID_MaHangHoa },
-            success: function (response) {
-
-                if (response.success) {
-                    location.href = response.value;
-                }
-            }
+        $.confirm({
+            title: "THÔNG BÁO XÁC NHẬN",
+            text: "Bạn có chắc chắn đồng ý không?",
+            confirm: function (button) {
+                $.ajax({
+                    url: ServerUrl + '/LanhDaoCuc/DongY',
+                    type: 'POST',
+                    data: { iID_MaHangHoa: iID_MaHangHoa },
+                    success: function (response) {
+                        if (response.success) {
+                            showToast_Success();
+                            location.href = response.value;
+                        }
+                    },
+                    error: function (response) {
+                        showToast_Error();
+                    }
+                });
+            },
+            cancel: function (button) {
+                return false;
+                //alert("Bạn đã từ chối tiếp nhận!");
+            },
+            confirmButton: "Đồng ý",
+            cancelButton: "Từ chối"
         });
     });
 });

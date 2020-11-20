@@ -373,7 +373,6 @@ namespace DATA0200025
                 DK += " AND sSoTiepNhan = @sSoTiepNhan";
                 cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
             }
-
             if (!string.IsNullOrEmpty(models.sSoGDK))
             {
                 DK += " AND sSoGDK = @sSoGDK";
