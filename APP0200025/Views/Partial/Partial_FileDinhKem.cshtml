@@ -156,7 +156,16 @@
     </div>
 </div>
 @{ 
-    String[] path = lstPath.ToArray();
+    String[] path;
+    if(lstPath.Count > 0)
+    {
+        path = lstPath.ToArray();
+    }
+    else
+    {
+        path = new string[1];
+        path[0] = "";
+    }
 }
 <div class="box-body">
     <div style="height:643px;">
