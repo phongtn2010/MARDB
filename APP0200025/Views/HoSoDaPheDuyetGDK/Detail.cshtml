@@ -45,6 +45,7 @@
                         @{Html.RenderPartial("~/Views/Partial/Partial_GDK_ThongBaoKetQua.cshtml", Model);}
                         <div class="box-footer clearfix text-center">
                             <a class="btn btn-primary btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>
+                            <a class="btn btn-danger" href="@Url.Action("Thoat", "HoSoDaPheDuyetGDK", new { iID_MaHoSo = Model.iID_MaHoSo })">Thoát</a>
                         </div>
                     </div><!-- /.tab-pane -->
                 </div><!-- /.tab-content -->

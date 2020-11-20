@@ -108,7 +108,7 @@ namespace DATA0200025
             cmd.Dispose();
             return dt;
         }
-        public static IEnumerable<ChiTieuModels> GetChiTieuAnToanDN(int iID_MaHangHoa)
+        public static IEnumerable<ChiTieuModels> GetChiTieuAnToanDN(long iID_MaHangHoa)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {

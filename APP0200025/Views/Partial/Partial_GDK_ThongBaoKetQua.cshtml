@@ -11,7 +11,7 @@
     Layout = null;
     string ParentID = "TC";
 
-    int i = 0, j = 0;
+    int i = 0;
 
     String strDau = "";
     DataTable dtCty = CCongTy.Get_Table_Top(1);
@@ -23,6 +23,8 @@
         }
     }
     dtCty.Dispose();
+
+    var hangHoas = clHangHoa.GetListHangHoaByHoSo(Model.iID_MaHoSo);
 }
 @*<script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/FileSaver.js"></script>
     <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>*@
@@ -49,17 +51,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="center">
+                    <td align="center" style="padding: 5px 0px;">
                         <p><b>GIẤY ĐĂNG KÝ KIỂM TRA XÁC NHẬN CHẤT LƯỢNG</b></p>
                     </td>
                 </tr>
                 <tr>
-                    <td align="center">
-                        <p style="border: solid 1px #000000; padding: 0px 40px; width: 40%">Số: @Model.sSoGDK</p>
+                    <td align="center" style="padding: 5px 0px;">
+                        <table border="1" cellpadding="0" cellspacing="0" style="border: solid 1px #000000;">
+                            <tr>
+                                <td valign="middle" style="padding: 8px 40px 8px 40px;"><p style="margin: 0">Số: @Model.sSoGDK</p></td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
-                    <td align="center">
+                    <td align="center" style="padding: 5px 0px;">
                         <p>Kính gửi: @(eCoQuanXuLy.sCoQuan_Ten)</p>
                     </td>
                 </tr>
@@ -67,99 +73,326 @@
                     <td valign="top">
                         <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: solid 1px #000000;">
                             <tr>
-                                <td align="left">
+                                <td align="left" style="padding: 5px 0px;">
                                     <p>1. Bên bán hàng <i>(hãng, nước)</i>: @(Model.sBan_Name), @(Model.sBan_QuocGia)</p>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="left">
+                                <td align="left" style="padding: 5px 0px;">
                                     <p style="margin: 0;">2. Địa chỉ, điện thoại, fax:</p>
                                     <p style="margin: 0;">@(Model.sBan_DiaChi); @(Model.sBan_Tel); @(Model.sBan_Fax)</p>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="left">
+                                <td align="left" style="padding: 5px 0px;">
                                     <p>3. Nơi xuất hàng: @(Model.sBan_NoiXuat)</p>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="left">
+                                <td align="left" style="padding: 5px 0px;">
                                     <p>4. Bên mua hàng: @(Model.sMua_Name)</p>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="left">
+                                <td align="left" style="padding: 5px 0px;">
                                     <p style="margin: 0;">5. Địa chỉ, điện thoại, fax:</p>
                                     <p style="margin: 0;">@(Model.sMua_DiaChi); @(Model.sMua_Tel); @(Model.sMua_Fax)</p>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="left">
+                                <td align="left" style="padding: 5px 0px;">
                                     <p>6. Nơi nhận hàng: @(Model.sMua_NoiNhan)</p>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="left">
+                                <td align="left" style="padding: 5px 0px;">
                                     <p>7. Thời gian nhập khẩu dự kiến: @(Model.sMua_FromDate.ToString("dd/MM/yyyy")) - @(Model.sMua_ToDate.ToString("dd/MM/yyyy"))</p>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="center">
+                                <td align="center" style="padding: 5px 0px;">
                                     <p><b>MÔT TẢ HÀNG HÓA</b></p>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left" valign="top">
-                                    <table border="1" cellpadding="3" cellspacing="3" style="width: 100%;">
-                                        <tr style="height: 35px;">
+                                    <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: solid 1px #000000;">
+                                        <tr>
                                             <td align="center" style="width: 5%;"><b>STT</b></td>
                                             <td align="center"><b>Tên TACN</b></td>
                                             <td align="center" style="width: 10%;"><b>Mã số công nhận</b></td>
-                                            <td align="center" style="width: 15%;"><b>Nhóm TACN</b></td>
-                                            <td align="center" style="width: 15%;"><b>Loại TACN</b></td>
+                                            <td align="center" style="width: 10%;"><b>Nhóm TACN</b></td>
+                                            <td align="center" style="width: 10%;"><b>Loại TACN</b></td>
                                             <td align="center" style="width: 15%;"><b>Nhà sản xuất</b></td>
-                                            <td align="center" style="width: 15%;"><b>Nước sản xuất</b></td>
-                                            <td align="center" style="width: 15%;"><b>Khối lượng</b></td>
-                                            <td align="center" style="width: 15%;"><b>Số lượng</b></td>
+                                            <td align="center" style="width: 10%;"><b>Nước sản xuất</b></td>
+                                            <td align="center" style="width: 10%;"><b>Khối lượng</b></td>
+                                            <td align="center" style="width: 10%;"><b>Số lượng</b></td>
                                         </tr>
-                                        <tr style="height: 25px;">
-                                            <td align="center">1</td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                            <td align="left"></td>
-                                        </tr>
+                                        @{
+                                            foreach (var item in hangHoas)
+                                            {
+                                                i++;
+
+                                                String sKhoiLuong = "", sSoLuong = "";
+                                                DataTable dtKhoiLuong = clHangHoa.Get_ThongTinKhoiLuong(item.iID_MaHangHoa);
+                                                if (dtKhoiLuong.Rows.Count > 0)
+                                                {
+                                                    for (int k = 0; k < dtKhoiLuong.Rows.Count; k++)
+                                                    {
+                                                        sKhoiLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhKL"]) + "; ";
+                                                        sSoLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rSoLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhSL"]) + "; ";
+                                                    }
+                                                }
+                                                dtKhoiLuong.Dispose();
+
+                                                <tr style="height: 25px;">
+                                                    <td align="center">@(i)</td>
+                                                    <td align="left">@(item.sTenHangHoa)</td>
+                                                    <td align="left">@(item.sMaSoCongNhan)</td>
+                                                    <td align="left">@(item.sTenNhom)</td>
+                                                    <td align="left">@(item.sTenLoaiHangHoa)</td>
+                                                    <td align="left">@(item.sHangSanXuat)</td>
+                                                    <td align="left">@(item.sTenQuocGia)</td>
+                                                    <td align="left">@(sKhoiLuong)</td>
+                                                    <td align="left">@(sSoLuong)</td>
+                                                </tr>
+                                            }
+                                        }
                                     </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 5px 0px;">
+                                    <p>8. Địa điểm tập kết hàng: @(Model.sDiaDiemTapKet))</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 5px 0px;">
+                                    @{
+                                        string sTuNgayDKM = "", sDenNgayDKM = "";
+                                        if (Model.dDangKy_FromDate != null)
+                                        {
+                                            sTuNgayDKM = Model.dDangKy_FromDate.ToString("dd/MM/yyyy");
+                                        }
+                                        if (Model.dDangKy_ToDate != null)
+                                        {
+                                            sDenNgayDKM = Model.dDangKy_ToDate.ToString("dd/MM/yyyy");
+                                        }
+                                    }
+                                    <p>9. Ngày đăng ký lấy mẫu đánh giá: Từ ngày @(sTuNgayDKM) đến ngày @(sDenNgayDKM)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 5px 0px;">
+                                    <p style="margin: 0;">10. Địa điểm đăng ký lấy mẫu đánh giá:</p>
+                                    <p style="margin: 0;">@(Model.sDiaDiemDangKy)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 5px 0px;">
+                                    <p>11. Thông tin người liên hệ: @(Model.sLienHe_Name)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 5px 0px;">
+                                    @{
+                                        String sHD = "";
+                                        DataTable dtHD = clHoSo.Get_ThongTin_HopDong(Model.iID_MaHoSo);
+                                        if (dtHD.Rows.Count > 0)
+                                        {
+                                            for (int j = 0; j < dtHD.Rows.Count; j++)
+                                            {
+                                                sHD += "Số " + Convert.ToString(dtHD.Rows[j]["sHopDong"]) + " Ngày " + Convert.ToDateTime(dtHD.Rows[j]["dNgayHopDong"]).ToString("dd/MM/yyyy") + "; ";
+                                            }
+                                        }
+                                        dtHD.Dispose();
+                                    }
+                                    <p>12. Hợp đồng mua bán: @(sHD)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 5px 0px;">
+                                    @{
+                                        String sHDon = "";
+                                        DataTable dtHDon = clHoSo.Get_ThongTin_HoaDon(Model.iID_MaHoSo);
+                                        if (dtHDon.Rows.Count > 0)
+                                        {
+                                            for (int j = 0; j < dtHDon.Rows.Count; j++)
+                                            {
+                                                sHDon += "Số " + Convert.ToString(dtHDon.Rows[j]["sHopDong"]) + " Ngày " + Convert.ToDateTime(dtHDon.Rows[j]["dNgayHopDong"]).ToString("dd/MM/yyyy") + "; ";
+                                            }
+                                        }
+                                        dtHDon.Dispose();
+                                    }
+                                    <p>13. Hóa đơn mua bán: @(sHDon)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 5px 0px;">
+                                    @{
+                                        String sPDG = "";
+                                        DataTable dtPG = clHoSo.Get_ThongTin_PhieuDongGoi(Model.iID_MaHoSo);
+                                        if (dtPG.Rows.Count > 0)
+                                        {
+                                            for (int j = 0; j < dtPG.Rows.Count; j++)
+                                            {
+                                                sPDG += "Số " + Convert.ToString(dtPG.Rows[j]["sHopDong"]) + " Ngày " + Convert.ToDateTime(dtPG.Rows[j]["dNgayHopDong"]).ToString("dd/MM/yyyy") + "; ";
+                                            }
+                                        }
+                                        dtPG.Dispose();
+                                    }
+                                    <p>14. Phiếu đóng gói: @(Model.sLienHe_Name)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" style="padding: 5px 0px;">
+                                    <p><b>DÀNH CHO CƠ QUAN KHIỂM TRA</b></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 5px 0px;">
+                                    <p style="margin: 0;">15. Yêu cầu đánh giá chỉ tiêu<sup>2</sup>: Xem chi tiết phụ lục kèm theo</p>
+                                    <p style="margin: 0;">Biện pháp kiểm tra<sup>3</sup>: Dựa trên kết quả chứng nhận của tổ chức chứng nhận được chỉ định (2c)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 5px 0px;">
+                                    <p>16. Thời gian đánh giá: Để trống</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 5px 0px;">
+                                    <p>17. Đơn vị thực hiện đánh giá: </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 5px 0px;">
+                                    <p>Đối với hàng nhập khẩu, Giấy này có giá trị để là thủ tục hải quan. Sau đó doanh nghiệp phải xuất trình toàn bộ hồ sơ và hàng hóa đã hoàn thành thủ tục hải quan cho cơ quan đánh giá để được đánh giá chất lượng theo quy định.</p>
                                 </td>
                             </tr>
                         </table>
                     </td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding:20px 0px 0px 0px;" valign="top">
+                    <td align="left" style="padding: 15px 0px 5px 0px;">
+                        <p><sup>1</sup>Ghi tên loại thức ăn chăn nuôi nhập khẩu: Thức ăn truyền thống, thức ăn hỗn hợp hoàn chỉnh, thức ăn đập đặc, nguyên liệu đơn, thức ăn dạng hỗn hợp, loại khác; trường hợp thức ăn truyền thống phải kèm bản mô tả chi tiết sản phẩm nhập khẩu (gồm: tên thương mại, bản chất sản phẩm).</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="padding: 5px 0px;">
+                        <p><sup>2</sup>Tối thiểu 01 chỉ tiêu chất lượng trong tiêu chuẩn công bố áp dụng và các chỉ tiêu an toàn theo quy định tại quy chuẩn ký thuật quốc gia tương ứng.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="padding: 5px 0px;">
+                        <p><sup>3</sup>Ghi "miễn kiểm tra" nếu lô hàng áp dụng chế độ miễn kiểm tra có thời hạn hoặc "kiểm tra theo điểm a khoản 2 Điều 18 của Nghị định này" hoặc "kiểm tra theo điểm b khoản 2 Điều 18 của Nghị định này".</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="padding:20px 0px 20px 0px;" valign="top">
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tr>
-                                <td align="left" style="width: 70%" valign="top">
-                                    <p style="margin: 0"><b>Nơi nhận:</b></p>
-                                    <p style="margin: 0">- Như trên;</p>
-                                    <p style="margin: 0">- Hải quan cửa khẩu;</p>
-                                    <p style="margin: 0">- Lưu: VT, TACN.</p>
-                                </td>
-                                <td align="center" style="width: 30%" valign="top">
-                                    <p><b>CƠ QUAN KIỂM TRA</b></p>
+                                <td align="center" style="width: 50%" valign="top">
+                                    <p style="margin: 0"><i>..., ngày ... tháng ... năm .....</i></p>
+                                    <p style="margin: 0"><b>TÊN CƠ QUAN KIÊM TRA</b></p>
                                     <p style="margin: 0"><i>(Ký tên, đóng dấu)</i></p>
                                     <p style="margin: 0"><img src="@(strDau)" /></p>
-                                    <p style="margin: 0"><b>@(Model.sNguoiKyGDK)</b></p>
+                                    <p style="margin: 0"><i>Trần Thùy Trang</i></p>
+                                </td>
+                                <td align="center" style="width: 50%" valign="top">
+                                    <p style="margin: 0"><i>..., ngày ... tháng ... năm .....</i></p>
+                                    <p style="margin: 0"><b>TỔ CHỨC, CÁ NHÂN NHẬP KHẨU</b></p>
+                                    <p style="margin: 0"><i>(Ký tên, đóng dấu)</i></p>
+                                    <p style="margin: 0"><img src="@(strDau)" /></p>
+                                    <p style="margin: 0"><i>@(Model.sNguoiKyGDK)</i></p>
                                 </td>
                             </tr>
                         </table>
                     </td>
                 </tr>
+                <tr>
+                    <td align="center" style="padding: 25px 0px 10px 0px;">
+                        <p><b>PHỤ LỤC</b></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="padding: 5px 0px;">
+                        <p>Kèm theo Giấy đăng ký kiểm tra xác nhận chất lượng số ... ngày ... (thay thế Giấy đăng ký kiểm tra xác nhận chất lượng số ... mã hồ sơ @(Model.sMaHoSo))</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="padding: 5px 0px;">
+                        <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: solid 1px #000000;">
+                            <tr>
+                                <td align="left" valign="top">
+                                    <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: solid 1px #000000;">
+                                        <tr>
+                                            <td align="center">Tên TACN</td>
+                                            <td align="center" style="width: 20%;">Chỉ tiêu phân tích</td>
+                                            <td align="center" style="width: 10%;">Hình thức công bố</td>
+                                            <td align="center" style="width: 10%;">Hàm lượng</td>
+                                            <td align="center" style="width: 10%;">Đơn vị tính</td>
+                                            <td align="center" style="width: 15%;">Ghi chú</td>
+                                        </tr>
+                                        @{
+                                            foreach (var item in hangHoas)
+                                            {
+                                                int j = 0;
+                                                var lstAnToan = clHangHoa.GetChiTieuAnToanDN(item.iID_MaHangHoa);
+                                                int iCount = lstAnToan.Count();
+                                                foreach (var at in lstAnToan)
+                                                {
+                                                    j++;
+
+                                                    if (j == 1)
+                                                    {
+                                                        <tr>
+                                                            <td align="left" rowspan="@iCount">@(item.sTenHangHoa)</td>
+                                                            <td align="left">@(at.sChiTieu)</td>
+                                                            <td align="center">@(at.sHinhThuc)</td>
+                                                            <td align="center">@(at.sHamLuong)</td>
+                                                            <td align="center">@(at.sDonViTinh)</td>
+                                                            <td align="left">@(at.sGhiChu)</td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td align="left">@(at.sChiTieu)</td>
+                                                            <td align="center">@(at.sHinhThuc)</td>
+                                                            <td align="center">@(at.sHamLuong)</td>
+                                                            <td align="center">@(at.sDonViTinh)</td>
+                                                            <td align="left">@(at.sGhiChu)</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                @{
+                    if (Model.iID_MaLoaiHoSo == 1)
+                    {
+                        <tr>
+                            <td align="left">
+                                <p><b>Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa, người nhập khẩu phải nộp kết quả tự đánh giá sự phù hợp theo quy định về Cục Chăn nuôi thông qua hệ thống Một cửa Quốc gia.</b></p>
+                            </td>
+                        </tr>
+                    }
+                    else if (Model.iID_MaLoaiHoSo == 2)
+                    {
+                        <tr>
+                            <td align="left">
+                                <p><b>Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa, người nhập khẩu phải nộp bản sao y bản chính (có ký tên và đóng dấu của người nhập khẩu). Giấy chứng nhận hợp quy lô hàng thức ăn chăn nuôi nhập khẩu theo quy định về Cục Chăn nuôi thông qua hệ thống Một cửa Quốc gia.</b></p>
+                            </td>
+                        </tr>
+                    }
+                    else { }
+                }
             </table>
         </div>
     </div>
