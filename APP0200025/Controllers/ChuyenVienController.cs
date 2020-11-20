@@ -534,7 +534,7 @@ namespace APP0200025.Controllers
             return RedirectToAction("Index", models);
         }
 
-        public PartialViewResult Partial_HangHoa(int iID_MaHoSo,string iID_MaPhanLoai)
+        public PartialViewResult Partial_HangHoa(long iID_MaHoSo,string iID_MaPhanLoai)
         {
             ViewBag.dt = clHangHoa.Get_HangHoaTheoHoSo(iID_MaHoSo,iID_MaPhanLoai);
             return PartialView();

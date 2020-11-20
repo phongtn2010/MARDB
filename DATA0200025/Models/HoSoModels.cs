@@ -12,7 +12,7 @@ namespace DATA0200025.Models
         public int iID_MaTrangThai { get; set; }
         public int iID_MaTrangThaiTruoc { get; set; }
         public int iID_MaLoaiHoSo { get; set; }
-        public int iID_MaHoSo_ThayThe { get; set; }
+        public long iID_MaHoSo_ThayThe { get; set; }
         public string sMaHoSo { get; set; }
         public string sMaHoSo_ThayThe { get; set; }
         public string sSoGDK { get; set; }

@@ -39,7 +39,7 @@ namespace DATA0200026
             { }
         }
 
-        public static DataTable GetDataTable(int iID_MaHoSo)
+        public static DataTable GetDataTable(long iID_MaHoSo)
         {
             string SQL = "SELECT * FROM CNN26_LichSuHoSo WHERE iID_MaHoSo=@iID_MaHoSo ORDER BY dThoiGian DESC";
             SqlCommand cmd = new SqlCommand(SQL);

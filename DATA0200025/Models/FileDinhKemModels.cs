@@ -8,9 +8,9 @@ namespace DATA0200025.Models
 {
     public class FileDinhKemModels
     {
-        public int iID_MaFile { get; set; }
-        public int iID_MaHoSo { get; set; }
-        public int iID_MaHangHoa { get; set; }
+        public long iID_MaFile { get; set; }
+        public long iID_MaHoSo { get; set; }
+        public long iID_MaHangHoa { get; set; }
         public int iID_MaLoaiFile { get; set; }
         public string sMaHoSo { get; set; }
         public string sTenLoaiFile { get; set; }

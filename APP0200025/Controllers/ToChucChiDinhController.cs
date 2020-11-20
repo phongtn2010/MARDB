@@ -260,8 +260,8 @@ namespace APP0200025.Controllers
         public class ChungNhanHopQuy
         {
             public int iID_ChungNhanHopQuy { get; set; }
-            public int iID_MaHangHoa { get; set; }
-            public int iID_MaHoSo { get; set; }
+            public long iID_MaHangHoa { get; set; }
+            public long iID_MaHoSo { get; set; }
             public string sSoChungNhan { get; set; }
             public string dNgayCap { get; set; }
             public string sTenFile { get; set; }
@@ -271,8 +271,8 @@ namespace APP0200025.Controllers
         public class ChungNhanHopQuy_dsFile
         {
             public int iID_KetQuaPhanTich { get; set; }
-            public int iID_MaHoSo { get; set; }
-            public int iID_MaHangHoa { get; set; }
+            public long iID_MaHoSo { get; set; }
+            public long iID_MaHangHoa { get; set; }
             public string sTenFile { get; set; }
             public string sDuongDan { get; set; }
 

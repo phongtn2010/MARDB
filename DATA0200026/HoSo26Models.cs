@@ -9,7 +9,7 @@ namespace DATA0200026
     public class HoSo26Models
     {
         
-        public int iID_MaHoSo { get; set; }
+        public long iID_MaHoSo { get; set; }
         public int iID_MaTrangThai { get; set; }
         public int iID_MaTrangThaiTruoc { get; set; }
         public int iID_MaLoaiHoSo { get; set; }

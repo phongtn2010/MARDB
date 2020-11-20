@@ -141,7 +141,7 @@ namespace DATA0200025
             return vR;
         }
 
-        public static DataTable Get_ThongTinChiTieuAnToan_KyThuat_Detail(int iID_MaHangHoaATKT)
+        public static DataTable Get_ThongTinChiTieuAnToan_KyThuat_Detail(long iID_MaHangHoaATKT)
         {
             DataTable vR;
 

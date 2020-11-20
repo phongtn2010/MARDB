@@ -93,7 +93,7 @@ namespace APP0200025.Controllers
                 string[] arr = s_HangHoa.Split(',');
                 for (int i = 0; i < arr.Length; i++)
                 {
-                    int iID_MaHangHoa = Convert.ToInt32(arr[i]);
+                    long iID_MaHangHoa = Convert.ToInt64(arr[i]);
                     HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
                     if (hanghoa.iID_MaTrangThai == 34|| hanghoa.iID_MaTrangThai == 35|| hanghoa.iID_MaTrangThai == 43)
                     {     
