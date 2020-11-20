@@ -3089,7 +3089,6 @@
     <Content Include="Views\LanhDaoCuc\Partial_Model_TuChoi_HH.cshtml" />
     <Content Include="Views\LanhDaoCuc\DetailHH.cshtml" />
     <Content Include="Views\LanhDaoCuc\Partial_HoSoXinCapXNCL.cshtml" />
-    <Content Include="Views\LanhDaoCuc\Partial_ThongBaoKetQua.cshtml" />
     <Content Include="Views\DaCapThongBaoKetQua\Partial_ThongBaoKetQua.cshtml" />
     <Content Include="Views\LanhDaoPhong\Partial_Modal_ThuHoi.cshtml" />
     <Content Include="Views\ChoXuLyKetQua\Partial_Model_ThuHoi.cshtml" />
@@ -3124,6 +3123,7 @@
     <Content Include="Views\BoPhanMotCua\Partial_CongVanMienGiam.cshtml" />
     <Content Include="Views\MienGiam\List.cshtml" />
     <Content Include="Views\BoPhanMotCua\List.cshtml" />
+    <Content Include="Views\Partial\Partial_GDK_ThongBaoKetQua.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

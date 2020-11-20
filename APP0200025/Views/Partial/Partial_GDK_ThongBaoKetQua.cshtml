@@ -1,0 +1,107 @@
+﻿@using System
+@using System.Collections.Specialized
+@using System.Data
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@using DATA0200025.Models
+@model HoSoModels
+@{
+    Layout = null;
+    string ParentID = "TC";
+
+    int i = 0, j = 0;
+
+    String strDau = "";
+    DataTable dtCty = CCongTy.Get_Table_Top(1);
+    if (dtCty.Rows.Count > 0)
+    {
+        if (String.IsNullOrEmpty(Convert.ToString(dtCty.Rows[0]["sDau"])) == false)
+        {
+            strDau = dtCty.Rows[0]["sDau"] != null ? "data:image/jpg;base64," + Convert.ToBase64String((byte[])dtCty.Rows[0]["sDau"]) : "";
+        }
+    }
+    dtCty.Dispose();
+}
+@*<script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/FileSaver.js"></script>
+    <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>*@
+<script src="@(Url.Content("~/Content/plugins/jquery.wordexport/FileSaver.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/jquery.wordexport/jquery.wordexport.js"))"></script>
+<section>
+    <div class="box-body">
+        <div id="divWord" class="row" style="margin: auto; width: 854px; padding: 30px 40px; border: solid 2px #000000;">
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tr>
+                    <td align="right">
+                        <p><b>Mẫu số 12.TACN</b></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p style="margin: 0; padding: 5px 0px;"><b>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</b></p>
+                        <p style="margin: 0; padding: 5px 0px;"><b>Độc lập - Tự do - Hạnh phúc</b></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p>----------------</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p><b>GIẤY ĐĂNG KÝ KIỂM TRA XÁC NHẬN CHẤT LƯỢNG</b></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p style="border: solid 1px #000000; padding: 0px 40px;">Số: @Model.sSoGDK</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p>Kính gửi: @(eCoQuanXuLy.sCoQuan_Ten)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: solid 1px #000000;">
+                            <tr>
+                                <td align="left">
+                                    <p>1. Bên bán hàng <i>(hãng, nước)</i>: @(Model.sBan_Name), @(Model.sBan_QuocGia)</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" colspan="2" style="padding:20px 0px 0px 0px;" valign="top">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td align="left" style="width: 70%" valign="top">
+                                    <p style="margin: 0"><b>Nơi nhận:</b></p>
+                                    <p style="margin: 0">- Như trên;</p>
+                                    <p style="margin: 0">- Hải quan cửa khẩu;</p>
+                                    <p style="margin: 0">- Lưu: VT, TACN.</p>
+                                </td>
+                                <td align="center" style="width: 30%" valign="top">
+                                    <p><b>CƠ QUAN KIỂM TRA</b></p>
+                                    <p style="margin: 0"><i>(Ký tên, đóng dấu)</i></p>
+                                    <p style="margin: 0"><img src="@(strDau)" /></p>
+                                    <p style="margin: 0"><b>@(Model.sNguoiKyGDK)</b></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $("a.btnXuatWord").click(function (event) {
+            $("#divWord").wordExport();
+        });
+    });
+</script> 

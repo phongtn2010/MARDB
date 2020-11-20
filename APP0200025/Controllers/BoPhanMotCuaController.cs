@@ -200,7 +200,7 @@ namespace APP0200025.Controllers
                     resultConfirm.PeriodTo = hs.dNgayHetHieuLuc;
                     resultConfirm.SignName = hs.sSoGDK_NguoiKy;
 
-                    string error = _sendService.CVMienKiem(sMaHoSo, resultConfirm);
+                    string error = _sendService.CVMienKiem(hs.sMaHoSo, resultConfirm);
                     if (error == "99")
                     {
                         bang.MaNguoiDungSua = sUserName;
