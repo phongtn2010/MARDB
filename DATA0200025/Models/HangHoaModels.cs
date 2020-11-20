@@ -8,9 +8,9 @@ namespace DATA0200025.Models
 {
    public class HangHoaModels
     {
-        public int iID_MaHangHoa { get; set; }
-        public int iID_MaHangHoaNSW { get; set; }
-        public int iID_MaHoSo { get; set; }
+        public long iID_MaHangHoa { get; set; }
+        public long iID_MaHangHoaNSW { get; set; }
+        public long iID_MaHoSo { get; set; }
         public int iID_MaNhom { get; set; }
         public string iID_MaLoai { get; set; }
         public string iID_MaPhanLoai { get; set; }

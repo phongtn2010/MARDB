@@ -15,7 +15,7 @@ namespace DATA0200025
 {
     public class clFileDinhKem
     {
-        public static IEnumerable<FileDinhKemModels> GetFileByHoSo(int iID_MaHoSo)
+        public static IEnumerable<FileDinhKemModels> GetFileByHoSo(long iID_MaHoSo)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {
@@ -25,7 +25,7 @@ namespace DATA0200025
                 return results;
             }
         }
-        public static IEnumerable<FileDinhKemModels> GetFileByHoSoLoaiKhac(int iID_MaHoSo)
+        public static IEnumerable<FileDinhKemModels> GetFileByHoSoLoaiKhac(long iID_MaHoSo)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {
@@ -35,7 +35,7 @@ namespace DATA0200025
                 return results;
             }
         }
-        public static IEnumerable<FileDinhKemModels> GetFileByLoai(int iID_MaHoSo,int iID_MaLoaiFile)
+        public static IEnumerable<FileDinhKemModels> GetFileByLoai(long iID_MaHoSo,int iID_MaLoaiFile)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {
@@ -46,7 +46,7 @@ namespace DATA0200025
             }
         }
 
-        public static IEnumerable<FileDinhKemModels> GetFileByHangHoa(int iID_MaHangHoa,int iID_MaLoaiFile)
+        public static IEnumerable<FileDinhKemModels> GetFileByHangHoa(long iID_MaHangHoa,int iID_MaLoaiFile)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {

@@ -96,7 +96,7 @@ namespace APP0200025.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
 
-            HangHoaModels hangHoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
+            HangHoaModels hangHoa = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
 
             long iID_MaDinhKem = -1;
             string sFileTemp = "", sFileName = "";

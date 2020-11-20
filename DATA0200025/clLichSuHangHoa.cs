@@ -20,7 +20,7 @@ namespace DATA0200025
         /// <param name="sNoiDung"></param>
         /// <param name="sFile"></param>
         /// <param name="iID_MaTrangThai"></param>
-        public static void InsertLichSu(int iID_MaHangHoa, string MaND, int iID_MaDoiTuong, int iID_MaHanhDong, string sNoiDung, string sFile, int iID_MaTrangThaiTruoc, int iID_MaTrangThai)
+        public static void InsertLichSu(long iID_MaHangHoa, string MaND, int iID_MaDoiTuong, int iID_MaHanhDong, string sNoiDung, string sFile, int iID_MaTrangThaiTruoc, int iID_MaTrangThai)
         {
 
             SqlCommand cmd = new SqlCommand();
@@ -65,7 +65,7 @@ namespace DATA0200025
             catch(Exception ex) { }
         }
 
-        public static DataTable GetDataTable(int iID_MaHangHoa)
+        public static DataTable GetDataTable(long iID_MaHangHoa)
         {
             string SQL = "SELECT * FROM CNN25_LichSuHoSo_HangHoa WHERE iID_MaHangHoa=@iID_MaHangHoa ORDER By id";
             SqlCommand cmd = new SqlCommand(SQL);

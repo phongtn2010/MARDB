@@ -36,7 +36,7 @@ namespace DATA0200025
                 return results;
             }
         }
-        public static IEnumerable<HangHoaModels> GetListHangHoaByHoSo(int iID_MaHoSo)
+        public static IEnumerable<HangHoaModels> GetListHangHoaByHoSo(long iID_MaHoSo)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {
@@ -164,7 +164,7 @@ namespace DATA0200025
                 return results;
             }
         }
-        public static HoSoXNCLModels GetHoSoXNCL(int iID_MaHangHoa)
+        public static HoSoXNCLModels GetHoSoXNCL(long iID_MaHangHoa)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {
@@ -202,7 +202,7 @@ namespace DATA0200025
 
         }
 
-        public static List<HangHoaXND> GetHoaXND(int iID_MaHoSo)
+        public static List<HangHoaXND> GetHoaXND(long iID_MaHoSo)
         {
             var hangHoas = GetListHangHoaByHoSo(iID_MaHoSo);
             List<HangHoaXND> lst = new List<HangHoaXND>();
@@ -240,7 +240,7 @@ namespace DATA0200025
             return lst;
         }
 
-        public static List<HangHoaGXNCL> GetHoaGXNCL(int iID_MaHoSo)
+        public static List<HangHoaGXNCL> GetHoaGXNCL(long iID_MaHoSo)
         {
             var hangHoas = GetListHangHoaByHoSo(iID_MaHoSo);
             List<HangHoaGXNCL> lst = new List<HangHoaGXNCL>();

@@ -8,9 +8,9 @@ namespace DATA0200025.Models
 {
     public class HoSoXNCLModels
     {
-        public int iID_MaHoSoXNCL { get; set; }
-        public int iID_MaHangHoa { get; set; }
-        public int iID_MaHoSo { get; set; }    
+        public long iID_MaHoSoXNCL { get; set; }
+        public long iID_MaHangHoa { get; set; }
+        public long iID_MaHoSo { get; set; }    
         public int iID_MaToChuc { get; set; }
         public string sMaHoSo { get; set; }
         public string sTenHangHoa { get; set; }
