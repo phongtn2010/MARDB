@@ -55,7 +55,7 @@
                 </tr>
                 <tr>
                     <td align="center">
-                        <p style="border: solid 1px #000000; padding: 0px 40px;">Số: @Model.sSoGDK</p>
+                        <p style="border: solid 1px #000000; padding: 0px 40px; width: 40%">Số: @Model.sSoGDK</p>
                     </td>
                 </tr>
                 <tr>
@@ -69,6 +69,70 @@
                             <tr>
                                 <td align="left">
                                     <p>1. Bên bán hàng <i>(hãng, nước)</i>: @(Model.sBan_Name), @(Model.sBan_QuocGia)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <p style="margin: 0;">2. Địa chỉ, điện thoại, fax:</p>
+                                    <p style="margin: 0;">@(Model.sBan_DiaChi); @(Model.sBan_Tel); @(Model.sBan_Fax)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <p>3. Nơi xuất hàng: @(Model.sBan_NoiXuat)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <p>4. Bên mua hàng: @(Model.sMua_Name)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <p style="margin: 0;">5. Địa chỉ, điện thoại, fax:</p>
+                                    <p style="margin: 0;">@(Model.sMua_DiaChi); @(Model.sMua_Tel); @(Model.sMua_Fax)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <p>6. Nơi nhận hàng: @(Model.sMua_NoiNhan)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <p>7. Thời gian nhập khẩu dự kiến: @(Model.sMua_FromDate.ToString("dd/MM/yyyy")) - @(Model.sMua_ToDate.ToString("dd/MM/yyyy"))</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <p><b>MÔT TẢ HÀNG HÓA</b></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" valign="top">
+                                    <table border="1" cellpadding="3" cellspacing="3" style="width: 100%;">
+                                        <tr style="height: 35px;">
+                                            <td align="center" style="width: 5%;"><b>STT</b></td>
+                                            <td align="center"><b>Tên TACN</b></td>
+                                            <td align="center" style="width: 10%;"><b>Mã số công nhận</b></td>
+                                            <td align="center" style="width: 15%;"><b>Nhóm TACN</b></td>
+                                            <td align="center" style="width: 15%;"><b>Loại TACN</b></td>
+                                            <td align="center" style="width: 15%;"><b>Nhà sản xuất</b></td>
+                                            <td align="center" style="width: 15%;"><b>Nước sản xuất</b></td>
+                                            <td align="center" style="width: 15%;"><b>Khối lượng</b></td>
+                                            <td align="center" style="width: 15%;"><b>Số lượng</b></td>
+                                        </tr>
+                                        <tr style="height: 25px;">
+                                            <td align="center">1</td>
+                                            <td align="left">@(Model.sTenHangHoa)</td>
+                                            <td align="left">@(Model.sMaSoCongNhan)</td>
+                                            <td align="left">@(Model.sHangSanXuat)</td>
+                                            <td align="left">@(Model.sTenQuocGia)</td>
+                                            <td align="left">@(sKhoiLuong)</td>
+                                            <td align="left">@(sSoLuong)</td>
+                                            <td align="left">@(Model.sGhiChu)</td>
+                                        </tr>
+                                    </table>
                                 </td>
                             </tr>
                         </table>
