@@ -13,10 +13,10 @@
     string ParentID = "Detail";
     SelectOptionList ddl = clHangHoa.DDL_HangHoa(Model.iID_MaHoSo);
     DataTable dt = ddl.dtData;
-    int iID_MaHangHoa = 0;
+    long iID_MaHangHoa = 0;
     if (dt.Rows.Count > 0)
     {
-        iID_MaHangHoa = Convert.ToInt32(dt.Rows[0]["iID_MaHangHoa"]);
+        iID_MaHangHoa = Convert.ToInt64(dt.Rows[0]["iID_MaHangHoa"]);
     }
     HangHoaModels hangHoa = clHangHoa.GetHangHoaById(iID_MaHangHoa);
 }
