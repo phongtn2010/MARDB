@@ -29,12 +29,14 @@ namespace APP0200025.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Detail(string iID_MaHangHoa)
+        public ActionResult Detail(string iID_MaHangHoa, string smenu)
         {
             HangHoaModels hangHoa = clHangHoa.GetHangHoaById(iID_MaHangHoa);
-            ViewData["DuLieuMoi"] = "0";
+
+            ViewData["menu"] = smenu;
             return View(hangHoa);
         }
+
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID, string smenu)
         {

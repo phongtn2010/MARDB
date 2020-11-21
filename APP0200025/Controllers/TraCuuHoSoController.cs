@@ -31,10 +31,11 @@ namespace APP0200025.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Detail(string iID_MaHoSo)
+        public ActionResult Detail(string iID_MaHoSo, string smenu)
         {
             HoSoModels hoSo = clHoSo.GetHoSoById(iID_MaHoSo);
-            ViewData["DuLieuMoi"] = "0";
+
+            ViewData["menu"] = smenu;
             return View(hoSo);
         }
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
