@@ -62,7 +62,8 @@ namespace DATA0200025.WebServices
                 }
 
                 iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 1, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode, 
-                    hoso.fiNSWFileCodeOld, hoso.AniFeedConfirmOldNo, hoso.AniFeedConfirmOldId, hoso.AniFeedConfirmOldName, hoso.AniFeedConfirmOldFileLink,
+                    hoso.fiNSWFileCodeOld, hoso.AniFeedConfirmOldNo, hoso.AniFeedConfirmOldId, hoso.AniFeedConfirmOldName, hoso.AniFeedConfirmOldFileLink, 
+                    hoso.DepartmentCode, hoso.DepartmentName,
                     hoso.fiCreateDate, false, "", null, null, null, null,
                     hoso.fiTaxCode, sTenDoanhnghiep, sTenLoaiHoSo, "", sTenTACN, hoso.sBan_Name, hoso.sBan_DiaChi, hoso.sBan_Tel, hoso.sBan_Fax, "", hoso.sBan_MaQuocGia, hoso.sBan_QuocGia, hoso.sBan_NoiXuat,
                     hoso.sMua_Name, hoso.sMua_DiaChi, hoso.sMua_Tel, hoso.sMua_Fax, "", hoso.sMua_NoiNhan, hoso.sMua_FromDate, hoso.sMua_ToDate,
@@ -215,6 +216,7 @@ namespace DATA0200025.WebServices
 
                 iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 1, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode,
                     hoso.fiNSWFileCodeOld, hoso.AniFeedConfirmOldNo, hoso.AniFeedConfirmOldId, hoso.AniFeedConfirmOldName, hoso.AniFeedConfirmOldFileLink,
+                    hoso.DepartmentCode, hoso.DepartmentName,
                     hoso.fiCreateDate, false, "", null, null, null, null,
                     hoso.fiTaxCode, sTenDoanhnghiep, sTenLoaiHoSo, "", sTenTACN, hoso.sBan_Name, hoso.sBan_DiaChi, hoso.sBan_Tel, hoso.sBan_Fax, "", hoso.sBan_MaQuocGia, hoso.sBan_QuocGia, hoso.sBan_NoiXuat,
                     hoso.sMua_Name, hoso.sMua_DiaChi, hoso.sMua_Tel, hoso.sMua_Fax, "", hoso.sMua_NoiNhan, hoso.sMua_FromDate, hoso.sMua_ToDate,
@@ -351,6 +353,7 @@ namespace DATA0200025.WebServices
 
                 iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 3, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode,
                     hoso.fiNSWFileCodeOld, hoso.AniFeedConfirmOldNo, hoso.AniFeedConfirmOldId, hoso.AniFeedConfirmOldName, hoso.AniFeedConfirmOldFileLink,
+                    hoso.DepartmentCode, hoso.DepartmentName,
                     hoso.fiCreateDate, false, "", null, null, null, null,
                     hoso.fiTaxCode, sTenDoanhnghiep, sTenLoaiHoSo, "", sTenTACN, hoso.sBan_Name, hoso.sBan_DiaChi, hoso.sBan_Tel, hoso.sBan_Fax, "", hoso.sBan_MaQuocGia, hoso.sBan_QuocGia, hoso.sBan_NoiXuat,
                     hoso.sMua_Name, hoso.sMua_DiaChi, hoso.sMua_Tel, hoso.sMua_Fax, "", hoso.sMua_NoiNhan, hoso.sMua_FromDate, hoso.sMua_ToDate,
@@ -487,6 +490,7 @@ namespace DATA0200025.WebServices
 
                 iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 4, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode,
                     hoso.fiNSWFileCodeOld, hoso.AniFeedConfirmOldNo, hoso.AniFeedConfirmOldId, hoso.AniFeedConfirmOldName, hoso.AniFeedConfirmOldFileLink,
+                    hoso.DepartmentCode, hoso.DepartmentName,
                     hoso.fiCreateDate, false, "", null, null, null, null,
                     hoso.fiTaxCode, sTenDoanhnghiep, sTenLoaiHoSo, "", sTenTACN, hoso.sBan_Name, hoso.sBan_DiaChi, hoso.sBan_Tel, hoso.sBan_Fax, "", hoso.sBan_MaQuocGia, hoso.sBan_QuocGia, hoso.sBan_NoiXuat,
                     hoso.sMua_Name, hoso.sMua_DiaChi, hoso.sMua_Tel, hoso.sMua_Fax, "", hoso.sMua_NoiNhan, hoso.sMua_FromDate, hoso.sMua_ToDate,

@@ -18,6 +18,7 @@ namespace DATA0200025
     {
         public static long ThemHoSo(long iID_MaHoSo_Sua, int iID_MaTrangThai, int iID_MaLoaiHoSo, long iID_MaHoSo_ThayThe,
             string sMaHoSo, string sMaHoSo_ThayThe, string sSoXacNhan_ThayThe, string sMaDinhKem_ThayThe, string sTenDinhKem_ThayThe, string sLinkDinhKem_ThayThe,
+            string sCoQuanXuLy_Ma, string sCoQuanXuLy_Ten,
             DateTime dNgayTaoHoSo, bool bDaTiepNhan, string sSoTiepNhan, DateTime? dNgayTiepNhan,
             string sSoGDK, string sSoGDK_ThayThe, DateTime? dNgayXacNhan,
             string sMaSoThue, string sTenDoanhNghiep, string sLoaiHinhThucKiemTra, string sDonViThucHienDanhGia, string sTenHangHoa,
@@ -48,6 +49,8 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@sMaDinhKem_ThayThe", sMaDinhKem_ThayThe);
                 bang.CmdParams.Parameters.AddWithValue("@sTenDinhKem_ThayThe", sTenDinhKem_ThayThe);
                 bang.CmdParams.Parameters.AddWithValue("@sLinkDinhKem_ThayThe", sLinkDinhKem_ThayThe);
+                bang.CmdParams.Parameters.AddWithValue("@sCoQuanXuLy_Ma", sCoQuanXuLy_Ma);
+                bang.CmdParams.Parameters.AddWithValue("@sCoQuanXuLy_Ten", sCoQuanXuLy_Ten);
                 if (dNgayTaoHoSo != null)
                 {
                     bang.CmdParams.Parameters.AddWithValue("@dNgayTaoHoSo", dNgayTaoHoSo);
