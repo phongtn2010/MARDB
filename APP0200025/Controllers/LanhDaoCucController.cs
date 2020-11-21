@@ -84,6 +84,7 @@ namespace APP0200025.Controllers
                     clTaoSoGDK taoSoGDK = clTaoSoGDK.GetSoGDK();
                     bang.CmdParams.Parameters.AddWithValue("@sSoGDK", taoSoGDK.SoGDK);
                     bang.CmdParams.Parameters.AddWithValue("@dNgayKyGDK", DateTime.Now);
+                    bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", DateTime.Now);
                     bang.CmdParams.Parameters.AddWithValue("@sNguoiKyGDK", eCoQuanXuLy.sNguoiKy_Ten);
                     sNoiDung = "Đồng ý xác nhận GĐK số:" + taoSoGDK.SoGDK;
                 }
@@ -139,10 +140,15 @@ namespace APP0200025.Controllers
                             bang.CmdParams.Parameters.AddWithValue("@sSoGDK", taoSoGDK.SoGDK);
 
                         if (bang.CmdParams.Parameters.IndexOf("@dNgayKyGDK") >= 0)
+                        {
                             bang.CmdParams.Parameters["@dNgayKyGDK"].Value = DateTime.Now;
+                            bang.CmdParams.Parameters["@dNgayXacNhan"].Value = DateTime.Now;
+                        }
                         else
+                        {
                             bang.CmdParams.Parameters.AddWithValue("@dNgayKyGDK", DateTime.Now);
-
+                            bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", DateTime.Now);
+                        }
                         if (bang.CmdParams.Parameters.IndexOf("@sNguoiKyGDK") >= 0)
                             bang.CmdParams.Parameters["@sNguoiKyGDK"].Value = eCoQuanXuLy.sNguoiKy_Ten;
                         else

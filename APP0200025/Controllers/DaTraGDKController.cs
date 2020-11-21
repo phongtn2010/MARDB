@@ -182,6 +182,9 @@ namespace APP0200025.Controllers
             string TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
             string DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
             string sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
+            string TuNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayXacNhan"]);
+            string DenNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayXacNhan"]);
+            string sSoGDK = CString.SafeString(Request.Form[ParentID + "_sSoGDK"]);
             sHoSoModels models = new sHoSoModels
             {
                 LoaiDanhSach = 6,
@@ -192,7 +195,10 @@ namespace APP0200025.Controllers
                 DenNgayDen = _DenNgayDen,
                 TuNgayTiepNhan = TuNgayTiepNhan,
                 DenNgayTiepNhan = DenNgayTiepNhan,
-                sSoTiepNhan = sSoTiepNhan
+                sSoTiepNhan = sSoTiepNhan,
+                sSoGDK = sSoGDK,
+                TuNgayXacNhan = TuNgayXacNhan,
+                DenNgayXacNhan = DenNgayXacNhan
             };
 
             TempData["menu"] = 234;
