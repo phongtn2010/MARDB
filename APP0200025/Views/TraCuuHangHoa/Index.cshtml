@@ -35,6 +35,8 @@
     string TenBang = "BC_Vung";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
+    string smenu = CString.SafeString(Request.QueryString["menu"]);
+
     int Page = Model.Page;
 
     int CurrentPage = 1;
@@ -58,9 +60,27 @@
 
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "TraCuuHangHoa", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, TuNgayDen = Model.TuNgayDen, DenNgayDen = Model.DenNgayDen, TuNgayTiepNhan = Model.TuNgayTiepNhan, DenNgayTiepNhan = Model.DenNgayTiepNhan, sSoTiepNhan = Model.sSoTiepNhan, page = x }));
-
-    // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "TraCuuHangHoa", new
+    {
+        LoaiDanhSach = Model.LoaiDanhSach,
+        sMaHoSo = Model.sMaHoSo,
+        sTenDoanhNghiep = Model.sTenDoanhNghiep,
+        sTenTACN = Model.sTenTACN,
+        TuNgayDen = Model.TuNgayDen,
+        DenNgayDen = Model.DenNgayDen,
+        TuNgayTiepNhan = Model.TuNgayTiepNhan,
+        DenNgayTiepNhan = Model.DenNgayTiepNhan,
+        sSoTiepNhan = Model.sSoTiepNhan,
+        sSoGDK = Model.sSoGDK,
+        TuNgayXacNhan = Model.TuNgayXacNhan,
+        DenNgayXacNhan = Model.DenNgayXacNhan,
+        sSoThongBaoKetQua = Model.sSoThongBaoKetQua,
+        TuNgayThongBaoKetQua = Model.TuNgayThongBaoKetQua,
+        DenNgayThongBaoKetQua = Model.DenNgayThongBaoKetQua,
+        iID_MaTrangThai = Model.iID_MaTrangThai,
+        iID_KetQuaXuLy = Model.iID_KetQuaXuLy,
+        page = x
+    }));
 
 }
 <script type="text/javascript">
@@ -79,7 +99,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("Search", "TraCuuHangHoa", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("Search", "TraCuuHangHoa", new { ParentID = ParentID, smenu = smenu }, FormMethod.Post, new { id = "formSearch", @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
@@ -107,10 +127,7 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-
                         <div class="form-group">
                             <label for="inputEmail3" class="col-xs-1 control-label">Tên doanh nghiệp</label>
                             <div class="col-xs-5">
@@ -120,15 +137,12 @@
                             <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenTACN, "sTenTACN", "", "placeholder=\"Tên TACN\" type=\"text\" class=\"form-control\""))
                             </div>
-
                         </div>
-
                         <div class="form-group">
                             <label for="inputEmail3" class="col-xs-1 control-label">Số tiếp nhận</label>
                             <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoTiepNhan, "sSoTiepNhan", "", "placeholder=\"Số tiếp nhận\" type=\"text\" class=\"form-control\""))
                             </div>
-
                             <label for="inputEmail3" class="col-sm-1 control-label">Ngày tiếp nhận</label>
                             <div class="col-xs-5">
                                 <div class="row">
@@ -147,7 +161,6 @@
                             <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoGDK, "sSoGDK", "", "placeholder=\"Số GĐK\" type=\"text\" class=\"form-control\""))
                             </div>
-
                             <label for="inputEmail3" class="col-sm-1 control-label">Ngày xác nhận</label>
                             <div class="col-xs-5">
                                 <div class="row">
@@ -166,7 +179,6 @@
                             <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoThongBaoKetQua, "sSoThongBaoKetQua", "", "placeholder=\"Số thông báo\" type=\"text\" class=\"form-control\""))
                             </div>
-
                             <label for="inputEmail3" class="col-sm-1 control-label">Ngày cấp</label>
                             <div class="col-xs-5">
                                 <div class="row">
@@ -181,12 +193,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-
                             <div class="col-xs-1 text-align-right"><label class="control-label">Trạng thái</label></div>
                             <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, Convert.ToString(Model.iID_MaTrangThai), "iID_MaTrangThai", "", "type=\"text\" class=\"form-control\""))
                             </div>
-
                             <div class="col-xs-1 text-align-right">
                                 <label class="control-label">Kết quả xử lý</label>
                             </div>
@@ -247,11 +257,7 @@
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
 
-                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "TraCuuHangHoa", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-send'></i></span>", "Edit", "");
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "TraCuuHangHoa", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
-                                            String strYeuCauBoXung = MyHtmlHelper.ActionLink(Url.Action("yeuCauBoXung", "TraCuuHangHoa", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-plus'></i></span>", "Delete", "");
-                                            String strTuChoi = MyHtmlHelper.ActionLink(Url.Action("TuChoi", "TraCuuHangHoa", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-red'><i class='fa fa-times'></i></span>", "Delete", "");
-
 
 
                                             <tr>

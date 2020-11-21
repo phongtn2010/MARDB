@@ -36,7 +36,7 @@ namespace APP0200025.Controllers
             return View(hangHoa);
         }
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Search(string ParentID)
+        public ActionResult Search(string ParentID, string smenu)
         {
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
@@ -80,6 +80,9 @@ namespace APP0200025.Controllers
                 DenNgayThongBaoKetQua=DenNgayThongBaoKetQua,
                 sSoThongBaoKetQua= sSoThongBaoKetQua
             };
+
+            TempData["menu"] = smenu;
+            TempData["msg"] = "success";
             return RedirectToAction("Index", models);
         }
     }

@@ -26,6 +26,7 @@ namespace APP0200025.Controllers
                     LoaiDanhSach = 0
                 };
             }
+
             return View(models);
         }
 
@@ -37,7 +38,7 @@ namespace APP0200025.Controllers
             return View(hoSo);
         }
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Search(string ParentID)
+        public ActionResult Search(string ParentID, string smenu)
         {
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
@@ -74,6 +75,9 @@ namespace APP0200025.Controllers
                 iID_MaTrangThai=Convert.ToInt32(iID_MaTrangThai),
                 iID_KetQuaXuLy = Convert.ToInt32(iID_KetQuaXuLy)
             };
+
+            TempData["menu"] = smenu;
+            TempData["msg"] = "success";
             return RedirectToAction("Index", models);
         }
     }
