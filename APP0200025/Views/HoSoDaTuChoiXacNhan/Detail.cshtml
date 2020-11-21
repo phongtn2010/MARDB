@@ -31,8 +31,8 @@
                         <form action="@Url.Action("GuiDoanhNghiep", "HoSoDaTuChoiXacNhan", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
                             @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
                             <div class="box-footer clearfix text-center">
-                                <button class="btn btn-primary btn-sm" type="submit">Gửi doanh nghiệp</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a class="btn btn-sm" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
+                                <button class="btn btn-primary" type="submit">Gửi doanh nghiệp</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a class="btn btn-default" id="btnThoat">Thoát</a>
                             </div>
                         </form>
                     </div><!-- /.tab-pane -->
