@@ -15,6 +15,12 @@ namespace DATA0200025.Models
         public long iID_MaHoSo_ThayThe { get; set; }
         public string sMaHoSo { get; set; }
         public string sMaHoSo_ThayThe { get; set; }
+        public string sSoXacNhan_ThayThe { get; set; }
+        public string sMaDinhKem_ThayThe { get; set; }
+        public string sTenDinhKem_ThayThe { get; set; }
+        public string sLinkDinhKem_ThayThe { get; set; }
+        public string sCoQuanXuLy_Ma { get; set; }
+        public string sCoQuanXuLy_Ten { get; set; }
         public string sSoGDK { get; set; }
         public string sSoGDK_ThayThe { get; set; }
         public DateTime dNgayKyGDK { get; set; }

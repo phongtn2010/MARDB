@@ -146,8 +146,8 @@ namespace APP0200025.Controllers
                     //XML 19(22)
                     GiayXNCL resultConfirm = new GiayXNCL();
                     resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                    resultConfirm.DepartmentCode = "10";
-                    resultConfirm.DepartmentName = "Cục chăn nuôi";
+                    resultConfirm.DepartmentCode = hoSo.sCoQuanXuLy_Ma;
+                    resultConfirm.DepartmentName = hoSo.sCoQuanXuLy_Ten;
                     resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
                     resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
                     resultConfirm.SignCerDate = hangHoa.dSoThongBaoKetQua_NgayKy;

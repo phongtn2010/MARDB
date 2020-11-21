@@ -67,8 +67,8 @@ namespace APP0200025.Controllers
                 XacNhanDon resultConfirm = new XacNhanDon();
                 resultConfirm.NSWFileCode = hoSo.sMaHoSo;
                 resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
-                resultConfirm.DepartmentCode = "10";
-                resultConfirm.DepartmentName = "Cục chăn nuôi";
+                resultConfirm.DepartmentCode = hoSo.sCoQuanXuLy_Ma;
+                resultConfirm.DepartmentName = hoSo.sCoQuanXuLy_Ten;
                 resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
                 resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
                 resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;

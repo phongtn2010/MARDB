@@ -191,8 +191,8 @@ namespace APP0200025.Controllers
                     resultConfirm.SignConfirmDate = hs.dNgayXacNhan;
                     resultConfirm.SignConfirmPlace = hs.sSoGDK_NoiKy;
                     resultConfirm.SignDate = hs.dNgayTaoHoSo;
-                    resultConfirm.DepartmentCode = eCoQuanXuLy.sCoQuan_Ma;
-                    resultConfirm.DepartmentName = eCoQuanXuLy.sCoQuan_Ten;
+                    resultConfirm.DepartmentCode = hs.sMaCoQuanXuLy;
+                    resultConfirm.DepartmentName = hs.sTenCoQuanXuLy;
 
                     resultConfirm.ListHangHoa = CHangHoa26.GetHoaXND(Convert.ToInt64(iID_MaHoSo));
 
