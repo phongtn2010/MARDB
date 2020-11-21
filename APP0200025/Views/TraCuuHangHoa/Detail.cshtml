@@ -29,25 +29,19 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoso);}
-
                         <div class="box-footer clearfix text-center">
-
-                            <div class="col-xs-2">
-                                <a class="btn btn-block" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
-                            </div>
+                            <button class="btn btn-danger" type="button" onclick="javascript:history.go(-1)">Cancel</button>
                         </div>
-
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
                         @{Html.RenderPartial("~/Views/Partial/Partial_LichSuHoSo.cshtml", Model);}
+                        <div class="box-footer clearfix text-center">
+                            <button class="btn btn-danger" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+                        </div>
                     </div><!-- /.tab-pane -->
-
                 </div><!-- /.tab-content -->
             </div><!-- nav-tabs-custom -->
         </div><!-- /.col -->
     </div>
 </section>
-@{Html.RenderPartial("~/Views/HoSoDaXemXetYeuCauBoSung/Partial_Model_TuChoi.cshtml");}
-<script src="@Url.Content("~/ScriptsERP/jsHoSoDaXemXetYeuCauBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

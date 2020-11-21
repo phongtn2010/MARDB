@@ -27,25 +27,16 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
-
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", Model);}
-                        <form action="@Url.Action("GuiDoanhNghiep", "HoSoDaXemXetYeuCauBoSung", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
-                            <div class="box-footer clearfix text-center">
-                                <div class="col-xs-4">
-                                    <button class="btn btn-block btn-primary" type="submit">Gửi doanh nghiệp</button>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>
-                                </div>
-                                <div class="col-xs-4">
-                                    <a class="btn btn-block" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
-                                </div>
-                            </div>
-                        </form>
+                        <div class="box-footer clearfix text-center">
+                            <button class="btn btn-danger" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+                        </div>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
                         @{Html.RenderPartial("~/Views/Partial/Partial_LichSuHoSo.cshtml", Model);}
+                        <div class="box-footer clearfix text-center">
+                            <button class="btn btn-danger" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+                        </div>
                     </div><!-- /.tab-pane -->
 
                 </div><!-- /.tab-content -->
@@ -53,5 +44,3 @@
         </div><!-- /.col -->
     </div>
 </section>
-@{Html.RenderPartial("~/Views/HoSoDaXemXetYeuCauBoSung/Partial_Model_TuChoi.cshtml");}
-<script src="@Url.Content("~/ScriptsERP/jsHoSoDaXemXetYeuCauBoSung.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
