@@ -41,18 +41,18 @@ namespace APP0200025.Controllers
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID, string smenu)
         {
-            string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
+            string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]).Trim();
             string TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
             string DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
-            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
-            string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
+            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]).Trim();
+            string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]).Trim();
            
-            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
+            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]).Trim();
             string TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
             string DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
 
 
-            string sSoGDK = CString.SafeString(Request.Form[ParentID + "_sSoGDK"]);
+            string sSoGDK = CString.SafeString(Request.Form[ParentID + "_sSoGDK"]).Trim();
             string TuNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayXacNhan"]);
             string DenNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayXacNhan"]);
 

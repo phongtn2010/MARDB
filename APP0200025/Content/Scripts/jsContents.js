@@ -108,7 +108,7 @@ function jsEbank_Count_Cart() {
             div_result.innerHTML = item.sHTML;
 
         }
-        
+
     });
 }
 
@@ -201,6 +201,81 @@ function jsEbank_AddToDanhGia(sMaSanPhan, iSao, sHoTen, sEmail, sNoiDung) {
 
 function clearFromSearch() {
     document.getElementById("formSearch").reset();
+    //ClearTextbox("#formSearch");
+    clearForm(document.getElementById("formSearch"));
+}
+
+function ClearTextbox(ParentControl) {
+    var control = $(ParentControl).get(0);
+    var list = control.getElementsByTagName("input");
+    var textAreaList = control.getElementsByTagName("textarea");
+    var selectList = control.getElementsByTagName("select");
+    for (var i = 0; i < list.length; i++) {
+        var attr = list[i].getAttribute('type');
+        var control = document.getElementById(list[i].id);
+        switch (attr) {
+            case "text":
+                $(control).val('');
+                break;
+
+            case "hidden":
+                $(control).val('');
+                break;
+
+            case "checkbox":
+                control.checked = false;
+                break;
+
+            case "radio":
+                control.checked = false;
+                break;
+
+            case "range":
+                control.setAttribute('value', '0');
+                break;
+
+            case "file":
+                control.setAttribute('value', '');
+                break;
+        }
+    }
+
+    for (var i = 0; i < textAreaList.length; i++) {
+        var control = document.getElementById(textAreaList[i].id);
+        $(control).val('');
+    }
+    for (var i = 0; i < selectList.length; i++) {
+        $(selectList[i]).val('');
+    }
+}
+
+function clearForm(myFormElement) {
+    var elements = myFormElement.elements;
+    myFormElement.reset();
+    for (i = 0; i < elements.length; i++) {
+        field_type = elements[i].type.toLowerCase();
+        switch (field_type) {
+            case "text":
+            case "password":
+            case "textarea":
+            case "hidden":
+                elements[i].value = "";
+                break;
+            case "radio":
+            case "checkbox":
+                if (elements[i].checked) {
+                    elements[i].checked = false;
+                }
+                break;
+
+            case "select-one":
+            case "select-multi":
+                elements[i].selectedIndex = -1;
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 function showToast_Success() {

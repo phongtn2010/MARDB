@@ -24,7 +24,7 @@ namespace DATA0200025
             if (TatCa)
             {
                 DataRow r = dt.NewRow();
-                r["iID_KetQuaXuLy"] = "0";
+                r["iID_KetQuaXuLy"] = "-1";
                 r["sTen"] = "--Tất cả--";
                 dt.Rows.InsertAt(r, 0);
             }
