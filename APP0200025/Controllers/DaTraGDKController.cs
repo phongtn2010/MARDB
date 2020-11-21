@@ -174,17 +174,17 @@ namespace APP0200025.Controllers
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID)
         {
-            string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
-            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
-            string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
+            string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]).Trim();
+            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]).Trim();
+            string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]).Trim();
             string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
             string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
             string TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
             string DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
-            string sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
+            string sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]).Trim();
             string TuNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayXacNhan"]);
             string DenNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayXacNhan"]);
-            string sSoGDK = CString.SafeString(Request.Form[ParentID + "_sSoGDK"]);
+            string sSoGDK = CString.SafeString(Request.Form[ParentID + "_sSoGDK"]).Trim();
             sHoSoModels models = new sHoSoModels
             {
                 LoaiDanhSach = 6,
