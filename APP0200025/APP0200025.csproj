@@ -2624,6 +2624,8 @@
     <Content Include="Content\plugins\bootstrap-multiselect\bootstrap-multiselect.css" />
     <Content Include="Content\plugins\bootstrap-multiselect\bootstrap-multiselect.js" />
     <Content Include="Content\plugins\pace\pace.js" />
+    <Content Include="Content\plugins\pdf\pdf.js" />
+    <Content Include="Content\plugins\pdf\pdf.worker.js" />
     <Content Include="Content\plugins\select2\i18n\az.js" />
     <Content Include="Content\plugins\select2\i18n\bg.js" />
     <Content Include="Content\plugins\select2\i18n\ca.js" />
