@@ -56,11 +56,13 @@ namespace APP0200025.Controllers
         {
             DataTable hoSo = GetHoangHoaByIdHoSo(iID_MaHoSo);
             ViewData["DuLieuMoi"] = "0";
+            ViewData["menu"] = 244;
             return View(hoSo);
         }
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult KetQuaUpload()
         {
+            ViewData["menu"] = 244;
             return View();
         }
         [AcceptVerbs(HttpVerbs.Get)]
@@ -138,11 +140,7 @@ namespace APP0200025.Controllers
         }
         public ActionResult XemKetQuaUpload()
         {
-            return View();
-        }
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult BuildForm()
-        {
+            ViewData["menu"] = 244;
             return View();
         }
 
@@ -188,12 +186,14 @@ namespace APP0200025.Controllers
             TempData["msg"] = "success";
             return RedirectToAction("Index", models);
         }
+        
         [HttpPost]
         public object GetUpload(string iID_MaHoSo, string iID_MaHangHoa)
         {
             var ThongTin = LayThongTinChungNhanHopQuy(iID_MaHoSo, iID_MaHangHoa);
             return Json(new { response = ThongTin }, JsonRequestBehavior.AllowGet);
         }
+
         public static DataTable GetHoangHoaByIdHoSo(string iID_MaHoSo)
         {
             SqlCommand cmd = new SqlCommand();
@@ -204,6 +204,7 @@ namespace APP0200025.Controllers
             cmd.Dispose();
             return dt;
         }
+
         public static ToChucChiDinh LayThongTinChungNhanHopQuy(string iID_MaHoSo, string iID_MaHangHoa)
         {
             ToChucChiDinh KetQua = new ToChucChiDinh();

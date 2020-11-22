@@ -2908,7 +2908,6 @@
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Partial\Partial_HoSoXinCapXNCL.cshtml" />
-    <Content Include="Views\ToChucChiDinh\BuildForm.cshtml" />
     <Content Include="WebServices\Mard26Service.asmx" />
     <Content Include="WebServices\MardService.asmx" />
     <Content Include="XML\en.gif" />
