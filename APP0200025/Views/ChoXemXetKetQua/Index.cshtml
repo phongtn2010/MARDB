@@ -173,7 +173,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Danh sách hồ sơ</h3>
+                    <h3 class="box-title text-uppercase">DANH SÁCH HỒ SƠ (Có <span style="color: red; font-weight: bold;">@(nums.ToString("#,##"))</span> hồ sơ)</h3>
                     <div class="box-tools">
                         <ul class="pagination pagination-sm no-margin pull-right">
                             <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
@@ -207,11 +207,19 @@
                                 </thead>
                                 <tbody>
                                     @{
+                                        long iHTTu = 0, iHTDen = 0;
                                         if (RC > 0)
                                         {
+                                            int iGTMax = 0;
                                             for (int i = 0; i < RC; i++)
                                             {
                                                 r = dt.Rows[i];
+
+                                                if (i == 0)
+                                                {
+                                                    iHTTu = Convert.ToInt64(r["rownum"]);
+                                                }
+                                                iGTMax++;
 
                                                 int iID_MaTrangThai = Convert.ToInt32(r["iID_MaTrangThai"]);
 
@@ -251,6 +259,7 @@
                                                     </td>
                                                 </tr>
                                             }
+                                            iHTDen = iHTTu + iGTMax - 1;
                                         }
                                         dt.Dispose();
                                     }
@@ -259,10 +268,13 @@
                         </div>
                     </div><!-- /.box-body -->
                     <div class="box-footer clearfix">
-                        <div class="col-xs-5 text-align-right">
+                        <div class="col-xs-5">
+                            Hiển thị từ <b>@(iHTTu)</b> đến <b>@(iHTDen)</b> trong số <b>@(nums.ToString("#,##"))</b> bản ghi
+                        </div>
+                        <div class="col-xs-1 text-align-center">
                             <button class="btn btn-primary" type="submit">Đồng ý</button>
                         </div>
-                        <div class="col-xs-7">
+                        <div class="col-xs-6">
                             @MvcHtmlString.Create(strPhanTrang)
                         </div>
                     </div>
