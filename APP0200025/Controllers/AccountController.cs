@@ -209,6 +209,9 @@ namespace APP0200025.Controllers
             string sUserName = CString.SafeString(Request.Form[ParentID + "_sUserName"]).Trim();
             string sMatKhau = CString.SafeString(Request.Form[ParentID + "_sPassword"]).Trim();
             string sReMatKhau = CString.SafeString(Request.Form[ParentID + "_sRePassword"]).Trim();
+
+            string sMaToChucChiDinh = CString.SafeString(Request.Form[ParentID + "_sMaTCCD"]).Trim();
+
             string sKeep = CString.SafeString(Request.Form["rememberCheckbox"]);
 
             if (string.IsNullOrEmpty(sFullName))
@@ -270,7 +273,7 @@ namespace APP0200025.Controllers
                     var result = await UserManager.CreateAsync(user, sMatKhau);
                     if (result.Succeeded)
                     {
-                        CPQ_NGUOIDUNG.Insert(sUserName, "1-1", sFullName, sEmail, 1);
+                        CPQ_NGUOIDUNG.Insert(sUserName, "1-1", sMaToChucChiDinh, sFullName, sEmail, 1);
 
                         // Dang nhap he thong ngay
                         //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

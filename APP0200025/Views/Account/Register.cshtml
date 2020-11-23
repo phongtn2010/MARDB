@@ -5,6 +5,7 @@
 @using System.Drawing
 @using System.IO
 @using DomainModel
+@using DomainModel.Controls
 @using DATA0200025
 @using APP0200025.Models
 @{
@@ -59,6 +60,8 @@
         }
     }
     dtCty.Dispose();
+
+    SelectOptionList ddlTCCD = CToChucChiDinh.SelectOption_ToChucChiDinh();
 }
 
 <!DOCTYPE html>
@@ -76,6 +79,8 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/dist/css/AdminLTE.css")" />
     <!-- iCheck -->
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/plugins/iCheck/square/blue.css")" />
+    <!-- bootstrap-multiselect -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/bootstrap-multiselect/bootstrap-multiselect.css")">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -84,6 +89,10 @@
     <![endif]-->
     <!-- jQuery 2.1.3 -->
     <script src="@(Url.Content("~/Content/plugins/jQuery/jQuery-2.1.4.min.js"))" type="text/javascript"></script>
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="@(Url.Content("~/Content/bootstrap/js/bootstrap.min.js"))" type="text/javascript"></script>
+    <!-- bootstrap-multiselect -->
+    <script src="@(Url.Content("~/Content/plugins/bootstrap-multiselect/bootstrap-multiselect.js"))"></script>
     <script type="text/javascript">
         var ServerUrl = "@(ServerURL)";
     </script>
@@ -126,6 +135,9 @@
                     @Html.ValidationMessage(ParentID + "_" + "err_sRePassword")
                     <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
                 </div>
+                <div class="form-group has-feedback">
+                    @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ddlTCCD, "", "sMaTCCD", "", "class=\"form-control\""))
+                </div>
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="checkbox icheck">
@@ -140,8 +152,8 @@
                 </div>
                 <div class="social-auth-links text-center">
                     @*<section id="socialLoginForm">
-                    @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
-                </section>*@
+                            @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
+                        </section>*@
                     <p>- OR -</p>
                     <a href="@Url.Action("OpenidLogin", "Account", new { provider = "facebook", returnUrl = ViewBag.ReturnUrl })" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>
                     <a href="@Url.Action("OpenidLogin", "Account", new { provider = "google", returnUrl = ViewBag.ReturnUrl })" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
@@ -151,8 +163,6 @@
             }
         </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="@(Url.Content("~/Content/bootstrap/js/bootstrap.min.js"))" type="text/javascript"></script>
     <!-- iCheck -->
     <script src="@(Url.Content("~/Content/plugins/iCheck/icheck.min.js"))" type="text/javascript"></script>
     <script>
@@ -162,6 +172,19 @@
                 radioClass: 'iradio_square-blue',
                 increaseArea: '20%' // optional
             });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var iTrangThai = null;
+            if (iTrangThai != null) {
+                $('#Login_sMaTCCD').val(iTrangThai);
+                $('#Login_sMaTCCD').multiselect('rebuild');
+            }
+            else {
+                $('#Login_sMaTCCD').val("");
+                $('#Login_sMaTCCD').multiselect('rebuild');
+            }
         });
     </script>
 </body>

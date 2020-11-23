@@ -200,17 +200,18 @@ namespace DATA0200025
             return vR;
         }
 
-        public static int Insert(String sID_MaNguoiDung, String iID_MaNhomNguoiDung, String sHoTen, String sEmail, int iTrangThai)
+        public static int Insert(String sID_MaNguoiDung, String iID_MaNhomNguoiDung, String sID_MaNhomNguoiDung_DuocQuanTri, String sHoTen, String sEmail, int iTrangThai)
         {
             int vR = -1;
 
             try
             {
-                String SQL = "INSERT INTO QT_NGUOIDUNG(sID_MaNguoiDung, iID_MaNhomNguoiDung, sHoTen, sEmail, iTrangThai) VALUES(@sID_MaNguoiDung, @iID_MaNhomNguoiDung, @sHoTen, @sEmail, @iTrangThai)";
+                String SQL = "INSERT INTO QT_NGUOIDUNG(sID_MaNguoiDung, iID_MaNhomNguoiDung, sID_MaNhomNguoiDung_DuocQuanTri, sHoTen, sEmail, iTrangThai) VALUES(@sID_MaNguoiDung, @iID_MaNhomNguoiDung, @sID_MaNhomNguoiDung_DuocQuanTri, @sHoTen, @sEmail, @iTrangThai)";
 
                 SqlCommand cmd = new SqlCommand(SQL);
                 cmd.Parameters.AddWithValue("@sID_MaNguoiDung", sID_MaNguoiDung);
                 cmd.Parameters.AddWithValue("@iID_MaNhomNguoiDung", iID_MaNhomNguoiDung);
+                cmd.Parameters.AddWithValue("@sID_MaNhomNguoiDung_DuocQuanTri", sID_MaNhomNguoiDung_DuocQuanTri);
                 cmd.Parameters.AddWithValue("@sHoTen", sHoTen);
                 cmd.Parameters.AddWithValue("@sEmail", sEmail);
                 cmd.Parameters.AddWithValue("@iTrangThai", iTrangThai);

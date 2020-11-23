@@ -1,4 +1,5 @@
 ﻿using DomainModel;
+using DomainModel.Controls;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +12,29 @@ namespace DATA0200025
 {
     public class CToChucChiDinh
     {
+        #region ToChucChiDinh
+        public static DataTable Get_ToChucChiDinh()
+        {
+            DataTable vR = null;
+
+            string SQL = "SELECT * FROM CNN25_ToChucChiDinh ORDER BY sMaTCCD";
+            SqlCommand cmd = new SqlCommand(SQL);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return vR;
+        }
+        public static SelectOptionList SelectOption_ToChucChiDinh()
+        {
+            DataTable dt = Get_ToChucChiDinh();
+            dt.Rows.InsertAt(dt.NewRow(), 0);
+            dt.Rows[0]["sMaTCCD"] = "";
+            dt.Rows[0]["sTen"] = "-- Tất cả --";
+            SelectOptionList DDL = new SelectOptionList(dt, "sMaTCCD", "sTen");
+            return DDL;
+        }
+        #endregion
+
         #region ChungNhanHopQuy
         public static DataTable Get_ChungNhanHopQuy(long iID_MaHoSo, long iID_MaHangHoa)
         {
