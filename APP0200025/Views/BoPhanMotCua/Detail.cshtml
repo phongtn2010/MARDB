@@ -26,23 +26,10 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
                         @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_Detail.cshtml", Model);}
-                        <form action="@Url.Action("LanhDaoCuc_ChoPheDuyet_World", "MienGiam", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo)
-                            @Html.Hidden(ParentID + "_sMaHoSo", Model.sMaHoSo)
-                            <div class="box-footer clearfix text-center">
-                                @{
-                                    if (String.IsNullOrEmpty(Model.sSoGDK) == true)
-                                    {
-                                        <button class="btn btn-primary" type="submit">Ký số</button>
-                                    }
-                                    else
-                                    {
-                                        <a class="btn btn-primary btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>
-                                    }
-                                }
-                                <a class="btn btn-danger" onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
-                            </div>
-                        </form>
+                        <div class="box-footer clearfix text-center">
+                            <a class="btn btn-primary btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>
+                            <a class="btn btn-danger" onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
+                        </div>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
                         @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_LichSuHoSo.cshtml", Model);}

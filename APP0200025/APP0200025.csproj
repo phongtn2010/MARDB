@@ -3120,11 +3120,11 @@
     <Content Include="Views\BoPhanMotCua\Partial_Model_ThuHoi.cshtml" />
     <Content Include="Views\BoPhanMotCua\Partial_HangHoaChiTiet.cshtml" />
     <Content Include="Views\MienGiam\Partial_HangHoaChiTiet.cshtml" />
-    <Content Include="Views\MienGiam\Partial_CongVanMienGiam.cshtml" />
-    <Content Include="Views\BoPhanMotCua\Partial_CongVanMienGiam.cshtml" />
     <Content Include="Views\MienGiam\List.cshtml" />
     <Content Include="Views\BoPhanMotCua\List.cshtml" />
     <Content Include="Views\Partial\Partial_GDK_ThongBaoKetQua.cshtml" />
+    <Content Include="Views\BoPhanMotCua\Detail.cshtml" />
+    <Content Include="Views\PartialMienGiam\Partial_CongVanMienGiam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
