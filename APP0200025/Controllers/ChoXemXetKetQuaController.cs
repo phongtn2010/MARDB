@@ -307,7 +307,8 @@ namespace APP0200025.Controllers
 
             sHoSoModels models = new sHoSoModels
             {
-                LoaiDanhSach = 10,
+                //LoaiDanhSach = 10,
+                LoaiDanhSach = (int)clLoaiDanhSach.From.ChoXemXetKetQua,
                 iID_MaLoaiHoSo = 3,//Chuyen viên lãnh đạo phòng, lãnh đạo cục chỉ xử lý hồ sơ 2c
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,

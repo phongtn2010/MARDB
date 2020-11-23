@@ -416,7 +416,7 @@ namespace APP0200025.Controllers
 
             sHoSoModels models = new sHoSoModels
             {
-                LoaiDanhSach = (int)clLoaiDanhSach.From.ChoTiepNhanKetQua,
+                LoaiDanhSach = (int)clLoaiDanhSach.From.ChoTiepNhanKetQuaGuiBoSung,
                 iID_MaTrangThai = Convert.ToInt32(_iTrangThai),
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,

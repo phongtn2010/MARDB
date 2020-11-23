@@ -274,7 +274,7 @@ namespace APP0200025.Controllers
 
             sHoSoModels models = new sHoSoModels
             {
-                LoaiDanhSach = (int)clLoaiDanhSach.From.ChoTiepNhanKetQua,
+                LoaiDanhSach = (int)clLoaiDanhSach.From.ChoXuLyKetQua,
                 iID_MaLoaiHoSo = 3,//Chuyen viên chỉ xử lý hồ sơ 2c
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
