@@ -118,6 +118,10 @@ namespace DATA0200025
                 bang.CmdParams.Parameters.AddWithValue("@sKyHoSo_Tinh", sKyHoSo_Tinh);
                 bang.CmdParams.Parameters.AddWithValue("@sKyHoSo_NguoiKy", sKyHoSo_NguoiKy);
                 bang.CmdParams.Parameters.AddWithValue("@sKyHoSo_NguoiKy_ChucDanh", sKyHoSo_NguoiKy_ChucDanh);
+                if (dNgayTaoHoSo != null)
+                {
+                    bang.CmdParams.Parameters.AddWithValue("@dKyHoSo_NgayKy", dNgayTaoHoSo);
+                }
                 bang.CmdParams.Parameters.AddWithValue("@sHashCode", sHashCode);
 
                 if (iID_MaHoSo_Sua > 0)
