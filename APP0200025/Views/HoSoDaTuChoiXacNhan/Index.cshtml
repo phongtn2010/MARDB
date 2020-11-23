@@ -118,10 +118,12 @@
                                 <div class="row">
                                     <div class="col-xs-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayDen, "TuNgayDen", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_TuNgayDen")
                                     </div>
                                     <div class="col-xs-2 text-align-center"><b>-</b></div>
                                     <div class="col-xs-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayDen, "DenNgayDen", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_DenNgayDen")
                                     </div>
                                 </div>
                             </div>
@@ -130,10 +132,13 @@
                                 <div class="row">
                                     <div class="col-xs-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayTiepNhan, "TuNgayTiepNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_TuNgayTiepNhan")
                                     </div>
                                     <div class="col-xs-2 text-align-center"><b>-</b></div>
                                     <div class="col-xs-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayTiepNhan, "DenNgayTiepNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
+
+                                        @Html.ValidationMessage(ParentID + "_" + "err_DenNgayTiepNhan")
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +154,7 @@
 
                     </div><!-- /.box-body -->
                     <div class="box-footer clearfix text-align-center">
-                        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                        <button class="btn btn-primary" type="button" id="btnSearch">Tìm kiếm</button>
                         <button class="btn btn-danger" type="button" onclick="clearFromSearch()">Nhập lại</button>
                     </div>
                 }

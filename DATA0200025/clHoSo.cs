@@ -143,17 +143,17 @@ namespace DATA0200025
             if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
                 DK += " AND sMaHoSo=@sMaHoSo";
-                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
+                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo.Trim());
             }
             if (!string.IsNullOrEmpty(models.sMaSoThue))
             {
                 DK += " AND sMaSoThue=@sMaSoThue";
-                cmd.Parameters.AddWithValue("@sMaSoThue", models.sMaSoThue);
+                cmd.Parameters.AddWithValue("@sMaSoThue", models.sMaSoThue.Trim());
             }
             if (!string.IsNullOrEmpty(models.sTenDoanhNghiep))
             {
                 DK += " AND sTenDoanhNghiep LIKE @sTenDoanhNghiep";
-                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep + "%");
+                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep.Trim() + "%");
             }
 
             if (!string.IsNullOrEmpty(models.TuNgayDen))
@@ -195,19 +195,19 @@ namespace DATA0200025
             if (!string.IsNullOrEmpty(models.sTenTACN))
             {
                 DK += " AND sTenTACN LIKE @sTenTACN";
-                cmd.Parameters.AddWithValue("@sTenTACN", "%" + models.sTenTACN + "%");
+                cmd.Parameters.AddWithValue("@sTenTACN", "%" + models.sTenTACN.Trim() + "%");
             }
 
             if (!string.IsNullOrEmpty(models.sSoTiepNhan))
             {
                 DK += " AND sSoTiepNhan = @sSoTiepNhan";
-                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
+                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan.Trim());
             }
 
             if (!string.IsNullOrEmpty(models.sSoGDK))
             {
                 DK += " AND sSoGDK = @sSoGDK";
-                cmd.Parameters.AddWithValue("@sSoGDK", models.sSoGDK);
+                cmd.Parameters.AddWithValue("@sSoGDK", models.sSoGDK.Trim());
             }
             string SQL = string.Format("SELECT count(iID_MaHoSo) as value FROM CNN25_HoSo WHERE {0} ", DK);
             cmd.CommandText = SQL;
@@ -311,7 +311,7 @@ namespace DATA0200025
             if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
                 DK += " AND sMaHoSo=@sMaHoSo";
-                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
+                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo.Trim());
             }
             if (!string.IsNullOrEmpty(models.sMaSoThue))
             {
@@ -321,7 +321,7 @@ namespace DATA0200025
             if (!string.IsNullOrEmpty(models.sTenDoanhNghiep))
             {
                 DK += " AND sTenDoanhNghiep LIKE @sTenDoanhNghiep";
-                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep + "%");
+                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep.Trim() + "%");
             }
 
             if (!string.IsNullOrEmpty(models.TuNgayDen))
@@ -365,18 +365,18 @@ namespace DATA0200025
             if (!string.IsNullOrEmpty(models.sTenTACN))
             {
                 DK += " AND sTenTACN LIKE @sTenTACN";
-                cmd.Parameters.AddWithValue("@sTenTACN", "%" + models.sTenTACN + "%");
+                cmd.Parameters.AddWithValue("@sTenTACN", "%" + models.sTenTACN.Trim() + "%");
             }
 
             if (!string.IsNullOrEmpty(models.sSoTiepNhan))
             {
                 DK += " AND sSoTiepNhan = @sSoTiepNhan";
-                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
+                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan.Trim());
             }
             if (!string.IsNullOrEmpty(models.sSoGDK))
             {
                 DK += " AND sSoGDK = @sSoGDK";
-                cmd.Parameters.AddWithValue("@sSoGDK", models.sSoGDK);
+                cmd.Parameters.AddWithValue("@sSoGDK", models.sSoGDK.Trim());
             }
             string SQL = string.Format("SELECT * FROM CNN25_HoSo WHERE {0} ", DK);
             cmd.CommandText = SQL;
@@ -475,22 +475,22 @@ namespace DATA0200025
             if (!string.IsNullOrEmpty(models.sTenTACN))
             {
                 DKHH += " AND hh.sTenHangHoa=@sTenHangHoa";
-                cmd.Parameters.AddWithValue("@sTenHangHoa", models.sTenTACN);
+                cmd.Parameters.AddWithValue("@sTenHangHoa", models.sTenTACN.Trim());
             }
             if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
                 DK += " AND sMaHoSo=@sMaHoSo";
-                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
+                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo.Trim());
             }
             if (!string.IsNullOrEmpty(models.sMaSoThue))
             {
                 DK += " AND sMaSoThue=@sMaSoThue";
-                cmd.Parameters.AddWithValue("@sMaSoThue", models.sMaSoThue);
+                cmd.Parameters.AddWithValue("@sMaSoThue", models.sMaSoThue.Trim());
             }
             if (!string.IsNullOrEmpty(models.sTenDoanhNghiep))
             {
                 DK += " AND sTenDoanhNghiep LIKE @sTenDoanhNghiep";
-                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep + "%");
+                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep.Trim() + "%");
             }
 
             if (!string.IsNullOrEmpty(models.TuNgayDen))
@@ -527,17 +527,17 @@ namespace DATA0200025
             if (!string.IsNullOrEmpty(models.sSoTiepNhan))
             {
                 DK += " AND sSoTiepNhan = @sSoTiepNhan";
-                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
+                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan.Trim());
             }
             if (!string.IsNullOrEmpty(models.sSoGDK))
             {
                 DK += " AND sSoGDK = @sSoGDK";
-                cmd.Parameters.AddWithValue("@sSoGDK", models.sSoGDK);
+                cmd.Parameters.AddWithValue("@sSoGDK", models.sSoGDK.Trim());
             }
             if (!string.IsNullOrEmpty(models.sSoThongBaoKetQua))
             {
                 DKHH += " AND sSoThongBaoKetQua = @sSoThongBaoKetQua";
-                cmd.Parameters.AddWithValue("@sSoThongBaoKetQua", models.sSoThongBaoKetQua);
+                cmd.Parameters.AddWithValue("@sSoThongBaoKetQua", models.sSoThongBaoKetQua.Trim());
             }
             if (!string.IsNullOrEmpty(models.TuNgayThongBaoKetQua))
             {
@@ -658,22 +658,22 @@ namespace DATA0200025
             if(!string.IsNullOrEmpty(models.sTenTACN))
             {
                 DKHH += " AND sTenHangHoa=@sTenHangHoa";
-                cmd.Parameters.AddWithValue("@sTenHangHoa", models.sTenTACN);
+                cmd.Parameters.AddWithValue("@sTenHangHoa", models.sTenTACN.Trim());
             }    
             if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
                 DK += " AND sMaHoSo=@sMaHoSo";
-                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo);
+                cmd.Parameters.AddWithValue("@sMaHoSo", models.sMaHoSo.Trim());
             }
             if (!string.IsNullOrEmpty(models.sMaSoThue))
             {
                 DK += " AND sMaSoThue=@sMaSoThue";
-                cmd.Parameters.AddWithValue("@sMaSoThue", models.sMaSoThue);
+                cmd.Parameters.AddWithValue("@sMaSoThue", models.sMaSoThue.Trim());
             }
             if (!string.IsNullOrEmpty(models.sTenDoanhNghiep))
             {
                 DK += " AND sTenDoanhNghiep LIKE @sTenDoanhNghiep";
-                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep + "%");
+                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep.Trim() + "%");
             }
 
             if (!string.IsNullOrEmpty(models.TuNgayDen))
@@ -711,17 +711,17 @@ namespace DATA0200025
             if (!string.IsNullOrEmpty(models.sSoTiepNhan))
             {
                 DK += " AND sSoTiepNhan = @sSoTiepNhan";
-                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
+                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan.Trim());
             }
             if (!string.IsNullOrEmpty(models.sSoGDK))
             {
                 DK += " AND sSoGDK = @sSoGDK";
-                cmd.Parameters.AddWithValue("@sSoGDK", models.sSoGDK);
+                cmd.Parameters.AddWithValue("@sSoGDK", models.sSoGDK.Trim());
             }
             if (!string.IsNullOrEmpty(models.sSoThongBaoKetQua))
             {
                 DKHH += " AND sSoThongBaoKetQua = @sSoThongBaoKetQua";
-                cmd.Parameters.AddWithValue("@sSoThongBaoKetQua", models.sSoThongBaoKetQua);
+                cmd.Parameters.AddWithValue("@sSoThongBaoKetQua", models.sSoThongBaoKetQua.Trim());
             }
             if (!string.IsNullOrEmpty(models.TuNgayThongBaoKetQua))
             {

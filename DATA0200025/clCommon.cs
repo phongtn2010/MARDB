@@ -16,8 +16,22 @@ namespace DATA0200025
     {
 
         public static string BNN_Url = "http://mard.adp-p.com/";
-       
-        public static SelectOptionList KetQuaXyLyDDL(bool TatCa=true)
+
+        public static bool IsDate(string value)
+        {
+            try
+            {
+                var ngay = CommonFunction.LayNgayTuXau(value);
+                DateTime d = Convert.ToDateTime(ngay);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+        public static SelectOptionList KetQuaXyLyDDL(bool TatCa = true)
         {
             string SQL = "SELECT * FROM CNN25_KetQuaXuLy ORDER BY iID_KetQuaXuLy";
             DataTable dt = Connection.GetDataTable(SQL);

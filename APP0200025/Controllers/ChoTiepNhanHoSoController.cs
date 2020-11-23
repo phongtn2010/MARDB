@@ -395,6 +395,7 @@ namespace APP0200025.Controllers
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
             string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
             string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
+            
             sHoSoModels models = new sHoSoModels
             {
                 LoaiDanhSach = 1,
