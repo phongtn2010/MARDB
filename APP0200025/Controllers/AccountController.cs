@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using APP0200025.Models;
 using DATA0200025;
+using System.Data;
 
 namespace APP0200025.Controllers
 {
@@ -115,13 +116,15 @@ namespace APP0200025.Controllers
                 }
             }
 
-            int iCheck = CPQ_NGUOIDUNG.Check_NguoiDung(sUserName);
-            if(iCheck == 1)
+            DataTable dtND = CPQ_NGUOIDUNG.Get_One_Table(sUserName);
+            //int iCheck = CPQ_NGUOIDUNG.Check_NguoiDung(sUserName);
+            if(dtND.Rows.Count == 1)
             {
                 var result = await SignInManager.PasswordSignInAsync(sUserName, sMatKhau, bRememberMe, shouldLockout: false);
                 switch (result)
                 {
                     case SignInStatus.Success:
+                        Session["_SessionCompany"] = Convert.ToString(dtND.Rows[0]["sID_MaNhomNguoiDung_DuocQuanTri"]);
                         return RedirectToLocal(returnUrl);
                     case SignInStatus.LockedOut:
                         return View("Lockout");
@@ -206,6 +209,9 @@ namespace APP0200025.Controllers
             string sUserName = CString.SafeString(Request.Form[ParentID + "_sUserName"]).Trim();
             string sMatKhau = CString.SafeString(Request.Form[ParentID + "_sPassword"]).Trim();
             string sReMatKhau = CString.SafeString(Request.Form[ParentID + "_sRePassword"]).Trim();
+
+            string sMaToChucChiDinh = CString.SafeString(Request.Form[ParentID + "_sMaTCCD"]).Trim();
+
             string sKeep = CString.SafeString(Request.Form["rememberCheckbox"]);
 
             if (string.IsNullOrEmpty(sFullName))
@@ -267,7 +273,7 @@ namespace APP0200025.Controllers
                     var result = await UserManager.CreateAsync(user, sMatKhau);
                     if (result.Succeeded)
                     {
-                        CPQ_NGUOIDUNG.Insert(sUserName, "1-1", sFullName, sEmail, 1);
+                        CPQ_NGUOIDUNG.Insert(sUserName, "1-1", sMaToChucChiDinh, sFullName, sEmail, 1);
 
                         // Dang nhap he thong ngay
                         //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

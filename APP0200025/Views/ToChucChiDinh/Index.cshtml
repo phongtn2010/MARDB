@@ -36,6 +36,15 @@
 
     String _TrangThaiHoSo = CString.SafeString(Request.QueryString["iID_MaTrangThai"]);
 
+    String iID_MaTCCD = Convert.ToString(Session["_SessionCompany"]);
+
+    DataTable dtND = CPQ_NGUOIDUNG.Get_One_Table(User.Identity.Name);
+    if(dtND.Rows.Count > 0)
+    {
+        iID_MaTCCD = Convert.ToString(dtND.Rows[0]["sID_MaNhomNguoiDung_DuocQuanTri"]);
+    }
+    dtND.Dispose();
+
     int Page = Model.Page;
 
     int CurrentPage = 1;
@@ -50,8 +59,8 @@
     }
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
-    DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax);
-    double nums = clHoSo.GetCount(Model);
+    DataTable dt = clHoSo.GetDataTable_TCCD(Model, iID_MaTCCD, CurrentPage, nMax);
+    double nums = clHoSo.GetCount_TCCD(Model, iID_MaTCCD);
     int RC = dt.Rows.Count;
     int TotalPages = (int)Math.Ceiling(nums / nMax);
 
@@ -136,9 +145,7 @@
                         <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                         <button class="btn btn-danger" type="button" onclick="clearFromSearch()">Nhập lại</button>
                     </div>
-
                 }
-
             </div><!-- /.box -->
         </div><!-- /.col -->
     </div>
