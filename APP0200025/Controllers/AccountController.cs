@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using APP0200025.Models;
 using DATA0200025;
+using System.Data;
 
 namespace APP0200025.Controllers
 {
@@ -115,13 +116,15 @@ namespace APP0200025.Controllers
                 }
             }
 
-            int iCheck = CPQ_NGUOIDUNG.Check_NguoiDung(sUserName);
-            if(iCheck == 1)
+            DataTable dtND = CPQ_NGUOIDUNG.Get_One_Table(sUserName);
+            //int iCheck = CPQ_NGUOIDUNG.Check_NguoiDung(sUserName);
+            if(dtND.Rows.Count == 1)
             {
                 var result = await SignInManager.PasswordSignInAsync(sUserName, sMatKhau, bRememberMe, shouldLockout: false);
                 switch (result)
                 {
                     case SignInStatus.Success:
+                        Session["_SessionCompany"] = Convert.ToString(dtND.Rows[0]["sID_MaNhomNguoiDung_DuocQuanTri"]);
                         return RedirectToLocal(returnUrl);
                     case SignInStatus.LockedOut:
                         return View("Lockout");

@@ -37,6 +37,70 @@ namespace APP0200025.Controllers
             return View(models);
         }
 
+        [Authorize, AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Search(string ParentID)
+        {
+            string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]).Trim();
+            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]).Trim();
+            string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]).Trim();
+            string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
+            string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
+            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]).Trim();
+            string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
+            string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
+            string _iID_MaTrangThai = CString.SafeString(Request.Form[ParentID + "_iID_MaTrangThai"]);
+            int LoaiDanhSach = 50;
+            if (_iID_MaTrangThai != "0")
+            {
+                if (_iID_MaTrangThai == "27")
+                {
+                    LoaiDanhSach = 51;
+                }
+                else if (_iID_MaTrangThai == "28")
+                {
+                    LoaiDanhSach = 52;
+                }
+            }
+            int iTrangThai = 0;
+            if (String.IsNullOrEmpty(_iID_MaTrangThai) == false)
+            {
+                iTrangThai = Convert.ToInt32(_iID_MaTrangThai);
+            }
+            sHoSoModels models = new sHoSoModels
+            {
+                LoaiDanhSach = LoaiDanhSach,
+                iID_MaTrangThai = iTrangThai,
+                sMaHoSo = _sMaHoSo,
+                sTenDoanhNghiep = _sTenDoanhNghiep,
+                sTenTACN = _sTenTACN,
+                TuNgayDen = _TuNgayDen,
+                DenNgayDen = _DenNgayDen,
+                TuNgayTiepNhan = _TuNgayTiepNhan,
+                DenNgayTiepNhan = _DenNgayTiepNhan,
+                sSoTiepNhan = _sSoTiepNhan
+            };
+
+            TempData["menu"] = 244;
+            TempData["msg"] = "success";
+            return RedirectToAction("Index", models);
+        }
+
+        public ActionResult List(sHoSoModels hoSoSearch)
+        {
+            if (hoSoSearch == null || hoSoSearch.iID_MaTrangThai == 0)
+            {
+                hoSoSearch = new sHoSoModels
+                {
+                    iID_MaTrangThai = 0,
+                    Page = 1,
+                    PageSize = Globals.PageSize
+                };
+            }
+
+            ViewData["menu"] = 244;
+            return View(hoSoSearch);
+        }
+
         public ActionResult Detail(string iID_MaHoSo)
         {
             //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
@@ -142,49 +206,6 @@ namespace APP0200025.Controllers
         {
             ViewData["menu"] = 244;
             return View();
-        }
-
-        [Authorize, AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Search(string ParentID)
-        {
-            string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
-            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
-            string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
-            string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
-            string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
-            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
-            string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
-            string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
-            string _iID_MaTrangThai = CString.SafeString(Request.Form[ParentID + "_iID_MaTrangThai"]);
-            int LoaiDanhSach = 50;
-            if (_iID_MaTrangThai != "0")
-            {
-                if (_iID_MaTrangThai == "27")
-                {
-                    LoaiDanhSach = 51;
-                }
-                else if (_iID_MaTrangThai == "28")
-                {
-                    LoaiDanhSach = 52;
-                }
-            }
-            sHoSoModels models = new sHoSoModels
-            {
-                LoaiDanhSach = LoaiDanhSach,
-                iID_MaTrangThai = int.Parse(_iID_MaTrangThai),
-                sMaHoSo = _sMaHoSo,
-                sTenDoanhNghiep = _sTenDoanhNghiep,
-                sTenTACN = _sTenTACN,
-                TuNgayDen = _TuNgayDen,
-                DenNgayDen = _DenNgayDen,
-                TuNgayTiepNhan = _TuNgayTiepNhan,
-                DenNgayTiepNhan = _DenNgayTiepNhan,
-                sSoTiepNhan = _sSoTiepNhan
-            };
-
-            TempData["menu"] = 244;
-            TempData["msg"] = "success";
-            return RedirectToAction("Index", models);
         }
         
         [HttpPost]
