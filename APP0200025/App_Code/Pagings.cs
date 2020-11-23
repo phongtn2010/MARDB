@@ -24,7 +24,7 @@ namespace APP0200025.App_Code
             TagBuilder tag;
 
             result.AppendLine("<ul class='pagination pagination-sm no-margin pull-right'>");
-            result.AppendLine("<li><span>" + Title + "</span></li>");
+            result.AppendLine("<li class='paginate_button page-item previous disabled'><span>" + Title + "</span></li>");
             if (currentPage <= Globals.PageRange)
             {
                 MaxPage = (2 * Globals.PageRange + 1 > totalPages) ? totalPages : 2 * Globals.PageRange + 1;
@@ -38,7 +38,7 @@ namespace APP0200025.App_Code
                 tag = new TagBuilder("a"); // Construct an <a> tag
                 tag.MergeAttribute("href", URL(1));
                 tag.InnerHtml = "&laquo;&laquo;";
-                result.AppendLine("<li>" + tag.ToString() + "</li>");
+                result.AppendLine("<li class='paginate_button page-item'>" + tag.ToString() + "</li>");
             }
 
             if (MinPage < currentPage)
@@ -46,20 +46,20 @@ namespace APP0200025.App_Code
                 tag = new TagBuilder("a"); // Construct an <a> tag
                 tag.MergeAttribute("href", URL(currentPage - 1));
                 tag.InnerHtml = "&laquo;";
-                result.AppendLine("<li>" + tag.ToString() + "</li>");
+                result.AppendLine("<li class='paginate_button page-item'>" + tag.ToString() + "</li>");
             }
             for (int i = MinPage; i <= MaxPage; i++)
             {
                 if (i == currentPage)
                 {
-                    result.AppendLine(String.Format("<li><span>{0}</span></li>", i));
+                    result.AppendLine(String.Format("<li class='paginate_button page-item active'><a class='active' href='#'>{0}</a></li>", i));
                 }
                 else
                 {
                     tag = new TagBuilder("a"); // Construct an <a> tag 
                     tag.MergeAttribute("href", URL(i));
                     tag.InnerHtml = i.ToString();
-                    result.AppendLine("<li>" + tag.ToString() + "</li>");
+                    result.AppendLine("<li class='paginate_button page-item'>" + tag.ToString() + "</li>");
                 }
             }
             if (MaxPage > currentPage)
@@ -67,14 +67,14 @@ namespace APP0200025.App_Code
                 tag = new TagBuilder("a"); // Construct an <a> tag
                 tag.MergeAttribute("href", URL(currentPage + 1));
                 tag.InnerHtml = "&raquo;";
-                result.AppendLine("<li>" + tag.ToString() + "</li>");
+                result.AppendLine("<li class='paginate_button page-item'>" + tag.ToString() + "</li>");
             }
             if (MaxPage < totalPages)
             {
                 tag = new TagBuilder("a"); // Construct an <a> tag
                 tag.MergeAttribute("href", URL(totalPages));
                 tag.InnerHtml = "&raquo;&raquo;";
-                result.AppendLine("<li>" + tag.ToString() + "</li>");
+                result.AppendLine("<li class='paginate_button page-item'>" + tag.ToString() + "</li>");
             }
             result.AppendLine("<li>");
             result.AppendLine("<span style=\"padding: 5px 10px;\"><select onChange='if(this.selectedIndex!=-1) self.location=this.options[this.selectedIndex].value'>");

@@ -225,11 +225,19 @@
                             </thead>
                             <tbody>
                                 @{
+                                    long iHTTu = 0, iHTDen = 0;
                                     if (RC > 0)
                                     {
+                                        int iGTMax = 0;
                                         for (int i = 0; i < RC; i++)
                                         {
                                             r = dt.Rows[i];
+
+                                            if (i == 0)
+                                            {
+                                                iHTTu = Convert.ToInt64(r["rownum"]);
+                                            }
+                                            iGTMax++;
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
 
@@ -255,6 +263,7 @@
                                                 </td>
                                             </tr>
                                         }
+                                        iHTDen = iHTTu + iGTMax - 1;
                                     }
                                     dt.Dispose();
                                 }
@@ -264,7 +273,7 @@
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
                     <div class="col-xs-6">
-                        Hiển thị <b>@(RC)</b> trong số <b>@(nums.ToString("#,##"))</b> bản ghi
+                        Hiển thị từ <b>@(iHTTu)</b> đến <b>@(iHTDen)</b> trong số <b>@(nums.ToString("#,##"))</b> bản ghi
                     </div>
                     <div class="col-xs-6">
                         @MvcHtmlString.Create(strPhanTrang)
