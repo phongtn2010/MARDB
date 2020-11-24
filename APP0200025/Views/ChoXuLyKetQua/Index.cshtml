@@ -112,10 +112,12 @@
                                 <div class="row">
                                     <div class="col-xs-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayDen, "TuNgayDen", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_TuNgayDen")
                                     </div>
                                     <div class="col-sm-2 text-align-center">-</div>
                                     <div class="col-sm-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayDen, "DenNgayDen", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_DenNgayDen")
                                     </div>
                                 </div>
                             </div>
@@ -134,10 +136,12 @@
                                 <div class="row">
                                     <div class="col-sm-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayTiepNhan, "TuNgayTiepNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_TuNgayTiepNhan")
                                     </div>
                                     <div class="col-sm-2 text-align-center">-</div>
                                     <div class="col-sm-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayTiepNhan, "DenNgayTiepNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_DenNgayTiepNhan")
                                     </div>
                                 </div>
                             </div>

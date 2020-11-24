@@ -110,9 +110,15 @@
                             <label for="inputEmail3" class="col-sm-1 control-label">Từ ngày</label>
                             <div class="col-xs-5">
                                 <div class="row">
-                                    <div class="col-xs-5">@MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayDen, "TuNgayDen", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))</div>
+                                    <div class="col-xs-5">
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayDen, "TuNgayDen", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_TuNgayDen")
+                                    </div>
                                     <div class="col-xs-2 text-align-center">-</div>
-                                    <div class="col-xs-5">@MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayDen, "DenNgayDen", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))</div>
+                                    <div class="col-xs-5">
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayDen, "DenNgayDen", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_DenNgayDen")
+                                    </div>
                                 </div>
                             </div>
                             <label for="inputEmail3" class="col-xs-1 control-label">Tên doanh nghiệp</label>
@@ -128,9 +134,16 @@
                             <label for="inputEmail3" class="col-sm-1 control-label">Ngày tiếp nhận</label>
                             <div class="col-xs-5">
                                 <div class="row">
-                                    <div class="col-xs-5">@MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayTiepNhan, "TuNgayTiepNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))</div>
+                                    <div class="col-xs-5">
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayTiepNhan, "TuNgayTiepNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                                                        @Html.ValidationMessage(ParentID + "_" + "err_TuNgayTiepNhan")
+                                                                    </div>
                                     <div class="col-xs-2 text-align-center">-</div>
-                                    <div class="col-xs-5">@MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayTiepNhan, "DenNgayTiepNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))</div>
+                                    <div class="col-xs-5">
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayTiepNhan, "DenNgayTiepNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                                                        @Html.ValidationMessage(ParentID + "_" + "err_DenNgayTiepNhan")
+                                                                    </div>
+                                
                                 </div>
                             </div>
                         </div>
@@ -142,7 +155,7 @@
                         </div>
                     </div><!-- /.box-body -->
                     <div class="box-footer clearfix text-align-center">
-                        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                        <button class="btn btn-primary" type="button" id="btnSearch">Tìm kiếm</button>
                         <button class="btn btn-danger" type="button" onclick="clearFromSearch()">Nhập lại</button>
                     </div>
                 }

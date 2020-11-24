@@ -2831,6 +2831,7 @@
     <Content Include="ScriptsERP\jsBang_Data.js" />
     <Content Include="ScriptsERP\jsBang_Editable.js" />
     <Content Include="ScriptsERP\jsBang_KeyTable.js" />
+    <Content Include="ScriptsERP\jsBoPhanMoCua.js" />
     <Content Include="ScriptsERP\jsBSC.js" />
     <Content Include="ScriptsERP\jsBTS.js" />
     <Content Include="ScriptsERP\jsChoXemXetKetQua.js" />

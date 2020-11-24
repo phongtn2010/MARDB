@@ -1,5 +1,5 @@
 ﻿var GetDsHangHoa = function (iID_MaHoSo, sMaHoSo, sSoTiepNhan) {
-    debugger;
+   
     $("#HoangHoa_sMaHoSo").val(sMaHoSo);
     $("#HoangHoa_sSoTiepNhan").val(sSoTiepNhan);
     $.ajax({
@@ -26,3 +26,16 @@
         }
     });
 }
+
+
+$(document).on('keypress', function (e) {
+    if (e.which === 13) {
+        checkvalidAndSubmit();
+    }
+});
+
+$(function () {
+    $("body").on("click", "#btnSearch", function () {
+        checkvalidAndSubmit();
+    });
+});

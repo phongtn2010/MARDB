@@ -927,7 +927,11 @@ function checkvalidAndSubmit() {
 
 
     var tuNgayXacNhan = $("#Index_viTuNgayXacNhan").val();
-    var denNgayXacNhan = $("#Index_viDenNgayXacNhan").val();
+    var denNgayXacNhan = $("#Index_viDenNgayXacNhan").val(); 
+
+
+    var tuNgayThongBaoKetQua = $("#Index_viTuNgayThongBaoKetQua").val();
+    var denNgayThongBaoKetQua = $("#Index_viDenNgayThongBaoKetQua").val(); 
     var d = 0;
     var arrError = [];
 
@@ -956,6 +960,15 @@ function checkvalidAndSubmit() {
         arrError[d] = ["Index_err_DenNgayXacNhan", "Ngày xác nhận không hợp lệ"]
         d = d + 1;
     }
+    if (typeof tuNgayThongBaoKetQua !== 'undefined' && tuNgayThongBaoKetQua.length > 0 && !isValidDate(tuNgayThongBaoKetQua)) {
+        arrError[d] = ["Index_err_TuNgayThongBaoKetQua", "Ngày cấp không hợp lệ"]
+        d = d + 1;
+    }
+    if (typeof denNgayThongBaoKetQua !== 'undefined' && denNgayThongBaoKetQua.length > 0 && !isValidDate(denNgayThongBaoKetQua)) {
+        arrError[d] = ["Index_err_DenNgayThongBaoKetQua", "Ngày cấp không hợp lệ"]
+        d = d + 1;
+    }
+    
     if (arrError.length > 0) {
         var spanse = $(".field-validation-error");
         for (var c = 0; c < spanse.length; c++) {

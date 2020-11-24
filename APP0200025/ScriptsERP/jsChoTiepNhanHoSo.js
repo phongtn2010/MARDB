@@ -143,11 +143,7 @@ $(function () {
     });
 });
 
-function isValidDate(s) {
-    var bits = s.split('/');
-    var d = new Date(bits[2] + '/' + bits[1] + '/' + bits[0]);
-    return !!(d && (d.getMonth() + 1) == bits[1] && d.getDate() == Number(bits[0]));
-}
+
 
 $(document).on('keypress', function (e) {
     if (e.which === 13) {
@@ -164,50 +160,3 @@ $(function () {
        
     });
 });
-
-function checkvalidAndSubmit() {
-    var tuNgay = $("#Index_viTuNgayDen").val();
-    var denNgay = $("#Index_viDenNgayDen").val(); 
-
-    var tuNgayTiepNhan = $("#Index_viTuNgayTiepNhan").val();
-    var denNgayTiepNhan = $("#Index_viDenNgayTiepNhan").val();
-    var d = 0;
-    var arrError = [];
-
-    if (tuNgay.length > 0 && !isValidDate(tuNgay)) {
-        arrError[d] = ["Index_err_TuNgayDen", "Từ ngày không hợp lệ"];
-        d = d + 1;
-    }
-    if (denNgay.length > 0 && !isValidDate(denNgay)) {
-        arrError[d] = ["Index_err_DenNgayDen", "Đến ngày không hợp lệ"];
-        d = d + 1;
-    }
-    if (typeof tuNgayTiepNhan !== 'undefined' && tuNgayTiepNhan.length > 0 && !isValidDate(tuNgayTiepNhan)) {
-        arrError[d] = ["Index_err_TuNgayTiepNhan", "Từ ngày tiếp nhận không hợp lệ"]
-        d = d + 1;
-    }
-    if (typeof denNgayTiepNhan !== 'undefined' && denNgayTiepNhan.length > 0 && !isValidDate(denNgayTiepNhan)) {
-        arrError[d] = ["Index_err_DenNgayTiepNhan", "Đến ngày tiếp nhận không hợp lệ"]
-        d = d + 1;
-    }
-    if (arrError.length > 0) {
-        var spans = $(".field-validation-valid");
-
-        for (var i = 0; i < spans.length; i++) {
-            var span = spans[i];
-            var errorName = $(span).attr("data-valmsg-for");
-            for (var j = 0; j < arrError.length; j++) {
-                if (errorName === arrError[j][0]) {
-                    $(span).removeClass("field-validation-valid")
-                    $(span).addClass("field-validation-error")
-                    $(span).html(arrError[j][1]);
-
-                }
-            }
-
-        }
-    }
-    else {
-        $("#formSearch").submit();
-    }
-}
