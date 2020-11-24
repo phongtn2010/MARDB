@@ -123,6 +123,30 @@ namespace DATA0200025
             return vR;
         }
 
+        public static int UpDate_PhanLoai(long iID_MaHangHoa, string iID_MaPhanLoai)
+        {
+            int vR = 0;
+            try
+            {
+                String sTenPhanLoai = clDanhMuc.Get_Name_DanhMuc("PHANLOAITACN", iID_MaPhanLoai.ToString());
+
+                SqlCommand cmd;
+                cmd = new SqlCommand("UPDATE CNN25_HangHoa SET iID_MaPhanLoai=@iID_MaPhanLoai, sTenPhanLoai=@sTenPhanLoai WHERE iID_MaHangHoa=@iID_MaHangHoa");
+                cmd.Parameters.AddWithValue("@iID_MaPhanLoai", iID_MaPhanLoai);
+                cmd.Parameters.AddWithValue("@sTenPhanLoai", sTenPhanLoai);
+                cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                Connection.UpdateDatabase(cmd);
+
+                vR = 1;
+            }
+            catch (Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
+
         public static int UpDate_TrangThai_TheoHoSo(long iID_MaHoSo, int iTrangThai)
         {
             int vR = 0;

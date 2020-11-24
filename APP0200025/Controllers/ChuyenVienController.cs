@@ -96,22 +96,19 @@ namespace APP0200025.Controllers
 
             NameValueCollection values = new NameValueCollection();
             string iID_MaHangHoa = CString.SafeString(Request.Form["Edit_iID_MaHangHoa"]);
+            string iID_MaPhanLoai = CString.SafeString(Request.Form["Edit_iID_MaPhanLoai"]);
             string CL_Chons = CString.SafeString(Request.Form["CL_bChon"]);
             string ATDN_Chons = CString.SafeString(Request.Form["ATDN_bChon"]);
             string ATKT_Chons = CString.SafeString(Request.Form["ATKT_bChon"]);
 
-            //if (string.IsNullOrEmpty(iID_MaHangHoa))
-            //{
-            //    values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
-            //}
-            //if (string.IsNullOrEmpty(CL_Chons))
-            //{
-            //    values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
-            //}
-            //if (string.IsNullOrEmpty(ATDN_Chons))
-            //{
-            //    values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
-            //}
+            if (string.IsNullOrEmpty(iID_MaHangHoa))
+            {
+                values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
+            }
+            if (string.IsNullOrEmpty(iID_MaPhanLoai))
+            {
+                values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
+            }
             if (values.Count > 0)
             {
                 //for (int i = 0; i <= (values.Count - 1); i++)
@@ -130,6 +127,8 @@ namespace APP0200025.Controllers
 
             try
             {
+                int iGiaTri = CHangHoa.UpDate_PhanLoai(Convert.ToInt64(iID_MaHangHoa), iID_MaPhanLoai);
+
                 if (!string.IsNullOrEmpty(CL_Chons))
                 {
                     string[] arr = CL_Chons.Split(',');
@@ -540,6 +539,7 @@ namespace APP0200025.Controllers
         public PartialViewResult Partial_HangHoa(long iID_MaHoSo,string iID_MaPhanLoai)
         {
             ViewBag.dt = clHangHoa.Get_HangHoaTheoHoSo(iID_MaHoSo,iID_MaPhanLoai);
+            ViewBag.iID_MaHoSo = iID_MaHoSo;
             return PartialView();
         }
     }

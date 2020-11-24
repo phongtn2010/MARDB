@@ -13,11 +13,16 @@
 
 @{
     Layout = null;
-    DataTable dt = ViewBag.dt;
-    int rc = dt.Rows.Count;
-    DataRow r;
+    //DataTable dt = ViewBag.dt;
+    //int rc = dt.Rows.Count;
+    //DataRow r;
+
     SelectOptionList ddlNhomTACN = clDanhMuc.GetDDL("NHOMTACN");
     SelectOptionList ddlLoaiTACN = clDanhMuc.GetDDL("LOAITACN");
+
+    //long iID_MaHoSo = Convert.ToInt64(ViewBag.iID_MaHoSo);
+
+    var hangHoas = clHangHoa.GetListHangHoaByHoSo(Model.iID_MaHoSo);
 }
 
 <table class="table table-bordered table-hover table-striped dataTable">
@@ -32,7 +37,7 @@
         </tr>
     </thead>
     <tbody>
-        @{
+        @*@{
             if (rc > 0)
             {
                 for (int i = 0; i < rc; i++)
@@ -57,6 +62,29 @@
                 }
             }
             dt.Dispose();
+        }*@
+        @{
+            int j = 0;
+            foreach (var item in hangHoas)
+            {
+                j++;
+
+                String sTenNhomTACN = clDanhMuc.Get_Name_DanhMuc("NHOMTACN", Convert.ToString(item.iID_MaNhom));
+                String sTenLoaiTACN = clDanhMuc.Get_Name_DanhMuc("LOAITACN", Convert.ToString(item.iID_MaLoai));
+
+                <tr>
+                    <td align="center">@(j+1)</td>
+                    <td>@(item.sTenHangHoa)</td>
+                    <td>@MvcHtmlString.Create(sTenNhomTACN.ToString())</td>
+                    <td>@MvcHtmlString.Create(sTenLoaiTACN.ToString())</td>
+                    <td>@(item.sMaSoCongNhan)</td>
+                    <td align="center">
+                        <a class="openXuLyChiTieu" data-id="@(item.iID_MaHangHoa)" data-toggle="modal" href="#XuLyChiTieu">
+                            <span class='badge bg-red'><i class='fa fa-pencil-square-o'></i></span>
+                        </a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
