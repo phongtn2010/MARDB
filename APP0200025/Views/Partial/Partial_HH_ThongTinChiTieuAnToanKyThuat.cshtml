@@ -10,6 +10,8 @@
     int rc = dt.Rows.Count;
     DataRow r;
     string ParentID = "ATKT";
+
+    DataTable dtKT = CHangHoa.Get_HangHoa_AnToan_KyThuat(Model.iID_MaHangHoa);
 }
 <div class="row">
     <div class="col-md-12">
@@ -32,15 +34,29 @@
                         @{
                             if (rc > 0)
                             {
+                                DataRow R;
                                 for (int i = 0; i < rc; i++)
                                 {
                                     r = dt.Rows[i];
 
                                     int iSTT = i + 1;
-                                    string schecked = "";
-                                    if (Convert.ToBoolean(r["bChon"]))
+                                    string schecked = "", sGhiChu = "";
+
+                                    for(int j = 0;j < dtKT.Rows.Count; j++)
                                     {
-                                        schecked = "checked=checked";
+                                        R = dtKT.Rows[j];
+
+                                        if (Convert.ToInt32(r["iID_MaHangHoaATKT"]) == Convert.ToInt32(R["iID_MaHangHoaATKT"]))
+                                        {
+                                            if (Convert.ToBoolean(R["bChon"]))
+                                            {
+                                                schecked = "checked=checked";
+                                            }
+
+                                            sGhiChu = Convert.ToString(R["sGhiChu"]);
+
+                                            break;
+                                        }
                                     }
 
                                     <tr>
@@ -50,11 +66,12 @@
                                         <td align="center">@r["sHinhThuc"]</td>
                                         <td align="center">@r["sHamLuong"]</td>
                                         <td align="center">@r["sDonViTinh"]</td>
-                                        <td>@MvcHtmlString.Create(MyHtmlHelper.TextBox(string.Format("{0}{1}", ParentID, r["iID_MaHangHoaATKT"]), "", "sGhiChu", "", "type=\"text\" class=\"form-control\""))</td>
+                                        <td>@MvcHtmlString.Create(MyHtmlHelper.TextBox(string.Format("{0}{1}", ParentID, r["iID_MaHangHoaATKT"]), sGhiChu, "sGhiChu", "", "type=\"text\" class=\"form-control\""))</td>
                                     </tr>
                                 }
                             }
                             dt.Dispose();
+                            dtKT.Dispose();
                         }
                     </table>
                 </div>

@@ -200,8 +200,39 @@ namespace DATA0200025
             return vR;
         }
 
+        public static DataTable Get_HangHoa_AnToan_KyThuat(long iID_MaHangHoa)
+        {
+            DataTable vR;
+
+            string SQL = "SELECT * FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND iID_MaLoaiAnToan=2";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return vR;
+        }
+
+        public static void Delete_HangHoa_AnToan_KyThuat(long iID_MaHangHoa, int iID_MaHangHoaATKT, int iID_MaHinhThuc)
+        {
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("DELETE FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND iID_MaHangHoaATKT=@iID_MaHangHoaATKT AND iID_MaHinhThuc=@iID_MaHinhThuc AND iID_MaLoaiAnToan=2");
+                cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                cmd.Parameters.AddWithValue("@iID_MaHangHoaATKT", iID_MaHangHoaATKT);
+                cmd.Parameters.AddWithValue("@iID_MaHinhThuc", iID_MaHinhThuc);
+                Connection.UpdateDatabase(cmd);
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         public static int ThemhangHoaAnToan(long iID_MaHangHoa, int iID_MaLoaiAnToan, int iID_MaHinhThuc, string sChiTieu, string sHinhThuc, string sHamLuong, string sMaDonViTinh, string sDonViTinh, string sGhiChu, bool bChon,
-            String sUserName, String sIP)
+            String sUserName, String sIP, int iID_MahangHoaATKT = 0)
         {
             int vR = 0;
 
@@ -211,6 +242,7 @@ namespace DATA0200025
                 bang.MaNguoiDungSua = sUserName;
                 bang.IPSua = sIP;
                 bang.DuLieuMoi = true;
+                bang.CmdParams.Parameters.AddWithValue("@iID_MahangHoaATKT", iID_MahangHoaATKT);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaLoaiAnToan", iID_MaLoaiAnToan);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHinhThuc", iID_MaHinhThuc);

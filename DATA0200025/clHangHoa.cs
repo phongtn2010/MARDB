@@ -101,7 +101,7 @@ namespace DATA0200025
         }
         public static DataTable Get_ThongTinChiTieuAnToanDN(long iID_MaHangHoa)
         {
-            string SQL = "SELECT * FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa";
+            string SQL = "SELECT * FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND iID_MaLoaiAnToan = 0";
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
             DataTable dt = Connection.GetDataTable(cmd);

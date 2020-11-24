@@ -100,18 +100,18 @@ namespace APP0200025.Controllers
             string ATDN_Chons = CString.SafeString(Request.Form["ATDN_bChon"]);
             string ATKT_Chons = CString.SafeString(Request.Form["ATKT_bChon"]);
 
-            if (string.IsNullOrEmpty(iID_MaHangHoa))
-            {
-                values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
-            }
-            if (string.IsNullOrEmpty(CL_Chons))
-            {
-                values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
-            }
-            if (string.IsNullOrEmpty(ATDN_Chons))
-            {
-                values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
-            }
+            //if (string.IsNullOrEmpty(iID_MaHangHoa))
+            //{
+            //    values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
+            //}
+            //if (string.IsNullOrEmpty(CL_Chons))
+            //{
+            //    values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
+            //}
+            //if (string.IsNullOrEmpty(ATDN_Chons))
+            //{
+            //    values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
+            //}
             if (values.Count > 0)
             {
                 //for (int i = 0; i <= (values.Count - 1); i++)
@@ -176,6 +176,7 @@ namespace APP0200025.Controllers
                             if (dtCTAT.Rows.Count > 0)
                             {
                                 string sGhiChu = CString.SafeString(Request.Form[string.Format("ATKT{0}_sGhiChu", arr[i])]);
+                                int iID_MaHangHoaATKT = Convert.ToInt32(dtCTAT.Rows[0]["iID_MaHangHoaATKT"]);
                                 int iID_MaHinhThuc = Convert.ToInt32(dtCTAT.Rows[0]["iID_MaHinhThuc"]);
                                 string sChiTieu = Convert.ToString(dtCTAT.Rows[0]["sChiTieu"]);
                                 string sHinhThuc = Convert.ToString(dtCTAT.Rows[0]["sHinhThuc"]);
@@ -183,7 +184,9 @@ namespace APP0200025.Controllers
                                 string iID_MaDonViTinh = Convert.ToString(dtCTAT.Rows[0]["iID_MaDonViTinh"]);
                                 string sDonViTinh = Convert.ToString(dtCTAT.Rows[0]["sDonViTinh"]);
 
-                                long iAnToan = CHangHoa.ThemhangHoaAnToan(Convert.ToInt64(iID_MaHangHoa), 0, iID_MaHinhThuc, sChiTieu, sHinhThuc, sHamLuong, iID_MaDonViTinh, sDonViTinh, sGhiChu, true, sUserName, sIP);
+                                CHangHoa.Delete_HangHoa_AnToan_KyThuat(Convert.ToInt64(iID_MaHangHoa), iID_MaHangHoaATKT, iID_MaHinhThuc);
+
+                                long iAnToan = CHangHoa.ThemhangHoaAnToan(Convert.ToInt64(iID_MaHangHoa),2, iID_MaHinhThuc, sChiTieu, sHinhThuc, sHamLuong, iID_MaDonViTinh, sDonViTinh, sGhiChu, true, sUserName, sIP, iID_MaHangHoaATKT);
                             }
                             dtCTAT.Dispose();
                         }
