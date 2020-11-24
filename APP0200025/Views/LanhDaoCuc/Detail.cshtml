@@ -41,25 +41,6 @@
                             @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
                             @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
 
-                            <section class="content">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="box box-danger">
-                                            <div class="box-header with-border">
-                                                <h3 class="box-title">Dành cho cơ quan kiểm tra</h3>
-                                            </div><!-- /.box-header -->
-                                            <div class="box-body">
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-
                             <div class="box-footer clearfix text-center">
                                 <button class="btn btn-primary" type="submit">Đồng ý</button>
                                 <a class="btn btn-danger opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>

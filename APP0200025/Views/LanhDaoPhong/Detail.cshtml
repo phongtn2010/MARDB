@@ -40,24 +40,6 @@
                         <form action="@Url.Action("Duyet", "LanhDaoPhong", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
                             @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo)
 
-                            <section class="content">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="box box-danger">
-                                            <div class="box-header with-border">
-                                                <h3 class="box-title">Dành cho cơ quan kiểm tra</h3>
-                                            </div><!-- /.box-header -->
-                                            <div class="box-body">
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
                             <div class="box-footer clearfix text-center">
                                 @if (Model.iID_MaTrangThai == 10 || Model.iID_MaTrangThai == 11 || Model.iID_MaTrangThai == 12 || Model.iID_MaTrangThai == 20 || Model.iID_MaTrangThai == 25)
                                 {

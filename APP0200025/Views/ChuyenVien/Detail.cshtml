@@ -47,10 +47,10 @@
                                 }
                                 else
                                 {
-                                    <a class="btn" style="background-color:#10de79;color:white;margin-right:5px;" href="@Url.Action("SoanPhuLuc","ChuyenVien",new {iID_MaHoSo=Model.iID_MaHoSo})">Soạn phụ lục</a>
+                                    <a class="btn btn-primary" href="@Url.Action("SoanPhuLuc","ChuyenVien",new {iID_MaHoSo=Model.iID_MaHoSo})">Soạn phụ lục</a>
                                     <a class="btn btn-danger opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" style="margin-right: 5px;" type="button">Từ chối</a>
-                                    <a class="btn openyeucaubosung" style="background-color:#f1bc10;color:white;margin-right: 5px;" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
-                                    <a class="btn" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
+                                    <a class="btn btn-warning openyeucaubosung" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
+                                    <a class="btn btn-secondary" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
                                 }
                             </div>
                         </form>
