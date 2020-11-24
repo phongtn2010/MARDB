@@ -40,7 +40,7 @@ namespace DATA0200025
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {
-                string SQL = @"SELECT *  FROM CNN25_HangHoa 
+                string SQL = @"SELECT * FROM CNN25_HangHoa 
                             WHERE iID_MaHoSo=@iID_MaHoSo";
                 var results = connect.Query<HangHoaModels>(SQL, new { iID_MaHoSo = iID_MaHoSo }).ToList();
                 return results;

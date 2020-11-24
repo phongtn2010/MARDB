@@ -3126,6 +3126,7 @@
     <Content Include="Views\Partial\Partial_GDK_ThongBaoKetQua.cshtml" />
     <Content Include="Views\BoPhanMotCua\Detail.cshtml" />
     <Content Include="Views\PartialMienGiam\Partial_CongVanMienGiam.cshtml" />
+    <Content Include="Views\Partial\Partial_ThongTinDanhChoCoQuanKiemTra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

@@ -29,6 +29,15 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml");}
+                        <section class="content" style="min-height: auto;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box box-danger">
+                                        @{Html.RenderPartial("~/Views/Partial/Partial_ThongTinDanhChoCoQuanKiemTra.cshtml", Model);}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                         <form action="@Url.Action("ThuHoiSubmit", "ChuyenVien", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
                             @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo)
                             <div class="box-footer clearfix text-center">
