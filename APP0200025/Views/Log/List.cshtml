@@ -1,0 +1,189 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@using APP0200025.App_Code
+@using APP0200025.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Index";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+
+    string TenBang = "CNN25_Log_NSW";
+    String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
+
+    String _TieuDe = CString.SafeString(Request.QueryString["_TieuDe"]);
+    String _FromDate = CString.SafeString(Request.QueryString["_FromDate"]);
+    String _ToDate = CString.SafeString(Request.QueryString["_ToDate"]);
+    String page = CString.SafeString(Request.QueryString["page"]);
+    int CurrentPage = 1;
+
+    if (String.IsNullOrEmpty(page) == false && CommonFunction.IsNumber(page) == true)
+    {
+        CurrentPage = Convert.ToInt32(page);
+    }
+
+    int nMax = 50;
+
+    int iTu = (CurrentPage - 1) * nMax;
+
+    DataTable dt = CLogNSW.Get_All(_TieuDe, _FromDate, _ToDate, CurrentPage, nMax);
+
+    double nums = CLogNSW.Get_Count(_TieuDe, _FromDate, _ToDate);
+    int TotalPages = (int)Math.Ceiling(nums / nMax);
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("List", "Log", new { _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
+    DataRow R;
+
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                @using (Html.BeginForm("cms_search", "Log", new { ParentID = ParentID }))
+                {
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Thông tin tìm kiếm</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" type="button" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" type="button" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, _TieuDe, "TieuDe", "", " placeholder=\"Thông tin tìm kiếm\" type=\"text\" class=\"form-control\""))
+                            </div>
+                            <div class="col-xs-2">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, _FromDate, "FromDate", "", "placeholder=\"Từ ngày\" class=\"form-control\" data-inputmask=\"'alias': 'dd/mm/yyyy'\" data-mask"))
+                                </div><!-- /.input group -->
+                            </div>
+                            <div class="col-xs-2">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, _ToDate, "ToDate", "", "placeholder=\"Đến ngày\" class=\"form-control\" data-inputmask=\"'alias': 'dd/mm/yyyy'\" data-mask"))
+                                </div><!-- /.input group -->
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <button class="btn btn-block btn-default" type="submit">Tìm kiếm</button>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            //Money Euro
+                            $("[data-mask]").inputmask();
+                        });
+                    </script>
+                }
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">QUẢN TRỊ LOG BẢN TIN</h3>
+                    <div class="box-tools">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <tr>
+                                <th style="width: 3%; text-align: center;">STT</th>
+                                <th style="width: 10%; text-align: center;">Bản tin</th>
+                                <th style="width: 10%; text-align: center;">Chiều gửi</th>
+                                <th style="text-align: center;">Mã hồ sơ</th>
+                                <th style="width: 10%; text-align: center;">Trạng thái</th>
+                                <th style="width: 15%; text-align: center;">Nội dung bản tin</th>
+                                <th style="width: 10%; text-align: center;">Ngày đăng</th>
+                                <th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
+                            </tr>
+                            @{
+                                if (dt.Rows.Count > 0)
+                                {
+                                    for (int i = 0; i < dt.Rows.Count; i++)
+                                    {
+                                        R = dt.Rows[i];
+
+                                        int iSTT = i + 1;
+
+                                        String strDelete = MyHtmlHelper.ActionLink(Url.Action("cms_delete", "Log", new { iID_ActionLog_Action = R["iID_ActionLog_Action"] }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
+
+                                        <tr>
+                                            <td style="text-align: center;">@iSTT.ToString()</td>
+                                            <td align="center">@R["sChucNang"].ToString()</td>
+                                            <td>@R["sID_MaNguoiDung"].ToString()</td>
+                                            <td>@R["sMaHoSo"].ToString()</td>
+                                            <td align="center">@R["sTrangThai"].ToString()</td>
+                                            <td align="center">
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal_@(R["iID_ActionLog_Action"])">
+                                                    Xem nội dung
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="myModal_@(R["iID_ActionLog_Action"])" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                <h4 class="modal-title" id="myModalLabel">Nội dung bản tin</h4>
+                                                            </div>
+                                                            <div class="modal-body text-align-left">
+                                                                @(R["sXML"].ToString())
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>@Convert.ToDateTime(R["dNgayTao"]).ToString("dd-MM-yyyy HH:mm")</td>
+                                            <td style="width: 10px" title="Xóa">@MvcHtmlString.Create(strDelete)</td>
+                                        </tr>
+                                    }
+                                }
+                                dt.Dispose();
+                            }
+                        </table>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    @MvcHtmlString.Create(strPhanTrang)
+                </div>
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
