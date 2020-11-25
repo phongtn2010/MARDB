@@ -179,22 +179,22 @@
                 {
                     <div class="box-body no-padding">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped dataTable" id="tblGrid">
+                            <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
                                 <thead>
                                     <tr>
-                                        <th class="sorting_asc" style="width: 3%;" align="center">STT</th>
-                                        <th class="sorting" style="" align="center">Mã hồ sơ</th>
-                                        <th class="sorting" align="center">Ngày đến</th>
-                                        <th class="sorting" align="center">Số tiếp nhận</th>
-                                        <th class="sorting" align="center">Ngày tiếp nhận</th>
-                                        <th class="sorting" style="text-align: center;" align="center">Doanh nghiệp</th>
-                                        <th class="sorting" style="text-align: center;" align="center">Tên TACN</th>
-                                        <th class="sorting" style="text-align: center;" align="center">Trạng thái hồ sơ</th>
-                                        <th class="sorting" style="text-align: center;" align="center">Kết quả xử lý</th>
+                                        <th style="width: 3%;" align="center">STT</th>
+                                        <th style="" align="center">Mã hồ sơ</th>
+                                        <th align="center">Ngày đến</th>
+                                        <th align="center">Số tiếp nhận</th>
+                                        <th align="center">Ngày tiếp nhận</th>
+                                        <th style="text-align: center;" align="center">Doanh nghiệp</th>
+                                        <th style="text-align: center;" align="center">Tên TACN</th>
+                                        <th style="text-align: center;" align="center">Trạng thái hồ sơ</th>
+                                        <th style="text-align: center;" align="center">Kết quả xử lý</th>
                                         <th style="width: 5%; text-align: center;">Xem</th>
-                                        <th style="width: 5%; text-align: center;">
-                                            <span>Đồng ý</span>
-                                            <input type="checkbox" name="chkHoSo" id="chkHoSo" onclick="CheckAll(this.checked);" />
+                                        <th style="width: 5%; text-align: center; padding-right: 0px; padding-left: 0px;">
+                                            <p style="margin: 0; padding: 0;">Đồng ý</p>
+                                            <p style="margin: 0; padding: 0;"><input type="checkbox" name="chkHoSo" id="chkHoSo" onclick="CheckAll(this.checked);" /></p>
                                         </th>
                                         <th style="width: 5%; text-align: center;">Từ chối </th>
                                     </tr>
@@ -264,6 +264,23 @@
 </section><!-- /.content -->
 @{Html.RenderPartial("~/Views/LanhDaoCuc/Partial_Model_TuChoi_HH.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsLanhDaoCuc.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+
+<script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
+<script>
+    $(function () {
+        $('#tblListData').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "columnDefs": [{ "orderable": false, "targets": 10 }]
+        });
+    });
+</script>
+
 <script type="text/javascript" language="javascript">
     function CheckAll(value) {
         $("input:checkbox[check-group='HangHoa']").each(function (i) {
