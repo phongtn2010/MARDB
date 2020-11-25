@@ -2911,6 +2911,8 @@
     <Content Include="Scripts\MicrosoftAjax.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Log\Index.cshtml" />
+    <Content Include="Views\Log\List.cshtml" />
     <Content Include="Views\Partial\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="WebServices\Mard26Service.asmx" />
     <Content Include="WebServices\MardService.asmx" />
@@ -3127,8 +3129,6 @@
     <Content Include="Views\BoPhanMotCua\Detail.cshtml" />
     <Content Include="Views\PartialMienGiam\Partial_CongVanMienGiam.cshtml" />
     <Content Include="Views\Partial\Partial_ThongTinDanhChoCoQuanKiemTra.cshtml" />
-    <Content Include="Views\Log\Index.cshtml" />
-    <Content Include="Views\Log\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
