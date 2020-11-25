@@ -166,6 +166,8 @@ namespace APP0200025.Controllers
                 }
                 if (!string.IsNullOrEmpty(ATKT_Chons))
                 {
+                    CHangHoa.Delete_HangHoa_AnToan_KyThuat(Convert.ToInt64(iID_MaHangHoa));
+
                     string[] arr = ATKT_Chons.Split(',');
                     for (int i = 0; i < arr.Length; i++)
                     {
@@ -183,7 +185,7 @@ namespace APP0200025.Controllers
                                 string iID_MaDonViTinh = Convert.ToString(dtCTAT.Rows[0]["iID_MaDonViTinh"]);
                                 string sDonViTinh = Convert.ToString(dtCTAT.Rows[0]["sDonViTinh"]);
 
-                                CHangHoa.Delete_HangHoa_AnToan_KyThuat(Convert.ToInt64(iID_MaHangHoa), iID_MaHinhThuc);
+                                
 
                                 long iAnToan = CHangHoa.ThemhangHoaAnToan(Convert.ToInt64(iID_MaHangHoa),2, iID_MaHinhThuc, sChiTieu, sHinhThuc, sHamLuong, iID_MaDonViTinh, sDonViTinh, sGhiChu, true, sUserName, sIP, iID_MaHangHoaATKT);
                             }
