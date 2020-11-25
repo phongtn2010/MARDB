@@ -70,11 +70,11 @@ namespace DATA0200025
             dt.Dispose();
             return ddl;
         }
-        public static SelectOptionList DDL_PhanLoaiTheoHoSo(long iID_MaHoSo)
+        public static SelectOptionList DDL_PhanLoaiTheoHoSo(string iID_MaDanhMuc_Cha)
         {
-            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE sMa IN( SELECT iID_MaPhanLoai FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo) ORDER By sTen";
+            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE iID_MaDanhMuc_Cha=@iID_MaDanhMuc_Cha ORDER By sMa";
             SqlCommand cmd = new SqlCommand(SQL);
-            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            cmd.Parameters.AddWithValue("@iID_MaDanhMuc_Cha", iID_MaDanhMuc_Cha);
             DataTable dt = Connection.GetDataTable(cmd);
             cmd.Dispose();
             SelectOptionList ddl = new SelectOptionList(dt, "sMa", "sTen");

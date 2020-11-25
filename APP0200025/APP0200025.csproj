@@ -3113,7 +3113,6 @@
     <Content Include="Views\ChoTiepNhanKetQuaGuiBoSung\Partial_Model_TuChoi.cshtml" />
     <Content Include="Views\TraCuuHoSo\Index.cshtml" />
     <Content Include="Views\TraCuuHoSo\Detail.cshtml" />
-    <Content Include="Views\Partial\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="Views\TraCuuHangHoa\Detail.cshtml" />
     <Content Include="Views\TraCuuHangHoa\Index.cshtml" />
     <Content Include="Views\Partial\Partial_XNCL_ThongBaoKetQua.cshtml" />

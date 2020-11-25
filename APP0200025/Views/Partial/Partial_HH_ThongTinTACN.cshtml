@@ -12,7 +12,7 @@
     String sTenNhomTACN = clDanhMuc.Get_Name_DanhMuc("NHOMTACN", Convert.ToString(Model.iID_MaNhom));
     String sTenLoaiTACN = clDanhMuc.Get_Name_DanhMuc("LOAITACN", Convert.ToString(Model.iID_MaLoai));
 
-    SelectOptionList ddl = clHangHoa.DDL_PhanLoaiTheoHoSo(Model.iID_MaHoSo);
+    SelectOptionList ddl = clHangHoa.DDL_PhanLoaiTheoHoSo(Model.iID_MaLoai);
     string iID_MaPhanLoai = Convert.ToString(Model.iID_MaPhanLoai);
 }
 
