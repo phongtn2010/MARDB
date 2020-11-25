@@ -10,7 +10,7 @@
 @using APP0200025.Controllers
 @model  DATA0200025.Models.HoSoModels
 @{
-    ViewBag.Title = "Soạn phụ lục";
+    ViewBag.Title = ConfigurationManager.AppSettings["TenTongCongTyApDung"];
     Layout = "~/Views/Shared/_Layout_cms.cshtml";
     string ParentID = "Edit";
     //SelectOptionList ddl = clHangHoa.DDL_PhanLoaiTheoHoSo(Model.iID_MaHoSo);
