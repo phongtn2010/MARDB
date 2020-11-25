@@ -237,14 +237,13 @@ namespace DATA0200025
             return vR;
         }
 
-        public static void Delete_HangHoa_AnToan_KyThuat(long iID_MaHangHoa, int iID_MaHangHoaATKT, int iID_MaHinhThuc)
+        public static void Delete_HangHoa_AnToan_KyThuat(long iID_MaHangHoa, int iID_MaHinhThuc)
         {
             try
             {
                 SqlCommand cmd;
-                cmd = new SqlCommand("DELETE FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND iID_MaHangHoaATKT=@iID_MaHangHoaATKT AND iID_MaHinhThuc=@iID_MaHinhThuc AND iID_MaLoaiAnToan=2");
+                cmd = new SqlCommand("DELETE FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND iID_MaHinhThuc=@iID_MaHinhThuc AND iID_MaLoaiAnToan=2");
                 cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
-                cmd.Parameters.AddWithValue("@iID_MaHangHoaATKT", iID_MaHangHoaATKT);
                 cmd.Parameters.AddWithValue("@iID_MaHinhThuc", iID_MaHinhThuc);
                 Connection.UpdateDatabase(cmd);
                 cmd.Dispose();
