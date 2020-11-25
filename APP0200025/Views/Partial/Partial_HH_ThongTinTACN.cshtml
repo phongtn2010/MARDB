@@ -6,8 +6,14 @@
 @model HangHoaModels
 @{
     Layout = null;
+
+    string ParentID = "Edit";
+
     String sTenNhomTACN = clDanhMuc.Get_Name_DanhMuc("NHOMTACN", Convert.ToString(Model.iID_MaNhom));
     String sTenLoaiTACN = clDanhMuc.Get_Name_DanhMuc("LOAITACN", Convert.ToString(Model.iID_MaLoai));
+
+    SelectOptionList ddl = clHangHoa.DDL_PhanLoaiTheoHoSo(Model.iID_MaLoai);
+    string iID_MaPhanLoai = Convert.ToString(Model.iID_MaPhanLoai);
 }
 
 <div class="row">
@@ -18,21 +24,23 @@
             </div><!-- /.box-header -->
             <div class="box-body">
                 <div class="form-group">
-                    <label for="lableTenHangHoa" class="col-sm-2 control-label" style="text-align:left">Tên TACN:</label>
-                    <div class="col-sm-10">
+                    <label for="lableTenHangHoa" class="col-sm-2 control-label" style="text-align:left">Tên TACN <span style="color:#D9001B;"> (*)</span></label>
+                    <div class="col-sm-4">
                         <input id="lableTenHangHoa" name="lableTenHangHoa" value="@Model.sTenHangHoa" class="form-control" readonly />
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="lableNhomTACN" class="col-sm-2 control-label" style="text-align:left">Nhóm TACN:</label>
-                    <div class="col-sm-10">
-                        <input id="lableNhomTACN" name="lableNhomTACN" value="@(sTenNhomTACN)" class="form-control" readonly />
+                    <label for="lableLoaiTACN" class="col-sm-2 control-label" style="text-align:left">Loại TACN <span style="color:#D9001B;"> (*)</span></label>
+                    <div class="col-sm-4">
+                        <input id="lableLoaiTACN" name="lableLoaiTACN" value="@(sTenLoaiTACN)" class="form-control" readonly />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="lableLoaiTACN" class="col-sm-2 control-label" style="text-align:left">Loại TACN:</label>
-                    <div class="col-sm-10">
-                        <input id="lableLoaiTACN" name="lableLoaiTACN" value="@(sTenLoaiTACN)" class="form-control" readonly />
+                    <label for="lableNhomTACN" class="col-sm-2 control-label" style="text-align:left">Nhóm TACN <span style="color:#D9001B;"> (*)</span></label>
+                    <div class="col-sm-4">
+                        <input id="lableNhomTACN" name="lableNhomTACN" value="@(sTenNhomTACN)" class="form-control" readonly />
+                    </div>
+                    <label for="lableLoaiTACN" class="col-sm-2 control-label" style="text-align:left">Phân loại <span style="color:#D9001B;"> (*)</span></label>
+                    <div class="col-sm-4">
+                        @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ddl, iID_MaPhanLoai, "iID_MaPhanLoai", "", "class=\"form-control\""))
                     </div>
                 </div>
             </div>

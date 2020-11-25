@@ -34,12 +34,6 @@
     string TenBang = "BC_Vung";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
-    String _MaMien = CString.SafeString(Request.QueryString["_MaMien"]);
-    String _TieuDe = CString.SafeString(Request.QueryString["_TieuDe"]);
-    String _FromDate = CString.SafeString(Request.QueryString["_FromDate"]);
-    String _ToDate = CString.SafeString(Request.QueryString["_ToDate"]);
-
-    SelectOptionList slMien = CMien.Get_Dropdown("--- Miền ---");
     int Page = Model.Page;
 
     int CurrentPage = 1;

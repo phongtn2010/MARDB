@@ -60,25 +60,6 @@
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-                BS_sNoiDung: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Bạn cần nhập lý do hoặc ý kiến'
-                        }
-                    }
-                },
-                fileUpload: {
-                    validators: {
-                        file: {
-                            extension: 'jpg,jpeg,png,pdf,tif',
-                            type: 'image/gif,image/jpeg,image/png,application/pdf',
-                            maxSize: 2048 * 1024,
-                            message: 'File chưa đúng định dạng!'
-                        }
-                    }
-                }
             }
         });
     });

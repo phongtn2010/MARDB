@@ -123,6 +123,30 @@ namespace DATA0200025
             return vR;
         }
 
+        public static int UpDate_PhanLoai(long iID_MaHangHoa, string iID_MaPhanLoai)
+        {
+            int vR = 0;
+            try
+            {
+                String sTenPhanLoai = clDanhMuc.Get_Name_DanhMuc("PHANLOAITACN", iID_MaPhanLoai.ToString());
+
+                SqlCommand cmd;
+                cmd = new SqlCommand("UPDATE CNN25_HangHoa SET iID_MaPhanLoai=@iID_MaPhanLoai, sTenPhanLoai=@sTenPhanLoai WHERE iID_MaHangHoa=@iID_MaHangHoa");
+                cmd.Parameters.AddWithValue("@iID_MaPhanLoai", iID_MaPhanLoai);
+                cmd.Parameters.AddWithValue("@sTenPhanLoai", sTenPhanLoai);
+                cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                Connection.UpdateDatabase(cmd);
+
+                vR = 1;
+            }
+            catch (Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
+
         public static int UpDate_TrangThai_TheoHoSo(long iID_MaHoSo, int iTrangThai)
         {
             int vR = 0;
@@ -200,8 +224,37 @@ namespace DATA0200025
             return vR;
         }
 
+        public static DataTable Get_HangHoa_AnToan_KyThuat(long iID_MaHangHoa)
+        {
+            DataTable vR;
+
+            string SQL = "SELECT * FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND iID_MaLoaiAnToan=2";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return vR;
+        }
+
+        public static void Delete_HangHoa_AnToan_KyThuat(long iID_MaHangHoa)
+        {
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("DELETE FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND iID_MaLoaiAnToan=2");
+                cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                Connection.UpdateDatabase(cmd);
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         public static int ThemhangHoaAnToan(long iID_MaHangHoa, int iID_MaLoaiAnToan, int iID_MaHinhThuc, string sChiTieu, string sHinhThuc, string sHamLuong, string sMaDonViTinh, string sDonViTinh, string sGhiChu, bool bChon,
-            String sUserName, String sIP)
+            String sUserName, String sIP, int iID_MahangHoaATKT = 0)
         {
             int vR = 0;
 
@@ -211,6 +264,7 @@ namespace DATA0200025
                 bang.MaNguoiDungSua = sUserName;
                 bang.IPSua = sIP;
                 bang.DuLieuMoi = true;
+                bang.CmdParams.Parameters.AddWithValue("@iID_MahangHoaATKT", iID_MahangHoaATKT);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaLoaiAnToan", iID_MaLoaiAnToan);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHinhThuc", iID_MaHinhThuc);

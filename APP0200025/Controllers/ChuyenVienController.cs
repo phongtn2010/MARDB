@@ -96,6 +96,7 @@ namespace APP0200025.Controllers
 
             NameValueCollection values = new NameValueCollection();
             string iID_MaHangHoa = CString.SafeString(Request.Form["Edit_iID_MaHangHoa"]);
+            string iID_MaPhanLoai = CString.SafeString(Request.Form["Edit_iID_MaPhanLoai"]);
             string CL_Chons = CString.SafeString(Request.Form["CL_bChon"]);
             string ATDN_Chons = CString.SafeString(Request.Form["ATDN_bChon"]);
             string ATKT_Chons = CString.SafeString(Request.Form["ATKT_bChon"]);
@@ -104,11 +105,7 @@ namespace APP0200025.Controllers
             {
                 values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
             }
-            if (string.IsNullOrEmpty(CL_Chons))
-            {
-                values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
-            }
-            if (string.IsNullOrEmpty(ATDN_Chons))
+            if (string.IsNullOrEmpty(iID_MaPhanLoai))
             {
                 values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
             }
@@ -130,6 +127,8 @@ namespace APP0200025.Controllers
 
             try
             {
+                int iGiaTri = CHangHoa.UpDate_PhanLoai(Convert.ToInt64(iID_MaHangHoa), iID_MaPhanLoai);
+
                 if (!string.IsNullOrEmpty(CL_Chons))
                 {
                     string[] arr = CL_Chons.Split(',');
@@ -167,6 +166,8 @@ namespace APP0200025.Controllers
                 }
                 if (!string.IsNullOrEmpty(ATKT_Chons))
                 {
+                    CHangHoa.Delete_HangHoa_AnToan_KyThuat(Convert.ToInt64(iID_MaHangHoa));
+
                     string[] arr = ATKT_Chons.Split(',');
                     for (int i = 0; i < arr.Length; i++)
                     {
@@ -176,6 +177,7 @@ namespace APP0200025.Controllers
                             if (dtCTAT.Rows.Count > 0)
                             {
                                 string sGhiChu = CString.SafeString(Request.Form[string.Format("ATKT{0}_sGhiChu", arr[i])]);
+                                int iID_MaHangHoaATKT = Convert.ToInt32(dtCTAT.Rows[0]["iID_MaHangHoaATKT"]);
                                 int iID_MaHinhThuc = Convert.ToInt32(dtCTAT.Rows[0]["iID_MaHinhThuc"]);
                                 string sChiTieu = Convert.ToString(dtCTAT.Rows[0]["sChiTieu"]);
                                 string sHinhThuc = Convert.ToString(dtCTAT.Rows[0]["sHinhThuc"]);
@@ -183,7 +185,9 @@ namespace APP0200025.Controllers
                                 string iID_MaDonViTinh = Convert.ToString(dtCTAT.Rows[0]["iID_MaDonViTinh"]);
                                 string sDonViTinh = Convert.ToString(dtCTAT.Rows[0]["sDonViTinh"]);
 
-                                long iAnToan = CHangHoa.ThemhangHoaAnToan(Convert.ToInt64(iID_MaHangHoa), 0, iID_MaHinhThuc, sChiTieu, sHinhThuc, sHamLuong, iID_MaDonViTinh, sDonViTinh, sGhiChu, true, sUserName, sIP);
+                                
+
+                                long iAnToan = CHangHoa.ThemhangHoaAnToan(Convert.ToInt64(iID_MaHangHoa),2, iID_MaHinhThuc, sChiTieu, sHinhThuc, sHamLuong, iID_MaDonViTinh, sDonViTinh, sGhiChu, true, sUserName, sIP, iID_MaHangHoaATKT);
                             }
                             dtCTAT.Dispose();
                         }
@@ -537,6 +541,7 @@ namespace APP0200025.Controllers
         public PartialViewResult Partial_HangHoa(long iID_MaHoSo,string iID_MaPhanLoai)
         {
             ViewBag.dt = clHangHoa.Get_HangHoaTheoHoSo(iID_MaHoSo,iID_MaPhanLoai);
+            ViewBag.iID_MaHoSo = iID_MaHoSo;
             return PartialView();
         }
     }

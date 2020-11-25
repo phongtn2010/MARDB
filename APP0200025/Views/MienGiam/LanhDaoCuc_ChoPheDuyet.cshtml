@@ -176,9 +176,9 @@
                                         <th style="width: 10%; text-align: center;" align="center">Ngày tiếp nhận</th>
                                         <th style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
                                         <th style="width: 3%;">Xem</th>
-                                        <th style="width: 3%;">
-                                            <span>Chọn</span>
-                                            <input type="checkbox" name="chkHoSo" id="chkHoSo" onclick="CheckAll(this.checked);" />
+                                        <th style="width: 3%; text-align: center; padding-right: 0px; padding-left: 0px;">
+                                            <p style="margin: 0; padding: 0;">Chọn</p>
+                                            <p style="margin: 0; padding: 0;"><input type="checkbox" name="chkHoSo" id="chkHoSo" onclick="CheckAll(this.checked);" /></p>
                                         </th>
                                     </tr>
                                 </thead>
@@ -289,7 +289,8 @@
             "searching": false,
             "ordering": true,
             "info": false,
-            "autoWidth": false
+            "autoWidth": false,
+            "columnDefs": [{ "orderable": false, "targets": 9 }]
         });
     });
     $(document).on('keypress', function (e) {

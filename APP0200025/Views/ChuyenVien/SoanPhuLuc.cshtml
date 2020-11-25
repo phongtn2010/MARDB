@@ -10,11 +10,11 @@
 @using APP0200025.Controllers
 @model  DATA0200025.Models.HoSoModels
 @{
-    ViewBag.Title = "Soạn phụ lục";
+    ViewBag.Title = ConfigurationManager.AppSettings["TenTongCongTyApDung"];
     Layout = "~/Views/Shared/_Layout_cms.cshtml";
     string ParentID = "Edit";
-    SelectOptionList ddl = clHangHoa.DDL_PhanLoaiTheoHoSo(Model.iID_MaHoSo);
-    string iID_MaPhanLoai = Convert.ToString(ddl.dtData.Rows[0][Convert.ToString(ddl.ValueMember)]);
+    //SelectOptionList ddl = clHangHoa.DDL_PhanLoaiTheoHoSo(Model.iID_MaHoSo);
+    //string iID_MaPhanLoai = Convert.ToString(ddl.dtData.Rows[0][Convert.ToString(ddl.ValueMember)]);
 
 }
 
@@ -38,7 +38,7 @@
 
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-xs-12">
+                            @*<div class="col-xs-12">
                                 <div class="col-xs-2 labelSearch norwap">
                                     Phân loại<span style="color:#D9001B;"> (*)</span>
                                 </div>
@@ -46,7 +46,7 @@
                                     @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ddl, iID_MaPhanLoai, "iID_MaPhanLoai", "", "class=\"form-control\""))
                                 </div>
                             </div>
-                            <div class="col-xs-12">&nbsp;</div>
+                            <div class="col-xs-12">&nbsp;</div>*@
                             <div class="col-xs-12">
                                 <div class="col-xs-2 labelSearch norwap">
                                     Biện pháp kiểm tra
@@ -76,7 +76,8 @@
                             <div class="col-xs-12">&nbsp;</div>
                             <div class="col-xs-12">
                                 <div class="col-xs-12 labelSearch norwap" id="divHH">
-                                    @Html.Action("Partial_HangHoa", "ChuyenVien", new { iID_MaHoSo = Model.iID_MaHoSo, iID_MaPhanLoai = iID_MaPhanLoai })
+                                    @{Html.RenderPartial("~/Views/ChuyenVien/Partial_HangHoa.cshtml", Model);}
+                                    @*@Html.Action("Partial_HangHoa", "ChuyenVien", new { iID_MaHoSo = Model.iID_MaHoSo, iID_MaPhanLoai = iID_MaPhanLoai })*@
                                 </div>
                             </div>
                             <div class="col-xs-12">&nbsp;</div>
