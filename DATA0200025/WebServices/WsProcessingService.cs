@@ -351,7 +351,7 @@ namespace DATA0200025.WebServices
                     sTenTACN += hh.fiNameOfGoods + ";";
                 }
 
-                iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 3, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode,
+                iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 2, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode,
                     hoso.fiNSWFileCodeOld, hoso.AniFeedConfirmOldNo, hoso.AniFeedConfirmOldId, hoso.AniFeedConfirmOldName, hoso.AniFeedConfirmOldFileLink,
                     hoso.DepartmentCode, hoso.DepartmentName,
                     hoso.fiCreateDate, false, "", null, null, null, null,
@@ -488,7 +488,7 @@ namespace DATA0200025.WebServices
                     sTenTACN += hh.fiNameOfGoods + ";";
                 }
 
-                iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 4, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode,
+                iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 3, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode,
                     hoso.fiNSWFileCodeOld, hoso.AniFeedConfirmOldNo, hoso.AniFeedConfirmOldId, hoso.AniFeedConfirmOldName, hoso.AniFeedConfirmOldFileLink,
                     hoso.DepartmentCode, hoso.DepartmentName,
                     hoso.fiCreateDate, false, "", null, null, null, null,
