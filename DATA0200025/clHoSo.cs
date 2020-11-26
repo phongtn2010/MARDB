@@ -830,8 +830,8 @@ namespace DATA0200025
             }
             if (!string.IsNullOrEmpty(models.sTenTACN))
             {
-                DKHH += " AND sTenHangHoa=@sTenHangHoa";
-                cmd.Parameters.AddWithValue("@sTenHangHoa", models.sTenTACN.Trim());
+                DKHH += " AND sTenHangHoa LIKE @sTenHangHoa";
+                cmd.Parameters.AddWithValue("@sTenHangHoa", "%" + models.sTenTACN.Trim() + "%");
             }
             if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
@@ -1013,9 +1013,9 @@ namespace DATA0200025
             }
             if(!string.IsNullOrEmpty(models.sTenTACN))
             {
-                DKHH += " AND sTenHangHoa=@sTenHangHoa";
-                cmd.Parameters.AddWithValue("@sTenHangHoa", models.sTenTACN.Trim());
-            }    
+                DKHH += " AND sTenHangHoa LIKE @sTenHangHoa";
+                cmd.Parameters.AddWithValue("@sTenHangHoa", "%" + models.sTenTACN.Trim() + "%");
+            }
             if (!string.IsNullOrEmpty(models.sMaHoSo))
             {
                 DK += " AND sMaHoSo=@sMaHoSo";
