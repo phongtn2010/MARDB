@@ -61,24 +61,21 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-xs-2">
-                                Tên TACN
-                            </div>
+                            <label class="col-xs-2 control-label">Tên TACN<span style="color: red;">&nbsp;*</span></label>
                             <div class="col-xs-10">
-                                @_sTenHangHoa
+                                @MvcHtmlString.Create(MyHtmlHelper.Label(_sTenHangHoa, "sTenHangHoa", "", "type=\"text\" class=\"form-control\""))
                             </div>
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                            <div class="col-xs-2">
-                                Kết quả đánh giá sự phù hợp
-                            </div>
-                            <div class="col-xs-1">
-                                <input type="radio" name="Index_bKetQuaDanhGia" id="Index_bKetQuaDanhGia" value="1" /> Phù hợp
-                                <div class="errorClient field-validation-error" style="color:red;font-weight:bold;" id="err_bKetQuaDanhGia"></div>
-                            </div>
-                            <div class="col-xs-2">
-                                <input type="radio" name="Index_bKetQuaDanhGia" id="Index_bKetQuaDanhGia" value="0" /> Không phù hợp
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">Kết quả đánh giá sự phù hợp<span style="color: red;">&nbsp;*</span></label>
+                            <div class="col-xs-10">
+                                <div class="col-xs-1">
+                                    <input type="radio" name="Index_bKetQuaDanhGia" id="Index_bKetQuaDanhGia" value="1" /> Phù hợp
+                                    <div class="errorClient field-validation-error" style="color:red;font-weight:bold;" id="err_bKetQuaDanhGia"></div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <input type="radio" name="Index_bKetQuaDanhGia" id="Index_bKetQuaDanhGia" value="0" /> Không phù hợp
+                                </div>
                             </div>
                         </div>
                     </div><!-- /.box-body -->
