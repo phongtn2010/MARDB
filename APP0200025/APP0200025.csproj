@@ -254,6 +254,7 @@
     <Compile Include="Controllers\ChoXemXetKetQuaController.cs" />
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="Controllers\HoSoController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MienGiamController.cs" />
     <Compile Include="Controllers\TraCuuHangHoaController.cs" />
     <Compile Include="Controllers\TraCuuHoSoController.cs" />
@@ -2910,6 +2911,8 @@
     <Content Include="Scripts\MicrosoftAjax.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Log\Index.cshtml" />
+    <Content Include="Views\Log\List.cshtml" />
     <Content Include="Views\Partial\Partial_HoSoXinCapXNCL.cshtml" />
     <Content Include="WebServices\Mard26Service.asmx" />
     <Content Include="WebServices\MardService.asmx" />

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DATA0200025.WebServices.XmlType;
+using DomainModel;
 
 namespace DATA0200025.WebServices
 {
@@ -198,7 +200,7 @@ namespace DATA0200025.WebServices
         }
 
         //public const string GatewayUrl = "http://192.168.31.7:18888/mard-gw/MardGateway.svc";
-        public const string GatewayUrl = "http://103.248.160.33:8080/VNSWReceiveGateway/ws/gateway.wsdl";
+        public static string GatewayUrl = Globals.api_bantinxml25;  // "http://103.248.160.33:8080/VNSWReceiveGateway/ws/gateway.wsdl";
         public const string Action = "http://mard.gov.vn/nsw/services/IMardGateway/receive";
         public const string DefaultMethodName = "receiveRequest";
         public const string DefaultMethodTag = "receiveRequest";

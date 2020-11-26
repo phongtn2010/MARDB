@@ -87,7 +87,7 @@
             </table>
         </div>
     </div>
-    <div class="row" style="margin-top: 10px;">
+    <div class="row" style="margin-top: 15px;">
         <div class="col-xs-4">
             <div class="form-group">
                 <label for="">Biện pháp kiểm tra</label>
@@ -97,16 +97,7 @@
         <div class="col-xs-4">
             <div class="form-group">
                 <label for="">Thời gian đánh giá<span style="color: red;">&nbsp;*</span></label>
-                @{
-                    if (Model.dKyHoSo_NgayKy != null && Model.dKyHoSo_NgayKy.Year > 1990)
-                    {
-                        @MvcHtmlString.Create(MyHtmlHelper.Label(string.Format("{0:dd/MM/yyyy}", Model.dKyHoSo_NgayKy), "dKyHoSo_NgayKy", "", "type=\"text\" class=\"form-control\""))
-                    }
-                    else
-                    {
-                        @MvcHtmlString.Create(MyHtmlHelper.Label("", "dKyHoSo_NgayKy", "", "type=\"text\" class=\"form-control\""))
-                    }
-                }
+                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sThoiGianDanhGia, "sThoiGianDanhGia", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
         <div class="col-xs-4">

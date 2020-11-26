@@ -26,10 +26,10 @@
     if (dt.Rows.Count > 0)
     {
         iID_MaNhomNguoiDung = Convert.ToString(dt.Rows[0]["iID_MaNhomNguoiDung"]);
-        iID_MaKhachHang = Convert.ToString(dt.Rows[0]["iID_MaKhachHang"]);
+        //iID_MaKhachHang = Convert.ToString(dt.Rows[0]["iID_MaKhachHang"]);
         //sTenCuaHang = CCuaHang.Get_Name_TB_CuaHang(Convert.ToInt64(iID_MaKhachHang), ref sDiaChi_CuaHang);
 
-        sTenKhachHang = sTenCuaHang + ": " + sDiaChi_CuaHang;
+        //sTenKhachHang = sTenCuaHang + ": " + sDiaChi_CuaHang;
         sHoTen = Convert.ToString(dt.Rows[0]["SHOTEN"]);
         sEmail = Convert.ToString(dt.Rows[0]["SEMAIL"]);
         iTrangThai = Convert.ToInt32(dt.Rows[0]["ITRANGTHAI"]);

@@ -67,7 +67,7 @@
                     <span style="color: red;">&nbsp;*</span>
                 </label>
 
-                @MvcHtmlString.Create(MyHtmlHelper.Label(string.Format("{0}-{1}", Model.sMua_FromDate, Model.sMua_ToDate), "sMua_FromDate", "", "type=\"text\" class=\"form-control\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(string.Format("{0}-{1}", Model.sMua_FromDate.ToString("dd/MM/yyyy"), Model.sMua_ToDate.ToString("dd/MM/yyyy")), "sMua_FromDate", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
     </div>

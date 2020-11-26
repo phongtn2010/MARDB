@@ -178,6 +178,29 @@ namespace DATA0200025
             return vR;
         }
 
+
+        public static int UpDate_DanhGia(long iID_MaHoSo, string sDonViThucHienDanhGia, string sThoiGianDanhGia)
+        {
+            int vR = 0;
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("UPDATE CNN25_HoSo SET sDonViThucHienDanhGia=@sDonViThucHienDanhGia, sThoiGianDanhGia=@sThoiGianDanhGia WHERE iID_MaHoSo=@iID_MaHoSo");
+                cmd.Parameters.AddWithValue("@sDonViThucHienDanhGia", sDonViThucHienDanhGia);
+                cmd.Parameters.AddWithValue("@sThoiGianDanhGia", sThoiGianDanhGia);
+                cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+                Connection.UpdateDatabase(cmd);
+
+                vR = 1;
+            }
+            catch (Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
+
         public static int XuLy_TuDong_HoSo_2D(long iID_MaHoSo, string sMaHoSo, string sNguoiXuLy, string sUserName, string sIP)
         {
             int vR = 0;
