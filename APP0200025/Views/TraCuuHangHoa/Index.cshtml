@@ -273,7 +273,7 @@
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
 
-                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "TraCuuHangHoa", new { iID_MaHoSo = r["iID_MaHoSo"], smenu = smenu }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
+                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "TraCuuHangHoa", new { iID_MaHangHoa = r["iID_MaHangHoa"], smenu = smenu }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
 
 
                                             <tr>

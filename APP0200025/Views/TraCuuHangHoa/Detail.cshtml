@@ -9,10 +9,10 @@
 @using DATA0200025.Models
 @using APP0200025.Models
 @using APP0200025.Controllers
-@model  DATA0200025.Models.HangHoaModels
+@model HangHoaModels
 @{
     ViewBag.Title = "Detail";
-    Layout = "~/Views/Shared/_Layout_cms.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     string ParentID = "Detail";
     HoSoModels hoso = clHoSo.GetHoSoById(Model.iID_MaHoSo);
 }
@@ -35,7 +35,7 @@
                         </div>
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
-                        @{Html.RenderPartial("~/Views/Partial/Partial_LichSuHoSo.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/Partial/Partial_LichSuHoSo.cshtml", hoso);}
                         <div class="box-footer clearfix text-center">
                             <button class="btn btn-danger" type="button" onclick="javascript:history.go(-1)">Quay lại</button>
                         </div>
