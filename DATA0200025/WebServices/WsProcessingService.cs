@@ -697,7 +697,7 @@ namespace DATA0200025.WebServices
             string sUserName = "doanhnghiep";
             string sError = "";
 
-            long iID_MaHoSo = 0, iID_MaHoSo_TCCD = 0;
+            long iID_MaHoSo = 0, iID_MaHoSo_TCCD = 0, iID_MaHoSo_TCCD_Sua = 0;
             string sTenDoanhNghiep = "", iID_MaHangHoa = "";
             HoSoModels hs = clHoSo.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
             if (hs != null)
@@ -715,10 +715,10 @@ namespace DATA0200025.WebServices
                         iID_MaHangHoa += hh.fiGoodsId + ",";
                     }
 
-                    iID_MaHoSo_TCCD = CHoSo.KiemTra_HoSo_TCCD(iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode);
+                    iID_MaHoSo_TCCD_Sua = CHoSo.KiemTra_HoSo_TCCD(iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode);
 
                     //Them vao bang HoSo_XNCL
-                    iID_MaHoSo_TCCD = CHoSo.ThemHoSoTCCD(iID_MaHoSo_TCCD, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiAssignName, sUserName, sIP);
+                    iID_MaHoSo_TCCD = CHoSo.ThemHoSoTCCD(iID_MaHoSo_TCCD_Sua, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiAssignName, sUserName, sIP);
 
                     //Update trang thai Ho So
                     CHoSo.UpDate_TrangThai(iID_MaHoSo, 27);
