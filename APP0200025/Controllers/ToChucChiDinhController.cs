@@ -143,6 +143,8 @@ namespace APP0200025.Controllers
                 return RedirectToAction("Index");
             }
 
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
+
             DataTable dtCNHQ = CToChucChiDinh.Get_ChungNhanHopQuy(Convert.ToInt64(iID_MaHoSo), Convert.ToInt64(iID_MaHangHoa));
             DataTable dtKQPT = CToChucChiDinh.Get_KetQuaPhanTich(Convert.ToInt64(iID_MaHoSo), Convert.ToInt64(iID_MaHangHoa));
 
@@ -157,9 +159,9 @@ namespace APP0200025.Controllers
             }
 
 
-            //Gui sang NSW
+            //XML 16(14)
             TCCDGuiKetQuaKT resNSW = new TCCDGuiKetQuaKT();
-            resNSW.NSWFileCode = sMaHoSo;
+            resNSW.NSWFileCode = hoSo.sMaHoSo;
             resNSW.AssignID = Convert.ToString(dtCNHQ.Rows[0]["sMaTCCD"]);
             resNSW.AssignName = Convert.ToString(dtCNHQ.Rows[0]["sTenTCCD"]);
             resNSW.GoodsId = Convert.ToInt64(iID_MaHangHoa);
@@ -185,7 +187,7 @@ namespace APP0200025.Controllers
             dtKQPT.Dispose();
             dtCNHQ.Dispose();
 
-            string error = _sendService.TCCDGuiKetQuaKT(sMaHoSo, resNSW);
+            string error = _sendService.TCCDGuiKetQuaKT(hoSo.sMaHoSo, resNSW);
             if (error.Equals("99"))
             {
                 CHoSo.UpDate_TrangThai(Convert.ToInt64(iID_MaHoSo), 28);
