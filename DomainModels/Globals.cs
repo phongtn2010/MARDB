@@ -18,6 +18,9 @@ namespace DomainModel
         public static int PageRange = 2;
         public static bool CoBanDo = true;
         public static Boolean CoHoiTruocKhiXoa = true;
+
+        public static string api_bantinxml25 = "";
+        public static string api_bantinxml26 = "";
         #endregion
 
         public static int NewGuid()

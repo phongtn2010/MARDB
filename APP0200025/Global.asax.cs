@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
@@ -18,6 +19,9 @@ namespace APP0200025
             Connection.ConnectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
             Globals.PageSize = 10;
+
+            Globals.api_bantinxml25 = ConfigurationManager.AppSettings["api_bantinxml25"];
+            Globals.api_bantinxml26 = ConfigurationManager.AppSettings["api_bantinxml26"];
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
