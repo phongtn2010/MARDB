@@ -33,7 +33,7 @@ namespace DATA0200025.Models
         public DateTime dNgayTao { get; set; }
         public string sLoaiHinhThucKiemTra { get; set; }
         public string sDonViThucHienDanhGia { get; set; }
-        public DateTime dThoiGianDanhGia { get; set; }
+        public string sThoiGianDanhGia { get; set; }
         public DateTime dNgayXacNhan { get; set; }
         public string sBan_Name { get; set; }
         public string sBan_DiaChi { get; set; }

@@ -61,7 +61,24 @@
                                     Thời gian đánh giá
                                 </div>
                                 <div class="col-xs-10">
-                                    <input type="text" value="@string.Format("{0:dd-MM-yyyy}",Model.dThoiGianDanhGia)" class="form-control" disabled="disabled" />
+                                    @{ 
+                                        string sThoiGianDanhGia = "";
+                                        if (Model.dDangKy_FromDate != null)
+                                        {
+                                            if (Model.dDangKy_FromDate.Year > 2000)
+                                            {
+                                                sThoiGianDanhGia += Model.dDangKy_FromDate.ToString("dd/MM/yyyy");
+                                            }
+                                        }
+                                        if (Model.dDangKy_ToDate != null)
+                                        {
+                                            if (Model.dDangKy_ToDate.Year > 2000)
+                                            {
+                                                sThoiGianDanhGia += " - " + Model.dDangKy_ToDate.ToString("dd/MM/yyyy");
+                                            }
+                                        }
+                                    }
+                                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, sThoiGianDanhGia, "sThoiGianDanhGia", "", "class=\"form-control\" readonly"))
                                 </div>
                             </div>
                             <div class="col-xs-12">&nbsp;</div>
@@ -70,7 +87,14 @@
                                     Đơn vị thực hiện đánh giá
                                 </div>
                                 <div class="col-xs-10">
-                                    <input type="text" value="@Model.sDonViThucHienDanhGia" class="form-control" disabled="disabled" />
+                                    @{ 
+                                        string sDonViThucHienDanhGia = "";
+                                        if(Model.iID_MaLoaiHoSo == 1)
+                                        {
+                                            sDonViThucHienDanhGia = Model.sMua_Name;
+                                        }
+                                    }
+                                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, sDonViThucHienDanhGia, "sDonViThucHienDanhGia", "", "class=\"form-control\""))
                                 </div>
                             </div>
                             <div class="col-xs-12">&nbsp;</div>

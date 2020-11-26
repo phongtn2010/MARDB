@@ -215,9 +215,13 @@ namespace APP0200025.Controllers
         public ActionResult TrinhLanhDao(String ParentID)
         {
             string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
-            if(String.IsNullOrEmpty(iID_MaHoSo) == false)
+            string sDonViThucHienDanhGia = CString.SafeString(Request.Form[ParentID + "_sDonViThucHienDanhGia"]);
+            string sThoiGianDanhGia = CString.SafeString(Request.Form[ParentID + "_sThoiGianDanhGia"]);
+            if (String.IsNullOrEmpty(iID_MaHoSo) == false)
             {
-                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+                int iGiaTri = CHoSo.UpDate_DanhGia(Convert.ToInt64(iID_MaHoSo), sDonViThucHienDanhGia, sThoiGianDanhGia);
+
+                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
 
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.DongYSoanPhuLucTrinhLanhXemXet, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
