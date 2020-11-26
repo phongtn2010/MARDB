@@ -62,7 +62,7 @@
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
     String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChuyenVien", new {
-        LoaiDanhSach = 7,
+        LoaiDanhSach = Model.LoaiDanhSach,
         iID_MaTrangThai = Model.iID_MaTrangThai,
         iID_KetQuaXuLy = Model.iID_KetQuaXuLy,
         sMaHoSo = Model.sMaHoSo,
