@@ -715,8 +715,10 @@ namespace DATA0200025.WebServices
                         iID_MaHangHoa += hh.fiGoodsId + ",";
                     }
 
+                    iID_MaHoSo_TCCD = CHoSo.KiemTra_HoSo_TCCD(iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode);
+
                     //Them vao bang HoSo_XNCL
-                    iID_MaHoSo_TCCD = CHoSo.ThemHoSoTCCD(0, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiAssignName, sUserName, sIP);
+                    iID_MaHoSo_TCCD = CHoSo.ThemHoSoTCCD(iID_MaHoSo_TCCD, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiAssignName, sUserName, sIP);
 
                     //Update trang thai Ho So
                     CHoSo.UpDate_TrangThai(iID_MaHoSo, 27);

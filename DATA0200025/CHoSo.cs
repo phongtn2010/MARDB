@@ -290,6 +290,26 @@ namespace DATA0200025
             return vR;
         }
 
+        public static long KiemTra_HoSo_TCCD(long iID_MaHoSo, string sMaHangHoa, string iID_MaToChuc)
+        {
+            long vR = 0;
+
+            string SQL = "SELECT * FROM CNN25_HoSo_TCCD WHERE iID_MaHoSo=@iID_MaHoSo AND sMaHangHoa=@sMaHangHoa AND iID_MaToChuc=@iID_MaToChuc ORDER BY dNgayTao DESC";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            cmd.Parameters.AddWithValue("@sMaHangHoa", sMaHangHoa);
+            cmd.Parameters.AddWithValue("@iID_MaToChuc", iID_MaToChuc);
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            if(dt.Rows.Count > 0)
+            {
+                vR = Convert.ToInt64(dt.Rows[0]["iID_MaHoSoTCCD"]);
+            }
+
+            return vR;
+        }
+
         public static long ThemHoSoXNCL(long iID_MaHoSo_XNCL_Sua, long iID_MaHoSo, long iID_MaHangHoa, string iID_MaToChuc,
             string sMaHoSo, string sTenHangHoa, string sTenToChuc, string sGiayChungNhan, DateTime dNgayCap,
             int iKetQua, string sMaFileChungNhan, string sTenFileChungNhan, string sLinkFileChungNhan,
