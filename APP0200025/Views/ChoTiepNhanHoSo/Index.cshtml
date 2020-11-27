@@ -119,52 +119,24 @@
                                 <div class="row">
                                     <div class="col-xs-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayDen, "TuNgayDen", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_TuNgayDen")
                                     </div>
                                     <div class="col-xs-2 text-align-center"><b>-</b></div>
                                     <div class="col-xs-5">
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayDen, "DenNgayDen", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_DenNgayDen")
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xs-2 text-align-right"></div>
                         </div>
-
+                       
                     </div><!-- /.box-body -->
                     <div class="box-footer clearfix text-align-center">
-                        <button class="btn btn-primary" type="submit" id="btnSearch">Tìm kiếm</button>
+                        <button class="btn btn-primary" type="button" id="btnSearch">Tìm kiếm</button>
                         <button class="btn btn-danger" type="button" onclick="clearFromSearch()">Nhập lại</button>
                     </div>
                 }
-                <script type="text/javascript">
-                    $(document).ready(function () {
-                        $('#formSearch').bootstrapValidator({
-                            message: 'This value is not valid',
-                            feedbackIcons: {
-                                valid: 'glyphicon glyphicon-ok',
-                                invalid: 'glyphicon glyphicon-remove',
-                                validating: 'glyphicon glyphicon-refresh'
-                            },
-                            fields: {
-                                Index_viTuNgayDen: {
-                                    validators: {
-                                        date: {
-                                            format: 'DD/MM/YYYY',
-                                            message: 'The birthday is not valid'
-                                        }
-                                    }
-                                },
-                                Index_viDenNgayDen: {
-                                    validators: {
-                                        date: {
-                                            format: 'DD/MM/YYYY',
-                                            message: 'The birthday is not valid'
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    });
-                </script>
             </div><!-- /.box -->
         </div><!-- /.col -->
     </div>
