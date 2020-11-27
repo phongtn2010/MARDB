@@ -318,6 +318,7 @@ namespace DATA0200026
             };
 
         }
+        #endregion
 
         public static SelectOptionList DDLDoanhNghiep(bool TatCa = true)
         {
@@ -329,12 +330,11 @@ namespace DATA0200026
                 dt.Rows[0]["sMaSoThue"] = "";
                 dt.Rows[0]["sTenDoanhNghiep"] = "--- Tất cả ---";
             }
-            
+
             SelectOptionList DDL = new SelectOptionList(dt, "sMaSoThue", "sTenDoanhNghiep");
             dt.Dispose();
 
             return DDL;
         }
-        #endregion
     }
 }

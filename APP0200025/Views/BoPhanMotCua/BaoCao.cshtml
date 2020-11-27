@@ -30,6 +30,11 @@
     Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
 
     SelectOptionList ddlDN = CHoSo26.DDLDoanhNghiep();
+
+    CHoSoSearch hoso = new CHoSoSearch();
+    hoso.iID_MaTrangThai = -1;
+
+    long iTongHoSoTiepNhan = CHoSo26.GetCount(hoso);
 }
 <script type="text/javascript">
     $(function () {
@@ -184,7 +189,7 @@
                                 <tr>
                                     <td align="center">1</td>
                                     <td align="left">Mẫu giảm kiểm tra chất lượng thức ăn chăn nuôi nhập khẩu</td>
-                                    <td align="center">123</td>
+                                    <td align="center">@(iTongHoSoTiepNhan.ToString("#,##"))</td>
                                     <td align="center">123</td>
                                     <td align="center">123</td>
                                     <td align="center">123</td>
