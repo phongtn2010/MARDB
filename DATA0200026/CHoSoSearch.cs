@@ -28,4 +28,13 @@ namespace DATA0200026
         public string ToDateTiepNhan { get; set; }
         public int iID_KetQuaXuLy { get; set; }
     }
+
+    public class CBaoCaoSearch
+    {
+        public string sMaHoSo { get; set; }        
+        public string sMaSoThue { get; set; }
+        public string sTenDoanhNghiep { get; set; }
+        public string TuNgay { get; set; }
+        public string DenNgay { get; set; }
+    }
 }

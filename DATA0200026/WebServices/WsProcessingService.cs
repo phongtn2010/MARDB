@@ -47,7 +47,7 @@ namespace DATA0200026.WebServices
                 }
 
                 iID_MaHoSo = CHoSo26.ThemHoSo(0, 1, 1, hoso.NSWFileCode, hoso.fiSignDate, false, "", null, null, null, null,
-                    "", sTenDoanhnghiep, sTenLoaiHoSo, sTenTACN, hoso.SignPlace, hoso.Organization, hoso.Address, hoso.Phone, hoso.Fax, "", hoso.DepartmentCode, hoso.DepartmentName,
+                    hoso.TaxCode, sTenDoanhnghiep, sTenLoaiHoSo, sTenTACN, hoso.SignPlace, hoso.Organization, hoso.Address, hoso.Phone, hoso.Fax, "", hoso.DepartmentCode, hoso.DepartmentName,
                     hoso.SignPlaceCode, hoso.SignPlaceName, hoso.SignName, hoso.SignPosition, sUserName, sIP);
 
                 int iHH = 0;
