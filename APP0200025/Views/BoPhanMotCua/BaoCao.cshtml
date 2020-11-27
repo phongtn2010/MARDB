@@ -42,6 +42,8 @@
         }
     })
 </script>
+<script src="@(Url.Content("~/Content/plugins/jquery.wordexport/FileSaver.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/jquery.wordexport/jquery.wordexport.js"))"></script>
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -88,7 +90,7 @@
                     </div>
                 }
 
-            <script type="text/javascript">
+                <script type="text/javascript">
                     $(document).ready(function () {
                         var iTrangThai = '@(Convert.ToString(Model.sMaSoThue))';
                         if (iTrangThai != null) {
@@ -131,7 +133,7 @@
                             $('#formReports').data('bootstrapValidator').resetForm(true);
                         });
                     });
-            </script>
+                </script>
             </div><!-- /.box -->
         </div><!-- /.col -->
     </div>
@@ -145,7 +147,7 @@
                     </ul>
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
-                    <div class="table-responsive">
+                    <div class="table-responsive" id="divWord">
                         <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
                             <thead>
                                 <tr style="height: 40px"><th colspan="11" style="text-align: center; font-size: 14px;">Miễn giảm khiểm tra chất lượng thức ăn chăn nuôi nhập khẩu</th></tr>
@@ -204,3 +206,10 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $("a.btnXuatWord").click(function (event) {
+            $("#divWord").wordExport();
+        });
+    });
+</script>
