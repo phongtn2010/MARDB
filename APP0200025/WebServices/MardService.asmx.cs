@@ -122,14 +122,14 @@ namespace APP0200025.WebServices
                             }
                             else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_17))
                             {
-                                //var result = _processingService.GuiSuaHoSo(envelop);
+                                var result = _processingService.SendResultTestBPMC(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);
                             }
-                            else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_17))
+                            else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_18))
                             {
-                                //var result = _processingService.GuiSuaHoSo(envelop);
+                                var result = _processingService.SendResultTestTACN(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);

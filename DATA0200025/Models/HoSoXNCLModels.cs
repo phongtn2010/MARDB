@@ -9,8 +9,9 @@ namespace DATA0200025.Models
     public class HoSoXNCLModels
     {
         public long iID_MaHoSoXNCL { get; set; }
-        public long iID_MaHangHoa { get; set; }
-        public long iID_MaHoSo { get; set; }    
+        public int iID_MaTrangThai { get; set; }
+        public long iID_MaHoSo { get; set; }
+        public long iID_MaHangHoa { get; set; }        
         public int iID_MaToChuc { get; set; }
         public string sMaHoSo { get; set; }
         public string sTenHangHoa { get; set; }
@@ -18,8 +19,7 @@ namespace DATA0200025.Models
         public string sGiayChungNhan { get; set; }
         public DateTime dNgayCap { get; set; }
         public int iKetQua { get; set; }
-        public string sMaFileChungNhan { get; set; }
-       
+        public string sMaFileChungNhan { get; set; }       
         public string sTenFileChungNhan { get; set; }
         public string sLinkFileChungNhan { get; set; }
         

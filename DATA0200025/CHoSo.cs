@@ -310,7 +310,7 @@ namespace DATA0200025
             return vR;
         }
 
-        public static long ThemHoSoXNCL(long iID_MaHoSo_XNCL_Sua, long iID_MaHoSo, long iID_MaHangHoa, string iID_MaToChuc,
+        public static long ThemHoSoXNCL(long iID_MaHoSo_XNCL_Sua, int iID_MaTrangThai, long iID_MaHoSo, long iID_MaHangHoa, string iID_MaToChuc,
             string sMaHoSo, string sTenHangHoa, string sTenToChuc, string sGiayChungNhan, DateTime dNgayCap,
             int iKetQua, string sMaFileChungNhan, string sTenFileChungNhan, string sLinkFileChungNhan,
             String sUserName, String sIP)
@@ -324,6 +324,7 @@ namespace DATA0200025
                 bang.MaNguoiDungSua = sUserName;
                 bang.IPSua = sIP;
 
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaToChuc", iID_MaToChuc);
