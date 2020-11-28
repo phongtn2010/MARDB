@@ -208,11 +208,11 @@
                                     <th style="text-align: center;" class="text-center">Tên TACN</th>
                                     <th style="text-align: center;" class="text-center">Trạng thái hồ sơ</th>
                                     <th style="text-align: center;" class="text-center">Kết quả xử lý</th>
-                                    <th style="width: 5%; text-align: center;" class="text-center">Xem</th>
-                                    <th style="width: 5%; text-align: center;" class="text-center">Soạn thông báo kết quả</th>
-                                    <th style="width: 5%; text-align: center;" class="text-center">Yêu cầu bồ sung</th>
-                                    <th style="width: 5%; text-align: center;" class="text-center">Thu hồi</th>
-                                    <th style="width: 5%; text-align: center;" class="text-center">Người xem</th>
+                                    <th style="width: 3%; text-align: center;">Xem</th>
+                                    <th style="width: 3%; text-align: center;">Soạn thông báo kết quả</th>
+                                    <th style="width: 3%; text-align: center;">Yêu cầu bồ sung</th>
+                                    <th style="width: 3%; text-align: center;">Thu hồi</th>
+                                    <th style="width: 3%; text-align: center;">Người xem</th>
 
                                 </tr>
                             </thead>
@@ -252,14 +252,14 @@
                                                 <td>@r["sTenHangHoa"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
                                                 <td>@r["sKetQuaXuLy"]</td>
-                                                <td style="width: 3%;">@MvcHtmlString.Create(strView)</td>
-                                                <td style="width: 3%;">
+                                                <td align="center">@MvcHtmlString.Create(strView)</td>
+                                                <td align="center">
                                                     @if (!bThuHoi)
                                                     {
                                                         @MvcHtmlString.Create(strSoanPhuLuc)
                                                     }
                                                 </td>
-                                                <td style="width: 3%;">
+                                                <td align="center">
                                                     @if (!bThuHoi)
                                                     {
                                                         <a class="openyeucaubosung" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#YeuCauBoSung">
@@ -267,7 +267,7 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td style="width: 3%;">
+                                                <td align="center">
                                                     @if (bThuHoi)
                                                     {
                                                         <a data-id="@r["iID_MaHangHoa"]" id="btnThuHoi">
@@ -275,7 +275,7 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td style="width: 3%;">@r["sTenNguoiXem"]</td>
+                                                <td>@r["sTenNguoiXem"]</td>
                                             </tr>
                                         }
                                         iHTDen = iHTTu + iGTMax - 1;
