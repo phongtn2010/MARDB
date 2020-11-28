@@ -194,9 +194,9 @@
                                     <th style="width: 10%; text-align: center;" align="center">Tên TACN</th>
                                     <th style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
                                     <th style="width: 10%; text-align: center;" align="center">Kết quả xử lý</th>
-                                    <th style="width: 5%;">Xem</th>
-                                    <th style="width: 5%;">Người xem</th>
-                                    <th style="width: 5%;">Thu hồi</th>
+                                    <th style="width: 3%;">Xem</th>
+                                    <th style="width: 3%;">Người xem</th>
+                                    <th style="width: 3%;">Thu hồi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -229,14 +229,14 @@
                                                 <td>@r["sTenHangHoa"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
                                                 <td>@r["sKetQuaXuLy"]</td>
-                                                <td style="width: 3%;">
+                                                <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
-                                                <td style="width: 10px;" title="người xem">@r["sTenNguoiXem"]</td>
-                                                <td style="width: 3%;">
+                                                <td title="người xem">@r["sTenNguoiXem"]</td>
+                                                <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <a class="openthuhoi" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#ThuHoi">

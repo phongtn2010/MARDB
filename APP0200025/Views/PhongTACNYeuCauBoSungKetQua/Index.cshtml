@@ -193,10 +193,10 @@
                                     <th style="width: 10%; text-align: center;" align="center">Tên TACN</th>
                                     <th style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
                                     <th style="width: 10%; text-align: center;" align="center">Kết quả xử lý</th>
-                                    <th style="width: 5%;">Xem</th>
-                                    <th style="width: 5%;">Người xem</th>
-                                    <th style="width: 5%;">Gửi doanh nghiệp</th>
-                                    <th style="width: 5%;">Từ chối</th>
+                                    <th style="width: 3%;">Xem</th>
+                                    <th style="width: 3%;">Người xem</th>
+                                    <th style="width: 3%;">Gửi doanh nghiệp</th>
+                                    <th style="width: 3%;">Từ chối</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -231,26 +231,24 @@
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
 
                                                 <td>@r["sKetQuaXuLy"]</td>
-                                                <td style="width: 3%;">
+                                                <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
                                                 <td title="người xem">@r["sTenNguoiXem"]</td>
-                                                <td style="width: 3%;" title="Gửi doanh nghiệp">
+                                                <td align="center" title="Gửi doanh nghiệp">
                                                     @MvcHtmlString.Create(strSend)
                                                 </td>
-                                                <td style="width: 3%;">
+                                                <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <a class="opentuchoi" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#TuChoi">
                                                             <span class='badge bg-red'><i class='fa fa-fw fa-remove'></i></span>
                                                         </a>
                                                     }
-
                                                 </td>
-
                                             </tr>
                                         }
                                         iHTDen = iHTTu + iGTMax - 1;
