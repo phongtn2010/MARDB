@@ -124,15 +124,13 @@ namespace APP0200025.WebServices
                             {
                                 var result = _processingService.SendResultTestBPMC(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
-                                    WsConstants.MessageFunction.FUNC_SUCCESS,
-                                    true, null);
+                                    WsConstants.MessageFunction.FUNC_SUCCESS, true, null);
                             }
                             else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_18))
                             {
                                 var result = _processingService.SendResultTestTACN(envelop);
                                 envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
-                                    WsConstants.MessageFunction.FUNC_SUCCESS,
-                                    true, null);
+                                    WsConstants.MessageFunction.FUNC_SUCCESS, true, null);
                             }
                             else
                             {
