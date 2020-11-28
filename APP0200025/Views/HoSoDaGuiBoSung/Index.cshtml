@@ -157,11 +157,11 @@
                                     <th style="text-align: center;" class="text-center">Doanh nghiệp</th>
                                     <th style="width: 10%; text-align: center;" class="text-center">Tên TACN</th>
                                     <th style="width: 10%; text-align: center;" class="text-center">Trạng thái hồ sơ</th>
-                                    <th class="head-td-icon">Xem</th>
-                                    <th class="head-td-icon">Tiếp nhận</th>
-                                    <th class="head-td-icon">Yêu cầu bồ sung</th>
-                                    <th class="head-td-icon">Từ chối </th>
-                                    <th class="head-td-icon">Người xem</th>
+                                    <th style="width: 3%;">Xem</th>
+                                    <th style="width: 3%;">Tiếp nhận</th>
+                                    <th style="width: 3%;">Yêu cầu bồ sung</th>
+                                    <th style="width: 3%;">Từ chối </th>
+                                    <th style="width: 3%;">Người xem</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -197,19 +197,19 @@
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>@r["sTenTACN"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
                                                     {
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
                                                     {
                                                         @MvcHtmlString.Create(strEdit)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
                                                     {
                                                         <a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
@@ -218,7 +218,7 @@
                                                     }
 
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (string.IsNullOrEmpty(Convert.ToString(r["sUserNguoiXem"])))
                                                     {
                                                         <a class="opentuchoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">

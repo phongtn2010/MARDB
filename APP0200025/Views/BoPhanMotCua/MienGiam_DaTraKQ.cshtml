@@ -270,13 +270,13 @@
                                                 <td>@r["sSoGDK"]</td>
                                                 <td>@(sNgayCap)</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ddtTrangThai, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     <a class="openthuhoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">
                                                         <span class='badge bg-red'><i class='fa fa-mail-reply-all'></i></span>
                                                     </a>

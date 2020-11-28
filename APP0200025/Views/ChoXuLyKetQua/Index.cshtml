@@ -252,14 +252,14 @@
                                                 <td>@r["sTenHangHoa"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
                                                 <td>@r["sKetQuaXuLy"]</td>
-                                                <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">@MvcHtmlString.Create(strView)</td>
+                                                <td style="width: 3%;">
                                                     @if (!bThuHoi)
                                                     {
                                                         @MvcHtmlString.Create(strSoanPhuLuc)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (!bThuHoi)
                                                     {
                                                         <a class="openyeucaubosung" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#YeuCauBoSung">
@@ -267,7 +267,7 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (bThuHoi)
                                                     {
                                                         <a data-id="@r["iID_MaHangHoa"]" id="btnThuHoi">
@@ -275,7 +275,7 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">@r["sTenNguoiXem"]</td>
+                                                <td style="width: 3%;">@r["sTenNguoiXem"]</td>
                                             </tr>
                                         }
                                         iHTDen = iHTTu + iGTMax - 1;

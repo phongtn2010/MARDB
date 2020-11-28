@@ -197,8 +197,8 @@
                                     <th style="text-align: center;" class="text-center">Doanh nghiệp</th>
                                     <th style="text-align: center;" class="text-center">Tên TACN</th>
                                     <th style="width: 10%; text-align: center;" class="text-center">Trạng thái hồ sơ</th>
-                                    <th class="head-td-icon">Xem</th>
-                                    <th class="head-td-icon">Xử lý</th>
+                                    <th style="width: 3%;">Xem</th>
+                                    <th style="width: 3%;">Xử lý</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -239,10 +239,10 @@
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>@r["sTenTACN"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @MvcHtmlString.Create(strView)
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @MvcHtmlString.Create(strSoanPhuLuc)
                                                 </td>
                                             </tr>

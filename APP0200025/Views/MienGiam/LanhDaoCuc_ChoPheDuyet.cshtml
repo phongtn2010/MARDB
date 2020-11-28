@@ -222,13 +222,13 @@
                                                     <td>@r["sSoTiepNhan"]</td>
                                                     <td>@(sNgayTiepNhan)</td>
                                                     <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ddtTrangThai, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-                                                    <td class="head-td-icon">
+                                                    <td style="width: 3%;">
                                                         @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                         {
                                                             @MvcHtmlString.Create(strView)
                                                         }
                                                     </td>
-                                                    <td class="head-td-icon">
+                                                    <td style="width: 3%;">
                                                         <input type='checkbox' value='@r["iID_MaHoSo"].ToString()' onclick='CheckValue();' check-group='HO_SO' id='@(ParentID)_HO_SO' name='@(ParentID)_HO_SO' />
                                                     </td>
                                                 </tr>

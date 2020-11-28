@@ -286,14 +286,14 @@
                                                 <td>@r["sTenTACN"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
                                                 <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
-                                                <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">@MvcHtmlString.Create(strView)</td>
+                                                <td style="width: 3%;">
                                                     @if (BSTC)
                                                     {
                                                         @MvcHtmlString.Create(strSoanPhuLuc)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (BSTC)
                                                     {
                                                         <a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
@@ -301,7 +301,7 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (BSTC)
                                                     {
                                                         <a class="opentuchoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
@@ -309,14 +309,14 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (!BSTC)
                                                     {
                                                         @MvcHtmlString.Create(strThuHoi)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">@r["sTenNguoiTiepNhan"]</td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">@r["sTenNguoiTiepNhan"]</td>
+                                                <td style="width: 3%;">
                                                     @{
                                                         int[] arrTrangThai = { 7, 10, 11, 12, 14, 16, 18, 23 };
                                                         if (arrTrangThai.Contains(iID_MaTrangThai))

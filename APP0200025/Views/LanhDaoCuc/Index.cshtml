@@ -192,11 +192,11 @@
                                 <th style="text-align: center;" class="text-center">Tên TACN</th>
                                 <th style="text-align: center;" class="text-center">Trạng thái hồ sơ</th>
                                 <th style="text-align: center;" class="text-center">Kết quả xử lý</th>
-                                <th class="head-td-icon">Xem</th>
+                                <th style="width: 3%;">Xem</th>
                                 <th>Đồng ý</th>
-                                <th class="head-td-icon">Từ chối </th>
-                                <th class="head-td-icon">Thu hồi</th>
-                                <th class="head-td-icon">Quá hạn</th>
+                                <th style="width: 3%;">Từ chối </th>
+                                <th style="width: 3%;">Thu hồi</th>
+                                <th style="width: 3%;">Quá hạn</th>
 
                             </tr>
                             @{
@@ -221,10 +221,10 @@
                                                 <td>@r["sTenTACN"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
                                                 <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
-                                                <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
-                                                <td class="head-td-icon">@MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, "0", "bDongY", ""))</td>
+                                                <td style="width: 3%;">@MvcHtmlString.Create(strView)</td>
+                                                <td style="width: 3%;">@MvcHtmlString.Create(MyHtmlHelper.CheckBox(ParentID, "0", "bDongY", ""))</td>
 
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @*@MvcHtmlString.Create(strTuChoi)*@
                                                     <a class="opentuchoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
                                                         <span class='badge bg-red'><i class='fa fa-times'></i></span>

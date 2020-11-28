@@ -183,11 +183,11 @@
                                     <th style="width: 10%; text-align: center;" class="text-center">Tên TACN</th>
                                     <th style="width: 10%; text-align: center;" class="text-center">Trạng thái hồ sơ</th>
                                     <th style="width: 10%; text-align: center;" class="text-center">Kết quả xử lý</th>
-                                    <th class="head-td-icon">Xem</th>
-                                    <th class="head-td-icon">Người xem</th>
-                                    <th class="head-td-icon">Gửi doanh nghiệp</th>
-                                    <th class="head-td-icon">Từ chối</th>
-                                    <th class="head-td-icon">Quá hạn</th>
+                                    <th style="width: 3%;" align="center">Xem</th>
+                                    <th style="width: 3%;" align="center">Người xem</th>
+                                    <th style="width: 3%;" align="center">Gửi doanh nghiệp</th>
+                                    <th style="width: 3%;" align="center">Từ chối</th>
+                                    <th style="width: 3%;" align="center">Quá hạn</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -222,20 +222,20 @@
                                                 <td>@r["sTenTACN"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
                                                 <td>@r["sKetQuaXuLy"]</td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;" align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">@r["sTenNguoiXem"]</td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;" align="center">@r["sTenNguoiXem"]</td>
+                                                <td style="width: 3%;" align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <span class='badge bg-yellow-gradient btnGuiDoanhNghiep' data-id="@r["iID_MaHoSo"]" style="cursor: pointer;"><i class='fa fa-fw fa-send'></i></span>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;" align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <a class="opentuchoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
@@ -243,7 +243,7 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;" align="center">
                                                     @{
                                                         if (iID_MaTrangThai == 13)
                                                         {
