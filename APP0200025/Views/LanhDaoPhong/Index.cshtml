@@ -31,13 +31,8 @@
     Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
 
 
-    string TenBang = "BC_Vung";
+    string TenBang = "CNN25_HoSo";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
-
-    String _TrangThaiHoSo = CString.SafeString(Request.QueryString["_TrangThaiHoSo"]);
-    String _TieuDe = CString.SafeString(Request.QueryString["_TieuDe"]);
-    String _FromDate = CString.SafeString(Request.QueryString["_FromDate"]);
-    String _ToDate = CString.SafeString(Request.QueryString["_ToDate"]);
 
     int Page = Model.Page;
 
@@ -63,7 +58,24 @@
 
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "LanhDaoPhong", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "LanhDaoPhong", new
+    {
+        LoaiDanhSach = Model.LoaiDanhSach,
+        sMaHoSo = Model.sMaHoSo,
+        sTenDoanhNghiep = Model.sTenDoanhNghiep,
+        sTenTACN = Model.sTenTACN,
+        TuNgayDen = Model.TuNgayDen,
+        DenNgayDen = Model.DenNgayDen,
+        TuNgayTiepNhan = Model.TuNgayTiepNhan,
+        DenNgayTiepNhan = Model.DenNgayTiepNhan,
+        sSoTiepNhan = Model.sSoTiepNhan,
+        sSoGDK = Model.sSoGDK,
+        TuNgayXacNhan = Model.TuNgayXacNhan,
+        DenNgayXacNhan = Model.DenNgayXacNhan,
+        iID_MaTrangThai = Model.iID_MaTrangThai,
+        iID_KetQuaXuLy = Model.iID_KetQuaXuLy,
+        page = x
+    }));
 
 }
 <script type="text/javascript">
@@ -82,7 +94,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("Search", "LanhDaoPhong", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("Search", "LanhDaoPhong", new { ParentID = ParentID }, FormMethod.Post, new { id = "formSearch", @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
@@ -153,40 +165,22 @@
                         <div class="form-group">
                             <div class="col-xs-1 text-align-right"><label class="control-label">Trạng thái hồ sơ</label></div>
                             <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, _TrangThaiHoSo, "iID_MaTrangThai", "", "class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, Model.iID_MaTrangThai.ToString(), "iID_MaTrangThai", "", "class=\"form-control\""))
                             </div>
-
-                            <div class="col-xs-1 text-align-right">
-                                <label class="control-label">Quá hạn</label>
-                            </div>
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Kết quả xử lý</label></div>
                             <div class="col-xs-5">
-                                <select class="form-control" id="@(ParentID)_iID_QuaHan" name="@(ParentID)_iID_QuaHan">
-                                    <option>--Tất cả--</option>
-                                    <option value="1">Chưa tới hạn</option>
-                                    <option value="2">Quá hạn</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-1 text-align-right">
-                                <label class="control-label">Quá hạn</label>
-                            </div>
-                            <div class="col-xs-5">
-                                <select class="form-control" id="@(ParentID)_iID_MaTrangThai" name="@(ParentID)_iID_MaTrangThai">
-                                    <option>--Tất cả--</option>
+                                <select class="form-control" id="@(ParentID)_iID_KetQuaXuLy" name="@(ParentID)_iID_KetQuaXuLy">
+                                    <option value="-1">--Tất cả--</option>
                                     <option value="1">Đạt cấp giấy đăng ký</option>
                                     <option value="2">Từ chối cấp GĐK</option>
                                     <option value="3">Yêu cầu bổ xung</option>
                                 </select>
                             </div>
-                            <div class="col-xs-6"></div>
                         </div>
                     </div><!-- /.box-body -->
-                    <div class="box-footer clearfix">
-                        <div class="col-xs-12 text-align-center">
-                            <button class="btn btn-primary" type="button" id="btnSearch">Tìm kiếm</button>
-                            <button class="btn btn-danger" type="button">Nhập lại</button>
-                        </div>
+                    <div class="box-footer clearfix text-align-center">
+                        <button class="btn btn-primary" type="button" id="btnSearch">Tìm kiếm</button>
+                        <button class="btn btn-danger" type="button" onclick="clearFromSearch()">Nhập lại</button>
                     </div>
                 }
             </div><!-- /.box -->
@@ -219,14 +213,14 @@
                                         <th style="text-align: center;" align="center">Tên TACN</th>
                                         <th style="text-align: center;" align="center">Trạng thái hồ sơ</th>
                                         <th style="text-align: center;" align="center">Kết quả xử lý</th>
-                                        <th style="width: 5%; text-align: center;">Xem</th>
+                                        <th style="width: 3%; text-align: center;">Xem</th>
                                         <th style="width: 5%; text-align: center; padding-right: 0px; padding-left: 0px;">
                                             <p style="margin: 0; padding: 0;">Đồng ý</p>
                                             <p style="margin: 0; padding: 0;"><input type="checkbox" name="chkHoSo" id="chkHoSo" onclick="CheckAll(this.checked);" /></p>
                                         </th>
-                                        <th style="width: 5%; text-align: center;">Từ chối </th>
-                                        <th style="width: 5%; text-align: center;">Thu hồi</th>
-                                        <th style="width: 5%; text-align: center;">Quá hạn</th>
+                                        <th style="width: 3%; text-align: center;">Từ chối </th>
+                                        <th style="width: 3%; text-align: center;">Thu hồi</th>
+                                        <th style="width: 3%; text-align: center;">Quá hạn</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -373,21 +367,3 @@
         else { event.stopPropagation(); event.preventDefault(); };
     }
 </script>
-
-@*<style>
-        .dataTable > thead > tr > th[class*="sort"]::after {
-            display: none
-        }
-
-        table.dataTable thead .sorting_asc {
-            background: #ddd url("https://cdn.datatables.net/1.10.0/images/sort_asc.png") no-repeat center right;
-        }
-
-        table.dataTable thead .sorting_desc {
-            background: #ddd url("https://cdn.datatables.net/1.10.0/images/sort_desc.png") no-repeat center right;
-        }
-
-        table.dataTable thead .sorting {
-            background: #ddd url("https://cdn.datatables.net/1.10.0/images/sort_both.png") no-repeat center right;
-        }
-    </style>*@

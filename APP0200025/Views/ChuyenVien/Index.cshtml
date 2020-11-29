@@ -31,7 +31,7 @@
     Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
 
 
-    string TenBang = "BC_Vung";
+    string TenBang = "CNN25_HoSo";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
     String _TrangThaiHoSo = CString.SafeString(Request.QueryString["_TrangThaiHoSo"]);
@@ -61,9 +61,20 @@
 
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChuyenVien", new { _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChuyenVien", new {
+        LoaiDanhSach = Model.LoaiDanhSach,
+        iID_MaTrangThai = Model.iID_MaTrangThai,
+        iID_KetQuaXuLy = Model.iID_KetQuaXuLy,
+        sMaHoSo = Model.sMaHoSo,
+        sTenDoanhNghiep = Model.sTenDoanhNghiep,
+        sTenTACN = Model.sTenTACN,
+        TuNgayDen = Model.TuNgayDen,
+        DenNgayDen = Model.DenNgayDen,
+        sSoTiepNhan = Model.sSoTiepNhan,
+        TuNgayTiepNhan = Model.TuNgayTiepNhan,
+        DenNgayTiepNhan = Model.DenNgayTiepNhan,
+        page = x }));
 
-    // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 
 }
 
@@ -275,14 +286,14 @@
                                                 <td>@r["sTenTACN"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
                                                 <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
-                                                <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
-                                                <td class="head-td-icon">
+                                                <td align="center">@MvcHtmlString.Create(strView)</td>
+                                                <td align="center">
                                                     @if (BSTC)
                                                     {
                                                         @MvcHtmlString.Create(strSoanPhuLuc)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td align="center">
                                                     @if (BSTC)
                                                     {
                                                         <a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
@@ -290,7 +301,7 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td align="center">
                                                     @if (BSTC)
                                                     {
                                                         <a class="opentuchoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
@@ -298,14 +309,14 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td align="center">
                                                     @if (!BSTC)
                                                     {
                                                         @MvcHtmlString.Create(strThuHoi)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">@r["sTenNguoiTiepNhan"]</td>
-                                                <td class="head-td-icon">
+                                                <td>@r["sTenNguoiTiepNhan"]</td>
+                                                <td align="center">
                                                     @{
                                                         int[] arrTrangThai = { 7, 10, 11, 12, 14, 16, 18, 23 };
                                                         if (arrTrangThai.Contains(iID_MaTrangThai))

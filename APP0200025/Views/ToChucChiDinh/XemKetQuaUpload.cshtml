@@ -37,23 +37,20 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-xs-2">
-                                Tên thức ăn chăn nuôi
-                            </div>
+                            <label class="col-xs-2 control-label">Tên TACN<span style="color: red;">&nbsp;*</span></label>
                             <div class="col-xs-10">
-                                @_sTenHangHoa
+                                @MvcHtmlString.Create(MyHtmlHelper.Label(_sTenHangHoa, "sTenHangHoa", "", "type=\"text\" class=\"form-control\""))
                             </div>
-                            <div class="col-xs-12">
-                                &nbsp;
-                            </div>
-                            <div class="col-xs-2">
-                                Kết quả đánh giá sự phù hợp
-                            </div>
-                            <div class="col-xs-1">
-                                <input type="radio" name="Index_bKetQuaDanhGia" id="Index_bKetQuaDanhGia" value="1" disabled="disabled" /> Phù hợp
-                            </div>
-                            <div class="col-xs-2">
-                                <input type="radio" name="Index_bKetQuaDanhGia" id="Index_bKetQuaDanhGia" value="0" disabled="disabled" /> Không phù hợp
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">Kết quả đánh giá sự phù hợp<span style="color: red;">&nbsp;*</span></label>
+                            <div class="col-xs-10">
+                                <div class="col-xs-1">
+                                    <input type="radio" name="Index_bKetQuaDanhGia" id="Index_bKetQuaDanhGia" value="1" disabled="disabled" /> <label for="">Phù hợp</label>
+                                </div>
+                                <div class="col-xs-2">
+                                    <input type="radio" name="Index_bKetQuaDanhGia" id="Index_bKetQuaDanhGia" value="0" disabled="disabled" /> <label for="">Không phù hợp</label>
+                                </div>
                             </div>
                         </div>
                     </div><!-- /.box-body -->

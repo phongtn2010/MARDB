@@ -351,7 +351,7 @@ namespace DATA0200025.WebServices
                     sTenTACN += hh.fiNameOfGoods + ";";
                 }
 
-                iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 3, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode,
+                iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 2, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode,
                     hoso.fiNSWFileCodeOld, hoso.AniFeedConfirmOldNo, hoso.AniFeedConfirmOldId, hoso.AniFeedConfirmOldName, hoso.AniFeedConfirmOldFileLink,
                     hoso.DepartmentCode, hoso.DepartmentName,
                     hoso.fiCreateDate, false, "", null, null, null, null,
@@ -488,7 +488,7 @@ namespace DATA0200025.WebServices
                     sTenTACN += hh.fiNameOfGoods + ";";
                 }
 
-                iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 4, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode,
+                iID_MaHoSo = CHoSo.ThemHoSo(iID_MaHoSo_Sua, 3, hoso.fiTypeAniFeed, iID_MaHoSo_ThayThe, hoso.fiNSWFileCode,
                     hoso.fiNSWFileCodeOld, hoso.AniFeedConfirmOldNo, hoso.AniFeedConfirmOldId, hoso.AniFeedConfirmOldName, hoso.AniFeedConfirmOldFileLink,
                     hoso.DepartmentCode, hoso.DepartmentName,
                     hoso.fiCreateDate, false, "", null, null, null, null,
@@ -697,7 +697,7 @@ namespace DATA0200025.WebServices
             string sUserName = "doanhnghiep";
             string sError = "";
 
-            long iID_MaHoSo = 0, iID_MaHoSo_TCCD = 0;
+            long iID_MaHoSo = 0, iID_MaHoSo_TCCD = 0, iID_MaHoSo_TCCD_Sua = 0;
             string sTenDoanhNghiep = "", iID_MaHangHoa = "";
             HoSoModels hs = clHoSo.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
             if (hs != null)
@@ -715,8 +715,10 @@ namespace DATA0200025.WebServices
                         iID_MaHangHoa += hh.fiGoodsId + ",";
                     }
 
+                    iID_MaHoSo_TCCD_Sua = CHoSo.KiemTra_HoSo_TCCD(iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode);
+
                     //Them vao bang HoSo_XNCL
-                    iID_MaHoSo_TCCD = CHoSo.ThemHoSoTCCD(0, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiAssignName, sUserName, sIP);
+                    iID_MaHoSo_TCCD = CHoSo.ThemHoSoTCCD(iID_MaHoSo_TCCD_Sua, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiAssignName, sUserName, sIP);
 
                     //Update trang thai Ho So
                     CHoSo.UpDate_TrangThai(iID_MaHoSo, 27);
@@ -759,7 +761,7 @@ namespace DATA0200025.WebServices
             try
             {
                 //Them vao bang HoSo_XNCL
-                iID_MaHoSo_XNCL = CHoSo.ThemHoSoXNCL(0, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiNameOfGoods, hoso.fiAssignName, hoso.fiTestConfirmNumber, hoso.fiTestConfirmDate, hoso.fiResultTest,
+                iID_MaHoSo_XNCL = CHoSo.ThemHoSoXNCL(0, 29, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiNameOfGoods, hoso.fiAssignName, hoso.fiTestConfirmNumber, hoso.fiTestConfirmDate, hoso.fiResultTest,
                     hoso.fiTestConfirmAttachmentId, hoso.fiTestConfirmFileName, hoso.fiTestConfirmFileLink, sUserName, sIP);
 
                 //Them vao bang Dinh Kem
@@ -780,6 +782,114 @@ namespace DATA0200025.WebServices
             {
                 sError = "Error Add Ho So XNCL: " + ex.ToString();
             }            
+
+            return null;
+        }
+
+        public NopKetQuaVM SendResultTestBPMC(Envelope envelope)
+        {
+            var body = envelope.Body;
+
+            var hoso = body.Content.SendResultTest;
+            string sMaHoSo = hoso.fiNSWFileCode;
+            List<AttachmentVM> lstDinhKem = hoso.ListAttachmentReports;
+
+            long iID_MaHoSo_XNCL = 0, iID_MaHoSo_XNCL_Sua = 0, iID_MaHoSo = 0, iID_MaHangHoa = 0;
+            iID_MaHangHoa = hoso.fiGoodsId;
+            string sTenDoanhNghiep = "";
+            HoSoModels hs = clHoSo.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
+            if (hs != null)
+            {
+                iID_MaHoSo = hs.iID_MaHoSo;
+                sTenDoanhNghiep = hs.sTenDoanhNghiep;
+            }
+
+            HoSoXNCLModels hsXNCL = clHangHoa.GetHoSoXNCL(iID_MaHoSo, iID_MaHangHoa);
+            if (hsXNCL != null)
+            {
+                iID_MaHoSo_XNCL_Sua = hsXNCL.iID_MaHoSoXNCL;
+
+                string sUserName = "doanhnghiep";
+                string sError = "";
+                try
+                {
+                    //Them vao bang HoSo_XNCL
+                    iID_MaHoSo_XNCL = CHoSo.ThemHoSoXNCL(iID_MaHoSo_XNCL_Sua, 30, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiNameOfGoods, hoso.fiAssignName, hoso.fiTestConfirmNumber, hoso.fiTestConfirmDate, hoso.fiResultTest,
+                        hoso.fiTestConfirmAttachmentId, hoso.fiTestConfirmFileName, hoso.fiTestConfirmFileLink, sUserName, sIP);
+
+                    //Them vao bang Dinh Kem
+                    int iF = 0;
+                    foreach (var f in lstDinhKem)
+                    {
+                        iF++;
+                        long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ BPMC Bổ Sung XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId));
+                    }
+
+                    //Update Trang Thai Hang Hoa
+                    CHangHoa.UpDate_TrangThai(iID_MaHangHoa, 30);
+
+                    //Ghi Lai Lich Su
+                    clLichSuHangHoa.InsertLichSuNsw(iID_MaHangHoa, sUserName, sTenDoanhNghiep, 1, 28, "Doanh nghiệp gửi bổ sung kết quả theo yêu cầu của BNN", "", 29, "Chờ tiếp nhận kết quả đánh giá sự phù hợp", 30);
+                }
+                catch (Exception ex)
+                {
+                    sError = "Error Add Ho So XNCL: " + ex.ToString();
+                }
+            }
+            
+            return null;
+        }
+
+        public NopKetQuaVM SendResultTestTACN(Envelope envelope)
+        {
+            var body = envelope.Body;
+
+            var hoso = body.Content.SendResultTest;
+            string sMaHoSo = hoso.fiNSWFileCode;
+            List<AttachmentVM> lstDinhKem = hoso.ListAttachmentReports;
+
+            long iID_MaHoSo_XNCL = 0, iID_MaHoSo_XNCL_Sua = 0, iID_MaHoSo = 0, iID_MaHangHoa = 0;
+            iID_MaHangHoa = hoso.fiGoodsId;
+            string sTenDoanhNghiep = "";
+            HoSoModels hs = clHoSo.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
+            if (hs != null)
+            {
+                iID_MaHoSo = hs.iID_MaHoSo;
+                sTenDoanhNghiep = hs.sTenDoanhNghiep;
+            }
+
+            HoSoXNCLModels hsXNCL = clHangHoa.GetHoSoXNCL(iID_MaHoSo, iID_MaHangHoa);
+            if (hsXNCL != null)
+            {
+                iID_MaHoSo_XNCL_Sua = hsXNCL.iID_MaHoSoXNCL;
+
+                string sUserName = "doanhnghiep";
+                string sError = "";
+                try
+                {
+                    //Them vao bang HoSo_XNCL
+                    iID_MaHoSo_XNCL = CHoSo.ThemHoSoXNCL(iID_MaHoSo_XNCL_Sua, 31, iID_MaHoSo, iID_MaHangHoa, hoso.fiAssignCode, sMaHoSo, hoso.fiNameOfGoods, hoso.fiAssignName, hoso.fiTestConfirmNumber, hoso.fiTestConfirmDate, hoso.fiResultTest,
+                        hoso.fiTestConfirmAttachmentId, hoso.fiTestConfirmFileName, hoso.fiTestConfirmFileLink, sUserName, sIP);
+
+                    //Them vao bang Dinh Kem
+                    int iF = 0;
+                    foreach (var f in lstDinhKem)
+                    {
+                        iF++;
+                        long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ Phòng TACN Bổ Sung XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId));
+                    }
+
+                    //Update Trang Thai Hang Hoa
+                    CHangHoa.UpDate_TrangThai(iID_MaHangHoa, 31);
+
+                    //Ghi Lai Lich Su
+                    clLichSuHangHoa.InsertLichSuNsw(iID_MaHangHoa, sUserName, sTenDoanhNghiep, 1, 30, "Doanh nghiệp gửi bổ sung kết quả theo yêu cầu của Phòng TACN", "", 29, "Chờ tiếp nhận kết quả đánh giá sự phù hợp", 31);
+                }
+                catch (Exception ex)
+                {
+                    sError = "Error Add Ho So XNCL: " + ex.ToString();
+                }
+            }
 
             return null;
         }

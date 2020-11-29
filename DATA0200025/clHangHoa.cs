@@ -174,6 +174,16 @@ namespace DATA0200025
                 return results;
             }
         }
+        public static HoSoXNCLModels GetHoSoXNCL(long iID_MaHoSo, long iID_MaHangHoa)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT *  FROM CNN25_HoSo_XNCL 
+                            WHERE iID_MaHoSo=@iID_MaHoSo AND iID_MaHangHoa=@iID_MaHangHoa";
+                HoSoXNCLModels results = connect.Query<HoSoXNCLModels>(SQL, new { iID_MaHoSo = iID_MaHoSo, iID_MaHangHoa = iID_MaHangHoa }).FirstOrDefault();
+                return results;
+            }
+        }
 
         public static void UpdateNguoiXem(string iID_MaHangHoa, string MaND)
         {

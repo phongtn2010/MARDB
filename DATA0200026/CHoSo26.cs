@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using DomainModel;
 using DomainModel.Abstract;
+using DomainModel.Controls;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -278,6 +279,18 @@ namespace DATA0200026
             return dt;
         }
 
+        public static DataTable Get_DanhSach_DoanhNghiep()
+        {
+            DataTable vR;
+
+            string SQL = "SELECT DISTINCT sMaSoThue, sTenDoanhNghiep FROM CNN26_HoSo ORDER BY sTenDoanhNghiep";
+            SqlCommand cmd = new SqlCommand(SQL);
+            vR = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+            cmd.Dispose();
+
+            return vR;
+        }
+
         #region Update
         public static void UpdateNguoiXem(string iID_MaHoSo, string MaND)
         {
@@ -306,5 +319,22 @@ namespace DATA0200026
 
         }
         #endregion
+
+        public static SelectOptionList DDLDoanhNghiep(bool TatCa = true)
+        {
+            DataTable dt = Get_DanhSach_DoanhNghiep();
+            DataRow r;
+            if (TatCa)
+            {
+                dt.Rows.InsertAt(dt.NewRow(), 0);
+                dt.Rows[0]["sMaSoThue"] = "";
+                dt.Rows[0]["sTenDoanhNghiep"] = "--- Tất cả ---";
+            }
+
+            SelectOptionList DDL = new SelectOptionList(dt, "sMaSoThue", "sTenDoanhNghiep");
+            dt.Dispose();
+
+            return DDL;
+        }
     }
 }

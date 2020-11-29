@@ -30,7 +30,7 @@
     Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
 
 
-    string TenBang = "BC_Vung";
+    string TenBang = "CNN26_HoSo";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
     int Page = Model.Page;
@@ -185,13 +185,13 @@
                                                 <td>@r["sTenTACN"]</td>
                                                 <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy HH:mm")</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ddtTrangThai, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         if (iTrangThai == 1)

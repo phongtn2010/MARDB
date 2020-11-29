@@ -38,6 +38,9 @@ namespace DATA0200026.DTO
         [XmlElement("Organization")]
         public string Organization { set; get; }
 
+        [XmlElement("TaxCode")]
+        public string TaxCode { set; get; }
+
         public DateTime fiSignDate { get; set; }
         [XmlElement("SignDate"), NotMapped]
         public string fiSignDateString

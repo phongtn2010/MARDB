@@ -31,7 +31,7 @@
     Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
 
 
-    string TenBang = "BC_Vung";
+    string TenBang = "CNN25_HoSo";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
     int Page = Model.Page;
@@ -192,9 +192,9 @@
                                     <th style="width: 10%; text-align: center;" align="center">Tên TACN</th>
                                     <th style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
                                     <th style="width: 10%; text-align: center;" align="center">Kết quả xử lý</th>
-                                    <th style="width: 5%;">Xem</th>
-                                    <th style="width: 5%;">Người xem</th>
-                                    <th style="width: 5%;">Gửi doanh nghiệp</th>
+                                    <th style="width: 3%;">Xem</th>
+                                    <th style="width: 3%;">Người xem</th>
+                                    <th style="width: 3%;">Gửi doanh nghiệp</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -227,16 +227,15 @@
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>@r["sTenHangHoa"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-
                                                 <td>@r["sKetQuaXuLy"]</td>
-                                                <td class="head-td-icon">
+                                                <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
                                                 <td title="người xem">@r["sTenNguoiXem"]</td>
-                                                <td class="head-td-icon" title="Gửi doanh nghiệp">
+                                                <td align="center" title="Gửi doanh nghiệp">
                                                     @MvcHtmlString.Create(strSend)
                                                 </td>
                                             </tr>

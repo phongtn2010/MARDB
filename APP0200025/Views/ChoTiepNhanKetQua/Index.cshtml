@@ -31,7 +31,7 @@
     Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
 
 
-    string TenBang = "BC_Vung";
+    string TenBang = "CNN25_HoSo";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
     int Page = Model.Page;
@@ -190,10 +190,10 @@
                                     <th style="text-align: center;" align="center">Doanh nghiệp</th>
                                     <th style="width: 10%; text-align: center;" align="center">Tên TACN</th>
                                     <th style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
-                                    <th style="width: 5%;">Xem</th>
-                                    <th style="width: 5%;">Tiếp nhận</th>
-                                    <th style="width: 5%;">YC bồ sung</th>
-                                    <th style="width: 5%;">Người xem</th>
+                                    <th style="width: 3%;">Xem</th>
+                                    <th style="width: 3%;">Tiếp nhận</th>
+                                    <th style="width: 3%;">YC bồ sung</th>
+                                    <th style="width: 3%;">Người xem</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -228,19 +228,19 @@
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>@r["sTenHangHoa"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-                                                <td class="head-td-icon">
+                                                <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         @MvcHtmlString.Create(strSend)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <a class="openyeucaubosung" data-id="@r["iID_MaHangHoa"]" data-toggle="modal" href="#YeuCauBoSung">
@@ -249,7 +249,7 @@
                                                     }
 
                                                 </td>
-                                                <td style="width: 10px;" title="người xem">@r["sTenNguoiXem"]</td>
+                                                <td title="người xem">@r["sTenNguoiXem"]</td>
                                             </tr>
                                         }
                                         iHTDen = iHTTu + iGTMax - 1;

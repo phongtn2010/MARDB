@@ -510,6 +510,39 @@ namespace APP0200025.Controllers
             return PartialView(hanghoa);
         }
 
-        
+        public ActionResult BaoCao(CBaoCaoSearch repSearch)
+        {
+            if (repSearch == null)
+            {
+                repSearch = new CBaoCaoSearch
+                {
+                    sMaHoSo = null,
+                    sMaSoThue = null,
+                    sTenDoanhNghiep = null
+                };
+            }
+
+            ViewData["menu"] = 224;
+            return View(repSearch);
+        }
+
+        [Authorize, AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Rep_Search(string ParentID)
+        {
+            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
+            string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
+            string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
+
+            CBaoCaoSearch models = new CBaoCaoSearch
+            {
+                sTenDoanhNghiep = _sTenDoanhNghiep,
+                TuNgay = _TuNgayDen,
+                DenNgay = _DenNgayDen
+            };
+
+            TempData["menu"] = 224;
+            TempData["msg"] = "success";
+            return RedirectToAction("BaoCao", models);
+        }
     }
 }

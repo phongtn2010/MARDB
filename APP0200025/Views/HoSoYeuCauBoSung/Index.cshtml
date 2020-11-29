@@ -32,7 +32,7 @@
     Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
 
 
-    string TenBang = "BC_Vung";
+    string TenBang = "CNN25_HoSo";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
     int Page = Model.Page;
@@ -181,11 +181,11 @@
                                     <th style="text-align: center;" class="text-center">Doanh nghiệp</th>
                                     <th style="width: 10%; text-align: center;" class="text-center">Tên TACN</th>
                                     <th style="width: 10%; text-align: center;" class="text-center">Trạng thái hồ sơ</th>
-                                    <th class="head-td-icon">Xem</th>
-                                    <th class="head-td-icon">Tiếp nhận</th>
-                                    <th class="head-td-icon">Yêu cầu bổ sung</th>
-                                    <th class="head-td-icon">Từ chối</th>
-                                    <th class="head-td-icon">Người xem</th>
+                                    <th style="width: 3%;">Xem</th>
+                                    <th style="width: 3%;">Tiếp nhận</th>
+                                    <th style="width: 3%;">Yêu cầu bổ sung</th>
+                                    <th style="width: 3%;">Từ chối</th>
+                                    <th style="width: 3%;">Người xem</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -218,19 +218,19 @@
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>@r["sTenTACN"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <span class='badge bg-green btnTiepNhan' data-id="@r["iID_MaHoSo"]" style="cursor: pointer;"><i class='fa fa-fw fa-check'></i></span>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
@@ -238,7 +238,7 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <a class="opentuchoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">

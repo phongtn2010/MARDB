@@ -31,7 +31,7 @@
     Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
 
 
-    string TenBang = "BC_Vung";
+    string TenBang = "CNN25_HoSo";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
     String _TrangThaiHoSo = CString.SafeString(Request.QueryString["_TrangThaiHoSo"]);
@@ -186,10 +186,10 @@
                                 <th style="text-align: center;" class="text-center">Số giấy đăng ký</th>
                                 <th style="text-align: center;" class="text-center">Trạng thái hồ sơ</th>
                                 <th style="text-align: center;" class="text-center">Kết quả xử lý</th>
-                                <th class="head-td-icon">Xem</th>
-                                <th class="head-td-icon">Người xem</th>
-                                <th class="head-td-icon">Gửi doanh nghiệp</th>
-                                <th class="head-td-icon">Quá hạn</th>
+                                <th style="width: 3%;">Xem</th>
+                                <th style="width: 3%;">Người xem</th>
+                                <th style="width: 3%;">Gửi doanh nghiệp</th>
+                                <th style="width: 3%;">Quá hạn</th>
 
                             </tr>
                             @{
@@ -226,7 +226,7 @@
                                             <td>@r["sSoGDK"]</td>
                                             <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
                                             <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
-                                            <td class="head-td-icon">@MvcHtmlString.Create(strView)</td>
+                                            <td style="width: 3%;">@MvcHtmlString.Create(strView)</td>
 
                                             <td style="width: 10px;" title="người xem">@r["sTenNguoiTiepNhan"]</td>
                                             <td style="width: 10px;" title="Gửi doanh nghiệp">

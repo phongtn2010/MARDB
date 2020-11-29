@@ -31,13 +31,8 @@
     Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
 
 
-    string TenBang = "BC_Vung";
+    string TenBang = "CNN25_HoSo";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
-
-    String _MaMien = CString.SafeString(Request.QueryString["_MaMien"]);
-    String _TieuDe = CString.SafeString(Request.QueryString["_TieuDe"]);
-    String _FromDate = CString.SafeString(Request.QueryString["_FromDate"]);
-    String _ToDate = CString.SafeString(Request.QueryString["_ToDate"]);
 
     SelectOptionList slMien = CMien.Get_Dropdown("--- Miền ---");
     int Page = Model.Page;
@@ -64,9 +59,15 @@
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
 
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoTiepNhanHoSo", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoTiepNhanHoSo", new { 
+        LoaiDanhSach = Model.LoaiDanhSach, 
+        sMaHoSo = Model.sMaHoSo, 
+        sTenDoanhNghiep = Model.sTenDoanhNghiep, 
+        sTenTACN = Model.sTenTACN, 
+        FromDate = Model.TuNgayDen, 
+        ToDate = Model.DenNgayDen, 
+        page = x }));
 
-    // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
 
 }
 <script type="text/javascript">
@@ -195,19 +196,19 @@
                                                 <td>@r["sTenTACN"]</td>
                                                 <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy")</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;" align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;" align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <span id="btnTiepNhan" class='badge bg-green btnTiepNhan' data-id="@r["iID_MaHoSo"]" style="cursor: pointer;"><i class='fa fa-fw fa-check'></i></span>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;" align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <a class="openyeucaubosung" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#YeuCauBoSung">
@@ -215,7 +216,7 @@
                                                         </a>
                                                     }
                                                 </td>
-                                                <td class="head-td-icon">
+                                                <td style="width: 3%;" align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         <a class="opentuchoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#TuChoi">
