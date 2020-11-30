@@ -918,6 +918,26 @@ function isValidDate(s) {
     return !!(d && (d.getMonth() + 1) == bits[1] && d.getDate() == Number(bits[0]));
 }
 
+function isValidDateDenNgay(tuNgay, denNgay) {
+    if (typeof tuNgay !== 'undefined' && tuNgay.length > 0 && isValidDate(tuNgay)) {
+        var bits = tuNgay.split('/');
+        var d = new Date(bits[2] + '/' + bits[1] + '/' + bits[0]);
+        if (typeof denNgay !== 'undefined' && denNgay.length > 0 && isValidDate(denNgay)) {
+            var bits1 = denNgay.split('/');
+            var d1 = new Date(bits1[2] + '/' + bits1[1] + '/' + bits1[0]);
+            var same = d.getTime() - d1.getTime();
+            if (d>d1) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        return true;
+    }
+    return true;
+}
+
 function checkvalidAndSubmit() {
     var tuNgay = $("#Index_viTuNgayDen").val();
     var denNgay = $("#Index_viDenNgayDen").val();
@@ -943,12 +963,22 @@ function checkvalidAndSubmit() {
         arrError[d] = ["Index_err_DenNgayDen", "Đến ngày không hợp lệ"];
         d = d + 1;
     }
+    if (!isValidDateDenNgay(tuNgay, denNgay)) {
+        arrError[d] = ["Index_err_TuNgayDen", "Từ ngày không được lớn hơn đến ngày"];
+        d = d + 1;
+    }
     if (typeof tuNgayTiepNhan !== 'undefined' && tuNgayTiepNhan.length > 0 && !isValidDate(tuNgayTiepNhan)) {
         arrError[d] = ["Index_err_TuNgayTiepNhan", "Từ ngày tiếp nhận không hợp lệ"]
         d = d + 1;
     }
+
     if (typeof denNgayTiepNhan !== 'undefined' && denNgayTiepNhan.length > 0 && !isValidDate(denNgayTiepNhan)) {
         arrError[d] = ["Index_err_DenNgayTiepNhan", "Đến ngày tiếp nhận không hợp lệ"]
+        d = d + 1;
+    }
+
+    if (!isValidDateDenNgay(tuNgayTiepNhan, denNgayTiepNhan)) {
+        arrError[d] = ["Index_err_TuNgayTiepNhan", "Từ ngày không được lớn hơn đến ngày"];
         d = d + 1;
     }
 
@@ -960,12 +990,23 @@ function checkvalidAndSubmit() {
         arrError[d] = ["Index_err_DenNgayXacNhan", "Ngày xác nhận không hợp lệ"]
         d = d + 1;
     }
+
+    if (!isValidDateDenNgay(tuNgayXacNhan, tuNgayXacNhan)) {
+        arrError[d] = ["Index_err_TuNgayXacNhan", "Từ ngày không được lớn hơn đến ngày"];
+        d = d + 1;
+    }
+
     if (typeof tuNgayThongBaoKetQua !== 'undefined' && tuNgayThongBaoKetQua.length > 0 && !isValidDate(tuNgayThongBaoKetQua)) {
         arrError[d] = ["Index_err_TuNgayThongBaoKetQua", "Ngày cấp không hợp lệ"]
         d = d + 1;
     }
+
     if (typeof denNgayThongBaoKetQua !== 'undefined' && denNgayThongBaoKetQua.length > 0 && !isValidDate(denNgayThongBaoKetQua)) {
         arrError[d] = ["Index_err_DenNgayThongBaoKetQua", "Ngày cấp không hợp lệ"]
+        d = d + 1;
+    }
+    if (!isValidDateDenNgay(tuNgayThongBaoKetQua, denNgayThongBaoKetQua)) {
+        arrError[d] = ["Index_err_TuNgayThongBaoKetQua", "Từ ngày không được lớn hơn đến ngày"];
         d = d + 1;
     }
     
