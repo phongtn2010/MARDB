@@ -14,6 +14,8 @@
     Layout = "~/Views/Shared/_Layout_cms.cshtml";
     string ParentID = "Edit";
     HoSoModels hoSo = clHoSo.GetHoSoById(Model.iID_MaHoSo);
+
+    HoSoXNCLModels hsXNCL = clHangHoa.GetHoSoXNCL(Model.iID_MaHoSo, Model.iID_MaHangHoa);
 }
 
 <script src="@(Url.Content("~/Content/plugins/jquery.wordexport/FileSaver.js"))"></script>
@@ -121,22 +123,22 @@
                                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>2. Căn cứ kiểm tra</b></p></td>
                                 </tr>
                                 <tr>
-                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Tiêu chuẩn công bố áp dụng (số hiệu TCCS): TCCS1????</p></td>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Tiêu chuẩn công bố áp dụng (số hiệu TCCS): @Model.sSoHieu</p></td>
                                 </tr>
                                 <tr>
-                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Quy chuẩn kỹ thuật <i>(nhóm, loại hàng hóa tại QCVN 01-190/BNNPTNT)</i>: Thức ăn truyền thống cám tại QCVN 01-190/BNNPTNT</p></td>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Quy chuẩn kỹ thuật <i>(nhóm, loại hàng hóa tại QCVN 01-190/BNNPTNT)</i>: @(Model.sTenNhom), @(Model.sTenLoaiHangHoa) tại @(Model.sQuyChuan)</p></td>
                                 </tr>
                                 <tr>
                                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>3. Kết quả đánh giá sự phù hợp</b></p></td>
                                 </tr>
                                 <tr>
-                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Giấy chứng nhận hợp quy lô TACN nhập khẩu số: 03432429/2020/CN</p></td>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Giấy chứng nhận hợp quy lô TACN nhập khẩu số: @(hsXNCL.sGiayChungNhan)</p></td>
                                 </tr>
                                 <tr>
-                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Do: Tổ chức chứng nhận VCNET</p></td>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Do: @(hsXNCL.sTenToChuc)</p></td>
                                 </tr>
                                 <tr>
-                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Cấp ngày: 20/11/2020</p></td>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Cấp ngày: @(hsXNCL.dNgayCap.ToString("dd/MM/yyyy"))</p></td>
                                 </tr>
                                 <tr>
                                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>4. Kết quả kiểm tra nhà nước</b></p></td>
