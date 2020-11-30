@@ -8,6 +8,7 @@
 @model HangHoaModels
 @{
     Layout = null;
+    String ServerURL = CHamRieng.Get_Domain();
     string ParentID = "TC";
     GiayChungNhanHopQuyModels giayChungNhan = clHangHoa.GetChungNhanHopQuy(Model.iID_MaHangHoa);
 
@@ -120,6 +121,7 @@
             </div>
             <div class="col-md-1">&nbsp;</div>
             <div class="col-md-6">
+                <script src="@(Url.Content("~/Content/plugins/pdf/pdf.js"))"></script>
                 <div id="divDinhKemXNCL" style="display: block; width: 100%;"></div>
             </div>
         </div>
