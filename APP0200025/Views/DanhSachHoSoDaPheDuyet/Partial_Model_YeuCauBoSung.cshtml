@@ -54,7 +54,7 @@
                                         Nhập lý do ý kiến<span style="color:#D9001B;"> (*)</span>
                                     </div>
                                     <div class="col-xs-10">
-                                        @MvcHtmlString.Create(MyHtmlHelper.TextArea(ParentID, "", "sNoiDung", "", "class=\"form-control\" cols=\"30\" rows='6'"))
+                                        @MvcHtmlString.Create(MyHtmlHelper.TextArea(ParentID, "", "sNoiDung", "", "class=\"form-control\" cols=\"30\" rows='6' maxlength='1000'"))
                                         @Html.ValidationMessage(ParentID + "_" + "err_sNoiDung")
                                     </div>
                                 </div>

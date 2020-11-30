@@ -544,5 +544,21 @@ namespace APP0200025.Controllers
             TempData["msg"] = "success";
             return RedirectToAction("BaoCao", models);
         }
+
+        public ActionResult BaoCaoTinhHinhXuLyHoSo(CBaoCaoSearch repSearch)
+        {
+            if (repSearch == null)
+            {
+                repSearch = new CBaoCaoSearch
+                {
+                    sMaHoSo = null,
+                    sMaSoThue = null,
+                    sTenDoanhNghiep = null
+                };
+            }
+
+            ViewData["menu"] = 224;
+            return View(repSearch);
+        }
     }
 }
