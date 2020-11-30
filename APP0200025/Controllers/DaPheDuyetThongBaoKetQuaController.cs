@@ -152,7 +152,7 @@ namespace APP0200025.Controllers
                     resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
                     resultConfirm.SignCerDate = hangHoa.dSoThongBaoKetQua_NgayKy;
                     resultConfirm.SignCerName = hangHoa.sSoThongBaoKetQua_NguoiKy;
-                    resultConfirm.ListHangHoa = clHangHoa.GetHoaGXNCL(hoSo.iID_MaHoSo);
+                    resultConfirm.ListHangHoa = clHangHoa.GetHoaGXNCL(hangHoa);
                     resultConfirm.PortOfDestinationName = hoSo.sMua_NoiNhan;
                     resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
                     resultConfirm.ImportingToDate = hoSo.sMua_ToDate;

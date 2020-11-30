@@ -250,29 +250,30 @@ namespace DATA0200025
             return lst;
         }
 
-        public static List<HangHoaGXNCL> GetHoaGXNCL(long iID_MaHoSo)
+        public static List<HangHoaGXNCL> GetHoaGXNCL(HangHoaModels hh)
         {
-            var hangHoas = GetListHangHoaByHoSo(iID_MaHoSo);
+            //var hangHoas = GetHangHoaById(Convert.ToInt64(iID_MaHangHoa)); 
+            
             List<HangHoaGXNCL> lst = new List<HangHoaGXNCL>();
             HangHoaGXNCL hanghoa;
-            foreach (var item in hangHoas)
+            if (hh != null)
             {
                 hanghoa = new HangHoaGXNCL
                 {
-                    GoodsId = item.iID_MaHangHoaNSW,
-                    NameOfGoods = item.sTenHangHoa,
-                    RegistrationNumber = item.sMaSoCongNhan,
-                    Manufacture = item.sHangSanXuat,
-                    ManufactureStateCode = item.sMaQuocGia,
-                    ManufactureState = item.sTenQuocGia
+                    GoodsId = hh.iID_MaHangHoaNSW,
+                    NameOfGoods = hh.sTenHangHoa,
+                    RegistrationNumber = hh.sMaSoCongNhan,
+                    Manufacture = hh.sHangSanXuat,
+                    ManufactureStateCode = hh.sMaQuocGia,
+                    ManufactureState = hh.sTenQuocGia
                 };
 
-                DataTable dtKL = Get_ThongTinKhoiLuong(item.iID_MaHangHoa);
+                DataTable dtKL = Get_ThongTinKhoiLuong(hh.iID_MaHangHoa);
                 List<QuantityVolumeList> lstSoLuong = new List<QuantityVolumeList>();
                 QuantityVolumeList ananytical;
-                if(dtKL.Rows.Count > 0)
+                if (dtKL.Rows.Count > 0)
                 {
-                    for(int i=0; i< dtKL.Rows.Count; i++)
+                    for (int i = 0; i < dtKL.Rows.Count; i++)
                     {
                         ananytical = new QuantityVolumeList
                         {
@@ -284,7 +285,7 @@ namespace DATA0200025
                             QuantityUnitName = Convert.ToString(dtKL.Rows[i]["sDonViTinhSL"])
                         };
                         lstSoLuong.Add(ananytical);
-                    }    
+                    }
                 }
                 dtKL.Dispose();
 
