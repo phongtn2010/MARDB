@@ -14,7 +14,7 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout_cms.cshtml";
     string ParentID = "Detail";
-    HoSoModels hoSoModels = clHoSo.GetHoSoById(Model.iID_MaHangHoa);
+    HoSoModels hoSoModels = clHoSo.GetHoSoById(Model.iID_MaHoSo);
 }
 <section class="content">
     <div class="row">
@@ -34,13 +34,13 @@
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoSoModels);}
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
-                        @{Html.RenderPartial("~/Views/Partial/Partial_HH_LichSuHoSo.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/Partial/Partial_LichSuHoSo.cshtml", hoSoModels);}
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_3">
                         @{Html.RenderPartial("~/Views/Partial/Partial_HoSoXinCapXNCL.cshtml", Model);}
                     </div><!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_4">
-                        @{Html.RenderPartial("~/Views/Partial/Partial_HH_LichSuHoSo.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/Partial/Partial_XNCL_ThongBaoKetQua.cshtml", Model);}
                     </div><!-- /.tab-pane -->
                 </div><!-- /.tab-content -->
                 <div class="box-footer clearfix text-center">

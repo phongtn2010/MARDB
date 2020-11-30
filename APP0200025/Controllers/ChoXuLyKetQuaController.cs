@@ -63,6 +63,7 @@ namespace APP0200025.Controllers
         public ActionResult EditSubmit(String ParentID)
         {
             string iID_MaHangHoa = Request.Form[ParentID + "_iID_MaHangHoa"];
+
             HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanKetQuaKiemTra, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
@@ -70,6 +71,7 @@ namespace APP0200025.Controllers
             bang.TruyenGiaTri(ParentID, Request.Form);
             bang.DuLieuMoi = false;
             bang.Save();
+
             clHangHoa.CleanNguoiXem(iID_MaHangHoa);
             
             return RedirectToAction("Index");
