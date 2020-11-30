@@ -44,8 +44,8 @@
                     @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa)
                     <div class="box-footer clearfix text-center">
                         <button class="btn btn-primary" type="submit">Tiếp nhận</button>
-                        <a class="btn btn-warning openyeucaubosung" style="background-color:#f1bc10;color:white;" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
-                        <a class="btn btn-danger" style="background-color:#023658;color:white;" id="btnThoat">Thoát</a>
+                        <a class="btn btn-warning openyeucaubosung" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#YeuCauBoSung" data-dismiss="modal" type="button">Yêu cầu bổ sung</a>
+                        <a class="btn btn-danger" id="btnThoat">Thoát</a>
 
                         @*<a class="btn btn-danger btn-block opentuchoi" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>*@
                     </div>
