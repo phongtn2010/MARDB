@@ -19,7 +19,7 @@
     }
     int i = 0;
 
-    String sKetQua = "";
+    String sKetQua = "", sLinkFile = "";
 }
 <section>
     <div class="box-body">
@@ -58,6 +58,8 @@
                 </div>
                 @if (giayChungNhan != null)
                 {
+                    sLinkFile = giayChungNhan.sDuongDan;
+
                     <div class="form-group">
                         <label for="">Số <span style="color:#FF0000"> (*)</span></label>
                         @MvcHtmlString.Create(MyHtmlHelper.Label(giayChungNhan.sSoChungNhan, "sMaHoSo", "", "type=\"text\" class=\"form-control\""))
@@ -81,7 +83,7 @@
                                     <td>1</td>
                                     <td>@giayChungNhan.sTenFile</td>
                                     <td align="center">
-                                        <span class='badge bg-blue btnview' data-src=" @giayChungNhan.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
+                                        <span class='badge bg-blue btnview' data-src="@giayChungNhan.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
                                     </td>
                                     <td align="center">
                                         <a href="@giayChungNhan.sDuongDan"><span class='badge bg-blue'><i class='fa fa-download'></i></span></a>
@@ -106,7 +108,7 @@
                                 <td>@i</td>
                                 <td>@item.sTenFile</td>
                                 <td align="center">
-                                    <span class='badge bg-blue btnview' data-src=" @item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
+                                    <span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
                                 </td>
                                 <td align="center">
                                     <a href="@item.sDuongDan"><span class='badge bg-blue'><i class='fa fa-download'></i></span></a>
@@ -118,8 +120,42 @@
             </div>
             <div class="col-md-1">&nbsp;</div>
             <div class="col-md-6">
-                <iframe id="ifViewFile" src="" style="height:800px; width:100%;"> </iframe>
+                <div id="divDinhKemXNCL" style="display: block; width: 100%;"></div>
             </div>
         </div>
     </div>
-</section>  
+</section>
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '.btnview', function (e) {
+            //debugger;
+            var filePath = $(this).data("src");
+            var n = filePath.indexOf(".pdf");
+            if (n > 0) {
+                $("#divDinhKemXNCL").html('<div><button id="prev">Trước</button><button id="next">Sau</button>&nbsp; &nbsp;<span>Trang: <span id="page_num"></span> / <span id="page_count"></span></span></div><div><canvas id="the-canvas" style="border: 1px solid black; direction: ltr; width: 100%;"></canvas> </div>');
+                loadPDF(filePath);
+            }
+            else {
+                $("#divDinhKemXNCL").html('<img id="imgDinhKem" style="width: 100%" />');
+                $("#imgDinhKem").attr('src', filePath);
+            }
+        });
+
+        loadPage_sub();
+    });
+
+    function loadPage_sub() {
+        var filePath = '@(sLinkFile)';
+        if (filePath != "") {
+            var n = filePath.indexOf(".pdf");
+            if (n > 0) {
+                $("#divDinhKemXNCL").html('<div><button id="prev">Trước</button><button id="next">Sau</button>&nbsp; &nbsp;<span>Trang: <span id="page_num"></span> / <span id="page_count"></span></span></div><div><canvas id="the-canvas" style="border: 1px solid black; direction: ltr; width: 100%;"></canvas> </div>');
+                loadPDF(filePath);
+            }
+            else {
+                $("#divDinhKemXNCL").html('<img id="imgDinhKem" style="width: 100%" />');
+                $("#imgDinhKem").attr('src', filePath);
+            }
+        }
+    }
+</script>
