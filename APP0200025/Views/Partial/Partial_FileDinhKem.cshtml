@@ -206,10 +206,8 @@
     });
 
     function loadPage() {
-        alert(0);
         var filePath = '@Convert.ToString(path[0])';
         if (filePath != "") {
-            alert(filePath);
             var n = filePath.indexOf(".pdf");
             if (n > 0) {
                 $("#divDinhKem").html('<div><button id="prev">Trước</button><button id="next">Sau</button>&nbsp; &nbsp;<span>Trang: <span id="page_num"></span> / <span id="page_count"></span></span></div><div><canvas id="the-canvas" style="border: 1px solid black; direction: ltr; width: 100%;"></canvas> </div>');
