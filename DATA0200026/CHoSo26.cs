@@ -154,34 +154,58 @@ namespace DATA0200026
 
             if (!string.IsNullOrEmpty(models.TuNgayDen))
             {
-                DK += " AND dNgayTaoHoSo >= @dTuNgay";
-                cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau(models.TuNgayDen));
+                //DK += " AND dNgayTaoHoSo >= @dTuNgay";
+                //cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau(models.TuNgayDen));
+
+                DK += " AND Cast(datediff(day, 0, dNgayTaoHoSo) as datetime) >= @dTuNgay";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau_YYYYMMDD(models.TuNgayDen));
             }
             if (!string.IsNullOrEmpty(models.DenNgayDen))
             {
-                DK += " AND dNgayTaoHoSo <= @dDenNgay";
-                cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau(models.DenNgayDen));
+                //DK += " AND dNgayTaoHoSo <= @dDenNgay";
+                //cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau(models.DenNgayDen));
+
+                DK += " AND Cast(datediff(day, 0, dNgayTaoHoSo) as datetime) <= @dDenNgay";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau_YYYYMMDD(models.DenNgayDen));
             }
 
             if (!string.IsNullOrEmpty(models.TuNgayTiepNhan))
             {
-                DK += " AND dNgayTiepNhan >= @TuNgayTiepNhan";
-                cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau(models.TuNgayTiepNhan));
+                //DK += " AND dNgayTiepNhan >= @TuNgayTiepNhan";
+                //cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau(models.TuNgayTiepNhan));
+
+                DK += " AND Cast(datediff(day, 0, dNgayTiepNhan) as datetime) >= @TuNgayTiepNhan";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau_YYYYMMDD(models.TuNgayTiepNhan));
             }
             if (!string.IsNullOrEmpty(models.DenNgayTiepNhan))
             {
-                DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
-                cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
+                //DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
+                //cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
+
+                DK += " AND Cast(datediff(day, 0, dNgayTiepNhan) as datetime) <= @DenNgayTiepNhan";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau_YYYYMMDD(models.DenNgayTiepNhan));
             }
+
             if (!string.IsNullOrEmpty(models.TuNgayXacNhan))
             {
-                DK += " AND dNgayXacNhan >= @TuNgayXacNhan";
-                cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau(models.TuNgayXacNhan));
+                //DK += " AND dNgayXacNhan >= @TuNgayXacNhan";
+                //cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau(models.TuNgayXacNhan));
+
+                DK += " AND Cast(datediff(day, 0, dNgayXacNhan) as datetime) >= @TuNgayXacNhan";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau_YYYYMMDD(models.TuNgayXacNhan));
             }
             if (!string.IsNullOrEmpty(models.DenNgayXacNhan))
             {
-                DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
-                cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
+                //DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
+                //cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
+
+                DK += " AND Cast(datediff(day, 0, dNgayXacNhan) as datetime) <= @DenNgayXacNhan";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau_YYYYMMDD(models.DenNgayXacNhan));
+            }
+            if (!string.IsNullOrEmpty(models.sSoTiepNhan))
+            {
+                DK += " AND sSoTiepNhan <= @sSoTiepNhan";
+                cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
             }
             if (models.iID_KetQuaXuLy > 0)
             {
@@ -226,35 +250,53 @@ namespace DATA0200026
 
             if (!string.IsNullOrEmpty(models.TuNgayDen))
             {
-                DK += " AND dNgayTaoHoSo >= @dTuNgay";
-                cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau(models.TuNgayDen));
+                //DK += " AND dNgayTaoHoSo >= @dTuNgay";
+                //cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau(models.TuNgayDen));
+
+                DK += " AND Cast(datediff(day, 0, dNgayTaoHoSo) as datetime) >= @dTuNgay";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau_YYYYMMDD(models.TuNgayDen));
             }
             if (!string.IsNullOrEmpty(models.DenNgayDen))
             {
-                DK += " AND dNgayTaoHoSo <= @dDenNgay";
-                cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau(models.DenNgayDen));
+                //DK += " AND dNgayTaoHoSo <= @dDenNgay";
+                //cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau(models.DenNgayDen));
+
+                DK += " AND Cast(datediff(day, 0, dNgayTaoHoSo) as datetime) <= @dDenNgay";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau_YYYYMMDD(models.DenNgayDen));
             }
 
             if (!string.IsNullOrEmpty(models.TuNgayTiepNhan))
             {
-                DK += " AND dNgayTiepNhan >= @TuNgayTiepNhan";
-                cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau(models.TuNgayTiepNhan));
+                //DK += " AND dNgayTiepNhan >= @TuNgayTiepNhan";
+                //cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau(models.TuNgayTiepNhan));
+
+                DK += " AND Cast(datediff(day, 0, dNgayTiepNhan) as datetime) >= @TuNgayTiepNhan";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@TuNgayTiepNhan", CommonFunction.LayNgayTuXau_YYYYMMDD(models.TuNgayTiepNhan));
             }
             if (!string.IsNullOrEmpty(models.DenNgayTiepNhan))
             {
-                DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
-                cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
+                //DK += " AND dNgayTiepNhan <= @DenNgayTiepNhan";
+                //cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau(models.DenNgayTiepNhan));
+
+                DK += " AND Cast(datediff(day, 0, dNgayTiepNhan) as datetime) <= @DenNgayTiepNhan";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@DenNgayTiepNhan", CommonFunction.LayNgayTuXau_YYYYMMDD(models.DenNgayTiepNhan));
             }
 
             if (!string.IsNullOrEmpty(models.TuNgayXacNhan))
             {
-                DK += " AND dNgayXacNhan >= @TuNgayXacNhan";
-                cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau(models.TuNgayXacNhan));
+                //DK += " AND dNgayXacNhan >= @TuNgayXacNhan";
+                //cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau(models.TuNgayXacNhan));
+
+                DK += " AND Cast(datediff(day, 0, dNgayXacNhan) as datetime) >= @TuNgayXacNhan";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@TuNgayXacNhan", CommonFunction.LayNgayTuXau_YYYYMMDD(models.TuNgayXacNhan));
             }
             if (!string.IsNullOrEmpty(models.DenNgayXacNhan))
             {
-                DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
-                cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
+                //DK += " AND dNgayXacNhan <= @DenNgayXacNhan";
+                //cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau(models.DenNgayXacNhan));
+
+                DK += " AND Cast(datediff(day, 0, dNgayXacNhan) as datetime) <= @DenNgayXacNhan";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@DenNgayXacNhan", CommonFunction.LayNgayTuXau_YYYYMMDD(models.DenNgayXacNhan));
             }
             if (!string.IsNullOrEmpty(models.sSoTiepNhan))
             {

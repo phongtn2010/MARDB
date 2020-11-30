@@ -147,6 +147,8 @@ namespace DATA0200025.WebServices
                     //Doi voi ho so là 2d --> Chuyen trang thai sang 4 và gui ban tin 22_25
                     if (iID_MaLoaiHoSo == 4)
                     {
+                        Task.Delay(1000).Wait();
+
                         int hs2D = CHoSo.XuLy_TuDong_HoSo_2D(iID_MaHoSo, sMaHoSo, "Bộ phận một cửa", sUserName, sIP);
                     }
                 }
