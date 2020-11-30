@@ -67,7 +67,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Ngày cấp <span style="color:#FF0000"> (*)</span></label>
-                        @MvcHtmlString.Create(MyHtmlHelper.Label(String.Format("{0:dd/MM/yyyyy}", giayChungNhan.dNgayCap), "sMaHoSo", "", "type=\"text\" class=\"form-control\""))
+                        @MvcHtmlString.Create(MyHtmlHelper.Label(giayChungNhan.dNgayCap.ToString("dd/MM/yyyy"), "sNgayCap", "", "type=\"text\" class=\"form-control\""))
                     </div>
                     <div class="form-group">
                         <label for="">File đính kèm <span style="color:#FF0000"> (*)</span></label>
@@ -84,7 +84,7 @@
                                     <td>1</td>
                                     <td>@giayChungNhan.sTenFile</td>
                                     <td align="center">
-                                        <span class='badge bg-blue btnview' data-src="@giayChungNhan.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
+                                        <span class='badge bg-blue btnShowFile' data-src="@giayChungNhan.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
                                     </td>
                                     <td align="center">
                                         <a href="@giayChungNhan.sDuongDan"><span class='badge bg-blue'><i class='fa fa-download'></i></span></a>
@@ -109,7 +109,7 @@
                                 <td>@i</td>
                                 <td>@item.sTenFile</td>
                                 <td align="center">
-                                    <span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
+                                    <span class='badge bg-blue btnShowFile' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
                                 </td>
                                 <td align="center">
                                     <a href="@item.sDuongDan"><span class='badge bg-blue'><i class='fa fa-download'></i></span></a>
@@ -121,7 +121,6 @@
             </div>
             <div class="col-md-1">&nbsp;</div>
             <div class="col-md-6">
-                <script src="@(Url.Content("~/Content/plugins/pdf/pdf.js"))"></script>
                 <div id="divDinhKemXNCL" style="display: block; width: 100%;"></div>
             </div>
         </div>
@@ -129,7 +128,7 @@
 </section>
 <script>
     $(document).ready(function () {
-        $(document).on('click', '.btnview', function (e) {
+        $(document).on('click', '.btnShowFile', function (e) {
             //debugger;
             var filePath = $(this).data("src");
             var n = filePath.indexOf(".pdf");
