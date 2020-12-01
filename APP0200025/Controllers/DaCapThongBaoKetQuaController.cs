@@ -124,6 +124,8 @@ namespace APP0200025.Controllers
             
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ThuHoiCongVan, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
 
+            DateTime dNgayThuHoi = DateTime.Now;
+
             //XML 20(23)
             ThuHoiGiayXNCL resultConfirm = new ThuHoiGiayXNCL();
             resultConfirm.NSWFileCode = hangHoa.sMaHoSo;
@@ -131,8 +133,8 @@ namespace APP0200025.Controllers
             resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
             resultConfirm.FileName = sFileName;
             resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
-            resultConfirm.CancelDate = DateTime.Now;
-            resultConfirm.SignConfirmDate = DateTime.Now;
+            resultConfirm.CancelDate = dNgayThuHoi;
+            resultConfirm.SignConfirmDate = dNgayThuHoi;
             resultConfirm.SignConfirmName = eCoQuanXuLy.sNguoiKy_Ten;
             resultConfirm.AniFeedResultNo = hangHoa.sSoThongBaoKetQua;//Số giấy xác nhận chất lượng (của BNN)
 
@@ -144,6 +146,7 @@ namespace APP0200025.Controllers
                 bang.TruyenGiaTri(ParentID, Request.Form);
                 bang.DuLieuMoi = false;
                 bang.GiaTriKhoa = iID_MaHangHoa;
+                bang.CmdParams.Parameters.AddWithValue("@dNgayThuHoi", dNgayThuHoi);
                 bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy ?? "");
                 bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
