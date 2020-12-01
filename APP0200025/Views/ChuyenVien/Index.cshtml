@@ -156,8 +156,12 @@
                                 </div>
                             </div>
                         </div>
-                       
                         <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-1 control-label">Trạng thái hồ sơ</label>
+                            <div class="col-xs-5">
+                                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, _TrangThaiHoSo, "iID_MaTrangThai", "", "class=\"form-control\""))
+                                @* @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"\" type=\"text\" class=\"form-control\""))*@
+                            </div>
                             <label for="inputEmail3" class="col-sm-1 control-label">Kết quả xử lý</label>
                             <div class="col-xs-5">
                                 <select class="form-control" id="Index_iID_KetQuaXuLy" name="Index_iID_KetQuaXuLy">
@@ -169,6 +173,7 @@
                                 @*@MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"Kết quả xử lý\" type=\"text\" class=\"form-control\""))*@
                             </div>
                         </div>
+                    
 
                     </div><!-- /.box-body -->
                     <div class="box-footer clearfix text-align-center">
