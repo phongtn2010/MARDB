@@ -251,8 +251,19 @@ namespace APP0200025.Controllers
                         }
                     }
                 }
+                int hanhDong = 0;
+                switch(hanghoa.iID_MaTrangThai)
+                {
+                    case 34:
+                        hanhDong = (int)clHanhDong.HanhDong.TuChoiYeuCauBoSungTraLaiChuyenVien;
+                        break;
+                    case 35:
+                    case 43:
+                        hanhDong = (int)clHanhDong.HanhDong.TuChoiXemXetThongBaoKetQua;
+                        break;
 
-                TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoPhong, (int)clHanhDong.HanhDong.TuChoiXemXetThongBaoKetQua, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
+                }    
+                TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoPhong, hanhDong, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
 
                 bang.MaNguoiDungSua = User.Identity.Name;
                 bang.IPSua = Request.UserHostAddress;
