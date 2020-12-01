@@ -62,7 +62,7 @@
 
 
     DataRow r;
-    SelectOptionList ttDDL = clTrangThai.GetDDL();
+    SelectOptionList ttDDL = clTrangThai.GetTrangThai_XMCL_ChuyenVien();
     String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoXuLyKetQua", new {
         LoaiDanhSach = (int)clLoaiDanhSach.From.ChoXemXetKetQua,
         iID_MaLoaiHoSo = 3,//Chuyen viên lãnh đạo phòng, lãnh đạo cục chỉ xử lý hồ sơ 2c
@@ -165,9 +165,8 @@
                             <div class="col-xs-5">
                                 <select class="form-control" id="Index_iID_MaTrangThai" name="Index_iID_MaTrangThai">
                                     <option>--Tất cả--</option>
-                                    <option value="1">Đạt cấp giấy đăng ký</option>
-                                    <option value="2">Từ chối cấp GĐK</option>
-                                    <option value="3">Yêu cầu bổ xung</option>
+                                    <option value="4">Yêu cầu bổ sung kết quả đánh giá sự phù hợp</option>
+                                    <option value="5">Thông báo kết quả kiểm tra</option>
                                 </select>
                             </div>
                         </div>

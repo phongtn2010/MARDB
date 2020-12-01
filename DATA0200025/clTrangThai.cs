@@ -120,5 +120,17 @@ namespace DATA0200025
             return DDL;
         }
 
+        public static SelectOptionList GetTrangThai_XMCL_ChuyenVien()
+        {
+            string SQL = @"SELECT * FROM CNN25_TrangThai WHERE iID_MaTrangThai IN(32,37,39,34)";
+            SqlCommand cmd = new SqlCommand(SQL);
+            DataTable dt = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+            cmd.Dispose();
+            dt.Rows.InsertAt(dt.NewRow(), 0);
+            dt.Rows[0]["iID_MaTrangThai"] = 0;
+            dt.Rows[0]["sTen"] = "-- Tất cả --";
+            SelectOptionList DDL = new SelectOptionList(dt, "iID_MaTrangThai", "sTen");
+            return DDL;
+        }
     }
 }
