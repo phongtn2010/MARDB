@@ -64,7 +64,19 @@
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetTrangThai_XNCL_LDP();
     SelectOptionList ttDDLFull = clTrangThai.GetDDL();
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoXemXetKetQua", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoXemXetKetQua", new {
+        LoaiDanhSach = Model.LoaiDanhSach,
+        iID_MaLoaiHoSo = 3,//Chuyen viên lãnh đạo phòng, lãnh đạo cục chỉ xử lý hồ sơ 2c
+        sMaHoSo = Model.sMaHoSo,
+        sTenDoanhNghiep = Model.sTenDoanhNghiep,
+        sTenTACN = Model.sTenTACN,
+        TuNgayDen = Model.TuNgayDen,
+        DenNgayDen = Model.DenNgayDen,
+        sSoTiepNhan = Model.sSoTiepNhan,
+        TuNgayTiepNhan = Model.TuNgayTiepNhan,
+        DenNgayTiepNhan = Model.DenNgayTiepNhan,
+        iID_MaTrangThai = Model.iID_MaTrangThai,
+        page = x }));
 
 }
 <script type="text/javascript">
