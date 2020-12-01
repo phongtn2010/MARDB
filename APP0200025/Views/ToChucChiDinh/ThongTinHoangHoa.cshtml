@@ -107,6 +107,8 @@
 
                                             int iTrangThai = Convert.ToInt32(R["iID_MaTrangThai"]);
 
+                                            APP0200025.Controllers.ToChucChiDinhController.ToChucChiDinh toChucChiDinh = APP0200025.Controllers.ToChucChiDinhController.LayThongTinChungNhanHopQuy(R["iID_MaHoSo"].ToString(), R["iID_MaHangHoa"].ToString());
+
                                             String strInsert = MyHtmlHelper.ActionLink(Url.Action("KetQuaUpload", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], sTenHangHoa = R["sTenHangHoa"], iID_MaHangHoa = R["iID_MaHangHoa"], _sMaHoSo = _sMaHoSo, _sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-pencil'></i></span>", "Edit", "");
                                             String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiKetQua", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], iID_MaHangHoa = R["iID_MaHangHoa"], sMaHoSo = _sMaHoSo, sTenHangHoa = R["sTenHangHoa"], sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-fw fa-paper-plane-o'></i></span>", "Edit", "onclick=\"sendConfim(this);\"");
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("XemKetQuaUpload", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], sTenHangHoa = R["sTenHangHoa"], iID_MaHangHoa = R["iID_MaHangHoa"], _sMaHoSo = _sMaHoSo, _sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Edit", "");
@@ -124,7 +126,14 @@
                                                     @{
                                                         if (iTrangThai == 27)
                                                         {
-                                                            @MvcHtmlString.Create(strSend)
+                                                            if (toChucChiDinh.ThongTin != null)
+                                                            {
+                                                                @MvcHtmlString.Create(strSend)
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Chưa xử lý</span>
+                                                            }
                                                         }
                                                     }
                                                 </td>
