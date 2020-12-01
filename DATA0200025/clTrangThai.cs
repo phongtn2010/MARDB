@@ -132,6 +132,10 @@ namespace DATA0200025
             SelectOptionList DDL = new SelectOptionList(dt, "iID_MaTrangThai", "sTen");
             return DDL;
         }
+        public static SelectOptionList GetTrangThai_LDP()
+        {
+            return Get_TrangThai("10,13,17,20");//"34,35,36,40,43" bỏ 35 vì tên trạng thái giống nhau, nhưng tìm kiếm chọn 34 select cả 35
+        }
         public static SelectOptionList GetTrangThai_XNCL_LDP()
         {
             return Get_TrangThai("34,36,40,43");//"34,35,36,40,43" bỏ 35 vì tên trạng thái giống nhau, nhưng tìm kiếm chọn 34 select cả 35
