@@ -177,7 +177,7 @@ namespace DATA0200025.WebServices
 
             CLogNSW.Add(WsConstants.MessageType.TYPE_19 + "_" + WsConstants.MessageFunction.FUNCTION_22, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");
 
-            return response.GetErrors();
+            return response.GetFunction();
         }
 
         public string ThuHoiGiayXNCL(string nswFileCode, ThuHoiGiayXNCL objData)

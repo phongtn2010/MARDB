@@ -171,7 +171,7 @@ namespace APP0200025.Controllers
 
                     error = _sendService.GiayXNCL(hangHoa.sMaHoSo, resultConfirm);
                 }
-                if (error == "99")
+                if (error.Equals("99"))
                 {
                     bang.MaNguoiDungSua = User.Identity.Name;
                     bang.IPSua = Request.UserHostAddress;

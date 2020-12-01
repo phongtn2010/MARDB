@@ -132,11 +132,9 @@ namespace APP0200025.Controllers
             resultConfirm.FileName = sFileName;
             resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
             resultConfirm.CancelDate = DateTime.Now;
-            resultConfirm.CancelDateString = "";
             resultConfirm.SignConfirmDate = DateTime.Now;
-            resultConfirm.SignConfirmDateString = "";
-            resultConfirm.SignConfirmName = "";
-            resultConfirm.AniFeedResultNo = "";//Số giấy xác nhận chất lượng (của BNN)
+            resultConfirm.SignConfirmName = eCoQuanXuLy.sNguoiKy_Ten;
+            resultConfirm.AniFeedResultNo = hangHoa.sSoThongBaoKetQua;//Số giấy xác nhận chất lượng (của BNN)
 
             string error = _sendService.ThuHoiGiayXNCL(hangHoa.sMaHoSo, resultConfirm);
             if (error.Equals("99"))
