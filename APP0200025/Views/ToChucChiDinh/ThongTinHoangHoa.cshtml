@@ -118,7 +118,18 @@
                                                 <td>@R["sTenHangHoa"]</td>
                                                 <td>@R["rSoLuong"]</td>
                                                 <td>@R["rKhoiLuong"]</td>
-                                                <td style="text-align: center;">1</td>
+                                                <td style="text-align: center;">
+                                                    @{
+                                                        if (toChucChiDinh.ThongTin != null)
+                                                        {
+                                                            <span>Đã xử lý</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Chưa xử lý</span>
+                                                        }
+                                                    }
+                                                </td>
                                                 <td style='text-align:center;'>
                                                     @MvcHtmlString.Create(strInsert)
                                                 </td>
