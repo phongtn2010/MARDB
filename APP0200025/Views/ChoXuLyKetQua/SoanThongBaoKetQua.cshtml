@@ -15,6 +15,18 @@
     string ParentID = "Edit";
     HoSoModels hoSo = clHoSo.GetHoSoById(Model.iID_MaHoSo);
 
+    String sKhoiLuong = "", sSoLuong = "";
+    DataTable dtKhoiLuong = clHangHoa.Get_ThongTinKhoiLuong(Model.iID_MaHangHoa);
+    if (dtKhoiLuong.Rows.Count > 0)
+    {
+        for (int k = 0; k < dtKhoiLuong.Rows.Count; k++)
+        {
+            sKhoiLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhKL"]) + "; ";
+            sSoLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rSoLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhSL"]) + "; ";
+        }
+    }
+    dtKhoiLuong.Dispose();
+
     HoSoXNCLModels hsXNCL = clHangHoa.GetHoSoXNCL(Model.iID_MaHoSo, Model.iID_MaHangHoa);
 }
 
@@ -23,7 +35,7 @@
 <section class="content">
     @using (Html.BeginForm("EditSubmit", "ChoXuLyKetQua", new { ParentID = ParentID }))
     {
-        <input type="hidden" id="Edit_iID_MaHangHoa" name="Edit_iID_MaHangHoa" value="@Model.iID_MaHangHoa" />
+        <input type="hidden" id="@(ParentID)_iID_MaHangHoa" name="@(ParentID)_iID_MaHangHoa" value="@Model.iID_MaHangHoa" />
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-danger">
@@ -74,9 +86,9 @@
                                                 <td align="center" style="width: 10%;"><b>Mã số công nhận</b></td>
                                                 <td align="center" style="width: 15%;"><b>Hãng sản xuất</b></td>
                                                 <td align="center" style="width: 15%;"><b>Nước sản xuất</b></td>
-                                                <td align="center" style="width: 15%;"><b>Khối lượng</b></td>
-                                                <td align="center" style="width: 15%;"><b>Số lượng</b></td>
-                                                <td align="center" style="width: 10%;"><b>Ghi chú</b></td>
+                                                <td align="center" style="width: 10%;"><b>Khối lượng</b></td>
+                                                <td align="center" style="width: 10%;"><b>Số lượng</b></td>
+                                                <td align="center" style="width: 15%;"><b>Ghi chú</b></td>
                                             </tr>
                                             <tr style="height: 25px;">
                                                 <td align="center">1</td>
@@ -84,9 +96,9 @@
                                                 <td align="left">@Model.sMaSoCongNhan</td>
                                                 <td align="left">@Model.sHangSanXuat</td>
                                                 <td align="left">@Model.sTenQuocGia</td>
-                                                <td align="left">1300 KLGRM; 2300 KLGRM</td>
-                                                <td align="left">3 Kiện/Hộp/Bao</td>
-                                                <td align="left">@Model.sGhiChu</td>
+                                                <td align="left">@(sKhoiLuong)</td>
+                                                <td align="left">@(sSoLuong)</td>
+                                                <td align="left">@MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sGhiChu, "sGhiChu", "", "type=\"text\" placeholder=\"Ghi chú\" class=\"form-control\""))</td>
                                             </tr>
                                         </table>
                                     </td>
