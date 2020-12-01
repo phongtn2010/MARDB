@@ -146,14 +146,14 @@
                         <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
                             <thead>
                                 <tr>
-                                    <th class="sorting_asc" style="width: 3%;" align="center">STT</th>
-                                    <th class="sorting" style="width: 12%;" align="center">Mã hồ sơ</th>
-                                    <th class="sorting" style="text-align: center;" align="center">Doanh nghiệp</th>
-                                    <th class="sorting" style="width: 20%; text-align: center;" align="center">Tên TACN</th>
-                                    <th class="sorting" style="width: 10%; text-align: center;" align="center">Ngày đến</th>
-                                    <th class="sorting" style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
-                                    <th class="sorting" style="width: 5%;">Xem</th>
-                                    <th class="sorting" style="width: 5%;">Tiếp nhận</th>
+                                    <th style="width: 3%;" align="center">STT</th>
+                                    <th style="width: 12%;" align="center">Mã hồ sơ</th>
+                                    <th style="text-align: center;" align="center">Doanh nghiệp</th>
+                                    <th style="width: 20%; text-align: center;" align="center">Tên TACN</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Ngày đến</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
+                                    <th style="width: 3%;">Xem</th>
+                                    <th style="width: 3%;">Tiếp nhận</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -185,13 +185,13 @@
                                                 <td>@r["sTenTACN"]</td>
                                                 <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy HH:mm")</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ddtTrangThai, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-                                                <td style="width: 3%;">
+                                                <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         @MvcHtmlString.Create(strView)
                                                     }
                                                 </td>
-                                                <td style="width: 3%;">
+                                                <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
                                                         if (iTrangThai == 1)
