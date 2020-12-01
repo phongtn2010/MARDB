@@ -63,17 +63,29 @@ namespace APP0200025.Controllers
         public ActionResult EditSubmit(String ParentID)
         {
             string iID_MaHangHoa = Request.Form[ParentID + "_iID_MaHangHoa"];
+            string _sGhiChu = Request.Form[ParentID + "_sGhiChu"];
+            if(String.IsNullOrEmpty(iID_MaHangHoa) == false)
+            {
+                HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
 
-            HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
-            TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanKetQuaKiemTra, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
-            bang.MaNguoiDungSua = User.Identity.Name;
-            bang.IPSua = Request.UserHostAddress;
-            bang.TruyenGiaTri(ParentID, Request.Form);
-            bang.DuLieuMoi = false;
-            bang.Save();
+                TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanKetQuaKiemTra, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
 
-            clHangHoa.CleanNguoiXem(iID_MaHangHoa);
-            
+                bang.MaNguoiDungSua = User.Identity.Name;
+                bang.IPSua = Request.UserHostAddress;
+                //bang.TruyenGiaTri(ParentID, Request.Form);
+                bang.DuLieuMoi = false;
+                bang.GiaTriKhoa = iID_MaHangHoa;
+                bang.CmdParams.Parameters.AddWithValue("@sGhiChu", _sGhiChu);
+                bang.Save();
+
+                TempData["msg"] = "success";
+
+                clHangHoa.CleanNguoiXem(iID_MaHangHoa);
+            }    
+            else
+            {
+                TempData["msg"] = "error";
+            }
             return RedirectToAction("Index");
         }
         /// <summary>
@@ -229,6 +241,7 @@ namespace APP0200025.Controllers
             {
                 HangHoaModels hangHoa = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.SoanThongBaoKetQuaKiemTra, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
+
                 bang.MaNguoiDungSua = User.Identity.Name;
                 bang.IPSua = Request.UserHostAddress;
                 bang.DuLieuMoi = false;

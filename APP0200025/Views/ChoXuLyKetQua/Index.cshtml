@@ -63,9 +63,19 @@
 
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoXuLyKetQua", new { _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
-
-    // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoXuLyKetQua", new {
+        LoaiDanhSach = (int)clLoaiDanhSach.From.ChoXemXetKetQua,
+        iID_MaLoaiHoSo = 3,//Chuyen viên lãnh đạo phòng, lãnh đạo cục chỉ xử lý hồ sơ 2c
+        sMaHoSo = Model.sMaHoSo,
+        sTenDoanhNghiep = Model.sTenDoanhNghiep,
+        sTenTACN = Model.sTenTACN,
+        TuNgayDen = Model.TuNgayDen,
+        DenNgayDen = Model.DenNgayDen,
+        sSoTiepNhan = Model.sSoTiepNhan,
+        TuNgayTiepNhan = Model.TuNgayTiepNhan,
+        DenNgayTiepNhan = Model.DenNgayTiepNhan,
+        iID_MaTrangThai = Model.iID_MaTrangThai,
+        page = x }));
 
 }
 <script type="text/javascript">
@@ -150,19 +160,7 @@
                             <label for="inputEmail3" class="col-sm-1 control-label">Trạng thái hồ sơ</label>
                             <div class="col-xs-5">
                                 @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, _TrangThaiHoSo, "iID_MaTrangThai", "", "class=\"form-control\""))
-                                @* @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"\" type=\"text\" class=\"form-control\""))*@
                             </div>
-                            <label for="inputEmail3" class="col-sm-1 control-label">Quá hạn</label>
-                            <div class="col-xs-5">
-                                @*@MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"\" type=\"text\" class=\"form-control\""))*@
-                                <select class="form-control" id="Index_iID_QuaHan" name="Index_iID_QuaHan">
-                                    <option>--Tất cả--</option>
-                                    <option value="1">Chưa tới hạn</option>
-                                    <option value="2">Quá hạn</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="inputEmail3" class="col-sm-1 control-label">Kết quả xử lý</label>
                             <div class="col-xs-5">
                                 <select class="form-control" id="Index_iID_MaTrangThai" name="Index_iID_MaTrangThai">
@@ -171,10 +169,8 @@
                                     <option value="2">Từ chối cấp GĐK</option>
                                     <option value="3">Yêu cầu bổ xung</option>
                                 </select>
-                                @*@MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"Kết quả xử lý\" type=\"text\" class=\"form-control\""))*@
                             </div>
                         </div>
-
                     </div><!-- /.box-body -->
                     <div class="box-footer clearfix text-align-center">
                         <button class="btn btn-primary" type="submit">Tìm kiếm</button>
@@ -254,10 +250,7 @@
                                                 <td>@r["sKetQuaXuLy"]</td>
                                                 <td align="center">@MvcHtmlString.Create(strView)</td>
                                                 <td align="center">
-                                                    @if (!bThuHoi)
-                                                    {
-                                                        @MvcHtmlString.Create(strSoanPhuLuc)
-                                                    }
+                                                    @MvcHtmlString.Create(strSoanPhuLuc)
                                                 </td>
                                                 <td align="center">
                                                     @if (!bThuHoi)

@@ -523,7 +523,7 @@ namespace APP0200025.Controllers
 
                 bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua", taoSoTB.SoTB);
                 bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NoiKy", eCoQuanXuLy.sNguoiKy_NoiKy);
-                bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NgayKy", DateTime.Now);
+                bangHH.CmdParams.Parameters.AddWithValue("@dSoThongBaoKetQua_NgayKy", DateTime.Now);
                 bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NguoiKy", eCoQuanXuLy.sNguoiKy_Ten);
 
                 bangHH.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
@@ -570,7 +570,7 @@ namespace APP0200025.Controllers
 
                     bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua", taoSoTB.SoTB);
                     bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NoiKy", eCoQuanXuLy.sNguoiKy_NoiKy);
-                    bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NgayKy", DateTime.Now);
+                    bangHH.CmdParams.Parameters.AddWithValue("@dSoThongBaoKetQua_NgayKy", DateTime.Now);
                     bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NguoiKy", eCoQuanXuLy.sNguoiKy_Ten);
 
                     if (i == 0)

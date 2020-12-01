@@ -84,6 +84,7 @@ $(function () {
 $(function () {
     $("body").on("click", "#btnTrinhLanhDao", function () {
         var iID_MaHangHoa = $("#Edit_iID_MaHangHoa").val();
+        //var iID_MaHangHoa = $(this).data("id");
         $.ajax({
             url: ServerUrl + '/ChoXuLyKetQua/TrinhLanhDao',
             type: 'POST',
