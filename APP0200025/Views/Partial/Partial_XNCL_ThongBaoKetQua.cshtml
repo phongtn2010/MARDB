@@ -37,6 +37,8 @@
         }
     }
     dtKhoiLuong.Dispose();
+
+    HoSoXNCLModels hsXNCL = clHangHoa.GetHoSoXNCL(Model.iID_MaHoSo, Model.iID_MaHangHoa);
 }
 @*<script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/FileSaver.js"></script>
     <script src="https://www.jqueryscript.net/demo/Export-Html-To-Word-Document-With-Images-Using-jQuery-Word-Export-Plugin/jquery.wordexport.js"></script>*@
@@ -205,7 +207,16 @@
                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>3. Kết quả đánh giá sự phù hợp</b></p></td>
                 </tr>
                 <tr>
-                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Giấy chứng nhận hợp quy lô TACN nhập khẩu số: 03432429/2020/CN do tổ chức chứng nhận VCNET cấp ngày: 20/11/2020.</p></td>
+                    @{
+                        if (hsXNCL != null)
+                        {
+                            <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Giấy chứng nhận hợp quy lô TACN nhập khẩu số: @(hsXNCL.sGiayChungNhan) do tổ chức chứng nhận @(hsXNCL.sTenToChuc) cấp ngày: @(hsXNCL.dNgayCap.ToString("dd/MM/yyyy")).</p></td>
+                        }
+                        else
+                        {
+                            <td align="left" colspan="2" style="padding: 5px 0px;"><p>+ Giấy chứng nhận hợp quy lô TACN nhập khẩu số: ...... do tổ chức chứng nhận ...... cấp ngày: .../.../.......</p></td>
+                        }
+                    }
                 </tr>
                 <tr>
                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>4. Kết quả kiểm tra nhà nước</b></p></td>
