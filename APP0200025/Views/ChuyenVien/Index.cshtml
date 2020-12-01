@@ -156,22 +156,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-1 control-label">Trạng thái hồ sơ</label>
-                            <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, _TrangThaiHoSo, "iID_MaTrangThai", "", "class=\"form-control\""))
-                                @* @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"\" type=\"text\" class=\"form-control\""))*@
-                            </div>
-                            <label for="inputEmail3" class="col-sm-1 control-label">Quá hạn</label>
-                            <div class="col-xs-5">
-                                @*@MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sTenDoanhNghiep, "sTenDoanhNghiep", "", "placeholder=\"\" type=\"text\" class=\"form-control\""))*@
-                                <select class="form-control" id="Index_iID_QuaHan" name="Index_iID_QuaHan">
-                                    <option>--Tất cả--</option>
-                                    <option value="1">Chưa tới hạn</option>
-                                    <option value="2">Quá hạn</option>
-                                </select>
-                            </div>
-                        </div>
+                       
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-1 control-label">Kết quả xử lý</label>
                             <div class="col-xs-5">

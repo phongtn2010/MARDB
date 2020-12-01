@@ -153,6 +153,7 @@ namespace APP0200025.Controllers
             if (String.IsNullOrEmpty(iID_MaHangHoa) == false)
             {
                 HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
+                
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoPhong, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
                 bang.MaNguoiDungSua = User.Identity.Name;
                 bang.IPSua = Request.UserHostAddress;

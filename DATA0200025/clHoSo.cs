@@ -1104,8 +1104,19 @@ namespace DATA0200025
             }
             else
             {
-                DKHH += " AND iID_MaTrangThai=@iID_MaTrangThai";
-                cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
+                if(models.LoaiDanhSach==11 && (models.iID_MaTrangThai==34 || models.iID_MaTrangThai == 35))//xncl_ldp
+                {
+                    // xử lý trường hợp trạng thái 34, 35 trùng tên nhưng combo chỉ cần chọn 1 trạng thái 34 là select cả 35
+                    DKHH += " AND (iID_MaTrangThai=@iID_MaTrangThai OR iID_MaTrangThai=@iID_MaTrangThai1)";
+                    cmd.Parameters.AddWithValue("@iID_MaTrangThai", 34);
+                    cmd.Parameters.AddWithValue("@iID_MaTrangThai1", 35);
+                }
+                else
+                {
+                    DKHH += " AND iID_MaTrangThai=@iID_MaTrangThai";
+                    cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
+                }
+              
             }
             if(!string.IsNullOrEmpty(models.sTenTACN))
             {

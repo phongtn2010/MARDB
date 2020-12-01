@@ -132,5 +132,26 @@ namespace DATA0200025
             SelectOptionList DDL = new SelectOptionList(dt, "iID_MaTrangThai", "sTen");
             return DDL;
         }
+        public static SelectOptionList GetTrangThai_XNCL_LDP()
+        {
+            return Get_TrangThai("34,36,40,43");//"34,35,36,40,43" bỏ 35 vì tên trạng thái giống nhau, nhưng tìm kiếm chọn 34 select cả 35
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="maTrangThais">"32,37,39,34"</param>
+        /// <returns></returns>
+        public static SelectOptionList Get_TrangThai(string maTrangThais)
+        {
+            string SQL = string.Format("SELECT * FROM CNN25_TrangThai WHERE iID_MaTrangThai IN({0})", maTrangThais);
+            SqlCommand cmd = new SqlCommand(SQL);
+            DataTable dt = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+            cmd.Dispose();
+            dt.Rows.InsertAt(dt.NewRow(), 0);
+            dt.Rows[0]["iID_MaTrangThai"] = 0;
+            dt.Rows[0]["sTen"] = "-- Tất cả --";
+            SelectOptionList DDL = new SelectOptionList(dt, "iID_MaTrangThai", "sTen");
+            return DDL;
+        }
     }
 }
