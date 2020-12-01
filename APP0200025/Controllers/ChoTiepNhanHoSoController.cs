@@ -86,18 +86,20 @@ namespace APP0200025.Controllers
 
                 if (error == "99")
                 {
+                    DateTime dNgayTiepNhan = DateTime.Now;
                     bang.MaNguoiDungSua = User.Identity.Name;
                     bang.IPSua = Request.UserHostAddress;
                     bang.DuLieuMoi = false;
                     bang.TruyenGiaTri(ParentID, Request.Form);
                     bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
                     bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
-                    bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
+                    bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", dNgayTiepNhan);
                     bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
                     bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
                     bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
                     bang.Save();
 
+                    clHangHoa.UpdateNgayTiepNhanHoSo(Convert.ToInt64(iID_MaHoSo), dNgayTiepNhan);
 
                     clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
@@ -141,6 +143,7 @@ namespace APP0200025.Controllers
                 string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
                 if (error == "99")
                 {
+                    DateTime dNgayTiepNhan = DateTime.Now;
                     bang.MaNguoiDungSua = User.Identity.Name;
                     bang.IPSua = Request.UserHostAddress;
                     bang.DuLieuMoi = false;
@@ -152,7 +155,7 @@ namespace APP0200025.Controllers
                     bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
                     bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
                     bang.Save();
-
+                    clHangHoa.UpdateNgayTiepNhanHoSo(Convert.ToInt64(iID_MaHoSo), dNgayTiepNhan);
                     clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, "Tiếp nhận hồ sơ", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
                     result.success = true;

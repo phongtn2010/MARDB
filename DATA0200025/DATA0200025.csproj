@@ -30,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
@@ -148,6 +149,7 @@
     <Compile Include="Models\DoiTuongModels.cs" />
     <Compile Include="Models\HoSoModels.cs" />
     <Compile Include="Models\HoSoXNCLModels.cs" />
+    <Compile Include="Models\ReportSearchModels.cs" />
     <Compile Include="Models\ResultModels.cs" />
     <Compile Include="Models\TrangThaiModels.cs" />
     <Compile Include="MoKyCacBang.cs" />

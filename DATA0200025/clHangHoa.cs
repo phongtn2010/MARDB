@@ -296,5 +296,19 @@ namespace DATA0200025
             }
             return lst;
         }
+        /// <summary>
+        /// Update ngay tiếp nhận để select cho nhanh
+        /// </summary>
+        /// <param name="iID_MaHoSo"></param>
+        /// <param name="dNgayTiepNhan"></param>
+        public static void UpdateNgayTiepNhanHoSo(long iID_MaHoSo,DateTime dNgayTiepNhan)
+        {
+            string SQL = "UPDATE CNN25_HangHoa SET dNgayTiepNhanHoSo=@dNgayTiepNhanHoSo WHERE iID_MaHoSo=@iID_MaHoSo";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@dNgayTiepNhanHoSo", dNgayTiepNhan);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            Connection.UpdateDatabase(cmd);
+            cmd.Dispose();
+        }
     }
 }
