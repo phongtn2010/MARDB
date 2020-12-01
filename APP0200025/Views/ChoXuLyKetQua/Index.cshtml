@@ -64,7 +64,7 @@
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetTrangThai_XMCL_ChuyenVien();
     String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChoXuLyKetQua", new {
-        LoaiDanhSach = (int)clLoaiDanhSach.From.ChoXemXetKetQua,
+        LoaiDanhSach = (int)clLoaiDanhSach.From.ChoXuLyKetQua,
         iID_MaLoaiHoSo = 3,//Chuyen viên lãnh đạo phòng, lãnh đạo cục chỉ xử lý hồ sơ 2c
         sMaHoSo = Model.sMaHoSo,
         sTenDoanhNghiep = Model.sTenDoanhNghiep,

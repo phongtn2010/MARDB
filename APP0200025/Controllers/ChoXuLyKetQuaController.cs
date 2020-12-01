@@ -25,7 +25,7 @@ namespace APP0200025.Controllers
                 models = new sHoSoModels
                 {
                     LoaiDanhSach = (int)clLoaiDanhSach.From.ChoXuLyKetQua,
-                    iID_MaLoaiHoSo=3,//Chuyen viên chỉ xử lý hồ sơ 2c
+                    iID_MaLoaiHoSo = 3,//Chuyen viên chỉ xử lý hồ sơ 2c
                     Page = 1,
                     PageSize = Globals.PageSize
                 };

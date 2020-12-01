@@ -67,7 +67,7 @@ namespace DATA0200025
 
         public static DataTable GetDataTable(long iID_MaHoSo)
         {
-            string SQL = "SELECT * FROM CNN25_LichSuHoSo WHERE iID_MaHoSo=@iID_MaHoSo ORDER By id";
+            string SQL = "SELECT * FROM CNN25_LichSuHoSo WHERE iID_MaHoSo=@iID_MaHoSo ORDER By dThoiGian DESC";
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
             DataTable dt = Connection.GetDataTable(cmd);
