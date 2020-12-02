@@ -115,72 +115,66 @@ namespace APP0200025.Controllers
                 for (int i = 0; i < arr.Length; i++)
                 {
                     string iID_MaHoSo = arr[i];
-                    HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+                    HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
 
-                    int HanhDong = 0;
-                    switch (hoSo.iID_MaTrangThai)
+                    if(hoSo != null)
                     {
-                        case 17:
-                            HanhDong = (int)clHanhDong.HanhDong.DongYPheDuyetTuChoiCapGDK;
-                            sNoiDung = "Đồng ý phê duyệt từ chối cấp GĐK";
-                            break;
-                        case 22:
-                            HanhDong = (int)clHanhDong.HanhDong.DongYXacNhanGDK;
-
-                            break;
-                    }
-                    TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoCuc, HanhDong, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
-
-                    if (hoSo.iID_MaTrangThai == 22)
-                    {
-                        clTaoSoGDK taoSoGDK = clTaoSoGDK.GetSoGDK();
-                        if (bang.CmdParams.Parameters.IndexOf("@sSoGDK") >= 0)
-                            bang.CmdParams.Parameters["@sSoGDK"].Value = taoSoGDK.SoGDK;
-                        else
-                            bang.CmdParams.Parameters.AddWithValue("@sSoGDK", taoSoGDK.SoGDK);
-
-                        if (bang.CmdParams.Parameters.IndexOf("@dNgayKyGDK") >= 0)
+                        int HanhDong = 0;
+                        switch (hoSo.iID_MaTrangThai)
                         {
-                            bang.CmdParams.Parameters["@dNgayKyGDK"].Value = DateTime.Now;
-                            bang.CmdParams.Parameters["@dNgayXacNhan"].Value = DateTime.Now;
+                            case 17:
+                                HanhDong = (int)clHanhDong.HanhDong.DongYPheDuyetTuChoiCapGDK;
+                                sNoiDung = "Đồng ý phê duyệt từ chối cấp GĐK";
+                                break;
+                            case 22:
+                                HanhDong = (int)clHanhDong.HanhDong.DongYXacNhanGDK;
+
+                                break;
                         }
-                        else
+                        TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoCuc, HanhDong, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+
+                        if (hoSo.iID_MaTrangThai == 22)
                         {
-                            bang.CmdParams.Parameters.AddWithValue("@dNgayKyGDK", DateTime.Now);
-                            bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", DateTime.Now);
+                            clTaoSoGDK taoSoGDK = clTaoSoGDK.GetSoGDK();
+                            if (bang.CmdParams.Parameters.IndexOf("@sSoGDK") >= 0)
+                                bang.CmdParams.Parameters["@sSoGDK"].Value = taoSoGDK.SoGDK;
+                            else
+                                bang.CmdParams.Parameters.AddWithValue("@sSoGDK", taoSoGDK.SoGDK);
+
+                            if (bang.CmdParams.Parameters.IndexOf("@dNgayKyGDK") >= 0)
+                            {
+                                bang.CmdParams.Parameters["@dNgayKyGDK"].Value = DateTime.Now;
+                                bang.CmdParams.Parameters["@dNgayXacNhan"].Value = DateTime.Now;
+                            }
+                            else
+                            {
+                                bang.CmdParams.Parameters.AddWithValue("@dNgayKyGDK", DateTime.Now);
+                                bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", DateTime.Now);
+                            }
+                            if (bang.CmdParams.Parameters.IndexOf("@sNguoiKyGDK") >= 0)
+                                bang.CmdParams.Parameters["@sNguoiKyGDK"].Value = eCoQuanXuLy.sNguoiKy_Ten;
+                            else
+                                bang.CmdParams.Parameters.AddWithValue("@sNguoiKyGDK", eCoQuanXuLy.sNguoiKy_Ten);
+                            sNoiDung = "Đồng ý xác nhận GĐK số:" + taoSoGDK.SoGDK;
                         }
-                        if (bang.CmdParams.Parameters.IndexOf("@sNguoiKyGDK") >= 0)
-                            bang.CmdParams.Parameters["@sNguoiKyGDK"].Value = eCoQuanXuLy.sNguoiKy_Ten;
-                        else
-                            bang.CmdParams.Parameters.AddWithValue("@sNguoiKyGDK", eCoQuanXuLy.sNguoiKy_Ten);
-                        sNoiDung = "Đồng ý xác nhận GĐK số:" + taoSoGDK.SoGDK;
-                    }
 
 
-                    bang.MaNguoiDungSua = User.Identity.Name;
-                    bang.IPSua = Request.UserHostAddress;
-                    bang.GiaTriKhoa = iID_MaHoSo;
-                    bang.DuLieuMoi = false;
-                    if (i == 0)
-                    {
+                        bang.MaNguoiDungSua = User.Identity.Name;
+                        bang.IPSua = Request.UserHostAddress;
+                        bang.GiaTriKhoa = iID_MaHoSo;
+                        bang.DuLieuMoi = false;
+
                         bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
                         bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
                         bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
                         bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
-                    }
-                    else
-                    {
-                        bang.CmdParams.Parameters["@iID_MaHoSo"].Value = iID_MaHoSo;
-                        bang.CmdParams.Parameters["@iID_MaTrangThai"].Value = trangThaiTiepTheo.iID_MaTrangThai;
-                        bang.CmdParams.Parameters["@sKetQuaXuLy"].Value = trangThaiTiepTheo.sKetQuaXuLy;
-                        bang.CmdParams.Parameters["@iID_KetQuaXuLy"].Value = trangThaiTiepTheo.iID_KetQuaXuLy;
-                        bang.CmdParams.Parameters["@iID_MaTrangThaiTruoc"].Value = hoSo.iID_MaTrangThai;
-                    }
-                    bang.Save();
 
-                    clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, HanhDong, sNoiDung, "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+                        bang.Save();
 
-                    clHoSo.CleanNguoiXem(iID_MaHoSo);
+                        clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, HanhDong, sNoiDung, "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+
+                        clHoSo.CleanNguoiXem(iID_MaHoSo);
+                    }
                 }
 
                 TempData["msg"] = "success";
@@ -584,14 +578,10 @@ namespace APP0200025.Controllers
                         clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.KySoPheDuyetThongBaoKetQua, "Ký số phê duyệt thông báo kết quả kiểm tra", "", hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
                         clHangHoa.CleanNguoiXem(Convert.ToString(iID_MaHangHoa));
-
-                        TempData["msg"] = "success";
-                    }
-                    else
-                    {
-                        TempData["msg"] = "error";
                     }
                 }
+
+                TempData["msg"] = "success";
             }
             else
             {
