@@ -11,7 +11,7 @@
 @model CHoSoSearch
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_cms.cshtml";
     string userName = User.Identity.Name;
     String ServerURL = CHamRieng.Get_Domain();
     String sDate = DateTime.Now.ToString("dd/MM/yyyy");
@@ -86,7 +86,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("LanhDaoCuc_ChoPheDuyet_Search", "MienGiam", new { ParentID = ParentID }, FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("LanhDaoCuc_ChoPheDuyet_Search", "MienGiam", new { ParentID = ParentID }, FormMethod.Post, new { id = "formSearch", @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
