@@ -204,7 +204,7 @@ namespace DATA0200026
             }
             if (!string.IsNullOrEmpty(models.sSoTiepNhan))
             {
-                DK += " AND sSoTiepNhan <= @sSoTiepNhan";
+                DK += " AND sSoTiepNhan=@sSoTiepNhan";
                 cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
             }
             if (models.iID_KetQuaXuLy > 0)
@@ -300,7 +300,7 @@ namespace DATA0200026
             }
             if (!string.IsNullOrEmpty(models.sSoTiepNhan))
             {
-                DK += " AND sSoTiepNhan <= @sSoTiepNhan";
+                DK += " AND sSoTiepNhan=@sSoTiepNhan";
                 cmd.Parameters.AddWithValue("@sSoTiepNhan", models.sSoTiepNhan);
             }
             if (models.iID_KetQuaXuLy > 0)
