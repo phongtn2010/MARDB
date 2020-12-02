@@ -261,7 +261,9 @@
             data: fd,
             success: function (data) {
                 alert("Bạn đã cập nhật thành công!");
-                javascript: history.go(-1);
+
+                location.href = '@(Url.Action("ThongTinHoangHoa", "ToChucChiDinh", new { iID_MaHoSo = _iID_MaHoSo, sMaHoSo = _sMaHoSo, sSoTiepNhan = _sSoTiepNhan }))';
+                //javascript: history.go(-1);
             },
             error: function (data) {
 
