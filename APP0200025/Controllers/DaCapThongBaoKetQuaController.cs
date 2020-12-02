@@ -181,12 +181,9 @@ namespace APP0200025.Controllers
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
-            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
-            string _sSoGDK = CString.SafeString(Request.Form[ParentID + "_sSoGDK"]);
-            string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
-            string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
-            string _TuNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayXacNhan"]);
-            string _DenNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayXacNhan"]);
+            string _sSoThongBaoKetQua = CString.SafeString(Request.Form[ParentID + "_sSoThongBaoKetQua"]);
+            string _TuNgayThongBaoKetQua = CString.SafeString(Request.Form[ParentID + "_viTuNgayThongBaoKetQua"]);
+            string _DenNgayThongBaoKetQua = CString.SafeString(Request.Form[ParentID + "_viDenNgayThongBaoKetQua"]);
             string _iTrangThai = CString.SafeString(Request.Form[ParentID + "_iID_MaTrangThai"]);
             sHoSoModels models = new sHoSoModels
             {
@@ -195,12 +192,9 @@ namespace APP0200025.Controllers
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
-                sSoTiepNhan = _sSoTiepNhan,
-                sSoGDK = _sSoGDK,
-                TuNgayTiepNhan = _TuNgayTiepNhan,
-                DenNgayTiepNhan = _DenNgayTiepNhan,
-                TuNgayXacNhan = _TuNgayXacNhan,
-                DenNgayXacNhan = _DenNgayXacNhan
+                sSoThongBaoKetQua = _sSoThongBaoKetQua,
+                TuNgayThongBaoKetQua = _TuNgayThongBaoKetQua,
+                DenNgayThongBaoKetQua = _DenNgayThongBaoKetQua
             };
 
             TempData["menu"] = 235;

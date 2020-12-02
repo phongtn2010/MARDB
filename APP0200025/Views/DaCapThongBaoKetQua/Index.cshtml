@@ -69,12 +69,9 @@
         sMaHoSo = Model.sMaHoSo,
         sTenDoanhNghiep = Model.sTenDoanhNghiep,
         sTenTACN = Model.sTenTACN,
-        sSoTiepNhan = Model.sSoTiepNhan,
-        sSoGDK = Model.sSoGDK,
-        TuNgayTiepNhan = Model.TuNgayTiepNhan,
-        DenNgayTiepNhan = Model.DenNgayTiepNhan,
-        TuNgayXacNhan = Model.TuNgayXacNhan,
-        DenNgayXacNhan = Model.DenNgayXacNhan,
+        sSoThongBaoKetQua = Model.sSoThongBaoKetQua,
+        TuNgayThongBaoKetQua = Model.TuNgayThongBaoKetQua,
+        DenNgayThongBaoKetQua = Model.DenNgayThongBaoKetQua,
         iID_MaTrangThai = Model.iID_MaTrangThai,
         page = x }));
 
@@ -126,45 +123,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-xs-1 text-align-right"><label class="control-label">Số tiếp nhận</label></div>
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Số thông báo kết quả</label></div>
                             <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoTiepNhan, "sSoTiepNhan", "", "placeholder=\"Số tiếp nhận\" type=\"text\" class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoThongBaoKetQua, "sSoThongBaoKetQua", "", "placeholder=\"Số thông báo kết quả\" type=\"text\" class=\"form-control\""))
                             </div>
-                            <div class="col-xs-1 text-align-right"><label class="control-label">Ngày tiếp nhận</label></div>
-                            <div class="col-xs-5">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayTiepNhan, "TuNgayTiepNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
-                                        @Html.ValidationMessage(ParentID + "_" + "err_TuNgayTiepNhan")
-                                    </div>
-                                    <div class="col-xs-2 text-align-center"><b>-</b></div>
-                                    <div class="col-xs-5">
-                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayTiepNhan, "DenNgayTiepNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
-                                        @Html.ValidationMessage(ParentID + "_" + "err_DenNgayTiepNhan")
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-2 text-align-right"></div>
-                            <div class="col-xs-4"></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-1 text-align-right">
-                                <label class="control-label">Số tiếp nhận</label>
-                            </div>
-                            <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, Model.sSoGDK, "sSoGDK", "", "placeholder=\"Số GĐK\" type=\"text\" class=\"form-control\""))
-                            </div>
-                            <div class="col-xs-1 text-align-right"><label class="control-label">Ngày xác nhận</label></div>
+                            <div class="col-xs-1 text-align-right"><label class="control-label">Ngày cấp</label></div>
                             <div class="col-xs-5">
                                 <div class="row">
                                     <div class="col-xs-5">
-                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayXacNhan, "TuNgayXacNhan", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
-                                        @Html.ValidationMessage(ParentID + "_" + "err_TuNgayXacNhan")
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgayThongBaoKetQua, "TuNgayThongBaoKetQua", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_TuNgayThongBaoKetQua")
                                     </div>
                                     <div class="col-xs-2 text-align-center"><b>-</b></div>
                                     <div class="col-xs-5">
-                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayXacNhan, "DenNgayXacNhan", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
-                                        @Html.ValidationMessage(ParentID + "_" + "err_DenNgayXacNhan")
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgayThongBaoKetQua, "DenNgayThongBaoKetQua", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_DenNgayThongBaoKetQua")
                                     </div>
                                 </div>
                             </div>
