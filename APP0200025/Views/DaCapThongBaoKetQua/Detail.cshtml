@@ -16,6 +16,7 @@
     string ParentID = "Detail";
     HoSoModels hoSoModels = clHoSo.GetHoSoById(Model.iID_MaHoSo);
 }
+@Html.Hidden(ParentID + "_iID_MaHangHoaThoat", Model.iID_MaHangHoa)
 <section class="content">
     <div class="row">
         <div class="col-md-12">

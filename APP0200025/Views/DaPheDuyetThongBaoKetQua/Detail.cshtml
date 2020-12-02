@@ -16,6 +16,7 @@
     string ParentID = "Detail";
     HoSoModels hoSoModels = clHoSo.GetHoSoById(Model.iID_MaHoSo);
 }
+@Html.Hidden(ParentID + "_iID_MaHangHoaThoat", Model.iID_MaHangHoa)
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -45,7 +46,7 @@
                 </div><!-- /.tab-content -->
                 <div class="box-footer clearfix text-center">
                     <a class="btn btn-primary" data-id="@Model.iID_MaHoSo" href="@Url.Action("GuiDoanhNghiep", "DaPheDuyetThongBaoKetQua", new { iID_MaHangHoa = Model.iID_MaHangHoa })">Gửi doanh nghiệp</a>
-                    <a class="btn btn-warning" data-id="@Model.iID_MaHangHoa">Tải giấy XNCL</a>
+                    <a class="btn btn-warning btnXuatWord" href="#" id="btnXuatWord">Tải giấy XNCL</a>
                     <a class="btn btn-default" id="btnThoat">Thoát</a>
                 </div>
             </div><!-- nav-tabs-custom -->

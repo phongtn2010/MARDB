@@ -45,7 +45,7 @@ $(function () {
 
 $(function () {
     $("body").on("click", "#btnThoat", function () {
-        var iID_MaHangHoa = $("#Detail_iID_MaHangHoa").val();
+        var iID_MaHangHoa = $("#Detail_iID_MaHangHoaThoat").val();
         $.ajax({
             url: ServerUrl + '/DaCapThongBaoKetQua/Thoat',
             type: 'POST',

@@ -1,17 +1,19 @@
 ﻿$(function () {
     $("body").on("click", "#btnThoat", function () {
-        var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
+        var iID_MaHangHoa = $("#Detail_iID_MaHangHoaThoat").val();
         $.ajax({
             url: ServerUrl + '/DaPheDuyetThongBaoKetQua/Thoat',
             type: 'POST',
-            data: { iID_MaHoSo: iID_MaHoSo},
+            data: { iID_MaHangHoa: iID_MaHangHoa},
             success: function (response) {
+                alert(1);
                 if (response.success) {
                     showToast_Success();
                     location.href = response.value;
                 }
             },
             error: function (response) {
+                alert(-1);
                 showToast_Error();
             }
         });
