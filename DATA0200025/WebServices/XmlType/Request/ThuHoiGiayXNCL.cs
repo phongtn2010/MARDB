@@ -11,21 +11,21 @@ namespace DATA0200025.WebServices.XmlType.Request
     {
         [XmlElement] public string NSWFileCode { get; set; }
 
-        public string CancelDateString
+        public string CancelDate
         {
-            get => CancelDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => CancelDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => CancelDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => CancelDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime CancelDate { get; set; }
+        [XmlElement] public DateTime CancelDateString { get; set; }
 
         [XmlElement] public string Reason { get; set; }
 
-        public string SignConfirmDateString
+        public string SignConfirmDate
         {
-            get => SignConfirmDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => SignConfirmDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => SignConfirmDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => SignConfirmDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime SignConfirmDate { get; set; }
+        [XmlElement] public DateTime SignConfirmDateString { get; set; }
 
         [XmlElement] public string SignConfirmName { get; set; }
 

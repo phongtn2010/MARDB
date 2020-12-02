@@ -133,8 +133,8 @@ namespace APP0200025.Controllers
             resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
             resultConfirm.FileName = sFileName;
             resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
-            resultConfirm.CancelDate = dNgayThuHoi;
-            resultConfirm.SignConfirmDate = dNgayThuHoi;
+            resultConfirm.CancelDateString = dNgayThuHoi;
+            resultConfirm.SignConfirmDateString = dNgayThuHoi;
             resultConfirm.SignConfirmName = eCoQuanXuLy.sNguoiKy_Ten;
             resultConfirm.AniFeedResultNo = hangHoa.sSoThongBaoKetQua;//Số giấy xác nhận chất lượng (của BNN)
 
