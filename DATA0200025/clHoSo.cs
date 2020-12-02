@@ -1076,7 +1076,7 @@ namespace DATA0200025
                 //DKHH += " AND dSoThongBaoKetQua_NgayKy >= @TuNgayThongBaoKetQua";
                 //cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau(models.TuNgayThongBaoKetQua));
 
-                DK += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(models.TuNgayThongBaoKetQua));
             }
             if (!string.IsNullOrEmpty(models.DenNgayThongBaoKetQua))
@@ -1084,7 +1084,7 @@ namespace DATA0200025
                 //DKHH += " AND dSoThongBaoKetQua_NgayKy <= @DenNgayThongBaoKetQua";
                 //cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau(models.DenNgayThongBaoKetQua));
 
-                DK += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(models.DenNgayThongBaoKetQua));
             }
             if (models.iID_MaLoaiHoSo > 0)
@@ -1296,7 +1296,7 @@ namespace DATA0200025
                 //DKHH += " AND dSoThongBaoKetQua_NgayKy >= @TuNgayThongBaoKetQua";
                 //cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau(models.TuNgayThongBaoKetQua));
 
-                DK += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(models.TuNgayThongBaoKetQua));
             }
             if (!string.IsNullOrEmpty(models.DenNgayThongBaoKetQua))
@@ -1304,7 +1304,7 @@ namespace DATA0200025
                 //DKHH += " AND dSoThongBaoKetQua_NgayKy <= @DenNgayThongBaoKetQua";
                 //cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau(models.DenNgayThongBaoKetQua));
 
-                DK += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(models.DenNgayThongBaoKetQua));
             }
             if(models.iID_MaLoaiHoSo>0)
