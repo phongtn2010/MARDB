@@ -58,9 +58,19 @@
     DataRow r;
     SelectOptionList ttDDL = clHoSo.DDL_PhongTACNYeuCauBoSungKetQua();
 
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "PhongTACNYeuCauBoSungKetQua", new { LoaiDanhSach = Model.LoaiDanhSach, sMaHoSo = Model.sMaHoSo, sTenDoanhNghiep = Model.sTenDoanhNghiep, sTenTACN = Model.sTenTACN, FromDate = Model.TuNgayDen, ToDate = Model.DenNgayDen, page = x }));
-
-    // String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "Tinh", new { _MaMien = _MaMien, _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate, page = x }));
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "PhongTACNYeuCauBoSungKetQua", new {
+        LoaiDanhSach = Model.LoaiDanhSach,
+        sMaHoSo = Model.sMaHoSo,
+        sTenDoanhNghiep = Model.sTenDoanhNghiep,
+        sTenTACN = Model.sTenTACN,
+        sSoTiepNhan = Model.sSoTiepNhan,
+        sSoGDK = Model.sSoGDK,
+        TuNgayTiepNhan = Model.TuNgayTiepNhan,
+        DenNgayTiepNhan = Model.DenNgayTiepNhan,
+        TuNgayXacNhan = Model.TuNgayXacNhan,
+        DenNgayXacNhan = Model.DenNgayXacNhan,
+        iID_MaTrangThai = Model.iID_MaTrangThai,
+        page = x }));
 
 }
 <script type="text/javascript">
