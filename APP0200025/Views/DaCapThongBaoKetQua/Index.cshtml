@@ -197,11 +197,10 @@
                                 <tr>
                                     <th style="width: 3%;" align="center">STT</th>
                                     <th style="width: 10%;" align="center">Mã hồ sơ</th>
-                                    <th style="width: 10%; text-align: center;" align="center">Ngày đến</th>
-                                    <th style="text-align: center;" align="center">Số GĐK</th>
-                                    <th style="width: 10%; text-align: center;" align="center">Ngày xác nhận</th>
                                     <th style="text-align: center;" align="center">Doanh nghiệp</th>
                                     <th style="width: 10%; text-align: center;" align="center">Tên TACN</th>
+                                    <th style="text-align: center;" align="center">Số thông báo</th>
+                                    <th style="width: 10%; text-align: center;" align="center">Ngày cấp</th>
                                     <th style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
                                     <th style="width: 3%;">Xem</th>
                                     <th style="width: 3%;">Người xem</th>
@@ -231,11 +230,10 @@
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
                                                 <td>@r["sMaHoSo"]</td>
-                                                <td>@String.Format("{0:dd-MM-yyyy}", r["dNgayTaoHoSo"])</td>
-                                                <td>@r["sSoGDK"]</td>
-                                                <td>@String.Format("{0:dd-MM-yyyy}", r["dNgayXacNhan"])</td>
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>@r["sTenHangHoa"]</td>
+                                                <td>@r["sSoThongBaoKetQua"]</td>
+                                                <td>@String.Format("{0:dd-MM-yyyy}", r["dSoThongBaoKetQua_NgayKy"])</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
                                                 <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
