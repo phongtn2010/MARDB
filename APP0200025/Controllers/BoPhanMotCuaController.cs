@@ -207,16 +207,28 @@ namespace APP0200025.Controllers
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
-            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
-            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
+            string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
+            string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
+            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
+            string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
+            string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
+            string _sSoGDK = CString.SafeString(Request.Form[ParentID + "sSoGDK"]);
+            string _TuNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayXacNhan"]);
+            string _DenNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayXacNhan"]);
             CHoSoSearch models = new CHoSoSearch
             {
-                iID_MaTrangThai = 1,
+                iID_MaTrangThai = 3,
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
-                TuNgayDen = _FromDate,
-                DenNgayDen = _ToDate
+                TuNgayDen = _TuNgayDen,
+                DenNgayDen = _DenNgayDen,
+                sSoTiepNhan = _sSoTiepNhan,
+                TuNgayTiepNhan = _TuNgayTiepNhan,
+                DenNgayTiepNhan = _DenNgayTiepNhan,
+                sSoGDK = _sSoGDK,
+                TuNgayXacNhan = _TuNgayXacNhan,
+                DenNgayXacNhan = _DenNgayXacNhan
             };
 
             TempData["menu"] = 224;
@@ -321,16 +333,28 @@ namespace APP0200025.Controllers
             string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
             string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
-            string _FromDate = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
-            string _ToDate = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
+            string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
+            string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
+            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
+            string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
+            string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
+            string _sSoGDK = CString.SafeString(Request.Form[ParentID + "sSoGDK"]);
+            string _TuNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayXacNhan"]);
+            string _DenNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayXacNhan"]);
             CHoSoSearch models = new CHoSoSearch
             {
-                iID_MaTrangThai = 1,
+                iID_MaTrangThai = 4,
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
-                TuNgayDen = _FromDate,
-                DenNgayDen = _ToDate
+                TuNgayDen = _TuNgayDen,
+                DenNgayDen = _DenNgayDen,
+                sSoTiepNhan = _sSoTiepNhan,
+                TuNgayTiepNhan = _TuNgayTiepNhan,
+                DenNgayTiepNhan = _DenNgayTiepNhan,
+                sSoGDK = _sSoGDK,
+                TuNgayXacNhan = _TuNgayXacNhan,
+                DenNgayXacNhan = _DenNgayXacNhan
             };
 
             TempData["menu"] = 224;
