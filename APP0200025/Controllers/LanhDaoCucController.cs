@@ -558,34 +558,40 @@ namespace APP0200025.Controllers
                 {
                     long iID_MaHangHoa = Convert.ToInt64(arr[i]);
                     HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
+                    if(hanghoa != null)
+                    {
+                        TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.KySoPheDuyetThongBaoKetQua, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
 
-                    TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.KySoPheDuyetThongBaoKetQua, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
+                        clTaoSoThongBao taoSoTB = clTaoSoThongBao.GetSoTB();
 
-                    clTaoSoThongBao taoSoTB = clTaoSoThongBao.GetSoTB();
+                        bangHH.MaNguoiDungSua = User.Identity.Name;
+                        bangHH.IPSua = Request.UserHostAddress;
+                        bangHH.DuLieuMoi = false;
+                        bangHH.GiaTriKhoa = iID_MaHangHoa;
 
-                    bangHH.MaNguoiDungSua = User.Identity.Name;
-                    bangHH.IPSua = Request.UserHostAddress;
-                    bangHH.DuLieuMoi = false;
-                    bangHH.GiaTriKhoa = iID_MaHangHoa;
+                        bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua", taoSoTB.SoTB);
+                        bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NoiKy", eCoQuanXuLy.sNguoiKy_NoiKy);
+                        bangHH.CmdParams.Parameters.AddWithValue("@dSoThongBaoKetQua_NgayKy", DateTime.Now);
+                        bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NguoiKy", eCoQuanXuLy.sNguoiKy_Ten);
 
-                    bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua", taoSoTB.SoTB);
-                    bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NoiKy", eCoQuanXuLy.sNguoiKy_NoiKy);
-                    bangHH.CmdParams.Parameters.AddWithValue("@dSoThongBaoKetQua_NgayKy", DateTime.Now);
-                    bangHH.CmdParams.Parameters.AddWithValue("@sSoThongBaoKetQua_NguoiKy", eCoQuanXuLy.sNguoiKy_Ten);
+                        bangHH.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
+                        bangHH.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
+                        bangHH.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
+                        bangHH.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hanghoa.iID_MaTrangThai);
 
-                    bangHH.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
-                    bangHH.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
-                    bangHH.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-                    bangHH.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hanghoa.iID_MaTrangThai);
+                        bangHH.Save();
 
-                    bangHH.Save();
+                        clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.KySoPheDuyetThongBaoKetQua, "Ký số phê duyệt thông báo kết quả kiểm tra", "", hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
-                    clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.KySoPheDuyetThongBaoKetQua, "Ký số phê duyệt thông báo kết quả kiểm tra", "", hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+                        clHangHoa.CleanNguoiXem(Convert.ToString(iID_MaHangHoa));
 
-                    clHangHoa.CleanNguoiXem(Convert.ToString(iID_MaHangHoa));
+                        TempData["msg"] = "success";
+                    }
+                    else
+                    {
+                        TempData["msg"] = "error";
+                    }
                 }
-
-                TempData["msg"] = "success";
             }
             else
             {
