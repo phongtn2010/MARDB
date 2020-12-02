@@ -42,12 +42,12 @@ namespace APP0200025.Controllers
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult LanhDaoCuc_ChoPheDuyet_Search(string ParentID)
         {
-            string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
-            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
-            string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
+            string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]).Trim();
+            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]).Trim();
+            string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]).Trim();
             string _FromDate = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
             string _ToDate = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
-            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]);
+            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]).Trim();
             string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
             string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
             CHoSoSearch models = new CHoSoSearch
