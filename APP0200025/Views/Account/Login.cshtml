@@ -108,7 +108,7 @@
                     <p class="login-box-msg" style="padding-bottom: 5px;"><b>ĐĂNG NHẬP HỆ THỐNG</b></p>
                     @Html.ValidationSummary(true)
                     <div class="form-group has-feedback">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sUserName", "", " placeholder=\"Tên đăng nhập\" type=\"text\" class=\"form-control\" style=\"height: 35px\" maxlength='15' minlength='4' pattern='^[a-zA-Z0-9_.-]*$' required"))
+                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sUserName", "", " placeholder=\"Tên đăng nhập\" type=\"text\" class=\"form-control\" style=\"height: 35px\" maxlength='15' minlength='3' pattern='^[a-zA-Z0-9_.-]*$' required"))
                         @Html.ValidationMessage(ParentID + "_" + "err_sUserName")
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
