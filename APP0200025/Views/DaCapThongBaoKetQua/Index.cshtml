@@ -203,7 +203,6 @@
                                     <th style="text-align: center;" align="center">Doanh nghiệp</th>
                                     <th style="width: 10%; text-align: center;" align="center">Tên TACN</th>
                                     <th style="width: 10%; text-align: center;" align="center">Trạng thái hồ sơ</th>
-                                    <th style="width: 10%; text-align: center;" align="center">Kết quả xử lý</th>
                                     <th style="width: 3%;">Xem</th>
                                     <th style="width: 3%;">Người xem</th>
                                     <th style="width: 3%;">Thu hồi</th>
@@ -238,7 +237,6 @@
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>@r["sTenHangHoa"]</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
-                                                <td>@r["sKetQuaXuLy"]</td>
                                                 <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {

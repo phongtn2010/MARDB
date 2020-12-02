@@ -170,7 +170,7 @@ namespace APP0200025.Controllers
 
         public JsonResult Thoat(string iID_MaHangHoa)
         {
-            ResultModels result = clHoSo.CleanNguoiXem(iID_MaHangHoa);
+            ResultModels result = clHangHoa.CleanNguoiXem(iID_MaHangHoa);
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);
         }
