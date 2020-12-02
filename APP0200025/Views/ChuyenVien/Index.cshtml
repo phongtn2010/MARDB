@@ -60,7 +60,8 @@
     int TotalPages = (int)Math.Ceiling(nums / nMax);
 
     DataRow r;
-    SelectOptionList ttDDL = clTrangThai.GetDDL();
+    SelectOptionList ttDDL = clTrangThai.GetTrangThai_ChuyenVien();
+    SelectOptionList ttDDL_Full = clTrangThai.GetDDL();
     String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("Index", "ChuyenVien", new {
         LoaiDanhSach = Model.LoaiDanhSach,
         iID_MaTrangThai = Model.iID_MaTrangThai,
@@ -274,7 +275,7 @@
                                                 <td>@r["dNgayTiepNhan"]</td>
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>@r["sTenTACN"]</td>
-                                                <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
+                                                <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL_Full, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
                                                 <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
                                                 <td align="center">@MvcHtmlString.Create(strView)</td>
                                                 <td align="center">
