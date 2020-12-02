@@ -127,9 +127,9 @@ namespace APP0200025.Controllers
             //XML(14, 12)
             ThuHoiGDK resultConfirm = new ThuHoiGDK();
             resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.CancelDate = DateTime.Now;
+            resultConfirm.CancelDateString = DateTime.Now;
             resultConfirm.Reason = _sNoiDung;
-            resultConfirm.SignConfirmDate = hoSo.dNgayKyGDK;
+            resultConfirm.SignConfirmDateString = hoSo.dNgayKyGDK;
             resultConfirm.SignConfirmName = hoSo.sNguoiKyGDK;
             resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
             resultConfirm.AttachmentId = iID_MaDinhKem.ToString(); ;

@@ -168,7 +168,7 @@ namespace APP0200025.Controllers
             resNSW.NameOfGoods = sTenHangHoa;
             resNSW.ResultTest = iKetQua;
             resNSW.TestConfirmNumber = Convert.ToString(dtCNHQ.Rows[0]["sSoChungNhan"]);
-            resNSW.TestConfirmDate = Convert.ToDateTime(dtCNHQ.Rows[0]["dNgayCap"]);
+            resNSW.TestConfirmDateString = Convert.ToDateTime(dtCNHQ.Rows[0]["dNgayCap"]);
             resNSW.TestConfirmAttachmentId = Convert.ToString(dtCNHQ.Rows[0]["iID_ChungNhanHopQuy"]); ;
             resNSW.TestConfirmFileName = Convert.ToString(dtCNHQ.Rows[0]["sTenFile"]); ;
             resNSW.TestConfirmFileLink = string.Format("{0}{1}", clCommon.BNN_Url, Convert.ToString(dtCNHQ.Rows[0]["sDuongDan"]));

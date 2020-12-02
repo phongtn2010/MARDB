@@ -16,13 +16,11 @@ namespace DATA0200025.WebServices.XmlType.Request
 
         [XmlElement("CreaterName")] public string CreatorName { get; set; }
 
-        [XmlIgnore] public DateTime RegistrationConfirmDate { get; set; }
-
-        [XmlElement("RegistrationConfirmDate")]
-        public string RegistrationConfirmDateString
+        public string RegistrationConfirmDate
         {
-            get => RegistrationConfirmDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => RegistrationConfirmDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => RegistrationConfirmDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => RegistrationConfirmDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
+        [XmlIgnore] public DateTime RegistrationConfirmDateString { get; set; }
     }
 }

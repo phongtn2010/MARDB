@@ -15,21 +15,21 @@ namespace DATA0200026.WebServices.XmlType.Request
 
         [XmlElement] public string Organization { get; set; }
 
-        public string SignConfirmDateString
+        public string SignConfirmDate
         {
-            get => SignConfirmDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => SignConfirmDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => SignConfirmDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => SignConfirmDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlIgnore] public DateTime SignConfirmDate { get; set; }
+        [XmlIgnore] public DateTime SignConfirmDateString { get; set; }
 
         [XmlElement] public string SignConfirmPlace { get; set; }
 
-        public string SignDateString
+        public string SignDate
         {
-            get => SignDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => SignDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => SignDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => SignDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime SignDate { get; set; }
+        [XmlElement] public DateTime SignDateString { get; set; }
 
         [XmlElement] public string DepartmentCode { get; set; }
 
@@ -39,19 +39,19 @@ namespace DATA0200026.WebServices.XmlType.Request
         [XmlArrayItem("Goods")]
         public virtual List<HangHoaXND> ListHangHoa { set; get; }
 
-        public string PeriodFromString
+        public string PeriodFrom
         {
-            get => PeriodFrom.ToString("yyyy-MM-dd HH:mm:ss");
-            set => PeriodFrom = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => PeriodFromString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => PeriodFromString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime PeriodFrom { get; set; }
+        [XmlElement] public DateTime PeriodFromString { get; set; }
 
-        public string PeriodToString
+        public string PeriodTo
         {
-            get => PeriodTo.ToString("yyyy-MM-dd HH:mm:ss");
-            set => PeriodTo = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => PeriodToString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => PeriodToString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime PeriodTo { get; set; }
+        [XmlElement] public DateTime PeriodToString { get; set; }
 
         [XmlElement] public string SignName { get; set; }
     }

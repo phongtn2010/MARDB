@@ -111,7 +111,7 @@ namespace APP0200025.Controllers
                             itemHdong = new ContractList
                             {
                                 ContractNo = Convert.ToString(dtHopDong.Rows[i]["sHopDong"]),
-                                ContractDate = dNgayHD
+                                ContractDateString = dNgayHD
                             };
                             lstHopDong.Add(itemHdong);
                         }
@@ -137,7 +137,7 @@ namespace APP0200025.Controllers
                             itemHdon = new InvoiceList
                             {
                                 InvoiceNo = Convert.ToString(dtHoaDon.Rows[i]["sHopDong"]),
-                                InvoiceDate = dNgayHD
+                                InvoiceDateString = dNgayHD
                             };
                             lstHoaDon.Add(itemHdon);
                         }
@@ -150,16 +150,16 @@ namespace APP0200025.Controllers
                     resultConfirm.DepartmentName = hoSo.sCoQuanXuLy_Ten;
                     resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
                     resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
-                    resultConfirm.SignCerDate = hangHoa.dSoThongBaoKetQua_NgayKy;
+                    resultConfirm.SignCerDateString = hangHoa.dSoThongBaoKetQua_NgayKy;
                     resultConfirm.SignCerName = hangHoa.sSoThongBaoKetQua_NguoiKy;
                     resultConfirm.ListHangHoa = clHangHoa.GetHoaGXNCL(hangHoa);
                     resultConfirm.PortOfDestinationName = hoSo.sMua_NoiNhan;
-                    resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
-                    resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
+                    resultConfirm.ImportingFromDateString = hoSo.sMua_FromDate;
+                    resultConfirm.ImportingToDateString = hoSo.sMua_ToDate;
                     resultConfirm.ListContract = lstHopDong;
                     resultConfirm.ListInvoice = lstHoaDon;
                     resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
-                    resultConfirm.SignConfirmDate = hoSo.dNgayXacNhan;
+                    resultConfirm.SignConfirmDateString = hoSo.dNgayXacNhan;
                     resultConfirm.Buyer = hoSo.sMua_Name;
                     resultConfirm.BuyerAddress = hoSo.sMua_DiaChi;
                     resultConfirm.StandardBase = hangHoa.sSoHieu;
@@ -167,7 +167,7 @@ namespace APP0200025.Controllers
                     resultConfirm.ImportCerNo = sGiayChungNhan_HopQuy;
                     resultConfirm.AssignCode = sMaCoQuanDanhGiaXNCL;
                     resultConfirm.AssignName = sTenCoQuanDanhGiaXNCL;
-                    resultConfirm.ImportCerDate = dNgayXacNhanHopQuy;
+                    resultConfirm.ImportCerDateString = dNgayXacNhanHopQuy;
 
                     error = _sendService.GiayXNCL(hangHoa.sMaHoSo, resultConfirm);
                 }

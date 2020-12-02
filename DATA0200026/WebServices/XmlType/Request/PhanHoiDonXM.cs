@@ -13,13 +13,11 @@ namespace DATA0200026.WebServices.XmlType.Request
 
         [XmlElement] public string NameOfStaff { get; set; }
 
-        [XmlIgnore] public DateTime ResponseDate { get; set; }
-
-        [XmlElement("ResponseDate")]
-        public string ResponseDateString
+        public string ResponseDate
         {
-            get => ResponseDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => ResponseDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => ResponseDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => ResponseDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
+        [XmlIgnore] public DateTime ResponseDateString { get; set; }
     }
 }

@@ -13,13 +13,12 @@ namespace DATA0200025.WebServices.XmlType.Request
         [XmlArrayItem("GoodType")]
         public virtual List<GoodType> ListGoodTypes { set; get; }
 
-        [XmlIgnore] public DateTime UpdateDate { get; set; }
-        [XmlElement("UpdateDate")]
-        public string UpdateDateString
+        public string UpdateDate
         {
-            get => UpdateDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => UpdateDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => UpdateDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => UpdateDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
+        [XmlIgnore] public DateTime UpdateDateString { get; set; }
 
         [XmlElement] public string UpdateName { get; set; }
     }

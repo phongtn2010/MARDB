@@ -11,12 +11,12 @@ namespace DATA0200026.WebServices.XmlType.Request
     {
         [XmlElement("NSWFileCode")] public string NSWFileCode { get; set; }
         [XmlElement("RequestDate")]
-        public string RequestDateString
+        public string RequestDate
         {
-            get => RequestDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => RequestDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => RequestDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => RequestDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlIgnore] public DateTime RequestDate { get; set; }
+        [XmlIgnore] public DateTime RequestDateString { get; set; }
         [XmlElement] public string Reason { get; set; }
     }
 }

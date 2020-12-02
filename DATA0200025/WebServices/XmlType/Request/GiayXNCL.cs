@@ -19,12 +19,12 @@ namespace DATA0200025.WebServices.XmlType.Request
 
         [XmlElement] public string SignCerPlace { get; set; }
 
-        public string SignCerDateString
+        public string SignCerDate
         {
-            get => SignCerDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => SignCerDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => SignCerDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => SignCerDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime SignCerDate { get; set; }
+        [XmlElement] public DateTime SignCerDateString { get; set; }
 
         [XmlArray("GoodsList")]
         [XmlArrayItem("Goods")]
@@ -32,19 +32,19 @@ namespace DATA0200025.WebServices.XmlType.Request
 
         [XmlElement] public string PortOfDestinationName { get; set; }
 
-        public string ImportingFromDateString
+        public string ImportingFromDate
         {
-            get => ImportingFromDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => ImportingFromDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => ImportingFromDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => ImportingFromDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime ImportingFromDate { get; set; }
+        [XmlElement] public DateTime ImportingFromDateString { get; set; }
 
-        public string ImportingToDateString
+        public string ImportingToDate
         {
-            get => ImportingToDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => ImportingToDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => ImportingToDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => ImportingToDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime ImportingToDate { get; set; }
+        [XmlElement] public DateTime ImportingToDateString { get; set; }
 
         [XmlArray("ContractList")]
         [XmlArrayItem("Contract")]
@@ -56,12 +56,12 @@ namespace DATA0200025.WebServices.XmlType.Request
 
         [XmlElement] public string AniFeedConfirmNo { get; set; }
 
-        public string SignConfirmDateString
+        public string SignConfirmDate
         {
-            get => SignConfirmDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => SignConfirmDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => SignConfirmDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => SignConfirmDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime SignConfirmDate { get; set; }
+        [XmlElement] public DateTime SignConfirmDateString { get; set; }
 
         [XmlElement] public string Buyer { get; set; }
 
@@ -77,12 +77,12 @@ namespace DATA0200025.WebServices.XmlType.Request
 
         [XmlElement] public string AssignName { get; set; }
 
-        public string ImportCerDateString
+        public string ImportCerDate
         {
-            get => ImportCerDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => ImportCerDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => ImportCerDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => ImportCerDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime ImportCerDate { get; set; }
+        [XmlElement] public DateTime ImportCerDateString { get; set; }
 
         [XmlElement] public string SignCerName { get; set; }
     }
@@ -116,22 +116,22 @@ namespace DATA0200025.WebServices.XmlType.Request
     public class ContractList
     {
         public string ContractNo { get; set; }
-        public string ContractDateString
+        public string ContractDate
         {
-            get => ContractDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => ContractDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => ContractDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => ContractDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime ContractDate { get; set; }
+        [XmlElement] public DateTime ContractDateString { get; set; }
     }
 
     public class InvoiceList
     {
         public string InvoiceNo { get; set; }
-        public string InvoiceDateString
+        public string InvoiceDate
         {
-            get => InvoiceDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => InvoiceDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => InvoiceDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => InvoiceDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime InvoiceDate { get; set; }
+        [XmlElement] public DateTime InvoiceDateString { get; set; }
     }
 }

@@ -209,7 +209,7 @@ namespace DATA0200025
 
             DaTiepNhanHoSo2d resultConfirm = new DaTiepNhanHoSo2d();
             resultConfirm.NSWFileCode = sMaHoSo;
-            resultConfirm.ResponseDate = DateTime.Now;
+            resultConfirm.ResponseDateString = DateTime.Now;
             string error = _sendService.DaTiepNhanHoSo2d(sMaHoSo, resultConfirm);
 
             if (error == "99")

@@ -148,7 +148,7 @@ namespace APP0200025.Controllers
                 PhanHoiDonXM resultConfirm = new PhanHoiDonXM();
                 resultConfirm.NSWFileCode = sMaHoSo;
                 resultConfirm.NameOfStaff = sTenUser;
-                resultConfirm.ResponseDate = DateTime.Now;
+                resultConfirm.ResponseDateString = DateTime.Now;
 
                 string error = _sendService.PhanHoiDonXM(sMaHoSo, resultConfirm);
                 if (error == "99")
@@ -262,16 +262,16 @@ namespace APP0200025.Controllers
                     resultConfirm.NSWFileCode = hs.sMaHoSo;
                     resultConfirm.ConfirmApplicationNo = hs.sSoGDK;
                     resultConfirm.Organization = hs.sTenDoanhNghiep;
-                    resultConfirm.SignConfirmDate = hs.dNgayXacNhan;
+                    resultConfirm.SignConfirmDateString = hs.dNgayXacNhan;
                     resultConfirm.SignConfirmPlace = hs.sSoGDK_NoiKy;
-                    resultConfirm.SignDate = hs.dNgayTaoHoSo;
+                    resultConfirm.SignDateString = hs.dNgayTaoHoSo;
                     resultConfirm.DepartmentCode = hs.sMaCoQuanXuLy;
                     resultConfirm.DepartmentName = hs.sTenCoQuanXuLy;
 
                     resultConfirm.ListHangHoa = CHangHoa26.GetHoaXND(Convert.ToInt64(iID_MaHoSo));
 
-                    resultConfirm.PeriodFrom = hs.dNgayXacNhan;
-                    resultConfirm.PeriodTo = hs.dNgayHetHieuLuc;
+                    resultConfirm.PeriodFromString = hs.dNgayXacNhan;
+                    resultConfirm.PeriodToString = hs.dNgayHetHieuLuc;
                     resultConfirm.SignName = hs.sSoGDK_NguoiKy;
 
                     string error = _sendService.CVMienKiem(hs.sMaHoSo, resultConfirm);
@@ -488,9 +488,9 @@ namespace APP0200025.Controllers
             //XML 13(05)
             ThongBaoThuHoiCVMienKiem resultConfirm = new ThongBaoThuHoiCVMienKiem();
             resultConfirm.NSWFileCode = sMaHoSo;
-            resultConfirm.CancelDate = DateTime.Now;
+            resultConfirm.CancelDateString = DateTime.Now;
             resultConfirm.Reason = _sNoiDung;
-            resultConfirm.SignConfirmDate = DateTime.Now;
+            resultConfirm.SignConfirmDateString = DateTime.Now;
             resultConfirm.SignConfirmName = "Người ký";
             resultConfirm.ConfirmApplicationNo = "SO CV MG";
             resultConfirm.AttachmentId = "100";

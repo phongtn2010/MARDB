@@ -69,14 +69,14 @@ namespace APP0200025.Controllers
                 resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
                 resultConfirm.DepartmentCode = hoSo.sCoQuanXuLy_Ma;
                 resultConfirm.DepartmentName = hoSo.sCoQuanXuLy_Ten;
-                resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
+                resultConfirm.ImportingFromDateString = hoSo.sMua_FromDate;
                 resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
-                resultConfirm.ImportingFromDate = hoSo.sMua_FromDate;
+                resultConfirm.ImportingFromDateString = hoSo.sMua_FromDate;
                 resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
                 resultConfirm.AssignID = "";
                 resultConfirm.AssignName = "";
                 resultConfirm.AssignNameOther = "";
-                resultConfirm.SignConfirmDate = hoSo.dNgayXacNhan;
+                resultConfirm.SignConfirmDateString = hoSo.dNgayXacNhan;
                 resultConfirm.SignConfirmPlace = "Hà nội";
                 resultConfirm.SignConfirmName = "Lãnh đạo cục";
                 resultConfirm.NSWFileCodeOld = hoSo.sMaHoSo_ThayThe;

@@ -11,11 +11,11 @@ namespace DATA0200025.WebServices.XmlType.Request
     {
         [XmlElement] public string NSWFileCode { get; set; }
 
-        public string ResponseDateString
+        public string ResponseDate
         {
-            get => ResponseDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => ResponseDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => ResponseDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => ResponseDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
-        [XmlElement] public DateTime ResponseDate { get; set; }
+        [XmlElement] public DateTime ResponseDateString { get; set; }
     }
 }

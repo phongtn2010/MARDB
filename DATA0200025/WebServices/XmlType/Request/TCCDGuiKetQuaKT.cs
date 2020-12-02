@@ -23,14 +23,12 @@ namespace DATA0200025.WebServices.XmlType.Request
 
         [XmlElement] public string TestConfirmNumber { get; set; }
 
-        [XmlIgnore] public DateTime TestConfirmDate { get; set; }
-
-        [XmlElement("TestConfirmDate")]
-        public string TestConfirmDateString
+        public string TestConfirmDate
         {
-            get => TestConfirmDate.ToString("yyyy-MM-dd HH:mm:ss");
-            set => TestConfirmDate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+            get => TestConfirmDateString.ToString("yyyy-MM-dd HH:mm:ss");
+            set => TestConfirmDateString = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
         }
+        [XmlIgnore] public DateTime TestConfirmDateString { get; set; }
 
         [XmlElement] public string TestConfirmAttachmentId { get; set; }
 

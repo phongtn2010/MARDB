@@ -83,7 +83,7 @@ namespace APP0200025.Controllers
                 resultConfirm.FileName = "";
                 resultConfirm.FileLink = "";
                 resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-                resultConfirm.ResponseDate = DateTime.Now;
+                resultConfirm.ResponseDateString = DateTime.Now;
                 string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
 
                 if (error == "99")
@@ -141,7 +141,7 @@ namespace APP0200025.Controllers
                 resultConfirm.FileName = "";
                 resultConfirm.FileLink = "";
                 resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-                resultConfirm.ResponseDate = DateTime.Now;
+                resultConfirm.ResponseDateString = DateTime.Now;
                 string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
 
                 if (error == "99")
@@ -256,7 +256,7 @@ namespace APP0200025.Controllers
             resultConfirm.FileName = sFileName;
             resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
             resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-            resultConfirm.ResponseDate = DateTime.Now;
+            resultConfirm.ResponseDateString = DateTime.Now;
             string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "07");
             if (error.Equals("99"))
             {
@@ -356,7 +356,7 @@ namespace APP0200025.Controllers
             resultConfirm.FileName = sFileName;
             resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
             resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-            resultConfirm.ResponseDate = DateTime.Now;
+            resultConfirm.ResponseDateString = DateTime.Now;
             string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "08");
             if (error.Equals("99"))
             {
