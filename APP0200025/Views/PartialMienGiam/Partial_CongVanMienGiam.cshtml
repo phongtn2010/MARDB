@@ -61,9 +61,16 @@
                     </td>
                     <td align="center" style="padding: 3px 0px;">
                         @{
-                            if (String.IsNullOrEmpty(Convert.ToString(Model.dNgayXacNhan)) == false)
+                            if (String.IsNullOrEmpty(Model.dNgayXacNhan.ToString()) == false)
                             {
-                                <p>Hà Nội, ngày @(Model.dNgayXacNhan.Day) tháng @(Model.dNgayXacNhan.Month) năm @(Model.dNgayXacNhan.Year)</p>
+                                if (Model.dNgayXacNhan.Year > 1990)
+                                {
+                                    <p>Hà Nội, ngày @(Model.dNgayXacNhan.Day) tháng @(Model.dNgayXacNhan.Month) năm @(Model.dNgayXacNhan.Year)</p>
+                                }
+                                else
+                                {
+                                    <p>Hà Nội, ngày ... tháng ... năm .....</p>
+                                }
                             }
                             else
                             {
