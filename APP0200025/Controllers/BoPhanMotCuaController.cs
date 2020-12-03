@@ -212,7 +212,7 @@ namespace APP0200025.Controllers
             string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]).Trim();
             string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
             string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
-            string _sSoGDK = CString.SafeString(Request.Form[ParentID + "sSoGDK"]).Trim();
+            string _sSoGDK = CString.SafeString(Request.Form[ParentID + "_sSoGDK"]).Trim();
             string _TuNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayXacNhan"]);
             string _DenNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayXacNhan"]);
             CHoSoSearch models = new CHoSoSearch
@@ -338,7 +338,7 @@ namespace APP0200025.Controllers
             string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]).Trim();
             string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
             string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
-            string _sSoGDK = CString.SafeString(Request.Form[ParentID + "sSoGDK"]).Trim();
+            string _sSoGDK = CString.SafeString(Request.Form[ParentID + "_sSoGDK"]).Trim();
             string _TuNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayXacNhan"]);
             string _DenNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayXacNhan"]);
             CHoSoSearch models = new CHoSoSearch
