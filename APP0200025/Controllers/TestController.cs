@@ -157,5 +157,29 @@ namespace APP0200025.Controllers
 
             return View();
         }
+
+
+        //Step 1 - Use NameSpace "using Microsoft.SharePoint.Client;" after adding reference in your application.
+        //PM> Install-Package Microsoft.SharePoint.Client.dll
+        //Step 2 - Write code to authenticate from SharePoint in asp.net.
+        //string userName = Your username;  
+        //string password = Your password;  
+        //string baseurl = "Sharepoint base URL";
+        //Uri uri = new Uri(baseurl);
+        //var securePassword = new SecureString();  
+        //foreach (var c in password) { securePassword.AppendChar(c); }
+        //var credentials = new SharePointOnlineCredentials(userName, securePassword);
+        //var authCookie = credentials.GetAuthenticationCookie(uri);
+        //var fedAuthString = authCookie.TrimStart("SPOIDCRL=".ToCharArray());  
+        //if (fedAuthString != null)  
+        //{  
+        //    result.UserToken = fedAuthString;  
+        //    result.Message = "User has been logged in successfully";  
+        //}
+        //else
+        //{
+        //    result.Message = "Invalid User!!";
+
+        //}  
     }
 }
