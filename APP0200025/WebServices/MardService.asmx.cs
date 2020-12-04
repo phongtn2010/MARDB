@@ -10,6 +10,7 @@ using Autofac;
 using DATA0200025;
 using DATA0200025.WebServices;
 using DATA0200025.WebServices.XmlType;
+using DATA0200025.WebServices.XmlType.Request;
 
 namespace APP0200025.WebServices
 {
@@ -19,6 +20,8 @@ namespace APP0200025.WebServices
     public class MardService : WebService
     {
         private WsProcessingService _processingService = new WsProcessingService();
+
+        private SendService _sendService = new SendService();
 
         //public MardService()
         //{
@@ -199,7 +202,7 @@ namespace APP0200025.WebServices
                             break;
                     }
 
-                    if(iTrangThai == 1)
+                    if (iTrangThai == 1)
                     {
                         CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "NSW->BNN", nswFileCode, "Thành công", "99", payload, "", "");
                     }
@@ -218,7 +221,7 @@ namespace APP0200025.WebServices
                         new Error { ErrorCode = WsConstants.Errors.ERR02_CODE, ErrorName = errorMessage });
                 }
 
-                
+
             }
             catch (Exception e)
             {
@@ -232,10 +235,299 @@ namespace APP0200025.WebServices
                         ErrorCode = WsConstants.Errors.ERR02_CODE,
                         ErrorName = WsConstants.Errors.ERR02 + "|" + e.Message
                     });
-              }
+            }
 
             return WsHelper.GetXmlFromObject(envelopReturn);
         }
+
+        [WebMethod]
+        public string KetQuaXuLy(string nswFileCode, KetQuaXuLy objData, string sMessageFunction)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.KetQuaXuLy(nswFileCode, objData, sMessageFunction);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+            }
+            catch(Exception ex)
+            {
+                vR = "-1";
+            }
+            
+            return vR;
+        }
+
+        [WebMethod]
+        public string XacNhanDon(string nswFileCode, XacNhanDon objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.XacNhanDon(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+            
+            return vR;
+        }
+
+        [WebMethod]
+        public string ThuHoiGDK(string nswFileCode, ThuHoiGDK objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.ThuHoiGDK(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+
+            return vR;
+        }
+
+        [WebMethod]
+        public string TCCDGuiKetQuaKT(string nswFileCode, TCCDGuiKetQuaKT objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.TCCDGuiKetQuaKT(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+            
+            return vR;
+        }
+
+        [WebMethod]
+        public string XuLyKetQua(string nswFileCode, XuLyKetQua objData, string sMessageFunction)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.XuLyKetQua(nswFileCode, objData, sMessageFunction);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+            
+            return vR;
+        }
+
+        [WebMethod]
+        public string GiayXNCL(string nswFileCode, GiayXNCL objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.GiayXNCL(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+            
+            return vR;
+        }
+
+        [WebMethod]
+        public string ThuHoiGiayXNCL(string nswFileCode, ThuHoiGiayXNCL objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.ThuHoiGiayXNCL(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+
+            return vR;
+        }
+
+        [WebMethod]
+        public string DaTiepNhanHoSo2d(string nswFileCode, DaTiepNhanHoSo2d objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.DaTiepNhanHoSo2d(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+
+            return vR;
+        }
+
+        [WebMethod]
+        public string DMPhanNhomHangHoa(string nswFileCode, DMPhanNhomHangHoa objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.DMPhanNhomHangHoa(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+
+            return vR;
+        }
+
+        [WebMethod]
+        public string DMLoaiHangHoa(string nswFileCode, DMLoaiHangHoa objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.DMLoaiHangHoa(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+
+            return vR;
+        }
+
+        [WebMethod]
+        public string DMPhanLoaiHangHoa(string nswFileCode, DMPhanLoaiHangHoa objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.DMPhanLoaiHangHoa(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+
+            return vR;
+        }
+
 
         private static Envelope CreateEnvelopReturn(string nswFileCode, string msgType, string msgFunc, bool isSuccess,
             string error)

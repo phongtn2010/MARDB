@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using DATA0200026;
 using DATA0200026.WebServices;
 using DATA0200026.WebServices.XmlType;
+using DATA0200026.WebServices.XmlType.Request;
 
 namespace APP0200025.WebServices
 {
@@ -22,6 +23,8 @@ namespace APP0200025.WebServices
     public class Mard26Service : System.Web.Services.WebService
     {
         private WsProcessingService _processingService = new WsProcessingService();
+
+        private SendService _sendService = new SendService();
 
         [WebMethod]
         public string Request(string payload)
@@ -108,6 +111,87 @@ namespace APP0200025.WebServices
             }
 
             return WsHelper.GetXmlFromObject(envelopReturn);
+        }
+
+        [WebMethod]
+        public string PhanHoiDonXM(string nswFileCode, PhanHoiDonXM objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.PhanHoiDonXM(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+
+            return vR;
+        }
+
+        [WebMethod]
+        public string CVMienKiem(string nswFileCode, CVMienKiem objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.CVMienKiem(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+
+            return vR;
+        }
+
+        [WebMethod]
+        public string ThongBaoThuHoiCVMienKiem(string nswFileCode, ThongBaoThuHoiCVMienKiem objData)
+        {
+            string vR = "";
+
+            try
+            {
+                string error = _sendService.ThongBaoThuHoiCVMienKiem(nswFileCode, objData);
+
+                if (error == "99")
+                {
+                    vR = "99";
+                }
+                else
+                {
+                    vR = "00";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                vR = "-1";
+            }
+
+            return vR;
         }
 
         private static Envelope CreateEnvelopReturn(string nswFileCode, string msgType, string msgFunc, bool isSuccess,

@@ -186,9 +186,6 @@ namespace APP0200025.Controllers
                 {
                     String FileName = hpf.FileName;
                     var filename = Path.GetFileName(hpf.FileName);
-                    //var path = Path.Combine(Server.MapPath("~/Uploads/Profile"), filename);
-                    //hpf.SaveAs(path);
-
 
                     using (var client = new HttpClient())
                     {
