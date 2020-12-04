@@ -1,11 +1,56 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
 @{
     ViewBag.Title = "FileUpload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ParentID = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "Test", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            @if (ViewData["DuLieuMoi"] == "1")
+            {
+                @String.Format("{0}", "Thêm mới thông tin công ty")
+            }
+            else
+            {
+                @String.Format("{0}", "Sửa thông tin công ty")
+            }
+        </h3>
+        <div class="box-tools pull-right"></div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="Edit_sFile">Logo</label>
+                    @MvcHtmlString.Create(MyHtmlHelper.UploadFile(ParentID, "File", ""))
+                </div>
+            </div>
+            <div class="col-xs-4">
+            </div>
+            <div class="col-xs-4">
+            </div>
+        </div>
+    </div><!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <div class="col-xs-6">
+            <button class="btn btn-block btn-default" type="submit">Save</button>
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+        </div>
+    </div>
 }
 
 <style>

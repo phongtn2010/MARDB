@@ -256,6 +256,7 @@
     <Compile Include="Controllers\HoSoController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MienGiamController.cs" />
+    <Compile Include="Controllers\PermitionMessageController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\TraCuuHangHoaController.cs" />
     <Compile Include="Controllers\TraCuuHoSoController.cs" />
@@ -3138,6 +3139,7 @@
     <Content Include="Views\BoPhanMotCua\BaoCao.cshtml" />
     <Content Include="Views\BoPhanMotCua\BaoCaoTinhHinhXuLyHoSo.cshtml" />
     <Content Include="Views\Report\TinhHinhXuLyHoSo.cshtml" />
+    <Content Include="Views\PermitionMessage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

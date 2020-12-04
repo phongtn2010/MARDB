@@ -1,0 +1,33 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_cms.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Index";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">BẠN KHÔNG CÓ QUYỀN TRUY CẬP CHỨC NĂNG NÀY</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <img src="@Url.Content("~/Content/images/error_access_denied.jpg")" style="width: 100%;" alt="" />
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                </div>
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
