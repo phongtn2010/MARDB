@@ -12,6 +12,7 @@
 @{
     Layout = null;
     String ServerURL = CHamRieng.Get_Domain();
+    String ServerFile = CHamRieng.Get_Domain_File();
 
     var lstFile = clFileDinhKem.GetFileByHoSoLoaiKhac(Model.iID_MaHoSo);
     var lstFileHD = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 100);

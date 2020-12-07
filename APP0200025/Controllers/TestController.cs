@@ -196,7 +196,7 @@ namespace APP0200025.Controllers
                             var fileContent = new ByteArrayContent(Bytes);
                             fileContent.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment") { FileName = hpf.FileName };
                             content.Add(fileContent);
-                            var requestUri = "http://mard.adp-p.com/api/fileuploadapi";
+                            var requestUri = "http://mardapi.adp-p.com/api/fileuploadapi";
                             try
                             {
                                 var result = client.PostAsync(requestUri, content).Result;
