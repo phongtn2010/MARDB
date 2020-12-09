@@ -90,6 +90,8 @@
     <Reference Include="System.Drawing">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DataVisualization">
       <Private>True</Private>
     </Reference>
@@ -247,6 +249,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="0200025\WebServices\MardService.asmx.cs">
+      <DependentUpon>MardService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="0200026\WebServices\MardService.asmx.cs">
+      <DependentUpon>MardService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\Api\FileUploadApiController.cs" />
     <Compile Include="Controllers\Api\FileuploadController.cs" />
     <Compile Include="Controllers\BaoMat\DC_CongTyController.cs" />
@@ -268,6 +278,8 @@
       <DependentUpon>MardService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Content Include="0200025\WebServices\MardService.asmx" />
+    <Content Include="0200026\WebServices\MardService.asmx" />
     <Content Include="App_Code\Pagings.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

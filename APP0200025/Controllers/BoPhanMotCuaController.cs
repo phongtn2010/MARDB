@@ -9,12 +9,15 @@ using DATA0200026.WebServices;
 using DomainModel;
 using DATA0200026.WebServices.XmlType.Request;
 using System.Collections.Specialized;
+using AutoMapper;
+//using APP0200025.SV0200026;
 
 namespace APP0200025.Controllers
 {
     public class BoPhanMotCuaController : Controller
     {
         private SendService _sendService = new SendService();
+        //private SV0200026.Mard26ServiceSoapClient _sendService = new SV0200026.Mard26ServiceSoapClient();
 
         Bang bang = new Bang("CNN26_HoSo");
 
