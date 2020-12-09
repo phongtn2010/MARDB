@@ -36,15 +36,15 @@ namespace DATA0200025.WebServices
             using (TextReader reader = new StringReader(payload))
             {
                 var response = (EnvelopeResponse)responseSerializer.Deserialize(reader);
-
-                using (TextReader envelopeReader = new StringReader(response.Body.ReceiveResponse.ResponsePayload))
+                using (TextReader envelopeReader =
+                    new StringReader(response.Body.ReceiveResponse.ReceiveResult.ResponsePayload))
                 {
                     var envelop = (Envelope)envelopeSerializer.Deserialize(envelopeReader);
                     var sType = envelop.Header.Subject.Type;
                     var sFun = envelop.Header.Subject.Function;
                     var nswFileCode = envelop.Header.Subject.Function;
-
                     return envelop;
+
                     //return (Envelope)envelopeSerializer.Deserialize(envelopeReader);
                 }
             }
@@ -53,14 +53,9 @@ namespace DATA0200025.WebServices
         public static Envelope SendMessage(string payload)
         {
             Console.WriteLine(payload);
-            if (!IsSendXML)
-            {
-                return new Envelope();
-            }
-
+            if (!IsSendXML) return new Envelope();
             //TODO: Save request / response
             var soapEnvelopeXml = CreateSoapEnvelope(payload);
-
             try
             {
                 var webRequest = CreateWebRequest(WsConfig.GatewayUrl, WsConfig.Action);
@@ -74,7 +69,7 @@ namespace DATA0200025.WebServices
                         soapResult = rd.ReadToEnd();
                     }
                 }
-                
+
                 return ParseResponse(soapResult);
             }
             catch (Exception ex)
@@ -92,7 +87,7 @@ namespace DATA0200025.WebServices
         private static HttpWebRequest CreateWebRequest(string url, string action)
         {
             var webRequest = (HttpWebRequest)WebRequest.Create(url);
-            webRequest.Headers.Add("SOAPAction", "");
+            webRequest.Headers.Add("SOAPAction", action);
             webRequest.ContentType = "text/xml;charset=\"utf-8\"";
             webRequest.Accept = "text/xml";
             webRequest.Method = "POST";

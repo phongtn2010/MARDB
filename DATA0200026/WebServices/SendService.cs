@@ -41,8 +41,11 @@ namespace DATA0200026.WebServices
         {
             var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_11, 
                 WsConstants.MessageFunction.FUNCTION_03);
-            var content = new Content();
-            content.ApplicationResponse = objData;
+            var content = new Content
+            {
+                ApplicationResponse = objData
+            };
+            //content.ApplicationResponse = objData;
 
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
@@ -61,8 +64,10 @@ namespace DATA0200026.WebServices
         {
             var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_12,
                 WsConstants.MessageFunction.FUNCTION_04);
-            var content = new Content();
-            content.ApplicationReplies = objData;
+            var content = new Content {
+                ApplicationReplies = objData
+            };
+            //content.ApplicationReplies = objData;
 
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);
@@ -82,8 +87,10 @@ namespace DATA0200026.WebServices
         {
             var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_13,
                 WsConstants.MessageFunction.FUNCTION_05);
-            var content = new Content();
-            content.ApplicationCancel = objData;
+            var content = new Content {
+                ApplicationCancel = objData
+            };
+            //content.ApplicationCancel = objData;
 
             var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
             var response = WsHelper.SendMessage(request);

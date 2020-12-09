@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using DATA0200025.WebServices.XmlType;
 using DomainModel;
 
@@ -138,7 +139,7 @@ namespace DATA0200025.WebServices
 
     public static class WsConfig
     {
-        public const string Template = @"
+        public static string Template = @"
                                         <soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:gen=""" + DefaultNamespace + @""">
                                             <soapenv:Header/>
                                             <soapenv:Body>
@@ -149,19 +150,19 @@ namespace DATA0200025.WebServices
                                         </soapenv:Envelope>";
 
 
-        public const string DirectGatewayTemplate = @"
+        public static string DirectGatewayTemplate = @"
                                         <soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:gen=""" + DefaultNamespace + @""">
                                             <soapenv:Header/>
                                             <soapenv:Body>
                                                 <gen:" + DefaultMethodName + @">
                                                     <gen:" + DefaultOfficeTag + @">" + OfficeCodePlaceHolder + @"</gen:" + DefaultOfficeTag + @">
                                                     <gen:" + DefaultDocumentType + @">" + DocumentTypePlaceHolder + @"</gen:" + DefaultDocumentType + @">
-                                                    <gen:" + DefaultPayloadTag + @"><![CDATA[" + PayloadPlaceholder + @"]]></gen:" + DefaultPayloadTag + @">
+                                                    <gen:" + DefaultMethodTag + @"><![CDATA[" + PayloadPlaceholder + @"]]></gen:" + DefaultMethodTag + @">
                                                 </gen:" + DefaultMethodName + @">
                                             </soapenv:Body>
                                         </soapenv:Envelope>";
 
-        public const string MardGatewayTemplate = @"
+        public static string MardGatewayTemplate = @"
                                         <soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:gen=""" + DefaultNamespace + @""" xmlns:con=""" + DefaultGatewayNamespace + @""">
                                             <soapenv:Header/>
                                             <soapenv:Body>
@@ -176,6 +177,7 @@ namespace DATA0200025.WebServices
                                         </soapenv:Envelope>";
 
 
+
         public const string PayloadPlaceholder = "_PAYLOAD";
         private const string OfficeCodePlaceHolder = "_OFFICE_CODE";
         private const string DocumentTypePlaceHolder = "_DOCUMENT_TYPE";
@@ -188,26 +190,42 @@ namespace DATA0200025.WebServices
             //     .Replace(MethodNamePlaceHolder, DefaultMethodName)
             //     .Replace(MethodTagPlaceHolder, DefaultMethodTag);
 
-            // DIRECT GW
-            return DirectGatewayTemplate
+            //// DIRECT GW
+            // return DirectGatewayTemplate
+            //     .Replace(OfficeCodePlaceHolder, "NSW")
+            //     .Replace(DocumentTypePlaceHolder, WsConstants.PROCEDURE_CODE);
+
+            // MARD GW
+            return MardGatewayTemplate
                 .Replace(OfficeCodePlaceHolder, "BNN")
                 .Replace(DocumentTypePlaceHolder, WsConstants.PROCEDURE_CODE);
-
-            //// MARD GW
-            //return MardGatewayTemplate
-            //    .Replace(OfficeCodePlaceHolder, "NSW")
-            //    .Replace(DocumentTypePlaceHolder, WsConstants.PROCEDURE_CODE);
         }
 
-        //public const string GatewayUrl = "http://192.168.31.7:18888/mard-gw/MardGateway.svc";
-        public static string GatewayUrl = Globals.api_bantinxml25;  // "http://103.248.160.33:8080/VNSWReceiveGateway/ws/gateway.wsdl";
-        public const string Action = "http://mard.gov.vn/nsw/services/IMardGateway/receive";
-        public const string DefaultMethodName = "receiveRequest";
-        public const string DefaultMethodTag = "receiveRequest";
-        public const string DefaultPayloadTag = "requestPayload";
-        public const string DefaultOfficeTag = "officeCode";
-        public const string DefaultDocumentType = "documentType";
-        public const string DefaultNamespace = "http://com/vnsw/receive/gateway/generated";
-        public const string DefaultGatewayNamespace = "http://com/vnsw/receive/gateway/generated";
+        public static string GatewayUrl => WebConfigurationManager.AppSettings["GatewayUrl"]
+                                           ?? "http://mardsv.adp-p.com/MardGateway.svc";
+
+        public static string Action => WebConfigurationManager.AppSettings["Action"]
+                                       ?? "http://mard.gov.vn/nsw/services/IMardGateway/receive";
+
+        public static string DefaultMethodName => WebConfigurationManager.AppSettings["DefaultMethodName"]
+                                                  ?? "receive";
+
+        public static string DefaultMethodTag => WebConfigurationManager.AppSettings["DefaultMethodTag"]
+                                                 ?? "request";
+
+        public static string DefaultPayloadTag => WebConfigurationManager.AppSettings["DefaultPayloadTag"]
+                                                  ?? "requestPayload";
+
+        public static string DefaultOfficeTag => WebConfigurationManager.AppSettings["DefaultOfficeTag"]
+                                                 ?? "officeCode";
+
+        public static string DefaultDocumentType => WebConfigurationManager.AppSettings["DefaultDocumentType"]
+                                                    ?? "documentType";
+
+        public static string DefaultNamespace => WebConfigurationManager.AppSettings["DefaultNamespace"]
+                                                 ?? "http://mard.gov.vn/nsw/services";
+
+        public static string DefaultGatewayNamespace => WebConfigurationManager.AppSettings["DefaultGatewayNamespace"]
+                                                        ?? "http://mard.gov.vn/nsw/data/contract";
     }
 }

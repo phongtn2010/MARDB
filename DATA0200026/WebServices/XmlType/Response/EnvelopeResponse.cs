@@ -12,16 +12,17 @@ namespace DATA0200026.WebServices.Wrapper
     {
         [XmlElement("Header", Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
         public Header Header { get; set; }
+
         [XmlElement("Body", Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
         public BodyResponse Body { get; set; }
     }
 
+
     [XmlRoot("Body", Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
     public class BodyResponse
     {
-        [XmlElement("receiveResponse", Namespace = "http://com/vnsw/receive/gateway/generated")]
+        [XmlElement("receiveResponse", Namespace = "http://mard.gov.vn/nsw/services")]
         public ReceiveResponse ReceiveResponse { get; set; }
-
     }
 
     [XmlRoot(ElementName = "receiveResult", Namespace = "http://mard.gov.vn/nsw/services")]
@@ -31,14 +32,12 @@ namespace DATA0200026.WebServices.Wrapper
         public string ResponsePayload { get; set; }
     }
 
-    [XmlRoot(ElementName = "receiveResponse", Namespace = "http://com/vnsw/receive/gateway/generated")]
+    [XmlRoot(ElementName = "receiveResponse", Namespace = "http://mard.gov.vn/nsw/services")]
     public class ReceiveResponse
     {
-        [XmlElement(ElementName = "responsePayload", Namespace = "http://com/vnsw/receive/gateway/generated")]
-        public string ResponsePayload { get; set; }
+        [XmlElement(ElementName = "receiveResult", Namespace = "http://mard.gov.vn/nsw/services")]
+        public ReceiveResult ReceiveResult { get; set; }
 
-        //[XmlElement(ElementName = "receiveResult", Namespace = "http://mard.gov.vn/nsw/services")]
-        //public ReceiveResult ReceiveResult { get; set; }
         [XmlAttribute(AttributeName = "xmlns")]
         public string Xmlns { get; set; }
     }
@@ -48,16 +47,18 @@ namespace DATA0200026.WebServices.Wrapper
     {
         [XmlAttribute(AttributeName = "CorrelationId")]
         public string CorrelationId { get; set; }
+
         [XmlAttribute(AttributeName = "xmlns")]
         public string Xmlns { get; set; }
-        [XmlText]
-        public string Text { get; set; }
+
+        [XmlText] public string Text { get; set; }
     }
 
     [XmlRoot(ElementName = "Header", Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
     public class Header
     {
-        [XmlElement(ElementName = "ActivityId", Namespace = "http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics")]
+        [XmlElement(ElementName = "ActivityId",
+            Namespace = "http://schemas.microsoft.com/2004/09/ServiceModel/Diagnostics")]
         public ActivityId ActivityId { get; set; }
     }
 }
