@@ -271,6 +271,7 @@
     <Compile Include="Controllers\Test26Controller.cs" />
     <Compile Include="Controllers\TraCuuHangHoaController.cs" />
     <Compile Include="Controllers\TraCuuHoSoController.cs" />
+    <Compile Include="Models\CDinhKemFiles.cs" />
     <Compile Include="WebServices\Mard26Service.asmx.cs">
       <DependentUpon>Mard26Service.asmx</DependentUpon>
       <SubType>Component</SubType>

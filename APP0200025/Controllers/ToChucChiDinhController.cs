@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DATA0200025.WebServices;
 using DATA0200025.WebServices.XmlType.Request;
+using APP0200025.Models;
 
 namespace APP0200025.Controllers
 {
@@ -304,6 +305,9 @@ namespace APP0200025.Controllers
         [Authorize, ValidateInput(false), HttpPost]
         public object CapNhatChungNhanHopQuy()
         {
+            String sUserName = User.Identity.Name;
+            String sIP = Request.UserHostAddress;
+
             var sDateTime = string.Empty;
             string _sTenFile = string.Empty;
             string _sDuongDan = string.Empty;
@@ -324,45 +328,101 @@ namespace APP0200025.Controllers
             }
             dtHSTCCD.Dispose();
 
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(_iID_MaHoSo));
+
             for (var i = 0; i < Request.Files.Count; i++)
             {
                 if (Request.Files.AllKeys[i] == "_file")
                 {
-                    string guid = Guid.NewGuid().ToString();
-                    string sPath = "/Uploads/File";
-                    DateTime TG = DateTime.Now;
-                    string subPath = TG.ToString("yyyy/MM/dd");
-                    string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                    string newPath = string.Format("{0}/{1}", sPath, subPath);
-                    CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                    string sFileTemp = string.Empty;
-                    sFileTemp = string.Format(newPath + "/{0}_{1}", subName, Request.Files[i].FileName);
-                    string filePath = Server.MapPath("~" + sFileTemp);
-                    Request.Files[i].SaveAs(filePath);
-                    _sTenFile = Request.Files[i].FileName;
+                    //string guid = Guid.NewGuid().ToString();
+                    //string sPath = "/Uploads/File";
+                    //DateTime TG = DateTime.Now;
+                    //string subPath = TG.ToString("yyyy/MM/dd");
+                    //string subName = TG.ToString("HHmmssfff") + "_" + guid;
+                    //string newPath = string.Format("{0}/{1}", sPath, subPath);
+                    //CImage.CreateDirectory(Server.MapPath("~" + newPath));
+
+                    long iID_MaDinhKem = -1;
+                    string sFileName = "", sFileTemp = "";
+
+                    //sFileTemp = string.Format(newPath + "/{0}_{1}", subName, Request.Files[i].FileName);
+                    //string filePath = Server.MapPath("~" + sFileTemp);
+                    //Request.Files[i].SaveAs(filePath);
+
+                    //_sTenFile = Request.Files[i].FileName;
+                    //_sDuongDan = sFileTemp;
+
+                    HttpPostedFileBase postedFile = Request.Files[i];
+                    if (postedFile != null && postedFile.ContentLength > 0)
+                    {
+                        if (CommonFunction.FileUploadCheck(postedFile))
+                        {
+                            sFileName = postedFile.FileName;
+
+                            ResDinhKemFiles resDinhKemFile = new ResDinhKemFiles();
+                            resDinhKemFile = CDinhKemFiles.UploadFile(postedFile);
+                            if (resDinhKemFile != null && resDinhKemFile.ItemId > 0)
+                            {
+                                sFileTemp = resDinhKemFile.UrlFile;
+
+                                //Luu vao bang Dinh Kem
+                                iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 70, "0", hoSo.sMaHoSo, "File chứng nhận hợp quy Tổ chức chỉ định.", sFileName, "", null, 1, sFileTemp, sUserName, sIP, resDinhKemFile.ItemId);
+                            }
+                        }
+                    }
+
+                    _sTenFile = sFileName;
                     _sDuongDan = sFileTemp;
                 }
                 else
                 {
-                    string guid = Guid.NewGuid().ToString();
-                    string sPath = "/Uploads/File";
-                    DateTime TG = DateTime.Now;
-                    string subPath = TG.ToString("yyyy/MM/dd");
-                    string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                    string newPath = string.Format("{0}/{1}", sPath, subPath);
-                    CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                    string sFileTemp = string.Empty;
-                    sFileTemp = string.Format(newPath + "/{0}_{1}", subName, Request.Files[i].FileName);
-                    string filePath = Server.MapPath("~" + sFileTemp);
-                    Request.Files[i].SaveAs(filePath);
-                    var _sTenFile_PhanTich = Request.Files[i].FileName;
+                    //string guid = Guid.NewGuid().ToString();
+                    //string sPath = "/Uploads/File";
+                    //DateTime TG = DateTime.Now;
+                    //string subPath = TG.ToString("yyyy/MM/dd");
+                    //string subName = TG.ToString("HHmmssfff") + "_" + guid;
+                    //string newPath = string.Format("{0}/{1}", sPath, subPath);
+                    //CImage.CreateDirectory(Server.MapPath("~" + newPath));
+
+                    long iID_MaDinhKem = -1;
+                    string sFileName = "", sFileTemp = "";
+
+                    //sFileTemp = string.Format(newPath + "/{0}_{1}", subName, Request.Files[i].FileName);
+                    //string filePath = Server.MapPath("~" + sFileTemp);
+                    //Request.Files[i].SaveAs(filePath);
+
+                    
+
+                    HttpPostedFileBase postedFile = Request.Files[i];
+                    if (postedFile != null && postedFile.ContentLength > 0)
+                    {
+                        if (CommonFunction.FileUploadCheck(postedFile))
+                        {
+                            sFileName = postedFile.FileName;
+
+                            ResDinhKemFiles resDinhKemFile = new ResDinhKemFiles();
+                            resDinhKemFile = CDinhKemFiles.UploadFile(postedFile);
+                            if (resDinhKemFile != null && resDinhKemFile.ItemId > 0)
+                            {
+                                sFileTemp = resDinhKemFile.UrlFile;
+
+                                //Luu vao bang Dinh Kem
+                                iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 70, "0", hoSo.sMaHoSo, "File chứng nhận hợp quy Tổ chức chỉ định.", sFileName, "", null, 1, sFileTemp, sUserName, sIP, resDinhKemFile.ItemId);
+                            }
+                        }
+                    }
+
+                    var _sTenFile_PhanTich = sFileName;
                     var _sDuongDan_PhanTich = sFileTemp;
+
+
                     var DSTruong_PhanTich = "iID_MaHoSo,iID_MaHangHoa,sTenFile,sDuongDan";
                     var DSGiaTri_PhanTich = string.Format("'{0}','{1}','{2}','{3}'", _iID_MaHoSo, _iID_MaHangHoa, _sTenFile_PhanTich, _sDuongDan_PhanTich);
                     var SQL_PhanTich = String.Format("INSERT INTO {0}({1}) VALUES({2});", "CNN25_KetQuaPhanTich", DSTruong_PhanTich, DSGiaTri_PhanTich);
+
                     SqlCommand cmd_PhanTich = new SqlCommand();
                     cmd_PhanTich.CommandText = SQL_PhanTich;
-                    Connection.UpdateDatabase(cmd_PhanTich, 0);
+                    Connection.UpdateDatabase(cmd_PhanTich, CThamSo.iKetNoi);
                 }
             }
 

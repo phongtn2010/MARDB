@@ -7,7 +7,7 @@ using DomainModel.Abstract;
 using DATA0200025;
 using DATA0200025.Models;
 using DATA0200025.SearchModels;
-
+using APP0200025.Models;
 
 namespace APP0200025.Controllers
 {
@@ -235,20 +235,16 @@ namespace APP0200025.Controllers
                         if (CommonFunction.FileUploadCheck(postedFile))
                         {
                             sFileName = postedFile.FileName;
-                            string guid = Guid.NewGuid().ToString();
-                            string sPath = "/Uploads/File";
-                            DateTime TG = DateTime.Now;
-                            string subPath = TG.ToString("yyyy/MM/dd");
-                            string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                            string newPath = string.Format("{0}/{1}", sPath, subPath);
-                            CImage.CreateDirectory(Server.MapPath("~" + newPath));
 
-                            sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
-                            string filePath = Server.MapPath("~" + sFileTemp);
-                            postedFile.SaveAs(filePath);
+                            ResDinhKemFiles resDinhKemFile = new ResDinhKemFiles();
+                            resDinhKemFile = CDinhKemFiles.UploadFile(postedFile);
+                            if (resDinhKemFile != null && resDinhKemFile.ItemId > 0)
+                            {
+                                sFileTemp = resDinhKemFile.UrlFile;
 
-                            //Luu vao bang Dinh Kem
-                            iID_MaDinhKem = CDinhKem.ThemDinhKem(hanghoa.iID_MaHoSo, hanghoa.iID_MaHangHoa, 61, "0", hanghoa.sMaHoSo, "File từ chối XNCL Lãnh Đạo Phòng.", sFileName, "", null, 1, sFileTemp, sUserName, sIP);
+                                //Luu vao bang Dinh Kem
+                                iID_MaDinhKem = CDinhKem.ThemDinhKem(hanghoa.iID_MaHoSo, hanghoa.iID_MaHangHoa, 61, "0", hanghoa.sMaHoSo, "File từ chối XNCL Lãnh Đạo Phòng.", sFileName, "", null, 1, sFileTemp, sUserName, sIP, resDinhKemFile.ItemId);
+                            }
                         }
                     }
                 }

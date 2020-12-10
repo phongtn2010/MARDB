@@ -10,6 +10,7 @@ using DATA0200025.SearchModels;
 using System.Runtime.InteropServices.WindowsRuntime;
 using DATA0200025.WebServices.XmlType.Request;
 using DATA0200025.WebServices;
+using APP0200025.Models;
 
 namespace APP0200025.Controllers
 {
@@ -226,19 +227,16 @@ namespace APP0200025.Controllers
                     if (CommonFunction.FileUploadCheck(postedFile))
                     {
                         sFileName = postedFile.FileName;
-                        string guid = Guid.NewGuid().ToString();
-                        string sPath = "/Uploads/File";
-                        DateTime TG = DateTime.Now;
-                        string subPath = TG.ToString("yyyy/MM/dd");
-                        string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                        string newPath = string.Format("{0}/{1}", sPath, subPath);
-                        CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                        sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
-                        string filePath = Server.MapPath("~" + sFileTemp);
-                        postedFile.SaveAs(filePath);
 
-                        //Luu vao bang Dinh Kem
-                        iID_MaDinhKem = CDinhKem.ThemDinhKem(hangHoa.iID_MaHoSo, hangHoa.iID_MaHangHoa, 35, "0", hangHoa.sMaHoSo, "File bổ sung XCNL chờ tiếp nhận XNCL.", sFileName, "", null, 1, sFileTemp, sUserName, sIP);
+                        ResDinhKemFiles resDinhKemFile = new ResDinhKemFiles();
+                        resDinhKemFile = CDinhKemFiles.UploadFile(postedFile);
+                        if (resDinhKemFile != null && resDinhKemFile.ItemId > 0)
+                        {
+                            sFileTemp = resDinhKemFile.UrlFile;
+
+                            //Luu vao bang Dinh Kem
+                            iID_MaDinhKem = CDinhKem.ThemDinhKem(hangHoa.iID_MaHoSo, hangHoa.iID_MaHangHoa, 35, "0", hangHoa.sMaHoSo, "File bổ sung XCNL chờ tiếp nhận XNCL.", sFileName, "", null, 1, sFileTemp, sUserName, sIP, resDinhKemFile.ItemId);
+                        }
                     }   
                 }
             }
@@ -253,7 +251,7 @@ namespace APP0200025.Controllers
             resultConfirm.NameOfGoods = hangHoa.sTenHangHoa;
             resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
             resultConfirm.FileName = sFileName;
-            resultConfirm.FileLink = string.Format("{0}{1}",clCommon.BNN_Url,sFileTemp);
+            resultConfirm.FileLink = sFileTemp;
             resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
             resultConfirm.ResponseDateString = DateTime.Now;
 

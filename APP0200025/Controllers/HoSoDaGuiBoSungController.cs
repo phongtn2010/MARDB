@@ -1,4 +1,5 @@
-﻿using DATA0200025;
+﻿using APP0200025.Models;
+using DATA0200025;
 using DATA0200025.Models;
 using DATA0200025.SearchModels;
 using DomainModel;
@@ -87,6 +88,9 @@ namespace APP0200025.Controllers
         [HttpPost]
         public ActionResult YeuCauBoSungSubmit()
         {
+            String sUserName = User.Identity.Name;
+            String sIP = Request.UserHostAddress;
+
             ////  HttpPostedFile fileư= Request.Files;
             String ParentID = "BS";
             NameValueCollection values = new NameValueCollection();
@@ -107,25 +111,33 @@ namespace APP0200025.Controllers
                 ViewData["iID_MaHoSo"] = CString.SafeString(iID_MaHoSo);
                 return View();
             }
-            string sFileTemp = "";
+
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
+
+            long iID_MaDinhKem = -1;
+            string sFileTemp = "", sFileName = "";
             for (int i = 0; i < files.Count; i++)
             {
                 HttpPostedFileBase postedFile = files[i];
-                if (postedFile != null)
+                if (postedFile != null && postedFile.ContentLength > 0)
                 {
-                    string guid = Guid.NewGuid().ToString();
-                    string sPath = "/Uploads/File";
-                    DateTime TG = DateTime.Now;
-                    string subPath = TG.ToString("yyyy/MM/dd");
-                    string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                    string newPath = string.Format("{0}/{1}", sPath, subPath);
-                    CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                    sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
-                    string filePath = Server.MapPath("~" + sFileTemp);
-                    postedFile.SaveAs(filePath);
+                    if (CommonFunction.FileUploadCheck(postedFile))
+                    {
+                        sFileName = postedFile.FileName;
+
+                        ResDinhKemFiles resDinhKemFile = new ResDinhKemFiles();
+                        resDinhKemFile = CDinhKemFiles.UploadFile(postedFile);
+                        if (resDinhKemFile != null && resDinhKemFile.ItemId > 0)
+                        {
+                            sFileTemp = resDinhKemFile.UrlFile;
+
+                            //Luu vao bang Dinh Kem
+                            iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 90, "0", hoSo.sMaHoSo, "File Thu hồi giấy GDK.", sFileName, "", null, 1, sFileTemp, sUserName, sIP, resDinhKemFile.ItemId);
+                        }
+                    } 
                 }
             }
-            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+            
             int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;
@@ -150,6 +162,9 @@ namespace APP0200025.Controllers
         [Authorize, ValidateInput(false), HttpPost]
         public ActionResult TuChoiHoSoSubmit()
         {
+            String sUserName = User.Identity.Name;
+            String sIP = Request.UserHostAddress;
+
             String ParentID = "TC";
             NameValueCollection values = new NameValueCollection();
             HttpFileCollectionBase files = Request.Files;
@@ -169,25 +184,33 @@ namespace APP0200025.Controllers
                 ViewData["iID_MaHoSo"] = CString.SafeString(iID_MaHoSo);
                 return View();
             }
-            string sFileTemp = "";
+
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
+
+            long iID_MaDinhKem = -1;
+            string sFileTemp = "", sFileName = "";
             for (int i = 0; i < files.Count; i++)
             {
                 HttpPostedFileBase postedFile = files[i];
                 if (postedFile != null && postedFile.ContentLength > 0)
                 {
-                    string guid = Guid.NewGuid().ToString();
-                    string sPath = "/Uploads/File";
-                    DateTime TG = DateTime.Now;
-                    string subPath = TG.ToString("yyyy/MM/dd");
-                    string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                    string newPath = string.Format("{0}/{1}", sPath, subPath);
-                    CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                    sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
-                    string filePath = Server.MapPath("~" + sFileTemp);
-                    postedFile.SaveAs(filePath);
+                    if (CommonFunction.FileUploadCheck(postedFile))
+                    {
+                        sFileName = postedFile.FileName;
+
+                        ResDinhKemFiles resDinhKemFile = new ResDinhKemFiles();
+                        resDinhKemFile = CDinhKemFiles.UploadFile(postedFile);
+                        if (resDinhKemFile != null && resDinhKemFile.ItemId > 0)
+                        {
+                            sFileTemp = resDinhKemFile.UrlFile;
+
+                            //Luu vao bang Dinh Kem
+                            iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 90, "0", hoSo.sMaHoSo, "File Thu hồi giấy GDK.", sFileName, "", null, 1, sFileTemp, sUserName, sIP, resDinhKemFile.ItemId);
+                        }
+                    }
                 }
             }
-            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+            
             int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
             bang.MaNguoiDungSua = User.Identity.Name;
             bang.IPSua = Request.UserHostAddress;

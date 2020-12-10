@@ -1,4 +1,5 @@
 ﻿using APP0200025.Controllers.Api;
+using APP0200025.Models;
 using DATA0200025;
 using DATA0200025.Models;
 using DATA0200025.WebServices;
@@ -29,16 +30,16 @@ namespace APP0200025.Controllers
 
             //long iID_MaFile = CDinhKem.ThemDinhKem(0, 0, 0, "", "", "", "PHONG", "", null, 1, "http://mard.adp-p.com/Files/16c8858e-0f58-4c2c-939f-f7ac40d8cf2f.png", "doanhnghiep", "");
 
-            KetQuaXuLy resultConfirm = new KetQuaXuLy();
-            resultConfirm.NSWFileCode = "BNNPTNT25200010180";
-            resultConfirm.Reason = "Đã tiêp nhận hồ sơ";
-            resultConfirm.AttachmentId = "01";
-            resultConfirm.FileName = "File Test";
-            resultConfirm.FileLink = "LinkFile";
-            resultConfirm.NameOfStaff = "PHONG PHẠM";
-            resultConfirm.ResponseDateString = DateTime.Now;
+            //KetQuaXuLy resultConfirm = new KetQuaXuLy();
+            //resultConfirm.NSWFileCode = "BNNPTNT25200010180";
+            //resultConfirm.Reason = "Đã tiêp nhận hồ sơ";
+            //resultConfirm.AttachmentId = "01";
+            //resultConfirm.FileName = "File Test";
+            //resultConfirm.FileLink = "LinkFile";
+            //resultConfirm.NameOfStaff = "PHONG PHẠM";
+            //resultConfirm.ResponseDateString = DateTime.Now;
 
-            string error = _sendService.KetQuaXuLy("BNNPTNT25200010180", resultConfirm, "06");
+            //string error = _sendService.KetQuaXuLy("BNNPTNT25200010180", resultConfirm, "06");
 
             //string sYeuCBS = _sendService.YeuCauBoSung("BNNPTNT25200010060", "Đã tiêp nhận hồ sơ", "PHONG PHẠM");
 
@@ -182,45 +183,10 @@ namespace APP0200025.Controllers
             else
             {
                 HttpPostedFileBase hpf = Request.Files[ctlFNName] as HttpPostedFileBase;
-                if (hpf != null && hpf.ContentLength > 0)
-                {
-                    String FileName = hpf.FileName;
-                    var filename = Path.GetFileName(hpf.FileName);
 
-                    using (var client = new HttpClient())
-                    {
-                        using (var content = new MultipartFormDataContent())
-                        {
-                            byte[] Bytes = new byte[hpf.InputStream.Length + 1];
-                            hpf.InputStream.Read(Bytes, 0, Bytes.Length);
-                            var fileContent = new ByteArrayContent(Bytes);
-                            fileContent.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment") { FileName = hpf.FileName };
-                            content.Add(fileContent);
-                            var requestUri = "http://mard.adp-p.com/api/fileuploadapi";
-                            try
-                            {
-                                var result = client.PostAsync(requestUri, content).Result;
-                                if (result.StatusCode == System.Net.HttpStatusCode.Created)
-                                {
-                                    string jsonReturn = result.Content.ReadAsStringAsync().Result;
-                                    dynamic obj = JsonConvert.DeserializeObject(jsonReturn);
-                                    long iMa = (long)obj[0].ItemId;
-                                    string sURL = (string)obj[0].UrlFile;
-                                }
-                                else
-                                {
-                                    ViewBag.Failed = "Failed !" + result.Content.ToString();
-                                }
-                            }
-                            catch(Exception ex)
-                            {
+                ResDinhKemFiles vR = new ResDinhKemFiles();
 
-                            }
-
-                            
-                        }
-                    }
-                }
+                vR = CDinhKemFiles.UploadFile(hpf);
             }
             return base.RedirectToAction("Index");
         }

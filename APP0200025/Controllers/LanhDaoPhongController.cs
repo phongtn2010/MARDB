@@ -1,4 +1,5 @@
-﻿using DATA0200025;
+﻿using APP0200025.Models;
+using DATA0200025;
 using DATA0200025.Models;
 using DATA0200025.SearchModels;
 using DomainModel;
@@ -177,6 +178,9 @@ namespace APP0200025.Controllers
         [Authorize, ValidateInput(false), HttpPost]
         public ActionResult TuChoiHoSoSubmit()
         {
+            String sUserName = User.Identity.Name;
+            String sIP = Request.UserHostAddress;
+
             ResultModels result = new ResultModels();
             String ParentID = "TC";
             NameValueCollection values = new NameValueCollection();
@@ -207,7 +211,10 @@ namespace APP0200025.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
 
-            string sFileTemp = "";
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
+
+            long iID_MaDinhKem = -1;
+            string sFileName = "", sFileTemp = "";
             for (int i = 0; i < files.Count; i++)
             {
                 HttpPostedFileBase postedFile = files[i];
@@ -215,20 +222,21 @@ namespace APP0200025.Controllers
                 {
                     if (CommonFunction.FileUploadCheck(postedFile))
                     {
-                        string guid = Guid.NewGuid().ToString();
-                        string sPath = "/Uploads/File";
-                        DateTime TG = DateTime.Now;
-                        string subPath = TG.ToString("yyyy/MM/dd");
-                        string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                        string newPath = string.Format("{0}/{1}", sPath, subPath);
-                        CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                        sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
-                        string filePath = Server.MapPath("~" + sFileTemp);
-                        postedFile.SaveAs(filePath);
+                        sFileName = postedFile.FileName;
+
+                        ResDinhKemFiles resDinhKemFile = new ResDinhKemFiles();
+                        resDinhKemFile = CDinhKemFiles.UploadFile(postedFile);
+                        if (resDinhKemFile != null && resDinhKemFile.ItemId > 0)
+                        {
+                            sFileTemp = resDinhKemFile.UrlFile;
+
+                            //Luu vao bang Dinh Kem
+                            iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 60, "0", hoSo.sMaHoSo, "File từ chối XNCL Lãnh Đạo Cục.", sFileName, "", null, 1, sFileTemp, sUserName, sIP, resDinhKemFile.ItemId);
+                        }
                     } 
                 }
             }
-            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+            
             int HanhDong = 0;
             switch (hoSo.iID_MaTrangThai)
             {

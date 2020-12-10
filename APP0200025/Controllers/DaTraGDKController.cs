@@ -1,4 +1,5 @@
-﻿using DATA0200025;
+﻿using APP0200025.Models;
+using DATA0200025;
 using DATA0200025.Models;
 using DATA0200025.SearchModels;
 using DATA0200025.WebServices;
@@ -105,19 +106,16 @@ namespace APP0200025.Controllers
                     if (CommonFunction.FileUploadCheck(postedFile))
                     {
                         sFileName = postedFile.FileName;
-                        string guid = Guid.NewGuid().ToString();
-                        string sPath = "/Uploads/File";
-                        DateTime TG = DateTime.Now;
-                        string subPath = TG.ToString("yyyy/MM/dd");
-                        string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                        string newPath = string.Format("{0}/{1}", sPath, subPath);
-                        CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                        sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
-                        string filePath = Server.MapPath("~" + sFileTemp);
-                        postedFile.SaveAs(filePath);
 
-                        //Luu vao bang Dinh Kem
-                        iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 90, "0", hoSo.sMaHoSo, "File Thu hồi giấy GDK.", sFileName, "", null, 1, sFileTemp, sUserName, sIP);
+                        ResDinhKemFiles resDinhKemFile = new ResDinhKemFiles();
+                        resDinhKemFile = CDinhKemFiles.UploadFile(postedFile);
+                        if (resDinhKemFile != null && resDinhKemFile.ItemId > 0)
+                        {
+                            sFileTemp = resDinhKemFile.UrlFile;
+
+                            //Luu vao bang Dinh Kem
+                            iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 90, "0", hoSo.sMaHoSo, "File Thu hồi giấy GDK.", sFileName, "", null, 1, sFileTemp, sUserName, sIP, resDinhKemFile.ItemId);
+                        }
                     }
                 }
             }
@@ -134,7 +132,7 @@ namespace APP0200025.Controllers
             resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
             resultConfirm.AttachmentId = iID_MaDinhKem.ToString(); ;
             resultConfirm.FileName = sFileName;
-            resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
+            resultConfirm.FileLink = sFileTemp;
             string error = _sendService.ThuHoiGDK(hoSo.sMaHoSo, resultConfirm);
             if (error.Equals("99"))
             {

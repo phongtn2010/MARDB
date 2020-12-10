@@ -9,6 +9,7 @@ using DATA0200025.Models;
 using DATA0200025.SearchModels;
 using DATA0200025.WebServices.XmlType.Request;
 using DATA0200025.WebServices;
+using APP0200025.Models;
 
 namespace APP0200025.Controllers
 {
@@ -106,19 +107,16 @@ namespace APP0200025.Controllers
                 if (postedFile != null && postedFile.ContentLength > 0)
                 {
                     sFileName = postedFile.FileName;
-                    string guid = Guid.NewGuid().ToString();
-                    string sPath = "/Uploads/File";
-                    DateTime TG = DateTime.Now;
-                    string subPath = TG.ToString("yyyy/MM/dd");
-                    string subName = TG.ToString("HHmmssfff") + "_" + guid;
-                    string newPath = string.Format("{0}/{1}", sPath, subPath);
-                    CImage.CreateDirectory(Server.MapPath("~" + newPath));
-                    sFileTemp = string.Format(newPath + "/{0}_{1}", subName, postedFile.FileName);
-                    string filePath = Server.MapPath("~" + sFileTemp);
-                    postedFile.SaveAs(filePath);
 
-                    //Luu vao bang Dinh Kem
-                    iID_MaDinhKem = CDinhKem.ThemDinhKem(hangHoa.iID_MaHoSo, hangHoa.iID_MaHangHoa, 91, "0", hangHoa.sMaHoSo, "File Thu hồi giấy XNCL.", sFileName, "", null, 1, sFileTemp, sUserName, sIP);
+                    ResDinhKemFiles resDinhKemFile = new ResDinhKemFiles();
+                    resDinhKemFile = CDinhKemFiles.UploadFile(postedFile);
+                    if (resDinhKemFile != null && resDinhKemFile.ItemId > 0)
+                    {
+                        sFileTemp = resDinhKemFile.UrlFile;
+
+                        //Luu vao bang Dinh Kem
+                        iID_MaDinhKem = CDinhKem.ThemDinhKem(hangHoa.iID_MaHoSo, hangHoa.iID_MaHangHoa, 91, "0", hangHoa.sMaHoSo, "File Thu hồi giấy XNCL.", sFileName, "", null, 1, sFileTemp, sUserName, sIP, resDinhKemFile.ItemId);
+                    }
                 }
             }
             
@@ -132,7 +130,7 @@ namespace APP0200025.Controllers
             resultConfirm.Reason = _sNoiDung;
             resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
             resultConfirm.FileName = sFileName;
-            resultConfirm.FileLink = string.Format("{0}{1}", clCommon.BNN_Url, sFileTemp);
+            resultConfirm.FileLink = sFileTemp;
             resultConfirm.CancelDateString = dNgayThuHoi;
             resultConfirm.SignConfirmDateString = dNgayThuHoi;
             resultConfirm.SignConfirmName = eCoQuanXuLy.sNguoiKy_Ten;

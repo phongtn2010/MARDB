@@ -24,9 +24,6 @@ namespace APP0200025
 
             Globals.PageSize = 10;
 
-            Globals.api_bantinxml25 = ConfigurationManager.AppSettings["api_bantinxml25"];
-            Globals.api_bantinxml26 = ConfigurationManager.AppSettings["api_bantinxml26"];
-
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
