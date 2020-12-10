@@ -341,16 +341,18 @@ namespace APP0200025.Controllers
                     //string subName = TG.ToString("HHmmssfff") + "_" + guid;
                     //string newPath = string.Format("{0}/{1}", sPath, subPath);
                     //CImage.CreateDirectory(Server.MapPath("~" + newPath));
-
-                    long iID_MaDinhKem = -1;
-                    string sFileName = "", sFileTemp = "";
-
+                    //String sFileTemp = string.Empty;
                     //sFileTemp = string.Format(newPath + "/{0}_{1}", subName, Request.Files[i].FileName);
                     //string filePath = Server.MapPath("~" + sFileTemp);
                     //Request.Files[i].SaveAs(filePath);
 
                     //_sTenFile = Request.Files[i].FileName;
                     //_sDuongDan = sFileTemp;
+
+                    long iID_MaDinhKem = -1;
+                    string sFileName = "", sFileTemp = "";
+
+                    
 
                     HttpPostedFileBase postedFile = Request.Files[i];
                     if (postedFile != null && postedFile.ContentLength > 0)
@@ -383,16 +385,16 @@ namespace APP0200025.Controllers
                     //string subName = TG.ToString("HHmmssfff") + "_" + guid;
                     //string newPath = string.Format("{0}/{1}", sPath, subPath);
                     //CImage.CreateDirectory(Server.MapPath("~" + newPath));
-
-                    long iID_MaDinhKem = -1;
-                    string sFileName = "", sFileTemp = "";
-
+                    //String sFileTemp = string.Empty;
                     //sFileTemp = string.Format(newPath + "/{0}_{1}", subName, Request.Files[i].FileName);
                     //string filePath = Server.MapPath("~" + sFileTemp);
                     //Request.Files[i].SaveAs(filePath);
+                    //var _sTenFile_PhanTich = Request.Files[i].FileName;
+                    //var _sDuongDan_PhanTich = sFileTemp;
 
-                    
 
+                    long iID_MaDinhKem = -1;
+                    string sFileName = "", sFileTemp = "";
                     HttpPostedFileBase postedFile = Request.Files[i];
                     if (postedFile != null && postedFile.ContentLength > 0)
                     {
