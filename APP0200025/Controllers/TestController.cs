@@ -26,17 +26,19 @@ namespace APP0200025.Controllers
         // GET: Test
         public ActionResult Index()
         {
-            String sTen = "tfsdfdsfsd";
+            String sTen = "http://mardapi.adp-p.com/Uploads/Files/2020/12/16/63b22811-5af5-4c35-96a8-443e70cd96bc.pdf";
 
-            HttpPostedFileBase file = Request.Files[0];
+            byte[] arrFile = ReadFile(sTen);
+ 
+            //HttpPostedFileBase file = Request.Files[0];
 
-            string result = string.Empty;
+            //string result = string.Empty;
 
-            using (BinaryReader b = new BinaryReader(file.InputStream))
-            {
-                byte[] binData = b.ReadBytes(file.ContentLength);
-                result = System.Text.Encoding.UTF8.GetString(binData);
-            }
+            //using (BinaryReader b = new BinaryReader(file.InputStream))
+            //{
+            //    byte[] binData = b.ReadBytes(file.ContentLength);
+            //    result = System.Text.Encoding.UTF8.GetString(binData);
+            //}
 
             //long iID_MaFile = CDinhKem.ThemDinhKem(0, 0, 0, "", "", "", "PHONG", "", null, 1, "http://mard.adp-p.com/Files/16c8858e-0f58-4c2c-939f-f7ac40d8cf2f.png", "doanhnghiep", "");
 

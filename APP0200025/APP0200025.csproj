@@ -260,6 +260,7 @@
     <Compile Include="Controllers\Api\FileUploadApiController.cs" />
     <Compile Include="Controllers\Api\FileuploadController.cs" />
     <Compile Include="Controllers\Api\GatewayRelayController.cs" />
+    <Compile Include="Controllers\Api\UploadFileController.cs" />
     <Compile Include="Controllers\BaoMat\DC_CongTyController.cs" />
     <Compile Include="Controllers\BoPhanMotCuaController.cs" />
     <Compile Include="Controllers\ChoXemXetKetQuaController.cs" />
@@ -3204,6 +3205,7 @@
     <Folder Include="Files\" />
     <Folder Include="Libraries\CongThuc\" />
     <Folder Include="Views\Public\" />
+    <Folder Include="Views\UploadFile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

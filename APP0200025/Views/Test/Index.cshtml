@@ -89,7 +89,6 @@
 </style>
 
 <fieldset>
-
     <legend style="font-family:Arial Black;color:blue">Upload And Download Files Here</legend>
     <div>
         <div class="form-group">
@@ -103,41 +102,66 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            //$('#btnUploadFile').click(function () {
+            //    if ($('#fileToBeUploaded').val() == '') {
+            //        alert('Please select file');
+            //        return;
+            //    }
+            //    //if (window.location.protocol.indexOf('https') == 0) {
+            //    //    var el = document.createElement('meta')
+            //    //    el.setAttribute('http-equiv', 'Content-Security-Policy')
+            //    //    el.setAttribute('content', 'upgrade-insecure-requests')
+            //    //    document.head.append(el)
+            //    //}
+
+            //    var formData = new FormData();
+            //    var file = $('#fileToBeUploaded')[0];
+            //    formData.append('file', file.files[0]);
+            //    $.ajax({
+            //        url: 'http://mard.adp-p.com/api/uploadfile',     //http://mard.adp-p.com/api/fileuploadapi
+            //        type: 'POST',
+            //        data: formData,
+            //        contentType: false,
+            //        processData: false,
+            //        success: function (d) {
+            //            $('#updateStatus').addClass('alert-success').html('<strong>Upload Done!</strong><a href="' + d + '">Download File</a>').show();
+            //            $('#fileToBeUploaded').val(null);
+            //        },
+            //        error: function (jqXHR, textStatus, errorThrown) {
+            //            alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
+
+            //            $('#result').html('<p>status code: ' + jqXHR.status + '</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>' + jqXHR.responseText + '</div>');
+            //            console.log('jqXHR:');
+            //            console.log(jqXHR);
+            //            console.log('textStatus:');
+            //            console.log(textStatus);
+            //            console.log('errorThrown:');
+            //            console.log(errorThrown);
+            //        }
+            //    });
+            //});
+
             $('#btnUploadFile').click(function () {
                 if ($('#fileToBeUploaded').val() == '') {
                     alert('Please select file');
                     return;
                 }
-                //if (window.location.protocol.indexOf('https') == 0) {
-                //    var el = document.createElement('meta')
-                //    el.setAttribute('http-equiv', 'Content-Security-Policy')
-                //    el.setAttribute('content', 'upgrade-insecure-requests')
-                //    document.head.append(el)
-                //}
                 var formData = new FormData();
                 var file = $('#fileToBeUploaded')[0];
                 formData.append('file', file.files[0]);
-                $.ajax({
-                    url: 'http://mard.adp-p.com/api/fileuploadapi',
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (d) {
-                        $('#updateStatus').addClass('alert-success').html('<strong>Upload Done!</strong><a href="' + d + '">Download File</a>').show();
-                        $('#fileToBeUploaded').val(null);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
+                //alert(formData);
+                var settings = {
+                    "url": "http://mard.adp-p.com/api/uploadfile",
+                    "method": "POST",
+                    "timeout": 0,
+                    "processData": false,
+                    "mimeType": "multipart/form-data",
+                    "contentType": false,
+                    "data": formData
+                };
 
-                        $('#result').html('<p>status code: ' + jqXHR.status + '</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>' + jqXHR.responseText + '</div>');
-                        console.log('jqXHR:');
-                        console.log(jqXHR);
-                        console.log('textStatus:');
-                        console.log(textStatus);
-                        console.log('errorThrown:');
-                        console.log(errorThrown);
-                    }
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
                 });
             });
         });
