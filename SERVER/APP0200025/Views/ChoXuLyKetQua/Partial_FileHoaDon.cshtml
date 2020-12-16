@@ -1,0 +1,39 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using DATA0200025.Models
+@using APP0200025.Models
+@model DATA0200025.Models.HoSoModels
+@{
+    Layout = null;
+    var lstFile = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 101);
+    int i = 0;
+}
+
+
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Thông tin hoa đơn</legend>
+    <div class="control-group">
+        <table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+            <tr>
+                <th style="width: 3%; text-align: center;">STT</th>
+                <th style="text-align: center;">Hóa đơn mua bán số</th>
+                <th style="width: 30%; text-align: center;">Ngày hóa đơn</th>
+            </tr>
+            @foreach (var item in lstFile)
+            {
+                i++;
+                <tr>
+                    <td style="text-align: center;">@i</td>
+                    <td align="left">@item.sTenLoaiFile</td>
+                    <td align="left">@item.sHopDong , @string.Format("{0:dd/MM/yyyy}", item.dNgayHopDong)</td>
+                </tr>
+            }
+        </table>
+    </div>
+</fieldset>

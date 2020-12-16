@@ -1,0 +1,102 @@
+﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@{
+    ViewBag.Title = ConfigurationManager.AppSettings["TitleView"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ParentID = "Edit";
+
+    String MaNhomNguoiDung = CString.SafeString(Convert.ToString(ViewData["MaNhomNguoiDung"]));
+
+    String TenNhomNguoiDung = CPQ_NHOMNGUOIDUNG.Get_Name(MaNhomNguoiDung);
+
+}
+@{
+    using (Html.BeginForm("EditLuatSubmit", "NhomNguoiDung", new { ParentID = ParentID, MaNhomNguoiDung = MaNhomNguoiDung }))
+    {
+        
+            <!-- Main content -->
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"> Luật của nhóm @(TenNhomNguoiDung) / Danh sách luật của nhóm @(TenNhomNguoiDung)</h3>
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" type="button" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                    <button class="btn btn-box-tool" type="button" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label>Luật</label>
+                                        @{
+                                            //Tạo dữ liệu cho ddlToChuc
+                                            DataTable dtLuat = CPQ_LUAT.Get_Table();
+                                            SelectOptionList slLuat = new SelectOptionList(dtLuat, "iID_MaLuat", "sTen");
+                                        }
+
+                                        @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, slLuat, "", "iID_MaLuat", null, "class=\"form-control\""))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-danger">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <table class="table table-bordered table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tên luật</th>
+                                                    <th style="width: 10%">Hành động</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{
+                                                    DataTable dt = CPQ_NHOMNGUOIDUNG.Get_Table_NhomNguoiDung_Luat(MaNhomNguoiDung);
+                                                    for (int i = 0; i <= dt.Rows.Count - 1; i++)
+                                                    {
+                                                        DataRow Row = dt.Rows[i];
+                                                        string urlDetail = Url.Action("Detail", "Luat", new { MaLuat = Row["iID_MaLuat"] });
+                                                        string urlDelete = Url.Action("Delete_Luat", "NhomNguoiDung", new { MaNhomNguoiDung = MaNhomNguoiDung, MaLuat = Row["iID_MaLuat"] });
+
+                                                        <tr>
+                                                            <td>@MvcHtmlString.Create(MyHtmlHelper.ActionLink(urlDetail, (string)Row["sTen"]))</td>
+                                                            <td>@MvcHtmlString.Create(MyHtmlHelper.ActionLink(urlDelete, "Xóa"))</td>
+                                                        </tr>
+                                                    }
+                                                    dt.Dispose();
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer clearfix">
+                                <div class="col-xs-6">
+                                    <button class="btn btn-block btn-default" type="submit">Save</button>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </section><!-- /.content -->
+
+    }
+}
+

@@ -1,0 +1,57 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using DATA0200025.Models
+@using APP0200025.Models
+@using APP0200025.Controllers
+@model  HangHoaModels
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout_cms.cshtml";
+    string ParentID = "Detail";
+    HoSoModels hoSoModels = clHoSo.GetHoSoById(Model.iID_MaHoSo);
+}
+@Html.Hidden(ParentID + "_iID_MaHangHoaThoat", Model.iID_MaHangHoa)
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Giấy đăng ký kiểm tra xác nhận chất lượng</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Lịch sử xử lý hồ sơ</a></li>
+                    <li><a href="#tab_3" data-toggle="tab">Hồ sơ xin cấp XNCL</a></li>
+                    <li><a href="#tab_4" data-toggle="tab">Thông báo kết quả lô hàng</a></li>
+
+                    <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoSoModels);}
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        @{Html.RenderPartial("~/Views/Partial/Partial_HH_LichSuHoSo.cshtml", Model);}
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_3">
+                        @{Html.RenderPartial("~/Views/Partial/Partial_HoSoXinCapXNCL.cshtml", Model);}
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_4">
+                        @{Html.RenderPartial("~/Views/Partial/Partial_XNCL_ThongBaoKetQua.cshtml", Model);}
+                    </div><!-- /.tab-pane -->
+                </div><!-- /.tab-content -->
+                <div class="box-footer clearfix text-center">
+                    <a class="btn btn-primary btnXuatWord" data-id="@Model.iID_MaHangHoa" id="btnXuatWord">Xuất word</a>
+                    <a class="btn btn-danger openthuhoi" data-id="@Model.iID_MaHangHoa" data-toggle="modal" href="#ThuHoi" data-dismiss="modal" type="button">Thu hồi</a>
+                    <a class="btn btn-default" id="btnThoat">Thoát</a>
+                </div>
+            </div><!-- nav-tabs-custom -->
+        </div><!-- /.col -->
+    </div>
+</section>
+@{Html.RenderPartial("~/Views/DaCapThongBaoKetQua/Partial_Model_ThuHoi.cshtml");}
+<script src="@Url.Content("~/ScriptsERP/jsDaCapThongBaoKetQua.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

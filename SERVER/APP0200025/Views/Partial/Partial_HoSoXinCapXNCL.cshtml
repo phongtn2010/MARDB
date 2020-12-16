@@ -1,0 +1,162 @@
+﻿@using System
+@using System.Collections.Specialized
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@using DATA0200025.Models
+@model HangHoaModels
+@{
+    Layout = null;
+    String ServerURL = CHamRieng.Get_Domain();
+    string ParentID = "TC";
+    GiayChungNhanHopQuyModels giayChungNhan = clHangHoa.GetChungNhanHopQuy(Model.iID_MaHangHoa);
+
+    var fileKetQuas = clFileDinhKem.GetFileByHangHoa(Model.iID_MaHangHoa, (int)HamRiengModels.LoaiTapTinDinhKem.PhieuKetQuaPhanTich);
+    var hosoXNCL = clHangHoa.GetHoSoXNCL(Model.iID_MaHangHoa);
+    if (hosoXNCL == null)
+    {
+        hosoXNCL = new HoSoXNCLModels();
+    }
+    int i = 0;
+
+    String sKetQua = "", sLinkFile = "";
+}
+<section>
+    <div class="box-body">
+        <div class="form-horizontal">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <h4 class="text-uppercase">Thông tin hồ sơ đăng ký xác nhận chất lượng</h4>
+                </div>
+                <div class="form-group">
+                    <label for="">Mã hồ sơ <span style="color:#FF0000"> (*)</span></label>
+                    @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sMaHoSo, "sMaHoSo", "", "type=\"text\" class=\"form-control\""))
+                </div>
+                <div class="form-group">
+                    <label for="">Tên thức ăn chăn nuôi <span style="color:#FF0000"> (*)</span></label>
+                    @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sTenHangHoa, "sTenHangHoa", "", "type=\"text\" class=\"form-control\""))
+                </div>
+                <div class="form-group">
+                    <label for="">Kết quả đánh giá sự phù hợp <span style="color:#FF0000"> (*)</span></label>
+                    @if (@hosoXNCL.iKetQua == 1)
+                    {
+                        sKetQua = "Phù hợp";
+                    }
+                    else
+                    {
+                        sKetQua = "Không phù hợp";
+                    }
+
+                    @MvcHtmlString.Create(MyHtmlHelper.Label(sKetQua, "sTenHangHoa", "", "type=\"text\" class=\"form-control\""))
+                </div>
+                <div class="form-group">
+                    <label for="">Tổ chức (Tổ chức đánh giá sự phù hợp) <span style="color:#FF0000"> (*)</span></label>
+                    @MvcHtmlString.Create(MyHtmlHelper.Label(hosoXNCL.sTenToChuc, "sTenToChuc", "", "type=\"text\" class=\"form-control\""))
+                </div>
+                <div class="form-group">
+                    <h4 class="text-uppercase">Thông tin giấy chứng nhận hợp quy lô TACN nhập khẩu</h4>
+                </div>
+                @if (giayChungNhan != null)
+                {
+                    sLinkFile = giayChungNhan.sDuongDan;
+
+                    <div class="form-group">
+                        <label for="">Số <span style="color:#FF0000"> (*)</span></label>
+                        @MvcHtmlString.Create(MyHtmlHelper.Label(giayChungNhan.sSoChungNhan, "sMaHoSo", "", "type=\"text\" class=\"form-control\""))
+                    </div>
+                    <div class="form-group">
+                        <label for="">Ngày cấp <span style="color:#FF0000"> (*)</span></label>
+                        @MvcHtmlString.Create(MyHtmlHelper.Label(giayChungNhan.dNgayCap.ToString("dd/MM/yyyy"), "sNgayCap", "", "type=\"text\" class=\"form-control\""))
+                    </div>
+                    <div class="form-group">
+                        <label for="">File đính kèm <span style="color:#FF0000"> (*)</span></label>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-align-center" style="width: 5%;">STT</th>
+                                    <th class="text-align-center">Tên file</th>
+                                    <th class="text-align-center" style="width: 10%;" colspan="2">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>@giayChungNhan.sTenFile</td>
+                                    <td align="center">
+                                        <span class='badge bg-blue btnShowFile' data-src="@giayChungNhan.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
+                                    </td>
+                                    <td align="center">
+                                        <a href="@giayChungNhan.sDuongDan"><span class='badge bg-blue'><i class='fa fa-download'></i></span></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                }
+
+                <div class="form-group">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="text-align-center" style="width: 5%;">STT</th>
+                            <th class="text-align-center">Phiếu kết quả phân tích</th>
+                            <th class="text-align-center" style="width: 10%;" colspan="2">Thao tác</th>
+                        </tr>
+                        @foreach (var item in fileKetQuas)
+                        {
+                            i++;
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.sTenFile</td>
+                                <td align="center">
+                                    <span class='badge bg-blue btnShowFile' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
+                                </td>
+                                <td align="center">
+                                    <a href="@item.sDuongDan"><span class='badge bg-blue'><i class='fa fa-download'></i></span></a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-1">&nbsp;</div>
+            <div class="col-md-6">
+                <div id="divDinhKemXNCL" style="display: block; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '.btnShowFile', function (e) {
+            //debugger;
+            var filePath = $(this).data("src");
+            var n = filePath.indexOf(".pdf");
+            if (n > 0) {
+                $("#divDinhKemXNCL").html('<div><button id="prev">Trước</button><button id="next">Sau</button>&nbsp; &nbsp;<span>Trang: <span id="page_num"></span> / <span id="page_count"></span></span></div><div><canvas id="the-canvas" style="border: 1px solid black; direction: ltr; width: 100%;"></canvas> </div>');
+                loadPDF(filePath);
+            }
+            else {
+                $("#divDinhKemXNCL").html('<img id="imgDinhKem" style="width: 100%" />');
+                $("#imgDinhKem").attr('src', filePath);
+            }
+        });
+
+        loadPage_sub();
+    });
+
+    function loadPage_sub() {
+        var filePath = '@(sLinkFile)';
+        if (filePath != "") {
+            var n = filePath.indexOf(".pdf");
+            if (n > 0) {
+                $("#divDinhKemXNCL").html('<div><button id="prev">Trước</button><button id="next">Sau</button>&nbsp; &nbsp;<span>Trang: <span id="page_num"></span> / <span id="page_count"></span></span></div><div><canvas id="the-canvas" style="border: 1px solid black; direction: ltr; width: 100%;"></canvas> </div>');
+                loadPDF(filePath);
+            }
+            else {
+                $("#divDinhKemXNCL").html('<img id="imgDinhKem" style="width: 100%" />');
+                $("#imgDinhKem").attr('src', filePath);
+            }
+        }
+    }
+</script>

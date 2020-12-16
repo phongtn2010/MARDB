@@ -1,0 +1,151 @@
+﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string TenBang = "QT_NhomNguoiDung";
+    String sDanhSachChucNangCam = "";
+}
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">DANH SÁCH NHÓM NGƯỜI DÙNG</h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                @*<li><a href="@Url.Action("Create", "NhomNguoiDung", new { MaNhomNguoiDungCha = 1 })">Thêm nhóm người dùng</a></li>*@
+                                @*<li><a href="@Url.Action("Register", "Account")">Đăng ký người dùng mới</a></li>*@
+                                <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th align="center">Nhóm người dùng</th>
+                                    <th width="10%">Trạng thái</th>
+                                    <th width="700px">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    DataTable dt;
+                                    String MaNhomNguoiDung = CPQ_NGUOIDUNG.LayMaNhomNguoiDung(User.Identity.Name);
+                                    if (String.IsNullOrEmpty(MaNhomNguoiDung) == false)
+                                    {
+                                        dt = CPQ_NHOMNGUOIDUNG.Get_Table(MaNhomNguoiDung);
+                                    }
+                                    else
+                                    {
+                                        dt = CPQ_NHOMNGUOIDUNG.Get_Table(MaNhomNguoiDung);
+                                    }
+
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        int i, j;
+                                        DataRow Row;
+
+                                        int itg1 = 0, itg2;
+                                        //itg1 = CString.DemKyTu(MaNhomNguoiDung, '-');
+                                        string strDoanTrang = "", vR;
+
+                                        List<Boolean> arrTT = new List<Boolean>();
+                                        List<int> arrCS = new List<int>();
+
+                                        for (i = 0; i < dt.Rows.Count; i++)
+                                        {
+                                            arrTT.Add(true);
+                                        }
+
+                                        for (i = 0; i < dt.Rows.Count; i++)
+                                        {
+                                            if (arrTT[i])
+                                            {
+                                                CommonFunction.SapXepDanhSachNhomNguoiDung(dt, i, ref arrTT, ref arrCS);
+                                            }
+                                        }
+
+                                        for (i = 0; i < dt.Rows.Count; i++)
+                                        {
+                                            Row = dt.Rows[arrCS[i]];
+                                            string urlCreate = Url.Action("Create", "NhomNguoiDung", new { MaNhomNguoiDungCha = Row["iID_MaNhomNguoiDung"] });
+                                            string urlDetail = Url.Action("Detail", "NhomNguoiDung", new { MaNhomNguoiDung = Row["iID_MaNhomNguoiDung"] });
+                                            string urlEdit = Url.Action("Edit", "NhomNguoiDung", new { MaNhomNguoiDung = Row["iID_MaNhomNguoiDung"] });
+                                            string urlEditNguoiDung = Url.Action("Edit_NguoiDung", "NhomNguoiDung", new { MaNhomNguoiDung = Row["iID_MaNhomNguoiDung"] });
+                                            string urlDelete = Url.Action("Delete", "NhomNguoiDung", new { MaNhomNguoiDung = Row["iID_MaNhomNguoiDung"] });
+                                            string urlListNguoiDung = Url.Action("Index", "NguoiDung", new { MaNhomNguoiDung = Row["iID_MaNhomNguoiDung"] });
+                                            string urlListLuat = Url.Action("Edit_Luat", "NhomNguoiDung", new { MaNhomNguoiDung = Row["iID_MaNhomNguoiDung"] });
+                                            string urlSort = Url.Action("Sort", "NhomNguoiDung", new { MaNhomNguoiDung = Row["iID_MaNhomNguoiDung"] });
+                                            String strTG = "";
+                                            strTG = MyHtmlHelper.ActionLink(urlCreate, "Thêm mục con", "Create", sDanhSachChucNangCam);
+                                            if (BaoMat.KiemTraNhomNguoiDungQuanTri(Row["iID_MaNhomNguoiDung"].ToString()) == false)
+                                            {
+                                                strTG += " | ";
+                                                strTG += MyHtmlHelper.ActionLink(urlEdit, "Sửa", "Edit", sDanhSachChucNangCam);
+                                                strTG += " | ";
+                                                strTG += MyHtmlHelper.ActionLink(urlDelete, "Xóa", "Delete", sDanhSachChucNangCam);
+                                                strTG += " | ";
+                                                strTG += MyHtmlHelper.ActionLink(urlListLuat, "Luật", "Edit", sDanhSachChucNangCam);
+                                                //strTG += " | ";
+                                                //strTG += MyHtmlHelper.ActionLink(urlSort, "Sắp xếp", "Edit", sDanhSachChucNangCam);
+                                            }
+                                            strTG += " | ";
+                                            strTG += MyHtmlHelper.ActionLink(urlEditNguoiDung, "Người dùng", "Edit", sDanhSachChucNangCam);
+
+                                            strDoanTrang = "";
+                                            itg2 = CString.DemKyTu(Row["iID_MaNhomNguoiDung"].ToString(), '-');
+                                            for (j = itg1 + 1; j <= itg2; j++)
+                                            {
+                                                strDoanTrang += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                                            }
+
+                                            vR = string.Format("<tr>");
+
+                                            String sTrangThai = "";
+                                            if(Convert.ToInt32(Row["iTrangThai"]) == 1)
+                                            {
+                                                sTrangThai = "Họat động";
+                                            }
+                                            else
+                                            {
+                                                sTrangThai = "Chưa kích hoạt";
+                                            }
+
+                                            if (i % 2 == 0)
+                                            {
+                                                vR += string.Format("<td style=\"background-color:#dff0fb;\">{0}{1}</a></td>", strDoanTrang, Row["sTen"]);
+                                                vR += string.Format("<td style=\"background-color:#dff0fb;\">{0}</td>", sTrangThai);
+                                                vR += string.Format("<td style=\"background-color:#dff0fb;\">{0}</td>", strTG);
+                                            }
+                                            else
+                                            {
+                                                vR += string.Format("<td>{0}{1}</a></td>", strDoanTrang, Row["sTen"]);
+                                                vR += string.Format("<td>{0}</td>", sTrangThai);
+                                                vR += string.Format("<td>{0}</td>", strTG);
+                                            }
+                                            vR += string.Format("</tr>");
+
+                                            @MvcHtmlString.Create(vR)
+                                        }
+                                        dt.Dispose();
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-footer clearfix"></div>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+
+

@@ -1,0 +1,122 @@
+﻿﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using System.Data.SqlClient
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@{
+    ViewBag.Title = ConfigurationManager.AppSettings["TitleView"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    DataTable dtNguoiDung = CPQ_NGUOIDUNG.Get_Table();
+
+    String sUser = User.Identity.Name;
+    long iMaKhoHang_User = 0;
+    String sMaNhomnguoiDung = CPQ_NGUOIDUNG.LayMaNhomNguoiDung(sUser);
+
+    String sDanhSachChucNangCam = "";
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">DANH SÁCH NGƯỜI DÙNG</h3>
+                    <div class="box-tools">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="@Url.Action("Register", "Account")"><i class="fa fa-plus-square"></i> Thêm mới</a></li>
+                            <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            @*<li><a href="@Url.Action("Register", "Account")">Thêm mới</a></li>*@
+                        </ul>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <table class="table table-bordered table-hover table-striped">
+                        <tr>
+                            <th width="20px" align="center"><b>STT</b></th>
+                            <th align="center">Nhóm người dùng</th>
+                            <th align="center"><b>Tài khoản</b></th>
+                            <th width="100px" align="center"><b>Đã kích hoạt</b></th>
+                            <th style="width: 10px;" title="Sửa"><span class="badge bg-blue"><i class="fa fa-pencil"></i></span></th>
+                            <th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
+                        </tr>
+                        @{
+                            Boolean HoatDong;
+                            int i;
+                            string strTG;
+                            for (i = 0; i < dtNguoiDung.Rows.Count; i++)
+                            {
+                                String TenNhomNguoiDung = "", TenNhomNguoiDungLay = "", sCuaHang = "", sDiaChi_CuaHang = "";
+                                String MaNhomNguoiDung = Convert.ToString(dtNguoiDung.Rows[i]["IID_MANHOMNGUOIDUNG"]);
+
+                                TenNhomNguoiDung = CPQ_NHOMNGUOIDUNG.Get_Name(MaNhomNguoiDung);
+
+                                int j;
+                                int itg1 = 0, itg2;
+                                //itg1 = CString.DemKyTu(MaNhomNguoiDung, '-');
+                                string strDoanTrang = "";
+                                strDoanTrang = "";
+                                itg2 = CString.DemKyTu(MaNhomNguoiDung, '-');
+                                for (j = itg1 + 1; j <= itg2; j++)
+                                {
+                                    strDoanTrang += "---- ";
+                                }
+                                TenNhomNguoiDungLay = MvcHtmlString.Create(strDoanTrang) + TenNhomNguoiDung;
+                                int iSTT = i + 1;
+
+                                String sTrangThai = "";
+                                int itrangThai = Convert.ToInt32(dtNguoiDung.Rows[i]["ITRANGTHAI"]);
+                                if (itrangThai == 1)
+                                {
+                                    sTrangThai = "Hoạt động";
+                                }
+                                else
+                                {
+                                    sTrangThai = "Chờ kích hoạt";
+                                }
+
+                                String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "NguoiDung", new { MaNguoiDung = dtNguoiDung.Rows[i]["sID_MaNguoiDung"] }), "<span class=\"badge bg-blue\"><i class=\"fa fa-pencil\"></i></span>", "Edit", "");
+                                String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "NguoiDung", new { MaNguoiDung = dtNguoiDung.Rows[i]["sID_MaNguoiDung"] }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
+
+                                <tr>
+                                    <td>@(iSTT) </td>
+                                    <td>@TenNhomNguoiDungLay</td>
+                                    <td>@dtNguoiDung.Rows[i]["sID_MaNguoiDung"]</td>
+                                    <td>@(sTrangThai)</td>
+                                    @{
+                                        if (sMaNhomnguoiDung == "1")
+                                        {
+                                            if (MaNhomNguoiDung != "1")
+                                            {
+                                                <td style="width: 10px;" title="Sửa">@MvcHtmlString.Create(strEdit)</td>
+                                                <td style="width: 10px" title="Xóa">@MvcHtmlString.Create(strDelete)</td>
+                                            }
+                                            else
+                                            {
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        }
+                                    }
+
+                                </tr>
+
+                            }
+                            dtNguoiDung.Dispose();
+                        }
+                    </table>
+                </div><!-- /.box-body -->
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->

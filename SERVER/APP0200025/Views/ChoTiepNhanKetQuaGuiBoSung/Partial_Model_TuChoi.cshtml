@@ -1,0 +1,91 @@
+﻿@using System
+@using System.Collections.Specialized
+@using DomainModel
+@using DomainModel.Controls
+
+@{
+    Layout = null;
+    string ParentID = "TC";
+}
+
+
+@using (Ajax.BeginForm("TuChoiSubmit", "ChoTiepNhanKetQuaGuiBoSung", new AjaxOptions
+{
+    OnSuccess = "OnSuccessTuChoi",
+    OnBegin = "OnBeginTuChoi",
+
+}, new {id="formTuChoi", enctype = "multipart/form-data", @class = "form-horizontal" }))
+{
+    <script>
+        function OnBeginTuChoi() {
+            $('html, body').animate({ scrollTop: 10 }, 'slow');
+        }
+
+        function OnSuccessTuChoi(data) {
+            location.reload();
+            $('#TuChoi').modal('hide');
+        }
+
+    </script>
+    @Html.AntiForgeryToken()
+    <div id="TuChoi" class="modal fade" role="basic" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-uppercase" id="myModalLabel">TỪ CHỐI HỒ SƠ</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-lg-12 text-align-left">Nhập lý do ý kiến<span style="color:#FF0000"> (*)</span></label>
+                        <div class="col-lg-12">
+                            @MvcHtmlString.Create(MyHtmlHelper.TextArea(ParentID, "", "sNoiDung", "", "class=\"form-control\" cols=\"30\" rows='6'  maxlength='1000'"))
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-12">File Đính kèm <span style="color:red">(Định dạng: jpg, jpeg, png, pdf, tif)</span></label>
+                        <div class="col-lg-12">
+                            <input class="form-control input-sm" type="file" name="fileUpload" id="fileUpload" accept="image/gif, image/jpeg, image/png, application/pdf" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Thoát</button>
+                    <button type="button" class="btn btn-primary" id="btnTuChoi">Gửi doanh nghiệp</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden(ParentID+ "_iID_MaHangHoa", 0)
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#formTuChoi').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                TC_sNoiDung: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Bạn cần nhập lý do hoặc ý kiến'
+                        }
+                    }
+                },
+                fileUpload: {
+                    validators: {
+                        file: {
+                            extension: 'jpg,jpeg,png,pdf,tif',
+                            type: 'image/gif,image/jpeg,image/png,application/pdf',
+                            maxSize: 2048 * 1024,
+                            message: 'File chưa đúng định dạng!'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>

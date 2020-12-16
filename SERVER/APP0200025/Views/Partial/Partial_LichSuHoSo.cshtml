@@ -1,0 +1,65 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using DATA0200025.Models
+@using DATA0200025.SearchModels
+@using APP0200025.App_Code
+@using APP0200025.Models
+@model HoSoModels
+@{
+    DataTable dt = clLichSuHoSo.GetDataTable(Model.iID_MaHoSo);
+    int RC = dt.Rows.Count;
+    DataRow r;
+}
+<div class="box-body no-padding">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <th style="width: 3%;" class="text-center">STT</th>
+                <th style="width: %;" class="text-center">Người xử lý</th>
+                <th class="text-center">Bộ phận xử lý</th>
+                <th class="text-center">Hành động</th>
+                <th class="text-center">Thời gian</th>
+                <th style="text-align: center;" class="text-center">Nội dung</th>
+                <th style="text-align: center;" class="text-center">File đính kèm</th>
+                <th style="text-align: center;" class="text-center">Trạng thái hồ sơ</th>
+            </tr>
+            @{
+                if (RC > 0)
+                {
+                    for (int i = 0; i < RC; i++)
+                    {
+                        r = dt.Rows[i];
+                        string TaiFile = "";
+                        if (!string.IsNullOrEmpty(Convert.ToString(r["sFile"])))
+                         {
+                            TaiFile = "Tải file";
+                        }
+
+
+                        <tr>
+                            <td style="text-align: center;">@(i+1)</td>
+                            <td>@r["sNguoiXuLy"]</td>
+                            <td>@r["sTenDoiTuong"]</td>
+                            <td>@r["sTenHanhDong"]</td>
+                            <td>@string.Format("{0:dd-MM-yyyy HH:mm}", r["dThoiGian"])</td>
+                            <td>@r["sNoiDung"]</td>
+                            <td>
+                                <a href="@r["sFile"]">@TaiFile
+                                </a>
+                            </td>
+                            <td>@r["sTenTrangThai"]</td>
+
+                        </tr>
+                    }
+                }
+                dt.Dispose();
+            }
+        </table>
+    </div>
+</div><!-- /.box-body -->

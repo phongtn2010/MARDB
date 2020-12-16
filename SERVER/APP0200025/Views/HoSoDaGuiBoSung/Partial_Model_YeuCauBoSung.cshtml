@@ -1,0 +1,78 @@
+﻿@using System
+@using System.Collections.Specialized
+@using DomainModel
+@using DomainModel.Controls
+
+@{
+    Layout = null;
+    string ParentID = "BS";
+}
+
+
+@using (Ajax.BeginForm("YeuCauBoSungSubmit", "HoSoDaGuiBoSung", new AjaxOptions
+{
+    OnSuccess = "OnSuccessYeuCauBoSung",
+    OnBegin = "OnBeginYeuCauBoSung",
+
+}, new { id = "formYeuCau", enctype = "multipart/form-data" }))
+{
+    <script>
+        function OnBeginYeuCauBoSung() {
+            $('html, body').animate({ scrollTop: 10 }, 'slow');
+        }
+
+        function OnSuccessYeuCauBoSung(data) {
+            location.reload();
+            $('#YeuCauBoSung').modal('hide');
+        }
+
+    </script>
+    @Html.AntiForgeryToken()
+    <div id="YeuCauBoSung" class="modal fade" role="basic" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-uppercase" id="myModalLabel">Yêu cầu bổ sung hồ sơ</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:200px;" data-always-visible="1" data-rail-visible1="1">
+
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-2 labelSearch norwap">
+                                        Nhập lý do ý kiến<span style="color:#D9001B;"> (*)</span>
+                                    </div>
+                                    <div class="col-xs-10">
+                                        @MvcHtmlString.Create(MyHtmlHelper.TextArea(ParentID, "", "sNoiDung", "", "class=\"form-control\" cols=\"30\" rows='6' maxlength='1000'"))
+                                        @Html.ValidationMessage(ParentID + "_" + "err_sNoiDung")
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">&nbsp;</div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-2 labelSearch norwap">
+                                        File Đính kèm
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <input class="form-control input-sm" type="file" name="fileUpload" id="fileUpload" />
+                                        <span style="color:red">Định dạng: jpg, jpeg, pdf, tif</span>
+                                    </div>
+                                </div>
+                                @*<div> &nbsp;</div>
+                        <div class="col-xs-8 text-Align-Center">
+
+                        </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Thoát</button>
+                    <button type="button" class="btn btn-primary" id="btnBoSungYeuCau">Gửi doanh nghiệp</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden(ParentID + "_iID_MaHoSo", 0)
+}

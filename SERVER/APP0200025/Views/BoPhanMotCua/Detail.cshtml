@@ -1,0 +1,50 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DATA0200026
+@model  HoSo26Models
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout_cms.cshtml";
+    string ParentID = "Detail";
+}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab" class="text-uppercase">Đơn đăng ký</a></li>
+                    <li><a href="#tab_2" data-toggle="tab" class="text-uppercase">Lịch sử xử lý hồ sơ</a></li>
+                    <li><a href="#tab_3" data-toggle="tab" class="text-uppercase">Công văn miễn giảm</a></li>
+
+                    <li class="pull-right"><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_Detail.cshtml", Model);}
+                        <div class="box-footer clearfix text-center">
+                            <a class="btn btn-primary btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>
+                            <a class="btn btn-danger" onclick="javascript:history.go(-1)" id="btnThoat">Thoát</a>
+                        </div>
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_LichSuHoSo.cshtml", Model);}
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_3">
+                        @{Html.RenderPartial("~/Views/PartialMienGiam/Partial_CongVanMienGiam.cshtml", Model);}
+                        <div class="box-footer clearfix text-center">
+                            <a class="btn btn-primary btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>
+                        </div>
+                    </div><!-- /.tab-pane -->
+                </div><!-- /.tab-content -->
+            </div><!-- nav-tabs-custom -->
+        </div><!-- /.col -->
+    </div>
+</section>
+<div id="HangHoaChiTiet" class="modal fade" role="basic" tabindex="-1" aria-hidden="true"></div>
+
+<script src="@Url.Content("~/ScriptsERP/jsMienGiam.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

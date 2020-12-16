@@ -1,0 +1,153 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.App_Code
+@using APP0200025.Models
+@using APP0200025.Controllers
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Create";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+
+    String MaHangMau = Convert.ToString(ViewData["iID_MaHangMau"]);
+    String MaPhongBan = Convert.ToString(ViewData["MaPhongBan"]);
+
+    SqlCommand cmd;
+    DataTable dt;
+
+    cmd = new SqlCommand("SELECT iID_MaHangMau, sTenHang FROM BC_HangMau WHERE iID_MaPhongBan = @iID_MaPhongBan AND iID_MaHangMau_Cha = @iID_MaHangMau_Cha ORDER BY iSTT");
+    cmd.Parameters.AddWithValue("@iID_MaPhongBan", MaPhongBan);
+    cmd.Parameters.AddWithValue("@iID_MaHangMau_Cha", 0);
+    dt = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+    dt.Rows.InsertAt(dt.NewRow(), 0);
+    dt.Rows[0]["iID_MaHangMau"] = 0;
+    dt.Rows[0]["sTenHang"] = "-- Chọn chỉ tiêu cần lấy --";
+    SelectOptionList optChiTieuTren = new SelectOptionList(dt, "iID_MaHangMau", "sTenHang");
+    string sChiTieuTren = dt.Rows[0]["iID_MaHangMau"].ToString();
+    dt.Dispose();
+    cmd.Dispose();
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">CHỌN CHỈ TIÊU CẦN LẤY THÊM NHANH</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" type="button" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" type="button" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, optChiTieuTren, sChiTieuTren, "iID_MaHangMau", "", "onchange=\"ChonChiTieuTren(this.value);\" class=\"form-control\""))
+                            <script type="text/javascript">
+                                function ChonChiTieuTren(MaChiTieu) {
+                                    var _ParentID = '@(ParentID)';
+                                    var url = unescape('@MvcHtmlString.Create(Url.Action("get_dtChiTieuTren?ParentID=#0&MaHangMau=#1", "HangMau"))');
+                                    url = unescape(url.replace("#0", _ParentID));
+                                    url = unescape(url.replace("#1", MaChiTieu));
+                                    $.getJSON(url, function (data) {
+                                        document.getElementById("@(ParentID)_ChiTieu").innerHTML = data;
+                                        ChonChiTieu(MaChiTieu);
+                                    });
+                                }
+                            </script>
+                        </div>
+                        <div class="col-xs-6">
+                            <div id="@(ParentID)_ChiTieu"></div>
+                            <script type="text/javascript">
+                                function ChonChiTieu(MaChiTieu) {
+                                    var _ParentID = '@(ParentID)';
+                                    var url = unescape('@MvcHtmlString.Create(Url.Action("get_dtChiTieu?ParentID=#0&MaHangMau=#1", "HangMau"))');
+                                    url = unescape(url.replace("#0", _ParentID));
+                                    url = unescape(url.replace("#1", MaChiTieu));
+                                    $.getJSON(url, function (data) {
+                                        document.getElementById("@(ParentID)_dsChiTieu").innerHTML = data;
+                                    });
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix"></div>
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                @{
+                    using (Html.BeginForm("AddChildRowSubmit", "HangMau", new { ParentID = ParentID, MaHangMau = MaHangMau, MaPhongBan = MaPhongBan }))
+                    {
+                        <div class="box-header">
+                            <h3 class="box-title">DANH SÁCH CHỈ TIÊU CẦN LẤY</h3>
+                            <div class="box-tools">
+                                <ul class="pagination pagination-sm no-margin pull-right">
+                                    <li><a href="@Url.Action("Create", "HangMau", new {MaHangMauCha = MaHangMau, MaPhongBan = MaPhongBan })"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
+                                    <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                                </ul>
+                            </div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <div class="table-responsive" id="@(ParentID)_dsChiTieu">
+                                @MvcHtmlString.Create(HangMauController.get_objChiTieu(ParentID, MaHangMau))
+                            </div>
+
+                        </div><!-- /.box-body -->
+                        <div class="box-footer clearfix">
+                            <div class="col-xs-6">
+                                <button class="btn btn-block btn-default" type="submit">Save</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+<script type="text/javascript">
+    function checkDeleteAll(aspnetForm) {
+        if (aspnetForm.Create_chb_DeleteAll.checked == true) {
+            for (var i = 0; i < aspnetForm.elements.length; i++) {
+                if ((aspnetForm.elements[i].type == "checkbox") && (aspnetForm.elements[i].name.substring(0, 20) == "Create_iID_MaHangMau")) {
+                    aspnetForm.elements[i].checked = true;
+                }
+            }
+        }
+        else {
+            for (var i = 0; i < aspnetForm.elements.length; i++) {
+                if ((aspnetForm.elements[i].type == "checkbox") && (aspnetForm.elements[i].name.substring(0, 20) == "Create_iID_MaHangMau")) {
+                    aspnetForm.elements[i].checked = false;
+                }
+            }
+        }
+    }
+</script>

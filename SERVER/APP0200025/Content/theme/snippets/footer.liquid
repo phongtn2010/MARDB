@@ -1,0 +1,160 @@
+<!-- footer -->
+<footer id="footer">
+ 
+ <!-- footer block -->
+ 
+   
+<div id="bottom">
+<div class="container">
+<div class="row"> 
+
+  {% if settings.display_footer_block1 %}
+{% if settings.display_footer_block1 != blank %}
+    <div class="bottom_block_2 col-md-4 col-sm-4 col-lg-3">
+    <h3>{{ settings.bottom_block_2_title }}</h3>
+    <ul class="list">
+    {% for link in linklists[settings.bottom_block_2_list].links %}
+    <li>{{ link.title | link_to: link.url }}</li>
+    {% endfor %}
+    </ul>
+    </div>
+    {% endif %}
+  {% endif %}
+
+{% if settings.display_footer_block2 %}
+{% if settings.display_footer_block2 != blank %}
+    <div class="bottom_block_3 col-md-4 col-sm-4 col-lg-3">
+    <h3>{{ settings.bottom_block_3_title }}</h3>
+    <ul class="list">
+    {% for link in linklists[settings.bottom_block_3_list].links %}
+    <li>{{ link.title | link_to: link.url }}</li>
+    {% endfor %}
+    </ul>
+    </div>
+    {% endif %}
+  {% endif %}
+
+  {% if settings.display_footer_block3 %}
+{% if settings.display_footer_block3 != blank %}
+   <div class="bottom_block_4 col-md-4 col-sm-4 col-lg-3">
+    <h3>{{ settings.bottom_block_4_title }}</h3>
+    <ul class="list">
+    {% for link in linklists[settings.bottom_block_4_list].links %}
+    <li>{{ link.title | link_to: link.url }}</li>
+    {% endfor %}
+    </ul>
+    </div>
+    {% endif %}
+  {% endif %}
+  
+
+    <div class="bottom_block_5 col-md-12 col-sm-12 col-lg-3">
+      
+    <div class="newsletter-wrap">
+               {% if settings.display_newsletter %}
+   {% if settings.display_newsletter != blank %}  
+{% include 'widget-newsletter' %} 
+  {% endif %}
+  {% endif %}
+            </div>
+      
+      <div class="social-links"> 
+     <h3>{{ settings.social-title }}</h3> 
+
+      <ul>
+
+<!-- twitter -->
+    <li class="tile tile_twi trs_scale">
+        {% if settings.show_twitter %} <a href="{{ settings.header_social_1_twi }}"><i class="fa fa-twitter"></i></a>{% endif %}
+    </li>
+<!-- google+ -->
+    <li class="tile tile_gpl trs_scale">
+        {% if settings.show_gplus %}<a href="{{ settings.header_social_2_gpl }}"><i class="fa fa-google-plus"></i></a>{% endif %}
+    </li>
+<!-- facebook -->
+    <li class="tile tile_fcb trs_scale">
+        {% if settings.show_facebook %}<a href="{{ settings.header_social_3_fcb }}"><i class="fa fa-facebook"></i></a>{% endif %}
+    </li>
+<!-- pinterest -->
+    <li class="tile tile_pin trs_scale">
+        {% if settings.show_pin %}<a href="{{ settings.header_social_4_pin }}"><i class="fa fa-pinterest"></i></a>{% endif %}
+    </li>
+  <!-- RSS -->
+    <li class="tile tile_rss trs_scale">
+        {% if settings.show_rss %}<a href="{{ settings.header_social_4_rss }}"><i class="fa fa-rss"></i></a>{% endif %}
+    </li>
+  <!-- Linkedin -->
+    <li class="tile tile_linkedin trs_scale">
+        {% if settings.show_linkedin %}<a href="{{ settings.header_social_4_linkedin }}"><i class="fa fa-linkedin"></i></a>{% endif %}
+    </li>
+  <!-- youtube -->
+    <li class="tile tile_youtube trs_scale">
+        {% if settings.show_youtube %}<a href="{{ settings.header_social_4_youtube }}"><i class="fa fa-youtube"></i></a>{% endif %}
+    </li>
+   <!-- Instagram -->
+    <li class="tile tile_instagram trs_scale">
+        {% if settings.show_instagram1 %}<a href="{{ settings.header_social_4_instagram }}"><i class="fa fa-instagram"></i></a>{% endif %}
+    </li>
+        
+  </ul> 
+      </div>
+      
+       <!-- Footer Payment Link -->
+            <div class="payment-accept">
+               {% include 'widget-payment-methods' %} 
+            </div>
+    </div>
+
+
+  
+</div>
+  </div>
+</div> 
+ <div class="container">
+        <div class="row"> 
+                <div class="col-xs-12">
+                  
+
+                  
+                <div class="co-info">   
+{% if settings.display_logo_block %}
+{% if settings.display_logo_block != blank %}
+                  
+       <p><a href="/"><img src="{{ "footer-logo.png" | asset_url }}" alt="" /></a></p>
+      
+  {% endif %}
+  {% endif %} 
+                  
+   
+{% if settings.display_co_info %}
+{% if settings.display_co_info != blank %}
+                  
+    <p class="adr"><i class="add-icon"></i> {{ settings.bottom_block_5_adr}}</p>
+    <p class="tel"><i class="phone-icon"></i> {{ settings.bottom_block_5_tel}}</p>
+    <p class="email"><i class="email-icon"></i> <a href="mailto:support@magikcommerce.com">{{ settings.bottom_block_5_email}}</a></p>
+                  
+  {% endif %}
+  {% endif %}                   
+                  
+ </div> 
+   
+
+  </div>
+   
+        </div>
+   {% include 'widget-service_block' %}
+      </div>
+      <!--footer-column-last--> 
+
+ <div class="footer-bottom">
+      <div class="container">
+  <div class="row"> 
+	<div class="container copyright" role="contentinfo">
+      &copy; {{ "now" | date: "%Y" }} {% comment %}{{ shop.name }}{% endcomment %} All Rights Reserved. {% if settings.show_copyright %}Design by <a href="//magikcommerce.com">magikcommerce.com</a>.{% endif %} {{ powered_by_link }}.
+	</div>
+  </div>
+      </div>
+    </div>
+
+</footer>
+

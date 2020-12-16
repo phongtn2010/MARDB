@@ -1,0 +1,363 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using DATA0200025.SearchModels
+@using APP0200025.App_Code
+@using APP0200025.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Index";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+
+    string TenBang = "CNN25_HoSo";
+    String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
+
+    String _sTenHangHoa = CString.SafeString(Request.QueryString["sTenHangHoa"]);
+    String _iID_MaHangHoa = CString.SafeString(Request.QueryString["iID_MaHangHoa"]);
+    String _iID_MaHoSo = CString.SafeString(Request.QueryString["iID_MaHoSo"]);
+    String _sMaHoSo = CString.SafeString(Request.QueryString["_sMaHoSo"]);
+    String _sSoTiepNhan = CString.SafeString(Request.QueryString["_sSoTiepNhan"]);
+
+}
+<!-- Main content -->
+@using (Html.BeginForm("KetQuaUpload", "ToChucChiDinh", null, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    @Html.Hidden(ParentID + "_iID_MaHangHoa", _iID_MaHangHoa)
+    @Html.Hidden(ParentID + "_iID_MaHoSo", _iID_MaHoSo)
+    @Html.Hidden(ParentID + "_sMaHoSo", _sMaHoSo)
+    @Html.Hidden(ParentID + "_sSoTiepNhan", _sSoTiepNhan)
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title text-uppercase">Nội dung xử lý</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" type="button" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" type="button" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">Tên TACN<span style="color: red;">&nbsp;*</span></label>
+                            <div class="col-xs-10">
+                                @MvcHtmlString.Create(MyHtmlHelper.Label(_sTenHangHoa, "sTenHangHoa", "", "type=\"text\" class=\"form-control\""))
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">Kết quả đánh giá sự phù hợp<span style="color: red;">&nbsp;*</span></label>
+                            <div class="col-xs-10">
+                                <div class="col-xs-1">
+                                    <input type="radio" name="Index_bKetQuaDanhGia" id="Index_bKetQuaDanhGia" value="1" /> <label for="">Phù hợp</label> 
+                                    <div class="errorClient field-validation-error" style="color:red; font-weight:bold;" id="err_bKetQuaDanhGia"></div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <input type="radio" name="Index_bKetQuaDanhGia" id="Index_bKetQuaDanhGia" value="0" /> <label for="">Không phù hợp</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title text-uppercase">Kết quả đánh giá sự phù hợp</h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row" style="margin: 20px 0px;">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12">
+                                    <b>Thông tin giấy chứng nhận hợp quy lô TACN nhập khẩu</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="@(ParentID)_sSoChungNhan" class="col-xs-2 control-label">Số<span style="color: red;">&nbsp;*</span></label>
+                                    <div class="col-xs-10">
+                                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sSoChungNhan", "", "placeholder=\"Số giấy chứng nhận hợp quy\" type=\"text\" class=\"form-control\""))
+                                        <div class="errorClient field-validation-error" style="color:red;font-weight:bold;" id="err_sSoChungNhan"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="@(ParentID)_vidNgayCap" class="col-xs-2 control-label">Ngày cấp<span style="color: red;">&nbsp;*</span></label>
+                                    <div class="col-xs-10">
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, "", "dNgayCap", "", "placeholder=\"Ngày cấp\" type=\"text\" class=\"form-control\" autocomplete=\"off\""))
+                                        <div class="errorClient field-validation-error" style="color:red;font-weight:bold;" id="err_dNgayCap"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="@(ParentID)_file" class="col-xs-2 control-label">File đính kèm<span style="color: red;">&nbsp;*</span></label>
+                                    <div class="col-xs-10">
+                                        <input type="file" name="file" id="file" class="form-control" />
+                                        <div class="errorClient field-validation-error" style="color:red;font-weight:bold;" id="err_sDinhKem"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="col-xs-12">
+                                    <table class="table table-bordered" id="TableFile">
+                                        <tr>
+                                            <td class="text-center" style="width:20px;">STT</td>
+                                            <td class="text-center">
+                                                Phiếu kết quả phân tích
+                                                <span style="color: red;">&nbsp;*</span>
+                                            </td>
+                                            <td class="text-center" style="width:70px;">Thao tác</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 text-center">
+                                <p style="color: red;">File đính kèm: Định dạng: jpg, jpeg, pdf, tif</p>
+                                <p style="color: red;">Kích cỡ tối đa: 50MB</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                        <div class="col-sm-12 text-center">
+                            <button class="btn btn-primary" id="ShowSaveForm" type="button">Lưu</button>
+                            <button class="btn btn-danger" onclick="BackPage()" type="button">Thoát</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+}
+<script>
+    // ham common
+    var IsNullObject = function (object) {
+        if (object == null || object == undefined || object == '') {
+            return true;
+        }
+        return false;
+    }
+    // chuc nang
+    var initData;
+    jQuery(document).ready(function (event) {
+        // lay thong tin database
+        LayThongTinKhoiTao();
+        jQuery("#ShowSaveForm").click(function () {
+            if (ValidateForm()) {
+                ProgressBeforeSubmit();
+            }
+        });
+    })
+    // function validate form truoc khi submit
+    var ValidateForm = function () {
+        $(".errorClient").text('');
+        var _sSoChungNhan = jQuery("input[id$='sSoChungNhan']").val();
+        var _dNgayCap = jQuery("input[id$='dNgayCap']").val();
+        var _bKetQuaDanhGia = jQuery("input[id$='bKetQuaDanhGia']:checked").val();
+        var _sDinhKem = $("#file")[0].files[0];
+        var FlagValid = true;
+        if (IsNullObject(_sSoChungNhan)) {
+            jQuery("#err_sSoChungNhan").text('Vui lòng nhập số chứng nhận');
+            FlagValid = false;
+        }
+        if (IsNullObject(_dNgayCap)) {
+            jQuery("#err_dNgayCap").text('Vui lòng nhập ngày cấp');
+            FlagValid = false;
+        }
+        if (IsNullObject(_bKetQuaDanhGia)) {
+            jQuery("#err_bKetQuaDanhGia").text('Vui lòng chọn kết quả đánh giá');
+            FlagValid = false;
+        }
+        if (!IsNullObject(initData.ThongTin)) {
+            if (IsNullObject(initData.ThongTin.sTenFile)) {
+                if (IsNullObject(_sDinhKem)) {
+                    jQuery("#err_sDinhKem").text('Vui lòng chọn tệp đính kèm');
+                    FlagValid = false;
+                }
+            }
+        } else {
+            if (IsNullObject(_sDinhKem)) {
+                jQuery("#err_sDinhKem").text('Vui lòng chọn tệp đính kèm');
+                FlagValid = false;
+            }
+        }
+        var FlagExist = false;
+        $("[id^='File_Id_N']").each(function () {
+            var id = $(this)[0].id.replace('File_Id_N', '');
+            if ($("#fileOfTable_" + id)[0].files[0] != undefined) {
+                var extendName = $("#fileOfTable_" + id)[0].files[0].name.split('.').pop();
+                if (extendName.toLowerCase() == '.gif' || extendName.toLowerCase() == '.png' || extendName.toLowerCase() == 'jpg' || extendName.toLowerCase() == 'jpeg' || extendName.toLowerCase() == 'pdf' || extendName.toLowerCase() == 'tif') {
+                    if ($("#fileOfTable_" + id)[0].files[0].size > 50000000) {
+                        $("#fileOfTable_" + id).parent('td').append('<div class="errorClient field-validation-error text-left" style="color:red;font-weight:bold;">Dung lượng file không được lớn hơn 50 MB</div>');
+                        FlagValid = false;
+                    }
+                } else {
+                    $("#fileOfTable_" + id).parent('td').append('<div class="errorClient field-validation-error text-left" style="color:red;font-weight:bold;">File không đúng định dạng</div>');
+                    FlagValid = false;
+                }
+                FlagExist = true;
+            }
+        });
+        if (!FlagExist) {
+            if ($(".FileFromDb").length == 0) {
+                $("input[id^='fileOfTable_']").parent('td').append('<div class="errorClient field-validation-error text-left" style="color:red;font-weight:bold;">Vui lòng chọn tệp đính kèm</div>');
+                FlagValid = false;
+            }
+        }
+        return FlagValid;
+    }
+    // function xu ly du lieu truyen len server
+    var ProgressBeforeSubmit = function () {
+        var fd = new FormData();
+        fd.append("_iID_MaHangHoa", jQuery("input[id$='_iID_MaHangHoa']").val());
+        fd.append("_iID_MaHoSo", jQuery("input[id$='_iID_MaHoSo']").val());
+        fd.append("_sSoChungNhan", jQuery("input[id$='sSoChungNhan']").val());
+        fd.append("_dNgayCap", jQuery("input[id$='dNgayCap']").val());
+        fd.append("_bKetQuaDanhGia", jQuery("input[id$='bKetQuaDanhGia']:checked").val());
+        if ($("#file")[0].files[0] != undefined) {
+            fd.append("_file", $("#file")[0].files[0]);
+        }
+        $("[id^='File_Id_N']").each(function () {
+            var id = $(this)[0].id.replace('File_Id_N', '');
+            if ($("#fileOfTable_" + id)[0].files[0] != undefined) {
+                fd.append("_fileOfTable", $("#fileOfTable_" + id)[0].files[0]);
+            }
+        });
+        if (ListRemove.length > 0) {
+            fd.append("deleteFile", ListRemove.join(","));
+        }
+        $.ajax({
+            type: "POST",
+            url: "/ToChucChiDinh/CapNhatChungNhanHopQuy",
+            processData: false,
+            contentType: false,
+            data: fd,
+            success: function (data) {
+                alert("Bạn đã cập nhật thành công!");
+
+                location.href = '@(Url.Action("ThongTinHoangHoa", "ToChucChiDinh", new { iID_MaHoSo = _iID_MaHoSo, sMaHoSo = _sMaHoSo, sSoTiepNhan = _sSoTiepNhan }))';
+                //javascript: history.go(-1);
+            },
+            error: function (data) {
+
+            }
+        })
+    }
+    var indexFile = 1;
+    var indexAdd = 1;
+    // function them moi recond dinh kem file tren table
+    var AddFileButton = function () {
+        var html = '<tr id="File_Id_N' + indexFile + '">';
+        html += '<td class="text-center">' + indexFile + '</td>';
+        html += '<td class="text-center">';
+        html += '<input type="file" id="fileOfTable_' + indexFile + '" name="fileOfTable_' + indexFile + '" />';
+        html += '</td>';
+        html += '<td class="text-center">';
+        if (indexFile == indexAdd) {
+            html += '<span onclick="AddFileButton()" class="badge bg-blue"><i class="fa fa-fw fa-plus-circle"></i></span>';
+        } else {
+            html += '<span  onclick="RemoveFile(\'N' + indexFile + '\')" class="badge bg-blue"><i class="fa fa-fw fa-close"></i></span>';
+        }
+
+        html += '</td>';
+        html += '</tr>';
+        $("#TableFile").append(html);
+        indexFile++;
+    }
+    var ListRemove = [];
+    // function remove recond dinh kem file tren table da co trong database
+    var RemoveFileExist = function (id) {
+        ListRemove.push(id);
+        $("#File_Id_" + id).remove();
+    }
+    // function remove recond dinh kem file tren table
+    var RemoveFile = function (id) {
+        ListRemove.push(id);
+        $("#File_Id_" + id).remove();
+    }
+    // back ve page truoc
+    var BackPage = function () {
+        javascript: history.go(-1);
+    }
+    // tao ra danh sach file tren giao dien khi lay thong tin tu database
+    var AddFileInit = function (id, href, sTenFile) {
+        var html = '<tr class=\'FileFromDb\' id="File_Id_' + id + '">';
+        html += '<td class="text-center">' + indexFile + '</td>';
+        html += '<td class="text-center">';
+        html += '<a href="' + href + '">' + sTenFile + '</a>';
+        html += '</td>';
+        html += '<td class="text-center">';
+        html += '<span onclick="RemoveFileExist(' + id + ')" class="badge bg-blue"><i class="fa fa-fw fa-close"></i></span>';
+        html += '</td>';
+        html += '</tr>';
+        indexFile++;
+        indexAdd = indexFile;
+        $("#TableFile").append(html);
+    }
+    // lay thong tin khoi tao ban dau
+    var LayThongTinKhoiTao = function () {
+        var _iID_MaHangHoa = jQuery("input[id$='_iID_MaHangHoa']").val();
+        var _iID_MaHoSo = jQuery("input[id$='_iID_MaHoSo']").val();
+        var para = {
+            "iID_MaHoSo": _iID_MaHoSo,
+            "iID_MaHangHoa": _iID_MaHangHoa
+        }
+        $.ajax({
+            type: "POST",
+            url: "/ToChucChiDinh/GetUpload",
+            data: para,
+            success: function (data) {
+                initData = data.response;
+                XuLyKhoiTao(initData);
+                AddFileButton();
+            },
+            error: function (data) {
+
+            }
+        })
+    }
+    // thuc hien xu ly thong tin khoi tao
+    var XuLyKhoiTao = function (data) {
+        if (data.ThongTin != null) {
+            jQuery("input[id$='sSoChungNhan']").val(data.ThongTin.sSoChungNhan);
+            jQuery("input[id$='dNgayCap']").val(data.ThongTin.dNgayCap);
+            if (data.ThongTin.bKetQuaDanhGia) {
+                jQuery("input[id$='bKetQuaDanhGia']:eq(0)").prop('checked', 'checked');
+            } else {
+                jQuery("input[id$='bKetQuaDanhGia']:eq(1)").prop('checked', 'checked');
+            }
+            if (data.DanhSachFile != null) {
+                for (var i = 0; i < data.DanhSachFile.length; i++) {
+                    AddFileInit(data.DanhSachFile[i].iID_KetQuaPhanTich, data.DanhSachFile[i].sDuongDan, data.DanhSachFile[i].sTenFile);
+                }
+            }
+        }
+    }
+</script>

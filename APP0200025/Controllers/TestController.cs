@@ -28,6 +28,16 @@ namespace APP0200025.Controllers
         {
             String sTen = "tfsdfdsfsd";
 
+            HttpPostedFileBase file = Request.Files[0];
+
+            string result = string.Empty;
+
+            using (BinaryReader b = new BinaryReader(file.InputStream))
+            {
+                byte[] binData = b.ReadBytes(file.ContentLength);
+                result = System.Text.Encoding.UTF8.GetString(binData);
+            }
+
             //long iID_MaFile = CDinhKem.ThemDinhKem(0, 0, 0, "", "", "", "PHONG", "", null, 1, "http://mard.adp-p.com/Files/16c8858e-0f58-4c2c-939f-f7ac40d8cf2f.png", "doanhnghiep", "");
 
             //KetQuaXuLy resultConfirm = new KetQuaXuLy();
@@ -189,6 +199,28 @@ namespace APP0200025.Controllers
                 vR = CDinhKemFiles.UploadFile(hpf);
             }
             return base.RedirectToAction("Index");
+        }
+
+        public static byte[] ReadFile(string filePath)
+        {
+            byte[] buffer;
+            FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            try
+            {
+                int length = (int)fileStream.Length;  // get file length
+                buffer = new byte[length];            // create buffer
+                int count;                            // actual number of bytes read
+                int sum = 0;                          // total number of bytes read
+
+                // read until Read method returns 0 (end of the stream has been reached)
+                while ((count = fileStream.Read(buffer, sum, length - sum)) > 0)
+                    sum += count;  // sum is a buffer offset for next reading
+            }
+            finally
+            {
+                fileStream.Close();
+            }
+            return buffer;
         }
 
 

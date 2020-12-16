@@ -259,6 +259,7 @@
     </Compile>
     <Compile Include="Controllers\Api\FileUploadApiController.cs" />
     <Compile Include="Controllers\Api\FileuploadController.cs" />
+    <Compile Include="Controllers\Api\GatewayRelayController.cs" />
     <Compile Include="Controllers\BaoMat\DC_CongTyController.cs" />
     <Compile Include="Controllers\BoPhanMotCuaController.cs" />
     <Compile Include="Controllers\ChoXemXetKetQuaController.cs" />

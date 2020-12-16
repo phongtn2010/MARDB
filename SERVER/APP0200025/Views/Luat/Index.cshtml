@@ -1,0 +1,82 @@
+﻿@using System.Configuration
+@using System.Collections
+@using System.Data
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = ConfigurationManager.AppSettings["ServerURL"];
+
+
+    DataTable dt = CPQ_LUAT.Get_Table();
+
+    DataRow R;
+}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">DANH SÁCH LUẬT</h3>
+                        <div class="box-tools">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="@Url.Action("Edit", "Luat")"><i class="fa fa-plus-square"></i> Thêm mới</a></li>
+                                <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box-body no-padding">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr class="tr_form3">
+                                    <th>Tên luật</th>
+                                    <th style="width: 10%">Menu</th>
+                                    <th style="width: 10px;" title="Sửa"><span class="badge bg-blue"><i class="fa fa-pencil"></i></span></th>
+                                    <th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        for (int i = 0; i < dt.Rows.Count; i++)
+                                        {
+                                            R = dt.Rows[i];
+
+                                            int iSTT = i + 1;
+
+                                            string urlDetail = Url.Action("Index", "ChucNangCam", new { MaLuat = R["iID_MaLuat"] });
+                                            string urlMenu = Url.Action("Menu_Cam", "Menu", new { MaLuat = R["iID_MaLuat"] });
+                                            String classtr = "";
+                                            if (i % 2 == 0)
+                                            {
+                                                classtr = "class=\"alt\"";
+                                            }
+
+                                            String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "Luat", new { MaLuat = R["iID_MaLuat"] }), "<span class=\"badge bg-blue\"><i class=\"fa fa-pencil\"></i></span>", "Edit", "");
+                                            String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "Luat", new { MaLuat = R["iID_MaLuat"] }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
+
+
+                                            <tr @classtr>
+                                                <td>@MvcHtmlString.Create(MyHtmlHelper.ActionLink(urlDetail, Convert.ToString(R["sTen"]), "Detail", ""))</td>
+                                                <td>@MvcHtmlString.Create(MyHtmlHelper.ActionLink(urlMenu, "Menu", "Edit", ""))</td>
+                                                <td align="center">@MvcHtmlString.Create(strEdit)</td>
+                                                <td align="center">@MvcHtmlString.Create(strDelete)</td>
+                                            </tr>
+                                        }
+                                    }
+                                    dt.Dispose();
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->

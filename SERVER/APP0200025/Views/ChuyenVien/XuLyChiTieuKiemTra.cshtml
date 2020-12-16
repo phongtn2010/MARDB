@@ -1,0 +1,66 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.Models
+@using APP0200025.Controllers
+@model  DATA0200025.Models.HangHoaModels
+@{
+    ViewBag.Title = "Soạn phụ lục";
+    Layout = null;
+    string ParentID = "Edit";
+
+}
+@using (Ajax.BeginForm("XuLyChiTieuSubmit", "ChuyenVien", new AjaxOptions{OnSuccess = "OnSuccessXuLyChiTieu",OnBegin = "OnBeginXuLyChiTieu"}, new { id = "formXuLyChiTieu", enctype = "multipart/form-data", @class = "form-horizontal" }))
+{
+    <script type="text/javascript">
+        function OnBeginXuLyChiTieu() {
+            $('html, body').animate({ scrollTop: 10 }, 'slow');
+        }
+        function OnSuccessXuLyChiTieu(data) {
+            alert("cập nhật thành công");
+            $('#XuLyChiTieu').modal('hide');
+        }
+    </script>
+    @Html.AntiForgeryToken()
+    @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa)
+    <div class="modal-dialog" style="width:860px;height:auto">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-uppercase">Xử lý chỉ tiêu kiểm tra</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @{Html.RenderPartial("~/Views/Partial/Partial_HH_ThongTinTACN.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/Partial/Partial_HH_ThongTinChiTieuChatLuong.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/Partial/Partial_HH_ThongTinChiTieuAnToanDN.cshtml", Model);}
+                        @{Html.RenderPartial("~/Views/Partial/Partial_HH_ThongTinChiTieuAnToanKyThuat.cshtml", Model);}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Thoát</button>
+                <button type="button" class="btn btn-primary" id="btnXuLyChiTieuKiemTra">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#formXuLyChiTieu').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            }
+        });
+    });
+</script>
