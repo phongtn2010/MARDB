@@ -24,17 +24,17 @@ namespace APP0200025.Controllers
             {
                 return RedirectToAction("Index", "PermitionMessage");
             }
-            if (models == null || models.LoaiDanhSach == 0)
+
+            if (models == null)
             {
                 models = new sHoSoModels
                 {
-                    LoaiDanhSach = 0,
                     Page = 1,
-                    PageSize = 30
+                    PageSize = 30,
+                    LoaiDanhSach = 0
                 };
             }
 
-            ViewData["menu"] = 229;
             return View(models);
         }
 
@@ -54,23 +54,42 @@ namespace APP0200025.Controllers
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID)
         {
-            string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]);
-            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]);
-            string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
-            string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
-            string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
+            string _sMaHoSo = CString.SafeString(Request.Form[ParentID + "_sMaHoSo"]).Trim();
+            string TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
+            string DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
+            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]).Trim();
+            string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]).Trim();
 
+            string _sSoTiepNhan = CString.SafeString(Request.Form[ParentID + "_sSoTiepNhan"]).Trim();
+            string TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
+            string DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
+
+
+            string sSoGDK = CString.SafeString(Request.Form[ParentID + "_sSoGDK"]).Trim();
+            string TuNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayXacNhan"]);
+            string DenNgayXacNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayXacNhan"]);
+
+            string iID_MaTrangThai = CString.SafeString(Request.Form[ParentID + "_iID_MaTrangThai"]);
+
+            string iID_KetQuaXuLy = CString.SafeString(Request.Form[ParentID + "_iID_KetQuaXuLy"]);
             sHoSoModels models = new sHoSoModels
             {
                 LoaiDanhSach = 0,
                 sMaHoSo = _sMaHoSo,
                 sTenDoanhNghiep = _sTenDoanhNghiep,
                 sTenTACN = _sTenTACN,
-                TuNgayDen = _TuNgayDen,
-                DenNgayDen = _DenNgayDen
+                TuNgayDen = TuNgayDen,
+                DenNgayDen = DenNgayDen,
+                sSoTiepNhan = _sSoTiepNhan,
+                TuNgayTiepNhan = TuNgayTiepNhan,
+                DenNgayTiepNhan = DenNgayTiepNhan,
+                sSoGDK = sSoGDK,
+                TuNgayXacNhan = TuNgayXacNhan,
+                DenNgayXacNhan = DenNgayXacNhan,
+                iID_MaTrangThai = Convert.ToInt32(iID_MaTrangThai),
+                iID_KetQuaXuLy = Convert.ToInt32(iID_KetQuaXuLy)
             };
 
-            TempData["menu"] = 229;
             TempData["msg"] = "success";
             return RedirectToAction("Index", models);
         }
