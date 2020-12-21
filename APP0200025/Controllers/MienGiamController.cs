@@ -93,18 +93,19 @@ namespace APP0200025.Controllers
 
                         string sSoGDK = CTaoSoGDK.GetSoGDK().SoGDK;
 
-                        bang.MaNguoiDungSua = sUserName;
-                        bang.IPSua = Request.UserHostAddress;
-                        bang.DuLieuMoi = false;
-                        bang.GiaTriKhoa = iID_MaHoSo;
-                        bang.CmdParams.Parameters.AddWithValue("@sSoGDK", sSoGDK);
-                        bang.CmdParams.Parameters.AddWithValue("@sSoGDK_NoiKy", eCoQuanXuLy.sNguoiKy_NoiKy);
-                        bang.CmdParams.Parameters.AddWithValue("@sSoGDK_NguoiKy", eCoQuanXuLy.sNguoiKy_Ten);
-                        bang.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", DateTime.Now);
-                        bang.CmdParams.Parameters.AddWithValue("@dNgayHetHieuLuc", DateTime.Now.AddYears(1));
-                        bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", 3);
-                        bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", 2);
-                        bang.Save();
+                        Bang bangAll = new Bang("CNN26_HoSo");
+                        bangAll.MaNguoiDungSua = sUserName;
+                        bangAll.IPSua = Request.UserHostAddress;
+                        bangAll.DuLieuMoi = false;
+                        bangAll.GiaTriKhoa = iID_MaHoSo;
+                        bangAll.CmdParams.Parameters.AddWithValue("@sSoGDK", sSoGDK);
+                        bangAll.CmdParams.Parameters.AddWithValue("@sSoGDK_NoiKy", eCoQuanXuLy.sNguoiKy_NoiKy);
+                        bangAll.CmdParams.Parameters.AddWithValue("@sSoGDK_NguoiKy", eCoQuanXuLy.sNguoiKy_Ten);
+                        bangAll.CmdParams.Parameters.AddWithValue("@dNgayXacNhan", DateTime.Now);
+                        bangAll.CmdParams.Parameters.AddWithValue("@dNgayHetHieuLuc", DateTime.Now.AddYears(1));
+                        bangAll.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", 3);
+                        bangAll.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", 2);
+                        bangAll.Save();
 
                         CLichSuHoSo.Add(Convert.ToInt64(iID_MaHoSo), "", sUserName, sTenUser, eDoiTuong.TYPE_3, "Lãnh đạo cục", eHanhDong.TYPE_2_3, "Ký số", "", "", eTrangThai.TYPE_2, "Đã tiếp nhận", eTrangThai.TYPE_3, "Lãnh đạo cục đã phê duyệt ");
                     }   

@@ -172,7 +172,7 @@ namespace APP0200025.Controllers
             resNSW.TestConfirmDateString = Convert.ToDateTime(dtCNHQ.Rows[0]["dNgayCap"]);
             resNSW.TestConfirmAttachmentId = Convert.ToString(dtCNHQ.Rows[0]["iID_ChungNhanHopQuy"]); ;
             resNSW.TestConfirmFileName = Convert.ToString(dtCNHQ.Rows[0]["sTenFile"]); ;
-            resNSW.TestConfirmFileLink = string.Format("{0}{1}", clCommon.BNN_Url, Convert.ToString(dtCNHQ.Rows[0]["sDuongDan"]));
+            resNSW.TestConfirmFileLink = Convert.ToString(dtCNHQ.Rows[0]["sDuongDan"]);
 
             if (dtKQPT.Rows.Count > 0)
             {
