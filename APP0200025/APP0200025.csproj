@@ -3160,6 +3160,8 @@
     <Content Include="Views\Test26\Index.cshtml" />
     <Content Include="XML\phong_bk2007.zip" />
     <Content Include="XML\phong_bk2007.rar" />
+    <Content Include="Views\CMS_HoSo\Index.cshtml" />
+    <Content Include="Views\CMS_HoSo\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -3207,7 +3209,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Libraries\CongThuc\" />
-    <Folder Include="Views\CMS_HoSo\" />
     <Folder Include="Views\Public\" />
     <Folder Include="Views\UploadFile\" />
   </ItemGroup>
