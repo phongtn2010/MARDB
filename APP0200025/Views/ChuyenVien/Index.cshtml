@@ -312,7 +312,7 @@
                                                         int[] arrTrangThai = { 7, 10, 11, 12, 14, 16, 18, 23 };
                                                         if (arrTrangThai.Contains(iID_MaTrangThai))
                                                         {
-                                                            bool bQuaHan = HamRiengModels.XulyQuaHan(Convert.ToDateTime(r["dNgayTiepNhan"]));
+                                                            bool bQuaHan = HamRiengModels.XulyQuaHan(Convert.ToInt64(r["iID_MaHoSo"]), Convert.ToDateTime(r["dNgayTiepNhan"]));
                                                             if (bQuaHan == true)
                                                             {
                                                                 <span class='badge bg-red'><i class='fa fa-fw fa-exclamation'></i></span>

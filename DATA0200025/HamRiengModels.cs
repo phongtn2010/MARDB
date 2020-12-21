@@ -256,7 +256,7 @@ namespace DATA0200025
             return vR;
         }
 
-        public static bool XulyQuaHan(DateTime date)
+        public static bool XulyQuaHan(long iID_MaHoSo, DateTime date)
         {
             bool vR = false;
 
@@ -341,6 +341,9 @@ namespace DATA0200025
 
             if (iTimeNow > iTimeHetHan)
             {
+                //Update gia tri qua han
+                int iGiaTri = CHoSo.UpDate_QuaHan(iID_MaHoSo);
+
                 vR = true;
             }
 
