@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using DATA0200025;
 using DATA0200025.Models;
 
@@ -14,7 +15,7 @@ namespace APP0200025.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            
+            string Jfm = FormsAuthentication.HashPasswordForStoringInConfigFile("Pp90@thing", "MD5").ToLower();
 
             return View();
         }
