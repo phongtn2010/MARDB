@@ -40,6 +40,8 @@
                             <th width="20px" align="center"><b>STT</b></th>
                             <th align="center">Nhóm người dùng</th>
                             <th align="center"><b>Tài khoản</b></th>
+                            <th width="10%" align="center"><b>Họ tên</b></th>
+                            <th width="10%" align="center"><b>Email</b></th>
                             <th width="100px" align="center"><b>Đã kích hoạt</b></th>
                             <th style="width: 10px;" title="Sửa"><span class="badge bg-blue"><i class="fa fa-pencil"></i></span></th>
                             <th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
@@ -86,6 +88,8 @@
                                     <td>@(iSTT) </td>
                                     <td>@TenNhomNguoiDungLay</td>
                                     <td>@dtNguoiDung.Rows[i]["sID_MaNguoiDung"]</td>
+                                    <td>@Convert.ToString(dtNguoiDung.Rows[i]["sHoTen"])</td>
+                                    <td>@Convert.ToString(dtNguoiDung.Rows[i]["sEmail"])</td>
                                     <td>@(sTrangThai)</td>
                                     @{
                                         if (sMaNhomnguoiDung == "1")
