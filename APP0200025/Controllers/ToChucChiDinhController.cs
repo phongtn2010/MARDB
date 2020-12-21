@@ -24,6 +24,12 @@ namespace APP0200025.Controllers
         Bang bang = new Bang("CNN25_HoSo");
         public ActionResult Index(sHoSoModels models)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
+
             if (models == null || models.LoaiDanhSach == 0)
             {
                 models = new sHoSoModels
@@ -88,6 +94,12 @@ namespace APP0200025.Controllers
 
         public ActionResult List(sHoSoModels hoSoSearch)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
+
             if (hoSoSearch == null || hoSoSearch.iID_MaTrangThai == 0)
             {
                 hoSoSearch = new sHoSoModels
@@ -104,10 +116,11 @@ namespace APP0200025.Controllers
 
         public ActionResult Detail(string iID_MaHoSo)
         {
-            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
-            //{
-            //    return RedirectToAction("Index", "PermitionMessage");
-            //}
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             clHangHoa.UpdateNguoiXem(iID_MaHoSo, User.Identity.Name);
 
             HoSoModels models = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));

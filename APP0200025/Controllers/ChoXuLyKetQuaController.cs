@@ -17,10 +17,10 @@ namespace APP0200025.Controllers
         Bang bang = new Bang("CNN25_HangHoa");
         public ActionResult Index(sHoSoModels models)
         {
-            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
-            //{
-            //    return RedirectToAction("Index", "PermitionMessage");
-            //}
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
             if (models == null || models.LoaiDanhSach == 0)
             {
                 models = new sHoSoModels
@@ -37,10 +37,10 @@ namespace APP0200025.Controllers
         }
         public ActionResult Detail(string iID_MaHangHoa)
         {
-            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
-            //{
-            //    return RedirectToAction("Index", "PermitionMessage");
-            //}
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
             clHangHoa.UpdateNguoiXem(iID_MaHangHoa, User.Identity.Name);
 
             HangHoaModels models = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));
@@ -50,10 +50,10 @@ namespace APP0200025.Controllers
         }
         public ActionResult SoanThongBaoKetQua(string iID_MaHangHoa)
         {
-            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
-            //{
-            //    return RedirectToAction("Index", "PermitionMessage");
-            //}
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
             ViewData["DuLieuMoi"] = "0";
             ViewData["smenu"] = 187;
             HangHoaModels models = clHangHoa.GetHangHoaById(Convert.ToInt32(iID_MaHangHoa));

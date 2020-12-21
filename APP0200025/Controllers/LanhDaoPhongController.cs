@@ -20,6 +20,11 @@ namespace APP0200025.Controllers
         // GET: 
         public ActionResult Index(sHoSoModels models)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             if (models == null || models.LoaiDanhSach == 0)
             {
                 models = new sHoSoModels
@@ -42,6 +47,11 @@ namespace APP0200025.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Detail(string iID_MaHoSo)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             HoSoModels hoSo = clHoSo.GetHoSoById(iID_MaHoSo);
 
             ViewData["menu"] = 207;

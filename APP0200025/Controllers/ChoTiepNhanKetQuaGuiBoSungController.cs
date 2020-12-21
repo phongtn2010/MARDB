@@ -22,10 +22,10 @@ namespace APP0200025.Controllers
         // GET: ChoTiepNhanKetQuaGuiBoSung
         public ActionResult Index(sHoSoModels models)
         {
-            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
-            //{
-            //    return RedirectToAction("Index", "PermitionMessage");
-            //}
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
             if (models == null || models.LoaiDanhSach == 0)
             {
                 models = new sHoSoModels
@@ -41,10 +41,10 @@ namespace APP0200025.Controllers
         }
         public ActionResult Detail(string iID_MaHangHoa)
         {
-            //if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
-            //{
-            //    return RedirectToAction("Index", "PermitionMessage");
-            //}
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
 
             clHangHoa.UpdateNguoiXem(iID_MaHangHoa, User.Identity.Name);
 

@@ -20,6 +20,11 @@ namespace APP0200025.Controllers
         // GET: 
         public ActionResult Index(sHoSoModels models)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             if (models == null || models.LoaiDanhSach == 0)
             {
                 models = new sHoSoModels
@@ -38,6 +43,11 @@ namespace APP0200025.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Detail(string iID_MaHoSo)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             HoSoModels hoSo = clHoSo.GetHoSoById(iID_MaHoSo);
             ViewData["DuLieuMoi"] = "0";
 
@@ -333,6 +343,12 @@ namespace APP0200025.Controllers
 
         public ActionResult HoSoChoXacNhanGDK(sHoSoModels models)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
+
             if (models == null || models.LoaiDanhSach == 0)
             {
                 models = new sHoSoModels
@@ -349,6 +365,11 @@ namespace APP0200025.Controllers
 
         public ActionResult HoSoChatLuongChoDuyet(sHoSoModels models)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             if (models == null || models.LoaiDanhSach == 0)
             {
                 models = new sHoSoModels
@@ -372,6 +393,11 @@ namespace APP0200025.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult DetailHH(string iID_MaHangHoa)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             HangHoaModels hangHoa = clHangHoa.GetHangHoaById(iID_MaHangHoa);
             ViewData["DuLieuMoi"] = "0";
 
