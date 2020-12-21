@@ -15,8 +15,6 @@ namespace APP0200025.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            string Jfm = FormsAuthentication.HashPasswordForStoringInConfigFile("Pp90@thing", "MD5").ToLower();
-
             return View();
         }
 

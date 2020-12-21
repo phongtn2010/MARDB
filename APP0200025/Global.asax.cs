@@ -20,6 +20,8 @@ namespace APP0200025
     {
         protected void Application_Start()
         {
+            //string Jfm = FormsAuthentication.HashPasswordForStoringInConfigFile("Pp90@thing", "MD5").ToLower();
+
             Connection.ConnectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
             Globals.PageSize = 10;
