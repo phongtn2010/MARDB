@@ -3158,6 +3158,7 @@
     <Content Include="Views\PermitionMessage\Index.cshtml" />
     <Content Include="Views\Test26\Index.cshtml" />
     <Content Include="XML\phong_bk2007.zip" />
+    <Content Include="XML\phong_bk2007.rar" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
