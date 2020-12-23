@@ -81,11 +81,11 @@ $(function () {
 
 $(function () {
     $("body").on("click", "#btnThoat", function () {
-        var iID_MaHangHoa = $("#Detail_iID_MaHangHoa").val();
+        var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
         $.ajax({
             url: ServerUrl + '/ChuyenVien/Thoat',
             type: 'POST',
-            data: { iID_MaHangHoa: iID_MaHangHoa },
+            data: { iID_MaHoSo: iID_MaHoSo },
             success: function (response) {
                 if (response.success) {
                     showToast_Success();
