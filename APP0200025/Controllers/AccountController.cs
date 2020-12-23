@@ -75,6 +75,8 @@ namespace APP0200025.Controllers
             NameValueCollection values = new NameValueCollection();
             string sUserName = CString.SafeString(Request.Form[ParentID + "_sUserName"]).Trim();
             string sMatKhau = CString.SafeString(Request.Form[ParentID + "_sPassword"]).Trim();
+            string _CaptCha = CString.SafeString(Request.Form[ParentID + "_CaptCha"]);
+            string sCapCha = Convert.ToString(HttpContext.Session["captchaText"]);
             string sKeep = CString.SafeString(Request.Form["rememberCheckbox"]);
 
             if (string.IsNullOrEmpty(sUserName))
@@ -84,6 +86,10 @@ namespace APP0200025.Controllers
             if (string.IsNullOrEmpty(sMatKhau))
             {
                 values.Add("err_sMatKhau", "Bạn chưa nhập mật khẩu!");
+            }
+            if ((((_CaptCha == string.Empty) || (_CaptCha == "")) || (_CaptCha != sCapCha)))
+            {
+                values.Add("err_sCapCha", "Bạn chưa nhập mã kiểm tra hoặc mã kiểm tra chưa đúng!");
             }
 
             if (values.Count > 0)
@@ -358,11 +364,14 @@ namespace APP0200025.Controllers
             }
             else
             {
-                var user = await UserManager.FindByNameAsync(sUser);
+                //var userPass = await UserManager.FindAsync(sUser, _sMatKhauCu);
+
+                var user = await UserManager.FindAsync(sUser, _sMatKhauCu);
                 if (user == null)
                 {
                     return RedirectToAction("ChangePassword", "Account");
                 }
+
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
 
                 var result = await UserManager.ResetPasswordAsync(user.Id, code, _sMatKhau);

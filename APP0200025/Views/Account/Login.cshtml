@@ -88,6 +88,7 @@
     <script src="@(Url.Content("~/Content/plugins/jQuery/jQuery-2.1.4.min.js"))" type="text/javascript"></script>
     <!-- bootstrapValidator -->
     <script src="@(Url.Content("~/Content/plugins/bootstrapValidator/bootstrapValidator.min.js"))"></script>
+    <script src="@Url.Content("~/Content/Scripts/jsContents.js")"></script>
 
     <script type="text/javascript">
         var ServerUrl = "@(ServerURL)";
@@ -102,7 +103,7 @@
                 </a>
             </div><!-- /.login-logo -->
             <div class="login-box-body">
-                @using (Html.BeginForm("Login", "Account", new { ParentID = ParentID, ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id= "formLogin", role = "form" }))
+                @using (Html.BeginForm("Login", "Account", new { ParentID = ParentID, ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "formLogin", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
                     <p class="login-box-msg" style="padding-bottom: 5px;"><b>ĐĂNG NHẬP HỆ THỐNG</b></p>
@@ -116,6 +117,14 @@
                         @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sPassword", "", " placeholder=\"Mật khẩu\" type=\"password\" class=\"form-control\" style=\"height: 35px\" minlength='6' required"))
                         @Html.ValidationMessage(ParentID + "_" + "err_sMatKhau")
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input tabindex="3" type="text" id="@String.Format("{0}_{1}", ParentID, "CaptCha")" name="@String.Format("{0}_{1}", ParentID, "CaptCha")" placeholder="Mã bảo mật bên dưới" class="form-control" />
+                        @Html.ValidationMessage(ParentID + "_" + "err_sCapCha")
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <img id="m_imgCaptcha" alt="Captcha" src="" title="Mã bảo mật" onclick="jsLoadCaptcha();" style="width: 100%; height: 40px; cursor: pointer;" />
                     </div>
                     <div class="row">
                         <div class="col-xs-8">
@@ -132,8 +141,8 @@
                     <div class="social-auth-links text-center">
                         <p>@Html.ValidationMessage(ParentID + "_" + "err_sMessage")</p>
                         @*<a href="@Url.Action("OpenidLogin", "Account", new { provider = "facebook", returnUrl = ViewBag.ReturnUrl })" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>
-                            <a href="@Url.Action("OpenidLogin", "Account", new { provider = "google", returnUrl = ViewBag.ReturnUrl })" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
-                            <a href="@Url.Action("OpenidLogin", "Account", new { provider = "twitter", returnUrl = ViewBag.ReturnUrl })" class="btn btn-block btn-social btn-twitter btn-flat"><i class="fa fa-twitter"></i> Sign in using Twitter</a>*@
+                <a href="@Url.Action("OpenidLogin", "Account", new { provider = "google", returnUrl = ViewBag.ReturnUrl })" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
+                <a href="@Url.Action("OpenidLogin", "Account", new { provider = "twitter", returnUrl = ViewBag.ReturnUrl })" class="btn btn-block btn-social btn-twitter btn-flat"><i class="fa fa-twitter"></i> Sign in using Twitter</a>*@
                     </div>
                     <a href="#">Quên mật khẩu</a><br>
                     <a href="#" class="text-center">Đăng ký</a>
@@ -157,6 +166,8 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
+            jsLoadCaptcha();
+
             $('#formLogin').bootstrapValidator({
                 message: 'This value is not valid',
                 feedbackIcons: {
@@ -176,6 +187,13 @@
                         validators: {
                             notEmpty: {
                                 message: 'Bạn cần nhập mật khẩu'
+                            }
+                        }
+                    },
+                    Login_CaptCha: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Bạn cần nhập mã bảo mật bên dưới'
                             }
                         }
                     }

@@ -44,6 +44,20 @@ function jsBVND_SessionLanguage_Home(iMaNgonNgu) {
     return false;
 }
 
+function jsLoadCaptcha() {
+    var sURL = ServerUrl + "/Public/generateCaptcha";
+    $.ajax({
+        type: 'GET', url: sURL,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            $("#m_imgCaptcha").attr('src', ServerUrl + "/" + data);
+        },
+        error: function (data) { alert("Error while loading captcha image") }
+    });
+}
+
 function jsEbank_AddToCart(sMaSanPhan, sCode, rSoLuong, rDonGia) {
     var url = ServerUrl + "/Orders/Insert_User_Cart?iID_MaSanPham=" + sMaSanPhan + "&sCodeSanPham=" + sCode + "&rSoLuong=" + rSoLuong + "&rDonGia=" + rDonGia;
     jQuery.getJSON(url, function (item) {
