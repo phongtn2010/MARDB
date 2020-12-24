@@ -40,6 +40,11 @@ namespace APP0200025
             timer.Enabled = true;
         }
 
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            Session.Timeout = 2;
+        }
+
         public void TimerElapsed(object source, System.Timers.ElapsedEventArgs e)
         {
             //// Runs at every dat 12 AM.
