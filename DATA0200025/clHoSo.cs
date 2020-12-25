@@ -278,7 +278,7 @@ namespace DATA0200025
             cmd.Dispose();
             return vR;
         }
-        public static DataTable GetDataTable(sHoSoModels models, int page, int numrecord)
+        public static DataTable GetDataTable(sHoSoModels models, int page, int numrecord, string sOrderInput = "iID_MaHoSo DESC")
         {
             SqlCommand cmd = new SqlCommand();
             string DK = "1=1";
@@ -496,7 +496,7 @@ namespace DATA0200025
             }
             string SQL = string.Format("SELECT * FROM CNN25_HoSo WHERE {0} ", DK);
             cmd.CommandText = SQL;
-            string sOrder = "iID_MaHoSo DESC";
+            string sOrder = sOrderInput;
             DataTable dt = CommonFunction.dtData(cmd, sOrder, page, numrecord);
             cmd.Dispose();
             return dt;
