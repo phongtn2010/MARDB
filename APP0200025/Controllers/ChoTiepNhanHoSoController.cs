@@ -95,7 +95,8 @@ namespace APP0200025.Controllers
                     bang.MaNguoiDungSua = User.Identity.Name;
                     bang.IPSua = Request.UserHostAddress;
                     bang.DuLieuMoi = false;
-                    bang.TruyenGiaTri(ParentID, Request.Form);
+                    bang.GiaTriKhoa = iID_MaHoSo;
+                    //bang.TruyenGiaTri(ParentID, Request.Form);
                     bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
                     bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
                     bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", dNgayTiepNhan);

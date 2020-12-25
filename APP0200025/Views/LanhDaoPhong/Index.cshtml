@@ -174,7 +174,7 @@
                                     <option value="-1">--Tất cả--</option>
                                     <option value="1">Đạt cấp giấy đăng ký</option>
                                     <option value="2">Từ chối cấp GĐK</option>
-                                    <option value="3">Yêu cầu bổ xung</option>
+                                    <option value="3">Yêu cầu bổ sung</option>
                                 </select>
                             </div>
                         </div>
@@ -265,7 +265,7 @@
                                                     <td>@r["sTenDoanhNghiep"]</td>
                                                     <td>@r["sTenTACN"]</td>
                                                     <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL_Full, r["iID_MaTrangThai"], "iID_MaTrangThai"))</td>
-                                                    <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ xung" : "")</td>
+                                                    <td>@MvcHtmlString.Create(r["iID_KetQuaXuLy"].ToString() == "1" ? "Đạt cấp giấy đăng ký" : r["iID_KetQuaXuLy"].ToString() == "2" ? "Từ chối cấp GĐK" : r["iID_KetQuaXuLy"].ToString() == "3" ? "Yêu cầu bổ sung" : "")</td>
                                                     <td align="center">@MvcHtmlString.Create(strView)</td>
                                                     <td align="center">
                                                         @if (TCDY)

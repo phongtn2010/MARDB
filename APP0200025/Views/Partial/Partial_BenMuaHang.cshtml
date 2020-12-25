@@ -20,54 +20,40 @@
 </div><!-- /.box-header -->
 <div class="box-body">
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-12">
             <div class="form-group">
-                <label for="">Tên bên mua hàng</label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sMua_Name, "sMua_Name", "", "type=\"text\" class=\"form-control\""))
-
+                <label for="">Tên bên mua hàng<span style="color: red;">&nbsp;*</span>: @(Model.sMua_Name)</label>
             </div>
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-12">
             <div class="form-group">
-                <label for="">Fax<span style="color: red;">&nbsp;*</span></label>
-                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sMua_Fax, "sMua_Fax", "", "type=\"text\" class=\"form-control\""))
-
+                <label for="">Địa chỉ<span style="color: red;">&nbsp;*</span>: @(Model.sMua_DiaChi)</label>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-6">
             <div class="form-group">
-                <label for="">Địa chỉ</label>
-
-                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sMua_DiaChi, "sMua_DiaChi", "", "type=\"text\" class=\"form-control\""))
+                <label for="">Điện thoại<span style="color: red;">&nbsp;*</span>: @(Model.sMua_Tel)</label>
             </div>
         </div>
         <div class="col-xs-6">
             <div class="form-group">
-                <label for="">Điện thoại<span style="color: red;">&nbsp;*</span></label>
-
-                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sMua_Tel, "sMua_Tel", "", "type=\"text\" class=\"form-control\""))
+                <label for="">Fax<span style="color: red;">&nbsp;*</span>: @(Model.sMua_Fax)</label>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-12">
             <div class="form-group">
-                <label for="">Nơi nhận hàng</label>
-
-                @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sMua_NoiNhan, "sMua_NoiNhan", "", "type=\"text\" class=\"form-control\""))
+                <label for="">Nơi nhận hàng: @(Model.sMua_NoiNhan)</label>
             </div>
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-12">
             <div class="form-group">
                 <label for="">
-                    Thời gian nhập khẩu dự kiến
-
-                    <span style="color: red;">&nbsp;*</span>
+                    Thời gian nhập khẩu dự kiến <span style="color: red;">&nbsp;*</span>: @(string.Format("{0}-{1}", Model.sMua_FromDate.ToString("dd/MM/yyyy"), Model.sMua_ToDate.ToString("dd/MM/yyyy")))
                 </label>
-
-                @MvcHtmlString.Create(MyHtmlHelper.Label(string.Format("{0}-{1}", Model.sMua_FromDate.ToString("dd/MM/yyyy"), Model.sMua_ToDate.ToString("dd/MM/yyyy")), "sMua_FromDate", "", "type=\"text\" class=\"form-control\""))
             </div>
         </div>
     </div>

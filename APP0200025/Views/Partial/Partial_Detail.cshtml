@@ -13,6 +13,11 @@
     Layout = null;
     string urldetail = Url.Action("HangHoaChiTiet","ChoTiepNhanHoSo");
 }
+<style>
+    .form-group {
+        margin-bottom: 5px;
+    }
+</style>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -24,25 +29,13 @@
 </section>
 <section class="content">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="box box-danger">
                 @{Html.RenderPartial("~/Views/Partial/Partial_BenBanHang.cshtml", Model);}
             </div>
-        </div>
-    </div>
-</section>
-<section class="content">
-    <div class="row">
-        <div class="col-md-12">
             <div class="box box-danger">
                 @{Html.RenderPartial("~/Views/Partial/Partial_BenMuaHang.cshtml", Model);}
             </div>
-        </div>
-    </div>
-</section>
-<section class="content">
-    <div class="row">
-        <div class="col-md-6">
             <div class="box box-danger">
                 @{Html.RenderPartial("~/Views/Partial/Partial_DanhSachTACN.cshtml", Model);}
             </div>
