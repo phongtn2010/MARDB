@@ -416,6 +416,27 @@ function loadPDF(sFile) {
     document.getElementById('next').addEventListener('click', onNextPage);
 
     /**
+    * Displays zoomin.
+    */
+    function onZoomin() {
+        scale = scale + 0.25;
+        queueRenderPage(pageNum);
+    }
+    document.getElementById('zoominbutton').addEventListener('click', onZoomin);
+
+    /**
+    * Displays zoomin.
+    */
+    function onZoomout() {
+        if (scale <= 0.25) {
+            return;
+        }
+        scale = scale - 0.25;
+        queueRenderPage(pageNum);
+    }
+    document.getElementById('zoomoutbutton').addEventListener('click', onZoomout);
+
+    /**
     * Asynchronously downloads PDF.
     */
     var loadingTask = pdfjsLib.getDocument(url);
