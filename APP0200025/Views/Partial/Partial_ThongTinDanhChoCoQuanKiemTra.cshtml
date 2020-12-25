@@ -25,7 +25,7 @@
                 <tr>
                     <th align="center" style="width: 3%">STT</th>
                     <th align="center">Tên TACN</th>
-                    <th align="center" style="width: 20%;">Chỉ tiêu phân tích</th>
+                    <th align="center" style="width: 20%;">Chỉ tiêu chất lượng phân tích</th>
                     <th align="center" style="width: 10%;">Hình thức công bố</th>
                     <th align="center" style="width: 10%;">Hàm lượng</th>
                     <th align="center" style="width: 10%;">Đơn vị tính</th>
@@ -37,20 +37,21 @@
                     {
                         i++;
 
-                        int j = 0;
-                        var lstAnToan = clHangHoa.GetChiTieuAnToanDN(item.iID_MaHangHoa);
-                        int iCount = lstAnToan.Count();
-                        if (iCount > 0)
+                        int k = 0;
+                        var lstChatLuong = clHangHoa.GetChiTieuChatLuongDN(item.iID_MaHangHoa);
+                        int iCountCL = lstChatLuong.Count();
+                        if (iCountCL > 0)
                         {
-                            foreach (var at in lstAnToan)
-                            {
-                                j++;
 
-                                if (j == 1)
+                            foreach (var at in lstChatLuong)
+                            {
+                                k++;
+
+                                if (k == 1)
                                 {
                                     <tr>
-                                        <td align="center" rowspan="@iCount">@(i)</td>
-                                        <td align="left" rowspan="@iCount">@(item.sTenHangHoa)</td>
+                                        <td align="center" rowspan="@iCountCL">@(i)</td>
+                                        <td align="left" rowspan="@iCountCL">@(item.sTenHangHoa)</td>
                                         <td align="left">@(at.sChiTieu)</td>
                                         <td align="center">@(at.sHinhThuc)</td>
                                         <td align="center">@(at.sHamLuong)</td>
@@ -75,6 +76,79 @@
                             <tr>
                                 <td align="center">@(i)</td>
                                 <td align="left">@(item.sTenHangHoa)</td>
+                                <td align="left">&nbsp;</td>
+                                <td align="center">&nbsp;</td>
+                                <td align="center">&nbsp;</td>
+                                <td align="center">&nbsp;</td>
+                                <td align="left">&nbsp;</td>
+                            </tr>
+                        }
+                    }
+                }
+            </table><br />
+            <table class="table table-bordered table-hover table-striped">
+                <tr>
+                    <th align="center" style="width: 3%">STT</th>
+                    <th align="center">Tên TACN</th>
+                    <th align="center" style="width: 20%;">Chỉ tiêu an toàn phân tích</th>
+                    <th align="center" style="width: 10%;">Hình thức công bố</th>
+                    <th align="center" style="width: 10%;">Hàm lượng</th>
+                    <th align="center" style="width: 10%;">Đơn vị tính</th>
+                    <th align="center" style="width: 15%;">Ghi chú</th>
+                </tr>
+                @{
+                    i = 0;
+                    foreach (var item in hangHoas)
+                    {
+                        i++;
+
+                        String sSTTKT = clHangHoa.Get_ThongTinChiTieuAnToan_KyThuat_DanhMuc_sSTTChiTieu(item.iID_MaLoai);
+
+                        int j = 0;
+                        var lstAnToan = clHangHoa.GetChiTieuAnToanDN(item.iID_MaHangHoa);
+                        int iCount = lstAnToan.Count();
+                        if (iCount > 0)
+                        {
+
+                            foreach (var at in lstAnToan)
+                            {
+                                j++;
+
+                                if (j == 1)
+                                {
+                                    <tr>
+                                        <td align="center" rowspan="@iCount">@(i)</td>
+                                        <td align="left" rowspan="@iCount">
+                                            <p><b>@(item.sTenHangHoa)</b></p>
+                                            <p>@(item.sTenNhom); @(item.sTenLoaiHangHoa); @(sSTTKT)</p>
+                                        </td>
+                                        <td align="left">@(at.sChiTieu)</td>
+                                        <td align="center">@(at.sHinhThuc)</td>
+                                        <td align="center">@(at.sHamLuong)</td>
+                                        <td align="center">@(at.sDonViTinh)</td>
+                                        <td align="left">@(at.sGhiChu)</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td align="left">@(at.sChiTieu)</td>
+                                        <td align="center">@(at.sHinhThuc)</td>
+                                        <td align="center">@(at.sHamLuong)</td>
+                                        <td align="center">@(at.sDonViTinh)</td>
+                                        <td align="left">@(at.sGhiChu)</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td align="center">@(i)</td>
+                                <td align="left" rowspan="@iCount">
+                                    <p><b>@(item.sTenHangHoa)</b></p>
+                                    <p>@(item.sTenNhom); @(item.sTenLoaiHangHoa); @(sSTTKT)</p>
+                                </td>
                                 <td align="left">&nbsp;</td>
                                 <td align="center">&nbsp;</td>
                                 <td align="center">&nbsp;</td>

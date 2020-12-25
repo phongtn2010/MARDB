@@ -99,6 +99,15 @@ namespace DATA0200025
             cmd.Dispose();
             return dt;
         }
+        public static IEnumerable<ChiTieuChatLuongModels> GetChiTieuChatLuongDN(long iID_MaHangHoa)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT * FROM CNN25_HangHoa_ChatLuong WHERE iID_MaHangHoa=@iID_MaHangHoa AND bChon=1";
+                var results = connect.Query<ChiTieuChatLuongModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).ToList();
+                return results;
+            }
+        }
         public static DataTable Get_ThongTinChiTieuAnToanDN(long iID_MaHangHoa)
         {
             string SQL = "SELECT * FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND iID_MaLoaiAnToan = 0";
@@ -136,6 +145,19 @@ namespace DATA0200025
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@iID_MaLoaiTACN", iID_MaLoaiTACN);
             vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return vR;
+        }
+
+        public static string Get_ThongTinChiTieuAnToan_KyThuat_DanhMuc_sSTTChiTieu(string iID_MaLoaiTACN)
+        {
+            string vR = "";
+
+            string SQL = "SELECT TOP 1 sSTTChiTieu FROM CNN25_HangHoa_AnToan_KyThuat WHERE iID_MaLoaiTACN=@iID_MaLoaiTACN";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaLoaiTACN", iID_MaLoaiTACN);
+            vR = Convert.ToString(Connection.GetValue(cmd, "", CThamSo.iKetNoi));
             cmd.Dispose();
 
             return vR;
