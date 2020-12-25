@@ -334,6 +334,7 @@ function showToast_Info() {
 
 
 function loadPDF(sFile) {
+    var pdfScale = 1; // make pdfScale a global variable
     var url = sFile;
     pdfjsLib.GlobalWorkerOptions.workerSrc = ServerUrl + '/Content/plugins/pdf/pdf.worker.js';
 
@@ -341,7 +342,7 @@ function loadPDF(sFile) {
         pageNum = 1,
         pageRendering = false,
         pageNumPending = null,
-        scale = 0.8,
+        scale = pdfScale,
         canvas = document.getElementById('the-canvas'),
         ctx = canvas.getContext('2d');
 
@@ -419,7 +420,7 @@ function loadPDF(sFile) {
     * Displays zoomin.
     */
     function onZoomin() {
-        scale = scale + 0.25;
+        pdfScale = pdfScale + 0.25;
         queueRenderPage(pageNum);
     }
     document.getElementById('zoominbutton').addEventListener('click', onZoomin);
@@ -428,10 +429,10 @@ function loadPDF(sFile) {
     * Displays zoomin.
     */
     function onZoomout() {
-        if (scale <= 0.25) {
+        if (pdfScale <= 0.25) {
             return;
         }
-        scale = scale - 0.25;
+        pdfScale = pdfScale - 0.25;
         queueRenderPage(pageNum);
     }
     document.getElementById('zoomoutbutton').addEventListener('click', onZoomout);
@@ -447,4 +448,77 @@ function loadPDF(sFile) {
         // Initial/first page rendering
         renderPage(pageNum);
     });
+}
+
+function loadPDF_OLD(sFile) {
+    var pageNum = 1;
+    var pdfScale = 1; // make pdfScale a global variable
+    var shownPdf; // another global we'll use for the buttons
+    // var url = './helloworld.pdf' // PDF to load: change this to a file that exists;
+    var url = sFile;
+
+
+    // Loaded via <script> tag, create shortcut to access PDF.js exports.
+    //var pdfjsLib = window['pdfjs-dist/build/pdf'];
+
+    // The workerSrc property shall be specified.
+    //pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = ServerUrl + '/Content/plugins/pdf/pdf.worker.js';
+
+
+    function renderPage(page) {
+        var scale = pdfScale; // render with global pdfScale variable
+        var viewport = page.getViewport(scale);
+        var canvas = document.getElementById('the-canvas');
+        var context = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        var renderContext = {
+            canvasContext: context,
+            viewport: viewport
+        };
+        page.render(renderContext);
+    }
+
+    function displayPage(pdf, num) {
+        pdf.getPage(num).then(function getPage(page) { renderPage(page); });
+    }
+
+    var pdfDoc = pdfjsLib.getDocument(url).then(function getPdfHelloWorld(pdf) {
+        displayPage(pdf, 1);
+        shownPdf = pdf;
+    });
+
+    var nextbutton = document.getElementById("next");
+    nextbutton.onclick = function () {
+        if (pageNum >= shownPdf.numPages) {
+            return;
+        }
+        pageNum++;
+        displayPage(shownPdf, pageNum);
+    }
+
+    var prevbutton = document.getElementById("prev");
+    prevbutton.onclick = function () {
+        if (pageNum <= 1) {
+            return;
+        }
+        pageNum--;
+        displayPage(shownPdf, pageNum);
+    }
+
+    var zoominbutton = document.getElementById("zoominbutton");
+    zoominbutton.onclick = function () {
+        pdfScale = pdfScale + 0.25;
+        displayPage(shownPdf, pageNum);
+    }
+
+    var zoomoutbutton = document.getElementById("zoomoutbutton");
+    zoomoutbutton.onclick = function () {
+        if (pdfScale <= 0.25) {
+            return;
+        }
+        pdfScale = pdfScale - 0.25;
+        displayPage(shownPdf, pageNum);
+    }
 }

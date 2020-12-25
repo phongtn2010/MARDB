@@ -101,6 +101,7 @@ namespace APP0200025.Controllers
             string CL_Chons = CString.SafeString(Request.Form["CL_bChon"]);
             string ATDN_Chons = CString.SafeString(Request.Form["ATDN_bChon"]);
             string ATKT_Chons = CString.SafeString(Request.Form["ATKT_bChon"]);
+            string sGhiChuHH = CString.SafeString(Request.Form["ATKT_sGhiChu"]);
 
             if (string.IsNullOrEmpty(iID_MaHangHoa))
             {
@@ -129,6 +130,7 @@ namespace APP0200025.Controllers
             try
             {
                 int iGiaTri = CHangHoa.UpDate_PhanLoai(Convert.ToInt64(iID_MaHangHoa), iID_MaPhanLoai);
+                int iGhiChu = CHangHoa.UpDate_TrangThai_GhiChu(Convert.ToInt64(iID_MaHangHoa), sGhiChuHH);
 
                 if (!string.IsNullOrEmpty(CL_Chons))
                 {

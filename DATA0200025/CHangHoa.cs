@@ -168,6 +168,27 @@ namespace DATA0200025
             return vR;
         }
 
+        public static int UpDate_TrangThai_GhiChu(long iID_MaHangHoa, string sGhiChu)
+        {
+            int vR = 0;
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("UPDATE CNN25_HangHoa SET sGhiChu=@sGhiChu WHERE iID_MaHangHoa=@iID_MaHangHoa");
+                cmd.Parameters.AddWithValue("@sGhiChu", sGhiChu);
+                cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                Connection.UpdateDatabase(cmd);
+
+                vR = 1;
+            }
+            catch (Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
+
         public static void Delete_HangHoa_ThongTin(long iID_MaHangHoa)
         {
             try

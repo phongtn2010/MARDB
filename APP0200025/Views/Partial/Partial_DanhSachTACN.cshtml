@@ -40,7 +40,12 @@
         </div>
         <form class="form-horizontal">
             <div class="box-body" style="height: 664px;overflow: scroll;" id="divHH">
-                @{Html.RenderPartial("~/Views/Partial/Partial_ThongTinChiTietTACN.cshtml", hangHoa);}
+                @{ 
+                    if(hangHoa != null)
+                    {
+                        Html.RenderPartial("~/Views/Partial/Partial_ThongTinChiTietTACN.cshtml", hangHoa);
+                    }
+                }                
             </div>
         </form>
     </div>
