@@ -45,7 +45,6 @@
                                 {
                                     <button class="btn btn-primary" type="submit">Đồng ý</button>
                                     <a class="btn btn-danger opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>
-
                                 }
                                 <a class="btn btn-default" id="btnThoat">Thoát</a>
                             </div>
@@ -61,5 +60,5 @@
 
     </div>
 </section>
-@{Html.RenderPartial("~/Views/LanhDaoPhong/Partial_Modal_ThuHoi.cshtml");}
+@{Html.RenderPartial("~/Views/LanhDaoPhong/Partial_Model_TuChoi.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsLanhDaoPhong.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>

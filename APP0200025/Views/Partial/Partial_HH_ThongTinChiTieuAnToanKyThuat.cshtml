@@ -12,6 +12,8 @@
     string ParentID = "ATKT";
 
     DataTable dtKT = CHangHoa.Get_HangHoa_AnToan_KyThuat(Model.iID_MaHangHoa);
+
+    String sSTTKT = "";
 }
 <div class="row">
     <div class="col-md-12">
@@ -42,7 +44,7 @@
                                     int iSTT = i + 1;
                                     string schecked = "", sGhiChu = "";
 
-                                    for(int j = 0;j < dtKT.Rows.Count; j++)
+                                    for (int j = 0; j < dtKT.Rows.Count; j++)
                                     {
                                         R = dtKT.Rows[j];
 
@@ -73,6 +75,14 @@
                             dt.Dispose();
                             dtKT.Dispose();
                         }
+                    </table><br />
+                    <table class="table table-bordered table-hover table-striped">
+                        <tr>
+                            <td align="left" style="width: 30%;">Chỉ tiêu an toàn quy định đối với:</td>
+                            <td align="left" style="width: 70%; background-color: #e1dfdf">
+                                @(Model.sTenNhom); @(Model.sTenLoaiHangHoa);
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>

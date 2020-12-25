@@ -7,7 +7,12 @@
     Layout = null;
     string ParentID = "TC";
 }
-@using (Ajax.BeginForm("TuChoiHoSoSubmit", "LanhDaoPhong", new AjaxOptions{OnSuccess = "OnSuccessTuChoi",OnBegin = "OnBeginTuChoi"}, new {id="formTuChoi", enctype = "multipart/form-data", @class = "form-horizontal" }))
+
+@using (Ajax.BeginForm("TuChoiHoSoSubmit", "LanhDaoPhong", new AjaxOptions
+{
+    OnSuccess = "OnSuccessTuChoi",
+    OnBegin = "OnBeginTuChoi"
+}, new {id="formTuChoi", enctype = "multipart/form-data", @class = "form-horizontal" }))
 {
     <script type="text/javascript">
         function OnBeginTuChoi() {
@@ -19,7 +24,7 @@
         }
     </script>
     @Html.AntiForgeryToken()
-    <div id="TuChoi" class="modal fade" role="basic" tabindex="-1" aria-hidden="true">
+    <div id = "TuChoi" class="modal fade" role="basic" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

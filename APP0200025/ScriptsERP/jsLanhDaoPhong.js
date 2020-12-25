@@ -1,13 +1,11 @@
 ﻿$(function () {
     $("body").on("click", ".opentuchoi", function () {
-
         var iID_MaHoSo = $(this).data("id");
         var sMaHoSo = $(this).data("mahoso");
         $("#TC_iID_MaHoSo").val(iID_MaHoSo);
         $("#mahoso").html(sMaHoSo);
     });
 });
-
 $(function () {
     $("body").on("click", "#btnTuChoi", function () {
         var bootstrapValidator = $("#formTuChoi").data('bootstrapValidator');
