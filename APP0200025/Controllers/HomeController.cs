@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DATA0200025;
 using DATA0200025.Models;
+using DomainModel;
 
 namespace APP0200025.Controllers
 {
@@ -15,7 +16,7 @@ namespace APP0200025.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
             {
                 return RedirectToAction("Index", "PermitionMessage");
             }
