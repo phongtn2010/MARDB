@@ -193,7 +193,7 @@
         $(document).on('click', '.btnview', function (e) {
             //debugger;
             var filePath =  $(this).data("src");
-            var n = filePath.indexOf(".pdf");
+            var n = filePath.toUpperCase().indexOf(".PDF");
             if (n > 0) {
                 $("#divDinhKem").html('<div id="navigation_controls" style="float: left; width: 50%;"><button id="go_previous">Trước</button><input id="current_page" value="1" type="number" style="width: 40px" /> <button id="go_next">Sau</button></div><div id="zoom_controls"  style="float: right;"><button id="zoom_in">Phóng to</button><button id="zoom_out">Thu nhỏ</button></div><div id="canvas_container"><canvas id="pdf_renderer"></canvas></div>');
                 loadPDF(filePath);
@@ -210,7 +210,7 @@
     function loadPage() {
         var filePath = '@Convert.ToString(path[0])';
         if (filePath != "") {
-            var n = filePath.indexOf(".pdf");
+            var n = filePath.toUpperCase().indexOf(".PDF");
             if (n > 0) {
                 $("#divDinhKem").html('<div id="navigation_controls" style="float: left; width: 50%;"><button id="go_previous">Trước</button><input id="current_page" value="1" type="number" style="width: 40px" /> <button id="go_next">Sau</button></div><div id="zoom_controls"  style="float: right;"><button id="zoom_in">Phóng to</button><button id="zoom_out">Thu nhỏ</button></div><div id="canvas_container"><canvas id="pdf_renderer"></canvas></div>');
                 loadPDF(filePath);
