@@ -2836,7 +2836,6 @@
     <Content Include="Content\storage\upload\images\services\thumbs\truyenhinhfpt.png" />
     <Content Include="Content\storage\upload\images\services\youtube.png" />
     <Content Include="Content\theme.css" />
-    <Content Include="pdf.html" />
     <Content Include="ScriptsERP\bootstrap.js" />
     <Content Include="ScriptsERP\bootstrap.min.js" />
     <Content Include="ScriptsERP\ddaccordion.js" />

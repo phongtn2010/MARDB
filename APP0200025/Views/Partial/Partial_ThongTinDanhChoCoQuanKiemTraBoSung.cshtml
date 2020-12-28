@@ -23,8 +23,6 @@
     }
     dtLS.Dispose();
 }
-@Html.Hidden(ParentID + "_iID_MaLichSu", iID_MaLichSu)
-@Html.Hidden(ParentID + "_sLinkFile", sFile)
 <div class="box-header with-border">
     <h3 class="box-title">Nội dung yêu cầu bổ sung/ từ chối</h3>
 </div><!-- /.box-header -->
@@ -33,7 +31,7 @@
         <div class="col-xs-12">
             <div class="form-group">
                 <label for="">Lý do</label>
-                @MvcHtmlString.Create(MyHtmlHelper.TextArea(ParentID, sNoiDung, "sNoiDungLichSu", "", "type=\"text\" class=\"form-control\" style=\"height: 50px;\""))
+                @MvcHtmlString.Create(MyHtmlHelper.Label(sNoiDung, "sNoiDungLichSu", "", "type=\"text\" class=\"form-control\""))
                 @{
                     if (String.IsNullOrEmpty(sFile) == false)
                     {
@@ -41,13 +39,6 @@
                         <p><a href="@(sFile)">Tải file &nbsp;&nbsp;<i class="fa fa-download"></i></a></p>
                     }
                 }
-            </div>
-        </div>
-        <div class="col-xs-12">
-            <div class="form-group">
-                <label for="">File đính kèm<span style="color: red;">&nbsp;*</span></label>
-                @MvcHtmlString.Create(MyHtmlHelper.UploadFile(ParentID, "FileUploadLichSu", "class='form-control input-sm' accept='image/gif, image/jpeg, image/png, application/pdf'"))
-                @*<input class="form-control input-sm" type="file" name="@(ParentID)_fileUploadLichSu" id="@(ParentID)_fileUploadLichSu" accept="image/gif, image/jpeg, image/png, application/pdf" />*@
             </div>
         </div>
     </div>
