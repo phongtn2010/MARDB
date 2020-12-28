@@ -3165,7 +3165,6 @@
     <Content Include="Views\CMS_HoSo\Index.cshtml" />
     <Content Include="Views\CMS_HoSo\Detail.cshtml" />
     <Content Include="Views\Partial\Partial_ThongTinDanhChoCoQuanKiemTraBoSung.cshtml" />
-    <Content Include="Views\Home\Viewer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
