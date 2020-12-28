@@ -163,6 +163,7 @@ namespace DATA0200025
 
             table.Rows.Add(60, "File từ chối hồ sơ Lãnh Đạo Phòng.");
             table.Rows.Add(61, "File từ chối XNCL Lãnh Đạo Phòng.");
+            table.Rows.Add(62, "File bổ sung hồ sơ Lãnh Đạo Phòng.");
             table.Rows.Add(80, "File từ chối hồ sơ Lãnh Đạo Cục.");
             table.Rows.Add(81, "File từ chối XNCL Lãnh Đạo Cục.");
 

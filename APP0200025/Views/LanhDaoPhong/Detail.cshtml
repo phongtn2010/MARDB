@@ -37,9 +37,58 @@
                                 </div>
                             </div>
                         </section>
-                        <form action="@Url.Action("Duyet", "LanhDaoPhong", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+                        <form action="@Url.Action("Duyet", "LanhDaoPhong", new { enctype = "multipart/form-data" })" class="form-horizontal" id="submit_form" method="POST">
                             @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo)
-
+                            <section class="content" style="min-height: auto;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box box-danger">
+                                            @{
+                                                long iID_MaLichSu = 0;
+                                                String sNoiDung = "", sFile = "";
+                                                DataTable dtLS = clLichSuHoSo.GetDataTableBoSungTuChoi(Model.iID_MaHoSo, Model.iID_MaTrangThai);
+                                                if (dtLS.Rows.Count > 0)
+                                                {
+                                                    iID_MaLichSu = Convert.ToInt64(dtLS.Rows[0]["id"]);
+                                                    sNoiDung = Convert.ToString(dtLS.Rows[0]["sNoiDung"]);
+                                                    sFile = Convert.ToString(dtLS.Rows[0]["sFile"]);
+                                                }
+                                                dtLS.Dispose();
+                                            }
+                                            @Html.Hidden(ParentID + "_iID_MaLichSu", iID_MaLichSu)
+                                            @Html.Hidden(ParentID + "_sLinkFile", sFile)
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Nội dung yêu cầu bổ sung/ từ chối</h3>
+                                            </div><!-- /.box-header -->
+                                            <div class="box-body">
+                                                <div class="row" style="margin-top: 15px;">
+                                                    <div class="col-xs-12">
+                                                        <div class="form-group">
+                                                            <label for="">Lý do</label>
+                                                            @MvcHtmlString.Create(MyHtmlHelper.TextArea(ParentID, sNoiDung, "sNoiDungLichSu", "", "type=\"text\" class=\"form-control\" style=\"height: 50px;\""))
+                                                            @{
+                                                                if (String.IsNullOrEmpty(sFile) == false)
+                                                                {
+                                                                    <br />
+                                                                    <p><a href="@(sFile)">Tải file &nbsp;&nbsp;<i class="fa fa-download"></i></a></p>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12">
+                                                        <div class="form-group">
+                                                            <label for="">File đính kèm<span style="color: red;">&nbsp;*</span></label>
+                                                            @MvcHtmlString.Create(MyHtmlHelper.UploadFile(ParentID, "FileLichSu", ""))
+                                                            @*<input class="form-control input-sm" type="file" name="@(ParentID)_fileUploadLichSu" id="@(ParentID)_fileUploadLichSu" accept="image/gif, image/jpeg, image/png, application/pdf" />*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*@{Html.RenderPartial("~/Views/Partial/Partial_ThongTinDanhChoCoQuanKiemTraBoSung.cshtml", Model);}*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                             <div class="box-footer clearfix text-center">
                                 @if (Model.iID_MaTrangThai == 10 || Model.iID_MaTrangThai == 11 || Model.iID_MaTrangThai == 12 || Model.iID_MaTrangThai == 20 || Model.iID_MaTrangThai == 25)
                                 {

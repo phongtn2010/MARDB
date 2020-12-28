@@ -1,0 +1,54 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using DATA0200025.Models
+@model HoSoModels
+@{
+    Layout = null;
+    string ParentID = "Detail";
+
+    long iID_MaLichSu = 0;
+    String sNoiDung = "", sFile = "";
+    DataTable dtLS = clLichSuHoSo.GetDataTableBoSungTuChoi(Model.iID_MaHoSo, Model.iID_MaTrangThai);
+    if (dtLS.Rows.Count > 0)
+    {
+        iID_MaLichSu = Convert.ToInt64(dtLS.Rows[0]["id"]);
+        sNoiDung = Convert.ToString(dtLS.Rows[0]["sNoiDung"]);
+        sFile = Convert.ToString(dtLS.Rows[0]["sFile"]);
+    }
+    dtLS.Dispose();
+}
+@Html.Hidden(ParentID + "_iID_MaLichSu", iID_MaLichSu)
+@Html.Hidden(ParentID + "_sLinkFile", sFile)
+<div class="box-header with-border">
+    <h3 class="box-title">Nội dung yêu cầu bổ sung/ từ chối</h3>
+</div><!-- /.box-header -->
+<div class="box-body">
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label for="">Lý do</label>
+                @MvcHtmlString.Create(MyHtmlHelper.TextArea(ParentID, sNoiDung, "sNoiDungLichSu", "", "type=\"text\" class=\"form-control\" style=\"height: 50px;\""))
+                @{
+                    if (String.IsNullOrEmpty(sFile) == false)
+                    {
+                        <br />
+                        <p><a href="@(sFile)">Tải file &nbsp;&nbsp;<i class="fa fa-download"></i></a></p>
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label for="">File đính kèm<span style="color: red;">&nbsp;*</span></label>
+                @MvcHtmlString.Create(MyHtmlHelper.UploadFile(ParentID, "FileUploadLichSu", "class='form-control input-sm' accept='image/gif, image/jpeg, image/png, application/pdf'"))
+                @*<input class="form-control input-sm" type="file" name="@(ParentID)_fileUploadLichSu" id="@(ParentID)_fileUploadLichSu" accept="image/gif, image/jpeg, image/png, application/pdf" />*@
+            </div>
+        </div>
+    </div>
+</div>

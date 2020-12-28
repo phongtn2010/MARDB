@@ -65,12 +65,47 @@ namespace APP0200025.Controllers
         /// <param name="MaHoSo"></param>
         /// <returns></returns>
         [Authorize, ValidateInput(false), HttpPost]
-        public ActionResult Duyet(String ParentID)
+        public ActionResult Duyet()
         {
+            String ParentID = "Detail";
+
+            String sUserName = User.Identity.Name;
+            String sIP = Request.UserHostAddress;
+
+
             string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
-            if(String.IsNullOrEmpty(iID_MaHoSo) == false)
+            string sNoiDungLichSu = CString.SafeString(Request.Form[ParentID + "_sNoiDungLichSu"]);
+            string sLinkFile = CString.SafeString(Request.Form[ParentID + "_sLinkFile"]);
+            string fileUploadLichSu = ParentID + "_FileLichSu";
+            HttpPostedFileBase postedFile = Request.Files[fileUploadLichSu] as HttpPostedFileBase;
+
+            if (String.IsNullOrEmpty(iID_MaHoSo) == false)
             {
                 HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+
+                long iID_MaDinhKem = -1;
+                string sFileTemp = "", sFileName = "";
+                if (postedFile != null && postedFile.ContentLength > 0)
+                {
+                    if (CommonFunction.FileUploadCheck(postedFile))
+                    {
+                        sFileName = postedFile.FileName;
+
+                        ResDinhKemFiles resDinhKemFile = new ResDinhKemFiles();
+                        resDinhKemFile = CDinhKemFiles.UploadFile(postedFile);
+                        if (resDinhKemFile != null && resDinhKemFile.ItemId > 0)
+                        {
+                            sFileTemp = resDinhKemFile.UrlFile;
+
+                            //Luu vao bang Dinh Kem
+                            iID_MaDinhKem = CDinhKem.ThemDinhKem(hoSo.iID_MaHoSo, 0, 62, "0", hoSo.sMaHoSo, "File từ chối hồ sơ Lãnh Đạo Phòng.", sFileName, "", null, 1, sFileTemp, sUserName, sIP, resDinhKemFile.ItemId);
+                        }
+                    }
+                }
+                else
+                {
+                    sFileTemp = sLinkFile;
+                }
 
                 int HanhDong = 0;
                 switch (hoSo.iID_MaTrangThai)
@@ -100,7 +135,7 @@ namespace APP0200025.Controllers
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
                 bang.Save();
 
-                clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, trangThaiTiepTheo.sTen, "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+                clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, sNoiDungLichSu, sFileTemp, hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
                 TempData["msg"] = "success";
             }

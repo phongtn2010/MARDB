@@ -360,7 +360,7 @@ namespace APP0200025.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
 
-            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
 
             long iID_MaDinhKem = -1;
             string sFileTemp = "", sFileName = "";

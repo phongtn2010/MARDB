@@ -333,7 +333,7 @@ function showToast_Info() {
 }
 
 
-function loadPDF(sFile) {
+function loadPDF_Old(sFile) {
     var pdfScale = 1; // make pdfScale a global variable
     var url = sFile;
     pdfjsLib.GlobalWorkerOptions.workerSrc = ServerUrl + '/Content/plugins/pdf/pdf.worker.js';
@@ -450,75 +450,85 @@ function loadPDF(sFile) {
     });
 }
 
-function loadPDF_OLD(sFile) {
-    var pageNum = 1;
-    var pdfScale = 1; // make pdfScale a global variable
-    var shownPdf; // another global we'll use for the buttons
-    // var url = './helloworld.pdf' // PDF to load: change this to a file that exists;
-    var url = sFile;
-
-
-    // Loaded via <script> tag, create shortcut to access PDF.js exports.
-    //var pdfjsLib = window['pdfjs-dist/build/pdf'];
-
-    // The workerSrc property shall be specified.
-    //pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-    pdfjsLib.GlobalWorkerOptions.workerSrc = ServerUrl + '/Content/plugins/pdf/pdf.worker.js';
-
-
-    function renderPage(page) {
-        var scale = pdfScale; // render with global pdfScale variable
-        var viewport = page.getViewport(scale);
-        var canvas = document.getElementById('the-canvas');
-        var context = canvas.getContext('2d');
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-        var renderContext = {
-            canvasContext: context,
-            viewport: viewport
-        };
-        page.render(renderContext);
+function loadPDF(sFile) {
+    var myState = {
+        pdf: null,
+        currentPage: 1,
+        zoom: 1
     }
 
-    function displayPage(pdf, num) {
-        pdf.getPage(num).then(function getPage(page) { renderPage(page); });
-    }
+    pdfjsLib.getDocument(sFile).then((pdf) => {
 
-    var pdfDoc = pdfjsLib.getDocument(url).then(function getPdfHelloWorld(pdf) {
-        displayPage(pdf, 1);
-        shownPdf = pdf;
+        myState.pdf = pdf;
+        render();
+
     });
 
-    var nextbutton = document.getElementById("next");
-    nextbutton.onclick = function () {
-        if (pageNum >= shownPdf.numPages) {
-            return;
-        }
-        pageNum++;
-        displayPage(shownPdf, pageNum);
+    function render() {
+        myState.pdf.getPage(myState.currentPage).then((page) => {
+
+            var canvas = document.getElementById("pdf_renderer");
+            var ctx = canvas.getContext('2d');
+
+            var viewport = page.getViewport(myState.zoom);
+
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            page.render({
+                canvasContext: ctx,
+                viewport: viewport
+            });
+        });
     }
 
-    var prevbutton = document.getElementById("prev");
-    prevbutton.onclick = function () {
-        if (pageNum <= 1) {
+    document.getElementById('go_previous').addEventListener('click', (e) => {
+        if (myState.pdf == null || myState.currentPage == 1)
             return;
-        }
-        pageNum--;
-        displayPage(shownPdf, pageNum);
-    }
+        myState.currentPage -= 1;
+        document.getElementById("current_page").value = myState.currentPage;
+        render();
+    });
 
-    var zoominbutton = document.getElementById("zoominbutton");
-    zoominbutton.onclick = function () {
-        pdfScale = pdfScale + 0.25;
-        displayPage(shownPdf, pageNum);
-    }
-
-    var zoomoutbutton = document.getElementById("zoomoutbutton");
-    zoomoutbutton.onclick = function () {
-        if (pdfScale <= 0.25) {
+    document.getElementById('go_next').addEventListener('click', (e) => {
+        if (myState.pdf == null || myState.currentPage > myState.pdf._pdfInfo.numPages)
             return;
+        myState.currentPage += 1;
+        document.getElementById("current_page").value = myState.currentPage;
+        render();
+    });
+
+    document.getElementById('current_page').addEventListener('keypress', (e) => {
+        if (myState.pdf == null) return;
+
+        // Get key code
+        var code = (e.keyCode ? e.keyCode : e.which);
+
+        // If key code matches that of the Enter key
+        if (code == 13) {
+            var desiredPage =
+                document.getElementById('current_page').valueAsNumber;
+
+            if (desiredPage >= 1 && desiredPage <= myState.pdf._pdfInfo.numPages) {
+                myState.currentPage = desiredPage;
+                document.getElementById("current_page").value = desiredPage;
+                render();
+            }
         }
-        pdfScale = pdfScale - 0.25;
-        displayPage(shownPdf, pageNum);
-    }
+    });
+
+    document.getElementById('zoom_in').addEventListener('click', (e) => {
+        if (myState.pdf == null) return;
+        myState.zoom += 0.5;
+        render();
+    });
+
+    document.getElementById('zoom_out').addEventListener('click', (e) => {
+        if (myState.pdf == null) return;
+        myState.zoom -= 0.5;
+        render();
+    });
 }
+
+
+

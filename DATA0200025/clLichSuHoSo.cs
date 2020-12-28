@@ -74,5 +74,16 @@ namespace DATA0200025
             cmd.Dispose();
             return dt;
         }
+
+        public static DataTable GetDataTableBoSungTuChoi(long iID_MaHoSo, int iID_MaTrangThai)
+        {
+            string SQL = "SELECT * FROM CNN25_LichSuHoSo WHERE iID_MaHoSo=@iID_MaHoSo AND iID_MaTrangThai=@iID_MaTrangThai ORDER By dThoiGian DESC";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+            cmd.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+            return dt;
+        }
     }
 }

@@ -2836,6 +2836,7 @@
     <Content Include="Content\storage\upload\images\services\thumbs\truyenhinhfpt.png" />
     <Content Include="Content\storage\upload\images\services\youtube.png" />
     <Content Include="Content\theme.css" />
+    <Content Include="pdf.html" />
     <Content Include="ScriptsERP\bootstrap.js" />
     <Content Include="ScriptsERP\bootstrap.min.js" />
     <Content Include="ScriptsERP\ddaccordion.js" />
@@ -3163,6 +3164,8 @@
     <Content Include="XML\phong_bk2007.rar" />
     <Content Include="Views\CMS_HoSo\Index.cshtml" />
     <Content Include="Views\CMS_HoSo\Detail.cshtml" />
+    <Content Include="Views\Partial\Partial_ThongTinDanhChoCoQuanKiemTraBoSung.cshtml" />
+    <Content Include="Views\Home\Viewer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

@@ -21,6 +21,20 @@
     int i = 0;
     List<string> lstPath = new List<string>();
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
+<style>
+    #canvas_container {
+        width: 100%;
+        height: 790px;
+        overflow: auto;
+    }
+
+    #canvas_container {
+        background: #333;
+        text-align: center;
+        border: solid 3px;
+    }
+</style>
 <div class="box-header with-border">
     <h3 class="box-title">Danh sách file TACN</h3>
 </div><!-- /.box-header -->
@@ -171,38 +185,23 @@
     }
 }
 <div class="box-body">
-    <script src="@(Url.Content("~/Content/plugins/pdf/pdf.js"))"></script>
-    <div id="divDinhKem" style="display: block; width: 100%; height: 805px; overflow: scroll;"></div>
-
-    @*@{
-            if (Convert.ToString(path[0]).IndexOf(".pdf") > 0)
-            {
-                <div><button id="prev">Trước</button><button id="next">Sau</button>&nbsp; &nbsp;<span>Trang: <span id="page_num"></span> / <span id="page_count"></span></span></div>
-                <div><canvas id="the-canvas" style="border: 1px solid black; direction: ltr; width: 100%;"></canvas> </div>
-            }
-            else
-            {
-                <div style="height:643px;">
-                    <img src="" style="width: 100%" />
-                    <iframe id="ifViewFile" src="@Convert.ToString(path[0])" style="height:643px;width:100%; object-fit:fill;"> </iframe>
-                </div>
-            }
-        }*@
+    @*<script src="@(Url.Content("~/Content/plugins/pdf/pdf.js"))"></script>*@
+    <div id="divDinhKem" style="display: block; width: 100%; height: 805px;"></div>
 </div>
 <script>
     $(document).ready(function () {
         $(document).on('click', '.btnview', function (e) {
             //debugger;
-            var filePath = $(this).data("src");
+            var filePath =  $(this).data("src");
             var n = filePath.indexOf(".pdf");
             if (n > 0) {
-                $("#divDinhKem").html('<div><button id="prev">Trước</button><button id="next">Sau</button>&nbsp; &nbsp;<span>Trang: <span id="page_num"></span> / <span id="page_count"></span></span>&nbsp;&nbsp;<button id="zoominbutton" type="button" style="float: right">Phóng to</button><button id="zoomoutbutton" type="button" style="float: right">Thu nhỏ</button></div><div><canvas id="the-canvas" style="border: 1px solid black; direction: ltr; width: 100%;"></canvas> </div>');
+                $("#divDinhKem").html('<div id="navigation_controls" style="float: left; width: 50%;"><button id="go_previous">Trước</button><input id="current_page" value="1" type="number" style="width: 40px" /> <button id="go_next">Sau</button></div><div id="zoom_controls"  style="float: right;"><button id="zoom_in">Phóng to</button><button id="zoom_out">Thu nhỏ</button></div><div id="canvas_container"><canvas id="pdf_renderer"></canvas></div>');
                 loadPDF(filePath);
             }
             else {
                 $("#divDinhKem").html('<img id="imgDinhKem" style="width: 100%" />');
                 $("#imgDinhKem").attr('src', filePath);
-            }            
+            }
         });
 
         loadPage();
@@ -213,7 +212,7 @@
         if (filePath != "") {
             var n = filePath.indexOf(".pdf");
             if (n > 0) {
-                $("#divDinhKem").html('<div><button id="prev">Trước</button><button id="next">Sau</button>&nbsp; &nbsp;<span>Trang: <span id="page_num"></span> / <span id="page_count"></span></span>&nbsp;&nbsp;<button id="zoominbutton" type="button" style="float: right">Phóng to</button><button id="zoomoutbutton" type="button" style="float: right">Thu nhỏ</button></div><div><canvas id="the-canvas" style="border: 1px solid black; direction: ltr; width: 100%;"></canvas> </div>');
+                $("#divDinhKem").html('<div id="navigation_controls" style="float: left; width: 50%;"><button id="go_previous">Trước</button><input id="current_page" value="1" type="number" style="width: 40px" /> <button id="go_next">Sau</button></div><div id="zoom_controls"  style="float: right;"><button id="zoom_in">Phóng to</button><button id="zoom_out">Thu nhỏ</button></div><div id="canvas_container"><canvas id="pdf_renderer"></canvas></div>');
                 loadPDF(filePath);
             }
             else {
