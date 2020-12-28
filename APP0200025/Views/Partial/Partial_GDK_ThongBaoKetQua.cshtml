@@ -338,10 +338,14 @@
                                             foreach (var item in hangHoas)
                                             {
                                                 int j = 0;
+
+                                                String sSTTKT = clHangHoa.Get_ThongTinChiTieuAnToan_KyThuat_DanhMuc_sSTTChiTieu(item.iID_MaLoai);
+
                                                 var lstAnToan = clHangHoa.GetChiTieuAnToanDN(item.iID_MaHangHoa);
                                                 int iCount = lstAnToan.Count();
                                                 if (iCount > 0)
                                                 {
+                                                    int iRowspan = iCount + 1;
                                                     foreach (var at in lstAnToan)
                                                     {
                                                         j++;
@@ -349,7 +353,7 @@
                                                         if (j == 1)
                                                         {
                                                             <tr>
-                                                                <td align="left" rowspan="@iCount">@(item.sTenHangHoa)</td>
+                                                                <td align="left" rowspan="@iRowspan">@(item.sTenHangHoa)</td>
                                                                 <td align="left">@(at.sChiTieu)</td>
                                                                 <td align="center">@(at.sHinhThuc)</td>
                                                                 <td align="center">@(at.sHamLuong)</td>
@@ -368,16 +372,32 @@
                                                             </tr>
                                                         }
                                                     }
+
+                                                    <tr>
+                                                        <td align="left">@(item.sTenNhom); @(item.sTenLoaiHangHoa); @(sSTTKT)</td>
+                                                        <td align="center">&nbsp;</td>
+                                                        <td align="center">&nbsp;</td>
+                                                        <td align="center">&nbsp;</td>
+                                                        <td align="left">@(item.sGhiChu)</td>
+                                                    </tr>
+
                                                 }
                                                 else
                                                 {
                                                     <tr>
-                                                        <td align="left">@(item.sTenHangHoa)</td>
+                                                        <td align="left" rowspan="2">@(item.sTenHangHoa)</td>
                                                         <td align="left">&nbsp;</td>
                                                         <td align="center">&nbsp;</td>
                                                         <td align="center">&nbsp;</td>
                                                         <td align="center">&nbsp;</td>
                                                         <td align="left">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left">@(item.sTenNhom); @(item.sTenLoaiHangHoa); @(sSTTKT)</td>
+                                                        <td align="center">&nbsp;</td>
+                                                        <td align="center">&nbsp;</td>
+                                                        <td align="center">&nbsp;</td>
+                                                        <td align="left">@(item.sGhiChu)</td>
                                                     </tr>
                                                 }
                                             }
