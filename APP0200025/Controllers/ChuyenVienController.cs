@@ -132,6 +132,11 @@ namespace APP0200025.Controllers
                 int iGiaTri = CHangHoa.UpDate_PhanLoai(Convert.ToInt64(iID_MaHangHoa), iID_MaPhanLoai);
                 int iGhiChu = CHangHoa.UpDate_TrangThai_GhiChu(Convert.ToInt64(iID_MaHangHoa), sGhiChuHH);
 
+
+                //Cap nhat lai bChon và ghi chu
+                int iChatLuong = clHangHoa.Update_ThongTinChiTieuChatLuong(Convert.ToInt64(iID_MaHangHoa));
+                int iAnToanUp = clHangHoa.Update_ThongTinChiTieuAnToan(Convert.ToInt64(iID_MaHangHoa));
+
                 if (!string.IsNullOrEmpty(CL_Chons))
                 {
                     string[] arr = CL_Chons.Split(',');

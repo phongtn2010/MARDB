@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using DATA0200025.WebServices.XmlType.Request;
 using DATA0200025.WebServices;
 using APP0200025.Models;
+using System.Data;
 
 namespace APP0200025.Controllers
 {
@@ -80,13 +81,24 @@ namespace APP0200025.Controllers
                 HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.GuiDoanhNghiepThongBaoYeuCauBoSungHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
+                long iID_MaLichSu = 0;
+                String sNoiDung = "", sFileUrl = "";
+                DataTable dtLS = clLichSuHoSo.GetDataTableBoSungTuChoi(hoSo.iID_MaHoSo, hoSo.iID_MaTrangThai);
+                if (dtLS.Rows.Count > 0)
+                {
+                    iID_MaLichSu = Convert.ToInt64(dtLS.Rows[0]["id"]);
+                    sNoiDung = Convert.ToString(dtLS.Rows[0]["sNoiDung"]);
+                    sFileUrl = Convert.ToString(dtLS.Rows[0]["sFile"]);
+                }
+                dtLS.Dispose();
+
                 //Gui XML (12,09)
                 KetQuaXuLy resultConfirm = new KetQuaXuLy();
                 resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = "Yêu cầu bổ sung hồ sơ";
+                resultConfirm.Reason = sNoiDung;
                 resultConfirm.AttachmentId = "";
                 resultConfirm.FileName = "";
-                resultConfirm.FileLink = "";
+                resultConfirm.FileLink = sFileUrl;
                 resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
                 resultConfirm.ResponseDateString = DateTime.Now;
                 string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "09");
@@ -131,13 +143,24 @@ namespace APP0200025.Controllers
 
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.GuiDoanhNghiepThongBaoYeuCauBoSungHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
+                long iID_MaLichSu = 0;
+                String sNoiDung = "", sFileUrl = "";
+                DataTable dtLS = clLichSuHoSo.GetDataTableBoSungTuChoi(hoSo.iID_MaHoSo, hoSo.iID_MaTrangThai);
+                if (dtLS.Rows.Count > 0)
+                {
+                    iID_MaLichSu = Convert.ToInt64(dtLS.Rows[0]["id"]);
+                    sNoiDung = Convert.ToString(dtLS.Rows[0]["sNoiDung"]);
+                    sFileUrl = Convert.ToString(dtLS.Rows[0]["sFile"]);
+                }
+                dtLS.Dispose();
+
                 //Gui XML (12,09)
                 KetQuaXuLy resultConfirm = new KetQuaXuLy();
                 resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = "Yêu cầu bổ sung hồ sơ";
+                resultConfirm.Reason = sNoiDung;
                 resultConfirm.AttachmentId = "";
                 resultConfirm.FileName = "";
-                resultConfirm.FileLink = "";
+                resultConfirm.FileLink = sFileUrl;
                 resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
                 resultConfirm.ResponseDateString = DateTime.Now;
                 string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "09");

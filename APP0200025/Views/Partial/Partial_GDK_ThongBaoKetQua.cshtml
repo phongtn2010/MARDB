@@ -341,12 +341,13 @@
 
                                                 String sSTTKT = clHangHoa.Get_ThongTinChiTieuAnToan_KyThuat_DanhMuc_sSTTChiTieu(item.iID_MaLoai);
 
-                                                var lstAnToan = clHangHoa.GetChiTieuAnToanDN(item.iID_MaHangHoa);
-                                                int iCount = lstAnToan.Count();
+                                                var lstPhanTich = clHangHoa.GetChiTieuPhanTichDN(item.iID_MaHangHoa);
+                                                int iCount = lstPhanTich.Count();
+
                                                 if (iCount > 0)
                                                 {
                                                     int iRowspan = iCount + 1;
-                                                    foreach (var at in lstAnToan)
+                                                    foreach (var at in lstPhanTich)
                                                     {
                                                         j++;
 

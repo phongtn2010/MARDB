@@ -99,6 +99,26 @@ namespace DATA0200025
             cmd.Dispose();
             return dt;
         }
+        public static int Update_ThongTinChiTieuChatLuong(long iID_MaHangHoa)
+        {
+            int vR = 0;
+            try
+            {
+                string SQL = "UPDATE CNN25_HangHoa_ChatLuong SET bChon=0 WHERE iID_MaHangHoa=@iID_MaHangHoa";
+                SqlCommand cmd = new SqlCommand(SQL);
+                cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                Connection.UpdateDatabase(cmd);
+                cmd.Dispose();
+
+                vR = 1;
+            }
+            catch(Exception ex)
+            {
+                vR = -1;
+            }
+            
+            return vR;
+        }
         public static IEnumerable<ChiTieuChatLuongModels> GetChiTieuChatLuongDN(long iID_MaHangHoa)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
@@ -117,6 +137,26 @@ namespace DATA0200025
             cmd.Dispose();
             return dt;
         }
+        public static int Update_ThongTinChiTieuAnToan(long iID_MaHangHoa)
+        {
+            int vR = 0;
+            try
+            {
+                string SQL = "UPDATE CNN25_HangHoa_AnToan SET bChon=0 WHERE iID_MaHangHoa=@iID_MaHangHoa";
+                SqlCommand cmd = new SqlCommand(SQL);
+                cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
+                Connection.UpdateDatabase(cmd);
+                cmd.Dispose();
+
+                vR = 1;
+            }
+            catch (Exception ex)
+            {
+                vR = -1;
+            }
+
+            return vR;
+        }
         public static IEnumerable<ChiTieuModels> GetChiTieuAnToanDN(long iID_MaHangHoa)
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
@@ -126,6 +166,18 @@ namespace DATA0200025
                 return results;
             }
         }
+
+
+        public static IEnumerable<ChiTieuPhanTichModels> GetChiTieuPhanTichDN(long iID_MaHangHoa)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT iID_MaHangHoa, sChiTieu, sHinhThuc, sHamLuong, sDonViTinh, sGhiChu, bChon FROM CNN25_HangHoa_ChatLuong WHERE iID_MaHangHoa=@iID_MaHangHoa AND bChon=1 UNION SELECT iID_MaHangHoa, sChiTieu, sHinhThuc, sHamLuong, sDonViTinh, sGhiChu, bChon FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND bChon=1";
+                var results = connect.Query<ChiTieuPhanTichModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).ToList();
+                return results;
+            }
+        }
+
 
         public static DataTable Get_ThongTinChiTieuAnToanKyThuat(long iID_MaHangHoa)
         {
