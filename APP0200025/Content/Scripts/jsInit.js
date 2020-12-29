@@ -236,11 +236,11 @@ function jsInit_fnKey(e) {
             e.preventDefault();
             return false;
 
-        case 46: /* DELETE */
-            /* Call User event Keypress DELETE*/
-            e.preventDefault();
-            jsInit_RaiseEvent("Delete");
-            return false;
+        //case 46: /* DELETE */
+        //    /* Call User event Keypress DELETE*/
+        //    e.preventDefault();
+        //    jsInit_RaiseEvent("Delete");
+        //    return false;
 
         case 27: /* esc */
             e.preventDefault();
