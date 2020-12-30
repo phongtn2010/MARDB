@@ -197,7 +197,7 @@
                                                 <td>@r["sMaHoSo"]</td>
                                                 <td>@r["sTenDoanhNghiep"]</td>
                                                 <td>@r["sTenTACN"]</td>
-                                                <td>@Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd-MM-yyyy HH:mm")</td>
+                                                <td>@Convert.ToDateTime(r["dNgayTao"]).ToString("dd-MM-yyyy HH:mm")</td>
                                                 <td>@MvcHtmlString.Create(MyHtmlHelper.LabelForDropDownList(ttDDL, r["iID_MaTrangThai"], "iID_MaTrangThai")) </td>
                                                 <td style="width: 3%;" align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))

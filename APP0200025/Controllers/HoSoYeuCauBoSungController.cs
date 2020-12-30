@@ -79,7 +79,7 @@ namespace APP0200025.Controllers
             string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
             if(String.IsNullOrEmpty(iID_MaHoSo) == false)
             {
-                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
 
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
@@ -99,7 +99,8 @@ namespace APP0200025.Controllers
                     bang.MaNguoiDungSua = User.Identity.Name;
                     bang.IPSua = Request.UserHostAddress;
                     bang.DuLieuMoi = false;
-                    bang.TruyenGiaTri(ParentID, Request.Form);
+                    bang.GiaTriKhoa = iID_MaHoSo;
+                    //bang.TruyenGiaTri(ParentID, Request.Form);
                     bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
                     bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
                     bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
@@ -137,7 +138,7 @@ namespace APP0200025.Controllers
             ResultModels result = new ResultModels();
             if (String.IsNullOrEmpty(iID_MaHoSo) == false)
             {
-                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
 
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
