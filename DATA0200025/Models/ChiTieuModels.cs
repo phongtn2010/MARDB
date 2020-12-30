@@ -38,6 +38,7 @@ namespace DATA0200025.Models
     public class ChiTieuPhanTichModels
     {
         public long iID_MaHangHoa { get; set; }
+        public int iID_MaHinhThuc { get; set; }
         public string sChiTieu { get; set; }
         public string sHinhThuc { get; set; }
         public string sHamLuong { get; set; }

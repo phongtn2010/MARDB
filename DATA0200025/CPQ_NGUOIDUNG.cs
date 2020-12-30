@@ -326,7 +326,7 @@ namespace DATA0200025
         {
             DataTable vR = null;
 
-            string SQL = "SELECT * FROM QT_NGUOIDUNG ORDER BY sID_MANGUOIDUNG";
+            string SQL = "SELECT * FROM QT_NGUOIDUNG ORDER BY iID_MaNhomNguoiDung, sID_MANGUOIDUNG";
             SqlCommand cmd = new SqlCommand(SQL);
             vR = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
             cmd.Dispose();

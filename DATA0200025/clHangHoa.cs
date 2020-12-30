@@ -172,7 +172,7 @@ namespace DATA0200025
         {
             using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
             {
-                string SQL = @"SELECT iID_MaHangHoa, sChiTieu, sHinhThuc, sHamLuong, sDonViTinh, sGhiChu, bChon FROM CNN25_HangHoa_ChatLuong WHERE iID_MaHangHoa=@iID_MaHangHoa AND bChon=1 UNION SELECT iID_MaHangHoa, sChiTieu, sHinhThuc, sHamLuong, sDonViTinh, sGhiChu, bChon FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND bChon=1";
+                string SQL = @"SELECT iID_MaHangHoa, iID_MaHinhThuc, sChiTieu, sHinhThuc, sHamLuong, sMaDonViTinh, sDonViTinh, sGhiChu, bChon FROM CNN25_HangHoa_ChatLuong WHERE iID_MaHangHoa=@iID_MaHangHoa AND bChon=1 UNION SELECT iID_MaHangHoa, iID_MaHinhThuc, sChiTieu, sHinhThuc, sHamLuong, sMaDonViTinh, sDonViTinh, sGhiChu, bChon FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa AND bChon=1";
                 var results = connect.Query<ChiTieuPhanTichModels>(SQL, new { iID_MaHangHoa = iID_MaHangHoa }).ToList();
                 return results;
             }
@@ -302,7 +302,7 @@ namespace DATA0200025
                     Nature=item.sBanChat,
 
                 };
-                var chiTieus = GetChiTieuAnToanDN(item.iID_MaHangHoa);
+                var chiTieus = GetChiTieuPhanTichDN(item.iID_MaHangHoa);
                 List<AnanyticalRequiredList> lstChiTieu = new List<AnanyticalRequiredList>();
                 AnanyticalRequiredList ananytical;
                 foreach (var ct in chiTieus)
