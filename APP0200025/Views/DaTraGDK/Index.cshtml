@@ -49,12 +49,13 @@
     }
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
-    DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax);
+
+    string sOrderInput = "iID_MaHoSo ASC";
+
+    DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax, sOrderInput);
     double nums = clHoSo.GetCount(Model);
     int RC = dt.Rows.Count;
     int TotalPages = (int)Math.Ceiling(nums / nMax);
-
-
 
     DataRow r;
     SelectOptionList ttDDL = clTrangThai.GetDDL();
