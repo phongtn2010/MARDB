@@ -65,39 +65,79 @@ namespace APP0200025._0200025.WebServices
                         case WsConstants.MessageType.TYPE_10:
                             if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_01))
                             {
-                                var result = _processingService.AniFeed(envelop);
-                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                var result = _processingService.AniFeed(envelop);                                
+                                if(result == null)
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_ERROR, false, null);
+
+                                    iTrangThai = -1;
+                                }
+                                else
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);
 
-                                iTrangThai = 1;
+                                    iTrangThai = 1;
+                                }
                             }
                             else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_02))
                             {
                                 var result = _processingService.GuiSuaHoSo(envelop);
-                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                if (result == null)
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_ERROR, false, null);
+
+                                    iTrangThai = -1;
+                                }
+                                else
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);
 
-                                iTrangThai = 1;
+                                    iTrangThai = 1;
+                                }
                             }
                             else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_03))
                             {
                                 var result = _processingService.GuiSuaHoSoBPMC(envelop);
-                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                if (result == null)
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_ERROR, false, null);
+
+                                    iTrangThai = -1;
+                                }
+                                else
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);
 
-                                iTrangThai = 1;
+                                    iTrangThai = 1;
+                                }
                             }
                             else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_04))
                             {
                                 var result = _processingService.GuiSuaHoSoPhongTACN(envelop);
-                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                if (result == null)
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_ERROR, false, null);
+
+                                    iTrangThai = -1;
+                                }
+                                else
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);
 
-                                iTrangThai = 1;
+                                    iTrangThai = 1;
+                                }
                             }
                             else
                             {

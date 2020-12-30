@@ -58,9 +58,20 @@ namespace APP0200025._0200026.WebServices
                             if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_01))
                             {
                                 var result = _processingService.Application(envelop);
-                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+
+                                if (result == null)
+                                {
+                                    CLogNSW.Add(envelop.GetMessageType() + "_" + envelop.GetFunction(), "NSW->BNN", nswFileCode, "Lỗi không đúng định dạng bản tin", "00", payload, "", "");
+
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_ERROR, false, null);
+                                }
+                                else
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS,
                                     true, null);
+                                }
                             }
                             else
                             {

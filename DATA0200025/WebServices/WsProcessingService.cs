@@ -154,12 +154,14 @@ namespace DATA0200025.WebServices
                 }
                 else
                 {
-
+                    throw new ArgumentNullException(); 
                 }
             }
             catch (Exception ex)
             {
                 sError = "Error Add Product: " + ex.ToString();
+
+                return null;
             }
 
             //Them vao bang Ho So
@@ -176,7 +178,7 @@ namespace DATA0200025.WebServices
 
             //return _mapper.Map(result, hoso);
 
-            return null;
+            return hoso;
         }
 
         public HoSoVM GuiSuaHoSo(Envelope envelope)
@@ -311,9 +313,11 @@ namespace DATA0200025.WebServices
             catch (Exception ex)
             {
                 sError = "Error Add Product: " + ex.ToString();
+
+                return null;
             }
 
-            return null;
+            return hoso;
         }
 
         public HoSoVM GuiSuaHoSoBPMC(Envelope envelope)
@@ -448,9 +452,11 @@ namespace DATA0200025.WebServices
             catch (Exception ex)
             {
                 sError = "Error Add Product: " + ex.ToString();
+
+                return null;
             }
 
-            return null;
+            return hoso;
         }
 
         public HoSoVM GuiSuaHoSoPhongTACN(Envelope envelope)
@@ -585,9 +591,11 @@ namespace DATA0200025.WebServices
             catch (Exception ex)
             {
                 sError = "Error Add Product: " + ex.ToString();
+
+                return null;
             }
 
-            return null;
+            return hoso;
         }
 
         public UploadBaoCaoVM Report(Envelope envelope)
