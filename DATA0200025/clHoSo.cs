@@ -1109,7 +1109,7 @@ namespace DATA0200025
             cmd.Dispose();
             return vR;
         }
-        public static DataTable GetDataTableHH(sHoSoModels models, int page, int numrecord)
+        public static DataTable GetDataTableHH(sHoSoModels models, int page, int numrecord, string sOrderInput = "iID_MaHoSo DESC")
         {
             SqlCommand cmd = new SqlCommand();
             string DK = "1=1",DKHH="1=1";
@@ -1327,7 +1327,7 @@ namespace DATA0200025
                                         FROM(select * from CNN25_HangHoa WHERE {0}) hh
                                         INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH ,DK);
             cmd.CommandText = SQL;
-            string sOrder = "iID_MaHoSo DESC";
+            string sOrder = sOrderInput;
             DataTable dt = CommonFunction.dtData(cmd, sOrder, page, numrecord);
             cmd.Dispose();
             return dt;
