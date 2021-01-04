@@ -228,6 +228,9 @@ namespace DATA0200025.WebServices
                     hoso.fiContactPerson, hoso.fiContactAddress, hoso.fiContactTel, hoso.fiContactEmail,
                     hoso.fiSignPlace, hoso.fiSignPlace, hoso.fiSignName, "", sUserName, sIP);
 
+                //Xoa hang hoa va thong tin hang hoa trước
+                CHangHoa.Delete_HangHoa_HoSo(iID_MaHoSo);
+
                 int iHH = 0;
                 foreach (var hh in lstHangHoa)
                 {
@@ -239,39 +242,41 @@ namespace DATA0200025.WebServices
                     List<AnToanVM> lstAnToan = hh.ListAnToan;
                     List<SoLuongVM> lstSoLuong = hh.ListSoLuong;
 
-                    System.Data.DataTable dtHH = CHangHoa.Get_HangHoa_Detail_Nsw(iID_MaHoSo_Sua, hh.GoodsId);
-                    if(dtHH.Rows.Count > 0)
-                    {
-                        iID_MaHangHoa_Sua = Convert.ToInt64(dtHH.Rows[0]["iID_MaHangHoa"]);
-
-                        iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
+                    iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
                             hh.fiGroupGoodName, hh.fiGoodTypeName, hh.fiGroupTypeName, sMaHoSo, hh.fiNameOfGoods, hh.fiRegistrationNumber, hh.fiManufacture, hh.fiManufactureStateCode, hh.fiManufactureState,
                             hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "", sUserName, sIP, iID_MaHangHoa_Sua);
 
-                        if (iID_MaHangHoa > 0)
+                    if (iID_MaHangHoa > 0)
+                    {
+                        //Xoa thong tin lien quan hang hoa cu
+                        CHangHoa.Delete_HangHoa_ThongTin(iID_MaHangHoa_Sua);
+
+                        //Them lai thong tin hang hoa
+                        foreach (var cl in lstChatLuong)
                         {
-                            //Xoa thong tin lien quan hang hoa cu
-                            CHangHoa.Delete_HangHoa_ThongTin(iID_MaHangHoa_Sua);
+                            string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
+                            long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
+                        }
 
-                            //Them lai thong tin hang hoa
-                            foreach (var cl in lstChatLuong)
-                            {
-                                string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
-                                long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
-                            }
+                        foreach (var at in lstAnToan)
+                        {
+                            string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
+                            long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
+                        }
 
-                            foreach (var at in lstAnToan)
-                            {
-                                string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
-                                long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
-                            }
-
-                            foreach (var sl in lstSoLuong)
-                            {
-                                long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
-                            }
+                        foreach (var sl in lstSoLuong)
+                        {
+                            long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
                         }
                     }
+
+                    //System.Data.DataTable dtHH = CHangHoa.Get_HangHoa_Detail_Nsw(iID_MaHoSo_Sua, hh.GoodsId);
+                    //if(dtHH.Rows.Count > 0)
+                    //{
+                    //    iID_MaHangHoa_Sua = Convert.ToInt64(dtHH.Rows[0]["iID_MaHangHoa"]);
+
+                        
+                    //}
                 }
 
                 int iHD = 0;
@@ -367,6 +372,9 @@ namespace DATA0200025.WebServices
                     hoso.fiContactPerson, hoso.fiContactAddress, hoso.fiContactTel, hoso.fiContactEmail,
                     hoso.fiSignPlace, hoso.fiSignPlace, hoso.fiSignName, "", sUserName, sIP);
 
+                //Xoa hang hoa va thong tin hang hoa trước
+                CHangHoa.Delete_HangHoa_HoSo(iID_MaHoSo);
+
                 int iHH = 0;
                 foreach (var hh in lstHangHoa)
                 {
@@ -378,39 +386,41 @@ namespace DATA0200025.WebServices
                     List<AnToanVM> lstAnToan = hh.ListAnToan;
                     List<SoLuongVM> lstSoLuong = hh.ListSoLuong;
 
-                    System.Data.DataTable dtHH = CHangHoa.Get_HangHoa_Detail_Nsw(iID_MaHoSo_Sua, hh.GoodsId);
-                    if (dtHH.Rows.Count > 0)
-                    {
-                        iID_MaHangHoa_Sua = Convert.ToInt64(dtHH.Rows[0]["iID_MaHangHoa"]);
-
-                        iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
+                    iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
                             hh.fiGroupGoodName, hh.fiGoodTypeName, hh.fiGroupTypeName, sMaHoSo, hh.fiNameOfGoods, hh.fiRegistrationNumber, hh.fiManufacture, hh.fiManufactureStateCode, hh.fiManufactureState,
                             hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "", sUserName, sIP, iID_MaHangHoa_Sua);
 
-                        if (iID_MaHangHoa > 0)
+                    if (iID_MaHangHoa > 0)
+                    {
+                        //Xoa thong tin lien quan hang hoa cu
+                        CHangHoa.Delete_HangHoa_ThongTin(iID_MaHangHoa_Sua);
+
+                        //Them lai thong tin hang hoa
+                        foreach (var cl in lstChatLuong)
                         {
-                            //Xoa thong tin lien quan hang hoa cu
-                            CHangHoa.Delete_HangHoa_ThongTin(iID_MaHangHoa_Sua);
+                            string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
+                            long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
+                        }
 
-                            //Them lai thong tin hang hoa
-                            foreach (var cl in lstChatLuong)
-                            {
-                                string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
-                                long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
-                            }
+                        foreach (var at in lstAnToan)
+                        {
+                            string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
+                            long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
+                        }
 
-                            foreach (var at in lstAnToan)
-                            {
-                                string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
-                                long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
-                            }
-
-                            foreach (var sl in lstSoLuong)
-                            {
-                                long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
-                            }
+                        foreach (var sl in lstSoLuong)
+                        {
+                            long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
                         }
                     }
+
+                    //System.Data.DataTable dtHH = CHangHoa.Get_HangHoa_Detail_Nsw(iID_MaHoSo_Sua, hh.GoodsId);
+                    //if (dtHH.Rows.Count > 0)
+                    //{
+                    //    iID_MaHangHoa_Sua = Convert.ToInt64(dtHH.Rows[0]["iID_MaHangHoa"]);
+
+                        
+                    //}
                 }
 
                 int iHD = 0;
@@ -506,6 +516,9 @@ namespace DATA0200025.WebServices
                     hoso.fiContactPerson, hoso.fiContactAddress, hoso.fiContactTel, hoso.fiContactEmail,
                     hoso.fiSignPlace, hoso.fiSignPlace, hoso.fiSignName, "", sUserName, sIP);
 
+                //Xoa hang hoa va thong tin hang hoa trước
+                CHangHoa.Delete_HangHoa_HoSo(iID_MaHoSo);
+
                 int iHH = 0;
                 foreach (var hh in lstHangHoa)
                 {
@@ -517,39 +530,41 @@ namespace DATA0200025.WebServices
                     List<AnToanVM> lstAnToan = hh.ListAnToan;
                     List<SoLuongVM> lstSoLuong = hh.ListSoLuong;
 
-                    System.Data.DataTable dtHH = CHangHoa.Get_HangHoa_Detail_Nsw(iID_MaHoSo_Sua, hh.GoodsId);
-                    if (dtHH.Rows.Count > 0)
-                    {
-                        iID_MaHangHoa_Sua = Convert.ToInt64(dtHH.Rows[0]["iID_MaHangHoa"]);
-
-                        iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
+                    iID_MaHangHoa = CHangHoa.ThemHangHoa(iID_MaHoSo, hh.GoodsId, hh.fiGroupFoodOfGoods, Convert.ToString(hh.fiGroupGoodId), Convert.ToString(hh.fiGoodTypeId), Convert.ToString(hh.fiGroupTypeId), Convert.ToString(hh.fiGoodsValueUnitCode), 0,
                             hh.fiGroupGoodName, hh.fiGoodTypeName, hh.fiGroupTypeName, sMaHoSo, hh.fiNameOfGoods, hh.fiRegistrationNumber, hh.fiManufacture, hh.fiManufactureStateCode, hh.fiManufactureState,
                             hh.fiNature, hh.fiGoodsValueUnitName, hh.fiMaterial, hh.fiFormColorOfProducts, hh.fiStandardBase, hh.fiTechnicalRegulations, hh.fiGoodsValue, hh.fiGoodsValueUSD, "", sUserName, sIP, iID_MaHangHoa_Sua);
 
-                        if (iID_MaHangHoa > 0)
+                    if (iID_MaHangHoa > 0)
+                    {
+                        //Xoa thong tin lien quan hang hoa cu
+                        CHangHoa.Delete_HangHoa_ThongTin(iID_MaHangHoa_Sua);
+
+                        //Them lai thong tin hang hoa
+                        foreach (var cl in lstChatLuong)
                         {
-                            //Xoa thong tin lien quan hang hoa cu
-                            CHangHoa.Delete_HangHoa_ThongTin(iID_MaHangHoa_Sua);
+                            string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
+                            long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
+                        }
 
-                            //Them lai thong tin hang hoa
-                            foreach (var cl in lstChatLuong)
-                            {
-                                string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
-                                long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
-                            }
+                        foreach (var at in lstAnToan)
+                        {
+                            string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
+                            long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
+                        }
 
-                            foreach (var at in lstAnToan)
-                            {
-                                string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
-                                long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
-                            }
-
-                            foreach (var sl in lstSoLuong)
-                            {
-                                long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
-                            }
+                        foreach (var sl in lstSoLuong)
+                        {
+                            long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
                         }
                     }
+
+                    //System.Data.DataTable dtHH = CHangHoa.Get_HangHoa_Detail_Nsw(iID_MaHoSo_Sua, hh.GoodsId);
+                    //if (dtHH.Rows.Count > 0)
+                    //{
+                    //    iID_MaHangHoa_Sua = Convert.ToInt64(dtHH.Rows[0]["iID_MaHangHoa"]);
+
+                        
+                    //}
                 }
 
                 int iHD = 0;

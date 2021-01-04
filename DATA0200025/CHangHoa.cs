@@ -189,6 +189,41 @@ namespace DATA0200025
             return vR;
         }
 
+        public static void Delete_HangHoa_HoSo(long iID_MaHoSo)
+        {
+            try
+            {
+                SqlCommand cmd;
+                DataTable vR = null;
+
+                string SQL = "SELECT * FROM CNN25_HangHoa WHERE iID_MaHoSo=@iID_MaHoSo";
+                cmd = new SqlCommand(SQL);
+                cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+                vR = Connection.GetDataTable(cmd);
+                cmd.Dispose();
+
+                if(vR.Rows.Count > 0)
+                {
+                    for(int i=0; i<vR.Rows.Count; i++)
+                    {
+                        //Xoa thong tin hang hoa
+                        Delete_HangHoa_ThongTin(Convert.ToInt64(vR.Rows[i]["iID_MaHangHoa"]));
+
+                        //Xoa hang hoa
+                        cmd = new SqlCommand("DELETE FROM CNN25_HangHoa WHERE iID_MaHangHoa=@iID_MaHangHoa");
+                        cmd.Parameters.AddWithValue("@iID_MaHangHoa", Convert.ToInt64(vR.Rows[i]["iID_MaHangHoa"]));
+                        Connection.UpdateDatabase(cmd);
+                        cmd.Dispose();
+                    }
+                }
+                vR.Dispose();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         public static void Delete_HangHoa_ThongTin(long iID_MaHangHoa)
         {
             try
@@ -197,14 +232,17 @@ namespace DATA0200025
                 cmd = new SqlCommand("DELETE FROM CNN25_HangHoa_ChatLuong WHERE iID_MaHangHoa=@iID_MaHangHoa");
                 cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
                 Connection.UpdateDatabase(cmd);
+                cmd.Dispose();
 
                 cmd = new SqlCommand("DELETE FROM CNN25_HangHoa_AnToan WHERE iID_MaHangHoa=@iID_MaHangHoa");
                 cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
                 Connection.UpdateDatabase(cmd);
+                cmd.Dispose();
 
                 cmd = new SqlCommand("DELETE FROM CNN25_HangHoa_SoLuong WHERE iID_MaHangHoa=@iID_MaHangHoa");
                 cmd.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
                 Connection.UpdateDatabase(cmd);
+                cmd.Dispose();
             }
             catch(Exception ex)
             {

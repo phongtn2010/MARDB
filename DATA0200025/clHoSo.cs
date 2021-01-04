@@ -367,18 +367,26 @@ namespace DATA0200025
                 }
             }
             else
-            { 
-                if (models.LoaiDanhSach == 10)//Ho so ldp
+            {
+                if (models.LoaiDanhSach == 10 || models.LoaiDanhSach == 7)//Ho so ldp=10 ; chuyên viên=7
                 {
-                    switch(models.iID_MaTrangThai)
+                    switch (models.iID_MaTrangThai)
                     {
-                        case 10:
+                        case 10://ldp-Chuyenvien
                         case 11:
                         case 12:
                             DK += " AND (iID_MaTrangThai=@iID_MaTrangThai OR iID_MaTrangThai=@iID_MaTrangThai1 OR  iID_MaTrangThai=@iID_MaTrangThai2)";
                             cmd.Parameters.AddWithValue("@iID_MaTrangThai", 10);
                             cmd.Parameters.AddWithValue("@iID_MaTrangThai1", 11);
                             cmd.Parameters.AddWithValue("@iID_MaTrangThai2", 12);
+                            break;
+                        case 14://Chuyên vien
+                        case 18:
+                        case 23:
+                            DK += " AND (iID_MaTrangThai=@iID_MaTrangThai OR iID_MaTrangThai=@iID_MaTrangThai1 OR  iID_MaTrangThai=@iID_MaTrangThai2)";
+                            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 14);
+                            cmd.Parameters.AddWithValue("@iID_MaTrangThai1", 16);
+                            cmd.Parameters.AddWithValue("@iID_MaTrangThai2", 23);
                             break;
                         case 17:
                         case 22:
@@ -396,9 +404,7 @@ namespace DATA0200025
                             DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
                             cmd.Parameters.AddWithValue("@iID_MaTrangThai", models.iID_MaTrangThai);
                             break;
-                    }    
-                    
-                  
+                    }
                 }
                 else
                 {
