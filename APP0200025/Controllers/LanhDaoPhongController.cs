@@ -6,6 +6,7 @@ using DomainModel;
 using DomainModel.Abstract;
 using System;
 using System.Collections.Specialized;
+using System.Data;
 using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
@@ -81,7 +82,7 @@ namespace APP0200025.Controllers
 
             if (String.IsNullOrEmpty(iID_MaHoSo) == false)
             {
-                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
 
                 long iID_MaDinhKem = -1;
                 string sFileTemp = "", sFileName = "";
@@ -162,7 +163,7 @@ namespace APP0200025.Controllers
                 bang.DuLieuMoi = false;
                 for (int i = 0; i < arr.Length; i++)
                 {
-                    hoSo = clHoSo.GetHoSoById(Convert.ToInt32(arr[i]));
+                    hoSo = clHoSo.GetHoSoById(Convert.ToInt64(arr[i]));
                     int HanhDong = 0;
                     switch (hoSo.iID_MaTrangThai)
                     {
@@ -178,6 +179,19 @@ namespace APP0200025.Controllers
                             HanhDong = (int)clHanhDong.HanhDong.DongYXemXetXacNhan;
                             break;
                     }
+
+                    long iID_MaLichSu = 0;
+                    String sNoiDungLichSu = "", sFileLichSu = "";
+                    DataTable dtLS = clLichSuHoSo.GetDataTableBoSungTuChoi(hoSo.iID_MaHoSo, hoSo.iID_MaTrangThai);
+                    if (dtLS.Rows.Count > 0)
+                    {
+                        iID_MaLichSu = Convert.ToInt64(dtLS.Rows[0]["id"]);
+                        sNoiDungLichSu = Convert.ToString(dtLS.Rows[0]["sNoiDung"]);
+                        sFileLichSu = Convert.ToString(dtLS.Rows[0]["sFile"]);
+                    }
+                    dtLS.Dispose();
+
+
                     TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
                     if (i == 0)
@@ -199,7 +213,7 @@ namespace APP0200025.Controllers
             
                     bang.Save();
                     
-                    clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, trangThaiTiepTheo.sTen, "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+                    clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, sNoiDungLichSu, sFileLichSu, hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
                     clHoSo.CleanNguoiXem(arr[i]);
                 }
