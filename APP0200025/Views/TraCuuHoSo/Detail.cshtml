@@ -28,6 +28,15 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", Model);}
+                        <section class="content" style="min-height: auto;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box box-danger">
+                                        @{Html.RenderPartial("~/Views/Partial/Partial_ThongTinDanhChoCoQuanKiemTra.cshtml", Model);}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                         <div class="box-footer clearfix text-center">
                             <button class="btn btn-danger" type="button" onclick="javascript:history.go(-1)">Quay lại</button>
                         </div>
