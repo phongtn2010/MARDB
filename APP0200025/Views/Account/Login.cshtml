@@ -109,12 +109,12 @@
                     <p class="login-box-msg" style="padding-bottom: 5px;"><b>ĐĂNG NHẬP HỆ THỐNG</b></p>
                     @Html.ValidationSummary(true)
                     <div class="form-group has-feedback">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sUserName", "", " placeholder=\"Tên đăng nhập\" type=\"text\" class=\"form-control\" style=\"height: 35px\" maxlength='15' minlength='3' pattern='^[a-zA-Z0-9_.-]*$' required"))
+                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sUserName", "", "tabindex=\"1\" placeholder=\"Tên đăng nhập\" type=\"text\" class=\"form-control\" style=\"height: 35px\" maxlength='15' minlength='3' pattern='^[a-zA-Z0-9_.-]*$' required"))
                         @Html.ValidationMessage(ParentID + "_" + "err_sUserName")
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sPassword", "", " placeholder=\"Mật khẩu\" type=\"password\" class=\"form-control\" style=\"height: 35px\" minlength='6' required"))
+                        @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "sPassword", "", "tabindex=\"2\" placeholder=\"Mật khẩu\" type=\"password\" class=\"form-control\" style=\"height: 35px\" minlength='6' required"))
                         @Html.ValidationMessage(ParentID + "_" + "err_sMatKhau")
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
