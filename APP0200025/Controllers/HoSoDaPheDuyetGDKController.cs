@@ -23,7 +23,7 @@ namespace APP0200025.Controllers
         // GET: HoSoDaPheDuyetGDK
         public ActionResult Index(sHoSoModels models)
         {
-            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "List") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
             {
                 return RedirectToAction("Index", "PermitionMessage");
             }

@@ -17,7 +17,7 @@ namespace APP0200025.Controllers
         // GET: TraCuuHoSo
         public ActionResult Index(sHoSoModels models)
         {
-            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "List") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
             {
                 return RedirectToAction("Index", "PermitionMessage");
             }
