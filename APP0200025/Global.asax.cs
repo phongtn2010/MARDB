@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Configuration;
+using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -31,6 +32,7 @@ namespace APP0200025
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
 
             // Code that runs on application startup
             System.Timers.Timer timer = new System.Timers.Timer();
@@ -38,6 +40,18 @@ namespace APP0200025
             timer.AutoReset = true;
             timer.Elapsed += new System.Timers.ElapsedEventHandler(TimerElapsed);
             timer.Enabled = true;
+        }
+
+        private void Application_Error(object sender, EventArgs e)
+        {
+            Exception ex = Server.GetLastError();
+
+            if (ex is HttpAntiForgeryException)
+            {
+                Response.Clear();
+                Server.ClearError(); //make sure you log the exception first
+                Response.Redirect("/errors", true);
+            }
         }
 
         protected void Session_Start(object sender, EventArgs e)
