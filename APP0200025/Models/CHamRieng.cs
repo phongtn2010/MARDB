@@ -260,6 +260,21 @@ namespace APP0200025.Models
 
             return table;
         }
+
+        public static DataTable GetTable_KetQuaXuLy()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("ID", typeof(int));
+            table.Columns.Add("sTen", typeof(string));
+
+            table.Rows.Add(-1, "--- Tất cả ---");
+            table.Rows.Add(1, "Đạt cấp giấy đăng ký");
+            table.Rows.Add(2, "Từ chối cấp GĐK");
+            table.Rows.Add(3, "Yêu cầu bổ sung");
+
+            return table;
+        }
+
         public static SelectOptionList Get_Dropdown_User_Location()
         {
             DataTable dt = GetTable_User_Location();
@@ -271,6 +286,14 @@ namespace APP0200025.Models
         public static SelectOptionList Get_Dropdown_ViTri_QuangCao()
         {
             DataTable dt = GetTable_ViTri_QuangCao();
+            SelectOptionList list = new SelectOptionList(dt, "ID", "sTen");
+            dt.Dispose();
+            return list;
+        }
+
+        public static SelectOptionList Get_Dropdown_KetQuaXuLy()
+        {
+            DataTable dt = GetTable_KetQuaXuLy();
             SelectOptionList list = new SelectOptionList(dt, "ID", "sTen");
             dt.Dispose();
             return list;
