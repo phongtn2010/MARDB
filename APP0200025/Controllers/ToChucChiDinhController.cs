@@ -24,7 +24,7 @@ namespace APP0200025.Controllers
         Bang bang = new Bang("CNN25_HoSo");
         public ActionResult Index(sHoSoModels models)
         {
-            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "List") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
             {
                 return RedirectToAction("Index", "PermitionMessage");
             }
@@ -94,7 +94,7 @@ namespace APP0200025.Controllers
 
         public ActionResult List(sHoSoModels hoSoSearch)
         {
-            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "List") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
             {
                 return RedirectToAction("Index", "PermitionMessage");
             }

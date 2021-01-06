@@ -17,10 +17,17 @@ namespace APP0200025.Controllers
         // GET: TraCuuHoSo
         public ActionResult Index(sHoSoModels models)
         {
+            String sUserName = User.Identity.Name;
+            String sMaNhomNguoiDung = CPQ_NGUOIDUNG.Get_MaNhomNguoiDung(sUserName);
             //if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "List") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
             //{
             //    return RedirectToAction("Index", "PermitionMessage");
             //}
+
+            if(sMaNhomNguoiDung == "1-41")
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
 
             if (models == null)
             {
