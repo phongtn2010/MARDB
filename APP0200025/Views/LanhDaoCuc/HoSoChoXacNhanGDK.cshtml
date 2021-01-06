@@ -68,7 +68,9 @@
         iID_MaTrangThai = Model.iID_MaTrangThai,
         iID_KetQuaXuLy = Model.iID_KetQuaXuLy,
         page = x
-    })); ;
+    }));
+
+    SelectOptionList ddlKetQuaXuLy = CHamRieng.Get_Dropdown_KetQuaXuLy();
 
 }
 <script type="text/javascript">
@@ -159,12 +161,7 @@
                             </div>
                             <div class="col-xs-1 text-align-right"><label class="control-label">Kết quả xử lý</label></div>
                             <div class="col-xs-5">
-                                <select class="form-control" id="@(ParentID)_iID_KetQuaXuLy" name="@(ParentID)_iID_KetQuaXuLy">
-                                    <option value="-1">--Tất cả--</option>
-                                    <option value="1">Đạt cấp giấy đăng ký</option>
-                                    <option value="2">Từ chối cấp GĐK</option>
-                                    <option value="3">Yêu cầu bổ sung</option>
-                                </select>
+                                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ddlKetQuaXuLy, Model.iID_KetQuaXuLy.ToString(), "iID_KetQuaXuLy", "", "class=\"form-control\""))
                             </div>
                         </div>
                     </div><!-- /.box-body -->
