@@ -142,7 +142,7 @@
                                         String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "Log", new { iID_ActionLog_Action = R["iID_ActionLog_Action"] }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
 
                                         <tr>
-                                            <td style="text-align: center;">@iSTT.ToString()</td>
+                                            <td style="text-align: center;">@R["rownum"]</td>
                                             <td align="center">@R["sChucNang"].ToString()</td>
                                             <td>@R["sID_MaNguoiDung"].ToString()</td>
                                             <td>@R["sMaHoSo"].ToString()</td>
