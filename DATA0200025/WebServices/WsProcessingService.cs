@@ -279,6 +279,9 @@ namespace DATA0200025.WebServices
                     //}
                 }
 
+                //Xoa dinh kem ho so
+                CDinhKem.Delete_DinhKem(iID_MaHoSo);
+
                 int iHD = 0;
                 foreach (var hd in lstHopDong)
                 {
@@ -423,6 +426,9 @@ namespace DATA0200025.WebServices
                     //}
                 }
 
+                //Xoa dinh kem ho so
+                CDinhKem.Delete_DinhKem(iID_MaHoSo);
+
                 int iHD = 0;
                 foreach (var hd in lstHopDong)
                 {
@@ -566,6 +572,9 @@ namespace DATA0200025.WebServices
                         
                     //}
                 }
+
+                //Xoa dinh kem ho so
+                CDinhKem.Delete_DinhKem(iID_MaHoSo);
 
                 int iHD = 0;
                 foreach (var hd in lstHopDong)

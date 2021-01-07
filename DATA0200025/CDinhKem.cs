@@ -98,5 +98,23 @@ namespace DATA0200025
 
             return vR;
         }
+
+        public static void Delete_DinhKem(long iID_MaHoSo)
+        {
+            try
+            {
+                SqlCommand cmd;
+
+                //Xoa DinhKem
+                cmd = new SqlCommand("DELETE FROM CNN25_DinhKem WHERE iID_MaHoSo=@iID_MaHoSo");
+                cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+                Connection.UpdateDatabase(cmd);
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
     }
 }
