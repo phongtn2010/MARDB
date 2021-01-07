@@ -1,6 +1,9 @@
-﻿using DomainModel.Abstract;
+﻿using DomainModel;
+using DomainModel.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,11 +39,20 @@ namespace DATA0200025
 
                 if(iID_MaFile_Sua > 0)
                 {
-                    bang.DuLieuMoi = false;
-                    bang.GiaTriKhoa = iID_MaFile_Sua;
-                    bang.Save();
+                    int iTonTai = Check_TonTai(iID_MaFile_Sua);
+                    if(iTonTai == 1)
+                    {
+                        bang.DuLieuMoi = false;
+                        bang.GiaTriKhoa = iID_MaFile_Sua;
+                        bang.Save();
 
-                    vR = iID_MaFile_Sua;
+                        vR = iID_MaFile_Sua;
+                    }
+                    else
+                    {
+                        bang.DuLieuMoi = true;
+                        vR = Convert.ToInt64(bang.Save());
+                    }    
                 }
                 else
                 {
@@ -52,6 +64,37 @@ namespace DATA0200025
             {
                 vR = -1;
             }
+
+            return vR;
+        }
+
+        public static DataTable Get_Table_Detail(long iID_MaFile)
+        {
+            DataTable vR;
+
+            string SQL = "SELECT * FROM CNN25_DinhKem WHERE iID_MaFile=@iID_MaFile";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaFile", iID_MaFile);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return vR;
+        }
+
+        public static int Check_TonTai(long iID_MaFile)
+        {
+            int vR = 0;
+
+            DataTable dt = Get_Table_Detail(iID_MaFile);
+            if(dt.Rows.Count > 0)
+            {
+                vR = 1;
+            }
+            else
+            {
+                vR = -1;
+            }
+            dt.Dispose();
 
             return vR;
         }
