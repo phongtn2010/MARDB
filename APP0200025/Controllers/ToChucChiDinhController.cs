@@ -165,11 +165,11 @@ namespace APP0200025.Controllers
             int iKetQua = 0;
             if (Convert.ToBoolean(dtCNHQ.Rows[0]["bKetQuaDanhGia"]) == true)
             {
-                iKetQua = 1;
+                iKetQua = 2;
             }
             else
             {
-                iKetQua = 2;
+                iKetQua = 1;
             }
 
 
