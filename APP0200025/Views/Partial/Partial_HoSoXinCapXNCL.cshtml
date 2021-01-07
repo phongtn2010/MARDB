@@ -22,6 +22,7 @@
 
     String sKetQua = "", sLinkFile = "";
 }
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>*@
 <section>
     <div class="box-body">
         <div class="form-horizontal">
@@ -121,7 +122,7 @@
             </div>
             <div class="col-md-1">&nbsp;</div>
             <div class="col-md-6">
-                <div id="divDinhKemXNCL" style="display: block; width: 100%;"></div>
+                <div id="divDinhKemXNCL" style="display: block; width: 100%; height: 805px;"></div>
             </div>
         </div>
     </div>
@@ -131,10 +132,10 @@
         $(document).on('click', '.btnShowFile', function (e) {
             //debugger;
             var filePath = $(this).data("src");
-            var n = filePath.indexOf(".pdf");
+            var n = filePath.toUpperCase().indexOf(".PDF");
             if (n > 0) {
-                $("#divDinhKemXNCL").html('<div><button id="prev">Trước</button><button id="next">Sau</button>&nbsp; &nbsp;<span>Trang: <span id="page_num"></span> / <span id="page_count"></span></span></div><div><canvas id="the-canvas" style="border: 1px solid black; direction: ltr; width: 100%;"></canvas> </div>');
-                loadPDF(filePath);
+                $("#divDinhKemXNCL").html('<div id="navigation_controls" style="float: left; width: 50%;"><button id="go_previous_xncl">Trước</button><input id="current_page_xncl" value="1" type="number" style="width: 40px" /> <button id="go_next_xncl">Sau</button></div><div id="zoom_controls_xncl"  style="float: right;"><button id="zoom_in_xncl">Phóng to</button><button id="zoom_out_xncl">Thu nhỏ</button></div><div id="canvas_container"><canvas id="pdf_renderer_xncl"></canvas></div>');
+                loadPDFXNCL(filePath);
             }
             else {
                 $("#divDinhKemXNCL").html('<img id="imgDinhKem" style="width: 100%" />');
@@ -148,10 +149,10 @@
     function loadPage_sub() {
         var filePath = '@(sLinkFile)';
         if (filePath != "") {
-            var n = filePath.indexOf(".pdf");
+            var n = filePath.toUpperCase().indexOf(".PDF");
             if (n > 0) {
-                $("#divDinhKemXNCL").html('<div><button id="prev">Trước</button><button id="next">Sau</button>&nbsp; &nbsp;<span>Trang: <span id="page_num"></span> / <span id="page_count"></span></span></div><div><canvas id="the-canvas" style="border: 1px solid black; direction: ltr; width: 100%;"></canvas> </div>');
-                loadPDF(filePath);
+                $("#divDinhKemXNCL").html('<div id="navigation_controls" style="float: left; width: 50%;"><button id="go_previous_xncl">Trước</button><input id="current_page_xncl" value="1" type="number" style="width: 40px" /> <button id="go_next_xncl">Sau</button></div><div id="zoom_controls_xncl"  style="float: right;"><button id="zoom_in_xncl">Phóng to</button><button id="zoom_out_xncl">Thu nhỏ</button></div><div id="canvas_container"><canvas id="pdf_renderer_xncl"></canvas></div>');
+                loadPDFXNCL(filePath);
             }
             else {
                 $("#divDinhKemXNCL").html('<img id="imgDinhKem" style="width: 100%" />');
