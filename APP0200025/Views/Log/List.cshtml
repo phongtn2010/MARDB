@@ -131,13 +131,19 @@
                                 <th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>
                             </tr>
                             @{
+                                long iHTTu = 0, iHTDen = 0;
                                 if (dt.Rows.Count > 0)
                                 {
+                                    int iGTMax = 0;
                                     for (int i = 0; i < dt.Rows.Count; i++)
                                     {
                                         R = dt.Rows[i];
 
-                                        int iSTT = i + 1;
+                                        if (i == 0)
+                                        {
+                                            iHTTu = Convert.ToInt64(R["rownum"]);
+                                        }
+                                        iGTMax++;
 
                                         String strDelete = MyHtmlHelper.ActionLink(Url.Action("cms_delete", "Log", new { iID_ActionLog_Action = R["iID_ActionLog_Action"] }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
 
@@ -174,6 +180,7 @@
                                             <td style="width: 10px" title="Xóa">@MvcHtmlString.Create(strDelete)</td>
                                         </tr>
                                     }
+                                    iHTDen = iHTTu + iGTMax - 1;
                                 }
                                 dt.Dispose();
                             }
@@ -181,7 +188,12 @@
                     </div>
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    @MvcHtmlString.Create(strPhanTrang)
+                    <div class="col-xs-6">
+                        Hiển thị từ <b>@(iHTTu)</b> đến <b>@(iHTDen)</b> trong số <b>@(nums.ToString("#,##"))</b> bản ghi
+                    </div>
+                    <div class="col-xs-6">
+                        @MvcHtmlString.Create(strPhanTrang)
+                    </div>
                 </div>
             </div><!-- /.box -->
         </div><!-- /.col -->

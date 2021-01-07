@@ -25,7 +25,7 @@ namespace APP0200025
 
             Connection.ConnectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-            Globals.PageSize = 10;
+            Globals.PageSize = 10;           
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -57,6 +57,8 @@ namespace APP0200025
         protected void Session_Start(object sender, EventArgs e)
         {
             Session.Timeout = 2;
+
+            Session["PageSize"] = Globals.PageSize;
         }
 
         public void TimerElapsed(object source, System.Timers.ElapsedEventArgs e)

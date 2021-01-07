@@ -135,6 +135,31 @@ namespace APP0200025.Models
             return list;
         }
 
+        public static DataTable GetTable_PageSize()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("ID", typeof(int));
+            table.Columns.Add("sTen", typeof(string));
+
+            table.Rows.Add(10, "10 bản ghi");
+            table.Rows.Add(20, "20 bản ghi");
+            table.Rows.Add(30, "30 bản ghi");
+            table.Rows.Add(40, "40 bản ghi");
+            table.Rows.Add(50, "50 bản ghi");
+            table.Rows.Add(80, "80 bản ghi");
+            table.Rows.Add(100, "100 bản ghi");
+
+            return table;
+        }
+
+        public static SelectOptionList Get_Dropdown_PageSize()
+        {
+            DataTable dt = GetTable_PageSize();
+            SelectOptionList list = new SelectOptionList(dt, "ID", "sTen");
+            dt.Dispose();
+            return list;
+        }
+
         public static DataTable GetTable_GioiTinh()
         {
             DataTable table = new DataTable();

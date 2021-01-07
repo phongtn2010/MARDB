@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel;
 using DomainModel;
+using APP0200025.Models;
 
 namespace APP0200025.App_Code
 {
@@ -17,6 +18,8 @@ namespace APP0200025.App_Code
     {
         public static string PageLinks_Cms(String Title, int currentPage, int totalPages, Func<int, string> URL)
         {
+            SelectOptionList ddlPageSize= CHamRieng.Get_Dropdown_PageSize();
+
             if (totalPages <= 1) return "";
             StringBuilder result = new StringBuilder();
             int MinPage = (currentPage - Globals.PageRange) > 0 ? currentPage - Globals.PageRange : 1;
@@ -90,6 +93,11 @@ namespace APP0200025.App_Code
                 }
             }
             result.AppendLine("</select></span>");
+            result.AppendLine("</li>");
+            result.AppendLine("<li>");
+            result.AppendLine("<span style=\"padding: 5px 10px;\">");
+            result.AppendLine(MyHtmlHelper.DropDownList("PageSize", ddlPageSize, Globals.PageSize.ToString(), "PageSize", "", "onchange=\"jsSetPageSize(this.options[this.selectedIndex].value);\""));
+            result.AppendLine("</span>");
             result.AppendLine("</li>");
             result.AppendLine("</ul>");
             return result.ToString();

@@ -267,6 +267,7 @@
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="Controllers\CMS_HoSoController.cs" />
     <Compile Include="Controllers\HoSoController.cs" />
+    <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MienGiamController.cs" />
     <Compile Include="Controllers\PermitionMessageController.cs" />
@@ -3211,6 +3212,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Libraries\CongThuc\" />
+    <Folder Include="Views\Language\" />
     <Folder Include="Views\Public\" />
     <Folder Include="Views\UploadFile\" />
   </ItemGroup>

@@ -55,5 +55,33 @@ namespace APP0200025.Controllers
             Session["captchaText"] = text;
             return Json(string.Concat(new object[] { "Uploads/CapCha/", base.Session.SessionID.ToString(), ".png?t=", DateTime.Now.Ticks }), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult SetPageSize(string sGiaTri)
+        {
+            object vR = null;
+
+            string sCode = "";
+            try
+            {
+                if (String.IsNullOrEmpty(sGiaTri) == false)
+                {
+                    Session["PageSize"] = sGiaTri;
+
+                    Globals.PageSize = Convert.ToInt32(sGiaTri);
+                }
+
+               sCode = "1";
+            }
+            catch(Exception ex)
+            {
+                sCode = "-1";
+            }
+
+            vR = new
+            {
+                _sCode = sCode
+            };
+            return base.Json(vR, JsonRequestBehavior.AllowGet);
+        }
     }
 }

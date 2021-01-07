@@ -58,6 +58,21 @@ function jsLoadCaptcha() {
     });
 }
 
+function jsSetPageSize(iGiaTri) {
+    var url = ServerUrl + "/Public/SetPageSize?sGiaTri=" + iGiaTri;
+    $.getJSON(url, function (item) {
+        if (item == null) {
+            return null;
+        }
+        var _sCode = item._sCode;
+
+        setTimeout("window.location.reload();", 500);
+        //setInterval(function () { window.location.reload(); }, 1000);
+    });
+
+    return false;
+}
+
 function jsEbank_AddToCart(sMaSanPhan, sCode, rSoLuong, rDonGia) {
     var url = ServerUrl + "/Orders/Insert_User_Cart?iID_MaSanPham=" + sMaSanPhan + "&sCodeSanPham=" + sCode + "&rSoLuong=" + rSoLuong + "&rDonGia=" + rDonGia;
     jQuery.getJSON(url, function (item) {
