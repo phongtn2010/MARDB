@@ -83,10 +83,14 @@ namespace APP0200025.Controllers
 
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
+                DateTime dNgayTiepNhan = DateTime.Now;
+
+                String sNgayHetHanXuLy = HamRiengModels.XulyQuaHanView(Convert.ToInt64(iID_MaHoSo), dNgayTiepNhan);
+
                 //Gui sang NSW
                 KetQuaXuLy resultConfirm = new KetQuaXuLy();
                 resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+                resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Ngày nhận kết quả: " + sNgayHetHanXuLy;
                 resultConfirm.AttachmentId = "";
                 resultConfirm.FileName = "";
                 resultConfirm.FileLink = "";
@@ -101,9 +105,10 @@ namespace APP0200025.Controllers
                     bang.DuLieuMoi = false;
                     bang.GiaTriKhoa = iID_MaHoSo;
                     //bang.TruyenGiaTri(ParentID, Request.Form);
+                    bang.CmdParams.Parameters.AddWithValue("@bPublic", 0);
                     bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
                     bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
-                    bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
+                    bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", dNgayTiepNhan);
                     bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
                     bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
                     bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
@@ -142,10 +147,14 @@ namespace APP0200025.Controllers
 
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
+                DateTime dNgayTiepNhan = DateTime.Now;
+
+                String sNgayHetHanXuLy = HamRiengModels.XulyQuaHanView(Convert.ToInt64(iID_MaHoSo), dNgayTiepNhan);
+
                 //Gui sang NSW
                 KetQuaXuLy resultConfirm = new KetQuaXuLy();
                 resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+                resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Ngày nhận kết quả: " + sNgayHetHanXuLy;
                 resultConfirm.AttachmentId = "";
                 resultConfirm.FileName = "";
                 resultConfirm.FileLink = "";
@@ -159,9 +168,10 @@ namespace APP0200025.Controllers
                     bang.IPSua = Request.UserHostAddress;
                     bang.DuLieuMoi = false;
                     bang.GiaTriKhoa = iID_MaHoSo;
+                    bang.CmdParams.Parameters.AddWithValue("@bPublic", 0);
                     bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
                     bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
-                    bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
+                    bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", dNgayTiepNhan);
                     bang.CmdParams.Parameters.AddWithValue("@sTenNguoiTiepNhan", CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name));
                     bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
                     bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
