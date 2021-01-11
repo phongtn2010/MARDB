@@ -85,7 +85,7 @@ namespace APP0200025.Controllers
                 //Gui sang NSW
                 KetQuaXuLy resultConfirm = new KetQuaXuLy();
                 resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Kết quả xử lý hồ sơ là: " + sNgayHetHanXuLy;
+                resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Ngày nhận kết quả: " + sNgayHetHanXuLy;
                 resultConfirm.AttachmentId = "";
                 resultConfirm.FileName = "";
                 resultConfirm.FileLink = "";
@@ -147,7 +147,7 @@ namespace APP0200025.Controllers
 
                 KetQuaXuLy resultConfirm = new KetQuaXuLy();
                 resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Kết quả xử lý hồ sơ là: " + sNgayHetHanXuLy;
+                resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Ngày nhận kết quả: " + sNgayHetHanXuLy;
                 resultConfirm.AttachmentId = "";
                 resultConfirm.FileName = "";
                 resultConfirm.FileLink = "";
