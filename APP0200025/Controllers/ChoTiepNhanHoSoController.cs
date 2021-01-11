@@ -74,14 +74,18 @@ namespace APP0200025.Controllers
             string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
             if (String.IsNullOrEmpty(iID_MaHoSo) == false)
             {
-                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
 
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
+
+                DateTime dNgayTiepNhan = DateTime.Now;
+
+                String sNgayHetHanXuLy = HamRiengModels.XulyQuaHanView(Convert.ToInt64(iID_MaHoSo), dNgayTiepNhan);
 
                 //Gui sang NSW
                 KetQuaXuLy resultConfirm = new KetQuaXuLy();
                 resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+                resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Kết quả xử lý hồ sơ là: " + sNgayHetHanXuLy;
                 resultConfirm.AttachmentId = "";
                 resultConfirm.FileName = "";
                 resultConfirm.FileLink = "";
@@ -91,12 +95,12 @@ namespace APP0200025.Controllers
 
                 if (error == "99")
                 {
-                    DateTime dNgayTiepNhan = DateTime.Now;
                     bang.MaNguoiDungSua = User.Identity.Name;
                     bang.IPSua = Request.UserHostAddress;
                     bang.DuLieuMoi = false;
                     bang.GiaTriKhoa = iID_MaHoSo;
-                    //bang.TruyenGiaTri(ParentID, Request.Form);
+                    //bang.TruyenGiaTri(ParentID, Request.Form);  bPublic
+                    bang.CmdParams.Parameters.AddWithValue("@bPublic", 0);
                     bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
                     bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
                     bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", dNgayTiepNhan);
@@ -122,7 +126,7 @@ namespace APP0200025.Controllers
             {
                 TempData["msg"] = "error";
             }
-            
+
             clHoSo.CleanNguoiXem(iID_MaHoSo);
 
             return RedirectToAction("Index");
@@ -134,13 +138,16 @@ namespace APP0200025.Controllers
             if (String.IsNullOrEmpty(iID_MaHoSo) == false)
             {
                 //  string iID_MaHoSo = Request.Form[ParentID + "_iID_MaHoSo"];
-                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
 
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
+                DateTime dNgayTiepNhan = DateTime.Now;
+                String sNgayHetHanXuLy = HamRiengModels.XulyQuaHanView(Convert.ToInt64(iID_MaHoSo), dNgayTiepNhan);
+
                 KetQuaXuLy resultConfirm = new KetQuaXuLy();
                 resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+                resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Kết quả xử lý hồ sơ là: " + sNgayHetHanXuLy;
                 resultConfirm.AttachmentId = "";
                 resultConfirm.FileName = "";
                 resultConfirm.FileLink = "";
@@ -149,11 +156,11 @@ namespace APP0200025.Controllers
                 string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
                 if (error == "99")
                 {
-                    DateTime dNgayTiepNhan = DateTime.Now;
                     bang.MaNguoiDungSua = User.Identity.Name;
                     bang.IPSua = Request.UserHostAddress;
                     bang.DuLieuMoi = false;
                     bang.GiaTriKhoa = iID_MaHoSo;
+                    bang.CmdParams.Parameters.AddWithValue("@bPublic", 0);
                     bang.CmdParams.Parameters.AddWithValue("@sSoTiepNhan", clTaoMaTiepNhan.GetSoTiepNhan());
                     bang.CmdParams.Parameters.AddWithValue("@sUserTiepNhan", User.Identity.Name);
                     bang.CmdParams.Parameters.AddWithValue("@dNgayTiepNhan", DateTime.Now);
@@ -174,7 +181,7 @@ namespace APP0200025.Controllers
             else
             {
                 result.success = false;
-            }    
+            }
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -236,7 +243,7 @@ namespace APP0200025.Controllers
 
                         ResDinhKemFiles resDinhKemFile = new ResDinhKemFiles();
                         resDinhKemFile = CDinhKemFiles.UploadFile(postedFile);
-                        if(resDinhKemFile != null && resDinhKemFile.ItemId > 0)
+                        if (resDinhKemFile != null && resDinhKemFile.ItemId > 0)
                         {
                             sFileTemp = resDinhKemFile.UrlFile;
 
@@ -246,7 +253,7 @@ namespace APP0200025.Controllers
                     }
                 }
             }
-            
+
             int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
             //XML 12_07
@@ -269,7 +276,7 @@ namespace APP0200025.Controllers
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", iTrangThaiTiepTheo);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThaiTruoc);
                 bang.Save();
-               
+
                 clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, iTrangThaiTiepTheo);
 
                 result.success = true;
@@ -280,7 +287,7 @@ namespace APP0200025.Controllers
             }
 
             clHoSo.CleanNguoiXem(iID_MaHoSo);
-                        
+
             result.value = Url.Action("Index");
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -351,7 +358,7 @@ namespace APP0200025.Controllers
                     }
                 }
             }
-            
+
             int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
             //XML 12_08
@@ -401,7 +408,7 @@ namespace APP0200025.Controllers
             string _sTenTACN = CString.SafeString(Request.Form[ParentID + "_sTenTACN"]);
             string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgayDen"]);
             string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
-            
+
             sHoSoModels models = new sHoSoModels
             {
                 LoaiDanhSach = 1,

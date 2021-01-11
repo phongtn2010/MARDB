@@ -497,6 +497,12 @@ function loadPDF(sFile) {
         });
     }
 
+    function rotateSinglePage(pageNum, degree) {
+        var viewerMain = document.getElementById("pdf_renderer");
+        var pageContainer = viewerMain.querySelector("div[data-page-number='" + pageNum + "']");
+        pageContainer.style.transform = "rotate(" + degree + "deg)";
+    }
+
     document.getElementById('go_previous').addEventListener('click', (e) => {
         if (myState.pdf == null || myState.currentPage == 1)
             return;
