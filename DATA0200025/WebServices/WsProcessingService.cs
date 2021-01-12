@@ -90,21 +90,36 @@ namespace DATA0200025.WebServices
 
                         if (iID_MaHangHoa > 0)
                         {
-                            foreach (var cl in lstChatLuong)
+                            try
                             {
-                                string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
-                                long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
-                            }
+                                foreach (var cl in lstChatLuong)
+                                {
+                                    string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(cl.fiQualityFormOfPublication);
+                                    long iChatLuong = CHangHoa.ThemhangHoaChatLuong(iID_MaHangHoa, cl.fiQualityFormOfPublication, cl.fiQualityCriteriaName, sHinhThuc, cl.fiQualityRequire.ToString(), cl.fiQualityRequireUnitID, cl.fiQualityRequireUnitName, "", false, sUserName, sIP);
+                                }
 
-                            foreach (var at in lstAnToan)
-                            {
-                                string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
-                                long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
-                            }
+                                foreach (var at in lstAnToan)
+                                {
+                                    string sHinhThuc = HamRiengModels.Get_Name_HinhThucCongBo(at.fiSafetyFormOfPublication);
+                                    long iAnToan = CHangHoa.ThemhangHoaAnToan(iID_MaHangHoa, 0, at.fiSafetyFormOfPublication, at.fiSafetyCriteriaName, sHinhThuc, at.fiSafetyRequire.ToString(), at.fiSafetyRequireUnitID, at.fiSafetyRequireUnitName, "", false, sUserName, sIP);
+                                }
 
-                            foreach (var sl in lstSoLuong)
+                                foreach (var sl in lstSoLuong)
+                                {
+                                    long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
+                                }
+                            }
+                            catch(Exception ex)
                             {
-                                long iChatLuong = CHangHoa.ThemhangHoaSoLuong(iID_MaHangHoa, sl.fiVolume, sl.fiVolumeUnitCode.ToString(), sl.fiVolumeUnitName.ToString(), sl.fiVolumeTAN, sl.fiQuantity, sl.fiQuantityUnitCode.ToString(), sl.fiQuantityUnitName, "", false, sUserName, sIP);
+                                //Xoa hso da tao
+                                //Xoa hang hoa va thong tin hang hoa trước
+                                CHangHoa.Delete_HangHoa_HoSo(iID_MaHoSo);
+                                //Xoa dinh kem ho so
+                                CDinhKem.Delete_DinhKem(iID_MaHoSo);
+                                //Xoa ho so
+                                CHoSo.Delete_HoSo(iID_MaHoSo);
+
+                                throw new ArgumentNullException();
                             }
                         }
                         else
