@@ -304,6 +304,9 @@ namespace DATA0200025
                     Nature=item.sBanChat,
 
                 };
+
+                String sSTTKT = Get_ThongTinChiTieuAnToan_KyThuat_DanhMuc_sSTTChiTieu(item.iID_MaLoai);
+
                 var chiTieus = GetChiTieuPhanTichDN(item.iID_MaHangHoa);
                 List<AnanyticalRequiredList> lstChiTieu = new List<AnanyticalRequiredList>();
                 AnanyticalRequiredList ananytical;
@@ -320,6 +323,19 @@ namespace DATA0200025
                     };
                     lstChiTieu.Add(ananytical);
                 }
+
+                //Them hang cuoi cung
+                ananytical = new AnanyticalRequiredList
+                {
+                    AnanyticalName = sSTTKT,
+                    FormOfPublication = 0,
+                    Required = "",
+                    RequireUnitID = "",
+                    RequireUnitName = "",
+                    Note = item.sGhiChu
+                };
+                lstChiTieu.Add(ananytical);
+
                 hanghoaXND.ListAnanyticals = lstChiTieu;
                 lst.Add(hanghoaXND);
             }
