@@ -328,7 +328,7 @@ namespace DATA0200025
                 ananytical = new AnanyticalRequiredList
                 {
                     AnanyticalName = sSTTKT,
-                    FormOfPublication = 0,
+                    FormOfPublication = -1,
                     Required = "",
                     RequireUnitID = "",
                     RequireUnitName = "",
