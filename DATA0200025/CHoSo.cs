@@ -157,6 +157,23 @@ namespace DATA0200025
             return objData;
         }
 
+        public static void Delete_HoSo(long iID_MaHoSo)
+        {
+            try
+            {
+                SqlCommand cmd;
+
+                cmd = new SqlCommand("DELETE FROM CNN25_HoSo WHERE iID_MaHoSo=@iID_MaHoSo");
+                cmd.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+                Connection.UpdateDatabase(cmd);
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         public static int UpDate_TrangThai(long iID_MaHoSo, int iTrangThai)
         {
             int vR = 0;

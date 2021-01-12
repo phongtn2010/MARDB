@@ -109,6 +109,14 @@ namespace DATA0200025.WebServices
                         }
                         else
                         {
+                            //Xoa hso da tao
+                            //Xoa hang hoa va thong tin hang hoa trước
+                            CHangHoa.Delete_HangHoa_HoSo(iID_MaHoSo);
+                            //Xoa dinh kem ho so
+                            CDinhKem.Delete_DinhKem(iID_MaHoSo);
+                            //Xoa ho so
+                            CHoSo.Delete_HoSo(iID_MaHoSo);
+
                             throw new ArgumentNullException();
                         }
                     }
