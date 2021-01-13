@@ -34,13 +34,22 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
                         @{Html.RenderPartial("~/Views/Partial/Partial_Detail.cshtml", hoSo);}
-                        @*<form action="@Url.Action("ThuHoiSubmit", "ChoXuLyKetQua", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                                @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
-                                @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa);
-                                <div class="box-footer clearfix text-center">
-                                    <button class="btn btn-primary btn-sm" type="button">Xuất word</button>
+                        <section class="content" style="min-height: auto;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box box-danger">
+                                        @{Html.RenderPartial("~/Views/Partial/Partial_ThongTinDanhChoCoQuanKiemTra.cshtml", hoSo);}
+                                    </div>
                                 </div>
-                            </form>*@
+                            </div>
+                        </section>
+                        @*<form action="@Url.Action("ThuHoiSubmit", "ChoXuLyKetQua", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
+            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
+            @Html.Hidden(ParentID + "_iID_MaHangHoa", Model.iID_MaHangHoa);
+            <div class="box-footer clearfix text-center">
+                <button class="btn btn-primary btn-sm" type="button">Xuất word</button>
+            </div>
+        </form>*@
                         <div class="box-footer clearfix text-center">
                             <a class="btn btn-primary btnXuatWord" data-id="@Model.iID_MaHangHoa">Xuất word</a>
                             @*<button class="btn btn-success" type="button" data-id="@Model.iID_MaHangHoa" id="btnTrinhLanhDao">Trình lãnh đạo</button>*@
