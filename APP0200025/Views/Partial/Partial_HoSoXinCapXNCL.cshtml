@@ -13,7 +13,7 @@
     GiayChungNhanHopQuyModels giayChungNhan = clHangHoa.GetChungNhanHopQuy(Model.iID_MaHangHoa);
 
     var fileKetQuas = clFileDinhKem.GetFileByHangHoa(Model.iID_MaHangHoa, (int)HamRiengModels.LoaiTapTinDinhKem.PhieuKetQuaPhanTich);
-    var hosoXNCL = clHangHoa.GetHoSoXNCL(Model.iID_MaHangHoa);
+    var hosoXNCL = clHangHoa.GetHoSoXNCL(Model.iID_MaHoSo, Model.iID_MaHangHoa);
     if (hosoXNCL == null)
     {
         hosoXNCL = new HoSoXNCLModels();
@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <h4 class="text-uppercase">Thông tin giấy chứng nhận hợp quy lô TACN nhập khẩu</h4>
                 </div>
-                @if (giayChungNhan != null)
+                @*@if (giayChungNhan != null)
                 {
                     sLinkFile = giayChungNhan.sDuongDan;
 
@@ -89,6 +89,43 @@
                                     </td>
                                     <td align="center">
                                         <a href="@giayChungNhan.sDuongDan"><span class='badge bg-blue'><i class='fa fa-download'></i></span></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                }*@
+                @if (hosoXNCL != null)
+                {
+                    sLinkFile = hosoXNCL.sLinkFileChungNhan;
+
+                    <div class="form-group">
+                        <label for="">Số <span style="color:#FF0000"> (*)</span></label>
+                        @MvcHtmlString.Create(MyHtmlHelper.Label(hosoXNCL.sGiayChungNhan, "sMaHoSo", "", "type=\"text\" class=\"form-control\""))
+                    </div>
+                    <div class="form-group">
+                        <label for="">Ngày cấp <span style="color:#FF0000"> (*)</span></label>
+                        @MvcHtmlString.Create(MyHtmlHelper.Label(hosoXNCL.dNgayCap.ToString("dd/MM/yyyy"), "sNgayCap", "", "type=\"text\" class=\"form-control\""))
+                    </div>
+                    <div class="form-group">
+                        <label for="">File đính kèm <span style="color:#FF0000"> (*)</span></label>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-align-center" style="width: 5%;">STT</th>
+                                    <th class="text-align-center">Tên file</th>
+                                    <th class="text-align-center" style="width: 10%;" colspan="2">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>@hosoXNCL.sTenFileChungNhan</td>
+                                    <td align="center">
+                                        <span class='badge bg-blue btnShowFile' data-src="@hosoXNCL.sLinkFileChungNhan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
+                                    </td>
+                                    <td align="center">
+                                        <a href="@hosoXNCL.sLinkFileChungNhan"><span class='badge bg-blue'><i class='fa fa-download'></i></span></a>
                                     </td>
                                 </tr>
                             </tbody>
