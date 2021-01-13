@@ -10,6 +10,7 @@ using DATA0200025.SearchModels;
 using DATA0200025.WebServices.XmlType.Request;
 using DATA0200025.WebServices;
 using APP0200025.Models;
+using System.Data;
 
 namespace APP0200025.Controllers
 {
@@ -63,15 +64,26 @@ namespace APP0200025.Controllers
                 HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.GuiDNThongBaoYeuCauBoSungKetQua, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
 
+                long iID_MaLichSu = 0;
+                String sNoiDungLichSu = "", sFileLichSu = "";
+                DataTable dtLS = clLichSuHangHoa.GetDataTableBoSungTuChoi(hanghoa.iID_MaHangHoa, hanghoa.iID_MaTrangThai);
+                if (dtLS.Rows.Count > 0)
+                {
+                    iID_MaLichSu = Convert.ToInt64(dtLS.Rows[0]["id"]);
+                    sNoiDungLichSu = Convert.ToString(dtLS.Rows[0]["sNoiDung"]);
+                    sFileLichSu = Convert.ToString(dtLS.Rows[0]["sFile"]);
+                }
+                dtLS.Dispose();
+
                 //XML(18, 21)
                 XuLyKetQua resultConfirm = new XuLyKetQua();
                 resultConfirm.NSWFileCode = hanghoa.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+                resultConfirm.Reason = sNoiDungLichSu;
                 resultConfirm.GoodsId = hanghoa.iID_MaHangHoa;
                 resultConfirm.NameOfGoods = hanghoa.sTenHangHoa;
                 resultConfirm.AttachmentId = "";
-                resultConfirm.FileName = "";
-                resultConfirm.FileLink = "";
+                resultConfirm.FileName = "File Yêu Cầu";
+                resultConfirm.FileLink = sFileLichSu;
                 resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
                 resultConfirm.ResponseDateString = DateTime.Now;
                 string error = _sendService.XuLyKetQua(hanghoa.sMaHoSo, resultConfirm, "21");
@@ -122,15 +134,26 @@ namespace APP0200025.Controllers
                 HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.GuiDNThongBaoYeuCauBoSungKetQua, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
 
+                long iID_MaLichSu = 0;
+                String sNoiDungLichSu = "", sFileLichSu = "";
+                DataTable dtLS = clLichSuHangHoa.GetDataTableBoSungTuChoi(hanghoa.iID_MaHangHoa, hanghoa.iID_MaTrangThai);
+                if (dtLS.Rows.Count > 0)
+                {
+                    iID_MaLichSu = Convert.ToInt64(dtLS.Rows[0]["id"]);
+                    sNoiDungLichSu = Convert.ToString(dtLS.Rows[0]["sNoiDung"]);
+                    sFileLichSu = Convert.ToString(dtLS.Rows[0]["sFile"]);
+                }
+                dtLS.Dispose();
+
                 //XML(18, 21)
                 XuLyKetQua resultConfirm = new XuLyKetQua();
                 resultConfirm.NSWFileCode = hanghoa.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+                resultConfirm.Reason = sNoiDungLichSu;
                 resultConfirm.GoodsId = hanghoa.iID_MaHangHoa;
                 resultConfirm.NameOfGoods = hanghoa.sTenHangHoa;
                 resultConfirm.AttachmentId = "";
-                resultConfirm.FileName = "";
-                resultConfirm.FileLink = "";
+                resultConfirm.FileName = "File Yêu Cầu";
+                resultConfirm.FileLink = sFileLichSu;
                 resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
                 resultConfirm.ResponseDateString = DateTime.Now;
                 string error = _sendService.XuLyKetQua(hanghoa.sMaHoSo, resultConfirm, "21");

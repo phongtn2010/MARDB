@@ -8,6 +8,7 @@ using DATA0200025;
 using DATA0200025.Models;
 using DATA0200025.SearchModels;
 using APP0200025.Models;
+using System.Data;
 
 namespace APP0200025.Controllers
 {
@@ -65,6 +66,17 @@ namespace APP0200025.Controllers
                     }
                     TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
 
+                    long iID_MaLichSu = 0;
+                    String sNoiDungLichSu = "", sFileLichSu = "";
+                    DataTable dtLS = clLichSuHangHoa.GetDataTableBoSungTuChoi(hanghoa.iID_MaHangHoa, hanghoa.iID_MaTrangThai);
+                    if (dtLS.Rows.Count > 0)
+                    {
+                        iID_MaLichSu = Convert.ToInt64(dtLS.Rows[0]["id"]);
+                        sNoiDungLichSu = Convert.ToString(dtLS.Rows[0]["sNoiDung"]);
+                        sFileLichSu = Convert.ToString(dtLS.Rows[0]["sFile"]);
+                    }
+                    dtLS.Dispose();
+
                     bang.MaNguoiDungSua = User.Identity.Name;
                     //bang.IPSua = Request.UserHostAddress;
                     bang.DuLieuMoi = false;
@@ -75,7 +87,7 @@ namespace APP0200025.Controllers
                     bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hanghoa.iID_MaTrangThai);
                     bang.Save();
                     
-                    clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, "Đồng ý", "", hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+                    clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, sNoiDungLichSu, sFileLichSu, hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
                 }
 
                 clHangHoa.CleanNguoiXem(iID_MaHangHoa);
@@ -108,7 +120,18 @@ namespace APP0200025.Controllers
                             HanhDong = (int)clHanhDong.HanhDong.DongYYeuCauBoSungKetQua;
                         }
                         TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
-                        
+
+                        long iID_MaLichSu = 0;
+                        String sNoiDungLichSu = "", sFileLichSu = "";
+                        DataTable dtLS = clLichSuHangHoa.GetDataTableBoSungTuChoi(hanghoa.iID_MaHangHoa, hanghoa.iID_MaTrangThai);
+                        if (dtLS.Rows.Count > 0)
+                        {
+                            iID_MaLichSu = Convert.ToInt64(dtLS.Rows[0]["id"]);
+                            sNoiDungLichSu = Convert.ToString(dtLS.Rows[0]["sNoiDung"]);
+                            sFileLichSu = Convert.ToString(dtLS.Rows[0]["sFile"]);
+                        }
+                        dtLS.Dispose();
+
                         bang.MaNguoiDungSua = User.Identity.Name;
                         bang.IPSua = Request.UserHostAddress;
                         bang.DuLieuMoi = false;
@@ -132,7 +155,7 @@ namespace APP0200025.Controllers
                         
                         bang.Save();
                    
-                        clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, "Đồng ý", "", hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+                        clLichSuHangHoa.InsertLichSu(hanghoa.iID_MaHangHoa, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoPhong, HanhDong, sNoiDungLichSu, sFileLichSu, hanghoa.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
                         clHangHoa.CleanNguoiXem(Convert.ToString(iID_MaHangHoa));
                     }
