@@ -18,6 +18,10 @@
     var lstFileHD = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 100);
     var lstFileHDon = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 101);
     var lstFilePDG = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 102);
+    var lstFileKQPTCL = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 1);
+    var lstFileTCCBAP = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 3);
+    var lstFileGCNLHTD = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 5);
+    var lstFileGCNPTNC = clFileDinhKem.GetFileByLoai(Model.iID_MaHoSo, 8);
     int i = 0;
     List<string> lstPath = new List<string>();
 }
@@ -139,6 +143,130 @@
                 </table><br />
             </div>
         </fieldset>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Thông tin phiếu kết quả phân tích chất lượng của nước xuất khẩu cấp cho lô hàng</legend>
+            <div class="control-group">
+                <table id="tblListData" class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th style="width: 3%; text-align: center;">STT</th>
+                        <th style="text-align: center;">Tên file</th>
+                        <th style="width: 18%; text-align: center;">Xem</th>
+                        <th style="width: 18%; text-align: center;">Tải</th>
+                    </tr>
+                    @foreach (var item in lstFileKQPTCL)
+                    {
+                        i++;
+                        if (i == 1)
+                        {
+                            lstPath.Add(item.sDuongDan);
+                        }
+                        <tr>
+                            <td style="text-align: center;">@i</td>
+                            <td>@item.sTenFile</td>
+                            <td align="center"><span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span></td>
+                            <td align="center">
+                                <a class="openyeucaubosung" href="@item.sDuongDan">
+                                    <span class='badge bg-blue'><i class='fa fa-download'></i></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table><br />
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Thông tin bản tiêu chuẩn công bố áp dụng của tổ chức, cá nhân nhập khẩu</legend>
+            <div class="control-group">
+                <table id="tblListData" class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th style="width: 3%; text-align: center;">STT</th>
+                        <th style="text-align: center;">Tên file</th>
+                        <th style="width: 18%; text-align: center;">Xem</th>
+                        <th style="width: 18%; text-align: center;">Tải</th>
+                    </tr>
+                    @foreach (var item in lstFileTCCBAP)
+                    {
+                        i++;
+                        if (i == 1)
+                        {
+                            lstPath.Add(item.sDuongDan);
+                        }
+                        <tr>
+                            <td style="text-align: center;">@i</td>
+                            <td>@item.sTenFile</td>
+                            <td align="center"><span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span></td>
+                            <td align="center">
+                                <a class="openyeucaubosung" href="@item.sDuongDan">
+                                    <span class='badge bg-blue'><i class='fa fa-download'></i></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table><br />
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Thông tin giấy chứng nhận lưu hành tự do (đối với nguyên liệu đơn, thức ăn truyền thống)</legend>
+            <div class="control-group">
+                <table id="tblListData" class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th style="width: 3%; text-align: center;">STT</th>
+                        <th style="text-align: center;">Tên file</th>
+                        <th style="width: 18%; text-align: center;">Xem</th>
+                        <th style="width: 18%; text-align: center;">Tải</th>
+                    </tr>
+                    @foreach (var item in lstFileGCNLHTD)
+                    {
+                        i++;
+                        if (i == 1)
+                        {
+                            lstPath.Add(item.sDuongDan);
+                        }
+                        <tr>
+                            <td style="text-align: center;">@i</td>
+                            <td>@item.sTenFile</td>
+                            <td align="center"><span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span></td>
+                            <td align="center">
+                                <a class="openyeucaubosung" href="@item.sDuongDan">
+                                    <span class='badge bg-blue'><i class='fa fa-download'></i></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table><br />
+            </div>
+        </fieldset>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Thông tin Giấy chứng nhận phân tích nguy cơ và kiểm soát điểm tới hạn (đối với nguyên liệu đơn)</legend>
+            <div class="control-group">
+                <table id="tblListData" class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th style="width: 3%; text-align: center;">STT</th>
+                        <th style="text-align: center;">Tên file</th>
+                        <th style="width: 18%; text-align: center;">Xem</th>
+                        <th style="width: 18%; text-align: center;">Tải</th>
+                    </tr>
+                    @foreach (var item in lstFileGCNPTNC)
+                    {
+                        i++;
+                        if (i == 1)
+                        {
+                            lstPath.Add(item.sDuongDan);
+                        }
+                        <tr>
+                            <td style="text-align: center;">@i</td>
+                            <td>@item.sTenFile</td>
+                            <td align="center"><span class='badge bg-blue btnview' data-src="@item.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span></td>
+                            <td align="center">
+                                <a class="openyeucaubosung" href="@item.sDuongDan">
+                                    <span class='badge bg-blue'><i class='fa fa-download'></i></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table><br />
+            </div>
+        </fieldset>                
         <fieldset class="scheduler-border">
             <legend class="scheduler-border">Thông tin file đính kèm khác</legend>
             <div class="control-group">
