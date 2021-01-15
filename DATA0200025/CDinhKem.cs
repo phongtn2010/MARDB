@@ -13,7 +13,7 @@ namespace DATA0200025
     public class CDinhKem
     {
         public static long ThemDinhKem(long iID_MaHoSo, long iID_MaHangHoa, int iID_MaLoaiFile, string iID_MaTapTin, string sMaHoSo, string sTenLoaiFile, string sTenFile, string sHopDong, DateTime? dNgayHopDong, int iHoatDong, string sDuongDan,
-            String sUserName, String sIP, long iID_MaFile_Sua = 0)
+            String sUserName, String sIP, long iID_MaFile_Sua = 0, long iID_MaHoSo_XNCL = 0)
         {
             long vR = 0;
 
@@ -23,6 +23,7 @@ namespace DATA0200025
                 bang.MaNguoiDungSua = sUserName;
                 bang.IPSua = sIP;
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSo", iID_MaHoSo);
+                bang.CmdParams.Parameters.AddWithValue("@iID_MaHoSoXNCL", iID_MaHoSo_XNCL);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaHangHoa", iID_MaHangHoa);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaLoaiFile", iID_MaLoaiFile);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTapTin", iID_MaTapTin);

@@ -1,4 +1,5 @@
 ﻿@using System
+@using System.Data
 @using System.Collections.Specialized
 @using DomainModel
 @using DomainModel.Controls
@@ -21,6 +22,19 @@
     int i = 0;
 
     String sKetQua = "", sLinkFile = "";
+
+
+    long iID_MaLichSu = 0;
+    String sTenHanhDong= "", sNoiDungLichSu = "", sFileLichSu = "";
+    DataTable dtLS = clLichSuHangHoa.GetDataTableBoSungTuChoi(Model.iID_MaHangHoa, Model.iID_MaTrangThai);
+    if (dtLS.Rows.Count > 0)
+    {
+        iID_MaLichSu = Convert.ToInt64(dtLS.Rows[0]["id"]);
+        sTenHanhDong = Convert.ToString(dtLS.Rows[0]["sTenHanhDong"]);
+        sNoiDungLichSu = Convert.ToString(dtLS.Rows[0]["sNoiDung"]);
+        sFileLichSu = Convert.ToString(dtLS.Rows[0]["sFile"]);
+    }
+    dtLS.Dispose();
 }
 @*<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>*@
 <section>
@@ -59,42 +73,42 @@
                     <h4 class="text-uppercase">Thông tin giấy chứng nhận hợp quy lô TACN nhập khẩu</h4>
                 </div>
                 @*@if (giayChungNhan != null)
-                {
-                    sLinkFile = giayChungNhan.sDuongDan;
+        {
+            sLinkFile = giayChungNhan.sDuongDan;
 
-                    <div class="form-group">
-                        <label for="">Số <span style="color:#FF0000"> (*)</span></label>
-                        @MvcHtmlString.Create(MyHtmlHelper.Label(giayChungNhan.sSoChungNhan, "sMaHoSo", "", "type=\"text\" class=\"form-control\""))
-                    </div>
-                    <div class="form-group">
-                        <label for="">Ngày cấp <span style="color:#FF0000"> (*)</span></label>
-                        @MvcHtmlString.Create(MyHtmlHelper.Label(giayChungNhan.dNgayCap.ToString("dd/MM/yyyy"), "sNgayCap", "", "type=\"text\" class=\"form-control\""))
-                    </div>
-                    <div class="form-group">
-                        <label for="">File đính kèm <span style="color:#FF0000"> (*)</span></label>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="text-align-center" style="width: 5%;">STT</th>
-                                    <th class="text-align-center">Tên file</th>
-                                    <th class="text-align-center" style="width: 10%;" colspan="2">Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>@giayChungNhan.sTenFile</td>
-                                    <td align="center">
-                                        <span class='badge bg-blue btnShowFile' data-src="@giayChungNhan.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
-                                    </td>
-                                    <td align="center">
-                                        <a href="@giayChungNhan.sDuongDan"><span class='badge bg-blue'><i class='fa fa-download'></i></span></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                }*@
+            <div class="form-group">
+                <label for="">Số <span style="color:#FF0000"> (*)</span></label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label(giayChungNhan.sSoChungNhan, "sMaHoSo", "", "type=\"text\" class=\"form-control\""))
+            </div>
+            <div class="form-group">
+                <label for="">Ngày cấp <span style="color:#FF0000"> (*)</span></label>
+                @MvcHtmlString.Create(MyHtmlHelper.Label(giayChungNhan.dNgayCap.ToString("dd/MM/yyyy"), "sNgayCap", "", "type=\"text\" class=\"form-control\""))
+            </div>
+            <div class="form-group">
+                <label for="">File đính kèm <span style="color:#FF0000"> (*)</span></label>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-align-center" style="width: 5%;">STT</th>
+                            <th class="text-align-center">Tên file</th>
+                            <th class="text-align-center" style="width: 10%;" colspan="2">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>@giayChungNhan.sTenFile</td>
+                            <td align="center">
+                                <span class='badge bg-blue btnShowFile' data-src="@giayChungNhan.sDuongDan"><i class='fa fa-fw fa-eye fa-lg'></i></span>
+                            </td>
+                            <td align="center">
+                                <a href="@giayChungNhan.sDuongDan"><span class='badge bg-blue'><i class='fa fa-download'></i></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }*@
                 @if (hosoXNCL != null)
                 {
                     sLinkFile = hosoXNCL.sLinkFileChungNhan;
@@ -154,6 +168,17 @@
                                 </td>
                             </tr>
                         }
+                    </table>
+                </div>
+                <br /><br /><br />
+                <div class="form-group">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="text-align-left">DÀNH CHO CƠ QUAN KIỂM TRA: @(sTenHanhDong)</th>
+                        </tr>
+                        <tr>
+                            <td align="left">@(sNoiDungLichSu)</td>
+                        </tr>
                     </table>
                 </div>
             </div>

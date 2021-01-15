@@ -829,7 +829,7 @@ namespace DATA0200025.WebServices
                     foreach (var f in lstDinhKem)
                     {
                         iF++;
-                        long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId));
+                        long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId), iID_MaHoSo_XNCL);
                     }
 
                     //Update Trang Thai Hang Hoa
@@ -891,7 +891,7 @@ namespace DATA0200025.WebServices
                         foreach (var f in lstDinhKem)
                         {
                             iF++;
-                            long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ BPMC Bổ Sung XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId));
+                            long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ BPMC Bổ Sung XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId), iID_MaHoSo_XNCL);
                         }
 
                         //Update Trang Thai Hang Hoa
@@ -958,7 +958,7 @@ namespace DATA0200025.WebServices
                         foreach (var f in lstDinhKem)
                         {
                             iF++;
-                            long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo_XNCL, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ Phòng TACN Bổ Sung XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId));
+                            long iFile = CDinhKem.ThemDinhKem(iID_MaHoSo, iID_MaHangHoa, f.fiFileCode, f.fiAttachmentId, sMaHoSo, "File Hồ Sơ Phòng TACN Bổ Sung XNCL", f.fiFileName, null, null, 1, f.fiFileLink, sUserName, sIP, Convert.ToInt64(f.fiAttachmentId), iID_MaHoSo_XNCL);
                         }
 
                         //Update Trang Thai Hang Hoa

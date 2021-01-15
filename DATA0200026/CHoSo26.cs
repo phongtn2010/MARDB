@@ -127,6 +127,25 @@ namespace DATA0200026
             }
         }
 
+        public static int GetThongKe_BieuDo_Ngay(string sNgay)
+        {
+            int vR = 0;
+            try
+            {
+                String SQL = "SELECT COUNT(*) AS TongSo FROM CNN26_HoSo WHERE Cast(datediff(day, 0, dNgayTao) as datetime) >= @dNgayTao";   // _FromDate = 'yyyy-MM-dd'
+
+                SqlCommand cmd = new SqlCommand(SQL);
+                cmd.Parameters.AddWithValue("@dNgayTao", CommonFunction.LayNgayTuXau_YYYYMMDD(sNgay));
+                vR = Convert.ToInt32(Connection.GetValue(cmd, 0, CThamSo.iKetNoi));
+                cmd.Dispose();
+            }
+            catch (Exception ex)
+            {
+                vR = -1;
+            }
+            return vR;
+        }
+
         public static int GetCount_Dashboard(int iID_MaTrangThai)
         {
             SqlCommand cmd = new SqlCommand();

@@ -1130,19 +1130,24 @@ namespace DomainModel
                              .ToList(); // Load dates into a list
         }
 
-        //public static List<DateTime> GetDates(int iBuoc)
-        //{
-        //    DateTime dDayNow = DateTime.Now;
-        //    DateTime fromDay = dDayNow.AddDays(-iBuoc);
-        //    DateTime toDay = dDayNow.AddDays(+iBuoc);
+        public static DataTable GetDates(int iBuoc = 5)
+        {
+            DateTime dDayNow = DateTime.Now;
+            DateTime startDate = dDayNow.AddDays(-iBuoc);
+            DateTime endDate = dDayNow.AddDays(+iBuoc);
+            int totalDays = (int)(endDate - startDate).TotalDays + 1;
 
+            DataTable table = new DataTable();
+            table.Columns.Add("ID", typeof(int));
+            table.Columns.Add("dNgay", typeof(DateTime));
 
-        //    return Enumerable.Range(1, DateTime.DaysInMonth(year, month))
-        //                     // Days: 1, 2 ... 31 etc.
-        //                     .Select(day => fromDay)
-        //                     // Map each day to a date
-        //                     .ToList(); // Load dates into a list
-        //}
+            for (int i = 0; i <= totalDays; i++)
+            {
+                table.Rows.Add(i, startDate.AddDays(i));
+            }
+
+            return table;
+        }
 
         public static Object ThemGiaTriVaoThamSo(SqlParameterCollection Params, String TenTruong, Object GiaTri)
         {
@@ -1325,5 +1330,13 @@ namespace DomainModel
 
             return vR;
         }
+    }
+
+    public class Event
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public DayOfWeek[] DayOfWeekList { get; set; }
+        public string Title { get; set; }
     }
 }
