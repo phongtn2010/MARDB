@@ -76,7 +76,7 @@
                                     iKQ_ChoTiepNhanBoSung = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.ChoTiepNhanKetQuaGuiBoSung, 0);
                                     iKQ_PhongTACNYeuCauBoSung = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.PhongTACNYeuCauBoSungKetQua, 0);
                                     iKQ_DaPheDuyet = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.DaPheDuyetThongBaoKetQua, 0);
-                                    iKQ_DaCapThongBao = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.ChoTiepNhanKetQua, 0);
+                                    iKQ_DaCapThongBao = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.DaCapThongBaoKetQua, 0);
                                     iKQ_TongHso = clHoSo.GetCountHH_Dashboard(-1, -1);
 
                                     <div class="row">
@@ -348,7 +348,7 @@
                                     iKQ_ChoTiepNhanBoSung = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.ChoTiepNhanKetQuaGuiBoSung, 0);
                                     iKQ_PhongTACNYeuCauBoSung = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.PhongTACNYeuCauBoSungKetQua, 0);
                                     iKQ_DaPheDuyet = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.DaPheDuyetThongBaoKetQua, 0);
-                                    iKQ_DaCapThongBao = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.ChoTiepNhanKetQua, 0);
+                                    iKQ_DaCapThongBao = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.DaCapThongBaoKetQua, 0);
                                     iKQ_TongHso = clHoSo.GetCountHH_Dashboard(-1, -1);
 
                                     <div class="row">
@@ -707,6 +707,240 @@
                                     </div><!-- /.row -->
                                     break;
                                 case "1-43":  //Nhóm lãnh đạo cục
+
+                                    iMG_ChoTiepNhan = DATA0200026.CHoSo26.GetCount_Dashboard(1);
+                                    iMG_DaPheDuyet = DATA0200026.CHoSo26.GetCount_Dashboard(3);
+                                    iMG_DaTraKQ = DATA0200026.CHoSo26.GetCount_Dashboard(4);
+                                    iMG_TongHso = DATA0200026.CHoSo26.GetCount_Dashboard(-1);
+
+                                    iGDK_ChoTiepNhan = clHoSo.GetCount_Dashboard((int)clLoaiDanhSach.From.ChoTiepNhanHoSo, 0);
+                                    iGDK_ChoTiepNhanBoSung = clHoSo.GetCount_Dashboard((int)clLoaiDanhSach.From.ChoTiepNhanHoSoGuiBoSung, 0);
+                                    iGDK_PhongTACNYeuCauBoSung = clHoSo.GetCount_Dashboard((int)clLoaiDanhSach.From.BPMC_PhongTACNYeuCauBoSungHoSo, 0);
+                                    iGDK_TuChoiXacNhan = clHoSo.GetCount_Dashboard((int)clLoaiDanhSach.From.BPMC_DaTuChoiXacNhanGDK, 0);
+                                    iGDK_DaPheDuyetKQ = clHoSo.GetCount_Dashboard((int)clLoaiDanhSach.From.BPMC_DaPheDuyetGDK, 0);
+                                    iGDK_DaTra = clHoSo.GetCount_Dashboard((int)clLoaiDanhSach.From.BPMC_DaTraGDK, 0);
+
+                                    iKQ_ChoTiepNhan = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.ChoTiepNhanKetQua, 0);
+                                    iKQ_ChoTiepNhanBoSung = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.ChoTiepNhanKetQuaGuiBoSung, 0);
+                                    iKQ_PhongTACNYeuCauBoSung = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.PhongTACNYeuCauBoSungKetQua, 0);
+                                    iKQ_DaPheDuyet = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.DaPheDuyetThongBaoKetQua, 0);
+                                    iKQ_DaCapThongBao = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.DaCapThongBaoKetQua, 0);
+                                    iKQ_TongHso = clHoSo.GetCountHH_Dashboard(-1, -1);
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-aqua">
+                                                <div class="inner">
+                                                    <h3>@(iMG_TongHso.ToString("#,##"))</h3>
+                                                    <p>Tổng số hồ sơ miễn giảm</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/BoPhanMotCua/List?menu=227" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-3 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-green">
+                                                <div class="inner">
+                                                    <h3>@(iMG_ChoTiepNhan.ToString("#,##"))</h3>
+                                                    <p>Chờ tiếp nhận hồ sơ miễn giảm</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/BoPhanMotCua/MienGiam_ChoTiepNhan?menu=224" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-3 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-yellow">
+                                                <div class="inner">
+                                                    <h3>@(iMG_DaPheDuyet.ToString("#,##"))</h3>
+                                                    <p>Đã phê duyệt hồ sơ</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/BoPhanMotCua/MienGiam_DaDuyet?menu=225" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-3 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-red">
+                                                <div class="inner">
+                                                    <h3>@(iMG_DaTraKQ.ToString("#,##"))</h3>
+                                                    <p>Đã trả kết quả</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/BoPhanMotCua/MienGiam_DaTraKQ?menu=226" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-aqua">
+                                                <div class="inner">
+                                                    <h3>@(iGDK_ChoTiepNhan.ToString("#,##"))</h3>
+                                                    <p>Chờ tiếp nhận hồ sơ</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/ChoTiepNhanHoSo?menu=229" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-green">
+                                                <div class="inner">
+                                                    <h3>@(iGDK_ChoTiepNhanBoSung.ToString("#,##"))</h3>
+                                                    <p>Chờ tiếp nhận hồ sơ gửi bổ sung</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/HoSoYeuCauBoSung?menu=230" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-yellow">
+                                                <div class="inner">
+                                                    <h3>@(iGDK_PhongTACNYeuCauBoSung.ToString("#,##"))</h3>
+                                                    <p>Phòng TACN yêu cầu bổ sung hồ sơ</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/HoSoDaXemXetYeuCauBoSung?menu=231" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-red">
+                                                <div class="inner">
+                                                    <h3>@(iGDK_TuChoiXacNhan.ToString("#,##"))</h3>
+                                                    <p>Đã từ chối xác nhận GĐK</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/BoPhanMotCua/List?menu=227" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-aqua">
+                                                <div class="inner">
+                                                    <h3>@(iGDK_DaPheDuyetKQ.ToString("#,##"))</h3>
+                                                    <p>Đã phê duyệt GĐK</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/HoSoDaPheDuyetGDK?menu=233" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-yellow">
+                                                <div class="inner">
+                                                    <h3>@(iGDK_DaTra.ToString("#,##"))</h3>
+                                                    <p>Đã trả giấy đăng ký</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/DaTraGDK?menu=234" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-aqua">
+                                                <div class="inner">
+                                                    <h3>@(iKQ_TongHso.ToString("#,##"))</h3>
+                                                    <p>Tổng số hồ sơ kết quả</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/TraCuuHangHoa?menu=250" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-green">
+                                                <div class="inner">
+                                                    <h3>@(iKQ_ChoTiepNhan.ToString("#,##"))</h3>
+                                                    <p>Chờ tiếp nhận kết quả</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/ChoTiepNhanKetQua?menu=235" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-yellow">
+                                                <div class="inner">
+                                                    <h3>@(iKQ_ChoTiepNhanBoSung.ToString("#,##"))</h3>
+                                                    <p>Chờ tiếp nhận kết quả gửi bổ sung</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/ChoTiepNhanKetQuaGuiBoSung?menu=236" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-red">
+                                                <div class="inner">
+                                                    <h3>@(iKQ_PhongTACNYeuCauBoSung.ToString("#,##"))</h3>
+                                                    <p>Phòng TACN yêu cầu bổ sung kết quả</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/PhongTACNYeuCauBoSungKetQua?menu=237" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-green">
+                                                <div class="inner">
+                                                    <h3>@(iKQ_DaPheDuyet.ToString("#,##"))</h3>
+                                                    <p>Đã phê duyệt thông báo kết quả</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/DaPheDuyetThongBaoKetQua?menu=238" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-2 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-green">
+                                                <div class="inner">
+                                                    <h3>@(iKQ_DaCapThongBao.ToString("#,##"))</h3>
+                                                    <p>Đã cấp thông báo kết quả</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/DaCapThongBaoKetQua?menu=239" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-md-4">
