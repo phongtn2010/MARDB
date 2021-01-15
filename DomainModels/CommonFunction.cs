@@ -13,6 +13,7 @@ using System.Web;
 using DomainModel.Controls;
 using System.Net.Mail;
 using Microsoft.SqlServer.Server;
+using System.Linq;
 
 namespace DomainModel
 {
@@ -1119,6 +1120,29 @@ namespace DomainModel
             dt.Dispose();
             return list;
         }
+
+        public static List<DateTime> GetDates(int year, int month)
+        {
+            return Enumerable.Range(1, DateTime.DaysInMonth(year, month))
+                             // Days: 1, 2 ... 31 etc.
+                             .Select(day => new DateTime(year, month, day))
+                             // Map each day to a date
+                             .ToList(); // Load dates into a list
+        }
+
+        //public static List<DateTime> GetDates(int iBuoc)
+        //{
+        //    DateTime dDayNow = DateTime.Now;
+        //    DateTime fromDay = dDayNow.AddDays(-iBuoc);
+        //    DateTime toDay = dDayNow.AddDays(+iBuoc);
+
+
+        //    return Enumerable.Range(1, DateTime.DaysInMonth(year, month))
+        //                     // Days: 1, 2 ... 31 etc.
+        //                     .Select(day => fromDay)
+        //                     // Map each day to a date
+        //                     .ToList(); // Load dates into a list
+        //}
 
         public static Object ThemGiaTriVaoThamSo(SqlParameterCollection Params, String TenTruong, Object GiaTri)
         {

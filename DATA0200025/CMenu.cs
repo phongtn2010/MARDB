@@ -186,7 +186,7 @@ namespace DATA0200025
                         }
                         else
                         {
-                            strPG += string.Format("<li><a href=\"{0}\"><i class='fa fa-chevron-circle-right'></i>{1}</a></li>", url, Ten);
+                            strPG += string.Format("<li><a href=\"{0}\"><i class='fa fa-chevron-circle-right'></i><span>{1}</span></a></li>", url, Ten);      //<small class='label pull-right bg-red'>3</small>
                             strPG += strXauMenuCon;
                         }
 

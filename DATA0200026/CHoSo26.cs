@@ -127,6 +127,22 @@ namespace DATA0200026
             }
         }
 
+        public static int GetCount_Dashboard(int iID_MaTrangThai)
+        {
+            SqlCommand cmd = new SqlCommand();
+            string DK = "1=1";
+            if (iID_MaTrangThai > 0)
+            {
+                DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
+            }
+            string SQL = string.Format("SELECT count(iID_MaHoSo) as value FROM CNN26_HoSo WHERE {0} ", DK);
+            cmd.CommandText = SQL;
+            int vR = Convert.ToInt32(Connection.GetValue(cmd, 0, CThamSo.iKetNoi));
+            cmd.Dispose();
+            return vR;
+        }
+
         public static int GetCount(CHoSoSearch models)
         {
             SqlCommand cmd = new SqlCommand();

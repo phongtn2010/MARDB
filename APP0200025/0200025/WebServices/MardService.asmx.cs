@@ -185,26 +185,56 @@ namespace APP0200025._0200025.WebServices
                             if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_15))
                             {
                                 var result = _processingService.SendResultTest(envelop);
-                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                if (result == null)
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_ERROR, false, null);
+
+                                    iTrangThai = -1;
+                                }
+                                else
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS, true, null);
 
-                                iTrangThai = 1;
+                                    iTrangThai = 1;
+                                }
                             }
                             else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_17))
                             {
                                 var result = _processingService.SendResultTestBPMC(envelop);
-                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                if (result == null)
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_ERROR, false, null);
+
+                                    iTrangThai = -1;
+                                }
+                                else
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS, true, null);
 
-                                iTrangThai = 1;
+                                    iTrangThai = 1;
+                                }
                             }
                             else if (envelop.GetFunction().Equals(WsConstants.MessageFunction.FUNCTION_18))
                             {
                                 var result = _processingService.SendResultTestTACN(envelop);
-                                envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                if (result == null)
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
+                                    WsConstants.MessageFunction.FUNC_ERROR, false, null);
+
+                                    iTrangThai = -1;
+                                }
+                                else
+                                {
+                                    envelopReturn = CreateEnvelopReturn(nswFileCode, envelop.GetMessageType(),
                                     WsConstants.MessageFunction.FUNC_SUCCESS, true, null);
 
-                                iTrangThai = 1;
+                                    iTrangThai = 1;
+                                }
                             }
                             else
                             {
