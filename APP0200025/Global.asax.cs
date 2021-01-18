@@ -25,7 +25,7 @@ namespace APP0200025
 
             Connection.ConnectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-            Globals.PageSize = 10;           
+            Globals.PageSize = 10;
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -50,7 +50,7 @@ namespace APP0200025
             {
                 Response.Clear();
                 Server.ClearError(); //make sure you log the exception first
-                //Response.Redirect("/errors", true);
+                Response.Redirect("/errors", true);
             }
         }
 

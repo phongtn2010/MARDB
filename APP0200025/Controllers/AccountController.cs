@@ -612,11 +612,14 @@ namespace APP0200025.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            FormsAuthentication.SignOut();
-            Session.Abandon();
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);            
             Response.Cookies.Clear();
-            return RedirectToAction("Index", "Home");
+            FormsAuthentication.SignOut();
+            HttpCookie c = new HttpCookie("Login");
+            c.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(c);
+            Session.Clear();
+            return RedirectToAction("Login", "Account");
         }
 
         //
