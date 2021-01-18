@@ -43,6 +43,11 @@ namespace APP0200025.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Detail(string iID_MaHangHoa, string smenu)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false)
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             HangHoaModels hangHoa = clHangHoa.GetHangHoaById(iID_MaHangHoa);
 
             ViewData["menu"] = smenu;

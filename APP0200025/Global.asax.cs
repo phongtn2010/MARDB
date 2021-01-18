@@ -34,6 +34,11 @@ namespace APP0200025
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
 
+            if (AntiForgeryConfig.CookieName.Contains("__RequestVerificationToken"))
+            {
+                AntiForgeryConfig.CookieName = "__RequestVerificationToken";
+            }
+
             // Code that runs on application startup
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Interval = 1000;
