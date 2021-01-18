@@ -60,6 +60,7 @@ namespace APP0200025.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [OutputCache(NoStore = true, Location = System.Web.UI.OutputCacheLocation.None)]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -71,6 +72,7 @@ namespace APP0200025.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [OutputCache(NoStore = true, Location = System.Web.UI.OutputCacheLocation.None)]
         public async Task<ActionResult> Login(String ParentID, string returnUrl)
         {
             NameValueCollection values = new NameValueCollection();
@@ -619,6 +621,7 @@ namespace APP0200025.Controllers
             c.Expires = DateTime.Now.AddDays(-1);
             Response.Cookies.Add(c);
             Session.Clear();
+            Session.Abandon();
             return RedirectToAction("Login", "Account");
         }
 

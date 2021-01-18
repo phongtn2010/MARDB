@@ -32,12 +32,8 @@ namespace APP0200025
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
-
-            if (AntiForgeryConfig.CookieName.Contains("__RequestVerificationToken"))
-            {
-                AntiForgeryConfig.CookieName = "__RequestVerificationToken";
-            }
+            AntiForgeryConfig.SuppressIdentityHeuristicChecks = false;
+            MvcHandler.DisableMvcResponseHeader = true;
 
             // Code that runs on application startup
             System.Timers.Timer timer = new System.Timers.Timer();
@@ -45,6 +41,12 @@ namespace APP0200025
             timer.AutoReset = true;
             timer.Elapsed += new System.Timers.ElapsedEventHandler(TimerElapsed);
             timer.Enabled = true;
+        }
+
+        protected void Application_PreSendRequestHeaders()
+        {
+            Response.Headers.Remove("Server");           //Remove Server Header  
+            Response.Headers.Remove("X-AspNet-Version"); //Remove X-AspNet-Version Header
         }
 
         private void Application_Error(object sender, EventArgs e)
@@ -55,7 +57,7 @@ namespace APP0200025
             {
                 Response.Clear();
                 Server.ClearError(); //make sure you log the exception first
-                Response.Redirect("/errors", true);
+                //Response.Redirect("/errors", true);
             }
         }
 
