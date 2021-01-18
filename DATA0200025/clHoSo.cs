@@ -197,8 +197,11 @@ namespace DATA0200025
                 }
                 else
                 {
-                    DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
-                    cmd.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
+                    if(iID_MaTrangThai > -1)
+                    {
+                        DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
+                        cmd.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
+                    }
                 }
             }
                         

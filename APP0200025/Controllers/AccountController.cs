@@ -13,6 +13,7 @@ using Microsoft.Owin.Security;
 using APP0200025.Models;
 using DATA0200025;
 using System.Data;
+using System.Web.Security;
 
 namespace APP0200025.Controllers
 {
@@ -612,6 +613,9 @@ namespace APP0200025.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            Response.Cookies.Clear();
             return RedirectToAction("Index", "Home");
         }
 

@@ -1,4 +1,5 @@
-﻿using DomainModel;
+﻿using DATA0200025;
+using DomainModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -13,6 +14,11 @@ namespace APP0200025.Controllers
         // GET: Log
         public ActionResult Index()
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             return View();
         }
 
@@ -30,6 +36,11 @@ namespace APP0200025.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Delete(string iID_ActionLog_Action)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Delete") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             SqlCommand cmd;
 
             //Xoa danh muc san pham
@@ -43,6 +54,11 @@ namespace APP0200025.Controllers
 
         public ActionResult List()
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             return View();
         }
 
@@ -60,6 +76,11 @@ namespace APP0200025.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult cms_delete(string iID_ActionLog_Action)
         {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Delete") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
             SqlCommand cmd;
 
             //Xoa danh muc san pham

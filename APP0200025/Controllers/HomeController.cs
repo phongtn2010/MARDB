@@ -24,7 +24,6 @@ namespace APP0200025.Controllers
                 return RedirectToAction("Index", "PermitionMessage");
             }
 
-            
             return View();
         }
 
