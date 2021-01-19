@@ -86,7 +86,7 @@ namespace APP0200025.Controllers
                 resultConfirm.SignConfirmPlace = "Hà nội";
                 resultConfirm.SignConfirmName = "Lãnh đạo cục";
                 resultConfirm.NSWFileCodeOld = hoSo.sMaHoSo_ThayThe;
-                resultConfirm.AniFeedConfirmOldNo = hoSo.sSoGDK_ThayThe;
+                resultConfirm.AniFeedConfirmOldNo = hoSo.sSoXacNhan_ThayThe;
                 resultConfirm.ListHangHoa = clHangHoa.GetHoaXND(hoSo.iID_MaHoSo);
                 if (hoSo.iID_MaLoaiHoSo == 1)
                     resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
