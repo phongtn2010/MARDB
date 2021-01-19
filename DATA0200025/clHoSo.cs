@@ -1179,8 +1179,11 @@ namespace DATA0200025
                 }
                 else
                 {
-                    DKHH += " AND iID_MaTrangThai=@iID_MaTrangThai";
-                    cmd.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
+                    if (iID_MaTrangThai > -1)
+                    {
+                        DKHH += " AND iID_MaTrangThai=@iID_MaTrangThai";
+                        cmd.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
+                    }
                 }
             }            
             string SQL = string.Format(@"SELECT * FROM (SELECT COUNT(iID_MaHangHoa) as count FROM(select * from CNN25_HangHoa WHERE {0}) hh
