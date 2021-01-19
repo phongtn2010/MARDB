@@ -24,6 +24,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_1" data-toggle="tab">Giấy đăng ký kiểm tra xác nhận chất lượng</a></li>
                     <li><a href="#tab_2" data-toggle="tab">Lịch sử xử lý hồ sơ</a></li>
+                    <li><a href="#tab_3" data-toggle="tab">Thông báo kết quả lô hàng</a></li>
 
                     <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
                 </ul>
@@ -39,6 +40,13 @@
                         <div class="box-footer clearfix text-center">
                             <button class="btn btn-danger" type="button" onclick="javascript:history.go(-1)">Quay lại</button>
                         </div>
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_3">
+                        @{Html.RenderPartial("~/Views/Partial/Partial_XNCL_ThongBaoKetQua.cshtml", Model);}
+                        <div class="box-footer clearfix text-center">
+                            <a class="btn btn-primary btnXuatWord" data-id="@Model.iID_MaHangHoa" id="btnXuatWord">Xuất word</a>
+                            <button class="btn btn-danger" type="button" onclick="javascript:history.go(-1)">Quay lại</button>
+                        </div>                        
                     </div><!-- /.tab-pane -->
                 </div><!-- /.tab-content -->
             </div><!-- nav-tabs-custom -->

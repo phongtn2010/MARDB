@@ -57,7 +57,7 @@ namespace APP0200025
             {
                 Response.Clear();
                 Server.ClearError(); //make sure you log the exception first
-                //Response.Redirect("/errors", true);
+                Response.Redirect("/errors", true);
             }
         }
 

@@ -327,7 +327,7 @@ namespace DATA0200025
                 //Them hang cuoi cung
                 ananytical = new AnanyticalRequiredList
                 {
-                    AnanyticalName = sSTTKT,
+                    AnanyticalName = item.sTenNhom + ";" + item.sTenLoaiHangHoa + ";" + sSTTKT,
                     FormOfPublication = -1,
                     Required = "",
                     RequireUnitID = "",
