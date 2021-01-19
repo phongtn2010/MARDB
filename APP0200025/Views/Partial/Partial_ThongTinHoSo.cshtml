@@ -59,6 +59,12 @@
             <div class="form-group">
                 <label for="">Số GĐK được thay thế</label>
                 @MvcHtmlString.Create(MyHtmlHelper.Label(Model.sSoXacNhan_ThayThe, "sSoXacNhan_ThayThe", "", "type=\"text\" class=\"form-control\""))
+                @{ 
+                    if(String.IsNullOrEmpty(Model.sLinkDinhKem_ThayThe) == false)
+                    {
+                        <p style="margin-top: 3px;"><a href="@(Model.sLinkDinhKem_ThayThe)"><b>GĐK được thay thế: @(Model.sTenDinhKem_ThayThe)</b></a></p>
+                    }
+                }
             </div>
         </div>
     </div>
