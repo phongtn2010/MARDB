@@ -44,6 +44,7 @@
     int iGDK_ChoTiepNhan = 0, iGDK_ChoTiepNhanBoSung = 0, iGDK_PhongTACNYeuCauBoSung = 0, iGDK_TuChoiXacNhan = 0, iGDK_DaPheDuyetKQ = 0, iGDK_DaTra = 0;
     int iKQ_ChoTiepNhan = 0, iKQ_ChoTiepNhanBoSung = 0, iKQ_PhongTACNYeuCauBoSung = 0, iKQ_DaPheDuyet = 0, iKQ_DaCapThongBao = 0, iKQ_TongHso = 0;
     int iCV_TongGDK = 0, iCV_GDK_ChoXuLy = 0, iCV_XNCL_ChoXuLy = 0, iCV_TongXNCL = 0;
+    int iLDP_TongGDK = 0, iLDP_GDK_ChoXuLy = 0, iLDP_XNCL_ChoXuLy = 0, iLDP_TongXNCL = 0;
 
 }
 <section class="content">
@@ -733,6 +734,65 @@
                                     </div><!-- /.row -->
                                     break;
                                 case "1-42":  //Nhóm lãnh đạo phòng
+                                    iLDP_TongGDK = clHoSo.GetCount_Dashboard(-1, -1);
+                                    iLDP_GDK_ChoXuLy = clHoSo.GetCount_Dashboard((int)clLoaiDanhSach.From.LDP_ChoXemXetHoSo, 0);
+                                    iLDP_XNCL_ChoXuLy = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.ChoXemXetKetQua, 0);
+                                    iLDP_TongXNCL = clHoSo.GetCountHH_Dashboard(-1, -1);
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-aqua">
+                                                <div class="inner">
+                                                    <h3>@(iLDP_TongGDK.ToString("#,##"))</h3>
+                                                    <p>Tổng số hồ sơ đăng ký</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/TraCuuHoSo?menu=251" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-3 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-green">
+                                                <div class="inner">
+                                                    <h3>@(iLDP_GDK_ChoXuLy.ToString("#,##"))</h3>
+                                                    <p>Chờ xem xét hồ sơ</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/LanhDaoPhong?menu=207" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-3 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-yellow">
+                                                <div class="inner">
+                                                    <h3>@(iLDP_TongXNCL.ToString("#,##"))</h3>
+                                                    <p>Tổng số hồ sơ miễn giảm</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/TraCuuHangHoa?menu=252" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-3 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-red">
+                                                <div class="inner">
+                                                    <h3>@(iLDP_XNCL_ChoXuLy.ToString("#,##"))</h3>
+                                                    <p>Chờ xem xét kết quả</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/ChoXemXetKetQua?menu=208" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-md-4">
