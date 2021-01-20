@@ -25,9 +25,9 @@ namespace APP0200025.Controllers
         [HttpPost, ValidateInput(true), Authorize]
         public ActionResult Search(string ParentID)
         {
-            string _TieuDe = CString.SafeString(Request.Form[ParentID + "_TieuDe"]);
-            string _FromDate = CString.SafeString(Request.Form[ParentID + "_FromDate"]);
-            string _ToDate = CString.SafeString(Request.Form[ParentID + "_ToDate"]);
+            string _TieuDe = CString.SafeString(Request.Form[ParentID + "_TieuDe"]).Trim();
+            string _FromDate = CString.SafeString(Request.Form[ParentID + "_FromDate"]).Trim();
+            string _ToDate = CString.SafeString(Request.Form[ParentID + "_ToDate"]).Trim();
             return RedirectToAction("Index", "Log", new { _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate });
         }
 
@@ -65,9 +65,9 @@ namespace APP0200025.Controllers
         [HttpPost, ValidateInput(true), Authorize]
         public ActionResult cms_search(string ParentID)
         {
-            string _TieuDe = CString.SafeString(Request.Form[ParentID + "_TieuDe"]);
-            string _FromDate = CString.SafeString(Request.Form[ParentID + "_FromDate"]);
-            string _ToDate = CString.SafeString(Request.Form[ParentID + "_ToDate"]);
+            string _TieuDe = CString.SafeString(Request.Form[ParentID + "_TieuDe"]).Trim();
+            string _FromDate = CString.SafeString(Request.Form[ParentID + "_FromDate"]).Trim();
+            string _ToDate = CString.SafeString(Request.Form[ParentID + "_ToDate"]).Trim();
             return RedirectToAction("List", "Log", new { _TieuDe = _TieuDe, _FromDate = _FromDate, _ToDate = _ToDate });
         }
 
