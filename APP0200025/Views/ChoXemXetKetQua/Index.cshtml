@@ -54,7 +54,9 @@
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
 
-    DataTable dt = clHoSo.GetDataTableHH(Model, CurrentPage, nMax);
+    string sOrderInput = "iID_MaTrangThai ASC";
+
+    DataTable dt = clHoSo.GetDataTableHH(Model, CurrentPage, nMax, sOrderInput);
     double nums = clHoSo.GetCountHH(Model);
     int RC = dt.Rows.Count;
     int TotalPages = (int)Math.Ceiling(nums / nMax);

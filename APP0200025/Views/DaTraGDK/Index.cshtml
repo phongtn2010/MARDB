@@ -50,7 +50,7 @@
     int nMax = Model.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
 
-    string sOrderInput = "iID_MaHoSo ASC";
+    string sOrderInput = "iID_MaHoSo DESC";
 
     DataTable dt = clHoSo.GetDataTable(Model, CurrentPage, nMax, sOrderInput);
     double nums = clHoSo.GetCount(Model);
