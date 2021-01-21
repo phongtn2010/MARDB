@@ -38,6 +38,8 @@
 
     long iTongHoSoTiepNhan = CHoSo26.GetCount(hoso);
     DataTable dt = clBaoCao.BaoCaoTinhHinhXuLyHoSo(Model);
+
+    String strPrint = Url.Action("Print", "Report", new { sMaSoThue = Model.sMaSoThue, TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
 }
 <script type="text/javascript">
     $(function () {
@@ -160,7 +162,7 @@
                             <thead>
                                 <tr style="height: 40px"><th colspan="21" style="text-align: center; font-size: 14px;">Báo cáo tình hình xử lý hồ sơ</th></tr>
                                 <tr>
-                                    <th style="width: 3%;" style="text-align: center;" rowspan="4">STT</th>
+                                    <th style="width: 3%; text-align: center;" rowspan="4">STT</th>
                                     <th style="text-align: center;" rowspan="4">Tổng số hồ sơ đã tiếp nhận</th>
                                     <th style="text-align: center;" colspan="8">Hồ sơ đã phê duyệt GĐK</th>
                                     <th style="text-align: center;" colspan="11">Hồ sơ chưa phê duyệt GĐK</th>
@@ -267,17 +269,18 @@
                     </div>
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix text-center">
-                    <a class="btn btn-warning btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>
+                    @*<a class="btn btn-warning btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>*@
+                    <a class="btn btn-warning" href="@(strPrint)">Print</a>
                     <a class="btn btn-danger" href="#" onclick="javascript:history.go(-1)">Thoát</a>
                 </div>
             </div>
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
-<script type="text/javascript">
+@*<script type="text/javascript">
     jQuery(document).ready(function ($) {
         $("a.btnXuatWord").click(function (event) {
             $("#divWord").wordExport();
         });
     });
-</script>
+</script>*@

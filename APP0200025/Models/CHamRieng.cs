@@ -51,6 +51,13 @@ namespace APP0200025.Models
             return vR;
         }
 
+        public static void Language()
+        {
+            string lang = "vi-VN";
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture(lang);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture(lang);
+        }
+
         public static string Get_Google_Map_Key()
         {
             string vR = "";

@@ -2890,6 +2890,7 @@
     <Content Include="Scripts\Bang.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ExcelFrom\rptCNN_MC_BaoCao01.xls" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3165,6 +3166,7 @@
     <Content Include="Views\CMS_HoSo\Index.cshtml" />
     <Content Include="Views\CMS_HoSo\Detail.cshtml" />
     <Content Include="Views\Partial\Partial_ThongTinDanhChoCoQuanKiemTraBoSung.cshtml" />
+    <Content Include="Views\Report\Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
