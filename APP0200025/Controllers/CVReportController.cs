@@ -193,20 +193,18 @@ namespace APP0200025.Controllers
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult BaoCao01Search(string ParentID)
         {
-            string _sMaSoThue = CString.SafeString(Request.Form[ParentID + "_DoanhNghiep"]);
             string _TuNgay = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
             string _DenNgay = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
             ReportSearchModels model = new ReportSearchModels
             {
                 TuNgay = _TuNgay,
-                DenNgay = _DenNgay,
-                sMaSoThue = _sMaSoThue
+                DenNgay = _DenNgay
             };
             return RedirectToAction("TinhHinhXuLyHoSo", model);
         }
 
         [Authorize]
-        public ActionResult BaoCao01Print(String sMaSoThue, String TuNgay, String DenNgay)
+        public ActionResult BaoCao01Print(String TuNgay, String DenNgay)
         {
             if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
             {
@@ -216,11 +214,130 @@ namespace APP0200025.Controllers
             //string _sMaSoThue = CString.SafeString(Request.Form[ParentID + "_DoanhNghiep"]);
             //string _TuNgay = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
             //string _DenNgay = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
-            ViewBag.sMaSoThue = sMaSoThue;
             ViewBag.TuNgay = TuNgay;
             ViewBag.DenNgay = DenNgay;
             ViewData["menu"] = 248;
             return View();
+        }
+
+        [Authorize]
+        public ActionResult BaoCao01ViewPDF(String MaND, String sMaSoThue, String TuNgay, String DenNgay)
+        {
+            CHamRieng.Language();
+
+            String sFilePathPrint = "/ExcelFrom/rptCNN_CVBaoCao01.xls";
+            ExcelFile xls = BaoCao01CreateReport(Server.MapPath(sFilePathPrint), MaND, sMaSoThue, TuNgay, DenNgay);
+            using (FlexCelPdfExport pdf = new FlexCelPdfExport())
+            {
+                pdf.Workbook = xls;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    pdf.BeginExport(ms);
+                    pdf.ExportAllVisibleSheets(false, "BaoCao");
+                    pdf.EndExport();
+                    ms.Position = 0;
+                    return File(ms.ToArray(), "application/pdf");
+                }
+            }
+            return null;
+        }
+        public ExcelFile BaoCao01CreateReport(String path, String MaND, String sMaSoThue, String TuNgay, String DenNgay)
+        {
+            XlsFile Result = new XlsFile(true);
+            Result.Open(path);
+
+            ReportSearchModels sModel = new ReportSearchModels
+            {
+                TuNgay = TuNgay,
+                DenNgay = DenNgay,
+                sMaSoThue = sMaSoThue
+            };
+
+            FlexCelReport fr = new FlexCelReport();
+            BaoCao01LoadData(fr, MaND, sModel);
+
+            fr.Run(Result);
+            return Result;
+
+        }
+
+        private void BaoCao01LoadData(FlexCelReport fr, String MaND, ReportSearchModels sModel)
+        {
+            DateTime dNow = DateTime.Now;
+
+            DataTable dtCT = CCongTy.Get_Table_Top();
+            String sTenCongTy = Convert.ToString(dtCT.Rows[0]["sTenCongTy"]);
+            String sDienThoaiCongTy = Convert.ToString(dtCT.Rows[0]["sDienThoai"]);
+            String sDiChi = Convert.ToString(dtCT.Rows[0]["sDiaChi_In"]);
+            Byte[] sLogo = (byte[])dtCT.Rows[0]["sLogo"];
+
+            DataTable dt = clBaoCao.CVBaoCao01_Print(sModel);
+            dt.Columns.Add("sSoLuong", typeof(System.String));
+            dt.Columns.Add("sKhoiLuong", typeof(System.String));
+            dt.Columns.Add("sKhoiLuongTan", typeof(System.String));
+            dt.Columns.Add("sThoiGianNhap", typeof(System.String));
+            dt.Columns.Add("sTenToChucChungNhan", typeof(System.String));
+            dt.Columns.Add("sGiaVN", typeof(System.String));
+            dt.Columns.Add("sGiaUSD", typeof(System.String));
+
+            if (dt.Rows.Count > 0)
+            {
+                DataRow r;
+                for (int i=0; i< dt.Rows.Count; i++)
+                {
+                    r = dt.Rows[i];
+
+                    string sMua_FromDate = "", sMua_ToDate = "";
+
+                    String sKhoiLuong = "", sKhoiLuongTan = "", sSoLuong = "";
+                    DataTable dtKhoiLuong = clHangHoa.Get_ThongTinKhoiLuong(Convert.ToInt64(r["iID_MaHangHoa"]));
+                    if (dtKhoiLuong.Rows.Count > 0)
+                    {
+                        for (int k = 0; k < dtKhoiLuong.Rows.Count; k++)
+                        {
+                            sKhoiLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhKL"]) + "; ";
+                            sKhoiLuongTan += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]) + "; ";
+                            sSoLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rSoLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhSL"]) + "; ";
+                        }
+                    }
+                    dtKhoiLuong.Dispose();
+
+                    HoSoXNCLModels hsXNCL = clHangHoa.GetHoSoXNCL(Convert.ToInt64(r["iID_MaHoSo"]), Convert.ToInt64(r["iID_MaHangHoa"]));
+
+                    if (String.IsNullOrEmpty(Convert.ToString(r["sMua_FromDate"])) == false)
+                    {
+                        sMua_FromDate = Convert.ToDateTime(r["sMua_FromDate"]).ToString("dd/MM/yyyy");
+                    }
+                    if (String.IsNullOrEmpty(Convert.ToString(r["sMua_ToDate"])) == false)
+                    {
+                        sMua_ToDate = Convert.ToDateTime(r["sMua_ToDate"]).ToString("dd/MM/yyyy");
+                    }
+
+                    r["sGiaVN"] = CommonFunction.DinhDangSo(r["rGiaVN"]);
+                    r["sGiaUSD"] = CommonFunction.DinhDangSo(r["rGiaUSD"]);
+
+                    r["sSoLuong"] = sSoLuong;
+                    r["sKhoiLuong"] = sKhoiLuong;
+                    r["sKhoiLuongTan"] = sKhoiLuongTan;
+                    r["sThoiGianNhap"] = Convert.ToString(sMua_FromDate + " - " + sMua_ToDate);
+                    r["sTenToChucChungNhan"] = Convert.ToString(hsXNCL.sTenToChuc);
+                }
+            }
+            dt.Dispose();
+
+            dt.TableName = "ChiTiet";
+            fr.AddTable("ChiTiet", dt);
+
+            fr.SetValue("TenCongTy", sTenCongTy);
+            //fr.SetValue("DienThoaiCongTy", sDienThoaiCongTy);
+            //fr.SetValue("DiaChiCongTy", sDiChi);
+
+            fr.SetValue("Ngay", dNow.Day);
+            fr.SetValue("Thang", dNow.Month);
+            fr.SetValue("Nam", dNow.Year);
+
+            fr.SetValue("TuNgay", sModel.TuNgay);
+            fr.SetValue("DenNgay", sModel.DenNgay);
         }
         #endregion
     }

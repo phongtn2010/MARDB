@@ -36,9 +36,29 @@
     CHoSoSearch hoso = new CHoSoSearch();
     hoso.iID_MaTrangThai = -1;
 
-    DataTable dt = clBaoCao.CVBaoCao01(Model);
+    String page = CString.SafeString(Request.QueryString["page"]);
+    int CurrentPage = 1;
 
-    String strPrint = Url.Action("TinhHinhXuLyHoSoPrint", "CVReport", new { sMaSoThue = Model.sMaSoThue, TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+    if (String.IsNullOrEmpty(page) == false)
+    {
+        CurrentPage = Convert.ToInt32(page);
+    }
+
+    int nMax = Globals.PageSize;
+    int iTu = (CurrentPage - 1) * nMax;
+    DataTable dt = clBaoCao.CVBaoCao01(Model, CurrentPage, nMax);
+    double nums = clBaoCao.CVBaoCao01_Count(Model);
+    int RC = dt.Rows.Count;
+    int TotalPages = (int)Math.Ceiling(nums / nMax);
+
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("BaoCao01", "CVReport", new
+    {
+        TuNgay = Model.TuNgay,
+        DenNgay = Model.DenNgay,
+        page = x
+    }));
+
+    String strPrint = Url.Action("BaoCao01Print", "CVReport", new { TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
 }
 <script type="text/javascript">
     $(function () {
@@ -183,7 +203,7 @@
                                             for (int k = 0; k < dtKhoiLuong.Rows.Count; k++)
                                             {
                                                 sKhoiLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhKL"]) + "; ";
-                                                sKhoiLuongTan += Convert.ToString(dtKhoiLuong.Rows[k]["sKhoiLuongTan"]) + "; ";
+                                                sKhoiLuongTan += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]) + "; ";
                                                 sSoLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rSoLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhSL"]) + "; ";
                                             }
                                         }
@@ -232,10 +252,15 @@
                         </table>
                     </div>
                 </div><!-- /.box-body -->
-                <div class="box-footer clearfix text-center">
-                    @*<a class="btn btn-warning btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>*@
-                    <a class="btn btn-warning" href="@(strPrint)">Print</a>
-                    <a class="btn btn-danger" href="#" onclick="javascript:history.go(-1)">Thoát</a>
+                <div class="box-footer clearfix">
+                    <div class="col-xs-6">
+                        @*<a class="btn btn-warning btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>*@
+                        <a class="btn btn-warning" href="@(strPrint)">Print</a>
+                        <a class="btn btn-danger" href="#" onclick="javascript:history.go(-1)">Thoát</a>
+                    </div>
+                    <div class="col-xs-6">
+                        @MvcHtmlString.Create(strPhanTrang)
+                    </div>
                 </div>
             </div>
         </div><!-- /.col -->

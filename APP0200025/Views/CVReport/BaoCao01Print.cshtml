@@ -1,0 +1,46 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using DATA0200025.SearchModels
+@using APP0200025.App_Code
+@using APP0200025.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_cms.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Index";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+
+    string TenBang = "CNN25_HoSo";
+    String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
+
+    String TuNgay = ViewBag.TuNgay;
+    String DenNgay = ViewBag.DenNgay;
+    String MaND = User.Identity.Name;
+}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <iframe src="@Url.Action("BaoCao01ViewPDF", "CVReport", new { MaND = MaND, TuNgay= TuNgay, DenNgay= DenNgay })" height="800px" width="100%"></iframe>
+        </div>
+    </div>
+</section><!-- /.content -->

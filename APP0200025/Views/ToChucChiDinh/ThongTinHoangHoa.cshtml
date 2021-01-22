@@ -113,6 +113,8 @@
                                             String strSend = MyHtmlHelper.ActionLink(Url.Action("GuiKetQua", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], iID_MaHangHoa = R["iID_MaHangHoa"], sMaHoSo = _sMaHoSo, sTenHangHoa = R["sTenHangHoa"], sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-fw fa-paper-plane-o'></i></span>", "Edit", "onclick=\"sendConfim(this);\"");
                                             String strView = MyHtmlHelper.ActionLink(Url.Action("XemKetQuaUpload", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], sTenHangHoa = R["sTenHangHoa"], iID_MaHangHoa = R["iID_MaHangHoa"], _sMaHoSo = _sMaHoSo, _sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Edit", "");
 
+                                            String strSendGuiLai = MyHtmlHelper.ActionLink(Url.Action("GuiLaiKetQua", "ToChucChiDinh", new { iID_MaHoSo = R["iID_MaHoSo"], iID_MaHangHoa = R["iID_MaHangHoa"], sMaHoSo = _sMaHoSo, sTenHangHoa = R["sTenHangHoa"], sSoTiepNhan = _sSoTiepNhan }), "<span class='badge bg-blue'><i class='fa fa-fw fa-paper-plane-o'></i></span>", "Edit", "");
+
                                             <tr>
                                                 <td style="text-align: center;">@iSTT.ToString()</td>
                                                 <td>@R["sTenHangHoa"]</td>
@@ -145,6 +147,12 @@
                                                             {
                                                                 <span>Chưa xử lý</span>
                                                             }
+                                                        }
+                                                    }
+                                                    @{
+                                                        if (User.Identity.Name.ToUpper() == "ADMIN")
+                                                        {
+                                                            @MvcHtmlString.Create(strSendGuiLai)
                                                         }
                                                     }
                                                 </td>

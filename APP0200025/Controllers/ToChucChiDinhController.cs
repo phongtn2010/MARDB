@@ -223,7 +223,106 @@ namespace APP0200025.Controllers
             ViewData["menu"] = 244;
             return View();
         }
-        
+
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult GuiLaiKetQua(string iID_MaHoSo, string iID_MaHangHoa, string sMaHoSo, string sTenHangHoa, string sSoTiepNhan)
+        {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, bang.TenBang, "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+            ViewData["DuLieuMoi"] = "0";
+            ViewData["menu"] = 244;
+            ViewData["iID_MaHoSo"] = iID_MaHoSo;
+            ViewData["iID_MaHangHoa"] = iID_MaHangHoa;
+            ViewData["sMaHoSo"] = sMaHoSo;
+            ViewData["sTenHangHoa"] = sTenHangHoa;
+            ViewData["sSoTiepNhan"] = sSoTiepNhan;
+            return View();
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult GuiKetQuaSubmit(String ParentID, string iID_MaHoSo, string iID_MaHangHoa, string sTenHangHoa)
+        {
+            string sMaHangHoa = CString.SafeString(Request.Form[ParentID + "_sMaHangHoa"]);
+
+            if (string.IsNullOrEmpty(iID_MaHoSo))
+            {
+                TempData["msg"] = "error";
+                return RedirectToAction("Index");
+            }
+            if (string.IsNullOrEmpty(iID_MaHangHoa))
+            {
+                TempData["msg"] = "error";
+                return RedirectToAction("Index");
+            }
+
+            HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
+
+            DataTable dtCNHQ = CToChucChiDinh.Get_ChungNhanHopQuy(Convert.ToInt64(iID_MaHoSo), Convert.ToInt64(iID_MaHangHoa));
+            DataTable dtKQPT = CToChucChiDinh.Get_KetQuaPhanTich(Convert.ToInt64(iID_MaHoSo), Convert.ToInt64(iID_MaHangHoa));
+
+            int iKetQua = 0;
+            if(dtCNHQ.Rows.Count > 0)
+            {
+                if (Convert.ToBoolean(dtCNHQ.Rows[0]["bKetQuaDanhGia"]) == true)
+                {
+                    iKetQua = 2;
+                }
+                else
+                {
+                    iKetQua = 1;
+                }
+
+            }
+
+
+            //XML 16(14)
+            TCCDGuiKetQuaKT resNSW = new TCCDGuiKetQuaKT();
+            resNSW.NSWFileCode = hoSo.sMaHoSo;
+            resNSW.AssignID = Convert.ToString(dtCNHQ.Rows[0]["sMaTCCD"]);
+            resNSW.AssignName = Convert.ToString(dtCNHQ.Rows[0]["sTenTCCD"]);
+            resNSW.GoodsId = Convert.ToInt64(sMaHangHoa);
+            resNSW.NameOfGoods = sTenHangHoa;
+            resNSW.ResultTest = iKetQua;
+            resNSW.TestConfirmNumber = Convert.ToString(dtCNHQ.Rows[0]["sSoChungNhan"]);
+            resNSW.TestConfirmDateString = Convert.ToDateTime(dtCNHQ.Rows[0]["dNgayCap"]);
+            resNSW.TestConfirmAttachmentId = Convert.ToString(dtCNHQ.Rows[0]["iID_ChungNhanHopQuy"]); ;
+            resNSW.TestConfirmFileName = Convert.ToString(dtCNHQ.Rows[0]["sTenFile"]); ;
+            resNSW.TestConfirmFileLink = Convert.ToString(dtCNHQ.Rows[0]["sDuongDan"]);
+
+            if (dtKQPT.Rows.Count > 0)
+            {
+                List<AttachmentResult> lstFile = new List<AttachmentResult>();
+
+                for (int i = 0; i < dtKQPT.Rows.Count; i++)
+                {
+                    lstFile.Add(new AttachmentResult { FileCode = 71, AttachmentId = Convert.ToString(dtKQPT.Rows[0]["iID_KetQuaPhanTich"]), FileName = Convert.ToString(dtKQPT.Rows[0]["sTenFile"]), FileLink = Convert.ToString(dtKQPT.Rows[0]["sDuongDan"]) });
+                }
+
+                resNSW.ListAttachmentResults = lstFile;
+            }
+            dtKQPT.Dispose();
+            dtCNHQ.Dispose();
+
+            string error = _sendService.TCCDGuiKetQuaKT(hoSo.sMaHoSo, resNSW);
+            if (error.Equals("99"))
+            {
+                CHoSo.UpDate_TrangThai(Convert.ToInt64(iID_MaHoSo), 28);
+                CHangHoa.UpDate_TrangThai(Convert.ToInt64(iID_MaHangHoa), 28);
+
+                clLichSuHoSo.InsertLichSuNsw(Convert.ToInt64(iID_MaHoSo), User.Identity.Name, User.Identity.Name, (int)clDoiTuong.DoiTuong.ToChucChiDinh, (int)clHanhDong.HanhDong.UpLoadKetQuaKiemTra, "", "", 27, "Chờ kết quả đánh giá sự phù hợp", 28);
+
+                TempData["msg"] = "success";
+            }
+            else
+            {
+                TempData["msg"] = "error";
+            }
+
+            return RedirectToAction("ThongTinHoangHoa", "ToChucChiDinh", new { iID_MaHoSo = iID_MaHoSo.ToString() });
+        }
+
         [HttpPost]
         public object GetUpload(string iID_MaHoSo, string iID_MaHangHoa)
         {
