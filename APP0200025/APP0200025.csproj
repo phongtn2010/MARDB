@@ -266,6 +266,7 @@
     <Compile Include="Controllers\ChoXemXetKetQuaController.cs" />
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="Controllers\CMS_HoSoController.cs" />
+    <Compile Include="Controllers\CVReportController.cs" />
     <Compile Include="Controllers\HoSoController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\LogController.cs" />
@@ -3167,6 +3168,8 @@
     <Content Include="Views\CMS_HoSo\Detail.cshtml" />
     <Content Include="Views\Partial\Partial_ThongTinDanhChoCoQuanKiemTraBoSung.cshtml" />
     <Content Include="Views\Report\Print.cshtml" />
+    <Content Include="Views\CVReport\TinhHinhXuLyHoSo.cshtml" />
+    <Content Include="Views\CVReport\TinhHinhXuLyHoSoPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

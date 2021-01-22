@@ -13,7 +13,7 @@
 @model ReportSearchModels
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_cms.cshtml";
     string userName = User.Identity.Name;
     String ServerURL = CHamRieng.Get_Domain();
     String sDate = DateTime.Now.ToString("dd/MM/yyyy");
@@ -36,10 +36,9 @@
     CHoSoSearch hoso = new CHoSoSearch();
     hoso.iID_MaTrangThai = -1;
 
-    long iTongHoSoTiepNhan = CHoSo26.GetCount(hoso);
-    DataTable dt = clBaoCao.BaoCaoTinhHinhXuLyHoSo(Model);
+    DataTable dt = clBaoCao.CVBaoCaoTinhHinhXuLyHoSo(Model);
 
-    String strPrint = Url.Action("Print", "Report", new { sMaSoThue = Model.sMaSoThue, TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+    String strPrint = Url.Action("TinhHinhXuLyHoSoPrint", "CVReport", new { sMaSoThue = Model.sMaSoThue, TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
 }
 <script type="text/javascript">
     $(function () {
@@ -59,7 +58,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("sTinhHinhXuLyHoSo", "Report", new { ParentID = ParentID }, FormMethod.Post, new { id = "formReports", @class = "form-horizontal" }))
+                @using (Html.BeginForm("sTinhHinhXuLyHoSo", "CVReport", new { ParentID = ParentID }, FormMethod.Post, new { id = "formReports", @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
@@ -99,7 +98,6 @@
                         </div>
                     </div>
                 }
-
                 <script type="text/javascript">
                     $(document).ready(function () {
                         var iTrangThai = '@(Convert.ToString(Model.sMaSoThue))';
@@ -225,10 +223,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(dt.Rows.Count>0)
+                                @if (dt.Rows.Count > 0)
                                 {
                                     DataRow r = dt.Rows[0];
-                                    int c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17, c18, c19;
+                                    int c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19;
                                     c3 = Convert.ToInt32(r["c3"]); c4 = Convert.ToInt32(r["c4"]); c5 = Convert.ToInt32(r["c5"]);
                                     c7 = Convert.ToInt32(r["c7"]); c8 = Convert.ToInt32(r["c8"]); c9 = Convert.ToInt32(r["c9"]);
                                     c11 = Convert.ToInt32(r["c11"]); c12 = Convert.ToInt32(r["c12"]); c15 = Convert.ToInt32(r["c15"]);
@@ -241,28 +239,28 @@
                                     c2 = c3 + c4;
                                     c1 = c2 + c10 + c13;
 
-                                <tr>
-                                    <td align="center">1</td>
-                                    <td align="left">@CommonFunction.DinhDangSo(c1)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c2)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c3)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c4)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c5)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c6)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c7)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c8)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c9)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c10)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c11)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c12)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c13)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c14)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c15)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c16)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c17)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c18)</td>
-                                    <td align="center">@CommonFunction.DinhDangSo(c19)</td>
-                                </tr>
+                                    <tr>
+                                        <td align="center">1</td>
+                                        <td align="left">@CommonFunction.DinhDangSo(c1)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c2)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c3)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c4)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c5)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c6)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c7)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c8)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c9)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c10)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c11)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c12)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c13)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c14)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c15)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c16)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c17)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c18)</td>
+                                        <td align="center">@CommonFunction.DinhDangSo(c19)</td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
@@ -278,9 +276,9 @@
     </div><!-- /.row -->
 </section><!-- /.content -->
 @*<script type="text/javascript">
-    jQuery(document).ready(function ($) {
-        $("a.btnXuatWord").click(function (event) {
-            $("#divWord").wordExport();
+        jQuery(document).ready(function ($) {
+            $("a.btnXuatWord").click(function (event) {
+                $("#divWord").wordExport();
+            });
         });
-    });
-</script>*@
+    </script>*@

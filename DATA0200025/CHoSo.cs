@@ -11,6 +11,7 @@ using DomainModel;
 using System.Data;
 using DATA0200025.WebServices.XmlType.Request;
 using DATA0200025.WebServices;
+using DomainModel.Controls;
 
 namespace DATA0200025
 {
@@ -458,6 +459,35 @@ namespace DATA0200025
             }
 
             return vR;
+        }
+
+        public static DataTable Get_DanhSach_DoanhNghiep()
+        {
+            DataTable vR;
+
+            string SQL = "SELECT DISTINCT sMaSoThue, sTenDoanhNghiep FROM CNN25_HoSo ORDER BY sTenDoanhNghiep";
+            SqlCommand cmd = new SqlCommand(SQL);
+            vR = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+            cmd.Dispose();
+
+            return vR;
+        }
+
+        public static SelectOptionList DDLDoanhNghiep(bool TatCa = true)
+        {
+            DataTable dt = Get_DanhSach_DoanhNghiep();
+            DataRow r;
+            if (TatCa)
+            {
+                dt.Rows.InsertAt(dt.NewRow(), 0);
+                dt.Rows[0]["sMaSoThue"] = "";
+                dt.Rows[0]["sTenDoanhNghiep"] = "--- Tất cả ---";
+            }
+
+            SelectOptionList DDL = new SelectOptionList(dt, "sMaSoThue", "sTenDoanhNghiep");
+            dt.Dispose();
+
+            return DDL;
         }
     }
 }
