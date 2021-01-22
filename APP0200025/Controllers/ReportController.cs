@@ -19,6 +19,7 @@ namespace APP0200025.Controllers
     public class ReportController : Controller
     {
         // GET: Report
+        [Authorize]
         public ActionResult TinhHinhXuLyHoSo(ReportSearchModels model)
         {
             if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
@@ -65,7 +66,7 @@ namespace APP0200025.Controllers
             ViewData["menu"] = 240;
             return View();
         }
-
+        [Authorize]
         public ActionResult ViewPDF(String MaND, String sMaSoThue, String TuNgay, String DenNgay)
         {
             CHamRieng.Language();

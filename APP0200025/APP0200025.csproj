@@ -3170,6 +3170,7 @@
     <Content Include="Views\Report\Print.cshtml" />
     <Content Include="Views\CVReport\TinhHinhXuLyHoSo.cshtml" />
     <Content Include="Views\CVReport\TinhHinhXuLyHoSoPrint.cshtml" />
+    <Content Include="Views\CVReport\BaoCao01.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

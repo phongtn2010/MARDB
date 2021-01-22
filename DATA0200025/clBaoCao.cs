@@ -153,5 +153,35 @@ namespace DATA0200025
             cmd.Dispose();
             return dt;
         }
+
+        public static DataTable CVBaoCao01(ReportSearchModels model)
+        {
+            string DK = "1=1", DKHH = "1=1";
+            SqlCommand cmd = new SqlCommand();
+
+            DKHH += " AND iID_MaTrangThai=@iID_MaTrangThai";
+            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
+
+            if (!string.IsNullOrEmpty(model.TuNgay))
+            {
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
+            }
+            if (!string.IsNullOrEmpty(model.TuNgay))
+            {
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
+            }
+
+            string SQL = string.Format(@"SELECT * FROM (SELECT hh.*,
+                                        hs.sLoaiHinhThucKiemTra,hs.sTenDoanhNghiep,hs.sMua_DiaChi,hs.sMua_NoiNhan,hs.sMua_FromDate,hs.sMua_ToDate,hs.dNgayTaoHoSo,hs.sSoTiepNhan,hs.dNgayTiepNhan,hs.sSoGDK,hs.dNgayXacNhan,hs.sBan_NoiXuat
+                                        FROM(select * from CNN25_HangHoa WHERE {0}) hh
+                                        INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH, DK);
+            cmd.CommandText = SQL;
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return dt;
+        }
     }
 }

@@ -19,7 +19,8 @@ namespace APP0200025.Controllers
     public class CVReportController : Controller
     {
         // GET: CVReport
-        #region BaoCao01
+        #region TinhHinhXuLyHoSo
+        [Authorize]
         public ActionResult TinhHinhXuLyHoSo(ReportSearchModels model)
         {
             if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
@@ -66,7 +67,7 @@ namespace APP0200025.Controllers
             ViewData["menu"] = 247;
             return View();
         }
-
+        [Authorize]
         public ActionResult TinhHinhXuLyHoSoViewPDF(String MaND, String sMaSoThue, String TuNgay, String DenNgay)
         {
             CHamRieng.Language();
@@ -173,5 +174,54 @@ namespace APP0200025.Controllers
         }
         #endregion
 
+        #region BaoCao01
+        [Authorize]
+        public ActionResult BaoCao01(ReportSearchModels model)
+        {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
+            if (model == null)
+            {
+                model = new ReportSearchModels { };
+            }
+            ViewData["menu"] = 248;
+            return View(model);
+        }
+        [Authorize, AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult BaoCao01Search(string ParentID)
+        {
+            string _sMaSoThue = CString.SafeString(Request.Form[ParentID + "_DoanhNghiep"]);
+            string _TuNgay = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
+            string _DenNgay = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
+            ReportSearchModels model = new ReportSearchModels
+            {
+                TuNgay = _TuNgay,
+                DenNgay = _DenNgay,
+                sMaSoThue = _sMaSoThue
+            };
+            return RedirectToAction("TinhHinhXuLyHoSo", model);
+        }
+
+        [Authorize]
+        public ActionResult BaoCao01Print(String sMaSoThue, String TuNgay, String DenNgay)
+        {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
+            //string _sMaSoThue = CString.SafeString(Request.Form[ParentID + "_DoanhNghiep"]);
+            //string _TuNgay = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
+            //string _DenNgay = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
+            ViewBag.sMaSoThue = sMaSoThue;
+            ViewBag.TuNgay = TuNgay;
+            ViewBag.DenNgay = DenNgay;
+            ViewData["menu"] = 248;
+            return View();
+        }
+        #endregion
     }
 }
