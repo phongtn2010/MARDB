@@ -29,7 +29,7 @@ namespace DATA0200025
             DataTable dt = Get_ToChucChiDinh();
             dt.Rows.InsertAt(dt.NewRow(), 0);
             dt.Rows[0]["sMaTCCD"] = "";
-            dt.Rows[0]["sTen"] = "-- Tất cả --";
+            dt.Rows[0]["sTen"] = "-- Cục Chăn Nuôi --";
             SelectOptionList DDL = new SelectOptionList(dt, "sMaTCCD", "sTen");
             return DDL;
         }
