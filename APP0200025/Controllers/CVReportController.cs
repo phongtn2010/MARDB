@@ -501,7 +501,7 @@ namespace APP0200025.Controllers
                     dtKhoiLuong.Dispose();
 
                     sKhoiLuongTan = rKhoiLuongTan.ToString("#,##");
-                    sGiaTriUSD = Convert.ToDouble(r["rGiaVND"]).ToString("#,##");
+                    sGiaTriUSD = Convert.ToDouble(r["rGiaVN"]).ToString("#,##");
 
                     r["sKhoiLuongTan"] = sKhoiLuongTan;
                     r["sGiaTriUSD"] = sGiaTriUSD;
