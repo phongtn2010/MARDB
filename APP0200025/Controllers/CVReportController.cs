@@ -543,5 +543,37 @@ namespace APP0200025.Controllers
             }
         }
         #endregion
+
+        #region BaoCao03
+        [Authorize]
+        public ActionResult BaoCao03(ReportSearchModels model)
+        {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
+            if (model == null)
+            {
+                model = new ReportSearchModels { };
+            }
+            ViewData["menu"] = 263;
+            return View(model);
+        }
+        [Authorize, AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult BaoCao03Search(string ParentID)
+        {
+            string _TuNgay = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
+            string _DenNgay = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
+            string sNuocSanXuat = CString.SafeString(Request.Form[ParentID + "_NuocSanXuat"]);
+            ReportSearchModels model = new ReportSearchModels
+            {
+                TuNgay = _TuNgay,
+                DenNgay = _DenNgay,
+                sNuocSanXuat = sNuocSanXuat
+            };
+            return RedirectToAction("BaoCao03", model);
+        }
+        #endregion
     }
 }

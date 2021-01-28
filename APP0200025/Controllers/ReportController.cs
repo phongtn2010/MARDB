@@ -169,7 +169,24 @@ namespace APP0200025.Controllers
             fr.SetValue("c17", CommonFunction.DinhDangSo(c17));
             fr.SetValue("c18", CommonFunction.DinhDangSo(c18));
             fr.SetValue("c19", CommonFunction.DinhDangSo(c19));
+        }
 
+        public clsExcelResult ExpExcel(String sMaSoThue, String TuNgay, String DenNgay)
+        {
+            string sMaND = User.Identity.Name;
+            String sFilePath = "/ExcelFrom/rptCNN_MC_BaoCao01.xls";
+            clsExcelResult clsResult = new clsExcelResult();
+            ExcelFile xls = CreateReport(Server.MapPath(sFilePath), sMaND, sMaSoThue, TuNgay, DenNgay);
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                xls.Save(ms);
+                ms.Position = 0;
+                clsResult.ms = ms;
+                clsResult.FileName = "BC_TinhHinhXuLyHoSo.xls";
+                clsResult.type = "xls";
+                return clsResult;
+            }
         }
     }
 }

@@ -118,8 +118,17 @@
                         </div>
                     </div>
                 }
-                <script type="text/javascript">
+            <script type="text/javascript">
                     $(document).ready(function () {
+                        var iTrangThai = '@(Convert.ToString(Model.sNuocSanXuat))';
+                        if (iTrangThai != null) {
+                            $('#Index_NuocSanXuat').val(iTrangThai);
+                            $('#Index_NuocSanXuat').multiselect('rebuild');
+                        }
+                        else {
+                            $('#Index_NuocSanXuat').val(0);
+                            $('#Index_NuocSanXuat').multiselect('rebuild');
+                        }
                         $('#formReports').bootstrapValidator({
                             message: 'This value is not valid',
                             feedbackIcons: {
@@ -151,7 +160,7 @@
                             $('#formReports').data('bootstrapValidator').resetForm(true);
                         });
                     });
-                </script>
+            </script>
             </div><!-- /.box -->
         </div><!-- /.col -->
     </div>
