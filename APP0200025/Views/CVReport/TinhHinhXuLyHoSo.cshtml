@@ -39,6 +39,7 @@
     DataTable dt = clBaoCao.CVBaoCaoTinhHinhXuLyHoSo(Model);
 
     String strPrint = Url.Action("TinhHinhXuLyHoSoPrint", "CVReport", new { sMaSoThue = Model.sMaSoThue, TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+    String strExport = Url.Action("TinhHinhXuLyHoSoExpExcel", "CVReport", new { sMaSoThue = Model.sMaSoThue, TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
 }
 <script type="text/javascript">
     $(function () {
@@ -266,6 +267,7 @@
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix text-center">
                     @*<a class="btn btn-warning btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>*@
+                    <a class="btn btn-primary" href="@(strExport)">Xuất excel</a>
                     <a class="btn btn-warning" href="@(strPrint)">Print</a>
                     <a class="btn btn-danger" href="#" onclick="javascript:history.go(-1)">Thoát</a>
                 </div>

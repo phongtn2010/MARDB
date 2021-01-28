@@ -31,7 +31,7 @@
     }
     Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
 
-    SelectOptionList ddlDN = CHoSo.DDLDoanhNghiep();
+    SelectOptionList ddlNuocSanXuat = CHangHoa.DDLNuocSanXuat();
 
     CHoSoSearch hoso = new CHoSoSearch();
     hoso.iID_MaTrangThai = -1;
@@ -46,20 +46,21 @@
 
     int nMax = Globals.PageSize;
     int iTu = (CurrentPage - 1) * nMax;
-    DataTable dt = clBaoCao.CVBaoCao01(Model, CurrentPage, nMax);
-    double nums = clBaoCao.CVBaoCao01_Count(Model);
+    DataTable dt = clBaoCao.CVBaoCao02(Model, CurrentPage, nMax);
+    double nums = clBaoCao.CVBaoCao02_Count(Model);
     int RC = dt.Rows.Count;
     int TotalPages = (int)Math.Ceiling(nums / nMax);
 
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("BaoCao01", "CVReport", new
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("BaoCao02", "CVReport", new
     {
+        sMaSoThue = Model.sNuocSanXuat,
         TuNgay = Model.TuNgay,
         DenNgay = Model.DenNgay,
         page = x
     }));
 
-    String strPrint = Url.Action("BaoCao01Print", "CVReport", new { TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
-    String strExport = Url.Action("BaoCao01ExpExcel", "CVReport", new { TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+    String strPrint = Url.Action("BaoCao02Print", "CVReport", new { sNuocSanXuat = Model.sNuocSanXuat, TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+    String strExport = Url.Action("BaoCao02ExpExcel", "CVReport", new { sNuocSanXuat = Model.sNuocSanXuat, TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
 }
 <script type="text/javascript">
     $(function () {
@@ -79,7 +80,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("BaoCao01Search", "CVReport", new { ParentID = ParentID }, FormMethod.Post, new { id = "formReports", @class = "form-horizontal" }))
+                @using (Html.BeginForm("BaoCao02Search", "CVReport", new { ParentID = ParentID }, FormMethod.Post, new { id = "formReports", @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
@@ -101,6 +102,12 @@
                                         @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgay, "DenNgay", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-2 text-align-right"><label class="control-label">Nước sản xuất</label></div>
+                            <div class="col-xs-10">
+                                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ddlNuocSanXuat, Convert.ToString(Model.sNuocSanXuat), "NuocSanXuat", "", "class=\"form-control\""))
                             </div>
                         </div>
                     </div><!-- /.box-body -->
@@ -152,7 +159,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title text-uppercase">THỐNG KÊ LÔ HÀNG THEO THÁNG ĐÃ CÓ KẾT QUẢ KIỂM TRA</h3>
+                    <h3 class="box-title text-uppercase">THỐNG KÊ KHỐI LƯỢNG, GIÁ TRỊ NHẬP KHẨU</h3>
                     <ul class="pagination pagination-sm no-margin pull-right">
                         <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
                     </ul>
@@ -162,30 +169,11 @@
                         <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
                             <thead>
                                 <tr>
-                                    <th style="text-align: center;" align="center">STT</th>
-                                    <th style="text-align: center;" align="center">Mã hồ sơ</th>
-                                    <th style="text-align: center;" align="center">Số tiếp nhận</th>
-                                    <th style="text-align: center;" align="center">Doanh nghiệp</th>
-                                    <th style="text-align: center;" align="center">Địa chỉ</th>
+                                    <th style="text-align: center; width: 5px;" align="center">STT</th>
                                     <th style="text-align: center;" align="center">Tên TACN</th>
-                                    <th style="text-align: center;" align="center">Mã số công nhận TACN</th>
-                                    <th style="text-align: center;" align="center">Nhóm TACN</th>
-                                    <th style="text-align: center;" align="center">Phân nhóm TACN</th>
-                                    <th style="text-align: center;" align="center">Loại TACN</th>
-                                    <th style="text-align: center;" align="center">Phân loại</th>
-                                    <th style="text-align: center;" align="center">Bản chất</th>
-                                    <th style="text-align: center;" align="center">Số lượng</th>
-                                    <th style="text-align: center;" align="center">Khối lượng</th>
-                                    <th style="text-align: center;" align="center">Khối lượng (Tấn)</th>
-                                    <th style="text-align: center;" align="center">Giá trị hàng hóa</th>
-                                    <th style="text-align: center;" align="center">Đơn vị tính giá trị hàng hóa</th>
-                                    <th style="text-align: center;" align="center">Giá trị hàng hóa (USD)</th>
-                                    <th style="text-align: center;" align="center">Nước sản xuất</th>
-                                    <th style="text-align: center;" align="center">Cảng nhập khẩu</th>
-                                    <th style="text-align: center;" align="center">Thời gian</th>
-                                    <th style="text-align: center;" align="center">Hình thức kiểm tra</th>
-                                    <th style="text-align: center;" align="center">Số giấy chứng nhận hợp quy</th>
-                                    <th style="text-align: center;" align="center">Tên tổ chức đánh giá sự phù hợp</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Khối lượng (tấn)</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Giá trị lô hàng (USD)</th>
+                                    <th style="text-align: center; width: 15%;" align="center">Số lô</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -195,57 +183,27 @@
                                     {
                                         DataRow r = dt.Rows[i];
 
-                                        string sMua_FromDate = "", sMua_ToDate = "";
-
-                                        String sKhoiLuong = "", sKhoiLuongTan = "", sSoLuong = "";
+                                        String sGiaTriUSD = "", sKhoiLuongTan = "";
+                                        Double rKhoiLuongTan = 0;
                                         DataTable dtKhoiLuong = clHangHoa.Get_ThongTinKhoiLuong(Convert.ToInt64(r["iID_MaHangHoa"]));
                                         if (dtKhoiLuong.Rows.Count > 0)
                                         {
                                             for (int k = 0; k < dtKhoiLuong.Rows.Count; k++)
                                             {
-                                                sKhoiLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhKL"]) + "; ";
-                                                sKhoiLuongTan += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]) + "; ";
-                                                sSoLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rSoLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhSL"]) + "; ";
+                                                rKhoiLuongTan += Convert.ToDouble(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]);
                                             }
                                         }
                                         dtKhoiLuong.Dispose();
 
-                                        HoSoXNCLModels hsXNCL = clHangHoa.GetHoSoXNCL(Convert.ToInt64(r["iID_MaHoSo"]), Convert.ToInt64(r["iID_MaHangHoa"]));
-
-                                        if (String.IsNullOrEmpty(Convert.ToString(r["sMua_FromDate"])) == false)
-                                        {
-                                            sMua_FromDate = Convert.ToDateTime(r["sMua_FromDate"]).ToString("dd/MM/yyyy");
-                                        }
-                                        if (String.IsNullOrEmpty(Convert.ToString(r["sMua_ToDate"])) == false)
-                                        {
-                                            sMua_ToDate = Convert.ToDateTime(r["sMua_ToDate"]).ToString("dd/MM/yyyy");
-                                        }
+                                        sKhoiLuongTan = rKhoiLuongTan.ToString("#,##");
+                                        sGiaTriUSD = Convert.ToDouble(r["rGiaVND"]).ToString("#,##");
 
                                         <tr>
                                             <td align="center">@r["rownum"]</td>
-                                            <td align="left">@Convert.ToString(r["sMaHoSo"])</td>
-                                            <td align="left">@Convert.ToString(r["sSoTiepNhan"])</td>
-                                            <td align="left">@Convert.ToString(r["sTenDoanhNghiep"])</td>
-                                            <td align="left">@Convert.ToString(r["sMua_DiaChi"])</td>
                                             <td align="left">@Convert.ToString(r["sTenHangHoa"])</td>
-                                            <td align="left">@Convert.ToString(r["sMaSoCongNhan"])</td>
-                                            <td align="left">@Convert.ToString(r["sTenNhom"])</td>
-                                            <td align="left">@Convert.ToString(r["sTenPhanNhom"])</td>
-                                            <td align="left">@Convert.ToString(r["sTenLoaiHangHoa"])</td>
-                                            <td align="left">@Convert.ToString(r["sTenPhanLoai"])</td>
-                                            <td align="left">@Convert.ToString(r["sBanChat"])</td>
-                                            <td align="left">@(sSoLuong)</td>
-                                            <td align="left">@sKhoiLuong</td>
-                                            <td align="left">@sKhoiLuongTan</td>
-                                            <td align="right">@CommonFunction.DinhDangSo(r["rGiaVN"])</td>
-                                            <td align="left">@Convert.ToString(r["sDonViTinh"])</td>
-                                            <td align="right">@CommonFunction.DinhDangSo(r["rGiaUSD"])</td>
-                                            <td align="left">@Convert.ToString(r["sTenQuocGia"])</td>
-                                            <td align="left">@Convert.ToString(r["sMua_NoiNhan"])</td>
-                                            <td align="left">@Convert.ToString(sMua_FromDate + " - " + sMua_ToDate)</td>
-                                            <td align="left">@Convert.ToString(r["sLoaiHinhThucKiemTra"])</td>
-                                            <td align="left">@Convert.ToString(r["sSoThongBaoKetQua"])</td>
-                                            <td align="left">@Convert.ToString(hsXNCL.sTenToChuc)</td>
+                                            <td align="left">@Convert.ToString(sKhoiLuongTan)</td>
+                                            <td align="left">@Convert.ToString(sGiaTriUSD)</td>
+                                            <td align="left">@Convert.ToString(r["sSoGDK"])</td>
                                         </tr>
                                     }
                                 }

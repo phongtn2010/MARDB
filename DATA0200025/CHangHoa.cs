@@ -1,5 +1,6 @@
 ﻿using DomainModel;
 using DomainModel.Abstract;
+using DomainModel.Controls;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -379,6 +380,35 @@ namespace DATA0200025
             }
 
             return vR;
+        }
+
+        public static DataTable Get_DanhSach_NuocSanXuat()
+        {
+            DataTable vR;
+
+            string SQL = "SELECT DISTINCT sMaQuocGia, sTenQuocGia FROM CNN25_HangHoa ORDER BY sTenQuocGia;";
+            SqlCommand cmd = new SqlCommand(SQL);
+            vR = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+            cmd.Dispose();
+
+            return vR;
+        }
+
+        public static SelectOptionList DDLNuocSanXuat(bool TatCa = true)
+        {
+            DataTable dt = Get_DanhSach_NuocSanXuat();
+            DataRow r;
+            if (TatCa)
+            {
+                dt.Rows.InsertAt(dt.NewRow(), 0);
+                dt.Rows[0]["sMaQuocGia"] = "";
+                dt.Rows[0]["sTenQuocGia"] = "--- Tất cả ---";
+            }
+
+            SelectOptionList DDL = new SelectOptionList(dt, "sMaQuocGia", "sTenQuocGia");
+            dt.Dispose();
+
+            return DDL;
         }
     }
 }

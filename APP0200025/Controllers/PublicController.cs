@@ -13,6 +13,7 @@ using DATA0200025;
 using APP0200025.Models;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace APP0200025.Controllers
 {
@@ -82,6 +83,34 @@ namespace APP0200025.Controllers
                 _sCode = sCode
             };
             return base.Json(vR, JsonRequestBehavior.AllowGet);
+        }
+    }
+
+    public class clsExcelResult : ActionResult
+    {
+        public string FileName { get; set; }
+        public string Path { get; set; }
+        public MemoryStream ms { get; set; }
+        public String type { get; set; }
+        public override void ExecuteResult(ControllerContext context)
+        {
+            try
+            {
+                context.HttpContext.Response.Buffer = true;
+                context.HttpContext.Response.Clear();
+                context.HttpContext.Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                context.HttpContext.Response.ContentType = "application/vnd." + type;
+                if (string.IsNullOrEmpty(Path) == false)
+                {
+                    context.HttpContext.Response.WriteFile(Path);
+                }
+                else
+                {
+                    context.HttpContext.Response.BinaryWrite(ms.ToArray());
+                }
+                context.HttpContext.Response.End();
+            }
+            catch { }
         }
     }
 }

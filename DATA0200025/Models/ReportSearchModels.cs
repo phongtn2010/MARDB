@@ -12,5 +12,6 @@ namespace DATA0200025.Models
         public string DenNgay { get; set; }
 
         public string sMaSoThue { get; set; }
+        public string sNuocSanXuat { get; set; }
     }
 }
