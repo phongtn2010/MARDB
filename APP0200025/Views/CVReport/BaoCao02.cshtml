@@ -53,7 +53,7 @@
 
     String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("BaoCao02", "CVReport", new
     {
-        sMaSoThue = Model.sNuocSanXuat,
+        sNuocSanXuat = Model.sNuocSanXuat,
         TuNgay = Model.TuNgay,
         DenNgay = Model.DenNgay,
         page = x

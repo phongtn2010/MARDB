@@ -56,5 +56,29 @@ namespace DATA0200025
             return vR;
         }
 
+        public static DataTable GetDataTable_TenKhoa(string sTenBang)
+        {
+            DataTable vR;
+            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE sTenKhoa=@sTenKhoa ORDER BY sTen";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@sTenKhoa", sTenBang);
+            vR = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+            cmd.Dispose();
+            return vR;
+        }
+
+        public static SelectOptionList GetDDL_TenKhoa(string sTenBang, bool TatCa = true)
+        {
+            DataTable dt = GetDataTable_TenKhoa(sTenBang);
+            DataRow r;
+            if (TatCa)
+            {
+                dt.Rows.InsertAt(dt.NewRow(), 0);
+                dt.Rows[0]["sMa"] = "";
+                dt.Rows[0]["sTen"] = "--- Tất cả ---";
+            }
+            SelectOptionList DDL = new SelectOptionList(dt, "sMa", "sTen");
+            return DDL;
+        }
     } 
 }

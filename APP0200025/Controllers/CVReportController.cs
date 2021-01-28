@@ -565,7 +565,7 @@ namespace APP0200025.Controllers
         {
             string _TuNgay = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
             string _DenNgay = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
-            string sNuocSanXuat = CString.SafeString(Request.Form[ParentID + "_NuocSanXuat"]);
+            string sNuocSanXuat = CString.SafeString(Request.Form[ParentID + "_PhanLoai"]);
             ReportSearchModels model = new ReportSearchModels
             {
                 TuNgay = _TuNgay,
@@ -573,6 +573,141 @@ namespace APP0200025.Controllers
                 sNuocSanXuat = sNuocSanXuat
             };
             return RedirectToAction("BaoCao03", model);
+        }
+        [Authorize]
+        public ActionResult BaoCao03Print(String sNuocSanXuat, String TuNgay, String DenNgay)
+        {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
+            //string _sMaSoThue = CString.SafeString(Request.Form[ParentID + "_DoanhNghiep"]);
+            //string _TuNgay = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
+            //string _DenNgay = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
+            ViewBag.sNuocSanXuat = sNuocSanXuat;
+            ViewBag.TuNgay = TuNgay;
+            ViewBag.DenNgay = DenNgay;
+            ViewData["menu"] = 263;
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult BaoCao03ViewPDF(String MaND, String sNuocSanXuat, String TuNgay, String DenNgay)
+        {
+            CHamRieng.Language();
+
+            String sFilePathPrint = "/ExcelFrom/rptCNN_CVBaoCao03.xls";
+            ExcelFile xls = BaoCao03CreateReport(Server.MapPath(sFilePathPrint), MaND, sNuocSanXuat, TuNgay, DenNgay);
+            using (FlexCelPdfExport pdf = new FlexCelPdfExport())
+            {
+                pdf.Workbook = xls;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    pdf.BeginExport(ms);
+                    pdf.ExportAllVisibleSheets(false, "BaoCao");
+                    pdf.EndExport();
+                    ms.Position = 0;
+                    return File(ms.ToArray(), "application/pdf");
+                }
+            }
+            return null;
+        }
+
+        public ExcelFile BaoCao03CreateReport(String path, String MaND, String sNuocSanXuat, String TuNgay, String DenNgay)
+        {
+            XlsFile Result = new XlsFile(true);
+            Result.Open(path);
+
+            ReportSearchModels sModel = new ReportSearchModels
+            {
+                TuNgay = TuNgay,
+                DenNgay = DenNgay,
+                sNuocSanXuat = sNuocSanXuat
+            };
+
+            FlexCelReport fr = new FlexCelReport();
+            BaoCao02LoadData(fr, MaND, sModel);
+
+            fr.Run(Result);
+            return Result;
+
+        }
+
+        private void BaoCao03LoadData(FlexCelReport fr, String MaND, ReportSearchModels sModel)
+        {
+            DateTime dNow = DateTime.Now;
+
+            DataTable dtCT = CCongTy.Get_Table_Top();
+            String sTenCongTy = Convert.ToString(dtCT.Rows[0]["sTenCongTy"]);
+            String sDienThoaiCongTy = Convert.ToString(dtCT.Rows[0]["sDienThoai"]);
+            String sDiChi = Convert.ToString(dtCT.Rows[0]["sDiaChi_In"]);
+            Byte[] sLogo = (byte[])dtCT.Rows[0]["sLogo"];
+
+            DataTable dt = clBaoCao.CVBaoCao03_Print(sModel);
+            dt.Columns.Add("sKhoiLuongTan", typeof(System.String));
+            dt.Columns.Add("sGiaTriUSD", typeof(System.String));
+
+            if (dt.Rows.Count > 0)
+            {
+                DataRow r;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    r = dt.Rows[i];
+
+                    String sGiaTriUSD = "", sKhoiLuongTan = "";
+                    Double rKhoiLuongTan = 0;
+                    DataTable dtKhoiLuong = clHangHoa.Get_ThongTinKhoiLuong(Convert.ToInt64(r["iID_MaHangHoa"]));
+                    if (dtKhoiLuong.Rows.Count > 0)
+                    {
+                        for (int k = 0; k < dtKhoiLuong.Rows.Count; k++)
+                        {
+                            rKhoiLuongTan += Convert.ToDouble(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]);
+                        }
+                    }
+                    dtKhoiLuong.Dispose();
+
+                    sKhoiLuongTan = rKhoiLuongTan.ToString("#,##");
+                    sGiaTriUSD = Convert.ToDouble(r["rGiaVN"]).ToString("#,##");
+
+                    r["sKhoiLuongTan"] = sKhoiLuongTan;
+                    r["sGiaTriUSD"] = sGiaTriUSD;
+                }
+            }
+            dt.Dispose();
+
+            dt.TableName = "ChiTiet";
+            fr.AddTable("ChiTiet", dt);
+
+            fr.SetValue("TenCongTy", sTenCongTy);
+            //fr.SetValue("DienThoaiCongTy", sDienThoaiCongTy);
+            //fr.SetValue("DiaChiCongTy", sDiChi);
+
+            fr.SetValue("Ngay", dNow.Day);
+            fr.SetValue("Thang", dNow.Month);
+            fr.SetValue("Nam", dNow.Year);
+
+            fr.SetValue("NuocSanXuat", sModel.sNuocSanXuat);
+            fr.SetValue("TuNgay", sModel.TuNgay);
+            fr.SetValue("DenNgay", sModel.DenNgay);
+        }
+
+        public clsExcelResult BaoCao03ExpExcel(String sNuocSanXuat, String TuNgay, String DenNgay)
+        {
+            string sMaND = User.Identity.Name;
+            String sFilePath = "/ExcelFrom/rptCNN_CVBaoCao03.xls";
+            clsExcelResult clsResult = new clsExcelResult();
+            ExcelFile xls = BaoCao03CreateReport(Server.MapPath(sFilePath), sMaND, sNuocSanXuat, TuNgay, DenNgay);
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                xls.Save(ms);
+                ms.Position = 0;
+                clsResult.ms = ms;
+                clsResult.FileName = "BC_BAOCAO03.xls";
+                clsResult.type = "xls";
+                return clsResult;
+            }
         }
         #endregion
     }
