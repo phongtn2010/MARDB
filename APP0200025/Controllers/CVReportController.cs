@@ -657,6 +657,31 @@ namespace APP0200025.Controllers
             Byte[] sLogo = (byte[])dtCT.Rows[0]["sLogo"];
 
             DataTable dt = clBaoCao.CVBaoCao03(sModel);
+            dt.Columns.Add("sTyLeKL", typeof(System.String));
+            dt.Columns.Add("sTyLeGT", typeof(System.String));
+
+            if (dt.Rows.Count > 0)
+            {
+                Double rTongKL = 0, rTongTL = 0;
+
+                DataRow r;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    r = dt.Rows[i];
+
+                    String sTyLeXNCL = "", sTyLeKL = "", sTyLeGT = "";
+
+                    rTongKL = Convert.ToDouble(dt.Compute("SUM(sKhoiLuongTan)", string.Empty));
+                    rTongTL = Convert.ToDouble(dt.Compute("SUM(sGiaTriUSD)", string.Empty));
+
+                    sTyLeKL = Convert.ToString(Convert.ToDouble(r["sKhoiLuongTan"]) / rTongKL * 100);
+                    sTyLeGT = Convert.ToString(Convert.ToDouble(r["sGiaTriUSD"]) / rTongTL * 100);
+
+                    r["sTyLeKL"] = sTyLeKL;
+                    r["sTyLeGT"] = sTyLeGT;
+                }
+            }
+            dt.Dispose();
 
             dt.TableName = "ChiTiet";
             fr.AddTable("ChiTiet", dt);
