@@ -2894,6 +2894,7 @@
     <Content Include="ExcelFrom\rptCNN_MC_BaoCao01.xls" />
     <Content Include="ExcelFrom\rptCNN_CVBaoCao01.xls" />
     <Content Include="ExcelFrom\rptCNN_CVBaoCao02.xls" />
+    <Content Include="ExcelFrom\rptCNN_CVBaoCao03.xls" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

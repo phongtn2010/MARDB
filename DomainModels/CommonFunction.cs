@@ -47,6 +47,33 @@ namespace DomainModel
             return true;
         }
 
+        public static DataTable SearchInAllColums(DataTable table, string keyword)
+        {
+            StringComparison comparison = StringComparison.OrdinalIgnoreCase;
+
+            if (keyword.Equals(""))
+            {
+                return table;
+            }
+
+            DataRow[] filteredRows = table.Rows
+                   .Cast<DataRow>()
+                   .Where(r => r.ItemArray.Any(
+                   c => c.ToString().IndexOf(keyword, comparison) >= 0))
+                   .ToArray();
+
+            if (filteredRows.Length == 0)
+            {
+                DataTable dtTemp = table.Clone();
+                dtTemp.Clear();
+                return dtTemp;
+            }
+            else
+            {
+                return filteredRows.CopyToDataTable();
+            }
+        }
+
         /// <summary>
         /// iC0 = 12:00 thì giá trị trả lại là Giờ lệch +7 so với giờ Việt Nam
         /// </summary>

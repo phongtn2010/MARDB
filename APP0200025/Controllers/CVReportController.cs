@@ -405,6 +405,8 @@ namespace APP0200025.Controllers
                 DenNgay = _DenNgay,
                 sNuocSanXuat = sNuocSanXuat
             };
+
+            DataTable dtNuocSanXuatVal = CommonFunction.SearchInAllColums(CHangHoa.Get_DanhSach_NuocSanXuat(), model.sNuocSanXuat);
             return RedirectToAction("BaoCao02", model);
         }
         [Authorize]
@@ -477,6 +479,8 @@ namespace APP0200025.Controllers
             String sDiChi = Convert.ToString(dtCT.Rows[0]["sDiaChi_In"]);
             Byte[] sLogo = (byte[])dtCT.Rows[0]["sLogo"];
 
+            DataTable dtNuocSanXuatVal = CommonFunction.SearchInAllColums(CHangHoa.Get_DanhSach_NuocSanXuat(), sModel.sNuocSanXuat);
+
             DataTable dt = clBaoCao.CVBaoCao02_Print(sModel);
             dt.Columns.Add("sKhoiLuongTan", typeof(System.String));
             dt.Columns.Add("sGiaTriUSD", typeof(System.String));
@@ -520,7 +524,15 @@ namespace APP0200025.Controllers
             fr.SetValue("Thang", dNow.Month);
             fr.SetValue("Nam", dNow.Year);
 
-            fr.SetValue("NuocSanXuat", sModel.sNuocSanXuat);
+            if(dtNuocSanXuatVal.Rows.Count > 0)
+            {
+                fr.SetValue("NuocSanXuat", Convert.ToString(dtNuocSanXuatVal.Rows[0]["sTenQuocGia"]));
+            }
+            else
+            {
+                fr.SetValue("NuocSanXuat", "");
+            }
+            
             fr.SetValue("TuNgay", sModel.TuNgay);
             fr.SetValue("DenNgay", sModel.DenNgay);
         }
@@ -627,7 +639,7 @@ namespace APP0200025.Controllers
             };
 
             FlexCelReport fr = new FlexCelReport();
-            BaoCao02LoadData(fr, MaND, sModel);
+            BaoCao03LoadData(fr, MaND, sModel);
 
             fr.Run(Result);
             return Result;
@@ -687,7 +699,7 @@ namespace APP0200025.Controllers
             fr.SetValue("Thang", dNow.Month);
             fr.SetValue("Nam", dNow.Year);
 
-            fr.SetValue("NuocSanXuat", sModel.sNuocSanXuat);
+            fr.SetValue("PhanLoaiTACN", sModel.sNuocSanXuat);
             fr.SetValue("TuNgay", sModel.TuNgay);
             fr.SetValue("DenNgay", sModel.DenNgay);
         }
