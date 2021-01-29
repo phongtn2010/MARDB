@@ -51,7 +51,7 @@ namespace DomainModel
         {
             StringComparison comparison = StringComparison.OrdinalIgnoreCase;
 
-            if (keyword.Equals(""))
+            if (String.IsNullOrEmpty(keyword)==true)
             {
                 return table;
             }

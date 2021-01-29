@@ -406,7 +406,6 @@ namespace APP0200025.Controllers
                 sNuocSanXuat = sNuocSanXuat
             };
 
-            DataTable dtNuocSanXuatVal = CommonFunction.SearchInAllColums(CHangHoa.Get_DanhSach_NuocSanXuat(), model.sNuocSanXuat);
             return RedirectToAction("BaoCao02", model);
         }
         [Authorize]
@@ -479,7 +478,7 @@ namespace APP0200025.Controllers
             String sDiChi = Convert.ToString(dtCT.Rows[0]["sDiaChi_In"]);
             Byte[] sLogo = (byte[])dtCT.Rows[0]["sLogo"];
 
-            DataTable dtNuocSanXuatVal = CommonFunction.SearchInAllColums(CHangHoa.Get_DanhSach_NuocSanXuat(), sModel.sNuocSanXuat);
+            //DataTable dtNuocSanXuatVal = CommonFunction.SearchInAllColums(CHangHoa.Get_DanhSach_NuocSanXuat(), sModel.sNuocSanXuat);
 
             DataTable dt = clBaoCao.CVBaoCao02_Print(sModel);
             dt.Columns.Add("sKhoiLuongTan", typeof(System.String));
@@ -524,9 +523,10 @@ namespace APP0200025.Controllers
             fr.SetValue("Thang", dNow.Month);
             fr.SetValue("Nam", dNow.Year);
 
-            if(dtNuocSanXuatVal.Rows.Count > 0)
+            DataRow[] filteredRows = CHangHoa.Get_DanhSach_NuocSanXuat().Select("sMaQuocGia = '" + sModel.sNuocSanXuat + "'");
+            if (filteredRows.Length == 1)
             {
-                fr.SetValue("NuocSanXuat", Convert.ToString(dtNuocSanXuatVal.Rows[0]["sTenQuocGia"]));
+                fr.SetValue("NuocSanXuat", Convert.ToString(filteredRows[0]["sTenQuocGia"]));
             }
             else
             {
@@ -656,37 +656,7 @@ namespace APP0200025.Controllers
             String sDiChi = Convert.ToString(dtCT.Rows[0]["sDiaChi_In"]);
             Byte[] sLogo = (byte[])dtCT.Rows[0]["sLogo"];
 
-            DataTable dt = clBaoCao.CVBaoCao03_Print(sModel);
-            dt.Columns.Add("sKhoiLuongTan", typeof(System.String));
-            dt.Columns.Add("sGiaTriUSD", typeof(System.String));
-
-            if (dt.Rows.Count > 0)
-            {
-                DataRow r;
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    r = dt.Rows[i];
-
-                    String sGiaTriUSD = "", sKhoiLuongTan = "";
-                    Double rKhoiLuongTan = 0;
-                    DataTable dtKhoiLuong = clHangHoa.Get_ThongTinKhoiLuong(Convert.ToInt64(r["iID_MaHangHoa"]));
-                    if (dtKhoiLuong.Rows.Count > 0)
-                    {
-                        for (int k = 0; k < dtKhoiLuong.Rows.Count; k++)
-                        {
-                            rKhoiLuongTan += Convert.ToDouble(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]);
-                        }
-                    }
-                    dtKhoiLuong.Dispose();
-
-                    sKhoiLuongTan = rKhoiLuongTan.ToString("#,##");
-                    sGiaTriUSD = Convert.ToDouble(r["rGiaVN"]).ToString("#,##");
-
-                    r["sKhoiLuongTan"] = sKhoiLuongTan;
-                    r["sGiaTriUSD"] = sGiaTriUSD;
-                }
-            }
-            dt.Dispose();
+            DataTable dt = clBaoCao.CVBaoCao03(sModel);
 
             dt.TableName = "ChiTiet";
             fr.AddTable("ChiTiet", dt);
@@ -699,7 +669,15 @@ namespace APP0200025.Controllers
             fr.SetValue("Thang", dNow.Month);
             fr.SetValue("Nam", dNow.Year);
 
-            fr.SetValue("PhanLoaiTACN", sModel.sNuocSanXuat);
+            DataRow[] filteredRows = clDanhMuc.GetDataTable_TenKhoa("PHANLOAITACN").Select("sMa = '" + sModel.sNuocSanXuat + "'");
+            if (filteredRows.Length == 1)
+            {
+                fr.SetValue("PhanLoaiTACN", Convert.ToString(filteredRows[0]["sTen"]));
+            }
+            else
+            {
+                fr.SetValue("PhanLoaiTACN", "");
+            }
             fr.SetValue("TuNgay", sModel.TuNgay);
             fr.SetValue("DenNgay", sModel.DenNgay);
         }
@@ -721,6 +699,48 @@ namespace APP0200025.Controllers
                 return clsResult;
             }
         }
+        #endregion
+
+        #region BaoCao04
+        [Authorize]
+        public ActionResult BaoCao04(ReportSearchModels model)
+        {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
+            if (model == null)
+            {
+                model = new ReportSearchModels { };
+            }
+            ViewData["menu"] = 264;
+            return View(model);
+        }
+        [Authorize, AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult BaoCao04Search(string ParentID)
+        {
+            string _TuNgay = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
+            string _DenNgay = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
+            ReportSearchModels model = new ReportSearchModels
+            {
+                TuNgay = _TuNgay,
+                DenNgay = _DenNgay
+            };
+            return RedirectToAction("BaoCao04", model);
+        }
+        #endregion
+
+        #region BaoCao05
+        #endregion
+
+        #region BaoCao06
+        #endregion
+
+        #region BaoCao07
+        #endregion
+
+        #region BaoCao08
         #endregion
     }
 }
