@@ -418,11 +418,6 @@ namespace DATA0200025
             DK += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
             cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
 
-            if (!string.IsNullOrEmpty(model.sNuocSanXuat))
-            {
-                DK += " AND A.sMaQuocGia = @sMaQuocGia";
-                cmd.Parameters.AddWithValue("@sMaQuocGia", model.sNuocSanXuat);
-            }
             if (!string.IsNullOrEmpty(model.TuNgay))
             {
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
@@ -434,10 +429,14 @@ namespace DATA0200025
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
-            string SQL = string.Format(@"SELECT A.sMaQuocGia, A.sTenQuocGia, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaVN) sGiaTriUSD
-                                        FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
-                                        WHERE {0}
-                                        GROUP BY sMaQuocGia, sTenQuocGia ORDER BY sTenQuocGia", DK);
+            string SQL = string.Format(@"SELECT iID_MaToChuc, sTenToChuc, COUNT(iID_MaToChuc) sTongXNCL, SUM(sSoLuong) sSoLuong, SUM(sGiaTriUSD) sGiaTriUSD
+                                        FROM CNN25_HoSo_XNCL C INNER JOIN (
+                                                SELECT A.iID_MaHangHoa, SUM(S.rSoLuong) sSoLuong, SUM(A.rGiaVN) sGiaTriUSD
+                                                        FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
+                                                        WHERE {0}
+                                                        GROUP BY A.iID_MaHangHoa) D ON C.iID_MaHangHoa=D.iID_MaHangHoa
+                                        GROUP BY iID_MaToChuc, sTenToChuc
+                                        ORDER BY iID_MaToChuc", DK);
             cmd.CommandText = SQL;
             DataTable dt = Connection.GetDataTable(cmd);
             cmd.Dispose();

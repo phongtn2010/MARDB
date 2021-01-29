@@ -143,44 +143,57 @@
                                     <th style="text-align: center; width: 5px;" rowspan="2" align="center">STT</th>
                                     <th style="text-align: center;" rowspan="2" align="center">Tên tổ chức chỉ định</th>
                                     <th style="text-align: center; width: 20%;" colspan="2" align="center">Số lô theo chế độ kiểm tra</th>
-                                    <th style="text-align: center; width: 20%;" colspan="2" align="center">Khối lượng</th>
+                                    <th style="text-align: center; width: 20%;" colspan="2" align="center">Số lượng</th>
                                     <th style="text-align: center; width: 20%;" colspan="2" align="center">Giá trị</th>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: center; width: 15%;" align="center">Kiểm tra thông thường</th>
-                                    <th style="text-align: center; width: 15%;" align="center">Tỷ lệ (%)</th>
-                                    <th style="text-align: center; width: 15%;" align="center">Khối lượng (tấn)</th>
-                                    <th style="text-align: center; width: 15%;" align="center">Tỷ lệ (%)</th>
-                                    <th style="text-align: center; width: 15%;" align="center">Giá trị (USD)</th>
-                                    <th style="text-align: center; width: 15%;" align="center">Tỷ lệ (%)</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Kiểm tra thông thường</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Tỷ lệ (%)</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Số lượng (tấn)</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Tỷ lệ (%)</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Giá trị (USD)</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Tỷ lệ (%)</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if (dt.Rows.Count > 0)
                                 {
+                                    Double rTong = 0, rTongKL = 0, rTongTL = 0;
                                     for (int i = 0; i < dt.Rows.Count; i++)
                                     {
                                         DataRow r = dt.Rows[i];
 
-                                        String sTyLeKL = "", sTyLeGT = "";
+                                        String sTyLeXNCL = "", sTyLeKL = "", sTyLeGT = "";
 
-                                        Double rTongKL = Convert.ToDouble(dt.Compute("SUM(sKhoiLuongTan)", string.Empty));
-                                        Double rTongTL = Convert.ToDouble(dt.Compute("SUM(sGiaTriUSD)", string.Empty));
+                                        rTong = Convert.ToDouble(dt.Compute("SUM(sTongXNCL)", string.Empty));
+                                        rTongKL = Convert.ToDouble(dt.Compute("SUM(sSoLuong)", string.Empty));
+                                        rTongTL = Convert.ToDouble(dt.Compute("SUM(sGiaTriUSD)", string.Empty));
 
-                                        sTyLeKL = Convert.ToString(Convert.ToDouble(r["sKhoiLuongTan"]) / rTongKL * 100);
+                                        sTyLeXNCL = Convert.ToString(Convert.ToDouble(r["sTongXNCL"]) / rTong * 100);
+                                        sTyLeKL = Convert.ToString(Convert.ToDouble(r["sSoLuong"]) / rTongKL * 100);
                                         sTyLeGT = Convert.ToString(Convert.ToDouble(r["sGiaTriUSD"]) / rTongTL * 100);
 
                                         <tr>
                                             <td align="center">@(i+1)</td>
-                                            <td align="left">@Convert.ToString(r["sTenQuocGia"])</td>
-                                            <td align="right">@Convert.ToString(r["sKhoiLuongTan"])</td>
-                                            <td align="center">@Convert.ToString(sTyLeKL)</td>
-                                            <td align="right">@Convert.ToString(r["sKhoiLuongTan"])</td>
+                                            <td align="left">@Convert.ToString(r["sTenToChuc"])</td>
+                                            <td align="right">@Convert.ToString(r["sTongXNCL"])</td>
+                                            <td align="center">@Convert.ToString(sTyLeXNCL)</td>
+                                            <td align="right">@Convert.ToString(r["sSoLuong"])</td>
                                             <td align="center">@Convert.ToString(sTyLeKL)</td>
                                             <td align="right">@Convert.ToString(r["sGiaTriUSD"])</td>
                                             <td align="center">@Convert.ToString(sTyLeGT)</td>
                                         </tr>
                                     }
+
+                                    <tr>
+                                        <th style="text-align: center;" colspan="2">Tổng số lô</th>
+                                        <th style="text-align: right;">@Convert.ToString(rTong.ToString("#,##"))</th>
+                                        <th align="center"></th>
+                                        <th style="text-align: right;">@Convert.ToString(rTongKL.ToString("#,##"))</th>
+                                        <th align="center"></th>
+                                        <th style="text-align: right;">@Convert.ToString(rTongTL.ToString("#,##"))</th>
+                                        <th align="center"></th>
+                                    </tr>
                                 }
                             </tbody>
                         </table>

@@ -3182,6 +3182,7 @@
     <Content Include="Views\CVReport\BaoCao03.cshtml" />
     <Content Include="Views\CVReport\BaoCao03Print.cshtml" />
     <Content Include="Views\CVReport\BaoCao04.cshtml" />
+    <Content Include="Views\CVReport\BaoCao04Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
