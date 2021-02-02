@@ -93,7 +93,10 @@ namespace DATA0200026.WebServices
                         }
                         else
                         {
+                            //Xoa hang hoa va thong tin hang hoa trước
+                            CHangHoa26.Delete_HangHoa_HoSo(iID_MaHoSo);
 
+                            throw new ArgumentNullException();
                         }
                     }
 
