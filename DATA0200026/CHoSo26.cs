@@ -14,6 +14,17 @@ namespace DATA0200026
 {
     public class CHoSo26
     {
+        public static HoSo26Models GetHoSo_ChiTiet_Theo_Ma(string sMaHoSo)
+        {
+            using (SqlConnection connect = new SqlConnection(Connection.ConnectionString))
+            {
+                string SQL = @"SELECT * FROM CNN26_HoSo 
+                            WHERE sMaHoSo=@sMaHoSo";
+                HoSo26Models results = connect.Query<HoSo26Models>(SQL, new { sMaHoSo = sMaHoSo }).FirstOrDefault();
+                return results;
+            }
+        }
+
         public static long ThemHoSo(long iID_MaHoSo_Sua, int iID_MaTrangThai, int iID_MaLoaiHoSo, 
             string sMaHoSo, DateTime dNgayTaoHoSo, bool bDaTiepNhan, string sSoTiepNhan, DateTime? dNgayTiepNhan,
             string sSoGDK, string sSoGDK_ThayThe, DateTime? dNgayXacNhan,

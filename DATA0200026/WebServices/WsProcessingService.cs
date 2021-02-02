@@ -36,6 +36,14 @@ namespace DATA0200026.WebServices
 
             string sUserName = "doanhnghiep";
 
+            long iID_MaHoSo_Sua = 0;
+
+            HoSo26Models hs = CHoSo26.GetHoSo_ChiTiet_Theo_Ma(sMaHoSo);
+            if (hs != null)
+            {
+                iID_MaHoSo_Sua = hs.iID_MaHoSo;
+            }
+
             try
             {
                 String sTenLoaiHoSo = "Hồ sơ miễn kiểm";
@@ -46,12 +54,15 @@ namespace DATA0200026.WebServices
                     sTenTACN += hh.NameOfGoods + ";";
                 }
 
-                iID_MaHoSo = CHoSo26.ThemHoSo(0, 1, 1, hoso.NSWFileCode, hoso.fiSignDate, false, "", null, null, null, null,
+                iID_MaHoSo = CHoSo26.ThemHoSo(iID_MaHoSo_Sua, 1, 1, hoso.NSWFileCode, hoso.fiSignDate, false, "", null, null, null, null,
                     hoso.TaxCode, sTenDoanhnghiep, sTenLoaiHoSo, sTenTACN, hoso.SignPlace, hoso.Organization, hoso.Address, hoso.Phone, hoso.Fax, "", hoso.DepartmentCode, hoso.DepartmentName,
                     hoso.SignPlaceCode, hoso.SignPlaceName, hoso.SignName, hoso.SignPosition, sUserName, sIP);
 
                 if(iID_MaHoSo > 0)
                 {
+                    //Xoa hang hoa va thong tin hang hoa trước
+                    CHangHoa26.Delete_HangHoa_HoSo(iID_MaHoSo);
+
                     int iHH = 0;
                     foreach (var hh in lstHangHoa)
                     {

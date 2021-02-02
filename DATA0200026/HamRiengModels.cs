@@ -137,6 +137,7 @@ namespace DATA0200026
             table.Columns.Add("ID", typeof(int));
             table.Columns.Add("NAME", typeof(string));
 
+            table.Rows.Add(0, "Không có");
             table.Rows.Add(1, "<");
             table.Rows.Add(2, ">");
             table.Rows.Add(3, "=");

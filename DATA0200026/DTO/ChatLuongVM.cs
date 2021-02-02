@@ -19,7 +19,7 @@ namespace DATA0200026.DTO
         public int fiQualityFormOfPublication { set; get; }
 
         [XmlElement("QualityRequire")]
-        public decimal fiQualityRequire { set; get; }
+        public string fiQualityRequire { set; get; }
 
         [XmlElement("QualityRequireUnitID")]
         public string fiQualityRequireUnitID { set; get; }

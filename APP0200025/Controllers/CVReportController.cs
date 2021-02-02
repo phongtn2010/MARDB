@@ -1065,6 +1065,33 @@ namespace APP0200025.Controllers
         #endregion
 
         #region BaoCao08
+        [Authorize]
+        public ActionResult BaoCao08(ReportSearchModels model)
+        {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
+            if (model == null)
+            {
+                model = new ReportSearchModels { };
+            }
+            ViewData["menu"] = 268;
+            return View(model);
+        }
+        [Authorize, AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult BaoCao08Search(string ParentID)
+        {
+            string _TuNgay = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
+            string _DenNgay = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
+            ReportSearchModels model = new ReportSearchModels
+            {
+                TuNgay = _TuNgay,
+                DenNgay = _DenNgay
+            };
+            return RedirectToAction("BaoCao08", model);
+        }
         #endregion
     }
 }
