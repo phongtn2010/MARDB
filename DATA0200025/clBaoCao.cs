@@ -495,7 +495,7 @@ namespace DATA0200025
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
-            string SQL = string.Format(@"SELECT A.iID_MaNhom iID_MaNhom, A.iID_MaPhanNhom iID_MaPhanNhom, A.sTenPhanNhom sTenPhanNhom, SUM(S.rSoLuong) sSoLuongTan, SUM(A.rGiaVN) sGiaTriUSD
+            string SQL = string.Format(@"SELECT A.iID_MaNhom sMa, A.iID_MaPhanNhom iID_MaPhanNhom, A.sTenPhanNhom sTenPhanNhom, SUM(S.rSoLuong) sSoLuongTan, SUM(A.rGiaVN) sGiaTriUSD
                                         FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
                                         WHERE {0}
                                         GROUP BY iID_MaNhom, iID_MaPhanNhom, sTenPhanNhom ORDER BY iID_MaNhom", DK);

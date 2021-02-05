@@ -1005,7 +1005,7 @@ namespace APP0200025.Controllers
 
             DataTable dtDonVi = clDanhMuc.GetDataTable_TenKhoa("NHOMTACN", "sMa");
 
-            DataTable dt = clBaoCao.CVBaoCao06(sModel);
+            DataTable dt = clBaoCao.CVBaoCao05(sModel);
             dt.Columns.Add("sTyLeKL", typeof(System.String));
             dt.Columns.Add("sTyLeGT", typeof(System.String));
 
