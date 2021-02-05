@@ -1092,6 +1092,144 @@ namespace APP0200025.Controllers
             };
             return RedirectToAction("BaoCao08", model);
         }
+        [Authorize]
+        public ActionResult BaoCao08Print(String TuNgay, String DenNgay)
+        {
+            if (BaoMat.ChoPhepLamViec(User.Identity.Name, "CNN25_HoSo", "Detail") == false || !CPQ_MENU.CoQuyenXemTheoMenu(Request.Url.AbsolutePath, User.Identity.Name))
+            {
+                return RedirectToAction("Index", "PermitionMessage");
+            }
+
+            ViewBag.TuNgay = TuNgay;
+            ViewBag.DenNgay = DenNgay;
+            ViewData["menu"] = 268;
+            return View();
+        }
+        public clsExcelResult BaoCao08ExpExcel(String TuNgay, String DenNgay)
+        {
+            string sMaND = User.Identity.Name;
+            String sFilePath = "/ExcelFrom/rptCNN_CVBaoCao08.xls";
+            clsExcelResult clsResult = new clsExcelResult();
+            ExcelFile xls = BaoCao08CreateReport(Server.MapPath(sFilePath), sMaND, TuNgay, DenNgay);
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                xls.Save(ms);
+                ms.Position = 0;
+                clsResult.ms = ms;
+                clsResult.FileName = "BC_BAOCAO08.xls";
+                clsResult.type = "xls";
+                return clsResult;
+            }
+        }
+        [Authorize]
+        public ActionResult BaoCao08ViewPDF(String MaND, String TuNgay, String DenNgay)
+        {
+            CHamRieng.Language();
+
+            String sFilePathPrint = "/ExcelFrom/rptCNN_CVBaoCao08.xls";
+            ExcelFile xls = BaoCao08CreateReport(Server.MapPath(sFilePathPrint), MaND, TuNgay, DenNgay);
+            using (FlexCelPdfExport pdf = new FlexCelPdfExport())
+            {
+                pdf.Workbook = xls;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    pdf.BeginExport(ms);
+                    pdf.ExportAllVisibleSheets(false, "BaoCao");
+                    pdf.EndExport();
+                    ms.Position = 0;
+                    return File(ms.ToArray(), "application/pdf");
+                }
+            }
+            return null;
+        }
+        public ExcelFile BaoCao08CreateReport(String path, String MaND, String TuNgay, String DenNgay)
+        {
+            XlsFile Result = new XlsFile(true);
+            Result.Open(path);
+
+            ReportSearchModels sModel = new ReportSearchModels
+            {
+                TuNgay = TuNgay,
+                DenNgay = DenNgay
+            };
+
+            FlexCelReport fr = new FlexCelReport();
+            BaoCao08LoadData(fr, MaND, sModel);
+
+            fr.Run(Result);
+            return Result;
+
+        }
+        private void BaoCao08LoadData(FlexCelReport fr, String MaND, ReportSearchModels sModel)
+        {
+            DateTime dNow = DateTime.Now;
+
+            DataTable dtCT = CCongTy.Get_Table_Top();
+            String sTenCongTy = Convert.ToString(dtCT.Rows[0]["sTenCongTy"]);
+            String sDienThoaiCongTy = Convert.ToString(dtCT.Rows[0]["sDienThoai"]);
+            String sDiChi = Convert.ToString(dtCT.Rows[0]["sDiaChi_In"]);
+            Byte[] sLogo = (byte[])dtCT.Rows[0]["sLogo"];
+
+            Double rTongKL = 0, rTongTL = 0, rTongSLo = 0;
+
+            DataTable dt = clBaoCao.CVBaoCao08(sModel);
+            dt.Columns.Add("sTyLeKL", typeof(System.String));
+            dt.Columns.Add("sTyLeGT", typeof(System.String));
+            dt.Columns.Add("sTyLeSLo", typeof(System.String));
+
+            if (dt.Rows.Count > 0)
+            {
+                DataRow r;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    r = dt.Rows[i];
+
+                    String sTyLeKL = "", sTyLeGT = "", sTyLeSLo = "";
+
+                    rTongKL = Convert.ToDouble(dt.Compute("SUM(sKhoiLuongTan)", string.Empty));
+                    rTongTL = Convert.ToDouble(dt.Compute("SUM(sGiaTriUSD)", string.Empty));
+                    rTongSLo = Convert.ToDouble(dt.Compute("SUM(sSoLo)", string.Empty));
+
+                    sTyLeKL = Convert.ToString(Convert.ToDouble(r["sKhoiLuongTan"]) / rTongKL * 100);
+                    sTyLeGT = Convert.ToString(Convert.ToDouble(r["sGiaTriUSD"]) / rTongTL * 100);
+                    sTyLeSLo = Convert.ToString(Convert.ToDouble(r["sSoLo"]) / rTongSLo * 100);
+
+                    r["sTyLeKL"] = sTyLeKL;
+                    r["sTyLeGT"] = sTyLeGT;
+                    r["sTyLeSLo"] = sTyLeSLo;
+                }
+            }
+            dt.Dispose();
+
+            dt.TableName = "ChiTiet";
+            fr.AddTable("ChiTiet", dt);
+
+            fr.SetValue("TenCongTy", sTenCongTy);
+            //fr.SetValue("DienThoaiCongTy", sDienThoaiCongTy);
+            //fr.SetValue("DiaChiCongTy", sDiChi);
+
+            fr.SetValue("Ngay", dNow.Day);
+            fr.SetValue("Thang", dNow.Month);
+            fr.SetValue("Nam", dNow.Year);
+
+            if (String.IsNullOrEmpty(sModel.TuNgay) == false)
+            {
+                fr.SetValue("TuNgay", sModel.TuNgay);
+            }
+            else
+            {
+                fr.SetValue("TuNgay", "...");
+            }
+            if (String.IsNullOrEmpty(sModel.DenNgay) == false)
+            {
+                fr.SetValue("DenNgay", sModel.DenNgay);
+            }
+            else
+            {
+                fr.SetValue("DenNgay", "...");
+            }
+        }
         #endregion
     }
 }

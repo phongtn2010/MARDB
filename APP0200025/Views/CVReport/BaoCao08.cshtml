@@ -1,7 +1,218 @@
-﻿
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200026
+@using DATA0200025
+@using DATA0200025.Models
+@using APP0200025.App_Code
+@using APP0200025.Models
+@model ReportSearchModels
 @{
-    ViewBag.Title = "BaoCao08";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_cms.cshtml";
-}
+    string userName = User.Identity.Name;
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Index";
 
-<h2>BaoCao08</h2>
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+    SelectOptionList ddlPhanLoai = clDanhMuc.GetDDL_TenKhoa("PHANLOAITACN");
+
+
+    DataTable dt = clBaoCao.CVBaoCao08(Model);
+
+    String strPrint = Url.Action("BaoCao08Print", "CVReport", new { TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+    String strExport = Url.Action("BaoCao08ExpExcel", "CVReport", new { TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+}
+<script type="text/javascript">
+    $(function () {
+        var a = '@TempData["msg"]';
+        if (a == 'success') {
+            showToast_Success();
+        }
+        else if (a == 'error'){
+            showToast_Error();
+        }
+    })
+</script>
+<script src="@(Url.Content("~/Content/plugins/jquery.wordexport/FileSaver.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/jquery.wordexport/jquery.wordexport.js"))"></script>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                @using (Html.BeginForm("BaoCao08Search", "CVReport", new { ParentID = ParentID }, FormMethod.Post, new { id = "formReports", @class = "form-horizontal" }))
+                {
+                    <div class="box-header with-border">
+                        <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" type="button" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" type="button" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-xs-2 text-align-right"><label class="control-label">Ngày đạt cấp XNCL</label></div>
+                            <div class="col-xs-10">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.TuNgay, "TuNgay", "", "placeholder=\"Từ ngày\" type=\"text\" class=\"form-control\""))
+                                    </div>
+                                    <div class="col-xs-2 text-align-center"><b>-</b></div>
+                                    <div class="col-xs-5">
+                                        @MvcHtmlString.Create(MyHtmlHelper.DatePicker(ParentID, Model.DenNgay, "DenNgay", "", "placeholder=\"Đến ngày\" type=\"text\" class=\"form-control\""))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <div class="col-xs-12 text-align-center">
+                            <button class="btn btn-primary" type="submit">Tải báo cáo</button>
+                            <button class="btn btn-danger" type="button" id="btnReset">Nhập lại</button>
+                        </div>
+                    </div>
+                }
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#formReports').bootstrapValidator({
+                            message: 'This value is not valid',
+                            feedbackIcons: {
+                                valid: 'glyphicon glyphicon-ok',
+                                invalid: 'glyphicon glyphicon-remove',
+                                validating: 'glyphicon glyphicon-refresh'
+                            },
+                            fields: {
+                                Index_viTuNgay: {
+                                    validators: {
+                                        date: {
+                                            format: 'DD/MM/YYYY',
+                                            message: 'Từ ngày không đúng định dạng!'
+                                        }
+                                    }
+                                },
+                                Index_viDenNgay: {
+                                    validators: {
+                                        date: {
+                                            format: 'DD/MM/YYYY',
+                                            message: 'Đến ngày không đúng định dạng!'
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+                        $('#btnReset').click(function () {
+                            $('#formReports').data('bootstrapValidator').resetForm(true);
+                        });
+                    });
+                </script>
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title text-uppercase">THỐNG KÊ KHỐI LƯỢNG, GIÁ TRỊ TỪNG MẶT HÀNG THEO XUẤT XỨ</h3>
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
+                    </ul>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding pre-scrollable">
+                    <div class="table-responsive" id="divWord">
+                        <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center; width: 5px;" rowspan="2" align="center">STT</th>
+                                    <th style="text-align: center;" rowspan="2" align="center">Nước</th>
+                                    <th style="text-align: center; width: 20%;" colspan="2" align="center">Khối lượng</th>
+                                    <th style="text-align: center; width: 20%;" colspan="2" align="center">Giá trị</th>
+                                    <th style="text-align: center; width: 20%;" colspan="2" align="center">Số lô</th>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center; width: 10%;" align="center">Số lượng (tấn)</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Tỷ lệ (%)</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Giá trị (USD)</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Tỷ lệ (%)</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Số lô</th>
+                                    <th style="text-align: center; width: 10%;" align="center">Tỷ lệ (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (dt.Rows.Count > 0)
+                                {
+                                    Double rTongKL = 0, rTongTL = 0, rTongSLo = 0;
+                                    for (int i = 0; i < dt.Rows.Count; i++)
+                                    {
+                                        DataRow r = dt.Rows[i];
+
+                                        String sTyLeKL = "", sTyLeGT = "", sTyLeSLo = "";
+
+                                        rTongKL = Convert.ToDouble(dt.Compute("SUM(sKhoiLuongTan)", string.Empty));
+                                        rTongTL = Convert.ToDouble(dt.Compute("SUM(sGiaTriUSD)", string.Empty));
+                                        rTongSLo = Convert.ToDouble(dt.Compute("SUM(sSoLo)", string.Empty));
+
+                                        sTyLeKL = Convert.ToString(Convert.ToDouble(r["sKhoiLuongTan"]) / rTongKL * 100);
+                                        sTyLeGT = Convert.ToString(Convert.ToDouble(r["sGiaTriUSD"]) / rTongTL * 100);
+                                        sTyLeSLo = Convert.ToString(Convert.ToDouble(r["sSoLo"]) / rTongSLo * 100);
+
+                                        <tr>
+                                            <td align="center">@(i+1)</td>
+                                            <td align="left">@Convert.ToString(r["sTenQuocGia"])</td>
+                                            <td align="right">@Convert.ToString(r["sKhoiLuongTan"])</td>
+                                            <td align="center">@Convert.ToString(sTyLeKL)</td>
+                                            <td align="right">@Convert.ToString(r["sGiaTriUSD"])</td>
+                                            <td align="center">@Convert.ToString(sTyLeGT)</td>
+                                            <td align="right">@Convert.ToString(r["sSoLo"])</td>
+                                            <td align="center">@Convert.ToString(sTyLeSLo)</td>
+                                        </tr>
+                                    }
+
+                                    <tr>
+                                        <th style="text-align: center;" colspan="2">Tổng</th>
+                                        <th style="text-align: right;">@Convert.ToString(rTongKL.ToString("#,##"))</th>
+                                        <th align="center"></th>
+                                        <th style="text-align: right;">@Convert.ToString(rTongTL.ToString("#,##"))</th>
+                                        <th align="center"></th>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <div class="col-xs-12 text-align-center">
+                        @*<a class="btn btn-warning btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>*@
+                        <a class="btn btn-primary" href="@(strExport)">Xuất excel</a>
+                        <a class="btn btn-warning" href="@(strPrint)">Print</a>
+                        <a class="btn btn-danger" href="#" onclick="javascript:history.go(-1)">Thoát</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+@*<script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $("a.btnXuatWord").click(function (event) {
+                $("#divWord").wordExport();
+            });
+        });
+    </script>*@

@@ -479,5 +479,38 @@ namespace DATA0200025
             return dt;
         }
         #endregion
+
+
+        #region BaoCao08
+        public static DataTable CVBaoCao08(ReportSearchModels model)
+        {
+            string DK = "1=1";
+            SqlCommand cmd = new SqlCommand();
+
+            DK += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
+            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
+
+            if (!string.IsNullOrEmpty(model.TuNgay))
+            {
+                DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
+            }
+            if (!string.IsNullOrEmpty(model.TuNgay))
+            {
+                DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
+            }
+
+            string SQL = string.Format(@"SELECT A.sMaQuocGia, A.sTenQuocGia, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaVN) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
+                                        FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
+                                        WHERE {0}
+                                        GROUP BY sMaQuocGia, sTenQuocGia ORDER BY sTenQuocGia", DK);
+            cmd.CommandText = SQL;
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return dt;
+        }
+        #endregion
     }
 }
