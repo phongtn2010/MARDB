@@ -56,10 +56,10 @@ namespace DATA0200025
             return vR;
         }
 
-        public static DataTable GetDataTable_TenKhoa(string sTenBang)
+        public static DataTable GetDataTable_TenKhoa(string sTenBang, string sOrder = "sTen")
         {
             DataTable vR;
-            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE sTenKhoa=@sTenKhoa ORDER BY sTen";
+            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE sTenKhoa=@sTenKhoa ORDER BY " + sOrder + "";
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@sTenKhoa", sTenBang);
             vR = Connection.GetDataTable(cmd, CThamSo.iKetNoi);

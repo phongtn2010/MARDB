@@ -446,6 +446,65 @@ namespace DATA0200025
         #endregion
 
         #region BaoCao05
+        public static DataTable CVBaoCao05View(ReportSearchModels model, string sMaNhom)
+        {
+            string DK = "1=1";
+            SqlCommand cmd = new SqlCommand();
+
+            DK += " AND A.iID_MaTrangThai=@iID_MaTrangThai AND A.iID_MaNhom=@iID_MaNhom";
+            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
+            cmd.Parameters.AddWithValue("@iID_MaNhom", sMaNhom);
+
+            if (!string.IsNullOrEmpty(model.TuNgay))
+            {
+                DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
+            }
+            if (!string.IsNullOrEmpty(model.TuNgay))
+            {
+                DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
+            }
+
+            string SQL = string.Format(@"SELECT A.iID_MaNhom iID_MaNhom, A.iID_MaPhanNhom iID_MaPhanNhom, A.sTenPhanNhom sTenPhanNhom, SUM(S.rSoLuong) sSoLuongTan, SUM(A.rGiaVN) sGiaTriUSD
+                                        FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
+                                        WHERE {0}
+                                        GROUP BY iID_MaNhom, iID_MaPhanNhom, sTenPhanNhom ORDER BY iID_MaNhom", DK);
+            cmd.CommandText = SQL;
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return dt;
+        }
+        public static DataTable CVBaoCao05(ReportSearchModels model)
+        {
+            string DK = "1=1";
+            SqlCommand cmd = new SqlCommand();
+
+            DK += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
+            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
+
+            if (!string.IsNullOrEmpty(model.TuNgay))
+            {
+                DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
+            }
+            if (!string.IsNullOrEmpty(model.TuNgay))
+            {
+                DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
+            }
+
+            string SQL = string.Format(@"SELECT A.iID_MaNhom iID_MaNhom, A.iID_MaPhanNhom iID_MaPhanNhom, A.sTenPhanNhom sTenPhanNhom, SUM(S.rSoLuong) sSoLuongTan, SUM(A.rGiaVN) sGiaTriUSD
+                                        FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
+                                        WHERE {0}
+                                        GROUP BY iID_MaNhom, iID_MaPhanNhom, sTenPhanNhom ORDER BY iID_MaNhom", DK);
+            cmd.CommandText = SQL;
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return dt;
+        }
         #endregion
 
         #region BaoCao06
@@ -480,6 +539,9 @@ namespace DATA0200025
         }
         #endregion
 
+        #region BaoCao07
+        
+        #endregion
 
         #region BaoCao08
         public static DataTable CVBaoCao08(ReportSearchModels model)

@@ -12,10 +12,10 @@ namespace DATA0200026
 {
     public class CDanhMuc
     {
-        public static DataTable GetDataTable(string sTenBang)
+        public static DataTable GetDataTable(string sTenBang, string sOrder = "sTen")
         {
             DataTable vR;
-            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE iID_MaLoaiDanhMuc IN (SELECT iID_MaLoaiDanhMuc FROM DC_LoaiDanhMuc WHERE sTenBang=@sTenBang) ORDER BY sTen";
+            string SQL = "SELECT * FROM CNN25_DanhMuc WHERE iID_MaLoaiDanhMuc IN (SELECT iID_MaLoaiDanhMuc FROM DC_LoaiDanhMuc WHERE sTenBang=@sTenBang) ORDER BY " + sOrder + "";
             SqlCommand cmd = new SqlCommand(SQL);
             cmd.Parameters.AddWithValue("@sTenBang", sTenBang);
             vR = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
