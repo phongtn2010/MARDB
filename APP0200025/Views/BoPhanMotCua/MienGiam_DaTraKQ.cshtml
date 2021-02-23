@@ -274,8 +274,9 @@
                                                 <td align="center">
                                                     @if (string.IsNullOrEmpty(sUserNguoiXem) || userName.Equals(sUserNguoiXem))
                                                     {
-                                                        @MvcHtmlString.Create(strView)
+
                                                     }
+                                                    @MvcHtmlString.Create(strView)
                                                 </td>
                                                 <td align="center">
                                                     <a class="openthuhoi" data-id="@r["iID_MaHoSo"]" data-toggle="modal" href="#ThuHoi">

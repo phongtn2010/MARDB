@@ -282,6 +282,11 @@
         </div>
     </div>
 </section>
+@{ 
+    dtctKT.Dispose();
+    dtctAT.Dispose();
+    dtctKL.Dispose();
+}
 <script>
     $(document).ready(function () {
         $(document).on('click', '.btnShowFile', function (e) {
