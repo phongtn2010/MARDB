@@ -26,9 +26,9 @@ namespace APP0200025.Controllers
         // GET: Test
         public ActionResult Index()
         {
-            String sTen = "http://mardapi.adp-p.com/Uploads/Files/2020/12/16/63b22811-5af5-4c35-96a8-443e70cd96bc.pdf";
+            //String sTen = "http://mardapi.adp-p.com/Uploads/Files/2020/12/16/63b22811-5af5-4c35-96a8-443e70cd96bc.pdf";
 
-            byte[] arrFile = ReadFile(sTen);
+            //byte[] arrFile = ReadFile(sTen);
  
             //HttpPostedFileBase file = Request.Files[0];
 
