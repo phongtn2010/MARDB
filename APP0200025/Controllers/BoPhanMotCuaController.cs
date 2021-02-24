@@ -50,6 +50,16 @@ namespace APP0200025.Controllers
             return View(hoSoSearch);
         }
 
+        public ActionResult List_Detail(string iID_MaHoSo)
+        {
+            CHoSo26.UpdateNguoiXem(iID_MaHoSo, User.Identity.Name);
+
+            HoSo26Models models = CHoSo26.Get_Detail(Convert.ToInt64(iID_MaHoSo));
+
+            ViewData["menu"] = 224;
+            return View(models);
+        }
+
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID)
         {

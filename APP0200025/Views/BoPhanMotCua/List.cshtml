@@ -254,7 +254,7 @@
                                             }
 
                                             string sUserNguoiXem = Convert.ToString(r["sUserNguoiXem"]);
-                                            String strView = MyHtmlHelper.ActionLink(Url.Action("Detail", "MienGiam", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
+                                            String strView = MyHtmlHelper.ActionLink(Url.Action("List_Detail", "BoPhanMotCua", new { iID_MaHoSo = r["iID_MaHoSo"] }), "<span class='badge bg-blue'><i class='fa fa-fw fa-eye fa-lg'></i></span>", "Detail", "");
 
                                             <tr>
                                                 <td style="text-align: center;">@r["rownum"]</td>
