@@ -196,7 +196,7 @@ namespace DATA0200025
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
@@ -225,7 +225,7 @@ namespace DATA0200025
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
@@ -252,7 +252,7 @@ namespace DATA0200025
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
@@ -289,7 +289,7 @@ namespace DATA0200025
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
@@ -323,7 +323,7 @@ namespace DATA0200025
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
@@ -355,7 +355,7 @@ namespace DATA0200025
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
@@ -392,7 +392,7 @@ namespace DATA0200025
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
@@ -409,6 +409,7 @@ namespace DATA0200025
             return dt;
         }
         #endregion
+
         #region BaoCao04
         public static DataTable CVBaoCao04(ReportSearchModels model)
         {
@@ -423,7 +424,7 @@ namespace DATA0200025
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
@@ -489,7 +490,7 @@ namespace DATA0200025
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
@@ -521,7 +522,7 @@ namespace DATA0200025
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
@@ -557,7 +558,7 @@ namespace DATA0200025
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
