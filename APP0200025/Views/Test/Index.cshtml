@@ -167,3 +167,37 @@
         });
     </script>
 </fieldset>
+
+
+
+@using (Html.BeginForm("SendXML1513", "Test", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="box-header with-border">
+        <h3 class="box-title">
+           GỦI BAN TIN 15(13)
+        </h3>
+        <div class="box-tools pull-right"></div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="Edit_sFile">Mã hồ sơ</label>
+                    @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, "", "iID_MaHoSo", "", "type=\"text\" placeholder=\"Mã hồ sơ\" class=\"form-control\""))
+                </div>
+            </div>
+            <div class="col-xs-4">
+            </div>
+            <div class="col-xs-4">
+            </div>
+        </div>
+    </div><!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <div class="col-xs-6">
+            <button class="btn btn-block btn-default" type="submit">Save</button>
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+        </div>
+    </div>
+}
