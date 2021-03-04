@@ -70,6 +70,7 @@ namespace APP0200025.Controllers
                 HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
+                //XML 13(11)
                 XacNhanDon resultConfirm = new XacNhanDon();
                 resultConfirm.NSWFileCode = hoSo.sMaHoSo;
                 resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;

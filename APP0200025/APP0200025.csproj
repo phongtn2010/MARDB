@@ -267,6 +267,7 @@
     <Compile Include="Controllers\ChoXuLyKetQuaController.cs" />
     <Compile Include="Controllers\CMS_HoSoController.cs" />
     <Compile Include="Controllers\CVReportController.cs" />
+    <Compile Include="Controllers\DVTController.cs" />
     <Compile Include="Controllers\HoSoController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\LogController.cs" />
@@ -3193,6 +3194,8 @@
     <Content Include="Views\CVReport\BaoCao05.cshtml" />
     <Content Include="Views\CVReport\BaoCao05Print.cshtml" />
     <Content Include="Views\BoPhanMotCua\List_Detail.cshtml" />
+    <Content Include="Views\DVT\Index.cshtml" />
+    <Content Include="Views\DVT\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

@@ -84,6 +84,7 @@
     <Compile Include="CCongTy.cs" />
     <Compile Include="CDinhKem.cs" />
     <Compile Include="CDonVi.cs" />
+    <Compile Include="CDVT.cs" />
     <Compile Include="CHangHoa.cs" />
     <Compile Include="CHoSo.cs" />
     <Compile Include="CLanguage.cs" />

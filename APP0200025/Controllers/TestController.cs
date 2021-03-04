@@ -266,6 +266,7 @@ namespace APP0200025.Controllers
                 HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
+                //XML 13(11)
                 XacNhanDon resultConfirm = new XacNhanDon();
                 resultConfirm.NSWFileCode = hoSo.sMaHoSo;
                 resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
@@ -295,28 +296,16 @@ namespace APP0200025.Controllers
                 string error = _sendService.XacNhanDon(hoSo.sMaHoSo, resultConfirm);
                 if (error.Equals("99"))
                 {
-                    Bang bang = new Bang("CNN25_HoSo");
-
-                    bang.MaNguoiDungSua = User.Identity.Name;
-                    bang.IPSua = Request.UserHostAddress;
-                    bang.DuLieuMoi = false;
-                    bang.GiaTriKhoa = iID_MaHoSo;
-                    bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
-                    bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
-                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
-                    bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
-                    bang.Save();
-                    clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, "Chuyển phụ lục GĐK", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
-
+                    TempData["msg"] = "success";
                 }
                 else
                 {
-
+                    TempData["msg"] = "error";
                 }
             }
             else
             {
-                
+                TempData["msg"] = "error";
             }
 
             clHoSo.CleanNguoiXem(iID_MaHoSo);
