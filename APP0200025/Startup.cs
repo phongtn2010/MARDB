@@ -8,7 +8,7 @@ namespace APP0200025
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            ConfigureAuth(app);   //Co chinh sau bao nhieu phut thi huy Cookies dang nhap lai trong Startup.Auth.cs
         }
     }
 }

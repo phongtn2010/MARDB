@@ -34,6 +34,7 @@ namespace APP0200025
                         validateInterval: TimeSpan.FromMinutes(15),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 },
+                //sau 30 phut se huy Cookies login lai!
                 ExpireTimeSpan = TimeSpan.FromMinutes(30),
                 SlidingExpiration = false
             });            
