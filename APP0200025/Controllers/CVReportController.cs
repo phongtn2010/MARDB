@@ -1021,8 +1021,8 @@ namespace APP0200025.Controllers
                     rTongKL = Convert.ToDouble(dt.Compute("SUM(sSoLuongTan)", string.Empty));
                     rTongTL = Convert.ToDouble(dt.Compute("SUM(sGiaTriUSD)", string.Empty));
 
-                    sTyLeKL = Convert.ToString(Convert.ToDouble(r["sSoLuongTan"]) / rTongKL * 100);
-                    sTyLeGT = Convert.ToString(Convert.ToDouble(r["sGiaTriUSD"]) / rTongTL * 100);
+                    sTyLeKL = Convert.ToString((Convert.ToDouble(r["sSoLuongTan"]) / rTongKL * 100).ToString("#,##"));
+                    sTyLeGT = Convert.ToString((Convert.ToDouble(r["sGiaTriUSD"]) / rTongTL * 100).ToString("#,##"));
 
                     r["sTyLeKL"] = sTyLeKL;
                     r["sTyLeGT"] = sTyLeGT;
