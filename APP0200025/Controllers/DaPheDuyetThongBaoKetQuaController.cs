@@ -88,7 +88,6 @@ namespace APP0200025.Controllers
                         {
                             dNgayXacNhanHopQuy = Convert.ToDateTime(dtHoSoXNCL.Rows[0]["dNgayCap"]);
                         }
-                        sTenCoQuanDanhGiaXNCL = Convert.ToString(dtHoSoXNCL.Rows[0]["sTenToChuc"]);
                     }
                     dtHoSoXNCL.Dispose();
 
@@ -144,7 +143,7 @@ namespace APP0200025.Controllers
                         }
                     }
 
-                    //XML 19(22)
+                    //XML 19(22) 
                     GiayXNCL resultConfirm = new GiayXNCL();
                     resultConfirm.NSWFileCode = hoSo.sMaHoSo;
                     resultConfirm.DepartmentCode = hoSo.sCoQuanXuLy_Ma;
