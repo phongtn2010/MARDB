@@ -128,18 +128,26 @@ namespace APP0200025.Controllers
 
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ThuHoiGiayDangKyDaCap, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-            //XML(14, 12)
-            ThuHoiGDK resultConfirm = new ThuHoiGDK();
-            resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.CancelDateString = DateTime.Now;
-            resultConfirm.Reason = _sNoiDung;
-            resultConfirm.SignConfirmDateString = hoSo.dNgayKyGDK;
-            resultConfirm.SignConfirmName = hoSo.sNguoiKyGDK;
-            resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
-            resultConfirm.AttachmentId = iID_MaDinhKem.ToString(); ;
-            resultConfirm.FileName = sFileName;
-            resultConfirm.FileLink = sFileTemp;
-            string error = _sendService.ThuHoiGDK(hoSo.sMaHoSo, resultConfirm);
+            string error = "";
+            if(CHamRieng.iNSW == 1)
+            {
+                //XML(14, 12)
+                ThuHoiGDK resultConfirm = new ThuHoiGDK();
+                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                resultConfirm.CancelDateString = DateTime.Now;
+                resultConfirm.Reason = _sNoiDung;
+                resultConfirm.SignConfirmDateString = hoSo.dNgayKyGDK;
+                resultConfirm.SignConfirmName = hoSo.sNguoiKyGDK;
+                resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
+                resultConfirm.AttachmentId = iID_MaDinhKem.ToString(); ;
+                resultConfirm.FileName = sFileName;
+                resultConfirm.FileLink = sFileTemp;
+                error = _sendService.ThuHoiGDK(hoSo.sMaHoSo, resultConfirm);
+            }
+            else
+            {
+                error = "99";
+            }
             if (error.Equals("99"))
             {
                 bang.MaNguoiDungSua = User.Identity.Name;

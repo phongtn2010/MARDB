@@ -10,6 +10,7 @@ using DATA0200025.SearchModels;
 using DATA0200025.WebServices.XmlType.Request;
 using DATA0200025.WebServices;
 using APP0200025.Models;
+using System.Configuration;
 
 namespace APP0200025.Controllers
 {
@@ -256,16 +257,25 @@ namespace APP0200025.Controllers
 
             int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-            //XML 12_07
-            KetQuaXuLy resultConfirm = new KetQuaXuLy();
-            resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.Reason = _sNoiDung;
-            resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
-            resultConfirm.FileName = sFileName;
-            resultConfirm.FileLink = sFileTemp;
-            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-            resultConfirm.ResponseDateString = DateTime.Now;
-            string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "07");
+            string error = "";
+            if (CHamRieng.iNSW == 1)
+            {
+                //XML 12_07
+                KetQuaXuLy resultConfirm = new KetQuaXuLy();
+                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                resultConfirm.Reason = _sNoiDung;
+                resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
+                resultConfirm.FileName = sFileName;
+                resultConfirm.FileLink = sFileTemp;
+                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                resultConfirm.ResponseDateString = DateTime.Now;
+                error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "07");
+            }
+            else
+            {
+                error = "99";
+            }    
+            
             if (error.Equals("99"))
             {
                 bang.MaNguoiDungSua = sUserName;
@@ -361,16 +371,26 @@ namespace APP0200025.Controllers
 
             int iTrangThaiTiepTheo = clTrangThai.GetTrangThaiIdTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-            //XML 12_08
-            KetQuaXuLy resultConfirm = new KetQuaXuLy();
-            resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-            resultConfirm.Reason = _sNoiDung;
-            resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
-            resultConfirm.FileName = sFileName;
-            resultConfirm.FileLink = sFileTemp;
-            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-            resultConfirm.ResponseDateString = DateTime.Now;
-            string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "08");
+            string error = "";
+            if(CHamRieng.iNSW == 1)
+            {
+                //XML 12_08
+                KetQuaXuLy resultConfirm = new KetQuaXuLy();
+                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                resultConfirm.Reason = _sNoiDung;
+                resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
+                resultConfirm.FileName = sFileName;
+                resultConfirm.FileLink = sFileTemp;
+                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                resultConfirm.ResponseDateString = DateTime.Now;
+                error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "08");
+            }
+            else
+            {
+                error = "99";
+            }
+
+            
             if (error.Equals("99"))
             {
                 bang.MaNguoiDungSua = sUserName;

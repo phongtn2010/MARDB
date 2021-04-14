@@ -12,6 +12,7 @@ using DATA0200025.WebServices.XmlType.Request;
 using DATA0200025.WebServices;
 using System.Collections.Generic;
 using System.Data;
+using APP0200025.Models;
 
 namespace APP0200025.Controllers
 {
@@ -143,33 +144,40 @@ namespace APP0200025.Controllers
                         }
                     }
 
-                    //XML 19(22) 
-                    GiayXNCL resultConfirm = new GiayXNCL();
-                    resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                    resultConfirm.DepartmentCode = hoSo.sCoQuanXuLy_Ma;
-                    resultConfirm.DepartmentName = hoSo.sCoQuanXuLy_Ten;
-                    resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
-                    resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
-                    resultConfirm.SignCerDateString = hangHoa.dSoThongBaoKetQua_NgayKy;
-                    resultConfirm.SignCerName = hangHoa.sSoThongBaoKetQua_NguoiKy;
-                    resultConfirm.ListHangHoa = clHangHoa.GetHoaGXNCL(hangHoa);
-                    resultConfirm.PortOfDestinationName = hoSo.sMua_NoiNhan;
-                    resultConfirm.ImportingFromDateString = hoSo.sMua_FromDate;
-                    resultConfirm.ImportingToDateString = hoSo.sMua_ToDate;
-                    resultConfirm.ListContract = lstHopDong;
-                    resultConfirm.ListInvoice = lstHoaDon;
-                    resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
-                    resultConfirm.SignConfirmDateString = hoSo.dNgayXacNhan;
-                    resultConfirm.Buyer = hoSo.sMua_Name;
-                    resultConfirm.BuyerAddress = hoSo.sMua_DiaChi;
-                    resultConfirm.StandardBase = hangHoa.sSoHieu;
-                    resultConfirm.ResultTechnicalRegulations = hangHoa.sQuyChuan;
-                    resultConfirm.ImportCerNo = sGiayChungNhan_HopQuy;
-                    resultConfirm.AssignCode = sMaCoQuanDanhGiaXNCL;
-                    resultConfirm.AssignName = sTenCoQuanDanhGiaXNCL;
-                    resultConfirm.ImportCerDateString = dNgayXacNhanHopQuy;
+                    if (CHamRieng.iNSW == 1)
+                    {
+                        //XML 19(22) 
+                        GiayXNCL resultConfirm = new GiayXNCL();
+                        resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                        resultConfirm.DepartmentCode = hoSo.sCoQuanXuLy_Ma;
+                        resultConfirm.DepartmentName = hoSo.sCoQuanXuLy_Ten;
+                        resultConfirm.CerNumber = hangHoa.sSoThongBaoKetQua;
+                        resultConfirm.SignCerPlace = hangHoa.sSoThongBaoKetQua_NoiKy;
+                        resultConfirm.SignCerDateString = hangHoa.dSoThongBaoKetQua_NgayKy;
+                        resultConfirm.SignCerName = hangHoa.sSoThongBaoKetQua_NguoiKy;
+                        resultConfirm.ListHangHoa = clHangHoa.GetHoaGXNCL(hangHoa);
+                        resultConfirm.PortOfDestinationName = hoSo.sMua_NoiNhan;
+                        resultConfirm.ImportingFromDateString = hoSo.sMua_FromDate;
+                        resultConfirm.ImportingToDateString = hoSo.sMua_ToDate;
+                        resultConfirm.ListContract = lstHopDong;
+                        resultConfirm.ListInvoice = lstHoaDon;
+                        resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
+                        resultConfirm.SignConfirmDateString = hoSo.dNgayXacNhan;
+                        resultConfirm.Buyer = hoSo.sMua_Name;
+                        resultConfirm.BuyerAddress = hoSo.sMua_DiaChi;
+                        resultConfirm.StandardBase = hangHoa.sSoHieu;
+                        resultConfirm.ResultTechnicalRegulations = hangHoa.sQuyChuan;
+                        resultConfirm.ImportCerNo = sGiayChungNhan_HopQuy;
+                        resultConfirm.AssignCode = sMaCoQuanDanhGiaXNCL;
+                        resultConfirm.AssignName = sTenCoQuanDanhGiaXNCL;
+                        resultConfirm.ImportCerDateString = dNgayXacNhanHopQuy;
 
-                    error = _sendService.GiayXNCL(hangHoa.sMaHoSo, resultConfirm);
+                        error = _sendService.GiayXNCL(hangHoa.sMaHoSo, resultConfirm);
+                    }
+                    else
+                    {
+                        error = "99";
+                    } 
                 }
                 if (error.Equals("99"))
                 {

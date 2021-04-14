@@ -15,6 +15,7 @@ namespace APP0200025.Models
         public static string SSODomain = "";
         public static int SSOTimeout = 0;
         public static int VisitorOnline = 0;
+        public static int iNSW = Convert.ToInt32(ConfigurationManager.AppSettings["NSWServices"]);
 
 
         public static string Get_Domain()
@@ -47,6 +48,15 @@ namespace APP0200025.Models
         {
             string vR = "";
             vR = ConfigurationManager.AppSettings["FilesUrl"];
+
+            return vR;
+        }
+
+        public static int Get_Value_Send_NSW()
+        {
+            int vR = -1;
+
+            vR = Convert.ToInt32(ConfigurationManager.AppSettings["NSWServices"]);
 
             return vR;
         }

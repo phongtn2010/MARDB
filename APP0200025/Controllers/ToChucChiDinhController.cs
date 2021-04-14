@@ -172,36 +172,44 @@ namespace APP0200025.Controllers
                 iKetQua = 1;
             }
 
-
-            //XML 16(14)
-            TCCDGuiKetQuaKT resNSW = new TCCDGuiKetQuaKT();
-            resNSW.NSWFileCode = hoSo.sMaHoSo;
-            resNSW.AssignID = Convert.ToString(dtCNHQ.Rows[0]["sMaTCCD"]);
-            resNSW.AssignName = Convert.ToString(dtCNHQ.Rows[0]["sTenTCCD"]);
-            resNSW.GoodsId = Convert.ToInt64(iID_MaHangHoa);
-            resNSW.NameOfGoods = sTenHangHoa;
-            resNSW.ResultTest = iKetQua;
-            resNSW.TestConfirmNumber = Convert.ToString(dtCNHQ.Rows[0]["sSoChungNhan"]);
-            resNSW.TestConfirmDateString = Convert.ToDateTime(dtCNHQ.Rows[0]["dNgayCap"]);
-            resNSW.TestConfirmAttachmentId = Convert.ToString(dtCNHQ.Rows[0]["iID_ChungNhanHopQuy"]); ;
-            resNSW.TestConfirmFileName = Convert.ToString(dtCNHQ.Rows[0]["sTenFile"]); ;
-            resNSW.TestConfirmFileLink = Convert.ToString(dtCNHQ.Rows[0]["sDuongDan"]);
-
-            if (dtKQPT.Rows.Count > 0)
+            string error = "";
+            if (CHamRieng.iNSW == 1)
             {
-                List<AttachmentResult> lstFile = new List<AttachmentResult>();
+                //XML 16(14)
+                TCCDGuiKetQuaKT resNSW = new TCCDGuiKetQuaKT();
+                resNSW.NSWFileCode = hoSo.sMaHoSo;
+                resNSW.AssignID = Convert.ToString(dtCNHQ.Rows[0]["sMaTCCD"]);
+                resNSW.AssignName = Convert.ToString(dtCNHQ.Rows[0]["sTenTCCD"]);
+                resNSW.GoodsId = Convert.ToInt64(iID_MaHangHoa);
+                resNSW.NameOfGoods = sTenHangHoa;
+                resNSW.ResultTest = iKetQua;
+                resNSW.TestConfirmNumber = Convert.ToString(dtCNHQ.Rows[0]["sSoChungNhan"]);
+                resNSW.TestConfirmDateString = Convert.ToDateTime(dtCNHQ.Rows[0]["dNgayCap"]);
+                resNSW.TestConfirmAttachmentId = Convert.ToString(dtCNHQ.Rows[0]["iID_ChungNhanHopQuy"]); ;
+                resNSW.TestConfirmFileName = Convert.ToString(dtCNHQ.Rows[0]["sTenFile"]); ;
+                resNSW.TestConfirmFileLink = Convert.ToString(dtCNHQ.Rows[0]["sDuongDan"]);
 
-                for (int i = 0; i < dtKQPT.Rows.Count; i++)
+                if (dtKQPT.Rows.Count > 0)
                 {
-                    lstFile.Add(new AttachmentResult { FileCode=71, AttachmentId = Convert.ToString(dtKQPT.Rows[0]["iID_KetQuaPhanTich"]), FileName = Convert.ToString(dtKQPT.Rows[0]["sTenFile"]), FileLink = Convert.ToString(dtKQPT.Rows[0]["sDuongDan"]) });
+                    List<AttachmentResult> lstFile = new List<AttachmentResult>();
+
+                    for (int i = 0; i < dtKQPT.Rows.Count; i++)
+                    {
+                        lstFile.Add(new AttachmentResult { FileCode = 71, AttachmentId = Convert.ToString(dtKQPT.Rows[0]["iID_KetQuaPhanTich"]), FileName = Convert.ToString(dtKQPT.Rows[0]["sTenFile"]), FileLink = Convert.ToString(dtKQPT.Rows[0]["sDuongDan"]) });
+                    }
+
+                    resNSW.ListAttachmentResults = lstFile;
                 }
+                dtKQPT.Dispose();
+                dtCNHQ.Dispose();
 
-                resNSW.ListAttachmentResults = lstFile;
+                error = _sendService.TCCDGuiKetQuaKT(hoSo.sMaHoSo, resNSW);
             }
-            dtKQPT.Dispose();
-            dtCNHQ.Dispose();
-
-            string error = _sendService.TCCDGuiKetQuaKT(hoSo.sMaHoSo, resNSW);
+            else
+            {
+                error = "99";
+            }
+            
             if (error.Equals("99"))
             {
                 CHoSo.UpDate_TrangThai(Convert.ToInt64(iID_MaHoSo), 28);
@@ -276,36 +284,44 @@ namespace APP0200025.Controllers
 
             }
 
-
-            //XML 16(14)
-            TCCDGuiKetQuaKT resNSW = new TCCDGuiKetQuaKT();
-            resNSW.NSWFileCode = hoSo.sMaHoSo;
-            resNSW.AssignID = Convert.ToString(dtCNHQ.Rows[0]["sMaTCCD"]);
-            resNSW.AssignName = Convert.ToString(dtCNHQ.Rows[0]["sTenTCCD"]);
-            resNSW.GoodsId = Convert.ToInt64(sMaHangHoa);
-            resNSW.NameOfGoods = sTenHangHoa;
-            resNSW.ResultTest = iKetQua;
-            resNSW.TestConfirmNumber = Convert.ToString(dtCNHQ.Rows[0]["sSoChungNhan"]);
-            resNSW.TestConfirmDateString = Convert.ToDateTime(dtCNHQ.Rows[0]["dNgayCap"]);
-            resNSW.TestConfirmAttachmentId = Convert.ToString(dtCNHQ.Rows[0]["iID_ChungNhanHopQuy"]); ;
-            resNSW.TestConfirmFileName = Convert.ToString(dtCNHQ.Rows[0]["sTenFile"]); ;
-            resNSW.TestConfirmFileLink = Convert.ToString(dtCNHQ.Rows[0]["sDuongDan"]);
-
-            if (dtKQPT.Rows.Count > 0)
+            string error = "";
+            if (CHamRieng.iNSW == 1)
             {
-                List<AttachmentResult> lstFile = new List<AttachmentResult>();
+                //XML 16(14)
+                TCCDGuiKetQuaKT resNSW = new TCCDGuiKetQuaKT();
+                resNSW.NSWFileCode = hoSo.sMaHoSo;
+                resNSW.AssignID = Convert.ToString(dtCNHQ.Rows[0]["sMaTCCD"]);
+                resNSW.AssignName = Convert.ToString(dtCNHQ.Rows[0]["sTenTCCD"]);
+                resNSW.GoodsId = Convert.ToInt64(sMaHangHoa);
+                resNSW.NameOfGoods = sTenHangHoa;
+                resNSW.ResultTest = iKetQua;
+                resNSW.TestConfirmNumber = Convert.ToString(dtCNHQ.Rows[0]["sSoChungNhan"]);
+                resNSW.TestConfirmDateString = Convert.ToDateTime(dtCNHQ.Rows[0]["dNgayCap"]);
+                resNSW.TestConfirmAttachmentId = Convert.ToString(dtCNHQ.Rows[0]["iID_ChungNhanHopQuy"]); ;
+                resNSW.TestConfirmFileName = Convert.ToString(dtCNHQ.Rows[0]["sTenFile"]); ;
+                resNSW.TestConfirmFileLink = Convert.ToString(dtCNHQ.Rows[0]["sDuongDan"]);
 
-                for (int i = 0; i < dtKQPT.Rows.Count; i++)
+                if (dtKQPT.Rows.Count > 0)
                 {
-                    lstFile.Add(new AttachmentResult { FileCode = 71, AttachmentId = Convert.ToString(dtKQPT.Rows[0]["iID_KetQuaPhanTich"]), FileName = Convert.ToString(dtKQPT.Rows[0]["sTenFile"]), FileLink = Convert.ToString(dtKQPT.Rows[0]["sDuongDan"]) });
+                    List<AttachmentResult> lstFile = new List<AttachmentResult>();
+
+                    for (int i = 0; i < dtKQPT.Rows.Count; i++)
+                    {
+                        lstFile.Add(new AttachmentResult { FileCode = 71, AttachmentId = Convert.ToString(dtKQPT.Rows[0]["iID_KetQuaPhanTich"]), FileName = Convert.ToString(dtKQPT.Rows[0]["sTenFile"]), FileLink = Convert.ToString(dtKQPT.Rows[0]["sDuongDan"]) });
+                    }
+
+                    resNSW.ListAttachmentResults = lstFile;
                 }
+                dtKQPT.Dispose();
+                dtCNHQ.Dispose();
 
-                resNSW.ListAttachmentResults = lstFile;
+                error = _sendService.TCCDGuiKetQuaKT(hoSo.sMaHoSo, resNSW);
             }
-            dtKQPT.Dispose();
-            dtCNHQ.Dispose();
-
-            string error = _sendService.TCCDGuiKetQuaKT(hoSo.sMaHoSo, resNSW);
+            else
+            {
+                error = "99";
+            }
+            
             if (error.Equals("99"))
             {
                 CHoSo.UpDate_TrangThai(Convert.ToInt64(iID_MaHoSo), 28);

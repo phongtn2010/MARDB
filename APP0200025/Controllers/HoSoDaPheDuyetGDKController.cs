@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using DATA0200025.WebServices.XmlType.Request;
 using DATA0200025.WebServices;
+using APP0200025.Models;
 
 namespace APP0200025.Controllers
 {
@@ -70,34 +71,44 @@ namespace APP0200025.Controllers
                 HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNPhuLucGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-                //XML 13(11)
-                XacNhanDon resultConfirm = new XacNhanDon();
-                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
-                resultConfirm.DepartmentCode = hoSo.sCoQuanXuLy_Ma;
-                resultConfirm.DepartmentName = hoSo.sCoQuanXuLy_Ten;
-                resultConfirm.ImportingFromDateString = hoSo.sMua_FromDate;
-                resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
-                resultConfirm.ImportingFromDateString = hoSo.sMua_FromDate;
-                resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
-                resultConfirm.AssignID = "";
-                resultConfirm.AssignName = "";
-                resultConfirm.AssignNameOther = "";
-                resultConfirm.SignConfirmDateString = hoSo.dNgayXacNhan;
-                resultConfirm.SignConfirmPlace = "Hà nội";
-                resultConfirm.SignConfirmName = "Lãnh đạo cục";
-                resultConfirm.NSWFileCodeOld = hoSo.sMaHoSo_ThayThe;
-                resultConfirm.AniFeedConfirmOldNo = hoSo.sSoXacNhan_ThayThe;
-                resultConfirm.ListHangHoa = clHangHoa.GetHoaXND(hoSo.iID_MaHoSo);
-                if (hoSo.iID_MaLoaiHoSo == 1)
-                    resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
+                string error = "";
+                if(CHamRieng.iNSW ==1)
+                {
+
+                    //XML 13(11)
+                    XacNhanDon resultConfirm = new XacNhanDon();
+                    resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                    resultConfirm.AniFeedConfirmNo = hoSo.sSoGDK;
+                    resultConfirm.DepartmentCode = hoSo.sCoQuanXuLy_Ma;
+                    resultConfirm.DepartmentName = hoSo.sCoQuanXuLy_Ten;
+                    resultConfirm.ImportingFromDateString = hoSo.sMua_FromDate;
+                    resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
+                    resultConfirm.ImportingFromDateString = hoSo.sMua_FromDate;
+                    resultConfirm.ImportingToDate = hoSo.sMua_ToDate;
+                    resultConfirm.AssignID = "";
+                    resultConfirm.AssignName = "";
+                    resultConfirm.AssignNameOther = "";
+                    resultConfirm.SignConfirmDateString = hoSo.dNgayXacNhan;
+                    resultConfirm.SignConfirmPlace = "Hà nội";
+                    resultConfirm.SignConfirmName = "Lãnh đạo cục";
+                    resultConfirm.NSWFileCodeOld = hoSo.sMaHoSo_ThayThe;
+                    resultConfirm.AniFeedConfirmOldNo = hoSo.sSoXacNhan_ThayThe;
+                    resultConfirm.ListHangHoa = clHangHoa.GetHoaXND(hoSo.iID_MaHoSo);
+                    if (hoSo.iID_MaLoaiHoSo == 1)
+                        resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
                                             người nhập khẩu phải nộp kết quả tự đánh giá sự phù hợp theo quy định 
                                             về Cục Chăn nuôi thông qua hệ thống Một cửa Quốc gia.";
-                if (hoSo.iID_MaLoaiHoSo == 2)
-                    resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
+                    if (hoSo.iID_MaLoaiHoSo == 2)
+                        resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
                                         người nhập khẩu phải nộp bản sao ý bản chính (có ký tên và đóng dấu của người nhập khẩu) 
                                         Giấy chứng nhận hợp quy lô hàng thức ăn chăn nuôi nhập khẩu theo quy định về Cục Chăn nuôi thông qua hệ thống Một cửa Quốc gia.";
-                string error = _sendService.XacNhanDon(hoSo.sMaHoSo, resultConfirm);
+                    error = _sendService.XacNhanDon(hoSo.sMaHoSo, resultConfirm);
+                }
+                else
+                {
+                    error = "99";
+                }
+
                 if (error.Equals("99"))
                 {
                     bang.MaNguoiDungSua = User.Identity.Name;

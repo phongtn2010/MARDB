@@ -124,19 +124,27 @@ namespace APP0200025.Controllers
 
             DateTime dNgayThuHoi = DateTime.Now;
 
-            //XML 20(23)
-            ThuHoiGiayXNCL resultConfirm = new ThuHoiGiayXNCL();
-            resultConfirm.NSWFileCode = hangHoa.sMaHoSo;
-            resultConfirm.Reason = _sNoiDung;
-            resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
-            resultConfirm.FileName = sFileName;
-            resultConfirm.FileLink = sFileTemp;
-            resultConfirm.CancelDateString = dNgayThuHoi;
-            resultConfirm.SignConfirmDateString = dNgayThuHoi;
-            resultConfirm.SignConfirmName = eCoQuanXuLy.sNguoiKy_Ten;
-            resultConfirm.AniFeedResultNo = hangHoa.sSoThongBaoKetQua;//Số giấy xác nhận chất lượng (của BNN)
+            string error = "";
+            if(CHamRieng.iNSW == 1)
+            {
+                //XML 20(23)
+                ThuHoiGiayXNCL resultConfirm = new ThuHoiGiayXNCL();
+                resultConfirm.NSWFileCode = hangHoa.sMaHoSo;
+                resultConfirm.Reason = _sNoiDung;
+                resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
+                resultConfirm.FileName = sFileName;
+                resultConfirm.FileLink = sFileTemp;
+                resultConfirm.CancelDateString = dNgayThuHoi;
+                resultConfirm.SignConfirmDateString = dNgayThuHoi;
+                resultConfirm.SignConfirmName = eCoQuanXuLy.sNguoiKy_Ten;
+                resultConfirm.AniFeedResultNo = hangHoa.sSoThongBaoKetQua;//Số giấy xác nhận chất lượng (của BNN)
 
-            string error = _sendService.ThuHoiGiayXNCL(hangHoa.sMaHoSo, resultConfirm);
+                error = _sendService.ThuHoiGiayXNCL(hangHoa.sMaHoSo, resultConfirm);
+            }
+            else
+            {
+                error = "99";
+            }
             if (error.Equals("99"))
             {
                 bang.MaNguoiDungSua = User.Identity.Name;
