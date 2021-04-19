@@ -9,6 +9,7 @@ using DATA0200026.WebServices;
 using DomainModel;
 using DATA0200026.WebServices.XmlType.Request;
 using System.Collections.Specialized;
+using APP0200025.Models;
 
 namespace APP0200025.Controllers
 {
@@ -154,13 +155,22 @@ namespace APP0200025.Controllers
             {
                 CHoSo26.UpdateNguoiXem(iID_MaHoSo, sUserName);
 
-                //XML13(01)
-                PhanHoiDonXM resultConfirm = new PhanHoiDonXM();
-                resultConfirm.NSWFileCode = sMaHoSo;
-                resultConfirm.NameOfStaff = sTenUser;
-                resultConfirm.ResponseDateString = DateTime.Now;
+                string error = "";
+                if(CHamRieng.iNSW == 1)
+                {
+                    //XML13(01)
+                    PhanHoiDonXM resultConfirm = new PhanHoiDonXM();
+                    resultConfirm.NSWFileCode = sMaHoSo;
+                    resultConfirm.NameOfStaff = sTenUser;
+                    resultConfirm.ResponseDateString = DateTime.Now;
 
-                string error = _sendService.PhanHoiDonXM(sMaHoSo, resultConfirm);
+                    error = _sendService.PhanHoiDonXM(sMaHoSo, resultConfirm);
+                }
+                else
+                {
+                    error = "99";
+                }
+                
                 if (error == "99")
                 {
                     bang.MaNguoiDungSua = sUserName;
@@ -267,24 +277,33 @@ namespace APP0200025.Controllers
                 HoSo26Models hs = CHoSo26.Get_Detail(Convert.ToInt64(iID_MaHoSo));
                 if(hs != null)
                 {
-                    //XML 12(04)
-                    CVMienKiem resultConfirm = new CVMienKiem();
-                    resultConfirm.NSWFileCode = hs.sMaHoSo;
-                    resultConfirm.ConfirmApplicationNo = hs.sSoGDK;
-                    resultConfirm.Organization = hs.sTenDoanhNghiep;
-                    resultConfirm.SignConfirmDateString = hs.dNgayXacNhan;
-                    resultConfirm.SignConfirmPlace = hs.sSoGDK_NoiKy;
-                    resultConfirm.SignDateString = hs.dNgayTaoHoSo;
-                    resultConfirm.DepartmentCode = hs.sMaCoQuanXuLy;
-                    resultConfirm.DepartmentName = hs.sTenCoQuanXuLy;
+                    string error = "";
+                    if (CHamRieng.iNSW == 1)
+                    {
+                        //XML 12(04)
+                        CVMienKiem resultConfirm = new CVMienKiem();
+                        resultConfirm.NSWFileCode = hs.sMaHoSo;
+                        resultConfirm.ConfirmApplicationNo = hs.sSoGDK;
+                        resultConfirm.Organization = hs.sTenDoanhNghiep;
+                        resultConfirm.SignConfirmDateString = hs.dNgayXacNhan;
+                        resultConfirm.SignConfirmPlace = hs.sSoGDK_NoiKy;
+                        resultConfirm.SignDateString = hs.dNgayTaoHoSo;
+                        resultConfirm.DepartmentCode = hs.sMaCoQuanXuLy;
+                        resultConfirm.DepartmentName = hs.sTenCoQuanXuLy;
 
-                    resultConfirm.ListHangHoa = CHangHoa26.GetHoaXND(Convert.ToInt64(iID_MaHoSo));
+                        resultConfirm.ListHangHoa = CHangHoa26.GetHoaXND(Convert.ToInt64(iID_MaHoSo));
 
-                    resultConfirm.PeriodFromString = hs.dNgayXacNhan;
-                    resultConfirm.PeriodToString = hs.dNgayHetHieuLuc;
-                    resultConfirm.SignName = hs.sSoGDK_NguoiKy;
+                        resultConfirm.PeriodFromString = hs.dNgayXacNhan;
+                        resultConfirm.PeriodToString = hs.dNgayHetHieuLuc;
+                        resultConfirm.SignName = hs.sSoGDK_NguoiKy;
 
-                    string error = _sendService.CVMienKiem(hs.sMaHoSo, resultConfirm);
+                        error = _sendService.CVMienKiem(hs.sMaHoSo, resultConfirm);
+                    }
+                    else
+                    {
+                        error = "99";
+                    }
+                    
                     if (error == "99")
                     {
                         bang.MaNguoiDungSua = sUserName;
@@ -495,19 +514,28 @@ namespace APP0200025.Controllers
                 }
             }
 
-            //XML 13(05)
-            ThongBaoThuHoiCVMienKiem resultConfirm = new ThongBaoThuHoiCVMienKiem();
-            resultConfirm.NSWFileCode = sMaHoSo;
-            resultConfirm.CancelDateString = DateTime.Now;
-            resultConfirm.Reason = _sNoiDung;
-            resultConfirm.SignConfirmDateString = DateTime.Now;
-            resultConfirm.SignConfirmName = "Người ký";
-            resultConfirm.ConfirmApplicationNo = "SO CV MG";
-            resultConfirm.AttachmentId = "100";
-            resultConfirm.FileName = sFileName;
-            resultConfirm.FileLink = sFileTemp;
+            string error = "";
+            if (CHamRieng.iNSW == 1)
+            {
+                //XML 13(05)
+                ThongBaoThuHoiCVMienKiem resultConfirm = new ThongBaoThuHoiCVMienKiem();
+                resultConfirm.NSWFileCode = sMaHoSo;
+                resultConfirm.CancelDateString = DateTime.Now;
+                resultConfirm.Reason = _sNoiDung;
+                resultConfirm.SignConfirmDateString = DateTime.Now;
+                resultConfirm.SignConfirmName = "Người ký";
+                resultConfirm.ConfirmApplicationNo = "SO CV MG";
+                resultConfirm.AttachmentId = "100";
+                resultConfirm.FileName = sFileName;
+                resultConfirm.FileLink = sFileTemp;
 
-            string error = _sendService.ThongBaoThuHoiCVMienKiem(sMaHoSo, resultConfirm);
+                error = _sendService.ThongBaoThuHoiCVMienKiem(sMaHoSo, resultConfirm);
+            }
+            else
+            {
+                error = "99";
+            }
+            
             if (error == "99")
             {
 

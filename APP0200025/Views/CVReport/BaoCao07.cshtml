@@ -34,10 +34,12 @@
     SelectOptionList ddlPhanLoai = clDanhMuc.GetDDL_TenKhoa("PHANLOAITACN");
 
 
-    DataTable dt = clBaoCao.CVBaoCao04(Model);
+    DataTable dtNhom = clDanhMuc.GetDataTable_BanChat("PHANLOAITACN", "sGhiChu");
 
-    String strPrint = Url.Action("BaoCao04Print", "CVReport", new { TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
-    String strExport = Url.Action("BaoCao04ExpExcel", "CVReport", new { TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+    String strPrint = Url.Action("BaoCao07Print", "CVReport", new { TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+    String strExport = Url.Action("BaoCao07ExpExcel", "CVReport", new { TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+
+    Double rTongKL = 0, rTongTL = 0, rTongLO = 0;
 }
 <script type="text/javascript">
     $(function () {
@@ -57,7 +59,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-danger">
-                @using (Html.BeginForm("BaoCao04Search", "CVReport", new { ParentID = ParentID }, FormMethod.Post, new { id = "formReports", @class = "form-horizontal" }))
+                @using (Html.BeginForm("BaoCao07Search", "CVReport", new { ParentID = ParentID }, FormMethod.Post, new { id = "formReports", @class = "form-horizontal" }))
                 {
                     <div class="box-header with-border">
                         <h3 class="box-title">@Lang["ChucNang_Item09"].ToString()</h3>
@@ -130,71 +132,85 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title text-uppercase">THỐNG KÊ SỐ LÔ, KHỐI LƯỢNG, GIÁ TRỊ NHẬP KHẨU THEO TỔ CHỨC CHỈ ĐỊNH</h3>
+                    <h3 class="box-title text-uppercase">THỐNG KÊ TỔNG KHỐI LƯỢNG, GIÁ TRỊ NHẬP KHẨU THEO CẢNG NHẬP KHẨU</h3>
                     <ul class="pagination pagination-sm no-margin pull-right">
                         <li><a href="#" onclick="javascript:history.go(-1)"><i class="fa fa-reply-all"></i> Quay lại</a></li>
                     </ul>
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding pre-scrollable">
                     <div class="table-responsive" id="divWord">
-                        <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
+                        <table id="tblListData" class="table table-bordered table-hover dataTable">
                             <thead>
                                 <tr>
-                                    <th style="text-align: center; width: 5px;" rowspan="2" align="center">STT</th>
-                                    <th style="text-align: center;" rowspan="2" align="center">Tên tổ chức chỉ định</th>
-                                    <th style="text-align: center; width: 20%;" colspan="2" align="center">Số lô theo chế độ kiểm tra</th>
-                                    <th style="text-align: center; width: 20%;" colspan="2" align="center">Số lượng</th>
-                                    <th style="text-align: center; width: 20%;" colspan="2" align="center">Giá trị</th>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center; width: 10%;" align="center">Kiểm tra thông thường</th>
-                                    <th style="text-align: center; width: 10%;" align="center">Tỷ lệ (%)</th>
-                                    <th style="text-align: center; width: 10%;" align="center">Số lượng (tấn)</th>
-                                    <th style="text-align: center; width: 10%;" align="center">Tỷ lệ (%)</th>
-                                    <th style="text-align: center; width: 10%;" align="center">Giá trị (USD)</th>
-                                    <th style="text-align: center; width: 10%;" align="center">Tỷ lệ (%)</th>
+                                    <th style="text-align: center; width: 5px;" align="center">STT</th>
+                                    <th style="text-align: center;" align="left">Bản chất</th>
+                                    <th style="text-align: center; width: 20%;" align="right">Khố lượng (tấn)</th>
+                                    <th style="text-align: center; width: 20%;" align="right">Giá trị (USD)</th>
+                                    <th style="text-align: center; width: 15%;" align="center">Số lô</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (dt.Rows.Count > 0)
+                                @if (dtNhom.Rows.Count > 0)
                                 {
-                                    Double rTong = 0, rTongKL = 0, rTongTL = 0;
-                                    for (int i = 0; i < dt.Rows.Count; i++)
+                                    Double rTongKL_K = 0, rTongTL_K = 0, rTongLO_K = 0;
+
+                                    DataTable dt = clBaoCao.CVBaoCao07(Model);
+                                    for (int j = 0; j < dtNhom.Rows.Count; j++)
                                     {
-                                        DataRow r = dt.Rows[i];
-
-                                        String sTyLeXNCL = "", sTyLeKL = "", sTyLeGT = "";
-
-                                        rTong = Convert.ToDouble(dt.Compute("SUM(sTongXNCL)", string.Empty));
-                                        rTongKL = Convert.ToDouble(dt.Compute("SUM(sSoLuong)", string.Empty));
-                                        rTongTL = Convert.ToDouble(dt.Compute("SUM(sGiaTriUSD)", string.Empty));
-
-                                        sTyLeXNCL = Convert.ToString(Math.Round(Convert.ToDouble(r["sTongXNCL"]) / rTong * 100, 2, MidpointRounding.AwayFromZero));
-                                        sTyLeKL = Convert.ToString(Math.Round(Convert.ToDouble(r["sSoLuong"]) / rTongKL * 100, 2, MidpointRounding.AwayFromZero));
-                                        sTyLeGT = Convert.ToString(Math.Round(Convert.ToDouble(r["sGiaTriUSD"]) / rTongTL * 100, 2, MidpointRounding.AwayFromZero));
-
-                                        <tr>
-                                            <td align="center">@(i+1)</td>
-                                            <td align="left">@Convert.ToString(r["sTenToChuc"])</td>
-                                            <td align="right">@Convert.ToDouble(r["sTongXNCL"]).ToString("#,##")</td>
-                                            <td align="center">@Convert.ToString(sTyLeXNCL) %</td>
-                                            <td align="right">@Convert.ToDouble(r["sSoLuong"]).ToString("#,##")</td>
-                                            <td align="center">@Convert.ToString(sTyLeKL) %</td>
-                                            <td align="right">@Convert.ToDouble(r["sGiaTriUSD"]).ToString("#,##")</td>
-                                            <td align="center">@Convert.ToString(sTyLeGT) %</td>
-                                        </tr>
+                                        DataRow[] result = dt.Select("sGhiChu = '" + Convert.ToString(dtNhom.Rows[j]["sGhiChu"]) + "'");
+                                        if (result.Length > 0)
+                                        {
+                                            rTongKL_K = 0;
+                                            rTongTL_K = 0;
+                                            rTongLO_K = 0;
+                                            foreach (DataRow row in result)
+                                            {
+                                                rTongKL_K += Convert.ToDouble(row["sKhoiLuongTan"]);
+                                                rTongTL_K += Convert.ToDouble(row["sGiaTriUSD"]);
+                                                rTongLO_K += Convert.ToDouble(row["sSoLo"]);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            rTongKL_K = 0;
+                                            rTongTL_K = 0;
+                                            rTongLO_K = 0;
                                         }
 
-                                    <tr>
-                                        <th style="text-align: center;" colspan="2">Tổng số lô</th>
-                                        <th style="text-align: right;">@Convert.ToString(rTong.ToString("#,##"))</th>
-                                        <th align="center"></th>
-                                        <th style="text-align: right;">@Convert.ToString(rTongKL.ToString("#,##"))</th>
-                                        <th align="center"></th>
-                                        <th style="text-align: right;">@Convert.ToString(rTongTL.ToString("#,##"))</th>
-                                        <th align="center"></th>
-                                    </tr>
+                                        <tr style="background-color: #f9f9f9;">
+                                            <td align="center"><b>@(j+1)</b></td>
+                                            <td align="left"><b>@Convert.ToString(dtNhom.Rows[j]["sGhiChu"])</b></td>
+                                            <td align="right"><b>@Convert.ToString(rTongKL_K.ToString("#,##"))</b></td>
+                                            <td align="right"><b>@Convert.ToString(rTongTL_K.ToString("#,##"))</b></td>
+                                            <td align="center"><b>@Convert.ToString(rTongLO_K.ToString("#,##"))</b></td>
+                                        </tr>
+
+                                        int i = 1;
+                                        //DataRow[] result = dt.Select("sGhiChu = '" + Convert.ToString(dtNhom.Rows[j]["sGhiChu"]) + "'");
+                                        foreach (DataRow row in result)
+                                        {
+                                            rTongKL = Convert.ToDouble(dt.Compute("SUM(sKhoiLuongTan)", string.Empty));
+                                            rTongTL = Convert.ToDouble(dt.Compute("SUM(sGiaTriUSD)", string.Empty));
+                                            rTongLO = Convert.ToDouble(dt.Compute("SUM(sSoLo)", string.Empty));
+
+                                            <tr>
+                                                <td align="center">@(i)</td>
+                                                <td align="left">@Convert.ToString(row["sTen"])</td>
+                                                <td align="right">@Convert.ToDouble(row["sKhoiLuongTan"]).ToString("#,##")</td>
+                                                <td align="right">@Convert.ToDouble(row["sGiaTriUSD"]).ToString("#,##")</td>
+                                                <td align="center">@Convert.ToDouble(row["sSoLo"]).ToString("#,##")</td>
+                                            </tr>
+
+                                            i = i + 1;
+                                        }
                                     }
+                                }
+                                <tr style="background-color:#f9fab6">
+                                    <td align="center" colspan="2"><b>TỔNG CỘNG</b></td>
+                                    <td align="right"><b>@Convert.ToString(rTongKL.ToString("#,##"))</b></td>
+                                    <td align="right"><b>@Convert.ToString(rTongTL.ToString("#,##"))</b></td>
+                                    <td align="center"><b>@Convert.ToString(rTongLO.ToString("#,##"))</b></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

@@ -36,10 +36,12 @@
 
     DataTable dtNhom = clDanhMuc.GetDataTable_TenKhoa("NHOMTACN", "sMa");
 
-    
+
 
     String strPrint = Url.Action("BaoCao05Print", "CVReport", new { TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
     String strExport = Url.Action("BaoCao05ExpExcel", "CVReport", new { TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+
+    Double rTongKL = 0, rTongTL = 0;
 }
 <script type="text/javascript">
     $(function () {
@@ -139,64 +141,103 @@
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding pre-scrollable">
                     <div class="table-responsive" id="divWord">
-                        <table id="tblListData" class="table table-bordered table-hover table-striped dataTable">
+                        <table id="tblListData" class="table table-bordered table-hover dataTable">
                             <thead>
                                 <tr>
                                     <th style="text-align: center; width: 5px;" rowspan="2" align="center">STT</th>
                                     <th style="text-align: center;" rowspan="2" align="center">Nhóm thức ăn chăn nuôi</th>
-                                    <th style="text-align: center; width: 20%;" colspan="2" align="center">Số lượng</th>
-                                    <th style="text-align: center; width: 20%;" colspan="2" align="center">Giá trị</th>
+                                    <th style="text-align: center; width: 30%;" colspan="2" align="center">Số lượng</th>
+                                    <th style="text-align: center; width: 30%;" colspan="2" align="center">Giá trị</th>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: center; width: 10%;" align="center">Số lượng (tấn)</th>
-                                    <th style="text-align: center; width: 10%;" align="center">Tỷ lệ (%)</th>
-                                    <th style="text-align: center; width: 10%;" align="center">Giá trị (USD)</th>
-                                    <th style="text-align: center; width: 10%;" align="center">Tỷ lệ (%)</th>
+                                    <th style="text-align: center; width: 15%;" align="center">Số lượng (tấn)</th>
+                                    <th style="text-align: center; width: 15%;" align="center">Tỷ lệ (%)</th>
+                                    <th style="text-align: center; width: 15%;" align="center">Giá trị (USD)</th>
+                                    <th style="text-align: center; width: 15%;" align="center">Tỷ lệ (%)</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if (dtNhom.Rows.Count > 0)
                                 {
-                                    Double rTongKL = 0, rTongTL = 0;
+                                    Double rTongKL_K = 0, rTongTL_K = 0;
 
                                     for (int j = 0; j < dtNhom.Rows.Count; j++)
                                     {
-                                        <tr>
-                                            <td align="center"><b>@(j+1)</b></td>
-                                            <td align="left"><b>@Convert.ToString(dtNhom.Rows[j]["sTen"])</b></td>
-                                            <td align="right"><b>@(rTongKL)</b></td>
-                                            <td align="center"><b>100%</b></td>
-                                            <td align="right"><b>@(rTongTL)</b></td>
-                                            <td align="center"><b>100%</b></td>
-                                        </tr>
+                                        String sTyLeKL_C = "", sTyLeGT_C = "";
 
                                         DataTable dt = clBaoCao.CVBaoCao05View(Model, Convert.ToString(dtNhom.Rows[j]["sMa"]));
+                                        if (dt.Rows.Count > 0)
+                                        {
+                                            rTongKL_K = 0;
+                                            rTongTL_K = 0;
+                                            for (int i = 0; i < dt.Rows.Count; i++)
+                                            {
+                                                DataRow r = dt.Rows[i];
+
+                                                rTongKL_K += Convert.ToDouble(r["sSoLuongTan"]);
+                                                rTongTL_K += Convert.ToDouble(r["sGiaTriUSD"]);
+                                            }
+
+                                            sTyLeKL_C = "100 %";
+                                            sTyLeGT_C = "100 %";
+                                        }
+                                        else
+                                        {
+                                            rTongKL_K = 0;
+                                            rTongTL_K = 0;
+
+                                            sTyLeKL_C = "";
+                                            sTyLeGT_C = "";
+                                        }
+
+                                        <tr style="background-color: #f9f9f9;">
+                                            <td align="center"><b>@(j+1)</b></td>
+                                            <td align="left"><b>@Convert.ToString(dtNhom.Rows[j]["sTen"])</b></td>
+                                            <td align="right"><b>@Convert.ToString(rTongKL_K.ToString("#,##"))</b></td>
+                                            <td align="center"><b>@(sTyLeKL_C)</b></td>
+                                            <td align="right"><b>@Convert.ToString(rTongTL_K.ToString("#,##"))</b></td>
+                                            <td align="center"><b>@(sTyLeGT_C)</b></td>
+                                        </tr>
+
+
                                         if (dtNhom.Rows.Count > 0)
                                         {
+                                            Double rTongKL_K_TL = 0, rTongTL_K_TL = 0;
+
                                             for (int i = 0; i < dt.Rows.Count; i++)
                                             {
                                                 DataRow r = dt.Rows[i];
 
                                                 String sTyLeKL = "", sTyLeGT = "";
 
-                                                rTongKL = Convert.ToDouble(dt.Compute("SUM(sSoLuongTan)", string.Empty));
-                                                rTongTL = Convert.ToDouble(dt.Compute("SUM(sGiaTriUSD)", string.Empty));
+                                                rTongKL += Convert.ToDouble(r["sSoLuongTan"]);
+                                                rTongTL += Convert.ToDouble(r["sGiaTriUSD"]);
 
-                                                sTyLeKL = Convert.ToString(Convert.ToDouble(r["sSoLuongTan"]) / rTongKL * 100);
-                                                sTyLeGT = Convert.ToString(Convert.ToDouble(r["sGiaTriUSD"]) / rTongTL * 100);
+                                                rTongKL_K_TL = Convert.ToDouble(dt.Compute("SUM(sSoLuongTan)", string.Empty));
+                                                rTongTL_K_TL = Convert.ToDouble(dt.Compute("SUM(sGiaTriUSD)", string.Empty));
+
+                                                sTyLeKL = Convert.ToString(Math.Round(Convert.ToDouble(r["sSoLuongTan"]) / rTongKL_K_TL * 100, 2, MidpointRounding.AwayFromZero));
+                                                sTyLeGT = Convert.ToString(Math.Round(Convert.ToDouble(r["sGiaTriUSD"]) / rTongTL_K_TL * 100, 2, MidpointRounding.AwayFromZero));
 
                                                 <tr>
                                                     <td align="center">@(i+1)</td>
                                                     <td align="left">@Convert.ToString(r["sTenPhanNhom"])</td>
-                                                    <td align="right">@Convert.ToString(r["sSoLuongTan"])</td>
-                                                    <td align="center">@Convert.ToString(sTyLeKL)</td>
-                                                    <td align="right">@Convert.ToString(r["sGiaTriUSD"])</td>
-                                                    <td align="center">@Convert.ToString(sTyLeGT)</td>
+                                                    <td align="right">@Convert.ToDouble(r["sSoLuongTan"]).ToString("#,##")</td>
+                                                    <td align="center">@Convert.ToString(sTyLeKL) %</td>
+                                                    <td align="right">@Convert.ToDouble(r["sGiaTriUSD"]).ToString("#,##")</td>
+                                                    <td align="center">@Convert.ToString(sTyLeGT) %</td>
                                                 </tr>
                                             }
                                         }
                                     }
                                 }
+                                <tr style="background-color:#f9fab6">
+                                    <td align="center" colspan="2"><b>TỔNG CỘNG</b></td>
+                                    <td align="right"><b>@Convert.ToString(rTongKL.ToString("#,##"))</b></td>
+                                    <td align="center">&nbsp;</td>
+                                    <td align="right"><b>@Convert.ToString(rTongTL.ToString("#,##"))</b></td>
+                                    <td align="center">&nbsp;</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

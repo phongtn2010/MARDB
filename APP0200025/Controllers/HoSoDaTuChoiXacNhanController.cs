@@ -141,16 +141,25 @@ namespace APP0200025.Controllers
 
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ChuyenDNThongBaoTuChoiCapGDK, hoSo.iID_MaTrangThai, hoSo.iID_MaTrangThaiTruoc);
 
-                //XML(12, 10)
-                KetQuaXuLy resultConfirm = new KetQuaXuLy();
-                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = "Chuyển thông báo từ chối cấp GĐK";
-                resultConfirm.AttachmentId = "01";
-                resultConfirm.FileName = "";
-                resultConfirm.FileLink = "";
-                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-                resultConfirm.ResponseDateString = DateTime.Now;
-                string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "10");
+                string error = "";
+                if (CHamRieng.iNSW == 1)
+                {
+                    //XML(12, 10)
+                    KetQuaXuLy resultConfirm = new KetQuaXuLy();
+                    resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                    resultConfirm.Reason = "Chuyển thông báo từ chối cấp GĐK";
+                    resultConfirm.AttachmentId = "01";
+                    resultConfirm.FileName = "";
+                    resultConfirm.FileLink = "";
+                    resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                    resultConfirm.ResponseDateString = DateTime.Now;
+                    error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "10");
+                }
+                else
+                {
+                    error = "99";
+                }
+                
                 if (error == "99")
                 {
                     bang.MaNguoiDungSua = User.Identity.Name;

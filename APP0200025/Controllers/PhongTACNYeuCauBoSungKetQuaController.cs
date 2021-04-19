@@ -75,19 +75,27 @@ namespace APP0200025.Controllers
                 }
                 dtLS.Dispose();
 
-                //XML(18, 21)
-                XuLyKetQua resultConfirm = new XuLyKetQua();
-                resultConfirm.NSWFileCode = hanghoa.sMaHoSo;
-                resultConfirm.Reason = sNoiDungLichSu;
-                resultConfirm.GoodsId = hanghoa.iID_MaHangHoa;
-                resultConfirm.NameOfGoods = hanghoa.sTenHangHoa;
-                resultConfirm.AttachmentId = "";
-                resultConfirm.FileName = "File Yêu Cầu";
-                resultConfirm.FileLink = sFileLichSu;
-                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-                resultConfirm.ResponseDateString = DateTime.Now;
-                string error = _sendService.XuLyKetQua(hanghoa.sMaHoSo, resultConfirm, "21");
-
+                string error = "";
+                if (CHamRieng.iNSW == 1)
+                {
+                    //XML(18, 21)
+                    XuLyKetQua resultConfirm = new XuLyKetQua();
+                    resultConfirm.NSWFileCode = hanghoa.sMaHoSo;
+                    resultConfirm.Reason = sNoiDungLichSu;
+                    resultConfirm.GoodsId = hanghoa.iID_MaHangHoa;
+                    resultConfirm.NameOfGoods = hanghoa.sTenHangHoa;
+                    resultConfirm.AttachmentId = "";
+                    resultConfirm.FileName = "File Yêu Cầu";
+                    resultConfirm.FileLink = sFileLichSu;
+                    resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                    resultConfirm.ResponseDateString = DateTime.Now;
+                    error = _sendService.XuLyKetQua(hanghoa.sMaHoSo, resultConfirm, "21");
+                }
+                else
+                {
+                    error = "99";
+                }
+                
                 if (error == "99")
                 {
                     bang.MaNguoiDungSua = User.Identity.Name;
@@ -145,19 +153,27 @@ namespace APP0200025.Controllers
                 }
                 dtLS.Dispose();
 
-                //XML(18, 21)
-                XuLyKetQua resultConfirm = new XuLyKetQua();
-                resultConfirm.NSWFileCode = hanghoa.sMaHoSo;
-                resultConfirm.Reason = sNoiDungLichSu;
-                resultConfirm.GoodsId = hanghoa.iID_MaHangHoa;
-                resultConfirm.NameOfGoods = hanghoa.sTenHangHoa;
-                resultConfirm.AttachmentId = "";
-                resultConfirm.FileName = "File Yêu Cầu";
-                resultConfirm.FileLink = sFileLichSu;
-                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-                resultConfirm.ResponseDateString = DateTime.Now;
-                string error = _sendService.XuLyKetQua(hanghoa.sMaHoSo, resultConfirm, "21");
-
+                string error = "";
+                if (CHamRieng.iNSW == 1)
+                {
+                    //XML(18, 21)
+                    XuLyKetQua resultConfirm = new XuLyKetQua();
+                    resultConfirm.NSWFileCode = hanghoa.sMaHoSo;
+                    resultConfirm.Reason = sNoiDungLichSu;
+                    resultConfirm.GoodsId = hanghoa.iID_MaHangHoa;
+                    resultConfirm.NameOfGoods = hanghoa.sTenHangHoa;
+                    resultConfirm.AttachmentId = "";
+                    resultConfirm.FileName = "File Yêu Cầu";
+                    resultConfirm.FileLink = sFileLichSu;
+                    resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                    resultConfirm.ResponseDateString = DateTime.Now;
+                    error = _sendService.XuLyKetQua(hanghoa.sMaHoSo, resultConfirm, "21");
+                }
+                else
+                {
+                    error = "99";
+                }
+                
                 if (error == "99")
                 {
                     bang.MaNguoiDungSua = User.Identity.Name;

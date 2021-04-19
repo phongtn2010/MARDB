@@ -62,5 +62,6 @@ namespace DATA0200025.Models
         public string sLienHe_Email { get; set; }
         public string sDiaDiemTapKet { get; set; }
         public string sDiaDiemDangKy { get; set; }
+        public string sHashCode { get; set; }
     }
 }

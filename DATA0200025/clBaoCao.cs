@@ -541,7 +541,54 @@ namespace DATA0200025
         #endregion
 
         #region BaoCao07
-        
+        public static DataTable CVBaoCao07(ReportSearchModels model)
+        {
+            string DK = "1=1";
+            SqlCommand cmd = new SqlCommand();
+
+            DK += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
+            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
+
+            if (!string.IsNullOrEmpty(model.TuNgay))
+            {
+                DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
+            }
+            if (!string.IsNullOrEmpty(model.DenNgay))
+            {
+                DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
+            }
+
+            string SQL = string.Format(@"SELECT CC.sMa, CC.sTen, CC.sGhiChu, CN.sKhoiLuongTan, CN.sGiaTriUSD, CN.sSoLo
+                                        FROM CNN25_DanhMuc CC,
+                                                (SELECT A.iID_MaPhanLoai sMa, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaVN) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
+	                                            FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
+                                                WHERE {0}
+	                                            GROUP BY iID_MaPhanLoai) CN
+                                        WHERE CN.sMa = CC.sMa AND CC.sTenKhoa='PHANLOAITACN'
+                                        ORDER BY CC.sGhiChu;", DK);
+            cmd.CommandText = SQL;
+            DataTable dt = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return dt;
+        }
+
+
+        //SELECT A.iID_MaPhanLoai, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaVN) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
+        //FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
+        //GROUP BY iID_MaPhanLoai ORDER BY iID_MaPhanLoai
+
+
+        //SELECT CC.sMa, CC.sTen, CC.sGhiChu, CN.sKhoiLuongTan, CN.sGiaTriUSD, CN.sSoLo
+        //FROM CNN25_DanhMuc CC,
+        //    (SELECT A.iID_MaPhanLoai sMa, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaVN) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
+        //    FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
+        //    WHERE 1=1 AND A.iID_MaTrangThai = 44
+        //    GROUP BY iID_MaPhanLoai) CN
+        //WHERE CN.sMa = CC.sMa AND CC.sTenKhoa='PHANLOAITACN'
+        //ORDER BY CC.sGhiChu;
         #endregion
 
         #region BaoCao08

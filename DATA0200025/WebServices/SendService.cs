@@ -80,14 +80,14 @@ namespace DATA0200025.WebServices
         /// <param name="nswFileCode"></param>
         /// <param name="objData"></param>
         /// <returns></returns>
-        public string XacNhanDon(string nswFileCode, XacNhanDon objData)
+        public string XacNhanDon(string nswFileCode, XacNhanDon objData, string sSignature)
         {
             var header = Header.DefaultHeader(nswFileCode, WsConstants.PROCEDURE_CODE, WsConstants.MessageType.TYPE_13,
                 WsConstants.MessageFunction.FUNCTION_11);
             var content = new Content();
             content.ResultConfirm = objData;
 
-            var request = new Envelope { Header = header, Body = Body.CreateBody(content) };
+            var request = new Envelope { Header = header, Body = Body.CreateBodySignature(content, sSignature) };
             var response = WsHelper.SendMessage(request);
 
             CLogNSW.Add(WsConstants.MessageType.TYPE_13 + "_" + WsConstants.MessageFunction.FUNCTION_11, "BNN->NSW", nswFileCode, "Trạng thái: " + response.GetFunction(), response.GetFunction(), GetXmlFromObject(request), "", "");

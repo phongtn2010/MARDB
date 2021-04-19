@@ -65,10 +65,10 @@ namespace APP0200025.Controllers
         public ActionResult Duyet(String ParentID)
         {
             string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
-
-            if(String.IsNullOrEmpty(iID_MaHoSo) == false)
+            string sKySo = Convert.ToString(Request.Form[ParentID + "_iID_Sign"]);
+            if (String.IsNullOrEmpty(iID_MaHoSo) == false)
             {
-                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
+                HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt64(iID_MaHoSo));
                 string sNoiDung = "";
                 int HanhDong = 0;
                 switch (hoSo.iID_MaTrangThai)
@@ -90,6 +90,7 @@ namespace APP0200025.Controllers
                 bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
                 bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
+                bang.CmdParams.Parameters.AddWithValue("@sHashCode", sKySo);
                 if (hoSo.iID_MaTrangThai == 22)
                 {
                     clTaoSoGDK taoSoGDK = clTaoSoGDK.GetSoGDK();
@@ -219,6 +220,7 @@ namespace APP0200025.Controllers
             HttpFileCollectionBase files = Request.Files;
             string _sNoiDung = CString.SafeString(Request.Form[ParentID + "_sNoiDung"]);
             string iID_MaHoSo = CString.SafeString(Request.Form[ParentID + "_iID_MaHoSo"]);
+            string sKySo = Convert.ToString(Request.Form["txtSignTuChoi"]);
             if (string.IsNullOrEmpty(iID_MaHoSo))
             {
                 values.Add("err_sNoiDung", "Bạn nhập thông tin yêu cầu cần bổ xung");
@@ -291,6 +293,7 @@ namespace APP0200025.Controllers
                 bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
                 bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
+                bang.CmdParams.Parameters.AddWithValue("@sHashCode", sKySo);
                 bang.Save();
 
                 clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.LanhDaoCuc, (int)clHanhDong.HanhDong.TuChoiXacNhanGDK, _sNoiDung, sFileTemp, hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);

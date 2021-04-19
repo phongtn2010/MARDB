@@ -69,18 +69,26 @@ namespace APP0200025.Controllers
                 HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanKetQuaKiemTra, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
 
-                //XML 18(20)
-                XuLyKetQua resultConfirm = new XuLyKetQua();
-                resultConfirm.NSWFileCode = hanghoa.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
-                resultConfirm.GoodsId = hanghoa.iID_MaHangHoa;
-                resultConfirm.NameOfGoods = hanghoa.sTenHangHoa;
-                resultConfirm.AttachmentId = "";
-                resultConfirm.FileName = "";
-                resultConfirm.FileLink = "";
-                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-                resultConfirm.ResponseDateString = DateTime.Now;
-                string error = _sendService.XuLyKetQua(hanghoa.sMaHoSo, resultConfirm, "20");
+                string error = "";
+                if (CHamRieng.iNSW == 1)
+                {
+                    //XML 18(20)
+                    XuLyKetQua resultConfirm = new XuLyKetQua();
+                    resultConfirm.NSWFileCode = hanghoa.sMaHoSo;
+                    resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+                    resultConfirm.GoodsId = hanghoa.iID_MaHangHoa;
+                    resultConfirm.NameOfGoods = hanghoa.sTenHangHoa;
+                    resultConfirm.AttachmentId = "";
+                    resultConfirm.FileName = "";
+                    resultConfirm.FileLink = "";
+                    resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                    resultConfirm.ResponseDateString = DateTime.Now;
+                    error = _sendService.XuLyKetQua(hanghoa.sMaHoSo, resultConfirm, "20");
+                }
+                else
+                {
+                    error = "99";
+                }
 
                 if (error == "99")
                 {
@@ -123,18 +131,27 @@ namespace APP0200025.Controllers
                 HangHoaModels hanghoa = clHangHoa.GetHangHoaById(Convert.ToInt64(iID_MaHangHoa));
                 TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TiepNhanKetQuaKiemTra, hanghoa.iID_MaTrangThai, hanghoa.iID_MaTrangThaiTruoc);
 
-                //XML 18(20)
-                XuLyKetQua resultConfirm = new XuLyKetQua();
-                resultConfirm.NSWFileCode = hanghoa.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
-                resultConfirm.GoodsId = hanghoa.iID_MaHangHoa;
-                resultConfirm.NameOfGoods = hanghoa.sTenHangHoa;
-                resultConfirm.AttachmentId = "";
-                resultConfirm.FileName = "";
-                resultConfirm.FileLink = "";
-                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-                resultConfirm.ResponseDateString = DateTime.Now;
-                string error = _sendService.XuLyKetQua(hanghoa.sMaHoSo, resultConfirm, "20");
+                string error = "";
+                if (CHamRieng.iNSW == 1)
+                {
+                    //XML 18(20)
+                    XuLyKetQua resultConfirm = new XuLyKetQua();
+                    resultConfirm.NSWFileCode = hanghoa.sMaHoSo;
+                    resultConfirm.Reason = "Đã tiếp nhận hồ sơ";
+                    resultConfirm.GoodsId = hanghoa.iID_MaHangHoa;
+                    resultConfirm.NameOfGoods = hanghoa.sTenHangHoa;
+                    resultConfirm.AttachmentId = "";
+                    resultConfirm.FileName = "";
+                    resultConfirm.FileLink = "";
+                    resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                    resultConfirm.ResponseDateString = DateTime.Now;
+                    error = _sendService.XuLyKetQua(hanghoa.sMaHoSo, resultConfirm, "20");
+                }
+                else
+                {
+                    error = "99";
+                }
+                
 
                 if (error == "99")
                 {
@@ -238,19 +255,27 @@ namespace APP0200025.Controllers
 
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.YeuCauBoSungHoSoDNCanBoSungKetQua, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
 
-            //XML 18(19)
-            XuLyKetQua resultConfirm = new XuLyKetQua();
-            resultConfirm.NSWFileCode = hangHoa.sMaHoSo;
-            resultConfirm.Reason = _sNoiDung;
-            resultConfirm.GoodsId = hangHoa.iID_MaHangHoa;
-            resultConfirm.NameOfGoods = hangHoa.sTenHangHoa;
-            resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
-            resultConfirm.FileName = sFileName;
-            resultConfirm.FileLink = sFileTemp;
-            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-            resultConfirm.ResponseDateString = DateTime.Now;
-            string error = _sendService.XuLyKetQua(hangHoa.sMaHoSo, resultConfirm, "19");
-
+            string error = "";
+            if (CHamRieng.iNSW == 1)
+            {
+                //XML 18(19)
+                XuLyKetQua resultConfirm = new XuLyKetQua();
+                resultConfirm.NSWFileCode = hangHoa.sMaHoSo;
+                resultConfirm.Reason = _sNoiDung;
+                resultConfirm.GoodsId = hangHoa.iID_MaHangHoa;
+                resultConfirm.NameOfGoods = hangHoa.sTenHangHoa;
+                resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
+                resultConfirm.FileName = sFileName;
+                resultConfirm.FileLink = sFileTemp;
+                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                resultConfirm.ResponseDateString = DateTime.Now;
+                error = _sendService.XuLyKetQua(hangHoa.sMaHoSo, resultConfirm, "19");
+            }
+            else
+            {
+                error = "99";
+            }
+            
             if (error == "99")
             {
                 bang.MaNguoiDungSua = User.Identity.Name;
@@ -349,19 +374,26 @@ namespace APP0200025.Controllers
             
             TrangThaiModels trangThaiTiepTheo = clTrangThai.GetTrangThaiModelsTiepTheo((int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.TuChoiHoSo, hangHoa.iID_MaTrangThai, hangHoa.iID_MaTrangThaiTruoc);
 
-            //XML 18(21)
-            XuLyKetQua resultConfirm = new XuLyKetQua();
-            resultConfirm.NSWFileCode = hangHoa.sMaHoSo;
-            resultConfirm.Reason = _sNoiDung;
-            resultConfirm.GoodsId = hangHoa.iID_MaHangHoa;
-            resultConfirm.NameOfGoods = hangHoa.sTenHangHoa;
-            resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
-            resultConfirm.FileName = sFileName;
-            resultConfirm.FileLink = sFileTemp;
-            resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-            resultConfirm.ResponseDateString = DateTime.Now;
-            string error = _sendService.XuLyKetQua(hangHoa.sMaHoSo, resultConfirm, "21");
-
+            string error = "";
+            if (CHamRieng.iNSW == 1)
+            {
+                //XML 18(21)
+                XuLyKetQua resultConfirm = new XuLyKetQua();
+                resultConfirm.NSWFileCode = hangHoa.sMaHoSo;
+                resultConfirm.Reason = _sNoiDung;
+                resultConfirm.GoodsId = hangHoa.iID_MaHangHoa;
+                resultConfirm.NameOfGoods = hangHoa.sTenHangHoa;
+                resultConfirm.AttachmentId = iID_MaDinhKem.ToString();
+                resultConfirm.FileName = sFileName;
+                resultConfirm.FileLink = sFileTemp;
+                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                resultConfirm.ResponseDateString = DateTime.Now;
+                error = _sendService.XuLyKetQua(hangHoa.sMaHoSo, resultConfirm, "21");
+            }
+            else
+            {
+                error = "99";
+            }
             if (error == "99")
             {
                 bang.MaNguoiDungSua = User.Identity.Name;

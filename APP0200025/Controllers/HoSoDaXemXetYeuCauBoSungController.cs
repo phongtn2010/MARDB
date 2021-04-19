@@ -163,16 +163,25 @@ namespace APP0200025.Controllers
                 }
                 dtLS.Dispose();
 
-                //Gui XML (12,09)
-                KetQuaXuLy resultConfirm = new KetQuaXuLy();
-                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = sNoiDung;
-                resultConfirm.AttachmentId = "";
-                resultConfirm.FileName = "";
-                resultConfirm.FileLink = sFileUrl;
-                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-                resultConfirm.ResponseDateString = DateTime.Now;
-                string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "09");
+                string error = "";
+                if (CHamRieng.iNSW == 1)
+                {
+                    //Gui XML (12,09)
+                    KetQuaXuLy resultConfirm = new KetQuaXuLy();
+                    resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                    resultConfirm.Reason = sNoiDung;
+                    resultConfirm.AttachmentId = "";
+                    resultConfirm.FileName = "";
+                    resultConfirm.FileLink = sFileUrl;
+                    resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                    resultConfirm.ResponseDateString = DateTime.Now;
+                    error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "09");
+                }
+                else
+                {
+                    error = "99";
+                }
+                
                 if (error == "99")
                 {
                     bang.MaNguoiDungSua = User.Identity.Name;

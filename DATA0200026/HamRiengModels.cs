@@ -299,7 +299,7 @@ namespace DATA0200026
     {
         public const string sCoQuan_Ma = "10";  //Mã cơ quan
         public const string sCoQuan_Ten = "Cục chăn nuôi";  //Tên cơ quan
-        public const string sNguoiKy_Ten = "Nguyễn Xuân Dương";  //Tên người ký
+        public const string sNguoiKy_Ten = "Tống Xuân Chinh";  //Tên người ký
         public const string sNguoiKy_ChucVu = "Cục Trưởng";  //Chức vụ
         public const string sNguoiKy_NoiKy = "Hà Nội";  //Nơi ký
     }

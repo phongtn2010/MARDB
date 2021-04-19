@@ -249,7 +249,7 @@ namespace DATA0200025
             resultConfirm.NSWFileCode = sMaHoSo;
             resultConfirm.ResponseDateString = DateTime.Now;
             string error = _sendService.DaTiepNhanHoSo2d(sMaHoSo, resultConfirm);
-
+            
             if (error == "99")
             {
                 Bang bang = new Bang("CNN25_HoSo");

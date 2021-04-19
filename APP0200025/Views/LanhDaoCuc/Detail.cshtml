@@ -14,6 +14,7 @@
     Layout = "~/Views/Shared/_Layout_cms.cshtml";
     string ParentID = "Detail";
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -38,11 +39,12 @@
                             </div>
                         </section>
                         <form action="@Url.Action("Duyet", "LanhDaoCuc", new { ParentID = ParentID })" class="form-horizontal" id="submit_form" method="POST">
-                            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"]);
-                            @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
+                            @Html.Hidden(ParentID + "_DuLieuMoi", ViewData["DuLieuMoi"])
+                            @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo)
+                            @Html.Hidden(ParentID + "_iID_Sign")
 
                             <div class="box-footer clearfix text-center">
-                                <button class="btn btn-primary" type="submit">Đồng ý</button>
+                                <button class="btn btn-primary" type="submit" id="btnKySo" name="btnKySo">Đồng ý</button>
                                 <a class="btn btn-danger opentuchoi" data-id="@Model.iID_MaHoSo" data-toggle="modal" href="#TuChoi" type="button">Từ chối</a>
                                 <a class="btn btn-default" id="btnThoat">Thoát</a>
                             </div>
@@ -60,3 +62,8 @@
 </section>
 @{Html.RenderPartial("~/Views/LanhDaoCuc/Partial_Model_TuChoi.cshtml");}
 <script src="@Url.Content("~/ScriptsERP/jsLanhDaoCuc.js")?id=@DateTime.Now.ToString("yyMMddHHmmss")"></script>
+<script type="text/javascript">
+    var obj = { "Confirm": true, "IdHoso": @(Model.iID_MaHoSo) };
+    var iDObj = "@(ParentID)_iID_Sign";
+    kyso(iDObj, obj);
+</script>

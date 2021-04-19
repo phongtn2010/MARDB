@@ -5,6 +5,9 @@
         var sMaHoSo = $(this).data("mahoso");
         $("#TC_iID_MaHoSo").val(iID_MaHoSo);
         $("#mahoso").html(sMaHoSo);
+
+        var obj = {"Confirm": true, "IdHoso": iID_MaHoSo};
+        kyso("txtSignTuChoi", obj);
     });
 });
 
@@ -174,3 +177,85 @@ $(function () {
     });
 });
 //End Hang hoa
+
+
+
+function kyso(idobj, obj) {
+    try {
+        const xmlData = OBJtoXML(obj);
+        const toBase64 = btoa(xmlData);
+        console.log(toBase64)
+        create(idobj, "xml", toBase64, response => {
+            console.log(response)
+        })
+
+        return true;
+    }
+    catch (err) {
+        return false;
+    }
+}
+
+function getRequest() {
+    var requestReq;
+    try {
+        requestReq = new XMLHttpRequest();
+    } catch (ex) {
+        requestReq = (Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(window, "ActiveXObject")) ||
+            ("ActiveXObject" in window);
+    }
+    return requestReq;
+}
+
+function create(idobj, extension, fileData, uploadUrl, onSuccess, onError) {
+    var jsonBody = {
+        "extension": extension,
+        "fileData": fileData
+    };
+
+    const signUrl = "http://localhost:12001/sign/create64";
+    const request = getRequest();
+    request.open("POST", signUrl, true);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.onreadystatechange = function () {
+        console.log(request)
+        if (request.readyState == 4 && request.status == 200) {
+            var res = JSON.parse(request.response);
+            if (res.status != "error") {
+                var sKey = res.outputData;
+                document.getElementById(idobj).value = sKey;
+                document.getElementById(idobj).readOnly = true;
+            }
+        }
+        else {
+            if (onError) {
+                onError();
+            }
+        }
+    }
+    request.send(JSON.stringify(jsonBody));
+    //request.send(JSON.stringify({ "extension": extension, "fileUrl": fileUrl, "uploadUrl": uploadUrl }));
+}
+
+function OBJtoXML(obj) {
+    let xml = '';
+    for (const prop in obj) {
+        if (obj[prop]) {
+            xml += obj[prop] instanceof Array ? '' : "<" + prop + ">";
+            if (obj[prop] instanceof Array) {
+                for (var array in obj[prop]) {
+                    xml += "<" + prop + ">";
+                    xml += OBJtoXML(new Object(obj[prop][array]));
+                    xml += "</" + prop + ">";
+                }
+            } else if (typeof obj[prop] == "object") {
+                xml += OBJtoXML(new Object(obj[prop]));
+            } else {
+                xml += obj[prop];
+            }
+            xml += obj[prop] instanceof Array ? '' : "</" + prop + ">";
+        }
+    }
+    xml = `<RegistrationConfirm>${xml.replace(/<\/?[0-9]{1,}>/g, '')}</RegistrationConfirm>`;
+    return xml;
+}

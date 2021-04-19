@@ -165,16 +165,16 @@
                                         rTongKL = Convert.ToDouble(dt.Compute("SUM(sKhoiLuongTan)", string.Empty));
                                         rTongTL = Convert.ToDouble(dt.Compute("SUM(sGiaTriUSD)", string.Empty));
 
-                                        sTyLeKL = Convert.ToString(Convert.ToDouble(r["sKhoiLuongTan"]) / rTongKL * 100);
-                                        sTyLeGT = Convert.ToString(Convert.ToDouble(r["sGiaTriUSD"]) / rTongTL * 100);
+                                        sTyLeKL = Convert.ToString(Math.Round(Convert.ToDouble(r["sKhoiLuongTan"]) / rTongKL * 100, 2, MidpointRounding.AwayFromZero));
+                                        sTyLeGT = Convert.ToString(Math.Round(Convert.ToDouble(r["sGiaTriUSD"]) / rTongTL * 100, 2, MidpointRounding.AwayFromZero));
 
                                         <tr>
                                             <td align="center">@(i+1)</td>
                                             <td align="left">@Convert.ToString(r["sTenNhom"])</td>
-                                            <td align="right">@Convert.ToString(r["sKhoiLuongTan"])</td>
-                                            <td align="center">@Convert.ToString(sTyLeKL)</td>
-                                            <td align="right">@Convert.ToString(r["sGiaTriUSD"])</td>
-                                            <td align="center">@Convert.ToString(sTyLeGT)</td>
+                                            <td align="right">@Convert.ToDouble(r["sKhoiLuongTan"]).ToString("#,##")</td>
+                                            <td align="center">@Convert.ToString(sTyLeKL) %</td>
+                                            <td align="right">@Convert.ToDouble(r["sGiaTriUSD"]).ToString("#,##")</td>
+                                            <td align="center">@Convert.ToString(sTyLeGT) %</td>
                                         </tr>
                                     }
 

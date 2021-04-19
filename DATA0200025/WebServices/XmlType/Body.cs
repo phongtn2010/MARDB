@@ -19,6 +19,11 @@ namespace DATA0200025.WebServices.XmlType
             return new Body { Content = content };
         }
 
+        public static Body CreateBodySignature(Content content, string Signature)
+        {
+            return new Body { Content = content, Signature = Signature };
+        }
+
         public static Body CreateErrorBody(Error error)
         {
             return CreateBody(new Content(error));

@@ -80,5 +80,16 @@ namespace DATA0200025
             SelectOptionList DDL = new SelectOptionList(dt, "sMa", "sTen");
             return DDL;
         }
+
+        public static DataTable GetDataTable_BanChat(string sTenBang, string sOrder = "sGhiChu")
+        {
+            DataTable vR;
+            string SQL = "SELECT DISTINCT sGhiChu FROM CNN25_DanhMuc WHERE sTenKhoa=@sTenKhoa ORDER BY " + sOrder + "";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@sTenKhoa", sTenBang);
+            vR = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
+            cmd.Dispose();
+            return vR;
+        }
     } 
 }

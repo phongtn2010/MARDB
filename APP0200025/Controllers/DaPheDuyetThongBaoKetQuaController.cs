@@ -171,7 +171,7 @@ namespace APP0200025.Controllers
                         resultConfirm.AssignCode = sMaCoQuanDanhGiaXNCL;
                         resultConfirm.AssignName = sTenCoQuanDanhGiaXNCL;
                         resultConfirm.ImportCerDateString = dNgayXacNhanHopQuy;
-
+                 
                         error = _sendService.GiayXNCL(hangHoa.sMaHoSo, resultConfirm);
                     }
                     else

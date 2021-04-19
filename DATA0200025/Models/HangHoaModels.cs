@@ -42,6 +42,7 @@ namespace DATA0200025.Models
         public string sSoThongBaoKetQua_NoiKy { get; set; }
         public DateTime dSoThongBaoKetQua_NgayKy { get; set; }
         public string sBanChat { get; set; }
-        
+        public string sHashCode { get; set; }
+
     }
 }

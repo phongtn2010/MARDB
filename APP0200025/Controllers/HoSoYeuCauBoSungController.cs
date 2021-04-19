@@ -87,17 +87,25 @@ namespace APP0200025.Controllers
 
                 String sNgayHetHanXuLy = HamRiengModels.XulyQuaHanView(Convert.ToInt64(iID_MaHoSo), dNgayTiepNhan);
 
-                //Gui sang NSW
-                KetQuaXuLy resultConfirm = new KetQuaXuLy();
-                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Ngày nhận kết quả: " + sNgayHetHanXuLy;
-                resultConfirm.AttachmentId = "";
-                resultConfirm.FileName = "";
-                resultConfirm.FileLink = "";
-                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-                resultConfirm.ResponseDateString = DateTime.Now;
-                string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
-
+                string error = "";
+                if (CHamRieng.iNSW == 1)
+                {
+                    //Gui sang NSW
+                    KetQuaXuLy resultConfirm = new KetQuaXuLy();
+                    resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                    resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Ngày nhận kết quả: " + sNgayHetHanXuLy;
+                    resultConfirm.AttachmentId = "";
+                    resultConfirm.FileName = "";
+                    resultConfirm.FileLink = "";
+                    resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                    resultConfirm.ResponseDateString = DateTime.Now;
+                    error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
+                }
+                else
+                {
+                    error = "99";
+                }
+                
                 if (error == "99")
                 {
                     bang.MaNguoiDungSua = User.Identity.Name;
@@ -151,17 +159,25 @@ namespace APP0200025.Controllers
 
                 String sNgayHetHanXuLy = HamRiengModels.XulyQuaHanView(Convert.ToInt64(iID_MaHoSo), dNgayTiepNhan);
 
-                //Gui sang NSW
-                KetQuaXuLy resultConfirm = new KetQuaXuLy();
-                resultConfirm.NSWFileCode = hoSo.sMaHoSo;
-                resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Ngày nhận kết quả: " + sNgayHetHanXuLy;
-                resultConfirm.AttachmentId = "";
-                resultConfirm.FileName = "";
-                resultConfirm.FileLink = "";
-                resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
-                resultConfirm.ResponseDateString = DateTime.Now;
-                string error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
-
+                string error = "";
+                if (CHamRieng.iNSW == 1)
+                {
+                    //Gui sang NSW
+                    KetQuaXuLy resultConfirm = new KetQuaXuLy();
+                    resultConfirm.NSWFileCode = hoSo.sMaHoSo;
+                    resultConfirm.Reason = "Đã tiếp nhận hồ sơ. Ngày nhận kết quả: " + sNgayHetHanXuLy;
+                    resultConfirm.AttachmentId = "";
+                    resultConfirm.FileName = "";
+                    resultConfirm.FileLink = "";
+                    resultConfirm.NameOfStaff = CPQ_NGUOIDUNG.Get_TenNguoiDung(User.Identity.Name);
+                    resultConfirm.ResponseDateString = DateTime.Now;
+                    error = _sendService.KetQuaXuLy(hoSo.sMaHoSo, resultConfirm, "06");
+                }
+                else
+                {
+                    error = "99";
+                }
+                
                 if (error == "99")
                 {
                     bang.MaNguoiDungSua = User.Identity.Name;

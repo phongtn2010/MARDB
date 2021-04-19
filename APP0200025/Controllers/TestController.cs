@@ -296,7 +296,7 @@ namespace APP0200025.Controllers
                         resultConfirm.NoteGoods = @"Lưu ý: Trong thời hạn 15 ngày làm việc kể từ ngày thông quan hàng hóa,
                                         người nhập khẩu phải nộp bản sao ý bản chính (có ký tên và đóng dấu của người nhập khẩu) 
                                         Giấy chứng nhận hợp quy lô hàng thức ăn chăn nuôi nhập khẩu theo quy định về Cục Chăn nuôi thông qua hệ thống Một cửa Quốc gia.";
-                    error = _sendService.XacNhanDon(hoSo.sMaHoSo, resultConfirm);
+                    error = _sendService.XacNhanDon(hoSo.sMaHoSo, resultConfirm, hoSo.sHashCode);
                 }
                 else
                 {
