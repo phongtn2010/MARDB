@@ -28,6 +28,8 @@
     dtKhoiLuong.Dispose();
 
     HoSoXNCLModels hsXNCL = clHangHoa.GetHoSoXNCL(Model.iID_MaHoSo, Model.iID_MaHangHoa);
+
+    String sSTTKT = clHangHoa.Get_ThongTinChiTieuAnToan_KyThuat_DanhMuc_sSTTChiTieu(Model.iID_MaLoai);
 }
 
 <script src="@(Url.Content("~/Content/plugins/jquery.wordexport/FileSaver.js"))"></script>
@@ -138,7 +140,7 @@
                                     <td align="left" colspan="2" style="padding: 5px 0px;"><p>Tiêu chuẩn công bố áp dụng (số hiệu TCCS): @Model.sSoHieu</p></td>
                                 </tr>
                                 <tr>
-                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Quy chuẩn kỹ thuật <i>(nhóm, loại hàng hóa tại QCVN 01-190/BNNPTNT)</i>: @(Model.sTenNhom), @(Model.sTenLoaiHangHoa) tại @(Model.sQuyChuan)</p></td>
+                                    <td align="left" colspan="2" style="padding: 5px 0px;"><p>Quy chuẩn kỹ thuật <i>(nhóm, loại hàng hóa tại QCVN 01-190/BNNPTNT)</i>:@(Model.sTenNhom); @(Model.sTenLoaiHangHoa); @(sSTTKT)</p></td>
                                 </tr>
                                 <tr>
                                     <td align="left" colspan="2" style="padding: 10px 0px;"><p><b>3. Kết quả đánh giá sự phù hợp</b></p></td>
