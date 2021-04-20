@@ -283,8 +283,8 @@ namespace APP0200025.Controllers
                     resultConfirm.AssignName = "";
                     resultConfirm.AssignNameOther = "";
                     resultConfirm.SignConfirmDateString = hoSo.dNgayXacNhan;
-                    resultConfirm.SignConfirmPlace = "Hà nội";
-                    resultConfirm.SignConfirmName = "Lãnh đạo cục";
+                    resultConfirm.SignConfirmPlace = eCoQuanXuLy.sNguoiKy_NoiKy;
+                    resultConfirm.SignConfirmName = eCoQuanXuLy.sNguoiKy_Ten;
                     resultConfirm.NSWFileCodeOld = hoSo.sMaHoSo_ThayThe;
                     resultConfirm.AniFeedConfirmOldNo = hoSo.sSoXacNhan_ThayThe;
                     resultConfirm.ListHangHoa = clHangHoa.GetHoaXND(hoSo.iID_MaHoSo);
@@ -321,6 +321,40 @@ namespace APP0200025.Controllers
 
             return base.RedirectToAction("Index");
         }
-        
+
+        [Authorize, ValidateInput(false), HttpPost]
+        public ActionResult DeleteFileCapcha()
+        {
+            NameValueCollection values = new NameValueCollection();
+            string ParentID = "Delete";
+
+            try
+            {
+                DirectoryInfo directory = new DirectoryInfo(Server.MapPath("~/Uploads/CapCha/"));
+                EmptyFolder(directory);
+
+                TempData["msg"] = "success";
+            }
+            catch(Exception ex)
+            {
+                TempData["msg"] = "error";
+            }
+
+            return base.RedirectToAction("Index");
+        }
+
+        private void EmptyFolder(DirectoryInfo directory)
+        {
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                file.Delete();
+            }
+
+            foreach (DirectoryInfo subdirectory in directory.GetDirectories())
+            {
+                EmptyFolder(subdirectory);
+                subdirectory.Delete();
+            }
+        }
     }
 }

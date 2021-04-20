@@ -89,8 +89,8 @@ namespace APP0200025.Controllers
                     resultConfirm.AssignName = "";
                     resultConfirm.AssignNameOther = "";
                     resultConfirm.SignConfirmDateString = hoSo.dNgayXacNhan;
-                    resultConfirm.SignConfirmPlace = "Hà nội";
-                    resultConfirm.SignConfirmName = "Lãnh đạo cục";
+                    resultConfirm.SignConfirmPlace = eCoQuanXuLy.sNguoiKy_NoiKy;
+                    resultConfirm.SignConfirmName = eCoQuanXuLy.sNguoiKy_Ten;
                     resultConfirm.NSWFileCodeOld = hoSo.sMaHoSo_ThayThe;
                     resultConfirm.AniFeedConfirmOldNo = hoSo.sSoXacNhan_ThayThe;
                     resultConfirm.ListHangHoa = clHangHoa.GetHoaXND(hoSo.iID_MaHoSo);

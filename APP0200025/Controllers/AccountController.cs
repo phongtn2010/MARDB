@@ -78,8 +78,8 @@ namespace APP0200025.Controllers
             NameValueCollection values = new NameValueCollection();
             string sUserName = CString.SafeString(Request.Form[ParentID + "_sUserName"]).Trim();
             string sMatKhau = CString.SafeString(Request.Form[ParentID + "_sPassword"]).Trim();
-            string _CaptCha = CString.SafeString(Request.Form[ParentID + "_CaptCha"]);
-            string sCapCha = Convert.ToString(HttpContext.Session["captchaText"]);
+            //string _CaptCha = CString.SafeString(Request.Form[ParentID + "_CaptCha"]);
+            //string sCapCha = Convert.ToString(HttpContext.Session["captchaText"]);
             string sKeep = CString.SafeString(Request.Form["rememberCheckbox"]);
 
             if (string.IsNullOrEmpty(sUserName))
@@ -90,10 +90,10 @@ namespace APP0200025.Controllers
             {
                 values.Add("err_sMatKhau", "Bạn chưa nhập mật khẩu!");
             }
-            if ((((_CaptCha == string.Empty) || (_CaptCha == "")) || (_CaptCha != sCapCha)))
-            {
-                values.Add("err_sCapCha", "Bạn chưa nhập mã kiểm tra hoặc mã kiểm tra chưa đúng!");
-            }
+            //if ((((_CaptCha == string.Empty) || (_CaptCha == "")) || (_CaptCha != sCapCha)))
+            //{
+            //    values.Add("err_sCapCha", "Bạn chưa nhập mã kiểm tra hoặc mã kiểm tra chưa đúng!");
+            //}
 
             if (values.Count > 0)
             {

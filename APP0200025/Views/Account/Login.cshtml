@@ -118,14 +118,14 @@
                         @Html.ValidationMessage(ParentID + "_" + "err_sMatKhau")
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
-                    <div class="form-group has-feedback">
+                    @*<div class="form-group has-feedback">
                         <input tabindex="3" type="text" id="@String.Format("{0}_{1}", ParentID, "CaptCha")" name="@String.Format("{0}_{1}", ParentID, "CaptCha")" placeholder="Mã bảo mật bên dưới" class="form-control" />
                         @Html.ValidationMessage(ParentID + "_" + "err_sCapCha")
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
                         <img id="m_imgCaptcha" alt="Captcha" src="" title="Mã bảo mật" onclick="jsLoadCaptcha();" style="width: 100%; height: 50px; cursor: pointer;" />
-                    </div>
+                    </div>*@
                     <div class="row">
                         <div class="col-xs-8">
                             <div class="checkbox icheck">
@@ -166,7 +166,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            jsLoadCaptcha();
+            //jsLoadCaptcha();
 
             $('#formLogin').bootstrapValidator({
                 message: 'This value is not valid',
@@ -190,13 +190,13 @@
                             }
                         }
                     },
-                    Login_CaptCha: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Bạn cần nhập mã bảo mật bên dưới'
-                            }
-                        }
-                    }
+                    //Login_CaptCha: {
+                    //    validators: {
+                    //        notEmpty: {
+                    //            message: 'Bạn cần nhập mã bảo mật bên dưới'
+                    //        }
+                    //    }
+                    //}
                 }
             });
         });

@@ -174,7 +174,7 @@
 {
     <div class="box-header with-border">
         <h3 class="box-title">
-           GỦI BẢN TIN 13(11)
+            GỦI BẢN TIN 13(11)
         </h3>
         <div class="box-tools pull-right"></div>
     </div><!-- /.box-header -->
@@ -195,6 +195,38 @@
     <div class="box-footer clearfix">
         <div class="col-xs-6">
             <button class="btn btn-block btn-default" type="submit">Save</button>
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Cancel</button>
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm("DeleteFileCapcha", "Test", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            XÓA FILE CAPCHA
+        </h3>
+        <div class="box-tools pull-right"></div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="Edit_sFile">Xóa file trogn thư mục Capcha</label>
+                </div>
+            </div>
+            <div class="col-xs-4">
+            </div>
+            <div class="col-xs-4">
+            </div>
+        </div>
+    </div><!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <div class="col-xs-6">
+            <button class="btn btn-block btn-default" type="submit">Delete</button>
         </div>
         <div class="col-xs-6">
             <button class="btn btn-block btn-default" type="button" onclick="javascript:history.go(-1)">Cancel</button>
