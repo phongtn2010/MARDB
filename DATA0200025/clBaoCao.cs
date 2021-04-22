@@ -398,7 +398,7 @@ namespace DATA0200025
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
-            string SQL = string.Format(@"SELECT A.sMaQuocGia, A.sTenQuocGia, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaVN) sGiaTriUSD
+            string SQL = string.Format(@"SELECT A.sMaQuocGia, A.sTenQuocGia, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaUSD) sGiaTriUSD
                                         FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
                                         WHERE {0}
                                         GROUP BY sMaQuocGia, sTenQuocGia ORDER BY sTenQuocGia", DK);
@@ -432,7 +432,7 @@ namespace DATA0200025
 
             string SQL = string.Format(@"SELECT iID_MaToChuc, sTenToChuc, COUNT(iID_MaToChuc) sTongXNCL, SUM(sSoLuong) sSoLuong, SUM(sGiaTriUSD) sGiaTriUSD
                                         FROM CNN25_HoSo_XNCL C INNER JOIN (
-                                                SELECT A.iID_MaHangHoa, SUM(S.rSoLuong) sSoLuong, SUM(A.rGiaVN) sGiaTriUSD
+                                                SELECT A.iID_MaHangHoa, SUM(S.rSoLuong) sSoLuong, SUM(A.rGiaUSD) sGiaTriUSD
                                                         FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
                                                         WHERE {0}
                                                         GROUP BY A.iID_MaHangHoa) D ON C.iID_MaHangHoa=D.iID_MaHangHoa
@@ -467,7 +467,7 @@ namespace DATA0200025
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
-            string SQL = string.Format(@"SELECT A.iID_MaNhom iID_MaNhom, A.iID_MaPhanNhom iID_MaPhanNhom, A.sTenPhanNhom sTenPhanNhom, SUM(S.rSoLuong) sSoLuongTan, SUM(A.rGiaVN) sGiaTriUSD
+            string SQL = string.Format(@"SELECT A.iID_MaNhom iID_MaNhom, A.iID_MaPhanNhom iID_MaPhanNhom, A.sTenPhanNhom sTenPhanNhom, SUM(S.rSoLuong) sSoLuongTan, SUM(A.rGiaUSD) sGiaTriUSD
                                         FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
                                         WHERE {0}
                                         GROUP BY iID_MaNhom, iID_MaPhanNhom, sTenPhanNhom ORDER BY iID_MaNhom", DK);
@@ -496,7 +496,7 @@ namespace DATA0200025
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
-            string SQL = string.Format(@"SELECT A.iID_MaNhom sMa, A.iID_MaPhanNhom iID_MaPhanNhom, A.sTenPhanNhom sTenPhanNhom, SUM(S.rSoLuong) sSoLuongTan, SUM(A.rGiaVN) sGiaTriUSD
+            string SQL = string.Format(@"SELECT A.iID_MaNhom sMa, A.iID_MaPhanNhom iID_MaPhanNhom, A.sTenPhanNhom sTenPhanNhom, SUM(S.rSoLuong) sSoLuongTan, SUM(A.rGiaUSD) sGiaTriUSD
                                         FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
                                         WHERE {0}
                                         GROUP BY iID_MaNhom, iID_MaPhanNhom, sTenPhanNhom ORDER BY iID_MaNhom", DK);
@@ -528,7 +528,7 @@ namespace DATA0200025
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
-            string SQL = string.Format(@"SELECT A.iID_MaNhom, A.sTenNhom, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaVN) sGiaTriUSD
+            string SQL = string.Format(@"SELECT A.iID_MaNhom, A.sTenNhom, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaUSD) sGiaTriUSD
                                         FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
                                         WHERE {0}
                                         GROUP BY iID_MaNhom, sTenNhom ORDER BY iID_MaNhom", DK);
@@ -562,7 +562,7 @@ namespace DATA0200025
 
             string SQL = string.Format(@"SELECT CC.sMa, CC.sTen, CC.sGhiChu, CN.sKhoiLuongTan, CN.sGiaTriUSD, CN.sSoLo
                                         FROM CNN25_DanhMuc CC,
-                                                (SELECT A.iID_MaPhanLoai sMa, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaVN) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
+                                                (SELECT A.iID_MaPhanLoai sMa, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaUSD) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
 	                                            FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
                                                 WHERE {0}
 	                                            GROUP BY iID_MaPhanLoai) CN
@@ -576,14 +576,14 @@ namespace DATA0200025
         }
 
 
-        //SELECT A.iID_MaPhanLoai, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaVN) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
+        //SELECT A.iID_MaPhanLoai, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaUSD) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
         //FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
         //GROUP BY iID_MaPhanLoai ORDER BY iID_MaPhanLoai
 
 
         //SELECT CC.sMa, CC.sTen, CC.sGhiChu, CN.sKhoiLuongTan, CN.sGiaTriUSD, CN.sSoLo
         //FROM CNN25_DanhMuc CC,
-        //    (SELECT A.iID_MaPhanLoai sMa, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaVN) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
+        //    (SELECT A.iID_MaPhanLoai sMa, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaUSD) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
         //    FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
         //    WHERE 1=1 AND A.iID_MaTrangThai = 44
         //    GROUP BY iID_MaPhanLoai) CN
@@ -611,7 +611,7 @@ namespace DATA0200025
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
-            string SQL = string.Format(@"SELECT A.sMaQuocGia, A.sTenQuocGia, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaVN) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
+            string SQL = string.Format(@"SELECT A.sMaQuocGia, A.sTenQuocGia, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaUSD) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
                                         FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
                                         WHERE {0}
                                         GROUP BY sMaQuocGia, sTenQuocGia ORDER BY sTenQuocGia", DK);
