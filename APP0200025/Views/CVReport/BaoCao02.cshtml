@@ -180,9 +180,9 @@
                                 <tr>
                                     <th style="text-align: center; width: 5px;" align="center">STT</th>
                                     <th style="text-align: center;" align="center">Tên TACN</th>
-                                    <th style="text-align: center; width: 10%;" align="center">Khối lượng (tấn)</th>
-                                    <th style="text-align: center; width: 10%;" align="center">Giá trị lô hàng (USD)</th>
-                                    <th style="text-align: center; width: 15%;" align="center">Số lô</th>
+                                    <th style="text-align: center; width: 15%;" align="center">Khối lượng (tấn)</th>
+                                    <th style="text-align: center; width: 15%;" align="center">Giá trị lô hàng (USD)</th>
+                                    <th style="text-align: center; width: 05%;" align="center">Số lô</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -192,27 +192,18 @@
                                     {
                                         DataRow r = dt.Rows[i];
 
-                                        String sGiaTriUSD = "", sKhoiLuongTan = "";
-                                        Double rKhoiLuongTan = 0;
-                                        DataTable dtKhoiLuong = clHangHoa.Get_ThongTinKhoiLuong(Convert.ToInt64(r["iID_MaHangHoa"]));
-                                        if (dtKhoiLuong.Rows.Count > 0)
-                                        {
-                                            for (int k = 0; k < dtKhoiLuong.Rows.Count; k++)
-                                            {
-                                                rKhoiLuongTan += Convert.ToDouble(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]);
-                                            }
-                                        }
-                                        dtKhoiLuong.Dispose();
+                                        String sGiaTriUSD = "", sKhoiLuongTan = "", sSoLo = "";
 
-                                        sKhoiLuongTan = rKhoiLuongTan.ToString("#,##");
-                                        sGiaTriUSD = Convert.ToDouble(r["rGiaVN"]).ToString("#,##");
+                                        sKhoiLuongTan = Convert.ToDouble(r["sKhoiLuongTan"]).ToString("#,##");
+                                        sGiaTriUSD = Convert.ToDouble(r["sGiaTriUSD"]).ToString("#,##");
+                                        sSoLo = Convert.ToDouble(r["sSoLo"]).ToString("#,##");
 
                                         <tr>
                                             <td align="center">@r["rownum"]</td>
                                             <td align="left">@Convert.ToString(r["sTenHangHoa"])</td>
                                             <td align="right">@Convert.ToString(sKhoiLuongTan)</td>
                                             <td align="right">@Convert.ToString(sGiaTriUSD)</td>
-                                            <td align="left">@Convert.ToString(r["sSoGDK"])</td>
+                                            <td align="center">@Convert.ToString(sSoLo)</td>
                                         </tr>
                                     }
                                 }

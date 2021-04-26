@@ -271,34 +271,40 @@ namespace DATA0200025
         #endregion
 
         #region BaoCao02
-        public static DataTable CVBaoCao02(ReportSearchModels model, int page, int numrecord, string sOrderInput = "iID_MaHoSo DESC")
+        public static DataTable CVBaoCao02(ReportSearchModels model, int page, int numrecord, string sOrderInput = "sTenHangHoa DESC")
         {
             string DK = "1=1", DKHH = "1=1";
             SqlCommand cmd = new SqlCommand();
 
-            DKHH += " AND iID_MaTrangThai=@iID_MaTrangThai";
-            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
+            //DKHH += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
+            //cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
 
             if (!string.IsNullOrEmpty(model.sNuocSanXuat))
             {
-                DKHH += " AND sMaQuocGia = @sMaQuocGia";   
+                DKHH += " AND A.sMaQuocGia = @sMaQuocGia";   
                 cmd.Parameters.AddWithValue("@sMaQuocGia", model.sNuocSanXuat);
             }
             if (!string.IsNullOrEmpty(model.TuNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
             if (!string.IsNullOrEmpty(model.DenNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
-            string SQL = string.Format(@"SELECT * FROM (SELECT hh.*,
-                                        hs.sLoaiHinhThucKiemTra,hs.sTenDoanhNghiep,hs.sMua_DiaChi,hs.sMua_NoiNhan,hs.sMua_FromDate,hs.sMua_ToDate,hs.dNgayTaoHoSo,hs.sSoTiepNhan,hs.dNgayTiepNhan,hs.sSoGDK,hs.dNgayXacNhan,hs.sBan_NoiXuat
-                                        FROM(select * from CNN25_HangHoa WHERE {0}) hh
-                                        INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH, DK);
+            //string SQL = string.Format(@"SELECT * FROM (SELECT hh.*,
+            //                            hs.sLoaiHinhThucKiemTra,hs.sTenDoanhNghiep,hs.sMua_DiaChi,hs.sMua_NoiNhan,hs.sMua_FromDate,hs.sMua_ToDate,hs.dNgayTaoHoSo,hs.sSoTiepNhan,hs.dNgayTiepNhan,hs.sSoGDK,hs.dNgayXacNhan,hs.sBan_NoiXuat
+            //                            FROM(select * from CNN25_HangHoa WHERE {0}) hh
+            //                            INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH, DK);
+
+            string SQL = string.Format(@"SELECT * FROM (
+                                            SELECT A.sTenHangHoa, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaUSD) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
+                                            FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
+                                            WHERE {0}
+                                            GROUP BY A.sTenHangHoa) TB", DKHH);
             cmd.CommandText = SQL;
             DataTable dt = CommonFunction.dtData(cmd, sOrderInput, page, numrecord);
             cmd.Dispose();
@@ -310,27 +316,34 @@ namespace DATA0200025
             string DK = "1=1", DKHH = "1=1";
             SqlCommand cmd = new SqlCommand();
 
-            DKHH += " AND iID_MaTrangThai=@iID_MaTrangThai";
-            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
+            //DKHH += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
+            //cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
 
             if (!string.IsNullOrEmpty(model.sNuocSanXuat))
             {
-                DKHH += " AND sMaQuocGia = @sMaQuocGia";
+                DKHH += " AND A.sMaQuocGia = @sMaQuocGia";
                 cmd.Parameters.AddWithValue("@sMaQuocGia", model.sNuocSanXuat);
             }
             if (!string.IsNullOrEmpty(model.TuNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
             if (!string.IsNullOrEmpty(model.DenNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
-            string SQL = string.Format(@"SELECT * FROM (SELECT COUNT(iID_MaHangHoa) as count FROM(select * from CNN25_HangHoa WHERE {0}) hh
-                                        INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH, DK);
+            string SQL = string.Format(@"SELECT * FROM (SELECT COUNT(*) as count FROM(
+                                            SELECT * FROM (SELECT A.sTenHangHoa, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaUSD) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
+                                            FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
+                                            WHERE {0}
+                                            GROUP BY A.sTenHangHoa) TB) 
+                                        TBC) TBALL", DKHH);
+
+            //string SQL = string.Format(@"SELECT * FROM (SELECT COUNT(iID_MaHangHoa) as count FROM(select * from CNN25_HangHoa WHERE {0}) hh
+            //                            INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH, DK);
             cmd.CommandText = SQL;
             int vR = Convert.ToInt32(Connection.GetValue(cmd, 0));
             cmd.Dispose();
@@ -342,29 +355,37 @@ namespace DATA0200025
             string DK = "1=1", DKHH = "1=1";
             SqlCommand cmd = new SqlCommand();
 
-            DKHH += " AND iID_MaTrangThai=@iID_MaTrangThai";
-            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
+            //DKHH += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
+            //cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
 
             if (!string.IsNullOrEmpty(model.sNuocSanXuat))
             {
-                DKHH += " AND sMaQuocGia = @sMaQuocGia";
+                DKHH += " AND A.sMaQuocGia = @sMaQuocGia";
                 cmd.Parameters.AddWithValue("@sMaQuocGia", model.sNuocSanXuat);
             }
             if (!string.IsNullOrEmpty(model.TuNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
             if (!string.IsNullOrEmpty(model.DenNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
-            string SQL = string.Format(@"SELECT * FROM (SELECT hh.*,
-                                        hs.sLoaiHinhThucKiemTra,hs.sTenDoanhNghiep,hs.sMua_DiaChi,hs.sMua_NoiNhan,hs.sMua_FromDate,hs.sMua_ToDate,hs.dNgayTaoHoSo,hs.sSoTiepNhan,hs.dNgayTiepNhan,hs.sSoGDK,hs.dNgayXacNhan,hs.sBan_NoiXuat
-                                        FROM(select * from CNN25_HangHoa WHERE {0}) hh
-                                        INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH, DK);
+            //string SQL = string.Format(@"SELECT * FROM (SELECT hh.*,
+            //                            hs.sLoaiHinhThucKiemTra,hs.sTenDoanhNghiep,hs.sMua_DiaChi,hs.sMua_NoiNhan,hs.sMua_FromDate,hs.sMua_ToDate,hs.dNgayTaoHoSo,hs.sSoTiepNhan,hs.dNgayTiepNhan,hs.sSoGDK,hs.dNgayXacNhan,hs.sBan_NoiXuat
+            //                            FROM(select * from CNN25_HangHoa WHERE {0}) hh
+            //                            INNER JOIN(SELECT * FROM CNN25_HoSo WHERE {1}) hs ON hs.iID_MaHoSo = hh.iID_MaHoSo) TB", DKHH, DK);
+
+            string SQL = string.Format(@"SELECT * FROM (
+                                            SELECT A.sTenHangHoa, SUM(S.rKhoiLuongTan) sKhoiLuongTan, SUM(A.rGiaUSD) sGiaTriUSD, COUNT(sMaHoSo) sSoLo
+                                            FROM CNN25_HangHoa A Inner Join CNN25_HangHoa_SoLuong S On A.iID_MaHangHoa = S.iID_MahangHoa
+                                            WHERE {0}
+                                            GROUP BY A.sTenHangHoa) TB 
+                                        ORDER BY sTenHangHoa", DKHH);
+
             cmd.CommandText = SQL;
             DataTable dt = Connection.GetDataTable(cmd);
             cmd.Dispose();

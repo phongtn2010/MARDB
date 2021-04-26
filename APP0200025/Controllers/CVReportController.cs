@@ -481,8 +481,9 @@ namespace APP0200025.Controllers
             //DataTable dtNuocSanXuatVal = CommonFunction.SearchInAllColums(CHangHoa.Get_DanhSach_NuocSanXuat(), sModel.sNuocSanXuat);
 
             DataTable dt = clBaoCao.CVBaoCao02_Print(sModel);
-            dt.Columns.Add("sKhoiLuongTan", typeof(System.String));
-            dt.Columns.Add("sGiaTriUSD", typeof(System.String));
+            dt.Columns.Add("sKhoiLuongTanHT", typeof(System.String));
+            dt.Columns.Add("sGiaTriUSDHT", typeof(System.String));
+            dt.Columns.Add("sSoLoHT", typeof(System.String));
 
             if (dt.Rows.Count > 0)
             {
@@ -491,23 +492,9 @@ namespace APP0200025.Controllers
                 {
                     r = dt.Rows[i];
 
-                    String sGiaTriUSD = "", sKhoiLuongTan = "";
-                    Double rKhoiLuongTan = 0;
-                    DataTable dtKhoiLuong = clHangHoa.Get_ThongTinKhoiLuong(Convert.ToInt64(r["iID_MaHangHoa"]));
-                    if (dtKhoiLuong.Rows.Count > 0)
-                    {
-                        for (int k = 0; k < dtKhoiLuong.Rows.Count; k++)
-                        {
-                            rKhoiLuongTan += Convert.ToDouble(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]);
-                        }
-                    }
-                    dtKhoiLuong.Dispose();
-
-                    sKhoiLuongTan = rKhoiLuongTan.ToString("#,##");
-                    sGiaTriUSD = Convert.ToDouble(r["rGiaVN"]).ToString("#,##");
-
-                    r["sKhoiLuongTan"] = sKhoiLuongTan;
-                    r["sGiaTriUSD"] = sGiaTriUSD;
+                    r["sKhoiLuongTanHT"] = Convert.ToDouble(r["sKhoiLuongTan"]).ToString("#,##"); ;
+                    r["sGiaTriUSDHT"] = Convert.ToDouble(r["sGiaTriUSD"]).ToString("#,##"); ;
+                    r["sSoLoHT"] = Convert.ToDouble(r["sSoLo"]).ToString("#,##"); ;
                 }
             }
             dt.Dispose();
