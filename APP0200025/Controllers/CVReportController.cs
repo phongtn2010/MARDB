@@ -999,7 +999,10 @@ namespace APP0200025.Controllers
                 {
                     r = dtDonVi.Rows[i];
 
-                    r["sSTT"] = i + 1;
+                    int iSTT = i + 1;
+                    string sSTTLaMa = CHamRieng.ToRoman(iSTT);
+
+                    r["sSTT"] = sSTTLaMa;
                 }
             }
 
@@ -1350,7 +1353,10 @@ namespace APP0200025.Controllers
                 {
                     r = dtDonVi.Rows[i];
 
-                    r["sSTT"] = i + 1;
+                    int iSTT = i + 1;
+                    string sSTTLaMa = CHamRieng.ToRoman(iSTT);
+
+                    r["sSTT"] = sSTTLaMa;
                 }
             }
 

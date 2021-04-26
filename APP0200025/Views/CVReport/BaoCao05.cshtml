@@ -189,9 +189,12 @@
                                             sTyLeKL_C = "";
                                             sTyLeGT_C = "";
                                         }
+                                        int iSTT = j + 1;
+
+                                        string sSTTLaMa = CHamRieng.ToRoman(iSTT);
 
                                         <tr style="background-color: #f9f9f9;">
-                                            <td align="center"><b>@(j+1)</b></td>
+                                            <td align="center"><b>@(sSTTLaMa)</b></td>
                                             <td align="left"><b>@Convert.ToString(dtNhom.Rows[j]["sTen"])</b></td>
                                             <td align="right"><b>@Convert.ToString(rTongKL_K.ToString("#,##"))</b></td>
                                             <td align="center"><b>@(sTyLeKL_C)</b></td>
