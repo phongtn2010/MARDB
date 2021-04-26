@@ -276,8 +276,8 @@ namespace DATA0200025
             string DK = "1=1", DKHH = "1=1";
             SqlCommand cmd = new SqlCommand();
 
-            //DKHH += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
-            //cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
+            DKHH += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
+            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
 
             if (!string.IsNullOrEmpty(model.sNuocSanXuat))
             {
@@ -316,8 +316,8 @@ namespace DATA0200025
             string DK = "1=1", DKHH = "1=1";
             SqlCommand cmd = new SqlCommand();
 
-            //DKHH += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
-            //cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
+            DKHH += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
+            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
 
             if (!string.IsNullOrEmpty(model.sNuocSanXuat))
             {
@@ -355,8 +355,8 @@ namespace DATA0200025
             string DK = "1=1", DKHH = "1=1";
             SqlCommand cmd = new SqlCommand();
 
-            //DKHH += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
-            //cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
+            DKHH += " AND A.iID_MaTrangThai=@iID_MaTrangThai";
+            cmd.Parameters.AddWithValue("@iID_MaTrangThai", 44);
 
             if (!string.IsNullOrEmpty(model.sNuocSanXuat))
             {
