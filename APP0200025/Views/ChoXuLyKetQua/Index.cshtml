@@ -34,10 +34,10 @@
     string TenBang = "CNN25_HoSo";
     String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
 
-    String _TrangThaiHoSo = CString.SafeString(Request.QueryString["_TrangThaiHoSo"]);
-    String _TieuDe = CString.SafeString(Request.QueryString["_TieuDe"]);
-    String _FromDate = CString.SafeString(Request.QueryString["_FromDate"]);
-    String _ToDate = CString.SafeString(Request.QueryString["_ToDate"]);
+    //String _TrangThaiHoSo = CString.SafeString(Request.QueryString["_TrangThaiHoSo"]);
+    //String _TieuDe = CString.SafeString(Request.QueryString["_TieuDe"]);
+    //String _FromDate = CString.SafeString(Request.QueryString["_FromDate"]);
+    //String _ToDate = CString.SafeString(Request.QueryString["_ToDate"]);
 
     int Page = Model.Page;
 
@@ -78,6 +78,7 @@
         TuNgayTiepNhan = Model.TuNgayTiepNhan,
         DenNgayTiepNhan = Model.DenNgayTiepNhan,
         iID_MaTrangThai = Model.iID_MaTrangThai,
+        iID_KetQuaXuLy = Model.iID_KetQuaXuLy,
         page = x }));
 
 }
@@ -162,12 +163,12 @@
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-1 control-label">Trạng thái hồ sơ</label>
                             <div class="col-xs-5">
-                                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, _TrangThaiHoSo, "iID_MaTrangThai", "", "class=\"form-control\""))
+                                @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ttDDL, Convert.ToString(Model.iID_MaTrangThai), "iID_MaTrangThai", "", "class=\"form-control\""))
                             </div>
                             <label for="inputEmail3" class="col-sm-1 control-label">Kết quả xử lý</label>
                             <div class="col-xs-5">
-                                <select class="form-control" id="Index_iID_MaTrangThai" name="Index_iID_MaTrangThai">
-                                    <option>--Tất cả--</option>
+                                <select class="form-control" id="Index_iID_KetQuaXuLy" name="Index_iID_KetQuaXuLy">
+                                    <option value="-1">--Tất cả--</option>
                                     <option value="4">Yêu cầu bổ sung kết quả đánh giá sự phù hợp</option>
                                     <option value="5">Thông báo kết quả kiểm tra</option>
                                 </select>

@@ -284,6 +284,8 @@ namespace APP0200025.Controllers
             string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgayDen"]);
             string _TuNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viTuNgayTiepNhan"]);
             string _DenNgayTiepNhan = CString.SafeString(Request.Form[ParentID + "_viDenNgayTiepNhan"]);
+            string iID_MaTrangThai = CString.SafeString(Request.Form[ParentID + "_iID_MaTrangThai"]);
+            string iID_KetQuaXuLy = CString.SafeString(Request.Form[ParentID + "_iID_KetQuaXuLy"]);
 
             sHoSoModels models = new sHoSoModels
             {
@@ -297,7 +299,9 @@ namespace APP0200025.Controllers
                 TuNgayDen = _TuNgayDen,
                 DenNgayDen = _DenNgayDen,
                 TuNgayTiepNhan = _TuNgayTiepNhan,
-                DenNgayTiepNhan = _DenNgayTiepNhan
+                DenNgayTiepNhan = _DenNgayTiepNhan,
+                iID_MaTrangThai = Convert.ToInt32(iID_MaTrangThai),
+                iID_KetQuaXuLy = Convert.ToInt32(iID_KetQuaXuLy)
             };
 
             TempData["menu"] = 246;

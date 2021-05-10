@@ -1147,6 +1147,9 @@ namespace DATA0200025
                 case 18:
                     TrangThais = BPMC_DaCapThongBaoKetQua();
                     break;
+                case 19:
+                    TrangThais = LDP_YeuCauThamDinhLai();
+                    break;
                 default:
                     TrangThais = new List<TrangThaiModels>();
                     break;
@@ -1250,6 +1253,9 @@ namespace DATA0200025
                     break;
                 case 18:
                     TrangThais = BPMC_DaCapThongBaoKetQua();
+                    break;
+                case 19:
+                    TrangThais = LDP_YeuCauThamDinhLai();
                     break;
                 default:
                     TrangThais = new List<TrangThaiModels>();
@@ -1460,6 +1466,9 @@ namespace DATA0200025
                     break;
                 case 18:
                     TrangThais = BPMC_DaCapThongBaoKetQua();
+                    break;
+                case 19:
+                    TrangThais = LDP_YeuCauThamDinhLai();
                     break;
                 case 50:
                     TrangThais = ToChucChiDinh(null);
@@ -1799,9 +1808,14 @@ namespace DATA0200025
             TrangThaiModels trangThai = new TrangThaiModels
             {
                 iID_MaTrangThai = 36,
-                sTen = "Đã gửi BPMC",
+                sTen = "Đã gửi BPMC"
+            };
+            lst.Add(trangThai);
+            trangThai = new TrangThaiModels
+            {
                 iID_KetQuaXuLy = 4,
                 sKetQuaXuLy = "Yêu cầu bổ sung kết quả đánh giá sự phù hợp"
+
             };
             lst.Add(trangThai);
 
@@ -1836,6 +1850,28 @@ namespace DATA0200025
             {
                 iID_MaTrangThai = 44,
                 sTen = "Đã cấp thông báo kết quả kiểm tra"
+            };
+            lst.Add(trangThai);
+
+            return lst;
+        }
+        /// <summary>
+        /// Loại danh sách =19
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> LDP_YeuCauThamDinhLai()
+        {
+            List<TrangThaiModels> lst = new List<TrangThaiModels>();
+            TrangThaiModels trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 37,
+                sTen = "Lãnh đạo phòng yêu cầu thẩm định lại (Bổ sung)",
+            };
+            lst.Add(trangThai);
+            trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 41,
+                sTen = "Lãnh đạo phòng yêu cầu thẩm định lại",
             };
             lst.Add(trangThai);
 

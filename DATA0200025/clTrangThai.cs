@@ -122,7 +122,7 @@ namespace DATA0200025
 
         public static SelectOptionList GetTrangThai_XMCL_ChuyenVien()
         {
-            string SQL = @"SELECT * FROM CNN25_TrangThai WHERE iID_MaTrangThai IN(32,37,39,34)";
+            string SQL = @"SELECT * FROM CNN25_TrangThai WHERE iID_MaTrangThai IN(32,37,39,34,41)";
             SqlCommand cmd = new SqlCommand(SQL);
             DataTable dt = Connection.GetDataTable(cmd, CThamSo.iKetNoi);
             cmd.Dispose();

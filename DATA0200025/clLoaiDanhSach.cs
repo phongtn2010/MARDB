@@ -27,7 +27,7 @@ namespace DATA0200025
             PhongTACNYeuCauBoSungKetQua=16,
             DaPheDuyetThongBaoKetQua=17,
             DaCapThongBaoKetQua=18,
-         
+            LDP_YeuCauThamDinhLai = 19
         }
     }
 }
