@@ -123,6 +123,12 @@ namespace DATA0200025
                 case 18:
                     TrangThais = BPMC_DaCapThongBaoKetQua();
                     break;
+                case 19:
+                    TrangThais = LDP_YeuCauThamDinhLai();
+                    break;
+                case 20:
+                    TrangThais = LDP_LDC_YeuCauXemXetLai();
+                    break;
                 case 50:
                     TrangThais = ToChucChiDinh(null);
                     break;
@@ -675,6 +681,113 @@ namespace DATA0200025
         }
 
 
+        public static int GetCount_TCCD_Dashboard(int LoaiDanhSach, string iID_MaToChuc)
+        {
+            int iID_MaTrangThai = 0;
+            SqlCommand cmd = new SqlCommand();
+            string DK = "1=1", DKHH = "1=1";
+            List<TrangThaiModels> TrangThais;
+            switch (LoaiDanhSach)
+            {
+                case 1:
+                    TrangThais = BPMC_ChoTiepNhanHoSo();
+                    break;
+                case 2:
+                    TrangThais = BPMC_ChoTiepNhanHoSoGuiBoSung();
+                    break;
+                case 3:
+                    TrangThais = BPMC_DaTuChoiXacNhanGDK();
+                    break;
+                case 4:
+                    TrangThais = BPMC_PhongTACNYeuCauBoSungHoSo();
+                    break;
+                case 5:
+                    TrangThais = BPMC_DaPheDuyetGDK();
+                    break;
+                case 6:
+                    TrangThais = BPMC_DaTraGDK();
+                    break;
+                case 7:
+                    TrangThais = ChuyenVien_ChoXuLyHoSo();
+                    break;
+                case 8:
+                    TrangThais = ChuyenVien_ChoXuLyKetQua();
+                    break;
+                case 10:
+                    TrangThais = LDP_ChoXemXetHoSo();
+                    break;
+                case 11:
+                    TrangThais = LDP_ChoXemXetKetQua();
+                    break;
+                case 12:
+                    TrangThais = LDC_ChoXacNhanGDK();
+                    break;
+                case 13:
+                    TrangThais = LDC_ChoPheDuyetKetQua();
+                    break;
+                case 14:
+                    TrangThais = BPMC_ChoTiepNhanKetQua();
+                    break;
+                case 15:
+                    TrangThais = BPMC_ChoTiepNhanKetQuaGuiBoSung();
+                    break;
+                case 16:
+                    TrangThais = BPMC_PhongTACNYeuCauBoSungKetQua();
+                    break;
+                case 17:
+                    TrangThais = BPMC_DaPheDuyetThongBaoKetQua();
+                    break;
+                case 18:
+                    TrangThais = BPMC_DaCapThongBaoKetQua();
+                    break;
+                case 50:
+                    TrangThais = ToChucChiDinh(null);
+                    break;
+                case 51:
+                    TrangThais = ToChucChiDinh(27);
+                    break;
+                case 52:
+                    TrangThais = ToChucChiDinh(28);
+                    break;
+                default:
+                    TrangThais = new List<TrangThaiModels>();
+                    break;
+            }
+            TrangThaiModels trangThai;
+            if (iID_MaTrangThai == 0)
+            {
+                string sTrangThai = "";
+                for (int i = 0; i < TrangThais.Count; i++)
+                {
+                    trangThai = TrangThais[i];
+
+                    if (sTrangThai.Length > 0) sTrangThai += ",";
+                    sTrangThai += trangThai.iID_MaTrangThai;
+
+                }
+                if (sTrangThai.Length > 0)
+                {
+                    DK += string.Format(" AND iID_MaTrangThai IN({0})", sTrangThai);
+                }
+            }
+            else
+            {
+                DK += " AND iID_MaTrangThai=@iID_MaTrangThai";
+                cmd.Parameters.AddWithValue("@iID_MaTrangThai", iID_MaTrangThai);
+            }
+            if (String.IsNullOrEmpty(iID_MaToChuc) == false)
+            {
+                DKHH += " AND iID_MaToChuc=@iID_MaToChuc";
+                cmd.Parameters.AddWithValue("@iID_MaToChuc", iID_MaToChuc);
+            }
+            //string SQL = string.Format("SELECT count(iID_MaHoSo) as value FROM CNN25_HoSo AS A INNER JOIN CNN25_HoSo_TCCD AS B ON  iID_MaHoSo = B.iID_MaHoSo WHERE {0} ", DK);
+            string SQL = string.Format(@"SELECT * FROM (SELECT COUNT(*) as count FROM(SELECT * FROM CNN25_HoSo WHERE {0}) A
+                                        INNER JOIN(SELECT * FROM CNN25_HoSo_TCCD WHERE {1}) B ON A.iID_MaHoSo = B.iID_MaHoSo) TB", DK, DKHH);
+            cmd.CommandText = SQL;
+            int vR = Convert.ToInt32(Connection.GetValue(cmd, 0));
+            cmd.Dispose();
+            return vR;
+        }
         public static int GetCount_TCCD(sHoSoModels models, string iID_MaToChuc)
         {
             SqlCommand cmd = new SqlCommand();
@@ -1872,6 +1985,28 @@ namespace DATA0200025
             {
                 iID_MaTrangThai = 41,
                 sTen = "Lãnh đạo phòng yêu cầu thẩm định lại",
+            };
+            lst.Add(trangThai);
+
+            return lst;
+        }
+        /// <summary>
+        /// Loại danh sách =20
+        /// </summary>
+        /// <returns></returns>
+        private static List<TrangThaiModels> LDP_LDC_YeuCauXemXetLai()
+        {
+            List<TrangThaiModels> lst = new List<TrangThaiModels>();
+            TrangThaiModels trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 20,
+                sTen = "Lãnh đạo cục yêu cầu xem xét lại",
+            };
+            lst.Add(trangThai);
+            trangThai = new TrangThaiModels
+            {
+                iID_MaTrangThai = 25,
+                sTen = "Lãnh đạo cục yêu cầu xem xét lại",
             };
             lst.Add(trangThai);
 

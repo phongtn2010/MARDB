@@ -482,7 +482,7 @@ namespace DATA0200025
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
-            if (!string.IsNullOrEmpty(model.TuNgay))
+            if (!string.IsNullOrEmpty(model.DenNgay))
             {
                 DK += " AND Cast(datediff(day, 0, A.dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));

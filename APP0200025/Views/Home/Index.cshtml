@@ -16,6 +16,7 @@
 
     String sUserName = User.Identity.Name;
     String sMaNhomNguoiDung = CPQ_NGUOIDUNG.Get_MaNhomNguoiDung(sUserName);
+    DataTable dtND = CPQ_NGUOIDUNG.Get_One_Table(User.Identity.Name);
 
     int iNgay = 0, iThang = 0, iNam = 0;
     DateTime _dayNow = DateTime.Now;
@@ -45,6 +46,7 @@
     int iKQ_ChoTiepNhan = 0, iKQ_ChoTiepNhanBoSung = 0, iKQ_PhongTACNYeuCauBoSung = 0, iKQ_DaPheDuyet = 0, iKQ_DaCapThongBao = 0, iKQ_TongHso = 0;
     int iCV_TongGDK = 0, iCV_GDK_ChoXuLy = 0, iCV_XNCL_ChoXuLy = 0, iCV_TongXNCL = 0;
     int iLDP_TongGDK = 0, iLDP_GDK_ChoXuLy = 0, iLDP_XNCL_ChoXuLy = 0, iLDP_TongXNCL = 0, iLDP_LDC_XemXetLai = 0, iLDP_LDC_XemXetLaiXNXL = 0;
+    int iTCCD_ChoDanhGia = 0;
 
 }
 <section class="content">
@@ -759,7 +761,37 @@
                                     </div><!-- /.row -->
                                     break;
                                 case "1-41":  //Nhóm tổ chức chỉ định
+                                    String iID_MaTCCD = Convert.ToString(Session["_SessionCompany"]);                                    
+                                    if (dtND.Rows.Count > 0)
+                                    {
+                                        iID_MaTCCD = Convert.ToString(dtND.Rows[0]["sID_MaNhomNguoiDung_DuocQuanTri"]);
+                                    }
+                                    iTCCD_ChoDanhGia = clHoSo.GetCount_TCCD_Dashboard(51, iID_MaTCCD); 
 
+                                    <div class="row">
+                                        <div class="col-lg-3 col-xs-6">
+                                            <!-- small box -->
+                                            <div class="small-box bg-aqua">
+                                                <div class="inner">
+                                                    <h3>@(iTCCD_ChoDanhGia.ToString("#,##"))</h3>
+                                                    <p>Hồ sơ chờ đánh giá sự phù hợp</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="ion ion-stats-bars"></i>
+                                                </div>
+                                                <a href="@(ServerURL)/ToChucChiDinh?menu=244" class="small-box-footer">Chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-3 col-xs-6">
+                                            
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-3 col-xs-6">
+                                            
+                                        </div><!-- ./col -->
+                                        <div class="col-lg-3 col-xs-6">
+                                            
+                                        </div><!-- ./col -->
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="box">
@@ -796,7 +828,7 @@
                                 case "1-42":  //Nhóm lãnh đạo phòng
                                               //iLDP_TongGDK = clHoSo.GetCount_Dashboard(-1, -1);
                                     iLDP_GDK_ChoXuLy = clHoSo.GetCount_Dashboard((int)clLoaiDanhSach.From.LDP_ChoXemXetHoSo, 0);
-                                    iLDP_LDC_XemXetLai = clHoSo.GetCount_Dashboard(-1, 20);
+                                    iLDP_LDC_XemXetLai = clHoSo.GetCount_Dashboard((int)clLoaiDanhSach.From.LDP_LDC_YeuCauXemXetLai, 0);
                                     iLDP_XNCL_ChoXuLy = clHoSo.GetCountHH_Dashboard((int)clLoaiDanhSach.From.ChoXemXetKetQua, 0);
                                     iLDP_LDC_XemXetLaiXNXL = clHoSo.GetCountHH_Dashboard(-1, 43);
                                     //iLDP_TongXNCL = clHoSo.GetCountHH_Dashboard(-1, -1);
@@ -1175,3 +1207,7 @@
         </div>
     </div>
 </section>
+
+@{ 
+    dtND.Dispose();
+}
