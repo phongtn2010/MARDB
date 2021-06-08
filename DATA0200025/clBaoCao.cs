@@ -643,5 +643,13 @@ namespace DATA0200025
             return dt;
         }
         #endregion
+
+
+
+        //Truy van l.ay hso qua han theo thu tu
+        //SELECT sMaHoSo, dNgayTiepNhan, dNgayKyGDK, DATEDIFF(day, dNgayKyGDK, dNgayTiepNhan) AS days_difference
+        //FROM CNN25_HoSo
+        //WHERE dNgayKyGDK > dNgayTiepNhan
+        //ORDER BY days_difference ASC;
     }
 }
