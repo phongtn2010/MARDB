@@ -51,7 +51,7 @@ $(function () {
     $("body").on("click", "#btnThoat", function () {
         var iID_MaHoSo = $("#Detail_iID_MaHoSo").val();
         $.ajax({
-            url: ServerUrl + '/LanhDaoPhong/Thoat',
+            url: ServerUrl + '/LanhDaoCuc/Thoat',
             type: 'POST',
             data: { iID_MaHoSo: iID_MaHoSo},
             success: function (response) {
@@ -149,7 +149,7 @@ $(function () {
     $("body").on("click", "#btnThoatHH", function () {
         var iID_MaHangHoa = $("#Detail_iID_MaHangHoa").val();
         $.ajax({
-            url: ServerUrl + '/LanhDaoPhong/ThoatHH',
+            url: ServerUrl + '/LanhDaoCuc/ThoatHH',
             type: 'POST',
             data: { iID_MaHangHoa: iID_MaHangHoa },
             success: function (response) {

@@ -6,7 +6,6 @@
 @using DomainModel
 @using DomainModel.Controls
 @using DATA0200026
-@using APP0200025.App_Code
 @using APP0200025.Models
 @model CBaoCaoSearch
 @{
@@ -31,10 +30,15 @@
 
     SelectOptionList ddlDN = CHoSo26.DDLDoanhNghiep();
 
-    CHoSoSearch hoso = new CHoSoSearch();
-    hoso.iID_MaTrangThai = -1;
+    long iTongHoSoTiepNhan = 0;
+    long iTongHoSoChuaTraLoi = CHoSo26.Get_Report_Count(Model, "1,2,3");
+    long iTongHoSoTraLoi = CHoSo26.Get_Report_Count(Model, "4,5,6");
+    long iTongHoSoThuHoi = CHoSo26.Get_Report_Count(Model, "5,6");
 
-    long iTongHoSoTiepNhan = CHoSo26.GetCount(hoso);
+    iTongHoSoTiepNhan = iTongHoSoChuaTraLoi + iTongHoSoTraLoi;
+
+    String strPrint = Url.Action("Print", "BoPhanMotCua", new { sMaSoThue = Model.sMaSoThue, TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
+    String strExport = Url.Action("ExpExcel", "BoPhanMotCua", new { sMaSoThue = Model.sMaSoThue, TuNgay = Model.TuNgay, DenNgay = Model.DenNgay });
 }
 <script type="text/javascript">
     $(function () {
@@ -181,7 +185,7 @@
                                     <th style="text-align: center;" align="center">(5)=(6)+(7)</th>
                                     <th style="text-align: center;" align="center">(6)</th>
                                     <th style="text-align: center;" align="center">(7)</th>
-                                    <th style="text-align: center;" align="center">(8)=(4)+(6)</th>
+                                    <th style="text-align: center;" align="center">(8)=(4)+(7)</th>
                                     <th style="text-align: center;" align="center">(9)</th>
                                 </tr>
                             </thead>
@@ -190,14 +194,14 @@
                                     <td align="center">1</td>
                                     <td align="left">Mẫu giảm kiểm tra chất lượng thức ăn chăn nuôi nhập khẩu</td>
                                     <td align="center">@(iTongHoSoTiepNhan.ToString("#,##"))</td>
-                                    <td align="center">123</td>
-                                    <td align="center">123</td>
-                                    <td align="center">123</td>
-                                    <td align="center">123</td>
-                                    <td align="center">123</td>
-                                    <td align="center">123</td>
-                                    <td align="center">123</td>
-                                    <td align="center">123</td>
+                                    <td align="center">@(iTongHoSoTraLoi.ToString("#,##"))</td>
+                                    <td align="center">@(iTongHoSoTraLoi.ToString("#,##"))</td>
+                                    <td align="center">0</td>
+                                    <td align="center">@(iTongHoSoChuaTraLoi.ToString("#,##"))</td>
+                                    <td align="center">@(iTongHoSoChuaTraLoi.ToString("#,##"))</td>
+                                    <td align="center">0</td>
+                                    <td align="center">0</td>
+                                    <td align="center">@(iTongHoSoThuHoi.ToString("#,##"))</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -205,6 +209,8 @@
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix text-center">
                     <a class="btn btn-warning btnXuatWord" href="#" id="btnXuatWord">Xuất word</a>
+                    <a class="btn btn-primary" href="@(strExport)">Xuất excel</a>
+                    <a class="btn btn-warning" href="@(strPrint)">Print</a>
                     <a class="btn btn-danger" href="#" onclick="javascript:history.go(-1)">Thoát</a>
                 </div>
             </div>

@@ -389,6 +389,13 @@ namespace APP0200025.Controllers
             return View(models);
         }
 
+        public JsonResult Thoat(string iID_MaHoSo)
+        {
+            ResultModels result = clHoSo.CleanNguoiXem(iID_MaHoSo); ;
+            result.value = Url.Action("HoSoChoXacNhanGDK");
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
 
         /// <summary>
         /// view màn hình TiepNhanHoSo
@@ -624,6 +631,12 @@ namespace APP0200025.Controllers
             return RedirectToAction("HoSoChatLuongChoDuyet");
         }
 
+        public JsonResult ThoatHH(string iID_MaHangHoa)
+        {
+            ResultModels result = clHangHoa.CleanNguoiXem(Convert.ToString(iID_MaHangHoa));
+            result.value = Url.Action("HoSoChatLuongChoDuyet");
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         [Authorize, ValidateInput(false), HttpPost]
         public ActionResult DongY(string iID_MaHangHoa)

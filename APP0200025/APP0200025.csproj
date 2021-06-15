@@ -2901,6 +2901,7 @@
     <Content Include="ExcelFrom\rptCNN_CVBaoCao08.xls" />
     <Content Include="ExcelFrom\rptCNN_CVBaoCao05.xls" />
     <Content Include="ExcelFrom\rptCNN_CVBaoCao07.xls" />
+    <Content Include="ExcelFrom\rptCNN_CVBaoCaoMienGiam.xls" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3199,6 +3200,7 @@
     <Content Include="Views\DVT\Edit.cshtml" />
     <Content Include="Views\CVReport\BaoCao07.cshtml" />
     <Content Include="Views\CVReport\BaoCao07Print.cshtml" />
+    <Content Include="Views\BoPhanMotCua\Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

@@ -106,7 +106,7 @@ namespace APP0200025.Controllers
                     bang.MaNguoiDungSua = User.Identity.Name;
                     bang.IPSua = Request.UserHostAddress;
                     bang.DuLieuMoi = false;
-                    bang.TruyenGiaTri(ParentID, Request.Form);
+                    bang.GiaTriKhoa = iID_MaHoSo;
                     bang.CmdParams.Parameters.AddWithValue("@sKetQuaXuLy", trangThaiTiepTheo.sKetQuaXuLy);
                     bang.CmdParams.Parameters.AddWithValue("@iID_KetQuaXuLy", trangThaiTiepTheo.iID_KetQuaXuLy);
                     bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThai", trangThaiTiepTheo.iID_MaTrangThai);
@@ -189,11 +189,18 @@ namespace APP0200025.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Thoat(string iID_MaHoSo)
+        //public JsonResult Thoat(string iID_MaHoSo)
+        //{
+        //    ResultModels result = clHoSo.CleanNguoiXem(iID_MaHoSo);
+        //    result.value = Url.Action("Index");
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
+        public ActionResult Thoat(String iID_MaHoSo)
         {
             ResultModels result = clHoSo.CleanNguoiXem(iID_MaHoSo);
-            result.value = Url.Action("Index");
-            return Json(result, JsonRequestBehavior.AllowGet);
+
+            TempData["msg"] = "success";
+            return RedirectToAction("Index");
         }
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Search(string ParentID)

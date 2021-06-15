@@ -379,6 +379,46 @@ namespace DATA0200026
             return vR;
         }
 
+        public static int Get_Report_Count(CBaoCaoSearch models, string sTrangThai)
+        {
+            SqlCommand cmd = new SqlCommand();
+            string DK = "1=1 AND iID_MaTrangThai IN (" + sTrangThai + ")";
+
+            if (!string.IsNullOrEmpty(models.sMaSoThue))
+            {
+                DK += " AND sMaSoThue = @sMaSoThue";
+                cmd.Parameters.AddWithValue("@sMaSoThue", models.sMaSoThue);
+            }
+            if (!string.IsNullOrEmpty(models.sTenDoanhNghiep))
+            {
+                DK += " AND sTenDoanhNghiep LIKE @sTenDoanhNghiep";
+                cmd.Parameters.AddWithValue("@sTenDoanhNghiep", "%" + models.sTenDoanhNghiep + "%");
+            }
+
+            if (!string.IsNullOrEmpty(models.TuNgay))
+            {
+                //DK += " AND dNgayTaoHoSo >= @dTuNgay";
+                //cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau(models.TuNgayDen));
+
+                DK += " AND Cast(datediff(day, 0, dNgayTao) as datetime) >= @dTuNgay";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dTuNgay", CommonFunction.LayNgayTuXau_YYYYMMDD(models.TuNgay));
+            }
+            if (!string.IsNullOrEmpty(models.DenNgay))
+            {
+                //DK += " AND dNgayTaoHoSo <= @dDenNgay";
+                //cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau(models.DenNgayDen));
+
+                DK += " AND Cast(datediff(day, 0, dNgayTao) as datetime) <= @dDenNgay";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dDenNgay", CommonFunction.LayNgayTuXau_YYYYMMDD(models.DenNgay));
+            }
+            
+            string SQL = string.Format("SELECT count(iID_MaHoSo) as value FROM CNN26_HoSo WHERE {0} ", DK);
+            cmd.CommandText = SQL;
+            int vR = Convert.ToInt32(Connection.GetValue(cmd, 0, CThamSo.iKetNoi));
+            cmd.Dispose();
+            return vR;
+        }
+
         #region Update
         public static void UpdateNguoiXem(string iID_MaHoSo, string MaND)
         {

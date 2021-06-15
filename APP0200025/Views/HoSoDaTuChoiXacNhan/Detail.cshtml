@@ -32,7 +32,8 @@
                             @Html.Hidden(ParentID + "_iID_MaHoSo", Model.iID_MaHoSo);
                             <div class="box-footer clearfix text-center">
                                 <button class="btn btn-primary" type="submit">Gửi doanh nghiệp</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a class="btn btn-default" id="btnThoat">Thoát</a>
+                                <a class="btn btn-danger" id="btnThoat" href="@Url.Action("Thoat", "HoSoDaTuChoiXacNhan", new { iID_MaHoSo = Model.iID_MaHoSo })">Thoát</a>
+                                @*<a class="btn btn-default" id="btnThoat">Thoát</a>*@
                             </div>
                         </form>
                     </div><!-- /.tab-pane -->

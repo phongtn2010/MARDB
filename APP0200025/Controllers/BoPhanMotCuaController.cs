@@ -10,6 +10,12 @@ using DomainModel;
 using DATA0200026.WebServices.XmlType.Request;
 using System.Collections.Specialized;
 using APP0200025.Models;
+using FlexCel.Core;
+using System.IO;
+using System.Data;
+using FlexCel.Report;
+using FlexCel.XlsAdapter;
+using FlexCel.Render;
 
 namespace APP0200025.Controllers
 {
@@ -591,13 +597,13 @@ namespace APP0200025.Controllers
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Rep_Search(string ParentID)
         {
-            string _sTenDoanhNghiep = CString.SafeString(Request.Form[ParentID + "_sTenDoanhNghiep"]).Trim();
+            string _DoanhNghiep = CString.SafeString(Request.Form[ParentID + "_DoanhNghiep"]).Trim();
             string _TuNgayDen = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
             string _DenNgayDen = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
 
             CBaoCaoSearch models = new CBaoCaoSearch
             {
-                sTenDoanhNghiep = _sTenDoanhNghiep,
+                sMaSoThue = _DoanhNghiep,
                 TuNgay = _TuNgayDen,
                 DenNgay = _DenNgayDen
             };
@@ -621,6 +627,112 @@ namespace APP0200025.Controllers
 
             ViewData["menu"] = 224;
             return View(repSearch);
+        }
+
+
+        [Authorize]
+        public ActionResult Print(String sMaSoThue, String TuNgay, String DenNgay)
+        {
+            //string _sMaSoThue = CString.SafeString(Request.Form[ParentID + "_DoanhNghiep"]);
+            //string _TuNgay = CString.SafeString(Request.Form[ParentID + "_viTuNgay"]);
+            //string _DenNgay = CString.SafeString(Request.Form[ParentID + "_viDenNgay"]);
+            ViewBag.sMaSoThue = sMaSoThue;
+            ViewBag.TuNgay = TuNgay;
+            ViewBag.DenNgay = DenNgay;
+            ViewData["menu"] = 224;
+            return View();
+        }
+        [Authorize]
+        public ActionResult ViewPDF(String MaND, String sMaSoThue, String TuNgay, String DenNgay)
+        {
+            CHamRieng.Language();
+
+            String sFilePathPrint = "/ExcelFrom/rptCNN_CVBaoCaoMienGiam.xls";
+            ExcelFile xls = CreateReport(Server.MapPath(sFilePathPrint), MaND, sMaSoThue, TuNgay, DenNgay);
+            using (FlexCelPdfExport pdf = new FlexCelPdfExport())
+            {
+                pdf.Workbook = xls;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    pdf.BeginExport(ms);
+                    pdf.ExportAllVisibleSheets(false, "BaoCao");
+                    pdf.EndExport();
+                    ms.Position = 0;
+                    return File(ms.ToArray(), "application/pdf");
+                }
+            }
+            return null;
+        }
+        public ExcelFile CreateReport(String path, String MaND, String sMaSoThue, String TuNgay, String DenNgay)
+        {
+            XlsFile Result = new XlsFile(true);
+            Result.Open(path);
+
+            CBaoCaoSearch sModel = new CBaoCaoSearch
+            {
+                TuNgay = TuNgay,
+                DenNgay = DenNgay,
+                sMaSoThue = sMaSoThue
+            };
+
+            FlexCelReport fr = new FlexCelReport();
+            LoadData(fr, MaND, sModel);
+
+            fr.Run(Result);
+            return Result;
+
+        }
+
+        private void LoadData(FlexCelReport fr, String MaND, CBaoCaoSearch sModel)
+        {
+            DateTime dNow = DateTime.Now;
+
+            DataTable dtCT = CCongTy.Get_Table_Top();
+            String sTenCongTy = Convert.ToString(dtCT.Rows[0]["sTenCongTy"]);
+            String sDienThoaiCongTy = Convert.ToString(dtCT.Rows[0]["sDienThoai"]);
+            String sDiChi = Convert.ToString(dtCT.Rows[0]["sDiaChi_In"]);
+            Byte[] sLogo = (byte[])dtCT.Rows[0]["sLogo"];
+
+            long iTongHoSoTiepNhan = 0;
+            long iTongHoSoChuaTraLoi = CHoSo26.Get_Report_Count(sModel, "1,2,3");
+            long iTongHoSoTraLoi = CHoSo26.Get_Report_Count(sModel, "4,5,6");
+            long iTongHoSoThuHoi = CHoSo26.Get_Report_Count(sModel, "5,6");
+
+            iTongHoSoTiepNhan = iTongHoSoChuaTraLoi + iTongHoSoTraLoi;
+
+            fr.SetValue("TenCongTy", sTenCongTy);
+            //fr.SetValue("DienThoaiCongTy", sDienThoaiCongTy);
+            //fr.SetValue("DiaChiCongTy", sDiChi);
+
+            fr.SetValue("Ngay", dNow.Day);
+            fr.SetValue("Thang", dNow.Month);
+            fr.SetValue("Nam", dNow.Year);
+
+            fr.SetValue("sTuNgay", sModel.TuNgay);
+            fr.SetValue("sDenNgay", sModel.DenNgay);
+            fr.SetValue("sDoanhNghiep", sModel.sMaSoThue);
+
+            fr.SetValue("So1_TraLoi", CommonFunction.DinhDangSo(iTongHoSoTraLoi));
+            fr.SetValue("So2_TraLoi", CommonFunction.DinhDangSo(iTongHoSoChuaTraLoi));
+            fr.SetValue("ThuHoi", CommonFunction.DinhDangSo(iTongHoSoThuHoi));
+        }
+
+        public clsExcelResult ExpExcel(String sMaSoThue, String TuNgay, String DenNgay)
+        {
+            string sMaND = User.Identity.Name;
+            String sFilePath = "/ExcelFrom/rptCNN_CVBaoCaoMienGiam.xls";
+            clsExcelResult clsResult = new clsExcelResult();
+            ExcelFile xls = CreateReport(Server.MapPath(sFilePath), sMaND, sMaSoThue, TuNgay, DenNgay);
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                xls.Save(ms);
+                ms.Position = 0;
+                clsResult.ms = ms;
+                clsResult.FileName = "BaoCaoMienGiam.xls";
+                clsResult.type = "xls";
+                return clsResult;
+            }
         }
     }
 }
