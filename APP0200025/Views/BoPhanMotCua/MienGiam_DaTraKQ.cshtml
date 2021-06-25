@@ -57,7 +57,7 @@
     DataRow r;
     SelectOptionList ddtTrangThai = HamRiengModels.Get_Select_TrangThai();
 
-    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("MienGiam_DaDuyet", "BoPhanMotCua", new
+    String strPhanTrang = Pagings.PageLinks_Cms(String.Format("Trang {0}/{1}: ", CurrentPage, TotalPages), CurrentPage, TotalPages, x => Url.Action("MienGiam_DaTraKQ", "BoPhanMotCua", new
     {
         iID_MaTrangThai = Model.iID_MaTrangThai,
         sMaHoSo = Model.sMaHoSo,
