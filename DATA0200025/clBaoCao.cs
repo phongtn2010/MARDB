@@ -194,13 +194,19 @@ namespace DATA0200025
 
             if (!string.IsNullOrEmpty(model.TuNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua OR (iID_MaTrangThai = 0 AND dSoThongBaoKetQua_NgayKy IS NULL)";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
+
+                DKHS += " AND Cast(datediff(day, 0, dNgayTaoHoSo) as datetime) >= @dTuNgayTaoHoSo";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dTuNgayTaoHoSo", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
             if (!string.IsNullOrEmpty(model.DenNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua OR (iID_MaTrangThai = 0 AND dSoThongBaoKetQua_NgayKy IS NULL)";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
+
+                DKHS += " AND Cast(datediff(day, 0, dNgayTaoHoSo) as datetime) <= @dDenNgayTaoHoSo";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dDenNgayTaoHoSo", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
             string SQL = string.Format(@"SELECT * FROM (SELECT hh.*,
@@ -224,13 +230,19 @@ namespace DATA0200025
 
             if (!string.IsNullOrEmpty(model.TuNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua OR (iID_MaTrangThai = 0 AND dSoThongBaoKetQua_NgayKy IS NULL)";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
+
+                DKHS += " AND Cast(datediff(day, 0, dNgayTaoHoSo) as datetime) >= @dTuNgayTaoHoSo";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dTuNgayTaoHoSo", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
             if (!string.IsNullOrEmpty(model.DenNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua OR (iID_MaTrangThai = 0 AND dSoThongBaoKetQua_NgayKy IS NULL)";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
+
+                DKHS += " AND Cast(datediff(day, 0, dNgayTaoHoSo) as datetime) <= @dDenNgayTaoHoSo";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dDenNgayTaoHoSo", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
             //string SQL = string.Format(@"SELECT * FROM (SELECT COUNT(iID_MaHangHoa) as count FROM(select * from CNN25_HangHoa WHERE {0}) hh
@@ -257,13 +269,19 @@ namespace DATA0200025
 
             if (!string.IsNullOrEmpty(model.TuNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) >= @TuNgayThongBaoKetQua OR (iID_MaTrangThai = 0 AND dSoThongBaoKetQua_NgayKy IS NULL)";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@TuNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
+
+                DKHS += " AND Cast(datediff(day, 0, dNgayTaoHoSo) as datetime) >= @dTuNgayTaoHoSo";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dTuNgayTaoHoSo", CommonFunction.LayNgayTuXau_YYYYMMDD(model.TuNgay));
             }
             if (!string.IsNullOrEmpty(model.DenNgay))
             {
-                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua";   // _FromDate = 'yyyy-MM-dd'
+                DKHH += " AND Cast(datediff(day, 0, dSoThongBaoKetQua_NgayKy) as datetime) <= @DenNgayThongBaoKetQua OR (iID_MaTrangThai = 0 AND dSoThongBaoKetQua_NgayKy IS NULL)";   // _FromDate = 'yyyy-MM-dd'
                 cmd.Parameters.AddWithValue("@DenNgayThongBaoKetQua", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
+
+                DKHS += " AND Cast(datediff(day, 0, dNgayTaoHoSo) as datetime) <= @dDenNgayTaoHoSo";   // _FromDate = 'yyyy-MM-dd'
+                cmd.Parameters.AddWithValue("@dDenNgayTaoHoSo", CommonFunction.LayNgayTuXau_YYYYMMDD(model.DenNgay));
             }
 
             string SQL = string.Format(@"SELECT * FROM (SELECT hh.*,
