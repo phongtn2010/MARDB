@@ -195,7 +195,7 @@
                                     {
                                         DataRow r = dt.Rows[i];
 
-                                        string sMua_FromDate = "", sMua_ToDate = "";
+                                        string sThoiGian = "", sTenToChuc = "";
 
                                         String sKhoiLuong = "", sKhoiLuongTan = "", sSoLuong = "";
                                         DataTable dtKhoiLuong = clHangHoa.Get_ThongTinKhoiLuong(Convert.ToInt64(r["iID_MaHangHoa"]));
@@ -203,23 +203,42 @@
                                         {
                                             for (int k = 0; k < dtKhoiLuong.Rows.Count; k++)
                                             {
-                                                sKhoiLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhKL"]) + "; ";
-                                                sKhoiLuongTan += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]) + "; ";
-                                                sSoLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rSoLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhSL"]) + "; ";
+                                                sKhoiLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhKL"]) + "";
+                                                sKhoiLuongTan += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]) + "";
+                                                sSoLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rSoLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhSL"]) + "";
                                             }
                                         }
                                         dtKhoiLuong.Dispose();
 
                                         HoSoXNCLModels hsXNCL = clHangHoa.GetHoSoXNCL(Convert.ToInt64(r["iID_MaHoSo"]), Convert.ToInt64(r["iID_MaHangHoa"]));
+                                        if (hsXNCL != null)
+                                        {
+                                            sTenToChuc = hsXNCL.sTenToChuc;
+                                        }
 
-                                        if (String.IsNullOrEmpty(Convert.ToString(r["sMua_FromDate"])) == false)
+                                        int iMaLoaiHoSo = Convert.ToInt32(r["iID_MaLoaiHoSo"]);
+                                        switch (iMaLoaiHoSo)
                                         {
-                                            sMua_FromDate = Convert.ToDateTime(r["sMua_FromDate"]).ToString("dd/MM/yyyy");
+                                            case 1:
+                                            case 2:
+                                                sThoiGian = Convert.ToDateTime(r["dNgayTiepNhan"]).ToString("dd/MM/yyyy");
+                                                break;
+                                            case 3:
+                                                sThoiGian = Convert.ToDateTime(r["dNgayXacNhan"]).ToString("dd/MM/yyyy");
+                                                break;
+                                            case 4:
+                                                sThoiGian = Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd/MM/yyyy");
+                                                break;
                                         }
-                                        if (String.IsNullOrEmpty(Convert.ToString(r["sMua_ToDate"])) == false)
-                                        {
-                                            sMua_ToDate = Convert.ToDateTime(r["sMua_ToDate"]).ToString("dd/MM/yyyy");
-                                        }
+
+                                        //if (String.IsNullOrEmpty(Convert.ToString(r["sMua_FromDate"])) == false)
+                                        //{
+                                        //    sMua_FromDate = Convert.ToDateTime(r["sMua_FromDate"]).ToString("dd/MM/yyyy");
+                                        //}
+                                        //if (String.IsNullOrEmpty(Convert.ToString(r["sMua_ToDate"])) == false)
+                                        //{
+                                        //    sMua_ToDate = Convert.ToDateTime(r["sMua_ToDate"]).ToString("dd/MM/yyyy");
+                                        //}
 
                                         <tr>
                                             <td align="center">@r["rownum"]</td>
@@ -242,10 +261,10 @@
                                             <td align="right">@CommonFunction.DinhDangSo(r["rGiaUSD"])</td>
                                             <td align="left">@Convert.ToString(r["sTenQuocGia"])</td>
                                             <td align="left">@Convert.ToString(r["sMua_NoiNhan"])</td>
-                                            <td align="left">@Convert.ToString(sMua_FromDate + " - " + sMua_ToDate)</td>
+                                            <td align="left">@Convert.ToString(sThoiGian)</td>
                                             <td align="left">@Convert.ToString(r["sLoaiHinhThucKiemTra"])</td>
                                             <td align="left">@Convert.ToString(r["sSoThongBaoKetQua"])</td>
-                                            <td align="left">@Convert.ToString(hsXNCL.sTenToChuc)</td>
+                                            <td align="left">@Convert.ToString(sTenToChuc)</td>
                                         </tr>
                                     }
                                 }

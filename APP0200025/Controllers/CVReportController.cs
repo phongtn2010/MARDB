@@ -306,30 +306,49 @@ namespace APP0200025.Controllers
                     r = dt.Rows[i];
 
                     string sMua_FromDate = "", sMua_ToDate = "";
-
+                    string sThoiGian = "", sTenToChuc = "";
                     String sKhoiLuong = "", sKhoiLuongTan = "", sSoLuong = "";
                     DataTable dtKhoiLuong = clHangHoa.Get_ThongTinKhoiLuong(Convert.ToInt64(r["iID_MaHangHoa"]));
                     if (dtKhoiLuong.Rows.Count > 0)
                     {
                         for (int k = 0; k < dtKhoiLuong.Rows.Count; k++)
                         {
-                            sKhoiLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhKL"]) + "; ";
-                            sKhoiLuongTan += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]) + "; ";
-                            sSoLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rSoLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhSL"]) + "; ";
+                            sKhoiLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhKL"]) + "";
+                            sKhoiLuongTan += Convert.ToString(dtKhoiLuong.Rows[k]["rKhoiLuongTan"]) + "";
+                            sSoLuong += Convert.ToString(dtKhoiLuong.Rows[k]["rSoLuong"]) + " " + Convert.ToString(dtKhoiLuong.Rows[k]["sDonViTinhSL"]) + "";
                         }
                     }
                     dtKhoiLuong.Dispose();
 
                     HoSoXNCLModels hsXNCL = clHangHoa.GetHoSoXNCL(Convert.ToInt64(r["iID_MaHoSo"]), Convert.ToInt64(r["iID_MaHangHoa"]));
+                    if(hsXNCL != null)
+                    {
+                        sTenToChuc = hsXNCL.sTenToChuc;
+                    }
 
-                    if (String.IsNullOrEmpty(Convert.ToString(r["sMua_FromDate"])) == false)
+                    int iMaLoaiHoSo = Convert.ToInt32(r["iID_MaLoaiHoSo"]);
+                    switch (iMaLoaiHoSo)
                     {
-                        sMua_FromDate = Convert.ToDateTime(r["sMua_FromDate"]).ToString("dd/MM/yyyy");
+                        case 1:
+                        case 2:
+                            sThoiGian = Convert.ToDateTime(r["dNgayTiepNhan"]).ToString("dd/MM/yyyy");
+                            break;
+                        case 3:
+                            sThoiGian = Convert.ToDateTime(r["dNgayXacNhan"]).ToString("dd/MM/yyyy");
+                            break;
+                        case 4:
+                            sThoiGian = Convert.ToDateTime(r["dNgayTaoHoSo"]).ToString("dd/MM/yyyy");
+                            break;
                     }
-                    if (String.IsNullOrEmpty(Convert.ToString(r["sMua_ToDate"])) == false)
-                    {
-                        sMua_ToDate = Convert.ToDateTime(r["sMua_ToDate"]).ToString("dd/MM/yyyy");
-                    }
+
+                    //if (String.IsNullOrEmpty(Convert.ToString(r["sMua_FromDate"])) == false)
+                    //{
+                    //    sMua_FromDate = Convert.ToDateTime(r["sMua_FromDate"]).ToString("dd/MM/yyyy");
+                    //}
+                    //if (String.IsNullOrEmpty(Convert.ToString(r["sMua_ToDate"])) == false)
+                    //{
+                    //    sMua_ToDate = Convert.ToDateTime(r["sMua_ToDate"]).ToString("dd/MM/yyyy");
+                    //}
 
                     r["sGiaVN"] = CommonFunction.DinhDangSo(r["rGiaVN"]);
                     r["sGiaUSD"] = CommonFunction.DinhDangSo(r["rGiaUSD"]);
@@ -337,8 +356,8 @@ namespace APP0200025.Controllers
                     r["sSoLuong"] = sSoLuong;
                     r["sKhoiLuong"] = sKhoiLuong;
                     r["sKhoiLuongTan"] = sKhoiLuongTan;
-                    r["sThoiGianNhap"] = Convert.ToString(sMua_FromDate + " - " + sMua_ToDate);
-                    r["sTenToChucChungNhan"] = Convert.ToString(hsXNCL.sTenToChuc);
+                    r["sThoiGianNhap"] = Convert.ToString(sThoiGian);
+                    r["sTenToChucChungNhan"] = Convert.ToString(sTenToChuc);
                 }
             }
             dt.Dispose();
