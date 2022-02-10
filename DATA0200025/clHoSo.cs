@@ -1926,6 +1926,8 @@ namespace DATA0200025
             lst.Add(trangThai);
             trangThai = new TrangThaiModels
             {
+                iID_MaTrangThai = -1,
+                sTen = "Không có trang thái hàng hóa",
                 iID_KetQuaXuLy = 4,
                 sKetQuaXuLy = "Yêu cầu bổ sung kết quả đánh giá sự phù hợp"
 

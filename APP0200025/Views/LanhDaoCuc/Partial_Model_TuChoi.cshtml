@@ -9,7 +9,7 @@
 }
 
 
-@using (Ajax.BeginForm("TuChoiSubmit", "LanhDaoCuc", new AjaxOptions{OnSuccess = "OnSuccessTuChoi", OnBegin = "OnBeginTuChoi"}, new {id="formTuChoi", enctype = "multipart/form-data", @class = "form-horizontal" }))
+@using (Ajax.BeginForm("TuChoiHoSoSubmit", "LanhDaoCuc", new AjaxOptions{OnSuccess = "OnSuccessTuChoi", OnBegin = "OnBeginTuChoi"}, new {id="formTuChoi", enctype = "multipart/form-data", @class = "form-horizontal" }))
 {
     <script>
         function OnBeginTuChoi() {

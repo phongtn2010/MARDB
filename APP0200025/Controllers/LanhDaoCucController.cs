@@ -248,11 +248,12 @@ namespace APP0200025.Controllers
             try
             {
                 HoSoModels hoSo = clHoSo.GetHoSoById(Convert.ToInt32(iID_MaHoSo));
-
+                  
                 long iID_MaDinhKem = -1;
                 string sFileTemp = "", sFileName = "";
                 for (int i = 0; i < files.Count; i++)
                 {
+                    string sChuoiFile = "";
                     HttpPostedFileBase postedFile = files[i];
                     if (postedFile != null && postedFile.ContentLength > 0)
                     {
@@ -273,6 +274,7 @@ namespace APP0200025.Controllers
                     }
                 }
 
+                int iID_MaTrangThai = hoSo.iID_MaTrangThai;
                 int HanhDong = 0;
                 switch (hoSo.iID_MaTrangThai)
                 {

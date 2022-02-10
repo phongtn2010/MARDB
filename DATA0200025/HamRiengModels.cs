@@ -263,6 +263,7 @@ namespace DATA0200025
 
             DateTime dNow = DateTime.Now;
 
+            DateTime dThuSau = new DateTime();
             DateTime dThuBay = new DateTime();
             DateTime dChuNhat = new DateTime();
 
@@ -276,6 +277,10 @@ namespace DATA0200025
             {
                 dChuNhat = date;
             }
+            else if (day == DayOfWeek.Friday)
+            {
+                dThuSau = date;
+            }
             else 
             {
                 //Ngay dau tien trong tuan
@@ -285,7 +290,17 @@ namespace DATA0200025
             }    
 
             long iTimeHetHan = 0;
-            if(date == dThuBay)
+            if (date == dThuSau)
+            {
+                string dNgayHetHan = date.AddDays(3).ToString("dd/MM/yyyy") + " 17:00";
+                String[] tgDate6 = dNgayHetHan.Split(' ');
+                String sNgaySua6 = Convert.ToString(tgDate6[0]);
+                String sGioSua6 = Convert.ToString(tgDate6[1]);
+                DateTime dThoiGianHetHan = Convert.ToDateTime(CommonFunction.LayNgayTuXau_Gio(sNgaySua6, sGioSua6));
+
+                iTimeHetHan = CommonFunction.ConvertToUnixTimestamp_Second(dThoiGianHetHan);
+            }
+            else if(date == dThuBay)
             {
                 string dNgayHetHan = date.AddDays(2).ToString("dd/MM/yyyy") + " 17:00";
                 String[] tgDate7 = dNgayHetHan.Split(' ');
@@ -328,7 +343,8 @@ namespace DATA0200025
                 }
                 else
                 {
-                    string dNgayHetHan = date.ToString("dd/MM/yyyy") + " 17:00";
+                    //string dNgayHetHan = date.AddHours(24).ToString("dd/MM/yyyy") + " 17:00";
+                    string dNgayHetHan = date.AddHours(24).ToString("dd/MM/yyyy hh:mm");
                     String[] tgDate = dNgayHetHan.Split(' ');
                     String sNgaySua = Convert.ToString(tgDate[0]);
                     String sGioSua = Convert.ToString(tgDate[1]);
@@ -442,7 +458,7 @@ namespace DATA0200025
     {
         public const string sCoQuan_Ma = "10";  //Mã cơ quan
         public const string sCoQuan_Ten = "Cục chăn nuôi";  //Tên cơ quan
-        public const string sNguoiKy_Ten = "Tống Xuân Chinh";  //Tên người ký
+        public const string sNguoiKy_Ten = "Dương Tất Thắng";  //Tên người ký
         public const string sNguoiKy_ChucVu = "Cục Trưởng";  //Chức vụ
         public const string sNguoiKy_NoiKy = "Hà Nội";  //Nơi ký
     }
