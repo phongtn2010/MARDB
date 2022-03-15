@@ -281,7 +281,7 @@ namespace APP0200025.Controllers
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
                 bang.Save();
 
-                clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, "Thu hồi và xử lý lại", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+                clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, "Thu hồi và xử lý lại", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
                 TempData["msg"] = "success";
             }
@@ -310,7 +310,7 @@ namespace APP0200025.Controllers
                 bang.CmdParams.Parameters.AddWithValue("@iID_MaTrangThaiTruoc", hoSo.iID_MaTrangThai);
                 bang.Save();
                 clHoSo.CleanNguoiXem(iID_MaHoSo);
-                clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.BoPhanMotCua, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, "Thu hồi và xử lý lại", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
+                clLichSuHoSo.InsertLichSu(hoSo.iID_MaHoSo, User.Identity.Name, (int)clDoiTuong.DoiTuong.ChuyenVien, (int)clHanhDong.HanhDong.ThuHoiVaXuLyLai, "Thu hồi và xử lý lại", "", hoSo.iID_MaTrangThai, trangThaiTiepTheo.iID_MaTrangThai);
 
                 TempData["msg"] = "success";
             }
