@@ -292,7 +292,7 @@ namespace DATA0200025
             long iTimeHetHan = 0;
             if (date == dThuSau)
             {
-                string dNgayHetHan = date.AddDays(3).ToString("dd/MM/yyyy") + " 17:00";
+                string dNgayHetHan = date.AddDays(6).ToString("dd/MM/yyyy") + " 17:00";
                 String[] tgDate6 = dNgayHetHan.Split(' ');
                 String sNgaySua6 = Convert.ToString(tgDate6[0]);
                 String sGioSua6 = Convert.ToString(tgDate6[1]);
@@ -302,7 +302,7 @@ namespace DATA0200025
             }
             else if(date == dThuBay)
             {
-                string dNgayHetHan = date.AddDays(2).ToString("dd/MM/yyyy") + " 17:00";
+                string dNgayHetHan = date.AddDays(5).ToString("dd/MM/yyyy") + " 17:00";
                 String[] tgDate7 = dNgayHetHan.Split(' ');
                 String sNgaySua7 = Convert.ToString(tgDate7[0]);
                 String sGioSua7 = Convert.ToString(tgDate7[1]);
@@ -312,7 +312,7 @@ namespace DATA0200025
             }
             else if(date == dChuNhat)
             {
-                string dNgayHetHan = date.AddDays(1).ToString("dd/MM/yyyy") + " 17:00";
+                string dNgayHetHan = date.AddDays(4).ToString("dd/MM/yyyy") + " 17:00";
                 String[] tgDate8 = dNgayHetHan.Split(' ');
                 String sNgaySua8 = Convert.ToString(tgDate8[0]);
                 String sGioSua8 = Convert.ToString(tgDate8[1]);
@@ -333,7 +333,7 @@ namespace DATA0200025
 
                 if (iTime > iTime17h)
                 {
-                    string dNgayHetHan = date.AddDays(1).ToString("dd/MM/yyyy") + " 17:00";
+                    string dNgayHetHan = date.AddDays(3).ToString("dd/MM/yyyy") + " 17:00";
                     String[] tgDate = dNgayHetHan.Split(' ');
                     String sNgaySua = Convert.ToString(tgDate[0]);
                     String sGioSua = Convert.ToString(tgDate[1]);
@@ -344,7 +344,7 @@ namespace DATA0200025
                 else
                 {
                     //string dNgayHetHan = date.AddHours(24).ToString("dd/MM/yyyy") + " 17:00";
-                    string dNgayHetHan = date.AddHours(24).ToString("dd/MM/yyyy hh:mm");
+                    string dNgayHetHan = date.AddHours(72).ToString("dd/MM/yyyy hh:mm");
                     String[] tgDate = dNgayHetHan.Split(' ');
                     String sNgaySua = Convert.ToString(tgDate[0]);
                     String sGioSua = Convert.ToString(tgDate[1]);
