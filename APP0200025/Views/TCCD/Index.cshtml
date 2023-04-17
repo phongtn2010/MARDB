@@ -1,0 +1,144 @@
+﻿@using System
+@using System.Data
+@using System.Data.SqlClient
+@using System.Configuration
+@using System.Collections
+@using DomainModel
+@using DomainModel.Controls
+@using DATA0200025
+@using APP0200025.App_Code
+@using APP0200025.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    String ServerURL = CHamRieng.Get_Domain();
+    String sDate = DateTime.Now.ToString("dd/MM/yyyy");
+    String ParentID = "Index";
+
+    int iID_MaNgonNgu = 1;
+    if (Session["LANGUAGECODE"] == null || Convert.ToString(Session["LANGUAGECODE"]) == "")
+    {
+        Session["LANGUAGEID"] = 1;
+        Session["LANGUAGECODE"] = "vn";
+    }
+    else
+    {
+        iID_MaNgonNgu = Convert.ToInt32(Session["LANGUAGEID"]);
+    }
+    Hashtable Lang = NgonNgu.GetLanguage(Convert.ToString(Session["LANGUAGECODE"]), Server.MapPath("~/XML/" + Session["LANGUAGECODE"] + ".xml"), "pageApp");
+
+
+    string TenBang = "CNN25_ToChucChiDinh";
+    String sDanhSachChucNangCam = BaoMat.DanhSachChucNangCam(User.Identity.Name, TenBang);
+
+    DataTable dt = CToChucChiDinh.Get_ToChucChiDinh();
+
+    DataRow R;
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">DANH SÁCH TỔ CHỨC CHỈ ĐỊNH</h3>
+                    <div class="box-tools">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="@Url.Action("Edit", "TCCD")"><i class="fa fa-plus-square"></i> @Lang["ChucNang_Item01"].ToString()</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <div class="table-responsive">
+                        <table id="tblListData" class="table table-bordered table-hover table-striped">
+                            <tr>
+                                <th style="width: 3%; text-align: center;">STT</th>
+                                <th style="width: 4%; text-align: center;">Mã TCCD</th>
+                                <th style="width: 20%; text-align: center;">Tên</th>
+                                <th style="text-align: center;">Địa chỉ</th>
+                                <th style="width: 7%; text-align: center;">Quyết định</th>
+                                <th style="width: 10%; text-align: center;">Ngày cấp</th>
+                                <th style="width: 10%; text-align: center;">Ngày hết hạn</th>
+                                <th style="width: 5%; text-align: center;">Phạm vị chỉ định 1</th>
+                                <th style="width: 5%; text-align: center;">Phạm vị chỉ định 2</th>
+                                <th style="width: 10%; text-align: center;">Ngày đăng</th>
+                                <th style="width: 10px;" title="Sửa"><span class="badge bg-blue"><i class="fa fa-pencil"></i></span></th>
+                                @*<th style="width: 10px" title="Xóa"><span class="badge bg-red"><i class="fa fa-times"></i></span></th>*@
+                            </tr>
+                            @{
+                                if (dt.Rows.Count > 0)
+                                {
+                                    for (int i = 0; i < dt.Rows.Count; i++)
+                                    {
+                                        R = dt.Rows[i];
+
+                                        int iSTT = i + 1;
+
+                                        String sPhamViChiDinh1 = "", sPhamViChiDinh2 = "";
+                                        Boolean bPhamViChiDinh1 = Convert.ToBoolean(R["bPhamViChiDinh1"]);
+                                        Boolean bPhamViChiDinh2 = Convert.ToBoolean(R["bPhamViChiDinh2"]);
+                                        if (bPhamViChiDinh1 == true)
+                                        {
+                                            sPhamViChiDinh1 = "<span class=\"badge bg-blue\"><i class=\"fa fa-check-square\"></i></span>";
+                                        }
+                                        else
+                                        {
+                                            sPhamViChiDinh1 = "";
+                                        }
+                                        if (bPhamViChiDinh2 == true)
+                                        {
+                                            sPhamViChiDinh2 = "<span class=\"badge bg-blue\"><i class=\"fa fa-check-square\"></i></span>";
+                                        }
+                                        else
+                                        {
+                                            sPhamViChiDinh2 = "";
+                                        }
+
+
+                                        String strEdit = MyHtmlHelper.ActionLink(Url.Action("Edit", "TCCD", new { iID_MaDTCCD = R["iID_MaDTCCD"] }), "<span class=\"badge bg-blue\"><i class=\"fa fa-pencil\"></i></span>", "Edit", "");
+                                        //String strDelete = MyHtmlHelper.ActionLink(Url.Action("Delete", "TCCD", new { iID_MaDTCCD = R["iID_MaDTCCD"] }), "<span class=\"badge bg-red\"><i class=\"fa fa-times\"></i></span>", "Delete", "");
+
+                                        <tr>
+                                            <td style="text-align: center;">@iSTT.ToString()</td>
+                                            <td style="text-align: center;"><b>@R["sMaTCCD"].ToString()</b></td>
+                                            <td>@R["sTen"].ToString()</td>
+                                            <td>@R["sDiaChi"].ToString()</td>
+                                            <td>@R["sQuyetDinh"].ToString()</td>
+                                            <td>@R["sNgayCap"].ToString()</td>
+                                            <td>@Convert.ToDateTime(R["dNgayHetHan"]).ToString("dd-MM-yyyy")</td>
+                                            <td style="text-align: center;">@MvcHtmlString.Create(sPhamViChiDinh1)</td>
+                                            <td style="text-align: center;">@MvcHtmlString.Create(sPhamViChiDinh2)</td>
+                                            <td>@Convert.ToDateTime(R["dNgayTao"]).ToString("dd-MM-yyyy HH:mm")</td>
+                                            <td style="width: 10px;" title="Sửa">@MvcHtmlString.Create(strEdit)</td>
+                                            @*<td style="width: 10px" title="Xóa">@MvcHtmlString.Create(strDelete)</td>*@
+                                        </tr>
+                                    }
+                                }
+                                dt.Dispose();
+                            }
+                        </table>
+                    </div>
+                </div><!-- /.box-body -->
+                @*<div class="box-footer clearfix">
+                    </div>*@
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+<!-- DataTables -->
+@*<script src="@(Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js"))"></script>
+<script src="@(Url.Content("~/Content/plugins/datatables/dataTables.bootstrap.min.js"))"></script>
+<script>
+    $(function () {
+        $('#tblListData').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false
+        });
+    });
+</script>*@

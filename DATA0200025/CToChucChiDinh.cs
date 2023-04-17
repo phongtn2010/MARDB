@@ -24,6 +24,18 @@ namespace DATA0200025
 
             return vR;
         }
+        public static DataTable Get_ToChucChiDinh_Detail(string iID_MaDTCCD)
+        {
+            DataTable vR = null;
+
+            string SQL = "SELECT * FROM CNN25_ToChucChiDinh WHERE iID_MaDTCCD=@iID_MaDTCCD";
+            SqlCommand cmd = new SqlCommand(SQL);
+            cmd.Parameters.AddWithValue("@iID_MaDTCCD", iID_MaDTCCD);
+            vR = Connection.GetDataTable(cmd);
+            cmd.Dispose();
+
+            return vR;
+        }
         public static SelectOptionList SelectOption_ToChucChiDinh()
         {
             DataTable dt = Get_ToChucChiDinh();

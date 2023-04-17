@@ -225,20 +225,19 @@ namespace DATA0200025
 
             return vR;
         }
-        public static int Update(String iID_MaNhomNguoiDung, String iID_MaKhachHang, String sID_MANGUOIDUNG, String sHoTen, String sEmail, int iTrangThai)
+        public static int Update(String iID_MaNhomNguoiDung, String iID_MaKhachHang, String sID_MANGUOIDUNG, String sHoTen, String sEmail)
         {
             int vR = -1;
 
             try
             {
-                String SQL = "UPDATE QT_NGUOIDUNG SET iID_MaNhomNguoiDung=@iID_MaNhomNguoiDung, iID_MaKhachHang=@iID_MaKhachHang, sHoTen=@sHoTen, sEmail=@sEmail, iTrangThai=@iTrangThai WHERE sID_MaNguoiDung = @id";
+                String SQL = "UPDATE QT_NGUOIDUNG SET iID_MaNhomNguoiDung=@iID_MaNhomNguoiDung, sID_MaNhomNguoiDung_DuocQuanTri=@sID_MaNhomNguoiDung_DuocQuanTri, sHoTen=@sHoTen, sEmail=@sEmail WHERE sID_MaNguoiDung = @id";
 
                 SqlCommand cmd = new SqlCommand(SQL);
                 cmd.Parameters.AddWithValue("@iID_MaNhomNguoiDung", iID_MaNhomNguoiDung);
-                cmd.Parameters.AddWithValue("@iID_MaKhachHang", iID_MaKhachHang);
+                cmd.Parameters.AddWithValue("@sID_MaNhomNguoiDung_DuocQuanTri", iID_MaKhachHang);
                 cmd.Parameters.AddWithValue("@sHoTen", sHoTen);
                 cmd.Parameters.AddWithValue("@sEmail", sEmail);
-                cmd.Parameters.AddWithValue("@iTrangThai", iTrangThai);
                 cmd.Parameters.AddWithValue("@id", sID_MANGUOIDUNG);
                 vR = Connection.UpdateDatabase(cmd, CThamSo.iKetNoi);
                 cmd.Dispose();

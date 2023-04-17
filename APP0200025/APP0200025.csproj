@@ -266,6 +266,7 @@
     <Compile Include="Controllers\MienGiamController.cs" />
     <Compile Include="Controllers\PermitionMessageController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\TCCDController.cs" />
     <Compile Include="Controllers\Test26Controller.cs" />
     <Compile Include="Controllers\TraCuuHangHoaController.cs" />
     <Compile Include="Controllers\TraCuuHoSoController.cs" />
@@ -3194,6 +3195,8 @@
     <Content Include="Views\CVReport\BaoCao07.cshtml" />
     <Content Include="Views\CVReport\BaoCao07Print.cshtml" />
     <Content Include="Views\BoPhanMotCua\Print.cshtml" />
+    <Content Include="Views\TCCD\Index.cshtml" />
+    <Content Include="Views\TCCD\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

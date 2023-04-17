@@ -18,7 +18,7 @@
     String MaNguoiDung = Convert.ToString(ViewData["MaNguoiDung"]);
     String MaNhomNguoiDung = Convert.ToString(ViewData["MaNhomNguoiDung"]);
 
-    String iID_MaNhomNguoiDung = "", iID_MaKhachHang = "", sTenKhachHang = "", sTenCuaHang = "", sDiaChi_CuaHang = "";
+    String iID_MaNhomNguoiDung = "", sID_MaNhomNguoiDung_DuocQuanTri = "", iID_MaKhachHang = "", sTenKhachHang = "", sTenCuaHang = "", sDiaChi_CuaHang = "";
     String sHoTen = "", sEmail = "";
     int iTrangThai = 0;
     String tgTrangThai = "";
@@ -30,8 +30,9 @@
         //sTenCuaHang = CCuaHang.Get_Name_TB_CuaHang(Convert.ToInt64(iID_MaKhachHang), ref sDiaChi_CuaHang);
 
         //sTenKhachHang = sTenCuaHang + ": " + sDiaChi_CuaHang;
-        sHoTen = Convert.ToString(dt.Rows[0]["SHOTEN"]);
-        sEmail = Convert.ToString(dt.Rows[0]["SEMAIL"]);
+        sHoTen = Convert.ToString(dt.Rows[0]["sHoTen"]);
+        sEmail = Convert.ToString(dt.Rows[0]["sEmail"]);
+        sID_MaNhomNguoiDung_DuocQuanTri = Convert.ToString(dt.Rows[0]["sID_MaNhomNguoiDung_DuocQuanTri"]);
         iTrangThai = Convert.ToInt32(dt.Rows[0]["ITRANGTHAI"]);
     }
     dt.Dispose();
@@ -41,11 +42,12 @@
         tgTrangThai = "on";
     }
     SelectOptionList slNhom = CPQ_NHOMNGUOIDUNG.Get_Dropdown_NhomNguoiDung("--- Nhóm người dung ---");
+
+    SelectOptionList ddlTCCD = CToChucChiDinh.SelectOption_ToChucChiDinh();
 }
 
 @using (Html.BeginForm("Edit", "NguoiDung", new { ParentID = ParentID, MaNguoiDung = MaNguoiDung, MaNhomNguoiDung = MaNhomNguoiDung }))
 {
-
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -86,6 +88,14 @@
                                     <label for="Edit_sTenCongTy">Email<span style="color: red;">&nbsp;*</span></label>
                                     @MvcHtmlString.Create(MyHtmlHelper.TextBox(ParentID, sEmail, "sEmail", sDanhSachTruongCam, "type=\"text\" placeholder=\"Email người dùng\" class=\"form-control\""))
                                     @Html.ValidationMessage(ParentID + "_" + "err_sEmail")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="Edit_sTenCongTy">Thuộc tổ chức chỉ định<span style="color: red;">&nbsp;*</span></label>
+                                    @MvcHtmlString.Create(MyHtmlHelper.DropDownList(ParentID, ddlTCCD, sID_MaNhomNguoiDung_DuocQuanTri, "sID_MaNhomNguoiDung_DuocQuanTri", "", "class=\"form-control\""))
                                 </div>
                             </div>
                         </div>

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using DATA0200025;
 using APP0200025.Models;
 using DomainModel;
+using DomainModel.Abstract;
 
 namespace APP0200025.Controllers
 {
@@ -70,9 +71,9 @@ namespace APP0200025.Controllers
             }
             NameValueCollection arrLoi = new NameValueCollection();
             String iID_MaNhomNguoiDung = CString.SafeString(Request.Form[ParentID + "_iID_MaNhomNguoiDung"]);
-            String iID_MaKhachHang = CString.SafeString(Request.Form[ParentID + "_iID_MaKhachHang"]);
             String _sHoTen = CString.SafeString(Request.Form[ParentID + "_sHoTen"]);
             String _sEmail = CString.SafeString(Request.Form[ParentID + "_sEmail"]);
+            string sMaToChucChiDinh = CString.SafeString(Request.Form[ParentID + "_sID_MaNhomNguoiDung_DuocQuanTri"]).Trim();
             String bTrangThai = CString.SafeString(Request.Form[ParentID + "_bTrangThai"]);
 
             if (iID_MaNhomNguoiDung == string.Empty || iID_MaNhomNguoiDung == "")
@@ -97,13 +98,18 @@ namespace APP0200025.Controllers
             }
             else
             {
-                int iTrangThai = 0;
-                if (bTrangThai == "on")
-                {
-                    iTrangThai = 1;
-                }
+                Bang bang = new Bang("QT_NguoiDung");
+                bang.MaNguoiDungSua = User.Identity.Name;
+                bang.IPSua = Request.UserHostAddress;
+                bang.TruyenGiaTri(ParentID, Request.Form);
 
-                int vR = CPQ_NGUOIDUNG.Update(iID_MaNhomNguoiDung, iID_MaKhachHang, MaNguoiDung, _sHoTen, _sEmail, iTrangThai);
+                //Sua
+                bang.DuLieuMoi = false;
+                bang.GiaTriKhoa = MaNguoiDung;
+
+                bang.Save();
+
+                //int vR = CPQ_NGUOIDUNG.Update(iID_MaNhomNguoiDung, sMaToChucChiDinh, MaNguoiDung, _sHoTen, _sEmail);
 
                 if(String.IsNullOrEmpty(MaNhomNguoiDung) == false)
                 {
